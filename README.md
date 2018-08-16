@@ -1,6 +1,8 @@
 # PHP SDK for the Comet Server API
 
 [![@CometBackup on Twitter](http://img.shields.io/badge/twitter-%40CometBackup-blue.svg?style=flat)](https://twitter.com/CometBackup)
+[![MIT License](https://img.shields.io/packagist/l/cometbackup/comet-php-sdk.svg)](https://packagist.org/packages/cometbackup/comet-php-sdk)
+[![Packagist](https://img.shields.io/packagist/v/cometbackup/comet-php-sdk.svg)](https://packagist.org/packages/cometbackup/comet-php-sdk)
 
 The Comet Server API allows you to create and manage customer accounts on your Comet Server.
 
