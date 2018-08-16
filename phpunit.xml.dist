@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="./tests/bootstrap.php" colors="true">
+
+	<php>
+		<!-- Specify the details of your Comet Server to test against -->
+		<server name="COMET_SERVER_ADDR" value="http://127.0.0.1:8060/" />
+		<server name="COMET_SERVER_USER" value="admin" />
+		<server name="COMET_SERVER_PASS" value="admin" />
+	</php>
+
+	<testsuites>
+		<testsuite name="tests">
+			<directory suffix="Test.php">tests/</directory>
+		</testsuite>
+	</testsuites>
+</phpunit>
