@@ -60,13 +60,13 @@ class AdminBrandingGenerateClientLinuxgenericRequest implements \Comet\NetworkRe
 	 * @param int $responseCode HTTP response code
 	 * @param string $body HTTP response body
 	 * @return string 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public static function ProcessResponse($responseCode, $body)
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {
-			throw new Exception("Unexpected HTTP " . intval($responseCode) . " response");
+			throw new \Exception("Unexpected HTTP " . intval($responseCode) . " response");
 		}
 		
 		return $body;

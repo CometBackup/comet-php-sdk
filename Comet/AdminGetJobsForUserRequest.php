@@ -58,19 +58,19 @@ class AdminGetJobsForUserRequest implements \Comet\NetworkRequest {
 	 * @param int $responseCode HTTP response code
 	 * @param string $body HTTP response body
 	 * @return \Comet\BackupJobDetail[] 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public static function ProcessResponse($responseCode, $body)
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {
-			throw new Exception("Unexpected HTTP " . intval($responseCode) . " response");
+			throw new \Exception("Unexpected HTTP " . intval($responseCode) . " response");
 		}
 		
 		// Decode JSON
 		$decoded = \json_decode($body, true);
 		if (\json_last_error() != \JSON_ERROR_NONE) {
-			throw new Exception("JSON decode failed: " . \json_last_error_msg());
+			throw new \Exception("JSON decode failed: " . \json_last_error_msg());
 		}
 		
 		// Try to parse as error format

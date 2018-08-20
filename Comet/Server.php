@@ -77,7 +77,7 @@ class Server {
 	 * You must supply administrator authentication credentials to use this API.
 	 *
 	 * @return \Comet\AdminAccountPropertiesResponse 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminAccountProperties()
 	{
@@ -93,7 +93,7 @@ class Server {
 	 * You must supply administrator authentication credentials to use this API.
 	 *
 	 * @return \Comet\TotpRegeneratedResponse 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminAccountRegenerateTotp()
 	{
@@ -108,7 +108,7 @@ class Server {
 	 * You must supply administrator authentication credentials to use this API.
 	 *
 	 * @return \Comet\APIResponseMessage 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminAccountSessionRevoke()
 	{
@@ -123,7 +123,7 @@ class Server {
 	 * You must supply administrator authentication credentials to use this API.
 	 *
 	 * @return \Comet\SessionKeyRegeneratedResponse 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminAccountSessionStart()
 	{
@@ -142,7 +142,7 @@ class Server {
 	 * @param string $TargetPassword New account password
 	 * @param int $StoreRecoveryCode If set to 1, store and keep a password recovery code for the generated user (>= 18.3.9) (optional)
 	 * @return \Comet\APIResponseMessage 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminAddUser($TargetUser, $TargetPassword, $StoreRecoveryCode = null)
 	{
@@ -161,7 +161,7 @@ class Server {
 	 * @param string $TargetUser New account username
 	 * @param \Comet\UserProfileConfig $ProfileData New account profile
 	 * @return \Comet\APIResponseMessage 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminAddUserFromProfile($TargetUser, UserProfileConfig $ProfileData)
 	{
@@ -179,7 +179,7 @@ class Server {
 	 *
 	 * @param string $SelfAddress The external URL of this server, used to resolve conflicts (optional)
 	 * @return string 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminBrandingGenerateClientLinuxgeneric($SelfAddress = null)
 	{
@@ -201,7 +201,7 @@ class Server {
 	 *
 	 * @param string $SelfAddress The external URL of this server, used to resolve conflicts (optional)
 	 * @return string 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminBrandingGenerateClientMacosX8664($SelfAddress = null)
 	{
@@ -223,7 +223,7 @@ class Server {
 	 *
 	 * @param string $SelfAddress The external URL of this server, used to resolve conflicts (optional)
 	 * @return string 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminBrandingGenerateClientWindowsAnycpuExe($SelfAddress = null)
 	{
@@ -245,7 +245,7 @@ class Server {
 	 *
 	 * @param string $SelfAddress The external URL of this server, used to resolve conflicts (optional)
 	 * @return string 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminBrandingGenerateClientWindowsAnycpuZip($SelfAddress = null)
 	{
@@ -267,7 +267,7 @@ class Server {
 	 *
 	 * @param string $SelfAddress The external URL of this server, used to resolve conflicts (optional)
 	 * @return string 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminBrandingGenerateClientWindowsX8632Exe($SelfAddress = null)
 	{
@@ -289,7 +289,7 @@ class Server {
 	 *
 	 * @param string $SelfAddress The external URL of this server, used to resolve conflicts (optional)
 	 * @return string 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminBrandingGenerateClientWindowsX8632Zip($SelfAddress = null)
 	{
@@ -311,7 +311,7 @@ class Server {
 	 *
 	 * @param string $SelfAddress The external URL of this server, used to resolve conflicts (optional)
 	 * @return string 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminBrandingGenerateClientWindowsX8664Exe($SelfAddress = null)
 	{
@@ -333,7 +333,7 @@ class Server {
 	 *
 	 * @param string $SelfAddress The external URL of this server, used to resolve conflicts (optional)
 	 * @return string 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminBrandingGenerateClientWindowsX8664Zip($SelfAddress = null)
 	{
@@ -355,7 +355,7 @@ class Server {
 	 * @param string $Subject Bulletin subject line
 	 * @param string $Content Bulletin message content
 	 * @return \Comet\APIResponseMessage 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminBulletinSubmit($Subject, $Content)
 	{
@@ -371,7 +371,7 @@ class Server {
 	 * This API requires the Constellation Role to be enabled.
 	 *
 	 * @return \Comet\ConstellationCheckReport 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminConstellationLastReport()
 	{
@@ -387,7 +387,7 @@ class Server {
 	 * This API requires the Constellation Role to be enabled.
 	 *
 	 * @return \Comet\ConstellationCheckReport 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminConstellationNewReport()
 	{
@@ -403,7 +403,7 @@ class Server {
 	 * This API requires the Constellation Role to be enabled.
 	 *
 	 * @return \Comet\APIResponseMessage 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminConstellationPruneNow()
 	{
@@ -419,7 +419,7 @@ class Server {
 	 * This API requires the Constellation Role to be enabled.
 	 *
 	 * @return \Comet\ConstellationStatusAPIResponse 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminConstellationStatus()
 	{
@@ -438,7 +438,7 @@ class Server {
 	 *
 	 * @param string $TargetUser Selected account username
 	 * @return \Comet\APIResponseMessage 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminDeleteUser($TargetUser)
 	{
@@ -457,7 +457,7 @@ class Server {
 	 * @param string $TargetID The live connection GUID
 	 * @param string $Destination The Storage Vault GUID
 	 * @return \Comet\APIResponseMessage 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminDispatcherApplyRetentionRules($TargetID, $Destination)
 	{
@@ -475,7 +475,7 @@ class Server {
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @return \Comet\APIResponseMessage 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminDispatcherDropConnection($TargetID)
 	{
@@ -494,7 +494,7 @@ class Server {
 	 * @param string $TargetID The live connection GUID
 	 * @param string $ImportSourceID The selected import source, as found by the AdminDispatcherRequestImportSources API
 	 * @return \Comet\APIResponseMessage 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminDispatcherImportApply($TargetID, $ImportSourceID)
 	{
@@ -512,7 +512,7 @@ class Server {
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @return \Comet\APIResponseMessage 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminDispatcherKillProcess($TargetID)
 	{
@@ -528,7 +528,7 @@ class Server {
 	 * This API requires the Auth Role to be enabled.
 	 *
 	 * @return \Comet\LiveUserConnection[] An array with string keys. 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminDispatcherListActive()
 	{
@@ -546,7 +546,7 @@ class Server {
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @return \Comet\APIResponseMessage 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminDispatcherRefetchProfile($TargetID)
 	{
@@ -565,7 +565,7 @@ class Server {
 	 * @param string $TargetID The live connection GUID
 	 * @param string $Destination The Storage Vault GUID
 	 * @return \Comet\APIResponseMessage 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminDispatcherReindexStorageVault($TargetID, $Destination)
 	{
@@ -582,7 +582,7 @@ class Server {
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @return \Comet\DispatcherAdminSourcesResponse 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminDispatcherRequestImportSources($TargetID)
 	{
@@ -600,7 +600,7 @@ class Server {
 	 * @param string $TargetID The live connection GUID
 	 * @param string $BackupRule The schedule GUID
 	 * @return \Comet\APIResponseMessage 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminDispatcherRunBackup($TargetID, $BackupRule)
 	{
@@ -619,7 +619,7 @@ class Server {
 	 * @param string $Source The Protected Item GUID
 	 * @param string $Destination The Storage Vault GUID
 	 * @return \Comet\APIResponseMessage 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminDispatcherRunBackupCustom($TargetID, $Source, $Destination)
 	{
@@ -641,7 +641,7 @@ class Server {
 	 * @param string $Destination The Storage Vault ID
 	 * @param string $Snapshot If present, restore a specific snapshot. Otherwise, restore the latest snapshot for the selected Protected Item + Storage Vault pair (optional)
 	 * @return \Comet\APIResponseMessage 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminDispatcherRunRestore($TargetID, $Path, $Source, $Destination, $Snapshot = null)
 	{
@@ -661,7 +661,7 @@ class Server {
 	 * @param string $TargetID The live connection GUID
 	 * @param string $Destination The Storage Vault GUID
 	 * @return \Comet\APIResponseMessage 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminDispatcherUnlock($TargetID, $Destination)
 	{
@@ -679,7 +679,7 @@ class Server {
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @return \Comet\APIResponseMessage 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminDispatcherUpdateSoftware($TargetID)
 	{
@@ -696,7 +696,7 @@ class Server {
 	 *
 	 * @param string $JobID Selected job ID
 	 * @return string 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminGetJobLog($JobID)
 	{
@@ -713,7 +713,7 @@ class Server {
 	 *
 	 * @param string $JobID Selected job ID
 	 * @return \Comet\BackupJobDetail 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminGetJobProperties($JobID)
 	{
@@ -730,7 +730,7 @@ class Server {
 	 * This API requires the Auth Role to be enabled.
 	 *
 	 * @return \Comet\BackupJobDetail[] 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminGetJobsAll()
 	{
@@ -755,7 +755,7 @@ class Server {
 	 * @param int $Start Timestamp
 	 * @param int $End Timestamp
 	 * @return \Comet\BackupJobDetail[] 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminGetJobsForDateRange($Start, $End)
 	{
@@ -773,7 +773,7 @@ class Server {
 	 *
 	 * @param string $TargetUser Selected username
 	 * @return \Comet\BackupJobDetail[] 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminGetJobsForUser($TargetUser)
 	{
@@ -790,7 +790,7 @@ class Server {
 	 * This API requires the Auth Role to be enabled.
 	 *
 	 * @return \Comet\BackupJobDetail[] 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminGetJobsRecent()
 	{
@@ -807,7 +807,7 @@ class Server {
 	 *
 	 * @param string $TargetUser Selected account username
 	 * @return \Comet\UserProfileConfig 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminGetUserProfile($TargetUser)
 	{
@@ -826,7 +826,7 @@ class Server {
 	 *
 	 * @param string $TargetUser Selected account username
 	 * @return \Comet\GetProfileAndHashResponseMessage 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminGetUserProfileAndHash($TargetUser)
 	{
@@ -845,7 +845,7 @@ class Server {
 	 *
 	 * @param string $TargetUser Selected account username
 	 * @return \Comet\GetProfileHashResponseMessage 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminGetUserProfileHash($TargetUser)
 	{
@@ -865,7 +865,7 @@ class Server {
 	 * @param string $TargetUser Username
 	 * @param string $JobID Job ID
 	 * @return \Comet\APIResponseMessage 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminJobCancel($TargetUser, $JobID)
 	{
@@ -881,7 +881,7 @@ class Server {
 	 * This API requires the Auth Role to be enabled.
 	 *
 	 * @return string[] 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminListUsers()
 	{
@@ -897,7 +897,7 @@ class Server {
 	 * This API requires the Auth Role to be enabled.
 	 *
 	 * @return \Comet\UserProfileConfig[] An array with string keys. 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminListUsersFull()
 	{
@@ -912,7 +912,7 @@ class Server {
 	 * You must supply administrator authentication credentials to use this API.
 	 *
 	 * @return int[] 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminMetaListAvailableLogDays()
 	{
@@ -930,7 +930,7 @@ class Server {
 	 *
 	 * @param int $Log A log day, selected from the options returned by the Get Log Files API
 	 * @return string 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminMetaReadLogs($Log)
 	{
@@ -947,7 +947,7 @@ class Server {
 	 * Access to this API may be prevented on a per-administrator basis.
 	 *
 	 * @return null Never returns 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminMetaRestartService()
 	{
@@ -963,7 +963,7 @@ class Server {
 	 * Access to this API may be prevented on a per-administrator basis.
 	 *
 	 * @return \Comet\ServerConfigOptions 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminMetaServerConfigGet()
 	{
@@ -980,7 +980,7 @@ class Server {
 	 *
 	 * @param \Comet\ServerConfigOptions $Config Updated configuration content
 	 * @return null Never returns 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminMetaServerConfigSet(ServerConfigOptions $Config)
 	{
@@ -997,7 +997,7 @@ class Server {
 	 * Access to this API may be prevented on a per-administrator basis.
 	 *
 	 * @return null Never returns 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminMetaShutdownService()
 	{
@@ -1012,7 +1012,7 @@ class Server {
 	 * You must supply administrator authentication credentials to use this API.
 	 *
 	 * @return \Comet\SoftwareUpdateNewsResponse 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminMetaSoftwareUpdateNews()
 	{
@@ -1027,7 +1027,7 @@ class Server {
 	 * You must supply administrator authentication credentials to use this API.
 	 *
 	 * @return \Comet\StatResult[] An array with int keys. 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminMetaStats()
 	{
@@ -1043,7 +1043,7 @@ class Server {
 	 * You must supply administrator authentication credentials to use this API.
 	 *
 	 * @return \Comet\ServerMetaVersionInfo 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminMetaVersion()
 	{
@@ -1059,7 +1059,7 @@ class Server {
 	 * This API requires the Auth Role to be enabled.
 	 *
 	 * @return \Comet\NewsEntry[] An array with string keys. 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminNewsGetAll()
 	{
@@ -1076,7 +1076,7 @@ class Server {
 	 *
 	 * @param string $NewsItem Selected news item GUID
 	 * @return \Comet\APIResponseMessage 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminNewsRemove($NewsItem)
 	{
@@ -1093,7 +1093,7 @@ class Server {
 	 *
 	 * @param string $NewsContent Content of news item
 	 * @return \Comet\APIResponseMessage 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminNewsSubmit($NewsContent)
 	{
@@ -1110,7 +1110,7 @@ class Server {
 	 *
 	 * @param string $PolicyID The policy ID to update or create
 	 * @return \Comet\APIResponseMesasge 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminPoliciesDelete($PolicyID)
 	{
@@ -1128,7 +1128,7 @@ class Server {
 	 *
 	 * @param string $PolicyID The policy ID to retrieve
 	 * @return \Comet\GetGroupPolicyResponse 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminPoliciesGet($PolicyID)
 	{
@@ -1144,7 +1144,7 @@ class Server {
 	 * This API requires the Auth Role to be enabled.
 	 *
 	 * @return string[] An array with string keys. 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminPoliciesList()
 	{
@@ -1160,7 +1160,7 @@ class Server {
 	 * This API requires the Auth Role to be enabled.
 	 *
 	 * @return \Comet\GroupPolicy[] An array with string keys. 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminPoliciesListFull()
 	{
@@ -1177,7 +1177,7 @@ class Server {
 	 *
 	 * @param \Comet\GroupPolicy $Policy The policy data
 	 * @return \Comet\CreateGroupPolicyResponse 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminPoliciesNew(GroupPolicy $Policy)
 	{
@@ -1198,7 +1198,7 @@ class Server {
 	 * @param \Comet\GroupPolicy $Policy The policy data
 	 * @param string $CheckPolicyHash An atomic verification hash as supplied by the AdminPoliciesGet API (optional)
 	 * @return \Comet\APIResponseMessage 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminPoliciesSet($PolicyID, GroupPolicy $Policy, $CheckPolicyHash = null)
 	{
@@ -1213,7 +1213,7 @@ class Server {
 	 * You must supply administrator authentication credentials to use this API.
 	 *
 	 * @return \Comet\ReplicatorStateAPIResponse 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminReplicationState()
 	{
@@ -1233,7 +1233,7 @@ class Server {
 	 * @param string $StorageProvider ID for the Requestable destination
 	 * @param string $SelfAddress The external URL for this server. Used to resolve conflicts (optional)
 	 * @return \Comet\APIResponseMessage 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminRequestStorageVault($TargetUser, $StorageProvider, $SelfAddress = null)
 	{
@@ -1253,7 +1253,7 @@ class Server {
 	 * This API requires the Auth Role to be enabled.
 	 *
 	 * @return string[] An array with string keys. 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminRequestStorageVaultProviders()
 	{
@@ -1272,7 +1272,7 @@ class Server {
 	 * @param string $TargetUser Selected account username
 	 * @param string $NewPassword New account password
 	 * @return \Comet\APIResponseMessage 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminResetUserPassword($TargetUser, $NewPassword)
 	{
@@ -1291,7 +1291,7 @@ class Server {
 	 * @param string $TargetUser Selected account username
 	 * @param string $TargetDevice Selected Device ID
 	 * @return \Comet\APIResponseMessage 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminRevokeDevice($TargetUser, $TargetDevice)
 	{
@@ -1309,7 +1309,7 @@ class Server {
 	 * @param string $TargetUser Selected account username
 	 * @param \Comet\UserProfileConfig $ProfileData Modified user profile
 	 * @return \Comet\APIResponseMessage 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminSetUserProfile($TargetUser, UserProfileConfig $ProfileData)
 	{
@@ -1330,7 +1330,7 @@ class Server {
 	 * @param \Comet\UserProfileConfig $ProfileData Modified user profile
 	 * @param string $RequireHash Previous hash parameter
 	 * @return \Comet\APIResponseMessage 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminSetUserProfileHash($TargetUser, UserProfileConfig $ProfileData, $RequireHash)
 	{
@@ -1348,7 +1348,7 @@ class Server {
 	 *
 	 * @param string $BucketID Selected bucket name
 	 * @return \Comet\APIResponseMessage 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminStorageDeleteBucket($BucketID)
 	{
@@ -1364,7 +1364,7 @@ class Server {
 	 * This API requires the Storage Role to be enabled.
 	 *
 	 * @return \Comet\BucketProperties[] An array with string keys. 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminStorageListBuckets()
 	{
@@ -1385,7 +1385,7 @@ class Server {
 	 * @param string $SetKeyHashFormat Bucket key hashing format (optional)
 	 * @param string $SetKeyHashValue Bucket key hash (optional)
 	 * @return \Comet\AddBucketResponseMessage 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminStorageRegisterBucket($SetBucketValue = null, $SetKeyHashFormat = null, $SetKeyHashValue = null)
 	{
@@ -1403,7 +1403,7 @@ class Server {
 	 *
 	 * @param \Comet\UpdateCampaignOptions $Options Configure targets for the software update campaign
 	 * @return \Comet\APIResponseMessage 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminUpdateCampaignStart(UpdateCampaignOptions $Options)
 	{
@@ -1420,7 +1420,7 @@ class Server {
 	 * This API requires the Auth Role to be enabled.
 	 *
 	 * @return \Comet\UpdateCampaignStatus 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function AdminUpdateCampaignStatus()
 	{
