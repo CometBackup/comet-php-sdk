@@ -77,7 +77,7 @@ class AdminPoliciesGetRequest implements \Comet\NetworkRequest {
 		$isCARMDerivedType = (array_key_exists('Status', $decoded) && array_key_exists('Message', $decoded));
 		if ($isCARMDerivedType) {
 			$carm = \Comet\APIResponseMessage::createFrom($decoded);
-			if ($carm->Status !== 0 || $carm->Message != "") {
+			if ($carm->Status !== 200) {
 				throw new \Exception("Error " . $carm->Status . ": " . $carm->Message);
 			}
 		}
