@@ -56,7 +56,7 @@ class AdminPoliciesDeleteRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param int $responseCode HTTP response code
 	 * @param string $body HTTP response body
-	 * @return \Comet\APIResponseMesasge 
+	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
 	public static function ProcessResponse($responseCode, $body)
@@ -72,16 +72,8 @@ class AdminPoliciesDeleteRequest implements \Comet\NetworkRequest {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg());
 		}
 		
-		// Try to parse as error format
-		if (array_key_exists('Status', $decoded) && array_key_exists('Message', $decoded)) {
-			$carm = \Comet\APIResponseMessage::createFrom($decoded);
-			if ($carm->Status !== 0 || $carm->Message != "") {
-				throw new \Exception("Error " . $carm->Status . ": " . $carm->Message);
-			}
-		}
-		
-		// Parse as CometAPIResponseMesasge
-		$ret = \Comet\APIResponseMesasge::createFrom(isset($decoded) ? $decoded : []);
+		// Parse as CometAPIResponseMessage
+		$ret = \Comet\APIResponseMessage::createFrom(isset($decoded) ? $decoded : []);
 		
 		return $ret;
 	}
