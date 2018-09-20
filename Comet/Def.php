@@ -358,7 +358,7 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const RETENTIONRANGE_MAXINT = 0;
+	const RETENTIONRANGE_MAXINT = 1125899906842624;
 	
 	/**
 	 * SftpAuthMode: 
@@ -431,7 +431,7 @@ class Def {
 	 *
 	 * @type int
 	 */
-	const SCHEDULE_MAXINT = 2147483647;
+	const SCHEDULE_MAXINT = 1125899906842624;
 	
 	/**
 	 * @type string
