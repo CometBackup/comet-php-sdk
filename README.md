@@ -51,6 +51,12 @@ This package uses PHPUnit for testing.
 1. Copy the `phpunit.xml.dist` file to `phpunit.xml` and modify the `COMET_SERVER` variables to point at your test Comet Server
 2. Run `phpunit`
 
+Lint all PHP files:
+
+```bash
+find ./Comet/ -name '*.php' -exec php -l {} \;
+```
+
 ## Getting Help
 
 Please submit issues via the ticket system at [cometbackup.com](https://cometbackup.com/).
