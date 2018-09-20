@@ -3,29 +3,28 @@
 namespace Comet;
 
 /** 
- * Comet Server AdminMetaStats API 
- * Get Comet Server historical statistics
- * The returned key-value map is not necessarily ordered. Client-side code should sort the result before display.
+ * Comet Server AdminAccountU2fRequestRegistrationChallenge API 
+ * Register a new FIDO U2F token
  * 
  * You must supply administrator authentication credentials to use this API.
  */
-class AdminMetaStatsRequest implements \Comet\NetworkRequest {
+class AdminAccountU2fRequestRegistrationChallengeRequest implements \Comet\NetworkRequest {
 	
 	/**
-	 * Remove redundant statistics
+	 * External URL of this server, used as U2F AppID and Facet
 	 *
-	 * @var boolean
+	 * @var string
 	 */
-	protected $Simple = null;
+	protected $SelfAddress = null;
 	
 	/**
-	 * Construct a new AdminMetaStatsRequest instance.
+	 * Construct a new AdminAccountU2fRequestRegistrationChallengeRequest instance.
 	 *
-	 * @param boolean $Simple Remove redundant statistics
+	 * @param string $SelfAddress External URL of this server, used as U2F AppID and Facet
 	 */
-	public function __construct($Simple)
+	public function __construct($SelfAddress)
 	{
-		$this->Simple = $Simple;
+		$this->SelfAddress = $SelfAddress;
 	}
 	
 	/**
@@ -35,7 +34,7 @@ class AdminMetaStatsRequest implements \Comet\NetworkRequest {
 	 */
 	public function Endpoint()
 	{
-		return '/api/v1/admin/meta/stats';
+		return '/api/v1/admin/account/u2f/request-registration-challenge';
 	}
 	
 	/**
@@ -46,7 +45,7 @@ class AdminMetaStatsRequest implements \Comet\NetworkRequest {
 	public function Parameters()
 	{
 		$ret = [];
-		$ret["Simple"] = (string)($this->Simple);
+		$ret["SelfAddress"] = (string)($this->SelfAddress);
 		return $ret;
 	}
 	
@@ -56,7 +55,7 @@ class AdminMetaStatsRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param int $responseCode HTTP response code
 	 * @param string $body HTTP response body
-	 * @return \Comet\StatResult[] An array with int keys. 
+	 * @return \Comet\U2FRegistrationChallengeResponse 
 	 * @throws \Exception
 	 */
 	public static function ProcessResponse($responseCode, $body)
@@ -80,14 +79,8 @@ class AdminMetaStatsRequest implements \Comet\NetworkRequest {
 			}
 		}
 		
-		// Parse as map[int64]StatResult
-		$val_0 = [];
-		foreach($decoded as $k_0 => $v_0) {
-			$phpk_0 = (int)($k_0);
-			$phpv_0 = \Comet\StatResult::createFrom(isset($v_0) ? $v_0 : []);
-			$val_0[$phpk_0] = $phpv_0;
-		}
-		$ret = $val_0;
+		// Parse as U2FRegistrationChallengeResponse
+		$ret = \Comet\U2FRegistrationChallengeResponse::createFrom(isset($decoded) ? $decoded : []);
 		
 		return $ret;
 	}

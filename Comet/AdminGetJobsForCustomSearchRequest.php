@@ -3,29 +3,30 @@
 namespace Comet;
 
 /** 
- * Comet Server AdminMetaStats API 
- * Get Comet Server historical statistics
- * The returned key-value map is not necessarily ordered. Client-side code should sort the result before display.
+ * Comet Server AdminGetJobsForCustomSearch API 
+ * Get jobs (for custom search)
+ * The jobs are returned in an unspecified order.
  * 
  * You must supply administrator authentication credentials to use this API.
+ * This API requires the Auth Role to be enabled.
  */
-class AdminMetaStatsRequest implements \Comet\NetworkRequest {
+class AdminGetJobsForCustomSearchRequest implements \Comet\NetworkRequest {
 	
 	/**
-	 * Remove redundant statistics
+	 * (No description available)
 	 *
-	 * @var boolean
+	 * @var \Comet\SearchClause
 	 */
-	protected $Simple = null;
+	protected $Query = null;
 	
 	/**
-	 * Construct a new AdminMetaStatsRequest instance.
+	 * Construct a new AdminGetJobsForCustomSearchRequest instance.
 	 *
-	 * @param boolean $Simple Remove redundant statistics
+	 * @param \Comet\SearchClause $Query (No description available)
 	 */
-	public function __construct($Simple)
+	public function __construct(SearchClause $Query)
 	{
-		$this->Simple = $Simple;
+		$this->Query = $Query;
 	}
 	
 	/**
@@ -35,7 +36,7 @@ class AdminMetaStatsRequest implements \Comet\NetworkRequest {
 	 */
 	public function Endpoint()
 	{
-		return '/api/v1/admin/meta/stats';
+		return '/api/v1/admin/get-jobs-for-custom-search';
 	}
 	
 	/**
@@ -46,7 +47,7 @@ class AdminMetaStatsRequest implements \Comet\NetworkRequest {
 	public function Parameters()
 	{
 		$ret = [];
-		$ret["Simple"] = (string)($this->Simple);
+		$ret["Query"] = $this->Query->toJSON();
 		return $ret;
 	}
 	
@@ -56,7 +57,7 @@ class AdminMetaStatsRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param int $responseCode HTTP response code
 	 * @param string $body HTTP response body
-	 * @return \Comet\StatResult[] An array with int keys. 
+	 * @return \Comet\BackupJobDetail[] 
 	 * @throws \Exception
 	 */
 	public static function ProcessResponse($responseCode, $body)
@@ -80,12 +81,10 @@ class AdminMetaStatsRequest implements \Comet\NetworkRequest {
 			}
 		}
 		
-		// Parse as map[int64]StatResult
+		// Parse as []BackupJobDetail
 		$val_0 = [];
-		foreach($decoded as $k_0 => $v_0) {
-			$phpk_0 = (int)($k_0);
-			$phpv_0 = \Comet\StatResult::createFrom(isset($v_0) ? $v_0 : []);
-			$val_0[$phpk_0] = $phpv_0;
+		for($i_0 = 0; $i_0 < count($decoded); ++$i_0) {
+			$val_0[] = \Comet\BackupJobDetail::createFrom(isset($decoded[$i_0]) ? $decoded[$i_0] : []);
 		}
 		$ret = $val_0;
 		

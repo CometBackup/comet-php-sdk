@@ -15,6 +15,21 @@ class DestinationStatistics {
 	public $ClientProvidedContent = null;
 	
 	/**
+	 * @var string
+	 */
+	public $LastSuccessfulDeepVerify_GUID = "";
+	
+	/**
+	 * @var int
+	 */
+	public $LastSuccessfulDeepVerify_StartTime = 0;
+	
+	/**
+	 * @var int
+	 */
+	public $LastSuccessfulDeepVerify_EndTime = 0;
+	
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 * You can recursively remove all unknown properties by calling RemoveUnknownProperties().
 	 *
@@ -28,10 +43,25 @@ class DestinationStatistics {
 		
 		$this->ClientProvidedContent = \Comet\ContentMeasurement::createFrom(isset($decodedJsonObject['ClientProvidedContent']) ? $decodedJsonObject['ClientProvidedContent'] : []);
 		
+		if (array_key_exists('LastSuccessfulDeepVerify_GUID', $decodedJsonObject)) {
+			$this->LastSuccessfulDeepVerify_GUID = (string)($decodedJsonObject['LastSuccessfulDeepVerify_GUID']);
+			
+		}
+		if (array_key_exists('LastSuccessfulDeepVerify_StartTime', $decodedJsonObject)) {
+			$this->LastSuccessfulDeepVerify_StartTime = (int)($decodedJsonObject['LastSuccessfulDeepVerify_StartTime']);
+			
+		}
+		if (array_key_exists('LastSuccessfulDeepVerify_EndTime', $decodedJsonObject)) {
+			$this->LastSuccessfulDeepVerify_EndTime = (int)($decodedJsonObject['LastSuccessfulDeepVerify_EndTime']);
+			
+		}
 		foreach($decodedJsonObject as $k => $v) {
 			switch($k) {
 			case 'ClientProvidedSize':
 			case 'ClientProvidedContent':
+			case 'LastSuccessfulDeepVerify_GUID':
+			case 'LastSuccessfulDeepVerify_StartTime':
+			case 'LastSuccessfulDeepVerify_EndTime':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -59,6 +89,9 @@ class DestinationStatistics {
 		} else {
 			$ret["ClientProvidedContent"] = $this->ClientProvidedContent->toArray($for_json_encode);
 		}
+		$ret["LastSuccessfulDeepVerify_GUID"] = $this->LastSuccessfulDeepVerify_GUID;
+		$ret["LastSuccessfulDeepVerify_StartTime"] = $this->LastSuccessfulDeepVerify_StartTime;
+		$ret["LastSuccessfulDeepVerify_EndTime"] = $this->LastSuccessfulDeepVerify_EndTime;
 		
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

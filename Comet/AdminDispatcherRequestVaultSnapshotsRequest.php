@@ -3,29 +3,38 @@
 namespace Comet;
 
 /** 
- * Comet Server AdminMetaStats API 
- * Get Comet Server historical statistics
- * The returned key-value map is not necessarily ordered. Client-side code should sort the result before display.
+ * Comet Server AdminDispatcherRequestVaultSnapshots API 
+ * Request a list of Storage Vault snapshots from a live connected device
  * 
  * You must supply administrator authentication credentials to use this API.
+ * This API requires the Auth Role to be enabled.
  */
-class AdminMetaStatsRequest implements \Comet\NetworkRequest {
+class AdminDispatcherRequestVaultSnapshotsRequest implements \Comet\NetworkRequest {
 	
 	/**
-	 * Remove redundant statistics
+	 * The live connection GUID
 	 *
-	 * @var boolean
+	 * @var string
 	 */
-	protected $Simple = null;
+	protected $TargetID = null;
 	
 	/**
-	 * Construct a new AdminMetaStatsRequest instance.
+	 * The Storage Vault ID
 	 *
-	 * @param boolean $Simple Remove redundant statistics
+	 * @var string
 	 */
-	public function __construct($Simple)
+	protected $Destination = null;
+	
+	/**
+	 * Construct a new AdminDispatcherRequestVaultSnapshotsRequest instance.
+	 *
+	 * @param string $TargetID The live connection GUID
+	 * @param string $Destination The Storage Vault ID
+	 */
+	public function __construct($TargetID, $Destination)
 	{
-		$this->Simple = $Simple;
+		$this->TargetID = $TargetID;
+		$this->Destination = $Destination;
 	}
 	
 	/**
@@ -35,7 +44,7 @@ class AdminMetaStatsRequest implements \Comet\NetworkRequest {
 	 */
 	public function Endpoint()
 	{
-		return '/api/v1/admin/meta/stats';
+		return '/api/v1/admin/dispatcher/request-vault-snapshots';
 	}
 	
 	/**
@@ -46,7 +55,8 @@ class AdminMetaStatsRequest implements \Comet\NetworkRequest {
 	public function Parameters()
 	{
 		$ret = [];
-		$ret["Simple"] = (string)($this->Simple);
+		$ret["TargetID"] = (string)($this->TargetID);
+		$ret["Destination"] = (string)($this->Destination);
 		return $ret;
 	}
 	
@@ -56,7 +66,7 @@ class AdminMetaStatsRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param int $responseCode HTTP response code
 	 * @param string $body HTTP response body
-	 * @return \Comet\StatResult[] An array with int keys. 
+	 * @return \Comet\DispatcherVaultSnapshotsResponse 
 	 * @throws \Exception
 	 */
 	public static function ProcessResponse($responseCode, $body)
@@ -80,14 +90,8 @@ class AdminMetaStatsRequest implements \Comet\NetworkRequest {
 			}
 		}
 		
-		// Parse as map[int64]StatResult
-		$val_0 = [];
-		foreach($decoded as $k_0 => $v_0) {
-			$phpk_0 = (int)($k_0);
-			$phpv_0 = \Comet\StatResult::createFrom(isset($v_0) ? $v_0 : []);
-			$val_0[$phpk_0] = $phpv_0;
-		}
-		$ret = $val_0;
+		// Parse as DispatcherVaultSnapshotsResponse
+		$ret = \Comet\DispatcherVaultSnapshotsResponse::createFrom(isset($decoded) ? $decoded : []);
 		
 		return $ret;
 	}

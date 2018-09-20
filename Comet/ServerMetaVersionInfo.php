@@ -65,6 +65,21 @@ class ServerMetaVersionInfo {
 	public $LicenseValidUntil = 0;
 	
 	/**
+	 * @var int
+	 */
+	public $EmailsSentSuccessfully = 0;
+	
+	/**
+	 * @var int
+	 */
+	public $EmailsSentErrors = 0;
+	
+	/**
+	 * @var int
+	 */
+	public $EmailsWaitingInQueue = 0;
+	
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 * You can recursively remove all unknown properties by calling RemoveUnknownProperties().
 	 *
@@ -98,6 +113,12 @@ class ServerMetaVersionInfo {
 		
 		$this->LicenseValidUntil = (int)($decodedJsonObject['LicenseValidUntil']);
 		
+		$this->EmailsSentSuccessfully = (int)($decodedJsonObject['EmailsSentSuccessfully']);
+		
+		$this->EmailsSentErrors = (int)($decodedJsonObject['EmailsSentErrors']);
+		
+		$this->EmailsWaitingInQueue = (int)($decodedJsonObject['EmailsWaitingInQueue']);
+		
 		foreach($decodedJsonObject as $k => $v) {
 			switch($k) {
 			case 'Version':
@@ -112,6 +133,9 @@ class ServerMetaVersionInfo {
 			case 'CurrentTime':
 			case 'ServerLicenseHash':
 			case 'LicenseValidUntil':
+			case 'EmailsSentSuccessfully':
+			case 'EmailsSentErrors':
+			case 'EmailsWaitingInQueue':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -141,6 +165,9 @@ class ServerMetaVersionInfo {
 		$ret["CurrentTime"] = $this->CurrentTime;
 		$ret["ServerLicenseHash"] = $this->ServerLicenseHash;
 		$ret["LicenseValidUntil"] = $this->LicenseValidUntil;
+		$ret["EmailsSentSuccessfully"] = $this->EmailsSentSuccessfully;
+		$ret["EmailsSentErrors"] = $this->EmailsSentErrors;
+		$ret["EmailsWaitingInQueue"] = $this->EmailsWaitingInQueue;
 		
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

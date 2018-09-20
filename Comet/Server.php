@@ -133,6 +133,42 @@ class Server {
 	}
 
 	/** 
+	 * Register a new FIDO U2F token
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 *
+	 * @param string $SelfAddress External URL of this server, used as U2F AppID and Facet
+	 * @return \Comet\U2FRegistrationChallengeResponse 
+	 * @throws \Exception
+	 */
+	public function AdminAccountU2fRequestRegistrationChallenge($SelfAddress)
+	{
+		$nr = new \Comet\AdminAccountU2fRequestRegistrationChallengeRequest($SelfAddress);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminAccountU2fRequestRegistrationChallengeRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Register a new FIDO U2F token
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 *
+	 * @param string $U2FChallengeID Associated value from AdminAccountU2fRequestRegistrationChallenge API
+	 * @param string $U2FClientData U2F response data supplied by hardware token
+	 * @param string $U2FRegistrationData U2F response data supplied by hardware token
+	 * @param string $U2FVersion U2F response data supplied by hardware token
+	 * @param string $Description Optional description of the token
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminAccountU2fSubmitChallengeResponse($U2FChallengeID, $U2FClientData, $U2FRegistrationData, $U2FVersion, $Description)
+	{
+		$nr = new \Comet\AdminAccountU2fSubmitChallengeResponseRequest($U2FChallengeID, $U2FClientData, $U2FRegistrationData, $U2FVersion, $Description);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminAccountU2fSubmitChallengeResponseRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Add a new user account
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
@@ -467,6 +503,25 @@ class Server {
 	}
 
 	/** 
+	 * Instruct a live connected device to deeply verify Storage Vault content
+	 * This command is understood by Comet Backup 18.8.2 and newer.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetID The live connection GUID
+	 * @param string $Destination The Storage Vault GUID
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherDeepverifyStorageVault($TargetID, $Destination)
+	{
+		$nr = new \Comet\AdminDispatcherDeepverifyStorageVaultRequest($TargetID, $Destination);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherDeepverifyStorageVaultRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Disconnect a live connected device
 	 * The device will almost certainly attempt to reconnect.
 	 * 
@@ -589,6 +644,24 @@ class Server {
 		$nr = new \Comet\AdminDispatcherRequestImportSourcesRequest($TargetID);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminDispatcherRequestImportSourcesRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Request a list of Storage Vault snapshots from a live connected device
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetID The live connection GUID
+	 * @param string $Destination The Storage Vault ID
+	 * @return \Comet\DispatcherVaultSnapshotsResponse 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherRequestVaultSnapshots($TargetID, $Destination)
+	{
+		$nr = new \Comet\AdminDispatcherRequestVaultSnapshotsRequest($TargetID, $Destination);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherRequestVaultSnapshotsRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
 
 	/** 
@@ -737,6 +810,24 @@ class Server {
 		$nr = new \Comet\AdminGetJobsAllRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminGetJobsAllRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Get jobs (for custom search)
+	 * The jobs are returned in an unspecified order.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param \Comet\SearchClause $Query (No description available)
+	 * @return \Comet\BackupJobDetail[] 
+	 * @throws \Exception
+	 */
+	public function AdminGetJobsForCustomSearch(SearchClause $Query)
+	{
+		$nr = new \Comet\AdminGetJobsForCustomSearchRequest($Query);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminGetJobsForCustomSearchRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
 
 	/** 
@@ -1023,15 +1114,17 @@ class Server {
 
 	/** 
 	 * Get Comet Server historical statistics
+	 * The returned key-value map is not necessarily ordered. Client-side code should sort the result before display.
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 *
+	 * @param boolean $Simple Remove redundant statistics
 	 * @return \Comet\StatResult[] An array with int keys. 
 	 * @throws \Exception
 	 */
-	public function AdminMetaStats()
+	public function AdminMetaStats($Simple)
 	{
-		$nr = new \Comet\AdminMetaStatsRequest();
+		$nr = new \Comet\AdminMetaStatsRequest($Simple);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminMetaStatsRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
@@ -1109,7 +1202,7 @@ class Server {
 	 * This API requires the Auth Role to be enabled.
 	 *
 	 * @param string $PolicyID The policy ID to update or create
-	 * @return \Comet\APIResponseMesasge 
+	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
 	public function AdminPoliciesDelete($PolicyID)

@@ -86,6 +86,13 @@ class Def {
 	 *
 	 * @type int
 	 */
+	const JOB_CLASSIFICATION_DEEPVERIFY = 4010;
+	
+	/**
+	 * JobClassification: 
+	 *
+	 * @type int
+	 */
 	const JOB_CLASSIFICATION__MAX = 4999;
 	
 	/**
@@ -568,7 +575,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "18.8.2";
+	const APPLICATION_VERSION = "18.9.2";
 	
 	/**
 	 * @type int
@@ -578,7 +585,7 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_MINOR = 8;
+	const APPLICATION_VERSION_MINOR = 9;
 	
 	/**
 	 * @type int
@@ -588,7 +595,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const RELEASE_CODENAME = "Deimos";
+	const RELEASE_CODENAME = "Voyager";
 	
 	/**
 	 * @type int
@@ -695,6 +702,121 @@ class Def {
 	 * @type int
 	 */
 	const REPLICATOR_DISPLAYCLASS_USER = 101;
+	
+	/**
+	 * SearchClauseType: 
+	 *
+	 * @type string
+	 */
+	const SEARCHCLAUSE_RULE = "";
+	
+	/**
+	 * SearchClauseType: 
+	 *
+	 * @type string
+	 */
+	const SEARCHCLAUSE_AND = "and";
+	
+	/**
+	 * SearchClauseType: 
+	 *
+	 * @type string
+	 */
+	const SEARCHCLAUSE_OR = "or";
+	
+	/**
+	 * SearchClauseType: 
+	 *
+	 * @type string
+	 */
+	const SEARCHCLAUSE_NOT_AND = "not_and";
+	
+	/**
+	 * SearchClauseType: 
+	 *
+	 * @type string
+	 */
+	const SEARCHCLAUSE_NOT_OR = "not_or";
+	
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_STRING_EQ = "str_eq";
+	
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_STRING_NEQ = "str_neq";
+	
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_STRING_CONTAINS = "str_contains";
+	
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_STRING_NCONTAINS = "str_ncontains";
+	
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_STRING_STARTSWITH = "str_startswith";
+	
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_STRING_NSTARTSWITH = "str_nstartswith";
+	
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_STRING_ENDSWITH = "str_endswith";
+	
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_STRING_NENDSWITH = "str_nendswith";
+	
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_INT_EQ = "int_eq";
+	
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_INT_NEQ = "int_neq";
+	
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_INT_GT = "int_gt";
+	
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_INT_GTE = "int_gte";
+	
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_INT_LT = "int_lt";
+	
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_INT_LTE = "int_lte";
+	
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_BOOL_IS = "bool_is";
+	
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_BOOL_NIS = "bool_nis";
 	
 	
 	/*
