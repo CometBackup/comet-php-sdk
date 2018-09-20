@@ -5,6 +5,9 @@ namespace Comet;
 /** 
  * Comet Server AdminMetaServerConfigSet API 
  * Set server configuration
+ * The Comet Server process will exit. The service manager should restart the server automatically.
+ * 
+ * Prior to 18.9.2, this API terminated the server immediately without returning a response. In 18.9.2 and later, it returns a successful response before shutting down.
  * 
  * You must supply administrator authentication credentials to use this API.
  * Access to this API may be prevented on a per-administrator basis.
@@ -56,7 +59,7 @@ class AdminMetaServerConfigSetRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param int $responseCode HTTP response code
 	 * @param string $body HTTP response body
-	 * @return null Never returns 
+	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
 	public static function ProcessResponse($responseCode, $body)
@@ -72,16 +75,8 @@ class AdminMetaServerConfigSetRequest implements \Comet\NetworkRequest {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg());
 		}
 		
-		// Try to parse as error format
-		if (array_key_exists('Status', $decoded) && array_key_exists('Message', $decoded)) {
-			$carm = \Comet\APIResponseMessage::createFrom($decoded);
-			if ($carm->Status !== 0 || $carm->Message != "") {
-				throw new \Exception("Error " . $carm->Status . ": " . $carm->Message);
-			}
-		}
-		
-		// Parse as @unreached
-		$ret = \Comet\@unreached::createFrom(isset($decoded) ? $decoded : []);
+		// Parse as CometAPIResponseMessage
+		$ret = \Comet\APIResponseMessage::createFrom(isset($decoded) ? $decoded : []);
 		
 		return $ret;
 	}

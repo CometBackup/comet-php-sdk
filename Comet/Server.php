@@ -1034,10 +1034,12 @@ class Server {
 	 * Restart server
 	 * The Comet Server process will exit. The service manager should restart the server automatically.
 	 * 
+	 * Prior to 18.9.2, this API terminated the server immediately without returning a response. In 18.9.2 and later, it returns a successful response before shutting down.
+	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * Access to this API may be prevented on a per-administrator basis.
 	 *
-	 * @return null Never returns 
+	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
 	public function AdminMetaRestartService()
@@ -1065,12 +1067,15 @@ class Server {
 
 	/** 
 	 * Set server configuration
+	 * The Comet Server process will exit. The service manager should restart the server automatically.
+	 * 
+	 * Prior to 18.9.2, this API terminated the server immediately without returning a response. In 18.9.2 and later, it returns a successful response before shutting down.
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * Access to this API may be prevented on a per-administrator basis.
 	 *
 	 * @param \Comet\ServerConfigOptions $Config Updated configuration content
-	 * @return null Never returns 
+	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
 	public function AdminMetaServerConfigSet(ServerConfigOptions $Config)
@@ -1082,12 +1087,14 @@ class Server {
 
 	/** 
 	 * Shut down server
-	 * The Comet Server process will immediately exit.
+	 * The Comet Server process will exit.
+	 * 
+	 * Prior to 18.9.2, this API terminated the server immediately without returning a response. In 18.9.2 and later, it returns a successful response before shutting down.
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * Access to this API may be prevented on a per-administrator basis.
 	 *
-	 * @return null Never returns 
+	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
 	public function AdminMetaShutdownService()
