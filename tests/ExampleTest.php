@@ -71,5 +71,32 @@ class ExampleTest extends \PHPUnit\Framework\TestCase {
 
 		$this->assertTrue($ok);
 	}
+		
+	protected static function sizeWithinRange($size, $low_bound_mb, $high_bound_mb) {
+		return ($size >= ($low_bound_mb * 1024*1024) && $size <= ($high_bound_mb * 1024*1024));
+	}
+
+	public function testDownloadClient() {
+		// The download APIs return the generated client software.
+		// Assert that the clients have (roughly) the right expected filesize
+		// The first time running this test will be a little slow as the software is generated; successive tests on the
+		// same running server instance should be faster
+
+		$data = $this->server->AdminBrandingGenerateClientLinuxgeneric();
+		$this->assertTrue( self::sizeWithinRange(strlen($data), 5, 15), "Got size ".strlen($data)." for linux-generic, expected 5-15 MB" );
+
+		$data = $this->server->AdminBrandingGenerateClientMacosX8664();
+		$this->assertTrue( self::sizeWithinRange(strlen($data), 10, 15), "Got size ".strlen($data)." for macos-x86_64, expected 10-15 MB" );
+
+		$data = $this->server->AdminBrandingGenerateClientWindowsAnycpuZip();
+		$this->assertTrue( self::sizeWithinRange(strlen($data), 20, 25), "Got size ".strlen($data)." for windows-anycpu-zip, expected 20-25 MB" );
+
+		$data = $this->server->AdminBrandingGenerateClientWindowsX8632Zip();
+		$this->assertTrue( self::sizeWithinRange(strlen($data), 10, 15), "Got size ".strlen($data)." for windows-x86_32-zip, expected 10-15 MB" );
+
+		$data = $this->server->AdminBrandingGenerateClientWindowsX8664Zip();
+		$this->assertTrue( self::sizeWithinRange(strlen($data), 10, 15), "Got size ".strlen($data)." for windows-x86_64-zip, expected 10-15 MB" );
+
+	}
 	
 }
