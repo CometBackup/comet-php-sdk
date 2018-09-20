@@ -73,6 +73,15 @@ class AdminStorageDeleteBucketRequest implements \Comet\NetworkRequest {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg());
 		}
 		
+		// Try to parse as error format
+		$isCARMDerivedType = (array_key_exists('Status', $decoded) && array_key_exists('Message', $decoded));
+		if ($isCARMDerivedType) {
+			$carm = \Comet\APIResponseMessage::createFrom($decoded);
+			if ($carm->Status !== 0 || $carm->Message != "") {
+				throw new \Exception("Error " . $carm->Status . ": " . $carm->Message);
+			}
+		}
+		
 		// Parse as CometAPIResponseMessage
 		$ret = \Comet\APIResponseMessage::createFrom(isset($decoded) ? $decoded : []);
 		

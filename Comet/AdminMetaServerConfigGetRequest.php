@@ -63,7 +63,8 @@ class AdminMetaServerConfigGetRequest implements \Comet\NetworkRequest {
 		}
 		
 		// Try to parse as error format
-		if (array_key_exists('Status', $decoded) && array_key_exists('Message', $decoded)) {
+		$isCARMDerivedType = (array_key_exists('Status', $decoded) && array_key_exists('Message', $decoded));
+		if ($isCARMDerivedType) {
 			$carm = \Comet\APIResponseMessage::createFrom($decoded);
 			if ($carm->Status !== 0 || $carm->Message != "") {
 				throw new \Exception("Error " . $carm->Status . ": " . $carm->Message);
