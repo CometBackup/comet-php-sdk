@@ -16,12 +16,19 @@ class SourceBasicInfo {
 	
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
-	 * You can recursively remove all unknown properties by calling RemoveUnknownProperties().
 	 *
+	 * @see SourceBasicInfo::RemoveUnknownProperties() Remove all unknown properties
 	 * @var array
 	 */
 	private $__unknown_properties = [];
 	
+	/**
+	 * Replace the content of this SourceBasicInfo object from a PHP array.
+	 * The data could be supplied from an API call after json_decode(..., true); or generated manually.
+	 *
+	 * @param array $decodedJsonObject Object data as PHP array
+	 * @return void
+	 */
 	public function inflateFrom(array $decodedJsonObject)
 	{
 		$this->Description = (string)($decodedJsonObject['Description']);
@@ -39,6 +46,13 @@ class SourceBasicInfo {
 		}
 	}
 	
+	/**
+	 * Coerce a plain PHP array into a new strongly-typed SourceBasicInfo object.
+	 * The data could be supplied from an API call after json_decode(..., true); or generated manually.
+	 *
+	 * @param array $decodedJsonObject Object data as PHP array
+	 * @return SourceBasicInfo
+	 */
 	public static function createFrom(array $decodedJsonObject)
 	{
 		$retn = new SourceBasicInfo();
@@ -46,7 +60,14 @@ class SourceBasicInfo {
 		return $retn;
 	}
 	
-	public function toArray($for_json_encode=false)
+	/**
+	 * Convert this SourceBasicInfo object into a plain PHP array.
+	 *
+	 * @param bool $forJSONEncode Set true to use stdClass() for empty objects instead of just [], in order to
+	 *                             accurately roundtrip empty objects/arrays through json_encode() compatibility
+	 * @return array
+	 */
+	public function toArray($forJSONEncode=false)
 	{
 		$ret = [];
 		$ret["Description"] = $this->Description;
@@ -54,7 +75,7 @@ class SourceBasicInfo {
 		
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
-			if ($for_json_encode && is_array($v) && count($v) == 0) {
+			if ($forJSONEncode && is_array($v) && count($v) == 0) {
 				$ret[$k] = (object)[];
 			} else {
 				$ret[$k] = $v;
@@ -62,17 +83,28 @@ class SourceBasicInfo {
 		}
 		
 		// Special handling for empty objects
-		if ($for_json_encode && count($ret) === 0) {
+		if ($forJSONEncode && count($ret) === 0) {
 			return new stdClass();
 		}
 		return $ret;
 	}
 	
+	/**
+	 * Convert this object to a JSON string.
+	 * The result is suitable to submit to the Comet Server API.
+	 *
+	 * @return string
+	 */
 	public function toJSON()
 	{
 		return json_encode( self::toArray(true) );
 	}
 	
+	/**
+	 * Erase any preserved object properties that are unknown to this Comet Server SDK.
+	 *
+	 * @return void
+	 */
 	public function RemoveUnknownProperties()
 	{
 		$this->__unknown_properties = [];

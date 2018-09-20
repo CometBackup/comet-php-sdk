@@ -26,12 +26,19 @@ class U2FSignRequest {
 	
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
-	 * You can recursively remove all unknown properties by calling RemoveUnknownProperties().
 	 *
+	 * @see U2FSignRequest::RemoveUnknownProperties() Remove all unknown properties
 	 * @var array
 	 */
 	private $__unknown_properties = [];
 	
+	/**
+	 * Replace the content of this U2FSignRequest object from a PHP array.
+	 * The data could be supplied from an API call after json_decode(..., true); or generated manually.
+	 *
+	 * @param array $decodedJsonObject Object data as PHP array
+	 * @return void
+	 */
 	public function inflateFrom(array $decodedJsonObject)
 	{
 		$this->ChallengeID = (string)($decodedJsonObject['ChallengeID']);
@@ -59,6 +66,13 @@ class U2FSignRequest {
 		}
 	}
 	
+	/**
+	 * Coerce a plain PHP array into a new strongly-typed U2FSignRequest object.
+	 * The data could be supplied from an API call after json_decode(..., true); or generated manually.
+	 *
+	 * @param array $decodedJsonObject Object data as PHP array
+	 * @return U2FSignRequest
+	 */
 	public static function createFrom(array $decodedJsonObject)
 	{
 		$retn = new U2FSignRequest();
@@ -66,7 +80,14 @@ class U2FSignRequest {
 		return $retn;
 	}
 	
-	public function toArray($for_json_encode=false)
+	/**
+	 * Convert this U2FSignRequest object into a plain PHP array.
+	 *
+	 * @param bool $forJSONEncode Set true to use stdClass() for empty objects instead of just [], in order to
+	 *                             accurately roundtrip empty objects/arrays through json_encode() compatibility
+	 * @return array
+	 */
+	public function toArray($forJSONEncode=false)
 	{
 		$ret = [];
 		$ret["ChallengeID"] = $this->ChallengeID;
@@ -87,7 +108,7 @@ class U2FSignRequest {
 		
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
-			if ($for_json_encode && is_array($v) && count($v) == 0) {
+			if ($forJSONEncode && is_array($v) && count($v) == 0) {
 				$ret[$k] = (object)[];
 			} else {
 				$ret[$k] = $v;
@@ -95,17 +116,28 @@ class U2FSignRequest {
 		}
 		
 		// Special handling for empty objects
-		if ($for_json_encode && count($ret) === 0) {
+		if ($forJSONEncode && count($ret) === 0) {
 			return new stdClass();
 		}
 		return $ret;
 	}
 	
+	/**
+	 * Convert this object to a JSON string.
+	 * The result is suitable to submit to the Comet Server API.
+	 *
+	 * @return string
+	 */
 	public function toJSON()
 	{
 		return json_encode( self::toArray(true) );
 	}
 	
+	/**
+	 * Erase any preserved object properties that are unknown to this Comet Server SDK.
+	 *
+	 * @return void
+	 */
 	public function RemoveUnknownProperties()
 	{
 		$this->__unknown_properties = [];
