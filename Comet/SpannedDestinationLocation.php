@@ -24,7 +24,7 @@ class SpannedDestinationLocation {
 	 * @param array $decodedJsonObject Object data as PHP array
 	 * @return void
 	 */
-	public function inflateFrom(array $decodedJsonObject)
+	protected function inflateFrom(array $decodedJsonObject)
 	{
 		$val_2 = [];
 		for($i_2 = 0; $i_2 < count($decodedJsonObject['SpanTargets']); ++$i_2) {
@@ -44,13 +44,29 @@ class SpannedDestinationLocation {
 	
 	/**
 	 * Coerce a plain PHP array into a new strongly-typed SpannedDestinationLocation object.
-	 * The data could be supplied from an API call after json_decode(..., true); or generated manually.
 	 *
 	 * @param array $decodedJsonObject Object data as PHP array
 	 * @return SpannedDestinationLocation
 	 */
 	public static function createFrom(array $decodedJsonObject)
 	{
+		$retn = new SpannedDestinationLocation();
+		$retn->inflateFrom($decodedJsonObject);
+		return $retn;
+	}
+	
+	/**
+	 * Coerce a JSON string into a new strongly-typed SpannedDestinationLocation object.
+	 *
+	 * @param string $JsonString Object data as JSON string
+	 * @return SpannedDestinationLocation
+	 */
+	public static function createFromJSON($JsonString)
+	{
+		$decodedJsonObject = json_decode($JsonString, true);
+		if (\json_last_error() != \JSON_ERROR_NONE) {
+			throw new \Exception("JSON decode failed: " . \json_last_error_msg());
+		}
 		$retn = new SpannedDestinationLocation();
 		$retn->inflateFrom($decodedJsonObject);
 		return $retn;

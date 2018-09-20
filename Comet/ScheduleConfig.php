@@ -29,7 +29,7 @@ class ScheduleConfig {
 	 * @param array $decodedJsonObject Object data as PHP array
 	 * @return void
 	 */
-	public function inflateFrom(array $decodedJsonObject)
+	protected function inflateFrom(array $decodedJsonObject)
 	{
 		$this->FrequencyType = (int)($decodedJsonObject['FrequencyType']);
 		
@@ -48,13 +48,29 @@ class ScheduleConfig {
 	
 	/**
 	 * Coerce a plain PHP array into a new strongly-typed ScheduleConfig object.
-	 * The data could be supplied from an API call after json_decode(..., true); or generated manually.
 	 *
 	 * @param array $decodedJsonObject Object data as PHP array
 	 * @return ScheduleConfig
 	 */
 	public static function createFrom(array $decodedJsonObject)
 	{
+		$retn = new ScheduleConfig();
+		$retn->inflateFrom($decodedJsonObject);
+		return $retn;
+	}
+	
+	/**
+	 * Coerce a JSON string into a new strongly-typed ScheduleConfig object.
+	 *
+	 * @param string $JsonString Object data as JSON string
+	 * @return ScheduleConfig
+	 */
+	public static function createFromJSON($JsonString)
+	{
+		$decodedJsonObject = json_decode($JsonString, true);
+		if (\json_last_error() != \JSON_ERROR_NONE) {
+			throw new \Exception("JSON decode failed: " . \json_last_error_msg());
+		}
 		$retn = new ScheduleConfig();
 		$retn->inflateFrom($decodedJsonObject);
 		return $retn;
