@@ -195,89 +195,124 @@ class DestinationLocation {
 	private $__unknown_properties = [];
 	
 	/**
-	 * Replace the content of this DestinationLocation object from a PHP array.
-	 * The data could be supplied from an API call after json_decode(..., true); or generated manually.
+	 * Replace the content of this DestinationLocation object from a PHP \stdClass.
+	 * The data could be supplied from an API call after json_decode(...); or generated manually.
 	 *
-	 * @param array $decodedJsonObject Object data as PHP array
+	 * @param \stdClass $sc Object data as stdClass
 	 * @return void
 	 */
-	protected function inflateFrom(array $decodedJsonObject)
+	protected function inflateFrom(\stdClass $sc)
 	{
-		$this->DestinationType = (int)($decodedJsonObject['DestinationType']);
-		
-		$this->CometServer = (string)($decodedJsonObject['CometServer']);
-		
-		$this->CometBucket = (string)($decodedJsonObject['CometBucket']);
-		
-		$this->CometBucketKey = (string)($decodedJsonObject['CometBucketKey']);
-		
-		$this->S3Server = (string)($decodedJsonObject['S3Server']);
-		
-		$this->S3UsesTLS = (bool)($decodedJsonObject['S3UsesTLS']);
-		
-		$this->S3AccessKey = (string)($decodedJsonObject['S3AccessKey']);
-		
-		$this->S3SecretKey = (string)($decodedJsonObject['S3SecretKey']);
-		
-		$this->S3BucketName = (string)($decodedJsonObject['S3BucketName']);
-		
-		$this->S3Subdir = (string)($decodedJsonObject['S3Subdir']);
-		
-		$this->SFTPServer = (string)($decodedJsonObject['SFTPServer']);
-		
-		$this->SFTPUsername = (string)($decodedJsonObject['SFTPUsername']);
-		
-		$this->SFTPRemotePath = (string)($decodedJsonObject['SFTPRemotePath']);
-		
-		$this->SFTPAuthMode = (int)($decodedJsonObject['SFTPAuthMode']);
-		
-		$this->SFTPPassword = (string)($decodedJsonObject['SFTPPassword']);
-		
-		$this->SFTPPrivateKey = (string)($decodedJsonObject['SFTPPrivateKey']);
-		
-		$this->SFTPCustomAuth_UseKnownHostsFile = (bool)($decodedJsonObject['SFTPCustomAuth_UseKnownHostsFile']);
-		
-		$this->SFTPCustomAuth_KnownHostsFile = (string)($decodedJsonObject['SFTPCustomAuth_KnownHostsFile']);
-		
-		$this->FTPServer = (string)($decodedJsonObject['FTPServer']);
-		
-		$this->FTPUsername = (string)($decodedJsonObject['FTPUsername']);
-		
-		$this->FTPPassword = (string)($decodedJsonObject['FTPPassword']);
-		
-		$this->FTPBaseUseHomeDirectory = (bool)($decodedJsonObject['FTPBaseUseHomeDirectory']);
-		
-		$this->FTPCustomBaseDirectory = (string)($decodedJsonObject['FTPCustomBaseDirectory']);
-		
-		$this->AZBAccountName = (string)($decodedJsonObject['AZBAccountName']);
-		
-		$this->AZBAccountKey = (string)($decodedJsonObject['AZBAccountKey']);
-		
-		$this->AZBContainer = (string)($decodedJsonObject['AZBContainer']);
-		
-		$this->AZBRealm = (string)($decodedJsonObject['AZBRealm']);
-		
-		$this->AZBPrefix = (string)($decodedJsonObject['AZBPrefix']);
-		
-		$this->LocalcopyPath = (string)($decodedJsonObject['LocalcopyPath']);
-		
-		$this->LocalcopyWinSMBUsername = (string)($decodedJsonObject['LocalcopyWinSMBUsername']);
-		
-		$this->LocalcopyWinSMBPassword = (string)($decodedJsonObject['LocalcopyWinSMBPassword']);
-		
-		$this->LocalcopyWinSMBPasswordFormat = (int)($decodedJsonObject['LocalcopyWinSMBPasswordFormat']);
-		
-		$this->Swift = \Comet\SwiftDestinationLocation::createFrom(isset($decodedJsonObject['Swift']) ? $decodedJsonObject['Swift'] : []);
-		
-		$this->B2 = \Comet\B2DestinationLocation::createFrom(isset($decodedJsonObject['B2']) ? $decodedJsonObject['B2'] : []);
-		
-		$val_2 = [];
-		for($i_2 = 0; $i_2 < count($decodedJsonObject['SpanTargets']); ++$i_2) {
-			$val_2[] = \Comet\DestinationLocation::createFrom(isset($decodedJsonObject['SpanTargets'][$i_2]) ? $decodedJsonObject['SpanTargets'][$i_2] : []);
+		if (property_exists($sc, 'DestinationType')) {
+			$this->DestinationType = (int)($sc->DestinationType);
 		}
-		$this->SpanTargets = $val_2;
-		
-		foreach($decodedJsonObject as $k => $v) {
+		if (property_exists($sc, 'CometServer')) {
+			$this->CometServer = (string)($sc->CometServer);
+		}
+		if (property_exists($sc, 'CometBucket')) {
+			$this->CometBucket = (string)($sc->CometBucket);
+		}
+		if (property_exists($sc, 'CometBucketKey')) {
+			$this->CometBucketKey = (string)($sc->CometBucketKey);
+		}
+		if (property_exists($sc, 'S3Server')) {
+			$this->S3Server = (string)($sc->S3Server);
+		}
+		if (property_exists($sc, 'S3UsesTLS')) {
+			$this->S3UsesTLS = (bool)($sc->S3UsesTLS);
+		}
+		if (property_exists($sc, 'S3AccessKey')) {
+			$this->S3AccessKey = (string)($sc->S3AccessKey);
+		}
+		if (property_exists($sc, 'S3SecretKey')) {
+			$this->S3SecretKey = (string)($sc->S3SecretKey);
+		}
+		if (property_exists($sc, 'S3BucketName')) {
+			$this->S3BucketName = (string)($sc->S3BucketName);
+		}
+		if (property_exists($sc, 'S3Subdir')) {
+			$this->S3Subdir = (string)($sc->S3Subdir);
+		}
+		if (property_exists($sc, 'SFTPServer')) {
+			$this->SFTPServer = (string)($sc->SFTPServer);
+		}
+		if (property_exists($sc, 'SFTPUsername')) {
+			$this->SFTPUsername = (string)($sc->SFTPUsername);
+		}
+		if (property_exists($sc, 'SFTPRemotePath')) {
+			$this->SFTPRemotePath = (string)($sc->SFTPRemotePath);
+		}
+		if (property_exists($sc, 'SFTPAuthMode')) {
+			$this->SFTPAuthMode = (int)($sc->SFTPAuthMode);
+		}
+		if (property_exists($sc, 'SFTPPassword')) {
+			$this->SFTPPassword = (string)($sc->SFTPPassword);
+		}
+		if (property_exists($sc, 'SFTPPrivateKey')) {
+			$this->SFTPPrivateKey = (string)($sc->SFTPPrivateKey);
+		}
+		if (property_exists($sc, 'SFTPCustomAuth_UseKnownHostsFile')) {
+			$this->SFTPCustomAuth_UseKnownHostsFile = (bool)($sc->SFTPCustomAuth_UseKnownHostsFile);
+		}
+		if (property_exists($sc, 'SFTPCustomAuth_KnownHostsFile')) {
+			$this->SFTPCustomAuth_KnownHostsFile = (string)($sc->SFTPCustomAuth_KnownHostsFile);
+		}
+		if (property_exists($sc, 'FTPServer')) {
+			$this->FTPServer = (string)($sc->FTPServer);
+		}
+		if (property_exists($sc, 'FTPUsername')) {
+			$this->FTPUsername = (string)($sc->FTPUsername);
+		}
+		if (property_exists($sc, 'FTPPassword')) {
+			$this->FTPPassword = (string)($sc->FTPPassword);
+		}
+		if (property_exists($sc, 'FTPBaseUseHomeDirectory')) {
+			$this->FTPBaseUseHomeDirectory = (bool)($sc->FTPBaseUseHomeDirectory);
+		}
+		if (property_exists($sc, 'FTPCustomBaseDirectory')) {
+			$this->FTPCustomBaseDirectory = (string)($sc->FTPCustomBaseDirectory);
+		}
+		if (property_exists($sc, 'AZBAccountName')) {
+			$this->AZBAccountName = (string)($sc->AZBAccountName);
+		}
+		if (property_exists($sc, 'AZBAccountKey')) {
+			$this->AZBAccountKey = (string)($sc->AZBAccountKey);
+		}
+		if (property_exists($sc, 'AZBContainer')) {
+			$this->AZBContainer = (string)($sc->AZBContainer);
+		}
+		if (property_exists($sc, 'AZBRealm')) {
+			$this->AZBRealm = (string)($sc->AZBRealm);
+		}
+		if (property_exists($sc, 'AZBPrefix')) {
+			$this->AZBPrefix = (string)($sc->AZBPrefix);
+		}
+		if (property_exists($sc, 'LocalcopyPath')) {
+			$this->LocalcopyPath = (string)($sc->LocalcopyPath);
+		}
+		if (property_exists($sc, 'LocalcopyWinSMBUsername')) {
+			$this->LocalcopyWinSMBUsername = (string)($sc->LocalcopyWinSMBUsername);
+		}
+		if (property_exists($sc, 'LocalcopyWinSMBPassword')) {
+			$this->LocalcopyWinSMBPassword = (string)($sc->LocalcopyWinSMBPassword);
+		}
+		if (property_exists($sc, 'LocalcopyWinSMBPasswordFormat')) {
+			$this->LocalcopyWinSMBPasswordFormat = (int)($sc->LocalcopyWinSMBPasswordFormat);
+		}
+		if (property_exists($sc, 'Swift')) {
+			$this->Swift = \Comet\SwiftDestinationLocation::createFromStdclass(isset($sc->Swift) ? $sc->Swift : []);
+		}
+		if (property_exists($sc, 'B2')) {
+			$this->B2 = \Comet\B2DestinationLocation::createFromStdclass(isset($sc->B2) ? $sc->B2 : []);
+		}
+		if (property_exists($sc, 'SpanTargets')) {
+			$val_2 = [];
+			for($i_2 = 0; $i_2 < count($sc->SpanTargets); ++$i_2) {
+				$val_2[] = \Comet\DestinationLocation::createFromStdclass(isset($sc->SpanTargets[$i_2]) ? $sc->SpanTargets[$i_2] : []);
+			}
+			$this->SpanTargets = $val_2;
+		}
+		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'DestinationType':
 			case 'CometServer':
@@ -322,16 +357,46 @@ class DestinationLocation {
 	}
 	
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed DestinationLocation object.
+	 * Coerce a stdClass into a new strongly-typed DestinationLocation object.
 	 *
-	 * @param array $decodedJsonObject Object data as PHP array
+	 * @param \stdClass $sc Object data as stdClass
 	 * @return DestinationLocation
 	 */
-	public static function createFrom(array $decodedJsonObject)
+	public static function createFromStdclass(\stdClass $sc)
 	{
 		$retn = new DestinationLocation();
-		$retn->inflateFrom($decodedJsonObject);
+		$retn->inflateFrom($sc);
 		return $retn;
+	}
+	
+	/**
+	 * Coerce a plain PHP array into a new strongly-typed DestinationLocation object.
+	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
+	 * the result of this method may not be safe to re-submit to the Comet Server.
+	 *
+	 * @param array $arr Object data as PHP array
+	 * @return DestinationLocation
+	 */
+	public static function createFromArray(array $arr)
+	{
+		$stdClass = json_decode(json_encode($arr));
+		return self::createFromStdclass($stdClass);
+	}
+	
+	/**
+	 * Coerce a plain PHP array into a new strongly-typed DestinationLocation object.
+	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
+	 * the result of this method may not be safe to re-submit to the Comet Server.
+	 *
+	 * @deprecated 3.0.0 Unsafe for round-trip server traversal. You should either 
+	 *             (A) acknowledge this and continue by switching to createFromArray, or
+	 *             (b) switch to the roundtrip-safe createFromStdclass alternative.
+	 * @param array $arr Object data as PHP array
+	 * @return DestinationLocation
+	 */
+	public static function createFrom(array $arr)
+	{
+		return self::createFromArray($arr);
 	}
 	
 	/**
@@ -342,7 +407,7 @@ class DestinationLocation {
 	 */
 	public static function createFromJSON($JsonString)
 	{
-		$decodedJsonObject = json_decode($JsonString, true);
+		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg());
 		}
@@ -354,11 +419,11 @@ class DestinationLocation {
 	/**
 	 * Convert this DestinationLocation object into a plain PHP array.
 	 *
-	 * @param bool $forJSONEncode Set true to use stdClass() for empty objects instead of just [], in order to
-	 *                             accurately roundtrip empty objects/arrays through json_encode() compatibility
+	 * Unknown properties may still be represented as \stdClass objects.
+	 *
 	 * @return array
 	 */
-	public function toArray($forJSONEncode=false)
+	public function toArray()
 	{
 		$ret = [];
 		$ret["DestinationType"] = $this->DestinationType;
@@ -418,17 +483,9 @@ class DestinationLocation {
 		
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
-			if ($forJSONEncode && is_array($v) && count($v) == 0) {
-				$ret[$k] = (object)[];
-			} else {
-				$ret[$k] = $v;
-			}
+			$ret[$k] = $v;
 		}
 		
-		// Special handling for empty objects
-		if ($forJSONEncode && count($ret) === 0) {
-			return new stdClass();
-		}
 		return $ret;
 	}
 	
@@ -440,7 +497,28 @@ class DestinationLocation {
 	 */
 	public function toJSON()
 	{
-		return json_encode( self::toArray(true) );
+		$arr = self::toArray();
+		if (count($arr) === 0) {
+			return "{}"; // object
+		} else {
+			return json_encode($arr);
+		}
+	}
+	
+	/**
+	 * Convert this object to a PHP \stdClass.
+	 * This may be a more convenient format for working with unknown class properties.
+	 *
+	 * @return \stdClass
+	 */
+	public function toStdClass()
+	{
+		$arr = self::toArray();
+		if (count($arr) === 0) {
+			return new \stdClass();
+		} else {
+			return json_decode(json_encode($arr));
+		}
 	}
 	
 	/**

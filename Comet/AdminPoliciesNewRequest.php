@@ -74,22 +74,22 @@ class AdminPoliciesNewRequest implements \Comet\NetworkRequest {
 		}
 		
 		// Decode JSON
-		$decoded = \json_decode($body, true);
+		$decoded = \json_decode($body); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg());
 		}
 		
 		// Try to parse as error format
-		$isCARMDerivedType = (array_key_exists('Status', $decoded) && array_key_exists('Message', $decoded));
+		$isCARMDerivedType = (($decoded instanceof stdClass) && property_exists($decoded, 'Status') && property_exists($decoded, 'Message'));
 		if ($isCARMDerivedType) {
-			$carm = \Comet\APIResponseMessage::createFrom($decoded);
+			$carm = \Comet\APIResponseMessage::createFromStdclass($decoded);
 			if ($carm->Status !== 200) {
 				throw new \Exception("Error " . $carm->Status . ": " . $carm->Message);
 			}
 		}
 		
 		// Parse as CreateGroupPolicyResponse
-		$ret = \Comet\CreateGroupPolicyResponse::createFrom(isset($decoded) ? $decoded : []);
+		$ret = \Comet\CreateGroupPolicyResponse::createFromStdclass(isset($decoded) ? $decoded : []);
 		
 		return $ret;
 	}

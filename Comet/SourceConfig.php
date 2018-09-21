@@ -70,59 +70,65 @@ class SourceConfig {
 	private $__unknown_properties = [];
 	
 	/**
-	 * Replace the content of this SourceConfig object from a PHP array.
-	 * The data could be supplied from an API call after json_decode(..., true); or generated manually.
+	 * Replace the content of this SourceConfig object from a PHP \stdClass.
+	 * The data could be supplied from an API call after json_decode(...); or generated manually.
 	 *
-	 * @param array $decodedJsonObject Object data as PHP array
+	 * @param \stdClass $sc Object data as stdClass
 	 * @return void
 	 */
-	protected function inflateFrom(array $decodedJsonObject)
+	protected function inflateFrom(\stdClass $sc)
 	{
-		$this->Engine = (string)($decodedJsonObject['Engine']);
-		
-		$this->Description = (string)($decodedJsonObject['Description']);
-		
-		$this->OwnerDevice = (string)($decodedJsonObject['OwnerDevice']);
-		
-		$this->CreateTime = (int)($decodedJsonObject['CreateTime']);
-		
-		$this->ModifyTime = (int)($decodedJsonObject['ModifyTime']);
-		
-		$val_2 = [];
-		for($i_2 = 0; $i_2 < count($decodedJsonObject['PreExec']); ++$i_2) {
-			$val_2[] = (string)($decodedJsonObject['PreExec'][$i_2]);
+		if (property_exists($sc, 'Engine')) {
+			$this->Engine = (string)($sc->Engine);
 		}
-		$this->PreExec = $val_2;
-		
-		$val_2 = [];
-		for($i_2 = 0; $i_2 < count($decodedJsonObject['PostExec']); ++$i_2) {
-			$val_2[] = (string)($decodedJsonObject['PostExec'][$i_2]);
+		if (property_exists($sc, 'Description')) {
+			$this->Description = (string)($sc->Description);
 		}
-		$this->PostExec = $val_2;
-		
-		$val_2 = [];
-		foreach($decodedJsonObject['EngineProps'] as $k_2 => $v_2) {
-			$phpk_2 = (string)($k_2);
-			$phpv_2 = (string)($v_2);
-			$val_2[$phpk_2] = $phpv_2;
+		if (property_exists($sc, 'OwnerDevice')) {
+			$this->OwnerDevice = (string)($sc->OwnerDevice);
 		}
-		$this->EngineProps = $val_2;
-		
-		if (array_key_exists('OverrideDestinationRetention', $decodedJsonObject)) {
+		if (property_exists($sc, 'CreateTime')) {
+			$this->CreateTime = (int)($sc->CreateTime);
+		}
+		if (property_exists($sc, 'ModifyTime')) {
+			$this->ModifyTime = (int)($sc->ModifyTime);
+		}
+		if (property_exists($sc, 'PreExec')) {
 			$val_2 = [];
-			foreach($decodedJsonObject['OverrideDestinationRetention'] as $k_2 => $v_2) {
+			for($i_2 = 0; $i_2 < count($sc->PreExec); ++$i_2) {
+				$val_2[] = (string)($sc->PreExec[$i_2]);
+			}
+			$this->PreExec = $val_2;
+		}
+		if (property_exists($sc, 'PostExec')) {
+			$val_2 = [];
+			for($i_2 = 0; $i_2 < count($sc->PostExec); ++$i_2) {
+				$val_2[] = (string)($sc->PostExec[$i_2]);
+			}
+			$this->PostExec = $val_2;
+		}
+		if (property_exists($sc, 'EngineProps')) {
+			$val_2 = [];
+			foreach($sc->EngineProps as $k_2 => $v_2) {
 				$phpk_2 = (string)($k_2);
-				$phpv_2 = \Comet\RetentionPolicy::createFrom(isset($v_2) ? $v_2 : []);
+				$phpv_2 = (string)($v_2);
+				$val_2[$phpk_2] = $phpv_2;
+			}
+			$this->EngineProps = $val_2;
+		}
+		if (property_exists($sc, 'OverrideDestinationRetention')) {
+			$val_2 = [];
+			foreach($sc->OverrideDestinationRetention as $k_2 => $v_2) {
+				$phpk_2 = (string)($k_2);
+				$phpv_2 = \Comet\RetentionPolicy::createFromStdclass(isset($v_2) ? $v_2 : []);
 				$val_2[$phpk_2] = $phpv_2;
 			}
 			$this->OverrideDestinationRetention = $val_2;
-			
 		}
-		if (array_key_exists('Statistics', $decodedJsonObject)) {
-			$this->Statistics = \Comet\SourceStatistics::createFrom(isset($decodedJsonObject['Statistics']) ? $decodedJsonObject['Statistics'] : []);
-			
+		if (property_exists($sc, 'Statistics')) {
+			$this->Statistics = \Comet\SourceStatistics::createFromStdclass(isset($sc->Statistics) ? $sc->Statistics : []);
 		}
-		foreach($decodedJsonObject as $k => $v) {
+		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Engine':
 			case 'Description':
@@ -142,16 +148,46 @@ class SourceConfig {
 	}
 	
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed SourceConfig object.
+	 * Coerce a stdClass into a new strongly-typed SourceConfig object.
 	 *
-	 * @param array $decodedJsonObject Object data as PHP array
+	 * @param \stdClass $sc Object data as stdClass
 	 * @return SourceConfig
 	 */
-	public static function createFrom(array $decodedJsonObject)
+	public static function createFromStdclass(\stdClass $sc)
 	{
 		$retn = new SourceConfig();
-		$retn->inflateFrom($decodedJsonObject);
+		$retn->inflateFrom($sc);
 		return $retn;
+	}
+	
+	/**
+	 * Coerce a plain PHP array into a new strongly-typed SourceConfig object.
+	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
+	 * the result of this method may not be safe to re-submit to the Comet Server.
+	 *
+	 * @param array $arr Object data as PHP array
+	 * @return SourceConfig
+	 */
+	public static function createFromArray(array $arr)
+	{
+		$stdClass = json_decode(json_encode($arr));
+		return self::createFromStdclass($stdClass);
+	}
+	
+	/**
+	 * Coerce a plain PHP array into a new strongly-typed SourceConfig object.
+	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
+	 * the result of this method may not be safe to re-submit to the Comet Server.
+	 *
+	 * @deprecated 3.0.0 Unsafe for round-trip server traversal. You should either 
+	 *             (A) acknowledge this and continue by switching to createFromArray, or
+	 *             (b) switch to the roundtrip-safe createFromStdclass alternative.
+	 * @param array $arr Object data as PHP array
+	 * @return SourceConfig
+	 */
+	public static function createFrom(array $arr)
+	{
+		return self::createFromArray($arr);
 	}
 	
 	/**
@@ -162,7 +198,7 @@ class SourceConfig {
 	 */
 	public static function createFromJSON($JsonString)
 	{
-		$decodedJsonObject = json_decode($JsonString, true);
+		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg());
 		}
@@ -174,11 +210,11 @@ class SourceConfig {
 	/**
 	 * Convert this SourceConfig object into a plain PHP array.
 	 *
-	 * @param bool $forJSONEncode Set true to use stdClass() for empty objects instead of just [], in order to
-	 *                             accurately roundtrip empty objects/arrays through json_encode() compatibility
+	 * Unknown properties may still be represented as \stdClass objects.
+	 *
 	 * @return array
 	 */
-	public function toArray($forJSONEncode=false)
+	public function toArray()
 	{
 		$ret = [];
 		$ret["Engine"] = $this->Engine;
@@ -240,17 +276,9 @@ class SourceConfig {
 		
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
-			if ($forJSONEncode && is_array($v) && count($v) == 0) {
-				$ret[$k] = (object)[];
-			} else {
-				$ret[$k] = $v;
-			}
+			$ret[$k] = $v;
 		}
 		
-		// Special handling for empty objects
-		if ($forJSONEncode && count($ret) === 0) {
-			return new stdClass();
-		}
 		return $ret;
 	}
 	
@@ -262,7 +290,28 @@ class SourceConfig {
 	 */
 	public function toJSON()
 	{
-		return json_encode( self::toArray(true) );
+		$arr = self::toArray();
+		if (count($arr) === 0) {
+			return "{}"; // object
+		} else {
+			return json_encode($arr);
+		}
+	}
+	
+	/**
+	 * Convert this object to a PHP \stdClass.
+	 * This may be a more convenient format for working with unknown class properties.
+	 *
+	 * @return \stdClass
+	 */
+	public function toStdClass()
+	{
+		$arr = self::toArray();
+		if (count($arr) === 0) {
+			return new \stdClass();
+		} else {
+			return json_decode(json_encode($arr));
+		}
 	}
 	
 	/**

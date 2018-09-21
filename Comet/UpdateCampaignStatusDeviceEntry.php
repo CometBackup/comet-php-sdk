@@ -35,21 +35,24 @@ class UpdateCampaignStatusDeviceEntry {
 	private $__unknown_properties = [];
 	
 	/**
-	 * Replace the content of this UpdateCampaignStatusDeviceEntry object from a PHP array.
-	 * The data could be supplied from an API call after json_decode(..., true); or generated manually.
+	 * Replace the content of this UpdateCampaignStatusDeviceEntry object from a PHP \stdClass.
+	 * The data could be supplied from an API call after json_decode(...); or generated manually.
 	 *
-	 * @param array $decodedJsonObject Object data as PHP array
+	 * @param \stdClass $sc Object data as stdClass
 	 * @return void
 	 */
-	protected function inflateFrom(array $decodedJsonObject)
+	protected function inflateFrom(\stdClass $sc)
 	{
-		$this->Username = (string)($decodedJsonObject['Username']);
-		
-		$this->DeviceID = (string)($decodedJsonObject['DeviceID']);
-		
-		$this->Status = (int)($decodedJsonObject['Status']);
-		
-		foreach($decodedJsonObject as $k => $v) {
+		if (property_exists($sc, 'Username')) {
+			$this->Username = (string)($sc->Username);
+		}
+		if (property_exists($sc, 'DeviceID')) {
+			$this->DeviceID = (string)($sc->DeviceID);
+		}
+		if (property_exists($sc, 'Status')) {
+			$this->Status = (int)($sc->Status);
+		}
+		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Username':
 			case 'DeviceID':
@@ -62,16 +65,46 @@ class UpdateCampaignStatusDeviceEntry {
 	}
 	
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed UpdateCampaignStatusDeviceEntry object.
+	 * Coerce a stdClass into a new strongly-typed UpdateCampaignStatusDeviceEntry object.
 	 *
-	 * @param array $decodedJsonObject Object data as PHP array
+	 * @param \stdClass $sc Object data as stdClass
 	 * @return UpdateCampaignStatusDeviceEntry
 	 */
-	public static function createFrom(array $decodedJsonObject)
+	public static function createFromStdclass(\stdClass $sc)
 	{
 		$retn = new UpdateCampaignStatusDeviceEntry();
-		$retn->inflateFrom($decodedJsonObject);
+		$retn->inflateFrom($sc);
 		return $retn;
+	}
+	
+	/**
+	 * Coerce a plain PHP array into a new strongly-typed UpdateCampaignStatusDeviceEntry object.
+	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
+	 * the result of this method may not be safe to re-submit to the Comet Server.
+	 *
+	 * @param array $arr Object data as PHP array
+	 * @return UpdateCampaignStatusDeviceEntry
+	 */
+	public static function createFromArray(array $arr)
+	{
+		$stdClass = json_decode(json_encode($arr));
+		return self::createFromStdclass($stdClass);
+	}
+	
+	/**
+	 * Coerce a plain PHP array into a new strongly-typed UpdateCampaignStatusDeviceEntry object.
+	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
+	 * the result of this method may not be safe to re-submit to the Comet Server.
+	 *
+	 * @deprecated 3.0.0 Unsafe for round-trip server traversal. You should either 
+	 *             (A) acknowledge this and continue by switching to createFromArray, or
+	 *             (b) switch to the roundtrip-safe createFromStdclass alternative.
+	 * @param array $arr Object data as PHP array
+	 * @return UpdateCampaignStatusDeviceEntry
+	 */
+	public static function createFrom(array $arr)
+	{
+		return self::createFromArray($arr);
 	}
 	
 	/**
@@ -82,7 +115,7 @@ class UpdateCampaignStatusDeviceEntry {
 	 */
 	public static function createFromJSON($JsonString)
 	{
-		$decodedJsonObject = json_decode($JsonString, true);
+		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg());
 		}
@@ -94,11 +127,11 @@ class UpdateCampaignStatusDeviceEntry {
 	/**
 	 * Convert this UpdateCampaignStatusDeviceEntry object into a plain PHP array.
 	 *
-	 * @param bool $forJSONEncode Set true to use stdClass() for empty objects instead of just [], in order to
-	 *                             accurately roundtrip empty objects/arrays through json_encode() compatibility
+	 * Unknown properties may still be represented as \stdClass objects.
+	 *
 	 * @return array
 	 */
-	public function toArray($forJSONEncode=false)
+	public function toArray()
 	{
 		$ret = [];
 		$ret["Username"] = $this->Username;
@@ -107,17 +140,9 @@ class UpdateCampaignStatusDeviceEntry {
 		
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
-			if ($forJSONEncode && is_array($v) && count($v) == 0) {
-				$ret[$k] = (object)[];
-			} else {
-				$ret[$k] = $v;
-			}
+			$ret[$k] = $v;
 		}
 		
-		// Special handling for empty objects
-		if ($forJSONEncode && count($ret) === 0) {
-			return new stdClass();
-		}
 		return $ret;
 	}
 	
@@ -129,7 +154,28 @@ class UpdateCampaignStatusDeviceEntry {
 	 */
 	public function toJSON()
 	{
-		return json_encode( self::toArray(true) );
+		$arr = self::toArray();
+		if (count($arr) === 0) {
+			return "{}"; // object
+		} else {
+			return json_encode($arr);
+		}
+	}
+	
+	/**
+	 * Convert this object to a PHP \stdClass.
+	 * This may be a more convenient format for working with unknown class properties.
+	 *
+	 * @return \stdClass
+	 */
+	public function toStdClass()
+	{
+		$arr = self::toArray();
+		if (count($arr) === 0) {
+			return new \stdClass();
+		} else {
+			return json_decode(json_encode($arr));
+		}
 	}
 	
 	/**

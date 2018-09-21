@@ -60,31 +60,39 @@ class RetentionRange {
 	private $__unknown_properties = [];
 	
 	/**
-	 * Replace the content of this RetentionRange object from a PHP array.
-	 * The data could be supplied from an API call after json_decode(..., true); or generated manually.
+	 * Replace the content of this RetentionRange object from a PHP \stdClass.
+	 * The data could be supplied from an API call after json_decode(...); or generated manually.
 	 *
-	 * @param array $decodedJsonObject Object data as PHP array
+	 * @param \stdClass $sc Object data as stdClass
 	 * @return void
 	 */
-	protected function inflateFrom(array $decodedJsonObject)
+	protected function inflateFrom(\stdClass $sc)
 	{
-		$this->Type = (int)($decodedJsonObject['Type']);
-		
-		$this->Timestamp = (int)($decodedJsonObject['Timestamp']);
-		
-		$this->Jobs = (int)($decodedJsonObject['Jobs']);
-		
-		$this->Days = (int)($decodedJsonObject['Days']);
-		
-		$this->Weeks = (int)($decodedJsonObject['Weeks']);
-		
-		$this->Months = (int)($decodedJsonObject['Months']);
-		
-		$this->WeekOffset = (int)($decodedJsonObject['WeekOffset']);
-		
-		$this->MonthOffset = (int)($decodedJsonObject['MonthOffset']);
-		
-		foreach($decodedJsonObject as $k => $v) {
+		if (property_exists($sc, 'Type')) {
+			$this->Type = (int)($sc->Type);
+		}
+		if (property_exists($sc, 'Timestamp')) {
+			$this->Timestamp = (int)($sc->Timestamp);
+		}
+		if (property_exists($sc, 'Jobs')) {
+			$this->Jobs = (int)($sc->Jobs);
+		}
+		if (property_exists($sc, 'Days')) {
+			$this->Days = (int)($sc->Days);
+		}
+		if (property_exists($sc, 'Weeks')) {
+			$this->Weeks = (int)($sc->Weeks);
+		}
+		if (property_exists($sc, 'Months')) {
+			$this->Months = (int)($sc->Months);
+		}
+		if (property_exists($sc, 'WeekOffset')) {
+			$this->WeekOffset = (int)($sc->WeekOffset);
+		}
+		if (property_exists($sc, 'MonthOffset')) {
+			$this->MonthOffset = (int)($sc->MonthOffset);
+		}
+		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Type':
 			case 'Timestamp':
@@ -102,16 +110,46 @@ class RetentionRange {
 	}
 	
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed RetentionRange object.
+	 * Coerce a stdClass into a new strongly-typed RetentionRange object.
 	 *
-	 * @param array $decodedJsonObject Object data as PHP array
+	 * @param \stdClass $sc Object data as stdClass
 	 * @return RetentionRange
 	 */
-	public static function createFrom(array $decodedJsonObject)
+	public static function createFromStdclass(\stdClass $sc)
 	{
 		$retn = new RetentionRange();
-		$retn->inflateFrom($decodedJsonObject);
+		$retn->inflateFrom($sc);
 		return $retn;
+	}
+	
+	/**
+	 * Coerce a plain PHP array into a new strongly-typed RetentionRange object.
+	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
+	 * the result of this method may not be safe to re-submit to the Comet Server.
+	 *
+	 * @param array $arr Object data as PHP array
+	 * @return RetentionRange
+	 */
+	public static function createFromArray(array $arr)
+	{
+		$stdClass = json_decode(json_encode($arr));
+		return self::createFromStdclass($stdClass);
+	}
+	
+	/**
+	 * Coerce a plain PHP array into a new strongly-typed RetentionRange object.
+	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
+	 * the result of this method may not be safe to re-submit to the Comet Server.
+	 *
+	 * @deprecated 3.0.0 Unsafe for round-trip server traversal. You should either 
+	 *             (A) acknowledge this and continue by switching to createFromArray, or
+	 *             (b) switch to the roundtrip-safe createFromStdclass alternative.
+	 * @param array $arr Object data as PHP array
+	 * @return RetentionRange
+	 */
+	public static function createFrom(array $arr)
+	{
+		return self::createFromArray($arr);
 	}
 	
 	/**
@@ -122,7 +160,7 @@ class RetentionRange {
 	 */
 	public static function createFromJSON($JsonString)
 	{
-		$decodedJsonObject = json_decode($JsonString, true);
+		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg());
 		}
@@ -134,11 +172,11 @@ class RetentionRange {
 	/**
 	 * Convert this RetentionRange object into a plain PHP array.
 	 *
-	 * @param bool $forJSONEncode Set true to use stdClass() for empty objects instead of just [], in order to
-	 *                             accurately roundtrip empty objects/arrays through json_encode() compatibility
+	 * Unknown properties may still be represented as \stdClass objects.
+	 *
 	 * @return array
 	 */
-	public function toArray($forJSONEncode=false)
+	public function toArray()
 	{
 		$ret = [];
 		$ret["Type"] = $this->Type;
@@ -152,17 +190,9 @@ class RetentionRange {
 		
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
-			if ($forJSONEncode && is_array($v) && count($v) == 0) {
-				$ret[$k] = (object)[];
-			} else {
-				$ret[$k] = $v;
-			}
+			$ret[$k] = $v;
 		}
 		
-		// Special handling for empty objects
-		if ($forJSONEncode && count($ret) === 0) {
-			return new stdClass();
-		}
 		return $ret;
 	}
 	
@@ -174,7 +204,28 @@ class RetentionRange {
 	 */
 	public function toJSON()
 	{
-		return json_encode( self::toArray(true) );
+		$arr = self::toArray();
+		if (count($arr) === 0) {
+			return "{}"; // object
+		} else {
+			return json_encode($arr);
+		}
+	}
+	
+	/**
+	 * Convert this object to a PHP \stdClass.
+	 * This may be a more convenient format for working with unknown class properties.
+	 *
+	 * @return \stdClass
+	 */
+	public function toStdClass()
+	{
+		$arr = self::toArray();
+		if (count($arr) === 0) {
+			return new \stdClass();
+		} else {
+			return json_decode(json_encode($arr));
+		}
 	}
 	
 	/**

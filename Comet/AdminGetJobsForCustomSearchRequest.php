@@ -75,15 +75,15 @@ class AdminGetJobsForCustomSearchRequest implements \Comet\NetworkRequest {
 		}
 		
 		// Decode JSON
-		$decoded = \json_decode($body, true);
+		$decoded = \json_decode($body); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg());
 		}
 		
 		// Try to parse as error format
-		$isCARMDerivedType = (array_key_exists('Status', $decoded) && array_key_exists('Message', $decoded));
+		$isCARMDerivedType = (($decoded instanceof stdClass) && property_exists($decoded, 'Status') && property_exists($decoded, 'Message'));
 		if ($isCARMDerivedType) {
-			$carm = \Comet\APIResponseMessage::createFrom($decoded);
+			$carm = \Comet\APIResponseMessage::createFromStdclass($decoded);
 			if ($carm->Status !== 200) {
 				throw new \Exception("Error " . $carm->Status . ": " . $carm->Message);
 			}
@@ -92,7 +92,7 @@ class AdminGetJobsForCustomSearchRequest implements \Comet\NetworkRequest {
 		// Parse as []BackupJobDetail
 		$val_0 = [];
 		for($i_0 = 0; $i_0 < count($decoded); ++$i_0) {
-			$val_0[] = \Comet\BackupJobDetail::createFrom(isset($decoded[$i_0]) ? $decoded[$i_0] : []);
+			$val_0[] = \Comet\BackupJobDetail::createFromStdclass(isset($decoded[$i_0]) ? $decoded[$i_0] : []);
 		}
 		$ret = $val_0;
 		

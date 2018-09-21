@@ -60,31 +60,39 @@ class SFTPDestinationLocation {
 	private $__unknown_properties = [];
 	
 	/**
-	 * Replace the content of this SFTPDestinationLocation object from a PHP array.
-	 * The data could be supplied from an API call after json_decode(..., true); or generated manually.
+	 * Replace the content of this SFTPDestinationLocation object from a PHP \stdClass.
+	 * The data could be supplied from an API call after json_decode(...); or generated manually.
 	 *
-	 * @param array $decodedJsonObject Object data as PHP array
+	 * @param \stdClass $sc Object data as stdClass
 	 * @return void
 	 */
-	protected function inflateFrom(array $decodedJsonObject)
+	protected function inflateFrom(\stdClass $sc)
 	{
-		$this->SFTPServer = (string)($decodedJsonObject['SFTPServer']);
-		
-		$this->SFTPUsername = (string)($decodedJsonObject['SFTPUsername']);
-		
-		$this->SFTPRemotePath = (string)($decodedJsonObject['SFTPRemotePath']);
-		
-		$this->SFTPAuthMode = (int)($decodedJsonObject['SFTPAuthMode']);
-		
-		$this->SFTPPassword = (string)($decodedJsonObject['SFTPPassword']);
-		
-		$this->SFTPPrivateKey = (string)($decodedJsonObject['SFTPPrivateKey']);
-		
-		$this->SFTPCustomAuth_UseKnownHostsFile = (bool)($decodedJsonObject['SFTPCustomAuth_UseKnownHostsFile']);
-		
-		$this->SFTPCustomAuth_KnownHostsFile = (string)($decodedJsonObject['SFTPCustomAuth_KnownHostsFile']);
-		
-		foreach($decodedJsonObject as $k => $v) {
+		if (property_exists($sc, 'SFTPServer')) {
+			$this->SFTPServer = (string)($sc->SFTPServer);
+		}
+		if (property_exists($sc, 'SFTPUsername')) {
+			$this->SFTPUsername = (string)($sc->SFTPUsername);
+		}
+		if (property_exists($sc, 'SFTPRemotePath')) {
+			$this->SFTPRemotePath = (string)($sc->SFTPRemotePath);
+		}
+		if (property_exists($sc, 'SFTPAuthMode')) {
+			$this->SFTPAuthMode = (int)($sc->SFTPAuthMode);
+		}
+		if (property_exists($sc, 'SFTPPassword')) {
+			$this->SFTPPassword = (string)($sc->SFTPPassword);
+		}
+		if (property_exists($sc, 'SFTPPrivateKey')) {
+			$this->SFTPPrivateKey = (string)($sc->SFTPPrivateKey);
+		}
+		if (property_exists($sc, 'SFTPCustomAuth_UseKnownHostsFile')) {
+			$this->SFTPCustomAuth_UseKnownHostsFile = (bool)($sc->SFTPCustomAuth_UseKnownHostsFile);
+		}
+		if (property_exists($sc, 'SFTPCustomAuth_KnownHostsFile')) {
+			$this->SFTPCustomAuth_KnownHostsFile = (string)($sc->SFTPCustomAuth_KnownHostsFile);
+		}
+		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'SFTPServer':
 			case 'SFTPUsername':
@@ -102,16 +110,46 @@ class SFTPDestinationLocation {
 	}
 	
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed SFTPDestinationLocation object.
+	 * Coerce a stdClass into a new strongly-typed SFTPDestinationLocation object.
 	 *
-	 * @param array $decodedJsonObject Object data as PHP array
+	 * @param \stdClass $sc Object data as stdClass
 	 * @return SFTPDestinationLocation
 	 */
-	public static function createFrom(array $decodedJsonObject)
+	public static function createFromStdclass(\stdClass $sc)
 	{
 		$retn = new SFTPDestinationLocation();
-		$retn->inflateFrom($decodedJsonObject);
+		$retn->inflateFrom($sc);
 		return $retn;
+	}
+	
+	/**
+	 * Coerce a plain PHP array into a new strongly-typed SFTPDestinationLocation object.
+	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
+	 * the result of this method may not be safe to re-submit to the Comet Server.
+	 *
+	 * @param array $arr Object data as PHP array
+	 * @return SFTPDestinationLocation
+	 */
+	public static function createFromArray(array $arr)
+	{
+		$stdClass = json_decode(json_encode($arr));
+		return self::createFromStdclass($stdClass);
+	}
+	
+	/**
+	 * Coerce a plain PHP array into a new strongly-typed SFTPDestinationLocation object.
+	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
+	 * the result of this method may not be safe to re-submit to the Comet Server.
+	 *
+	 * @deprecated 3.0.0 Unsafe for round-trip server traversal. You should either 
+	 *             (A) acknowledge this and continue by switching to createFromArray, or
+	 *             (b) switch to the roundtrip-safe createFromStdclass alternative.
+	 * @param array $arr Object data as PHP array
+	 * @return SFTPDestinationLocation
+	 */
+	public static function createFrom(array $arr)
+	{
+		return self::createFromArray($arr);
 	}
 	
 	/**
@@ -122,7 +160,7 @@ class SFTPDestinationLocation {
 	 */
 	public static function createFromJSON($JsonString)
 	{
-		$decodedJsonObject = json_decode($JsonString, true);
+		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg());
 		}
@@ -134,11 +172,11 @@ class SFTPDestinationLocation {
 	/**
 	 * Convert this SFTPDestinationLocation object into a plain PHP array.
 	 *
-	 * @param bool $forJSONEncode Set true to use stdClass() for empty objects instead of just [], in order to
-	 *                             accurately roundtrip empty objects/arrays through json_encode() compatibility
+	 * Unknown properties may still be represented as \stdClass objects.
+	 *
 	 * @return array
 	 */
-	public function toArray($forJSONEncode=false)
+	public function toArray()
 	{
 		$ret = [];
 		$ret["SFTPServer"] = $this->SFTPServer;
@@ -152,17 +190,9 @@ class SFTPDestinationLocation {
 		
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
-			if ($forJSONEncode && is_array($v) && count($v) == 0) {
-				$ret[$k] = (object)[];
-			} else {
-				$ret[$k] = $v;
-			}
+			$ret[$k] = $v;
 		}
 		
-		// Special handling for empty objects
-		if ($forJSONEncode && count($ret) === 0) {
-			return new stdClass();
-		}
 		return $ret;
 	}
 	
@@ -174,7 +204,28 @@ class SFTPDestinationLocation {
 	 */
 	public function toJSON()
 	{
-		return json_encode( self::toArray(true) );
+		$arr = self::toArray();
+		if (count($arr) === 0) {
+			return "{}"; // object
+		} else {
+			return json_encode($arr);
+		}
+	}
+	
+	/**
+	 * Convert this object to a PHP \stdClass.
+	 * This may be a more convenient format for working with unknown class properties.
+	 *
+	 * @return \stdClass
+	 */
+	public function toStdClass()
+	{
+		$arr = self::toArray();
+		if (count($arr) === 0) {
+			return new \stdClass();
+		} else {
+			return json_decode(json_encode($arr));
+		}
 	}
 	
 	/**

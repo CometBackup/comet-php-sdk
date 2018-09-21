@@ -115,61 +115,76 @@ class UserPolicy {
 	private $__unknown_properties = [];
 	
 	/**
-	 * Replace the content of this UserPolicy object from a PHP array.
-	 * The data could be supplied from an API call after json_decode(..., true); or generated manually.
+	 * Replace the content of this UserPolicy object from a PHP \stdClass.
+	 * The data could be supplied from an API call after json_decode(...); or generated manually.
 	 *
-	 * @param array $decodedJsonObject Object data as PHP array
+	 * @param \stdClass $sc Object data as stdClass
 	 * @return void
 	 */
-	protected function inflateFrom(array $decodedJsonObject)
+	protected function inflateFrom(\stdClass $sc)
 	{
-		$this->PreventRequestStorageVault = (bool)($decodedJsonObject['PreventRequestStorageVault']);
-		
-		$this->PreventAddCustomStorageVault = (bool)($decodedJsonObject['PreventAddCustomStorageVault']);
-		
-		$this->PreventEditStorageVault = (bool)($decodedJsonObject['PreventEditStorageVault']);
-		
-		$this->PreventDeleteStorageVault = (bool)($decodedJsonObject['PreventDeleteStorageVault']);
-		
-		$this->StorageVaultProviders = \Comet\StorageVaultProviderPolicy::createFrom(isset($decodedJsonObject['StorageVaultProviders']) ? $decodedJsonObject['StorageVaultProviders'] : []);
-		
-		$this->PreventNewProtectedItem = (bool)($decodedJsonObject['PreventNewProtectedItem']);
-		
-		$this->PreventEditProtectedItem = (bool)($decodedJsonObject['PreventEditProtectedItem']);
-		
-		$this->PreventDeleteProtectedItem = (bool)($decodedJsonObject['PreventDeleteProtectedItem']);
-		
-		$this->ProtectedItemEngineTypes = \Comet\ProtectedItemEngineTypePolicy::createFrom(isset($decodedJsonObject['ProtectedItemEngineTypes']) ? $decodedJsonObject['ProtectedItemEngineTypes'] : []);
-		
-		if (array_key_exists('FileAndFolderMandatoryExclusions', $decodedJsonObject)) {
+		if (property_exists($sc, 'PreventRequestStorageVault')) {
+			$this->PreventRequestStorageVault = (bool)($sc->PreventRequestStorageVault);
+		}
+		if (property_exists($sc, 'PreventAddCustomStorageVault')) {
+			$this->PreventAddCustomStorageVault = (bool)($sc->PreventAddCustomStorageVault);
+		}
+		if (property_exists($sc, 'PreventEditStorageVault')) {
+			$this->PreventEditStorageVault = (bool)($sc->PreventEditStorageVault);
+		}
+		if (property_exists($sc, 'PreventDeleteStorageVault')) {
+			$this->PreventDeleteStorageVault = (bool)($sc->PreventDeleteStorageVault);
+		}
+		if (property_exists($sc, 'StorageVaultProviders')) {
+			$this->StorageVaultProviders = \Comet\StorageVaultProviderPolicy::createFromStdclass(isset($sc->StorageVaultProviders) ? $sc->StorageVaultProviders : []);
+		}
+		if (property_exists($sc, 'PreventNewProtectedItem')) {
+			$this->PreventNewProtectedItem = (bool)($sc->PreventNewProtectedItem);
+		}
+		if (property_exists($sc, 'PreventEditProtectedItem')) {
+			$this->PreventEditProtectedItem = (bool)($sc->PreventEditProtectedItem);
+		}
+		if (property_exists($sc, 'PreventDeleteProtectedItem')) {
+			$this->PreventDeleteProtectedItem = (bool)($sc->PreventDeleteProtectedItem);
+		}
+		if (property_exists($sc, 'ProtectedItemEngineTypes')) {
+			$this->ProtectedItemEngineTypes = \Comet\ProtectedItemEngineTypePolicy::createFromStdclass(isset($sc->ProtectedItemEngineTypes) ? $sc->ProtectedItemEngineTypes : []);
+		}
+		if (property_exists($sc, 'FileAndFolderMandatoryExclusions')) {
 			$val_2 = [];
-			for($i_2 = 0; $i_2 < count($decodedJsonObject['FileAndFolderMandatoryExclusions']); ++$i_2) {
-				$val_2[] = \Comet\ExtraFileExclusion::createFrom(isset($decodedJsonObject['FileAndFolderMandatoryExclusions'][$i_2]) ? $decodedJsonObject['FileAndFolderMandatoryExclusions'][$i_2] : []);
+			for($i_2 = 0; $i_2 < count($sc->FileAndFolderMandatoryExclusions); ++$i_2) {
+				$val_2[] = \Comet\ExtraFileExclusion::createFromStdclass(isset($sc->FileAndFolderMandatoryExclusions[$i_2]) ? $sc->FileAndFolderMandatoryExclusions[$i_2] : []);
 			}
 			$this->FileAndFolderMandatoryExclusions = $val_2;
-			
 		}
-		if (array_key_exists('ModeScheduleSkipAlreadyRunning', $decodedJsonObject)) {
-			$this->ModeScheduleSkipAlreadyRunning = (int)($decodedJsonObject['ModeScheduleSkipAlreadyRunning']);
-			
+		if (property_exists($sc, 'ModeScheduleSkipAlreadyRunning')) {
+			$this->ModeScheduleSkipAlreadyRunning = (int)($sc->ModeScheduleSkipAlreadyRunning);
 		}
-		$this->PreventDeleteSingleSnapshots = (bool)($decodedJsonObject['PreventDeleteSingleSnapshots']);
-		
-		$this->PreventChangeAccountPassword = (bool)($decodedJsonObject['PreventChangeAccountPassword']);
-		
-		$this->PreventChangeEmailSettings = (bool)($decodedJsonObject['PreventChangeEmailSettings']);
-		
-		$this->PreventOpenAppUI = (bool)($decodedJsonObject['PreventOpenAppUI']);
-		
-		$this->HideAppImport = (bool)($decodedJsonObject['HideAppImport']);
-		
-		$this->HideAppVersion = (bool)($decodedJsonObject['HideAppVersion']);
-		
-		$this->PreventOpenWebUI = (bool)($decodedJsonObject['PreventOpenWebUI']);
-		
-		$this->PreventViewDeviceNames = (bool)($decodedJsonObject['PreventViewDeviceNames']);
-		
-		foreach($decodedJsonObject as $k => $v) {
+		if (property_exists($sc, 'PreventDeleteSingleSnapshots')) {
+			$this->PreventDeleteSingleSnapshots = (bool)($sc->PreventDeleteSingleSnapshots);
+		}
+		if (property_exists($sc, 'PreventChangeAccountPassword')) {
+			$this->PreventChangeAccountPassword = (bool)($sc->PreventChangeAccountPassword);
+		}
+		if (property_exists($sc, 'PreventChangeEmailSettings')) {
+			$this->PreventChangeEmailSettings = (bool)($sc->PreventChangeEmailSettings);
+		}
+		if (property_exists($sc, 'PreventOpenAppUI')) {
+			$this->PreventOpenAppUI = (bool)($sc->PreventOpenAppUI);
+		}
+		if (property_exists($sc, 'HideAppImport')) {
+			$this->HideAppImport = (bool)($sc->HideAppImport);
+		}
+		if (property_exists($sc, 'HideAppVersion')) {
+			$this->HideAppVersion = (bool)($sc->HideAppVersion);
+		}
+		if (property_exists($sc, 'PreventOpenWebUI')) {
+			$this->PreventOpenWebUI = (bool)($sc->PreventOpenWebUI);
+		}
+		if (property_exists($sc, 'PreventViewDeviceNames')) {
+			$this->PreventViewDeviceNames = (bool)($sc->PreventViewDeviceNames);
+		}
+		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'PreventRequestStorageVault':
 			case 'PreventAddCustomStorageVault':
@@ -198,16 +213,46 @@ class UserPolicy {
 	}
 	
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed UserPolicy object.
+	 * Coerce a stdClass into a new strongly-typed UserPolicy object.
 	 *
-	 * @param array $decodedJsonObject Object data as PHP array
+	 * @param \stdClass $sc Object data as stdClass
 	 * @return UserPolicy
 	 */
-	public static function createFrom(array $decodedJsonObject)
+	public static function createFromStdclass(\stdClass $sc)
 	{
 		$retn = new UserPolicy();
-		$retn->inflateFrom($decodedJsonObject);
+		$retn->inflateFrom($sc);
 		return $retn;
+	}
+	
+	/**
+	 * Coerce a plain PHP array into a new strongly-typed UserPolicy object.
+	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
+	 * the result of this method may not be safe to re-submit to the Comet Server.
+	 *
+	 * @param array $arr Object data as PHP array
+	 * @return UserPolicy
+	 */
+	public static function createFromArray(array $arr)
+	{
+		$stdClass = json_decode(json_encode($arr));
+		return self::createFromStdclass($stdClass);
+	}
+	
+	/**
+	 * Coerce a plain PHP array into a new strongly-typed UserPolicy object.
+	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
+	 * the result of this method may not be safe to re-submit to the Comet Server.
+	 *
+	 * @deprecated 3.0.0 Unsafe for round-trip server traversal. You should either 
+	 *             (A) acknowledge this and continue by switching to createFromArray, or
+	 *             (b) switch to the roundtrip-safe createFromStdclass alternative.
+	 * @param array $arr Object data as PHP array
+	 * @return UserPolicy
+	 */
+	public static function createFrom(array $arr)
+	{
+		return self::createFromArray($arr);
 	}
 	
 	/**
@@ -218,7 +263,7 @@ class UserPolicy {
 	 */
 	public static function createFromJSON($JsonString)
 	{
-		$decodedJsonObject = json_decode($JsonString, true);
+		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg());
 		}
@@ -230,11 +275,11 @@ class UserPolicy {
 	/**
 	 * Convert this UserPolicy object into a plain PHP array.
 	 *
-	 * @param bool $forJSONEncode Set true to use stdClass() for empty objects instead of just [], in order to
-	 *                             accurately roundtrip empty objects/arrays through json_encode() compatibility
+	 * Unknown properties may still be represented as \stdClass objects.
+	 *
 	 * @return array
 	 */
-	public function toArray($forJSONEncode=false)
+	public function toArray()
 	{
 		$ret = [];
 		$ret["PreventRequestStorageVault"] = $this->PreventRequestStorageVault;
@@ -278,17 +323,9 @@ class UserPolicy {
 		
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
-			if ($forJSONEncode && is_array($v) && count($v) == 0) {
-				$ret[$k] = (object)[];
-			} else {
-				$ret[$k] = $v;
-			}
+			$ret[$k] = $v;
 		}
 		
-		// Special handling for empty objects
-		if ($forJSONEncode && count($ret) === 0) {
-			return new stdClass();
-		}
 		return $ret;
 	}
 	
@@ -300,7 +337,28 @@ class UserPolicy {
 	 */
 	public function toJSON()
 	{
-		return json_encode( self::toArray(true) );
+		$arr = self::toArray();
+		if (count($arr) === 0) {
+			return "{}"; // object
+		} else {
+			return json_encode($arr);
+		}
+	}
+	
+	/**
+	 * Convert this object to a PHP \stdClass.
+	 * This may be a more convenient format for working with unknown class properties.
+	 *
+	 * @return \stdClass
+	 */
+	public function toStdClass()
+	{
+		$arr = self::toArray();
+		if (count($arr) === 0) {
+			return new \stdClass();
+		} else {
+			return json_decode(json_encode($arr));
+		}
 	}
 	
 	/**

@@ -110,55 +110,69 @@ class BackupJobDetail {
 	private $__unknown_properties = [];
 	
 	/**
-	 * Replace the content of this BackupJobDetail object from a PHP array.
-	 * The data could be supplied from an API call after json_decode(..., true); or generated manually.
+	 * Replace the content of this BackupJobDetail object from a PHP \stdClass.
+	 * The data could be supplied from an API call after json_decode(...); or generated manually.
 	 *
-	 * @param array $decodedJsonObject Object data as PHP array
+	 * @param \stdClass $sc Object data as stdClass
 	 * @return void
 	 */
-	protected function inflateFrom(array $decodedJsonObject)
+	protected function inflateFrom(\stdClass $sc)
 	{
-		$this->GUID = (string)($decodedJsonObject['GUID']);
-		
-		$this->Username = (string)($decodedJsonObject['Username']);
-		
-		$this->Classification = (int)($decodedJsonObject['Classification']);
-		
-		$this->Status = (int)($decodedJsonObject['Status']);
-		
-		$this->StartTime = (int)($decodedJsonObject['StartTime']);
-		
-		$this->EndTime = (int)($decodedJsonObject['EndTime']);
-		
-		$this->SourceGUID = (string)($decodedJsonObject['SourceGUID']);
-		
-		$this->DestinationGUID = (string)($decodedJsonObject['DestinationGUID']);
-		
-		$this->DeviceID = (string)($decodedJsonObject['DeviceID']);
-		
-		$this->ClientVersion = (string)($decodedJsonObject['ClientVersion']);
-		
-		$this->TotalDirectories = (int)($decodedJsonObject['TotalDirectories']);
-		
-		$this->TotalFiles = (int)($decodedJsonObject['TotalFiles']);
-		
-		$this->TotalSize = (int)($decodedJsonObject['TotalSize']);
-		
-		$this->TotalChunks = (int)($decodedJsonObject['TotalChunks']);
-		
-		$this->UploadSize = (int)($decodedJsonObject['UploadSize']);
-		
-		$this->DownloadSize = (int)($decodedJsonObject['DownloadSize']);
-		
-		if (array_key_exists('CancellationID', $decodedJsonObject)) {
-			$this->CancellationID = (string)($decodedJsonObject['CancellationID']);
-			
+		if (property_exists($sc, 'GUID')) {
+			$this->GUID = (string)($sc->GUID);
 		}
-		if (array_key_exists('Progress', $decodedJsonObject)) {
-			$this->Progress = \Comet\BackupJobProgress::createFrom(isset($decodedJsonObject['Progress']) ? $decodedJsonObject['Progress'] : []);
-			
+		if (property_exists($sc, 'Username')) {
+			$this->Username = (string)($sc->Username);
 		}
-		foreach($decodedJsonObject as $k => $v) {
+		if (property_exists($sc, 'Classification')) {
+			$this->Classification = (int)($sc->Classification);
+		}
+		if (property_exists($sc, 'Status')) {
+			$this->Status = (int)($sc->Status);
+		}
+		if (property_exists($sc, 'StartTime')) {
+			$this->StartTime = (int)($sc->StartTime);
+		}
+		if (property_exists($sc, 'EndTime')) {
+			$this->EndTime = (int)($sc->EndTime);
+		}
+		if (property_exists($sc, 'SourceGUID')) {
+			$this->SourceGUID = (string)($sc->SourceGUID);
+		}
+		if (property_exists($sc, 'DestinationGUID')) {
+			$this->DestinationGUID = (string)($sc->DestinationGUID);
+		}
+		if (property_exists($sc, 'DeviceID')) {
+			$this->DeviceID = (string)($sc->DeviceID);
+		}
+		if (property_exists($sc, 'ClientVersion')) {
+			$this->ClientVersion = (string)($sc->ClientVersion);
+		}
+		if (property_exists($sc, 'TotalDirectories')) {
+			$this->TotalDirectories = (int)($sc->TotalDirectories);
+		}
+		if (property_exists($sc, 'TotalFiles')) {
+			$this->TotalFiles = (int)($sc->TotalFiles);
+		}
+		if (property_exists($sc, 'TotalSize')) {
+			$this->TotalSize = (int)($sc->TotalSize);
+		}
+		if (property_exists($sc, 'TotalChunks')) {
+			$this->TotalChunks = (int)($sc->TotalChunks);
+		}
+		if (property_exists($sc, 'UploadSize')) {
+			$this->UploadSize = (int)($sc->UploadSize);
+		}
+		if (property_exists($sc, 'DownloadSize')) {
+			$this->DownloadSize = (int)($sc->DownloadSize);
+		}
+		if (property_exists($sc, 'CancellationID')) {
+			$this->CancellationID = (string)($sc->CancellationID);
+		}
+		if (property_exists($sc, 'Progress')) {
+			$this->Progress = \Comet\BackupJobProgress::createFromStdclass(isset($sc->Progress) ? $sc->Progress : []);
+		}
+		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'GUID':
 			case 'Username':
@@ -186,16 +200,46 @@ class BackupJobDetail {
 	}
 	
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed BackupJobDetail object.
+	 * Coerce a stdClass into a new strongly-typed BackupJobDetail object.
 	 *
-	 * @param array $decodedJsonObject Object data as PHP array
+	 * @param \stdClass $sc Object data as stdClass
 	 * @return BackupJobDetail
 	 */
-	public static function createFrom(array $decodedJsonObject)
+	public static function createFromStdclass(\stdClass $sc)
 	{
 		$retn = new BackupJobDetail();
-		$retn->inflateFrom($decodedJsonObject);
+		$retn->inflateFrom($sc);
 		return $retn;
+	}
+	
+	/**
+	 * Coerce a plain PHP array into a new strongly-typed BackupJobDetail object.
+	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
+	 * the result of this method may not be safe to re-submit to the Comet Server.
+	 *
+	 * @param array $arr Object data as PHP array
+	 * @return BackupJobDetail
+	 */
+	public static function createFromArray(array $arr)
+	{
+		$stdClass = json_decode(json_encode($arr));
+		return self::createFromStdclass($stdClass);
+	}
+	
+	/**
+	 * Coerce a plain PHP array into a new strongly-typed BackupJobDetail object.
+	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
+	 * the result of this method may not be safe to re-submit to the Comet Server.
+	 *
+	 * @deprecated 3.0.0 Unsafe for round-trip server traversal. You should either 
+	 *             (A) acknowledge this and continue by switching to createFromArray, or
+	 *             (b) switch to the roundtrip-safe createFromStdclass alternative.
+	 * @param array $arr Object data as PHP array
+	 * @return BackupJobDetail
+	 */
+	public static function createFrom(array $arr)
+	{
+		return self::createFromArray($arr);
 	}
 	
 	/**
@@ -206,7 +250,7 @@ class BackupJobDetail {
 	 */
 	public static function createFromJSON($JsonString)
 	{
-		$decodedJsonObject = json_decode($JsonString, true);
+		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg());
 		}
@@ -218,11 +262,11 @@ class BackupJobDetail {
 	/**
 	 * Convert this BackupJobDetail object into a plain PHP array.
 	 *
-	 * @param bool $forJSONEncode Set true to use stdClass() for empty objects instead of just [], in order to
-	 *                             accurately roundtrip empty objects/arrays through json_encode() compatibility
+	 * Unknown properties may still be represented as \stdClass objects.
+	 *
 	 * @return array
 	 */
-	public function toArray($forJSONEncode=false)
+	public function toArray()
 	{
 		$ret = [];
 		$ret["GUID"] = $this->GUID;
@@ -250,17 +294,9 @@ class BackupJobDetail {
 		
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
-			if ($forJSONEncode && is_array($v) && count($v) == 0) {
-				$ret[$k] = (object)[];
-			} else {
-				$ret[$k] = $v;
-			}
+			$ret[$k] = $v;
 		}
 		
-		// Special handling for empty objects
-		if ($forJSONEncode && count($ret) === 0) {
-			return new stdClass();
-		}
 		return $ret;
 	}
 	
@@ -272,7 +308,28 @@ class BackupJobDetail {
 	 */
 	public function toJSON()
 	{
-		return json_encode( self::toArray(true) );
+		$arr = self::toArray();
+		if (count($arr) === 0) {
+			return "{}"; // object
+		} else {
+			return json_encode($arr);
+		}
+	}
+	
+	/**
+	 * Convert this object to a PHP \stdClass.
+	 * This may be a more convenient format for working with unknown class properties.
+	 *
+	 * @return \stdClass
+	 */
+	public function toStdClass()
+	{
+		$arr = self::toArray();
+		if (count($arr) === 0) {
+			return new \stdClass();
+		} else {
+			return json_decode(json_encode($arr));
+		}
 	}
 	
 	/**

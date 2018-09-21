@@ -120,85 +120,103 @@ class UserProfileConfig {
 	private $__unknown_properties = [];
 	
 	/**
-	 * Replace the content of this UserProfileConfig object from a PHP array.
-	 * The data could be supplied from an API call after json_decode(..., true); or generated manually.
+	 * Replace the content of this UserProfileConfig object from a PHP \stdClass.
+	 * The data could be supplied from an API call after json_decode(...); or generated manually.
 	 *
-	 * @param array $decodedJsonObject Object data as PHP array
+	 * @param \stdClass $sc Object data as stdClass
 	 * @return void
 	 */
-	protected function inflateFrom(array $decodedJsonObject)
+	protected function inflateFrom(\stdClass $sc)
 	{
-		$this->Username = (string)($decodedJsonObject['Username']);
-		
-		$this->LocalTimezone = (string)($decodedJsonObject['LocalTimezone']);
-		
-		$this->LanguageCode = (string)($decodedJsonObject['LanguageCode']);
-		
-		$val_2 = [];
-		for($i_2 = 0; $i_2 < count($decodedJsonObject['Emails']); ++$i_2) {
-			$val_2[] = (string)($decodedJsonObject['Emails'][$i_2]);
+		if (property_exists($sc, 'Username')) {
+			$this->Username = (string)($sc->Username);
 		}
-		$this->Emails = $val_2;
-		
-		$this->SendEmailReports = (bool)($decodedJsonObject['SendEmailReports']);
-		
-		$val_2 = [];
-		foreach($decodedJsonObject['Destinations'] as $k_2 => $v_2) {
-			$phpk_2 = (string)($k_2);
-			$phpv_2 = \Comet\DestinationConfig::createFrom(isset($v_2) ? $v_2 : []);
-			$val_2[$phpk_2] = $phpv_2;
+		if (property_exists($sc, 'LocalTimezone')) {
+			$this->LocalTimezone = (string)($sc->LocalTimezone);
 		}
-		$this->Destinations = $val_2;
-		
-		$val_2 = [];
-		foreach($decodedJsonObject['Sources'] as $k_2 => $v_2) {
-			$phpk_2 = (string)($k_2);
-			$phpv_2 = \Comet\SourceConfig::createFrom(isset($v_2) ? $v_2 : []);
-			$val_2[$phpk_2] = $phpv_2;
+		if (property_exists($sc, 'LanguageCode')) {
+			$this->LanguageCode = (string)($sc->LanguageCode);
 		}
-		$this->Sources = $val_2;
-		
-		$val_2 = [];
-		foreach($decodedJsonObject['BackupRules'] as $k_2 => $v_2) {
-			$phpk_2 = (string)($k_2);
-			$phpv_2 = \Comet\BackupRuleConfig::createFrom(isset($v_2) ? $v_2 : []);
-			$val_2[$phpk_2] = $phpv_2;
+		if (property_exists($sc, 'Emails')) {
+			$val_2 = [];
+			for($i_2 = 0; $i_2 < count($sc->Emails); ++$i_2) {
+				$val_2[] = (string)($sc->Emails[$i_2]);
+			}
+			$this->Emails = $val_2;
 		}
-		$this->BackupRules = $val_2;
-		
-		$val_2 = [];
-		foreach($decodedJsonObject['Devices'] as $k_2 => $v_2) {
-			$phpk_2 = (string)($k_2);
-			$phpv_2 = \Comet\DeviceConfig::createFrom(isset($v_2) ? $v_2 : []);
-			$val_2[$phpk_2] = $phpv_2;
+		if (property_exists($sc, 'SendEmailReports')) {
+			$this->SendEmailReports = (bool)($sc->SendEmailReports);
 		}
-		$this->Devices = $val_2;
-		
-		$this->IsSuspended = (bool)($decodedJsonObject['IsSuspended']);
-		
-		$this->AllProtectedItemsQuotaEnabled = (bool)($decodedJsonObject['AllProtectedItemsQuotaEnabled']);
-		
-		$this->AllProtectedItemsQuotaBytes = (int)($decodedJsonObject['AllProtectedItemsQuotaBytes']);
-		
-		$this->MaximumDevices = (int)($decodedJsonObject['MaximumDevices']);
-		
-		$this->PolicyID = (string)($decodedJsonObject['PolicyID']);
-		
-		$this->Policy = \Comet\UserPolicy::createFrom(isset($decodedJsonObject['Policy']) ? $decodedJsonObject['Policy'] : []);
-		
-		$this->PasswordFormat = (int)($decodedJsonObject['PasswordFormat']);
-		
-		$this->PasswordHash = (string)($decodedJsonObject['PasswordHash']);
-		
-		if (array_key_exists('PasswordRecovery', $decodedJsonObject)) {
-			$this->PasswordRecovery = (string)($decodedJsonObject['PasswordRecovery']);
-			
+		if (property_exists($sc, 'Destinations')) {
+			$val_2 = [];
+			foreach($sc->Destinations as $k_2 => $v_2) {
+				$phpk_2 = (string)($k_2);
+				$phpv_2 = \Comet\DestinationConfig::createFromStdclass(isset($v_2) ? $v_2 : []);
+				$val_2[$phpk_2] = $phpv_2;
+			}
+			$this->Destinations = $val_2;
 		}
-		$this->CreateTime = (int)($decodedJsonObject['CreateTime']);
-		
-		$this->CreationGUID = (string)($decodedJsonObject['CreationGUID']);
-		
-		foreach($decodedJsonObject as $k => $v) {
+		if (property_exists($sc, 'Sources')) {
+			$val_2 = [];
+			foreach($sc->Sources as $k_2 => $v_2) {
+				$phpk_2 = (string)($k_2);
+				$phpv_2 = \Comet\SourceConfig::createFromStdclass(isset($v_2) ? $v_2 : []);
+				$val_2[$phpk_2] = $phpv_2;
+			}
+			$this->Sources = $val_2;
+		}
+		if (property_exists($sc, 'BackupRules')) {
+			$val_2 = [];
+			foreach($sc->BackupRules as $k_2 => $v_2) {
+				$phpk_2 = (string)($k_2);
+				$phpv_2 = \Comet\BackupRuleConfig::createFromStdclass(isset($v_2) ? $v_2 : []);
+				$val_2[$phpk_2] = $phpv_2;
+			}
+			$this->BackupRules = $val_2;
+		}
+		if (property_exists($sc, 'Devices')) {
+			$val_2 = [];
+			foreach($sc->Devices as $k_2 => $v_2) {
+				$phpk_2 = (string)($k_2);
+				$phpv_2 = \Comet\DeviceConfig::createFromStdclass(isset($v_2) ? $v_2 : []);
+				$val_2[$phpk_2] = $phpv_2;
+			}
+			$this->Devices = $val_2;
+		}
+		if (property_exists($sc, 'IsSuspended')) {
+			$this->IsSuspended = (bool)($sc->IsSuspended);
+		}
+		if (property_exists($sc, 'AllProtectedItemsQuotaEnabled')) {
+			$this->AllProtectedItemsQuotaEnabled = (bool)($sc->AllProtectedItemsQuotaEnabled);
+		}
+		if (property_exists($sc, 'AllProtectedItemsQuotaBytes')) {
+			$this->AllProtectedItemsQuotaBytes = (int)($sc->AllProtectedItemsQuotaBytes);
+		}
+		if (property_exists($sc, 'MaximumDevices')) {
+			$this->MaximumDevices = (int)($sc->MaximumDevices);
+		}
+		if (property_exists($sc, 'PolicyID')) {
+			$this->PolicyID = (string)($sc->PolicyID);
+		}
+		if (property_exists($sc, 'Policy')) {
+			$this->Policy = \Comet\UserPolicy::createFromStdclass(isset($sc->Policy) ? $sc->Policy : []);
+		}
+		if (property_exists($sc, 'PasswordFormat')) {
+			$this->PasswordFormat = (int)($sc->PasswordFormat);
+		}
+		if (property_exists($sc, 'PasswordHash')) {
+			$this->PasswordHash = (string)($sc->PasswordHash);
+		}
+		if (property_exists($sc, 'PasswordRecovery')) {
+			$this->PasswordRecovery = (string)($sc->PasswordRecovery);
+		}
+		if (property_exists($sc, 'CreateTime')) {
+			$this->CreateTime = (int)($sc->CreateTime);
+		}
+		if (property_exists($sc, 'CreationGUID')) {
+			$this->CreationGUID = (string)($sc->CreationGUID);
+		}
+		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Username':
 			case 'LocalTimezone':
@@ -228,16 +246,46 @@ class UserProfileConfig {
 	}
 	
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed UserProfileConfig object.
+	 * Coerce a stdClass into a new strongly-typed UserProfileConfig object.
 	 *
-	 * @param array $decodedJsonObject Object data as PHP array
+	 * @param \stdClass $sc Object data as stdClass
 	 * @return UserProfileConfig
 	 */
-	public static function createFrom(array $decodedJsonObject)
+	public static function createFromStdclass(\stdClass $sc)
 	{
 		$retn = new UserProfileConfig();
-		$retn->inflateFrom($decodedJsonObject);
+		$retn->inflateFrom($sc);
 		return $retn;
+	}
+	
+	/**
+	 * Coerce a plain PHP array into a new strongly-typed UserProfileConfig object.
+	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
+	 * the result of this method may not be safe to re-submit to the Comet Server.
+	 *
+	 * @param array $arr Object data as PHP array
+	 * @return UserProfileConfig
+	 */
+	public static function createFromArray(array $arr)
+	{
+		$stdClass = json_decode(json_encode($arr));
+		return self::createFromStdclass($stdClass);
+	}
+	
+	/**
+	 * Coerce a plain PHP array into a new strongly-typed UserProfileConfig object.
+	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
+	 * the result of this method may not be safe to re-submit to the Comet Server.
+	 *
+	 * @deprecated 3.0.0 Unsafe for round-trip server traversal. You should either 
+	 *             (A) acknowledge this and continue by switching to createFromArray, or
+	 *             (b) switch to the roundtrip-safe createFromStdclass alternative.
+	 * @param array $arr Object data as PHP array
+	 * @return UserProfileConfig
+	 */
+	public static function createFrom(array $arr)
+	{
+		return self::createFromArray($arr);
 	}
 	
 	/**
@@ -248,7 +296,7 @@ class UserProfileConfig {
 	 */
 	public static function createFromJSON($JsonString)
 	{
-		$decodedJsonObject = json_decode($JsonString, true);
+		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg());
 		}
@@ -260,11 +308,11 @@ class UserProfileConfig {
 	/**
 	 * Convert this UserProfileConfig object into a plain PHP array.
 	 *
-	 * @param bool $forJSONEncode Set true to use stdClass() for empty objects instead of just [], in order to
-	 *                             accurately roundtrip empty objects/arrays through json_encode() compatibility
+	 * Unknown properties may still be represented as \stdClass objects.
+	 *
 	 * @return array
 	 */
-	public function toArray($forJSONEncode=false)
+	public function toArray()
 	{
 		$ret = [];
 		$ret["Username"] = $this->Username;
@@ -365,17 +413,9 @@ class UserProfileConfig {
 		
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
-			if ($forJSONEncode && is_array($v) && count($v) == 0) {
-				$ret[$k] = (object)[];
-			} else {
-				$ret[$k] = $v;
-			}
+			$ret[$k] = $v;
 		}
 		
-		// Special handling for empty objects
-		if ($forJSONEncode && count($ret) === 0) {
-			return new stdClass();
-		}
 		return $ret;
 	}
 	
@@ -387,7 +427,28 @@ class UserProfileConfig {
 	 */
 	public function toJSON()
 	{
-		return json_encode( self::toArray(true) );
+		$arr = self::toArray();
+		if (count($arr) === 0) {
+			return "{}"; // object
+		} else {
+			return json_encode($arr);
+		}
+	}
+	
+	/**
+	 * Convert this object to a PHP \stdClass.
+	 * This may be a more convenient format for working with unknown class properties.
+	 *
+	 * @return \stdClass
+	 */
+	public function toStdClass()
+	{
+		$arr = self::toArray();
+		if (count($arr) === 0) {
+			return new \stdClass();
+		} else {
+			return json_decode(json_encode($arr));
+		}
 	}
 	
 	/**

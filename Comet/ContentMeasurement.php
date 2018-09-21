@@ -35,25 +35,28 @@ class ContentMeasurement {
 	private $__unknown_properties = [];
 	
 	/**
-	 * Replace the content of this ContentMeasurement object from a PHP array.
-	 * The data could be supplied from an API call after json_decode(..., true); or generated manually.
+	 * Replace the content of this ContentMeasurement object from a PHP \stdClass.
+	 * The data could be supplied from an API call after json_decode(...); or generated manually.
 	 *
-	 * @param array $decodedJsonObject Object data as PHP array
+	 * @param \stdClass $sc Object data as stdClass
 	 * @return void
 	 */
-	protected function inflateFrom(array $decodedJsonObject)
+	protected function inflateFrom(\stdClass $sc)
 	{
-		$this->MeasureStarted = (int)($decodedJsonObject['MeasureStarted']);
-		
-		$this->MeasureCompleted = (int)($decodedJsonObject['MeasureCompleted']);
-		
-		$val_2 = [];
-		for($i_2 = 0; $i_2 < count($decodedJsonObject['Components']); ++$i_2) {
-			$val_2[] = \Comet\ContentMeasurementComponent::createFrom(isset($decodedJsonObject['Components'][$i_2]) ? $decodedJsonObject['Components'][$i_2] : []);
+		if (property_exists($sc, 'MeasureStarted')) {
+			$this->MeasureStarted = (int)($sc->MeasureStarted);
 		}
-		$this->Components = $val_2;
-		
-		foreach($decodedJsonObject as $k => $v) {
+		if (property_exists($sc, 'MeasureCompleted')) {
+			$this->MeasureCompleted = (int)($sc->MeasureCompleted);
+		}
+		if (property_exists($sc, 'Components')) {
+			$val_2 = [];
+			for($i_2 = 0; $i_2 < count($sc->Components); ++$i_2) {
+				$val_2[] = \Comet\ContentMeasurementComponent::createFromStdclass(isset($sc->Components[$i_2]) ? $sc->Components[$i_2] : []);
+			}
+			$this->Components = $val_2;
+		}
+		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'MeasureStarted':
 			case 'MeasureCompleted':
@@ -66,16 +69,46 @@ class ContentMeasurement {
 	}
 	
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed ContentMeasurement object.
+	 * Coerce a stdClass into a new strongly-typed ContentMeasurement object.
 	 *
-	 * @param array $decodedJsonObject Object data as PHP array
+	 * @param \stdClass $sc Object data as stdClass
 	 * @return ContentMeasurement
 	 */
-	public static function createFrom(array $decodedJsonObject)
+	public static function createFromStdclass(\stdClass $sc)
 	{
 		$retn = new ContentMeasurement();
-		$retn->inflateFrom($decodedJsonObject);
+		$retn->inflateFrom($sc);
 		return $retn;
+	}
+	
+	/**
+	 * Coerce a plain PHP array into a new strongly-typed ContentMeasurement object.
+	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
+	 * the result of this method may not be safe to re-submit to the Comet Server.
+	 *
+	 * @param array $arr Object data as PHP array
+	 * @return ContentMeasurement
+	 */
+	public static function createFromArray(array $arr)
+	{
+		$stdClass = json_decode(json_encode($arr));
+		return self::createFromStdclass($stdClass);
+	}
+	
+	/**
+	 * Coerce a plain PHP array into a new strongly-typed ContentMeasurement object.
+	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
+	 * the result of this method may not be safe to re-submit to the Comet Server.
+	 *
+	 * @deprecated 3.0.0 Unsafe for round-trip server traversal. You should either 
+	 *             (A) acknowledge this and continue by switching to createFromArray, or
+	 *             (b) switch to the roundtrip-safe createFromStdclass alternative.
+	 * @param array $arr Object data as PHP array
+	 * @return ContentMeasurement
+	 */
+	public static function createFrom(array $arr)
+	{
+		return self::createFromArray($arr);
 	}
 	
 	/**
@@ -86,7 +119,7 @@ class ContentMeasurement {
 	 */
 	public static function createFromJSON($JsonString)
 	{
-		$decodedJsonObject = json_decode($JsonString, true);
+		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg());
 		}
@@ -98,11 +131,11 @@ class ContentMeasurement {
 	/**
 	 * Convert this ContentMeasurement object into a plain PHP array.
 	 *
-	 * @param bool $forJSONEncode Set true to use stdClass() for empty objects instead of just [], in order to
-	 *                             accurately roundtrip empty objects/arrays through json_encode() compatibility
+	 * Unknown properties may still be represented as \stdClass objects.
+	 *
 	 * @return array
 	 */
-	public function toArray($forJSONEncode=false)
+	public function toArray()
 	{
 		$ret = [];
 		$ret["MeasureStarted"] = $this->MeasureStarted;
@@ -122,17 +155,9 @@ class ContentMeasurement {
 		
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
-			if ($forJSONEncode && is_array($v) && count($v) == 0) {
-				$ret[$k] = (object)[];
-			} else {
-				$ret[$k] = $v;
-			}
+			$ret[$k] = $v;
 		}
 		
-		// Special handling for empty objects
-		if ($forJSONEncode && count($ret) === 0) {
-			return new stdClass();
-		}
 		return $ret;
 	}
 	
@@ -144,7 +169,28 @@ class ContentMeasurement {
 	 */
 	public function toJSON()
 	{
-		return json_encode( self::toArray(true) );
+		$arr = self::toArray();
+		if (count($arr) === 0) {
+			return "{}"; // object
+		} else {
+			return json_encode($arr);
+		}
+	}
+	
+	/**
+	 * Convert this object to a PHP \stdClass.
+	 * This may be a more convenient format for working with unknown class properties.
+	 *
+	 * @return \stdClass
+	 */
+	public function toStdClass()
+	{
+		$arr = self::toArray();
+		if (count($arr) === 0) {
+			return new \stdClass();
+		} else {
+			return json_decode(json_encode($arr));
+		}
 	}
 	
 	/**

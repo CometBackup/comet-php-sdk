@@ -64,15 +64,15 @@ class AdminStorageListBucketsRequest implements \Comet\NetworkRequest {
 		}
 		
 		// Decode JSON
-		$decoded = \json_decode($body, true);
+		$decoded = \json_decode($body); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg());
 		}
 		
 		// Try to parse as error format
-		$isCARMDerivedType = (array_key_exists('Status', $decoded) && array_key_exists('Message', $decoded));
+		$isCARMDerivedType = (($decoded instanceof stdClass) && property_exists($decoded, 'Status') && property_exists($decoded, 'Message'));
 		if ($isCARMDerivedType) {
-			$carm = \Comet\APIResponseMessage::createFrom($decoded);
+			$carm = \Comet\APIResponseMessage::createFromStdclass($decoded);
 			if ($carm->Status !== 200) {
 				throw new \Exception("Error " . $carm->Status . ": " . $carm->Message);
 			}
@@ -82,7 +82,7 @@ class AdminStorageListBucketsRequest implements \Comet\NetworkRequest {
 		$val_0 = [];
 		foreach($decoded as $k_0 => $v_0) {
 			$phpk_0 = (string)($k_0);
-			$phpv_0 = \Comet\BucketProperties::createFrom(isset($v_0) ? $v_0 : []);
+			$phpv_0 = \Comet\BucketProperties::createFromStdclass(isset($v_0) ? $v_0 : []);
 			$val_0[$phpk_0] = $phpv_0;
 		}
 		$ret = $val_0;
