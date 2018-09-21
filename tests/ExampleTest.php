@@ -98,5 +98,46 @@ class ExampleTest extends \PHPUnit\Framework\TestCase {
 		$this->assertTrue( self::sizeWithinRange(strlen($data), 10, 15), "Got size ".strlen($data)." for windows-x86_64-zip, expected 10-15 MB" );
 
 	}
+
+	public function testModifyServerSettings() {
+		
+		// In the Comet 18.9.x era, the server settings classes are still
+		// undocumented and may change across versions. The SDK includes blank
+		// stub classes for these, that can be used to modify server settings
+		// by known properties.
+		
+		$current_server_start_time = $this->server->AdminMetaVersion()->ServerStartTime;
+
+		$config = $this->server->AdminMetaServerConfigGet()->toStdClass();
+
+		$this->assertStringMatchesFormat('%c%c%c%c-%c%c%c%c-%c%c%c%c-%c%c%c%c-%c%c%c%c-%c%c%c%c', $config->License->SerialNumber);
+
+		// Make some trivial modification to the configuration...
+		// TODO
+
+		// Re-serialize and submit to server
+		$this->server->AdminMetaServerConfigSet(\Comet\ServerConfigOptions::createFromStdclass($config));
+
+		// Wait for the server to come back online...
+		$back_online = false;
+		for ($i = 0; $i < 20; ++$i) { // max wait=10s
+			try {
+				$inf = $this->server->AdminMetaVersion();
+
+				$back_online = true;
+				break; // success
+			} catch (\Exception $ex) {
+				usleep(500000); // 500ms
+				continue; // suppress
+			}
+		}
+		$this->assertTrue($back_online, "Server failed to come back online after config modification");
+
+		// Check that the server really did restart
+		$this->assertGreaterThan($current_server_start_time, $this->server->AdminMetaVersion()->ServerStartTime);
+
+		// Check if our trivial modification is still there
+		// TODO
+	}
 	
 }
