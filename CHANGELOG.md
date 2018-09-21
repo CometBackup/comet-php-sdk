@@ -5,7 +5,7 @@
 - **BREAKING:** Throw exception on all non-200 status responses
 - **BREAKING:** Make `inflateFrom()` method protected
 - **BREAKING:** Remove `forJSONEncode` parameter from `toArray()` class methods
-- Accurately round-trip empty arrays/objects instead of using a heuristc
+- Accurately round-trip empty arrays/objects instead of using a heuristic
 - New `createFromArray()`, `createFromJSON()`, `createFromStdclass()`, `toStdclass()` class methods
 - Add test cases for downloading client software and for modifying server settings
 - Fix an issue with `@unreached` response types
