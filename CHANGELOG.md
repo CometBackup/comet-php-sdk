@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 2018-10-10 v2.1.0
+- Based on Comet 18.9.5-rc
+- Support new email functionality
+- Fix an issue with `AdminReplicationStateRequest` response types
+
 ## 2018-09-21 v2.0.0
 - Based on Comet 18.9.2
 - **BREAKING:** Throw exception on all non-200 status responses
