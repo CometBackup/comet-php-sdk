@@ -32,6 +32,11 @@ class UserProfileConfig {
 	public $Emails = [];
 	
 	/**
+	 * @var \Comet\UserCustomEmailSettings[] An array with string keys.
+	 */
+	public $OverrideEmailSettings = [];
+	
+	/**
 	 * @var boolean
 	 */
 	public $SendEmailReports = false;
@@ -144,6 +149,15 @@ class UserProfileConfig {
 			}
 			$this->Emails = $val_2;
 		}
+		if (property_exists($sc, 'OverrideEmailSettings')) {
+			$val_2 = [];
+			foreach($sc->OverrideEmailSettings as $k_2 => $v_2) {
+				$phpk_2 = (string)($k_2);
+				$phpv_2 = \Comet\UserCustomEmailSettings::createFromStdclass(isset($v_2) ? $v_2 : []);
+				$val_2[$phpk_2] = $phpv_2;
+			}
+			$this->OverrideEmailSettings = $val_2;
+		}
 		if (property_exists($sc, 'SendEmailReports')) {
 			$this->SendEmailReports = (bool)($sc->SendEmailReports);
 		}
@@ -222,6 +236,7 @@ class UserProfileConfig {
 			case 'LocalTimezone':
 			case 'LanguageCode':
 			case 'Emails':
+			case 'OverrideEmailSettings':
 			case 'SendEmailReports':
 			case 'Destinations':
 			case 'Sources':
@@ -325,6 +340,23 @@ class UserProfileConfig {
 				$c0[] = $val0;
 			}
 			$ret["Emails"] = $c0;
+		}
+		{
+			$c0 = [];
+			foreach($this->OverrideEmailSettings as $k0 => $v0) {
+				$ko_0 = $k0;
+				if ( $v0 === null ) {
+					$vo_0 = $for_json_encode ? (object)[] : [];
+				} else {
+					$vo_0 = $v0->toArray($for_json_encode);
+				}
+				$c0[ $ko_0 ] = $vo_0;
+			}
+			if ($for_json_encode && count($c0) == 0) {
+				$ret["OverrideEmailSettings"] = (object)[];
+			} else {
+				$ret["OverrideEmailSettings"] = $c0;
+			}
 		}
 		$ret["SendEmailReports"] = $this->SendEmailReports;
 		{

@@ -272,6 +272,20 @@ class Def {
 	const DESTINATIONTYPE_B2 = 1008;
 	
 	/**
+	 * EmailReportType: 
+	 *
+	 * @type int
+	 */
+	const EMAILREPORTTYPE_IMMEDIATE = 0;
+	
+	/**
+	 * EmailReportType: 
+	 *
+	 * @type int
+	 */
+	const EMAILREPORTTYPE_SUMMARY = 1;
+	
+	/**
 	 * Severity: 
 	 *
 	 * @type string
