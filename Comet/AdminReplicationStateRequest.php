@@ -52,7 +52,7 @@ class AdminReplicationStateRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param int $responseCode HTTP response code
 	 * @param string $body HTTP response body
-	 * @return \Comet\ReplicatorStateAPIResponse 
+	 * @return \Comet\ReplicatorStateAPIResponse[] 
 	 * @throws \Exception
 	 */
 	public static function ProcessResponse($responseCode, $body)
@@ -77,8 +77,12 @@ class AdminReplicationStateRequest implements \Comet\NetworkRequest {
 			}
 		}
 		
-		// Parse as ReplicatorStateAPIResponse
-		$ret = \Comet\ReplicatorStateAPIResponse::createFromStdclass(isset($decoded) ? $decoded : []);
+		// Parse as []ReplicatorStateAPIResponse
+		$val_0 = [];
+		for($i_0 = 0; $i_0 < count($decoded); ++$i_0) {
+			$val_0[] = \Comet\ReplicatorStateAPIResponse::createFromStdclass(isset($decoded[$i_0]) ? $decoded[$i_0] : []);
+		}
+		$ret = $val_0;
 		
 		return $ret;
 	}

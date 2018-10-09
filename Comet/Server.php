@@ -1319,7 +1319,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 *
-	 * @return \Comet\ReplicatorStateAPIResponse 
+	 * @return \Comet\ReplicatorStateAPIResponse[] 
 	 * @throws \Exception
 	 */
 	public function AdminReplicationState()
