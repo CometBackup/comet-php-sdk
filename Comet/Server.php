@@ -259,6 +259,7 @@ class Server {
 
 	/** 
 	 * Download software update (Windows AnyCPU exe)
+	 * The exe endpoints are not recommended for end-users, as they may not be able to provide a codesigned installer if no custom codesigning certificate is present.
 	 * 
 	 * This API requires administrator authentication credentials, unless the server is configured to allow unauthenticated software downloads.
 	 * This API requires the Software Build Role to be enabled.
@@ -281,6 +282,7 @@ class Server {
 
 	/** 
 	 * Download software (Windows AnyCPU zip)
+	 * The zip endpoints are recommended for end-users, as they may be able to provide a codesigned installer even when no custom codesigning certificate is present.
 	 * 
 	 * This API requires administrator authentication credentials, unless the server is configured to allow unauthenticated software downloads.
 	 * This API requires the Software Build Role to be enabled.
@@ -303,6 +305,7 @@ class Server {
 
 	/** 
 	 * Download software update (Windows x86_32 exe)
+	 * The exe endpoints are not recommended for end-users, as they may not be able to provide a codesigned installer if no custom codesigning certificate is present.
 	 * 
 	 * This API requires administrator authentication credentials, unless the server is configured to allow unauthenticated software downloads.
 	 * This API requires the Software Build Role to be enabled.
@@ -325,6 +328,7 @@ class Server {
 
 	/** 
 	 * Download software (Windows x86_32 zip)
+	 * The zip endpoints are recommended for end-users, as they may be able to provide a codesigned installer even when no custom codesigning certificate is present.
 	 * 
 	 * This API requires administrator authentication credentials, unless the server is configured to allow unauthenticated software downloads.
 	 * This API requires the Software Build Role to be enabled.
@@ -347,6 +351,7 @@ class Server {
 
 	/** 
 	 * Download software update (Windows x86_64 exe)
+	 * The exe endpoints are not recommended for end-users, as they may not be able to provide a codesigned installer if no custom codesigning certificate is present.
 	 * 
 	 * This API requires administrator authentication credentials, unless the server is configured to allow unauthenticated software downloads.
 	 * This API requires the Software Build Role to be enabled.
@@ -369,6 +374,7 @@ class Server {
 
 	/** 
 	 * Download software (Windows x86_64 zip)
+	 * The zip endpoints are recommended for end-users, as they may be able to provide a codesigned installer even when no custom codesigning certificate is present.
 	 * 
 	 * This API requires administrator authentication credentials, unless the server is configured to allow unauthenticated software downloads.
 	 * This API requires the Software Build Role to be enabled.

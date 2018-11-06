@@ -12,6 +12,7 @@ namespace Comet;
 /** 
  * Comet Server AdminBrandingGenerateClientWindowsAnycpuZip API 
  * Download software (Windows AnyCPU zip)
+ * The zip endpoints are recommended for end-users, as they may be able to provide a codesigned installer even when no custom codesigning certificate is present.
  * 
  * This API requires administrator authentication credentials, unless the server is configured to allow unauthenticated software downloads.
  * This API requires the Software Build Role to be enabled.
