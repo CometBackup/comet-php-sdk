@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2018-11-07 v2.2.0
+- Based on Comet 18.9.9-rc
+- Support new resource and security functionality
+
 ## 2018-10-10 v2.1.0
 - Based on Comet 18.9.5-rc
 - Support new email functionality
