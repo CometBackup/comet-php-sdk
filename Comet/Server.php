@@ -856,8 +856,8 @@ class Server {
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
 	 *
-	 * @param int $Start Timestamp
-	 * @param int $End Timestamp
+	 * @param int $Start Timestamp (Unix)
+	 * @param int $End Timestamp (Unix)
 	 * @return \Comet\BackupJobDetail[] 
 	 * @throws \Exception
 	 */

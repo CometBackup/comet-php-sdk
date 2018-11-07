@@ -26,14 +26,14 @@ namespace Comet;
 class AdminGetJobsForDateRangeRequest implements \Comet\NetworkRequest {
 	
 	/**
-	 * Timestamp
+	 * Timestamp (Unix)
 	 *
 	 * @var int
 	 */
 	protected $Start = null;
 	
 	/**
-	 * Timestamp
+	 * Timestamp (Unix)
 	 *
 	 * @var int
 	 */
@@ -42,8 +42,8 @@ class AdminGetJobsForDateRangeRequest implements \Comet\NetworkRequest {
 	/**
 	 * Construct a new AdminGetJobsForDateRangeRequest instance.
 	 *
-	 * @param int $Start Timestamp
-	 * @param int $End Timestamp
+	 * @param int $Start Timestamp (Unix)
+	 * @param int $End Timestamp (Unix)
 	 */
 	public function __construct($Start, $End)
 	{
