@@ -10,20 +10,31 @@
 namespace Comet;
 
 /** 
- * Comet Server AdminAccountProperties API 
- * Retrieve properties about the current admin account
- * Some key parameters are obscured, but the obscured values are safely recognised by the corresponding AdminAccountSetProperties API.
+ * Comet Server AdminAccountSetProperties API 
+ * Update settings for your own admin account
+ * Updating your account password requires you to supply your current password.
+ * To set a new plaintext password, use a password format of 0 (PASSWORD_FORMAT_PLAINTEXT).
+ * This API does not currently allow you to modify your TOTP secret or IP whitelist.
  * 
  * You must supply administrator authentication credentials to use this API.
  */
-class AdminAccountPropertiesRequest implements \Comet\NetworkRequest {
+class AdminAccountSetPropertiesRequest implements \Comet\NetworkRequest {
 	
 	/**
-	 * Construct a new AdminAccountPropertiesRequest instance.
+	 * Updated account properties
 	 *
+	 * @var \Comet\AdminSecurityOptions
 	 */
-	public function __construct()
+	protected $Security = null;
+	
+	/**
+	 * Construct a new AdminAccountSetPropertiesRequest instance.
+	 *
+	 * @param \Comet\AdminSecurityOptions $Security Updated account properties
+	 */
+	public function __construct(AdminSecurityOptions $Security)
 	{
+		$this->Security = $Security;
 	}
 	
 	/**
@@ -33,7 +44,7 @@ class AdminAccountPropertiesRequest implements \Comet\NetworkRequest {
 	 */
 	public function Endpoint()
 	{
-		return '/api/v1/admin/account/properties';
+		return '/api/v1/admin/account/set-properties';
 	}
 	
 	/**
@@ -44,6 +55,7 @@ class AdminAccountPropertiesRequest implements \Comet\NetworkRequest {
 	public function Parameters()
 	{
 		$ret = [];
+		$ret["Security"] = $this->Security->toJSON();
 		return $ret;
 	}
 	
@@ -53,7 +65,7 @@ class AdminAccountPropertiesRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param int $responseCode HTTP response code
 	 * @param string $body HTTP response body
-	 * @return \Comet\AdminAccountPropertiesResponse 
+	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
 	public static function ProcessResponse($responseCode, $body)
@@ -78,8 +90,8 @@ class AdminAccountPropertiesRequest implements \Comet\NetworkRequest {
 			}
 		}
 		
-		// Parse as AdminAccountPropertiesResponse
-		$ret = \Comet\AdminAccountPropertiesResponse::createFromStdclass(isset($decoded) ? $decoded : []);
+		// Parse as CometAPIResponseMessage
+		$ret = \Comet\APIResponseMessage::createFromStdclass(isset($decoded) ? $decoded : []);
 		
 		return $ret;
 	}

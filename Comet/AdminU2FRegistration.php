@@ -9,28 +9,33 @@
 
 namespace Comet;
 
-class AdminAccountPropertiesResponse {
+class AdminU2FRegistration {
 	
 	/**
-	 * @var \Comet\AdminUserPermissions
+	 * @var string
 	 */
-	public $Permissions = null;
+	public $Description = "";
 	
 	/**
-	 * @var \Comet\AdminSecurityOptions
+	 * @var int
 	 */
-	public $Security = null;
+	public $RegisterTime = 0;
+	
+	/**
+	 * @var string
+	 */
+	public $Registration = [];
 	
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
-	 * @see AdminAccountPropertiesResponse::RemoveUnknownProperties() Remove all unknown properties
+	 * @see AdminU2FRegistration::RemoveUnknownProperties() Remove all unknown properties
 	 * @var array
 	 */
 	private $__unknown_properties = [];
 	
 	/**
-	 * Replace the content of this AdminAccountPropertiesResponse object from a PHP \stdClass.
+	 * Replace the content of this AdminU2FRegistration object from a PHP \stdClass.
 	 * The data could be supplied from an API call after json_decode(...); or generated manually.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
@@ -38,16 +43,20 @@ class AdminAccountPropertiesResponse {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
-		if (property_exists($sc, 'Permissions')) {
-			$this->Permissions = \Comet\AdminUserPermissions::createFromStdclass(isset($sc->Permissions) ? $sc->Permissions : []);
+		if (property_exists($sc, 'Description')) {
+			$this->Description = (string)($sc->Description);
 		}
-		if (property_exists($sc, 'Security')) {
-			$this->Security = \Comet\AdminSecurityOptions::createFromStdclass(isset($sc->Security) ? $sc->Security : []);
+		if (property_exists($sc, 'RegisterTime')) {
+			$this->RegisterTime = (int)($sc->RegisterTime);
+		}
+		if (property_exists($sc, 'Registration')) {
+			$this->Registration = base64_decode($sc->Registration);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
-			case 'Permissions':
-			case 'Security':
+			case 'Description':
+			case 'RegisterTime':
+			case 'Registration':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -56,25 +65,25 @@ class AdminAccountPropertiesResponse {
 	}
 	
 	/**
-	 * Coerce a stdClass into a new strongly-typed AdminAccountPropertiesResponse object.
+	 * Coerce a stdClass into a new strongly-typed AdminU2FRegistration object.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
-	 * @return AdminAccountPropertiesResponse
+	 * @return AdminU2FRegistration
 	 */
 	public static function createFromStdclass(\stdClass $sc)
 	{
-		$retn = new AdminAccountPropertiesResponse();
+		$retn = new AdminU2FRegistration();
 		$retn->inflateFrom($sc);
 		return $retn;
 	}
 	
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed AdminAccountPropertiesResponse object.
+	 * Coerce a plain PHP array into a new strongly-typed AdminU2FRegistration object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
 	 * @param array $arr Object data as PHP array
-	 * @return AdminAccountPropertiesResponse
+	 * @return AdminU2FRegistration
 	 */
 	public static function createFromArray(array $arr)
 	{
@@ -83,7 +92,7 @@ class AdminAccountPropertiesResponse {
 	}
 	
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed AdminAccountPropertiesResponse object.
+	 * Coerce a plain PHP array into a new strongly-typed AdminU2FRegistration object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
@@ -91,7 +100,7 @@ class AdminAccountPropertiesResponse {
 	 *             (A) acknowledge this and continue by switching to createFromArray, or
 	 *             (b) switch to the roundtrip-safe createFromStdclass alternative.
 	 * @param array $arr Object data as PHP array
-	 * @return AdminAccountPropertiesResponse
+	 * @return AdminU2FRegistration
 	 */
 	public static function createFrom(array $arr)
 	{
@@ -99,10 +108,10 @@ class AdminAccountPropertiesResponse {
 	}
 	
 	/**
-	 * Coerce a JSON string into a new strongly-typed AdminAccountPropertiesResponse object.
+	 * Coerce a JSON string into a new strongly-typed AdminU2FRegistration object.
 	 *
 	 * @param string $JsonString Object data as JSON string
-	 * @return AdminAccountPropertiesResponse
+	 * @return AdminU2FRegistration
 	 */
 	public static function createFromJSON($JsonString)
 	{
@@ -110,13 +119,13 @@ class AdminAccountPropertiesResponse {
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg());
 		}
-		$retn = new AdminAccountPropertiesResponse();
+		$retn = new AdminU2FRegistration();
 		$retn->inflateFrom($decodedJsonObject);
 		return $retn;
 	}
 	
 	/**
-	 * Convert this AdminAccountPropertiesResponse object into a plain PHP array.
+	 * Convert this AdminU2FRegistration object into a plain PHP array.
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
@@ -125,15 +134,19 @@ class AdminAccountPropertiesResponse {
 	public function toArray()
 	{
 		$ret = [];
-		if ( $this->Permissions === null ) {
-			$ret["Permissions"] = $for_json_encode ? (object)[] : [];
-		} else {
-			$ret["Permissions"] = $this->Permissions->toArray($for_json_encode);
-		}
-		if ( $this->Security === null ) {
-			$ret["Security"] = $for_json_encode ? (object)[] : [];
-		} else {
-			$ret["Security"] = $this->Security->toArray($for_json_encode);
+		$ret["Description"] = $this->Description;
+		$ret["RegisterTime"] = $this->RegisterTime;
+		{
+			$c0 = [];
+			for($i0 = 0; $i0 < count($this->Registration); ++$i0) {
+				if ( $this->Registration[$i0] === null ) {
+					$val0 = $for_json_encode ? (object)[] : [];
+				} else {
+					$val0 = $this->Registration[$i0]->toArray($for_json_encode);
+				}
+				$c0[] = $val0;
+			}
+			$ret["Registration"] = $c0;
 		}
 		
 		// Reinstate unknown properties from future server versions
@@ -184,12 +197,6 @@ class AdminAccountPropertiesResponse {
 	public function RemoveUnknownProperties()
 	{
 		$this->__unknown_properties = [];
-		if ($this->Permissions !== null) {
-			$this->Permissions->RemoveUnknownProperties();
-		}
-		if ($this->Security !== null) {
-			$this->Security->RemoveUnknownProperties();
-		}
 	}
 	
 }

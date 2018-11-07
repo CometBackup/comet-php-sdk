@@ -80,6 +80,7 @@ class Server {
 
 	/** 
 	 * Retrieve properties about the current admin account
+	 * Some key parameters are obscured, but the obscured values are safely recognised by the corresponding AdminAccountSetProperties API.
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 *
@@ -129,14 +130,38 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 *
+	 * @param string $SelfAddress External URL of this server (used for U2F AppID) (optional)
 	 * @return \Comet\SessionKeyRegeneratedResponse 
 	 * @throws \Exception
 	 */
-	public function AdminAccountSessionStart()
+	public function AdminAccountSessionStart($SelfAddress = null)
 	{
-		$nr = new \Comet\AdminAccountSessionStartRequest();
+		if ($SelfAddress === null) {
+			$SelfAddress = $this->server_url;
+		}
+
+		$nr = new \Comet\AdminAccountSessionStartRequest($SelfAddress);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminAccountSessionStartRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Update settings for your own admin account
+	 * Updating your account password requires you to supply your current password.
+	 * To set a new plaintext password, use a password format of 0 (PASSWORD_FORMAT_PLAINTEXT).
+	 * This API does not currently allow you to modify your TOTP secret or IP whitelist.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 *
+	 * @param \Comet\AdminSecurityOptions $Security Updated account properties
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminAccountSetProperties(AdminSecurityOptions $Security)
+	{
+		$nr = new \Comet\AdminAccountSetPropertiesRequest($Security);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminAccountSetPropertiesRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
 
 	/** 

@@ -27,6 +27,11 @@ class TotpRegeneratedResponse {
 	public $Image = "";
 	
 	/**
+	 * @var string
+	 */
+	public $URL = "";
+	
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see TotpRegeneratedResponse::RemoveUnknownProperties() Remove all unknown properties
@@ -52,11 +57,15 @@ class TotpRegeneratedResponse {
 		if (property_exists($sc, 'Image')) {
 			$this->Image = (string)($sc->Image);
 		}
+		if (property_exists($sc, 'URL')) {
+			$this->URL = (string)($sc->URL);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Status':
 			case 'Message':
 			case 'Image':
+			case 'URL':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -137,6 +146,7 @@ class TotpRegeneratedResponse {
 		$ret["Status"] = $this->Status;
 		$ret["Message"] = $this->Message;
 		$ret["Image"] = $this->Image;
+		$ret["URL"] = $this->URL;
 		
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
