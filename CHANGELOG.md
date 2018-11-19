@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 2018-11-19 v2.3.0
+- Based on Comet 18.11.1-rc
+- Support new policy email report functionality
+- Fix broken `multipart/form-data` AdminMetaResourceNew API
+- Fix undeclared `for_json_encode` variable in marshaller
+- Fix download size tests for latest version of Comet Server
+- Remove unnecessary `isset` check in unmarshaller
+
 ## 2018-11-07 v2.2.0
 - Based on Comet 18.9.9-rc
 - Support new resource and security functionality
