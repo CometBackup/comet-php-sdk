@@ -21,20 +21,11 @@ namespace Comet;
 class AdminMetaResourceNewRequest implements \Comet\NetworkRequest {
 	
 	/**
-	 * The uploaded file should use "upload" as the form key.
-	 *
-	 * @var \Comet\multipart/form-data
-	 */
-	protected $@body = null;
-	
-	/**
 	 * Construct a new AdminMetaResourceNewRequest instance.
 	 *
-	 * @param \Comet\multipart/form-data $@body The uploaded file should use "upload" as the form key.
 	 */
-	public function __construct(multipart/form-data $@body)
+	public function __construct()
 	{
-		$this->@body = $@body;
 	}
 	
 	/**
@@ -55,7 +46,6 @@ class AdminMetaResourceNewRequest implements \Comet\NetworkRequest {
 	public function Parameters()
 	{
 		$ret = [];
-		$ret["@body"] = $this->@body->toJSON();
 		return $ret;
 	}
 	

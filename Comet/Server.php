@@ -1093,15 +1093,12 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 *
-	 * @param \Comet\multipart/form-data $@body The uploaded file should use "upload" as the form key.
 	 * @return \Comet\AdminResourceResponse 
 	 * @throws \Exception
 	 */
-	public function AdminMetaResourceNew(multipart/form-data $@body)
+	public function AdminMetaResourceNew()
 	{
-		$nr = new \Comet\AdminMetaResourceNewRequest($@body);
-		$response = $this->client->send($this->AsPSR7($nr));
-		return \Comet\AdminMetaResourceNewRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+		throw new Exception("This API is not currently representable by the Comet Server SDK");
 	}
 
 	/** 
