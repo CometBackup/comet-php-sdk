@@ -79,7 +79,7 @@ class AdminConstellationLastReportRequest implements \Comet\NetworkRequest {
 		}
 		
 		// Parse as ConstellationCheckReport
-		$ret = \Comet\ConstellationCheckReport::createFromStdclass(isset($decoded) ? $decoded : []);
+		$ret = \Comet\ConstellationCheckReport::createFromStdclass($decoded);
 		
 		return $ret;
 	}

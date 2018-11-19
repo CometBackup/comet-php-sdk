@@ -153,7 +153,7 @@ class UserProfileConfig {
 			$val_2 = [];
 			foreach($sc->OverrideEmailSettings as $k_2 => $v_2) {
 				$phpk_2 = (string)($k_2);
-				$phpv_2 = \Comet\UserCustomEmailSettings::createFromStdclass(isset($v_2) ? $v_2 : []);
+				$phpv_2 = \Comet\UserCustomEmailSettings::createFromStdclass($v_2);
 				$val_2[$phpk_2] = $phpv_2;
 			}
 			$this->OverrideEmailSettings = $val_2;
@@ -165,7 +165,7 @@ class UserProfileConfig {
 			$val_2 = [];
 			foreach($sc->Destinations as $k_2 => $v_2) {
 				$phpk_2 = (string)($k_2);
-				$phpv_2 = \Comet\DestinationConfig::createFromStdclass(isset($v_2) ? $v_2 : []);
+				$phpv_2 = \Comet\DestinationConfig::createFromStdclass($v_2);
 				$val_2[$phpk_2] = $phpv_2;
 			}
 			$this->Destinations = $val_2;
@@ -174,7 +174,7 @@ class UserProfileConfig {
 			$val_2 = [];
 			foreach($sc->Sources as $k_2 => $v_2) {
 				$phpk_2 = (string)($k_2);
-				$phpv_2 = \Comet\SourceConfig::createFromStdclass(isset($v_2) ? $v_2 : []);
+				$phpv_2 = \Comet\SourceConfig::createFromStdclass($v_2);
 				$val_2[$phpk_2] = $phpv_2;
 			}
 			$this->Sources = $val_2;
@@ -183,7 +183,7 @@ class UserProfileConfig {
 			$val_2 = [];
 			foreach($sc->BackupRules as $k_2 => $v_2) {
 				$phpk_2 = (string)($k_2);
-				$phpv_2 = \Comet\BackupRuleConfig::createFromStdclass(isset($v_2) ? $v_2 : []);
+				$phpv_2 = \Comet\BackupRuleConfig::createFromStdclass($v_2);
 				$val_2[$phpk_2] = $phpv_2;
 			}
 			$this->BackupRules = $val_2;
@@ -192,7 +192,7 @@ class UserProfileConfig {
 			$val_2 = [];
 			foreach($sc->Devices as $k_2 => $v_2) {
 				$phpk_2 = (string)($k_2);
-				$phpv_2 = \Comet\DeviceConfig::createFromStdclass(isset($v_2) ? $v_2 : []);
+				$phpv_2 = \Comet\DeviceConfig::createFromStdclass($v_2);
 				$val_2[$phpk_2] = $phpv_2;
 			}
 			$this->Devices = $val_2;
@@ -213,7 +213,7 @@ class UserProfileConfig {
 			$this->PolicyID = (string)($sc->PolicyID);
 		}
 		if (property_exists($sc, 'Policy')) {
-			$this->Policy = \Comet\UserPolicy::createFromStdclass(isset($sc->Policy) ? $sc->Policy : []);
+			$this->Policy = \Comet\UserPolicy::createFromStdclass($sc->Policy);
 		}
 		if (property_exists($sc, 'PasswordFormat')) {
 			$this->PasswordFormat = (int)($sc->PasswordFormat);
@@ -346,17 +346,13 @@ class UserProfileConfig {
 			foreach($this->OverrideEmailSettings as $k0 => $v0) {
 				$ko_0 = $k0;
 				if ( $v0 === null ) {
-					$vo_0 = $for_json_encode ? (object)[] : [];
+					$vo_0 = new \stdClass();
 				} else {
-					$vo_0 = $v0->toArray($for_json_encode);
+					$vo_0 = $v0->toArray();
 				}
 				$c0[ $ko_0 ] = $vo_0;
 			}
-			if ($for_json_encode && count($c0) == 0) {
-				$ret["OverrideEmailSettings"] = (object)[];
-			} else {
-				$ret["OverrideEmailSettings"] = $c0;
-			}
+			$ret["OverrideEmailSettings"] = $c0;
 		}
 		$ret["SendEmailReports"] = $this->SendEmailReports;
 		{
@@ -364,68 +360,52 @@ class UserProfileConfig {
 			foreach($this->Destinations as $k0 => $v0) {
 				$ko_0 = $k0;
 				if ( $v0 === null ) {
-					$vo_0 = $for_json_encode ? (object)[] : [];
+					$vo_0 = new \stdClass();
 				} else {
-					$vo_0 = $v0->toArray($for_json_encode);
+					$vo_0 = $v0->toArray();
 				}
 				$c0[ $ko_0 ] = $vo_0;
 			}
-			if ($for_json_encode && count($c0) == 0) {
-				$ret["Destinations"] = (object)[];
-			} else {
-				$ret["Destinations"] = $c0;
-			}
+			$ret["Destinations"] = $c0;
 		}
 		{
 			$c0 = [];
 			foreach($this->Sources as $k0 => $v0) {
 				$ko_0 = $k0;
 				if ( $v0 === null ) {
-					$vo_0 = $for_json_encode ? (object)[] : [];
+					$vo_0 = new \stdClass();
 				} else {
-					$vo_0 = $v0->toArray($for_json_encode);
+					$vo_0 = $v0->toArray();
 				}
 				$c0[ $ko_0 ] = $vo_0;
 			}
-			if ($for_json_encode && count($c0) == 0) {
-				$ret["Sources"] = (object)[];
-			} else {
-				$ret["Sources"] = $c0;
-			}
+			$ret["Sources"] = $c0;
 		}
 		{
 			$c0 = [];
 			foreach($this->BackupRules as $k0 => $v0) {
 				$ko_0 = $k0;
 				if ( $v0 === null ) {
-					$vo_0 = $for_json_encode ? (object)[] : [];
+					$vo_0 = new \stdClass();
 				} else {
-					$vo_0 = $v0->toArray($for_json_encode);
+					$vo_0 = $v0->toArray();
 				}
 				$c0[ $ko_0 ] = $vo_0;
 			}
-			if ($for_json_encode && count($c0) == 0) {
-				$ret["BackupRules"] = (object)[];
-			} else {
-				$ret["BackupRules"] = $c0;
-			}
+			$ret["BackupRules"] = $c0;
 		}
 		{
 			$c0 = [];
 			foreach($this->Devices as $k0 => $v0) {
 				$ko_0 = $k0;
 				if ( $v0 === null ) {
-					$vo_0 = $for_json_encode ? (object)[] : [];
+					$vo_0 = new \stdClass();
 				} else {
-					$vo_0 = $v0->toArray($for_json_encode);
+					$vo_0 = $v0->toArray();
 				}
 				$c0[ $ko_0 ] = $vo_0;
 			}
-			if ($for_json_encode && count($c0) == 0) {
-				$ret["Devices"] = (object)[];
-			} else {
-				$ret["Devices"] = $c0;
-			}
+			$ret["Devices"] = $c0;
 		}
 		$ret["IsSuspended"] = $this->IsSuspended;
 		$ret["AllProtectedItemsQuotaEnabled"] = $this->AllProtectedItemsQuotaEnabled;
@@ -433,9 +413,9 @@ class UserProfileConfig {
 		$ret["MaximumDevices"] = $this->MaximumDevices;
 		$ret["PolicyID"] = $this->PolicyID;
 		if ( $this->Policy === null ) {
-			$ret["Policy"] = $for_json_encode ? (object)[] : [];
+			$ret["Policy"] = new \stdClass();
 		} else {
-			$ret["Policy"] = $this->Policy->toArray($for_json_encode);
+			$ret["Policy"] = $this->Policy->toArray();
 		}
 		$ret["PasswordFormat"] = $this->PasswordFormat;
 		$ret["PasswordHash"] = $this->PasswordHash;

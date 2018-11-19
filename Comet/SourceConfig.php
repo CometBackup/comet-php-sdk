@@ -120,13 +120,13 @@ class SourceConfig {
 			$val_2 = [];
 			foreach($sc->OverrideDestinationRetention as $k_2 => $v_2) {
 				$phpk_2 = (string)($k_2);
-				$phpv_2 = \Comet\RetentionPolicy::createFromStdclass(isset($v_2) ? $v_2 : []);
+				$phpv_2 = \Comet\RetentionPolicy::createFromStdclass($v_2);
 				$val_2[$phpk_2] = $phpv_2;
 			}
 			$this->OverrideDestinationRetention = $val_2;
 		}
 		if (property_exists($sc, 'Statistics')) {
-			$this->Statistics = \Comet\SourceStatistics::createFromStdclass(isset($sc->Statistics) ? $sc->Statistics : []);
+			$this->Statistics = \Comet\SourceStatistics::createFromStdclass($sc->Statistics);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
@@ -245,33 +245,25 @@ class SourceConfig {
 				$vo_0 = $v0;
 				$c0[ $ko_0 ] = $vo_0;
 			}
-			if ($for_json_encode && count($c0) == 0) {
-				$ret["EngineProps"] = (object)[];
-			} else {
-				$ret["EngineProps"] = $c0;
-			}
+			$ret["EngineProps"] = $c0;
 		}
 		{
 			$c0 = [];
 			foreach($this->OverrideDestinationRetention as $k0 => $v0) {
 				$ko_0 = $k0;
 				if ( $v0 === null ) {
-					$vo_0 = $for_json_encode ? (object)[] : [];
+					$vo_0 = new \stdClass();
 				} else {
-					$vo_0 = $v0->toArray($for_json_encode);
+					$vo_0 = $v0->toArray();
 				}
 				$c0[ $ko_0 ] = $vo_0;
 			}
-			if ($for_json_encode && count($c0) == 0) {
-				$ret["OverrideDestinationRetention"] = (object)[];
-			} else {
-				$ret["OverrideDestinationRetention"] = $c0;
-			}
+			$ret["OverrideDestinationRetention"] = $c0;
 		}
 		if ( $this->Statistics === null ) {
-			$ret["Statistics"] = $for_json_encode ? (object)[] : [];
+			$ret["Statistics"] = new \stdClass();
 		} else {
-			$ret["Statistics"] = $this->Statistics->toArray($for_json_encode);
+			$ret["Statistics"] = $this->Statistics->toArray();
 		}
 		
 		// Reinstate unknown properties from future server versions

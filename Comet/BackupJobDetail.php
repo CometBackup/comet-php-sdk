@@ -170,7 +170,7 @@ class BackupJobDetail {
 			$this->CancellationID = (string)($sc->CancellationID);
 		}
 		if (property_exists($sc, 'Progress')) {
-			$this->Progress = \Comet\BackupJobProgress::createFromStdclass(isset($sc->Progress) ? $sc->Progress : []);
+			$this->Progress = \Comet\BackupJobProgress::createFromStdclass($sc->Progress);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
@@ -287,9 +287,9 @@ class BackupJobDetail {
 		$ret["DownloadSize"] = $this->DownloadSize;
 		$ret["CancellationID"] = $this->CancellationID;
 		if ( $this->Progress === null ) {
-			$ret["Progress"] = $for_json_encode ? (object)[] : [];
+			$ret["Progress"] = new \stdClass();
 		} else {
-			$ret["Progress"] = $this->Progress->toArray($for_json_encode);
+			$ret["Progress"] = $this->Progress->toArray();
 		}
 		
 		// Reinstate unknown properties from future server versions

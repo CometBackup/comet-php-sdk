@@ -42,7 +42,7 @@ class GroupPolicy {
 			$this->Description = (string)($sc->Description);
 		}
 		if (property_exists($sc, 'Policy')) {
-			$this->Policy = \Comet\UserPolicy::createFromStdclass(isset($sc->Policy) ? $sc->Policy : []);
+			$this->Policy = \Comet\UserPolicy::createFromStdclass($sc->Policy);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
@@ -127,9 +127,9 @@ class GroupPolicy {
 		$ret = [];
 		$ret["Description"] = $this->Description;
 		if ( $this->Policy === null ) {
-			$ret["Policy"] = $for_json_encode ? (object)[] : [];
+			$ret["Policy"] = new \stdClass();
 		} else {
-			$ret["Policy"] = $this->Policy->toArray($for_json_encode);
+			$ret["Policy"] = $this->Policy->toArray();
 		}
 		
 		// Reinstate unknown properties from future server versions

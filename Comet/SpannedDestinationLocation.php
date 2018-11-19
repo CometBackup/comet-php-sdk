@@ -36,7 +36,7 @@ class SpannedDestinationLocation {
 		if (property_exists($sc, 'SpanTargets')) {
 			$val_2 = [];
 			for($i_2 = 0; $i_2 < count($sc->SpanTargets); ++$i_2) {
-				$val_2[] = \Comet\DestinationLocation::createFromStdclass(isset($sc->SpanTargets[$i_2]) ? $sc->SpanTargets[$i_2] : []);
+				$val_2[] = \Comet\DestinationLocation::createFromStdclass($sc->SpanTargets[$i_2]);
 			}
 			$this->SpanTargets = $val_2;
 		}
@@ -124,9 +124,9 @@ class SpannedDestinationLocation {
 			$c0 = [];
 			for($i0 = 0; $i0 < count($this->SpanTargets); ++$i0) {
 				if ( $this->SpanTargets[$i0] === null ) {
-					$val0 = $for_json_encode ? (object)[] : [];
+					$val0 = new \stdClass();
 				} else {
-					$val0 = $this->SpanTargets[$i0]->toArray($for_json_encode);
+					$val0 = $this->SpanTargets[$i0]->toArray();
 				}
 				$c0[] = $val0;
 			}

@@ -66,7 +66,7 @@ class ConstellationStatusAPIResponse {
 			$this->TargetNames = $val_2;
 		}
 		if (property_exists($sc, 'Stats')) {
-			$this->Stats = \Comet\ConstellationStats::createFromStdclass(isset($sc->Stats) ? $sc->Stats : []);
+			$this->Stats = \Comet\ConstellationStats::createFromStdclass($sc->Stats);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
@@ -169,9 +169,9 @@ class ConstellationStatusAPIResponse {
 			$ret["TargetNames"] = $c0;
 		}
 		if ( $this->Stats === null ) {
-			$ret["Stats"] = $for_json_encode ? (object)[] : [];
+			$ret["Stats"] = new \stdClass();
 		} else {
-			$ret["Stats"] = $this->Stats->toArray($for_json_encode);
+			$ret["Stats"] = $this->Stats->toArray();
 		}
 		
 		// Reinstate unknown properties from future server versions

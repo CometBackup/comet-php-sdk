@@ -91,7 +91,7 @@ class AdminSecurityOptions {
 		if (property_exists($sc, 'U2FRegistrations')) {
 			$val_2 = [];
 			for($i_2 = 0; $i_2 < count($sc->U2FRegistrations); ++$i_2) {
-				$val_2[] = \Comet\AdminU2FRegistration::createFromStdclass(isset($sc->U2FRegistrations[$i_2]) ? $sc->U2FRegistrations[$i_2] : []);
+				$val_2[] = \Comet\AdminU2FRegistration::createFromStdclass($sc->U2FRegistrations[$i_2]);
 			}
 			$this->U2FRegistrations = $val_2;
 		}
@@ -201,9 +201,9 @@ class AdminSecurityOptions {
 			$c0 = [];
 			for($i0 = 0; $i0 < count($this->U2FRegistrations); ++$i0) {
 				if ( $this->U2FRegistrations[$i0] === null ) {
-					$val0 = $for_json_encode ? (object)[] : [];
+					$val0 = new \stdClass();
 				} else {
-					$val0 = $this->U2FRegistrations[$i0]->toArray($for_json_encode);
+					$val0 = $this->U2FRegistrations[$i0]->toArray();
 				}
 				$c0[] = $val0;
 			}

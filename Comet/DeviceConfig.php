@@ -45,7 +45,7 @@ class DeviceConfig {
 			$val_2 = [];
 			foreach($sc->Sources as $k_2 => $v_2) {
 				$phpk_2 = (string)($k_2);
-				$phpv_2 = \Comet\SourceBasicInfo::createFromStdclass(isset($v_2) ? $v_2 : []);
+				$phpv_2 = \Comet\SourceBasicInfo::createFromStdclass($v_2);
 				$val_2[$phpk_2] = $phpv_2;
 			}
 			$this->Sources = $val_2;
@@ -137,17 +137,13 @@ class DeviceConfig {
 			foreach($this->Sources as $k0 => $v0) {
 				$ko_0 = $k0;
 				if ( $v0 === null ) {
-					$vo_0 = $for_json_encode ? (object)[] : [];
+					$vo_0 = new \stdClass();
 				} else {
-					$vo_0 = $v0->toArray($for_json_encode);
+					$vo_0 = $v0->toArray();
 				}
 				$c0[ $ko_0 ] = $vo_0;
 			}
-			if ($for_json_encode && count($c0) == 0) {
-				$ret["Sources"] = (object)[];
-			} else {
-				$ret["Sources"] = $c0;
-			}
+			$ret["Sources"] = $c0;
 		}
 		
 		// Reinstate unknown properties from future server versions

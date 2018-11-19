@@ -146,7 +146,7 @@ class UserPolicy {
 			$this->PreventDeleteStorageVault = (bool)($sc->PreventDeleteStorageVault);
 		}
 		if (property_exists($sc, 'StorageVaultProviders')) {
-			$this->StorageVaultProviders = \Comet\StorageVaultProviderPolicy::createFromStdclass(isset($sc->StorageVaultProviders) ? $sc->StorageVaultProviders : []);
+			$this->StorageVaultProviders = \Comet\StorageVaultProviderPolicy::createFromStdclass($sc->StorageVaultProviders);
 		}
 		if (property_exists($sc, 'PreventNewProtectedItem')) {
 			$this->PreventNewProtectedItem = (bool)($sc->PreventNewProtectedItem);
@@ -158,12 +158,12 @@ class UserPolicy {
 			$this->PreventDeleteProtectedItem = (bool)($sc->PreventDeleteProtectedItem);
 		}
 		if (property_exists($sc, 'ProtectedItemEngineTypes')) {
-			$this->ProtectedItemEngineTypes = \Comet\ProtectedItemEngineTypePolicy::createFromStdclass(isset($sc->ProtectedItemEngineTypes) ? $sc->ProtectedItemEngineTypes : []);
+			$this->ProtectedItemEngineTypes = \Comet\ProtectedItemEngineTypePolicy::createFromStdclass($sc->ProtectedItemEngineTypes);
 		}
 		if (property_exists($sc, 'FileAndFolderMandatoryExclusions')) {
 			$val_2 = [];
 			for($i_2 = 0; $i_2 < count($sc->FileAndFolderMandatoryExclusions); ++$i_2) {
-				$val_2[] = \Comet\ExtraFileExclusion::createFromStdclass(isset($sc->FileAndFolderMandatoryExclusions[$i_2]) ? $sc->FileAndFolderMandatoryExclusions[$i_2] : []);
+				$val_2[] = \Comet\ExtraFileExclusion::createFromStdclass($sc->FileAndFolderMandatoryExclusions[$i_2]);
 			}
 			$this->FileAndFolderMandatoryExclusions = $val_2;
 		}
@@ -198,7 +198,7 @@ class UserPolicy {
 			$this->PreventViewDeviceNames = (bool)($sc->PreventViewDeviceNames);
 		}
 		if (property_exists($sc, 'DefaultEmailReports')) {
-			$this->DefaultEmailReports = \Comet\DefaultEmailReportPolicy::createFromStdclass(isset($sc->DefaultEmailReports) ? $sc->DefaultEmailReports : []);
+			$this->DefaultEmailReports = \Comet\DefaultEmailReportPolicy::createFromStdclass($sc->DefaultEmailReports);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
@@ -305,25 +305,25 @@ class UserPolicy {
 		$ret["PreventEditStorageVault"] = $this->PreventEditStorageVault;
 		$ret["PreventDeleteStorageVault"] = $this->PreventDeleteStorageVault;
 		if ( $this->StorageVaultProviders === null ) {
-			$ret["StorageVaultProviders"] = $for_json_encode ? (object)[] : [];
+			$ret["StorageVaultProviders"] = new \stdClass();
 		} else {
-			$ret["StorageVaultProviders"] = $this->StorageVaultProviders->toArray($for_json_encode);
+			$ret["StorageVaultProviders"] = $this->StorageVaultProviders->toArray();
 		}
 		$ret["PreventNewProtectedItem"] = $this->PreventNewProtectedItem;
 		$ret["PreventEditProtectedItem"] = $this->PreventEditProtectedItem;
 		$ret["PreventDeleteProtectedItem"] = $this->PreventDeleteProtectedItem;
 		if ( $this->ProtectedItemEngineTypes === null ) {
-			$ret["ProtectedItemEngineTypes"] = $for_json_encode ? (object)[] : [];
+			$ret["ProtectedItemEngineTypes"] = new \stdClass();
 		} else {
-			$ret["ProtectedItemEngineTypes"] = $this->ProtectedItemEngineTypes->toArray($for_json_encode);
+			$ret["ProtectedItemEngineTypes"] = $this->ProtectedItemEngineTypes->toArray();
 		}
 		{
 			$c0 = [];
 			for($i0 = 0; $i0 < count($this->FileAndFolderMandatoryExclusions); ++$i0) {
 				if ( $this->FileAndFolderMandatoryExclusions[$i0] === null ) {
-					$val0 = $for_json_encode ? (object)[] : [];
+					$val0 = new \stdClass();
 				} else {
-					$val0 = $this->FileAndFolderMandatoryExclusions[$i0]->toArray($for_json_encode);
+					$val0 = $this->FileAndFolderMandatoryExclusions[$i0]->toArray();
 				}
 				$c0[] = $val0;
 			}
@@ -340,9 +340,9 @@ class UserPolicy {
 		$ret["PreventOpenWebUI"] = $this->PreventOpenWebUI;
 		$ret["PreventViewDeviceNames"] = $this->PreventViewDeviceNames;
 		if ( $this->DefaultEmailReports === null ) {
-			$ret["DefaultEmailReports"] = $for_json_encode ? (object)[] : [];
+			$ret["DefaultEmailReports"] = new \stdClass();
 		} else {
-			$ret["DefaultEmailReports"] = $this->DefaultEmailReports->toArray($for_json_encode);
+			$ret["DefaultEmailReports"] = $this->DefaultEmailReports->toArray();
 		}
 		
 		// Reinstate unknown properties from future server versions

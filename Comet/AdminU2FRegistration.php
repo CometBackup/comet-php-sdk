@@ -140,9 +140,9 @@ class AdminU2FRegistration {
 			$c0 = [];
 			for($i0 = 0; $i0 < count($this->Registration); ++$i0) {
 				if ( $this->Registration[$i0] === null ) {
-					$val0 = $for_json_encode ? (object)[] : [];
+					$val0 = new \stdClass();
 				} else {
-					$val0 = $this->Registration[$i0]->toArray($for_json_encode);
+					$val0 = $this->Registration[$i0]->toArray();
 				}
 				$c0[] = $val0;
 			}

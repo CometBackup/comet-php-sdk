@@ -117,7 +117,7 @@ class AdminStorageRegisterBucketRequest implements \Comet\NetworkRequest {
 		}
 		
 		// Parse as AddBucketResponseMessage
-		$ret = \Comet\AddBucketResponseMessage::createFromStdclass(isset($decoded) ? $decoded : []);
+		$ret = \Comet\AddBucketResponseMessage::createFromStdclass($decoded);
 		
 		return $ret;
 	}

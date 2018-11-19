@@ -89,7 +89,7 @@ class AdminGetJobPropertiesRequest implements \Comet\NetworkRequest {
 		}
 		
 		// Parse as BackupJobDetail
-		$ret = \Comet\BackupJobDetail::createFromStdclass(isset($decoded) ? $decoded : []);
+		$ret = \Comet\BackupJobDetail::createFromStdclass($decoded);
 		
 		return $ret;
 	}

@@ -79,7 +79,7 @@ class AdminMetaServerConfigGetRequest implements \Comet\NetworkRequest {
 		}
 		
 		// Parse as ServerConfigOptions
-		$ret = \Comet\ServerConfigOptions::createFromStdclass(isset($decoded) ? $decoded : []);
+		$ret = \Comet\ServerConfigOptions::createFromStdclass($decoded);
 		
 		return $ret;
 	}

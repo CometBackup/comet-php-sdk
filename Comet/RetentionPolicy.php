@@ -44,7 +44,7 @@ class RetentionPolicy {
 		if (property_exists($sc, 'Ranges')) {
 			$val_2 = [];
 			for($i_2 = 0; $i_2 < count($sc->Ranges); ++$i_2) {
-				$val_2[] = \Comet\RetentionRange::createFromStdclass(isset($sc->Ranges[$i_2]) ? $sc->Ranges[$i_2] : []);
+				$val_2[] = \Comet\RetentionRange::createFromStdclass($sc->Ranges[$i_2]);
 			}
 			$this->Ranges = $val_2;
 		}
@@ -134,9 +134,9 @@ class RetentionPolicy {
 			$c0 = [];
 			for($i0 = 0; $i0 < count($this->Ranges); ++$i0) {
 				if ( $this->Ranges[$i0] === null ) {
-					$val0 = $for_json_encode ? (object)[] : [];
+					$val0 = new \stdClass();
 				} else {
-					$val0 = $this->Ranges[$i0]->toArray($for_json_encode);
+					$val0 = $this->Ranges[$i0]->toArray();
 				}
 				$c0[] = $val0;
 			}

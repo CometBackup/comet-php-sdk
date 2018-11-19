@@ -36,7 +36,7 @@ class UserCustomEmailSettings {
 		if (property_exists($sc, 'Reports')) {
 			$val_2 = [];
 			for($i_2 = 0; $i_2 < count($sc->Reports); ++$i_2) {
-				$val_2[] = \Comet\EmailReportConfig::createFromStdclass(isset($sc->Reports[$i_2]) ? $sc->Reports[$i_2] : []);
+				$val_2[] = \Comet\EmailReportConfig::createFromStdclass($sc->Reports[$i_2]);
 			}
 			$this->Reports = $val_2;
 		}
@@ -124,9 +124,9 @@ class UserCustomEmailSettings {
 			$c0 = [];
 			for($i0 = 0; $i0 < count($this->Reports); ++$i0) {
 				if ( $this->Reports[$i0] === null ) {
-					$val0 = $for_json_encode ? (object)[] : [];
+					$val0 = new \stdClass();
 				} else {
-					$val0 = $this->Reports[$i0]->toArray($for_json_encode);
+					$val0 = $this->Reports[$i0]->toArray();
 				}
 				$c0[] = $val0;
 			}

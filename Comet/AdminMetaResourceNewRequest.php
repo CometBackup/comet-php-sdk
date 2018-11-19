@@ -91,7 +91,7 @@ class AdminMetaResourceNewRequest implements \Comet\NetworkRequest {
 		}
 		
 		// Parse as AdminResourceResponse
-		$ret = \Comet\AdminResourceResponse::createFromStdclass(isset($decoded) ? $decoded : []);
+		$ret = \Comet\AdminResourceResponse::createFromStdclass($decoded);
 		
 		return $ret;
 	}

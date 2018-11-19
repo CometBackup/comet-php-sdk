@@ -90,7 +90,7 @@ class AdminPoliciesGetRequest implements \Comet\NetworkRequest {
 		}
 		
 		// Parse as GetGroupPolicyResponse
-		$ret = \Comet\GetGroupPolicyResponse::createFromStdclass(isset($decoded) ? $decoded : []);
+		$ret = \Comet\GetGroupPolicyResponse::createFromStdclass($decoded);
 		
 		return $ret;
 	}

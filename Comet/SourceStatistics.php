@@ -34,7 +34,7 @@ class SourceStatistics {
 	protected function inflateFrom(\stdClass $sc)
 	{
 		if (property_exists($sc, 'LastBackupJob')) {
-			$this->LastBackupJob = \Comet\BackupJobDetail::createFromStdclass(isset($sc->LastBackupJob) ? $sc->LastBackupJob : []);
+			$this->LastBackupJob = \Comet\BackupJobDetail::createFromStdclass($sc->LastBackupJob);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
@@ -117,9 +117,9 @@ class SourceStatistics {
 	{
 		$ret = [];
 		if ( $this->LastBackupJob === null ) {
-			$ret["LastBackupJob"] = $for_json_encode ? (object)[] : [];
+			$ret["LastBackupJob"] = new \stdClass();
 		} else {
-			$ret["LastBackupJob"] = $this->LastBackupJob->toArray($for_json_encode);
+			$ret["LastBackupJob"] = $this->LastBackupJob->toArray();
 		}
 		
 		// Reinstate unknown properties from future server versions

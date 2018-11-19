@@ -84,7 +84,7 @@ class UpdateCampaignStatus {
 		if (property_exists($sc, 'Devices')) {
 			$val_2 = [];
 			for($i_2 = 0; $i_2 < count($sc->Devices); ++$i_2) {
-				$val_2[] = \Comet\UpdateCampaignStatusDeviceEntry::createFromStdclass(isset($sc->Devices[$i_2]) ? $sc->Devices[$i_2] : []);
+				$val_2[] = \Comet\UpdateCampaignStatusDeviceEntry::createFromStdclass($sc->Devices[$i_2]);
 			}
 			$this->Devices = $val_2;
 		}
@@ -184,9 +184,9 @@ class UpdateCampaignStatus {
 			$c0 = [];
 			for($i0 = 0; $i0 < count($this->Devices); ++$i0) {
 				if ( $this->Devices[$i0] === null ) {
-					$val0 = $for_json_encode ? (object)[] : [];
+					$val0 = new \stdClass();
 				} else {
-					$val0 = $this->Devices[$i0]->toArray($for_json_encode);
+					$val0 = $this->Devices[$i0]->toArray();
 				}
 				$c0[] = $val0;
 			}

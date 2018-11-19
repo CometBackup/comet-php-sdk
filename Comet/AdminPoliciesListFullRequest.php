@@ -82,7 +82,7 @@ class AdminPoliciesListFullRequest implements \Comet\NetworkRequest {
 		$val_0 = [];
 		foreach($decoded as $k_0 => $v_0) {
 			$phpk_0 = (string)($k_0);
-			$phpv_0 = \Comet\GroupPolicy::createFromStdclass(isset($v_0) ? $v_0 : []);
+			$phpv_0 = \Comet\GroupPolicy::createFromStdclass($v_0);
 			$val_0[$phpk_0] = $phpv_0;
 		}
 		$ret = $val_0;

@@ -90,7 +90,7 @@ class AdminDispatcherRefetchProfileRequest implements \Comet\NetworkRequest {
 		}
 		
 		// Parse as CometAPIResponseMessage
-		$ret = \Comet\APIResponseMessage::createFromStdclass(isset($decoded) ? $decoded : []);
+		$ret = \Comet\APIResponseMessage::createFromStdclass($decoded);
 		
 		return $ret;
 	}

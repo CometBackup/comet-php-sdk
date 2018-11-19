@@ -88,7 +88,7 @@ class AdminAccountU2fRequestRegistrationChallengeRequest implements \Comet\Netwo
 		}
 		
 		// Parse as U2FRegistrationChallengeResponse
-		$ret = \Comet\U2FRegistrationChallengeResponse::createFromStdclass(isset($decoded) ? $decoded : []);
+		$ret = \Comet\U2FRegistrationChallengeResponse::createFromStdclass($decoded);
 		
 		return $ret;
 	}

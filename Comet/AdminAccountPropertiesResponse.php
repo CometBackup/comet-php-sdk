@@ -39,10 +39,10 @@ class AdminAccountPropertiesResponse {
 	protected function inflateFrom(\stdClass $sc)
 	{
 		if (property_exists($sc, 'Permissions')) {
-			$this->Permissions = \Comet\AdminUserPermissions::createFromStdclass(isset($sc->Permissions) ? $sc->Permissions : []);
+			$this->Permissions = \Comet\AdminUserPermissions::createFromStdclass($sc->Permissions);
 		}
 		if (property_exists($sc, 'Security')) {
-			$this->Security = \Comet\AdminSecurityOptions::createFromStdclass(isset($sc->Security) ? $sc->Security : []);
+			$this->Security = \Comet\AdminSecurityOptions::createFromStdclass($sc->Security);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
@@ -126,14 +126,14 @@ class AdminAccountPropertiesResponse {
 	{
 		$ret = [];
 		if ( $this->Permissions === null ) {
-			$ret["Permissions"] = $for_json_encode ? (object)[] : [];
+			$ret["Permissions"] = new \stdClass();
 		} else {
-			$ret["Permissions"] = $this->Permissions->toArray($for_json_encode);
+			$ret["Permissions"] = $this->Permissions->toArray();
 		}
 		if ( $this->Security === null ) {
-			$ret["Security"] = $for_json_encode ? (object)[] : [];
+			$ret["Security"] = new \stdClass();
 		} else {
-			$ret["Security"] = $this->Security->toArray($for_json_encode);
+			$ret["Security"] = $this->Security->toArray();
 		}
 		
 		// Reinstate unknown properties from future server versions

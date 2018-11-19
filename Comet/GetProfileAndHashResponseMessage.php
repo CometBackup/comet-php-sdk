@@ -58,7 +58,7 @@ class GetProfileAndHashResponseMessage {
 			$this->ProfileHash = (string)($sc->ProfileHash);
 		}
 		if (property_exists($sc, 'Profile')) {
-			$this->Profile = \Comet\UserProfileConfig::createFromStdclass(isset($sc->Profile) ? $sc->Profile : []);
+			$this->Profile = \Comet\UserProfileConfig::createFromStdclass($sc->Profile);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
@@ -147,9 +147,9 @@ class GetProfileAndHashResponseMessage {
 		$ret["Message"] = $this->Message;
 		$ret["ProfileHash"] = $this->ProfileHash;
 		if ( $this->Profile === null ) {
-			$ret["Profile"] = $for_json_encode ? (object)[] : [];
+			$ret["Profile"] = new \stdClass();
 		} else {
-			$ret["Profile"] = $this->Profile->toArray($for_json_encode);
+			$ret["Profile"] = $this->Profile->toArray();
 		}
 		
 		// Reinstate unknown properties from future server versions

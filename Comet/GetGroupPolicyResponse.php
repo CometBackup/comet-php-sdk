@@ -55,7 +55,7 @@ class GetGroupPolicyResponse {
 			$this->Message = (string)($sc->Message);
 		}
 		if (property_exists($sc, 'Policy')) {
-			$this->Policy = \Comet\GroupPolicy::createFromStdclass(isset($sc->Policy) ? $sc->Policy : []);
+			$this->Policy = \Comet\GroupPolicy::createFromStdclass($sc->Policy);
 		}
 		if (property_exists($sc, 'PolicyHash')) {
 			$this->PolicyHash = (string)($sc->PolicyHash);
@@ -146,9 +146,9 @@ class GetGroupPolicyResponse {
 		$ret["Status"] = $this->Status;
 		$ret["Message"] = $this->Message;
 		if ( $this->Policy === null ) {
-			$ret["Policy"] = $for_json_encode ? (object)[] : [];
+			$ret["Policy"] = new \stdClass();
 		} else {
-			$ret["Policy"] = $this->Policy->toArray($for_json_encode);
+			$ret["Policy"] = $this->Policy->toArray();
 		}
 		$ret["PolicyHash"] = $this->PolicyHash;
 		

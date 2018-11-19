@@ -137,12 +137,12 @@ class BackupRuleConfig {
 		if (property_exists($sc, 'Schedules')) {
 			$val_2 = [];
 			for($i_2 = 0; $i_2 < count($sc->Schedules); ++$i_2) {
-				$val_2[] = \Comet\ScheduleConfig::createFromStdclass(isset($sc->Schedules[$i_2]) ? $sc->Schedules[$i_2] : []);
+				$val_2[] = \Comet\ScheduleConfig::createFromStdclass($sc->Schedules[$i_2]);
 			}
 			$this->Schedules = $val_2;
 		}
 		if (property_exists($sc, 'EventTriggers')) {
-			$this->EventTriggers = \Comet\BackupRuleEventTriggers::createFromStdclass(isset($sc->EventTriggers) ? $sc->EventTriggers : []);
+			$this->EventTriggers = \Comet\BackupRuleEventTriggers::createFromStdclass($sc->EventTriggers);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
@@ -265,18 +265,18 @@ class BackupRuleConfig {
 			$c0 = [];
 			for($i0 = 0; $i0 < count($this->Schedules); ++$i0) {
 				if ( $this->Schedules[$i0] === null ) {
-					$val0 = $for_json_encode ? (object)[] : [];
+					$val0 = new \stdClass();
 				} else {
-					$val0 = $this->Schedules[$i0]->toArray($for_json_encode);
+					$val0 = $this->Schedules[$i0]->toArray();
 				}
 				$c0[] = $val0;
 			}
 			$ret["Schedules"] = $c0;
 		}
 		if ( $this->EventTriggers === null ) {
-			$ret["EventTriggers"] = $for_json_encode ? (object)[] : [];
+			$ret["EventTriggers"] = new \stdClass();
 		} else {
-			$ret["EventTriggers"] = $this->EventTriggers->toArray($for_json_encode);
+			$ret["EventTriggers"] = $this->EventTriggers->toArray();
 		}
 		
 		// Reinstate unknown properties from future server versions

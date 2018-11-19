@@ -80,7 +80,7 @@ class AdminUpdateCampaignStatusRequest implements \Comet\NetworkRequest {
 		}
 		
 		// Parse as UpdateCampaignStatus
-		$ret = \Comet\UpdateCampaignStatus::createFromStdclass(isset($decoded) ? $decoded : []);
+		$ret = \Comet\UpdateCampaignStatus::createFromStdclass($decoded);
 		
 		return $ret;
 	}

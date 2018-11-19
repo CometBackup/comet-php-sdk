@@ -79,7 +79,7 @@ class AdminMetaVersionRequest implements \Comet\NetworkRequest {
 		}
 		
 		// Parse as ServerMetaVersionInfo
-		$ret = \Comet\ServerMetaVersionInfo::createFromStdclass(isset($decoded) ? $decoded : []);
+		$ret = \Comet\ServerMetaVersionInfo::createFromStdclass($decoded);
 		
 		return $ret;
 	}

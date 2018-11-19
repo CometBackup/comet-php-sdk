@@ -52,7 +52,7 @@ class DispatcherVaultSnapshotsResponse {
 		if (property_exists($sc, 'Snapshots')) {
 			$val_2 = [];
 			for($i_2 = 0; $i_2 < count($sc->Snapshots); ++$i_2) {
-				$val_2[] = \Comet\VaultSnapshot::createFromStdclass(isset($sc->Snapshots[$i_2]) ? $sc->Snapshots[$i_2] : []);
+				$val_2[] = \Comet\VaultSnapshot::createFromStdclass($sc->Snapshots[$i_2]);
 			}
 			$this->Snapshots = $val_2;
 		}
@@ -144,9 +144,9 @@ class DispatcherVaultSnapshotsResponse {
 			$c0 = [];
 			for($i0 = 0; $i0 < count($this->Snapshots); ++$i0) {
 				if ( $this->Snapshots[$i0] === null ) {
-					$val0 = $for_json_encode ? (object)[] : [];
+					$val0 = new \stdClass();
 				} else {
-					$val0 = $this->Snapshots[$i0]->toArray($for_json_encode);
+					$val0 = $this->Snapshots[$i0]->toArray();
 				}
 				$c0[] = $val0;
 			}

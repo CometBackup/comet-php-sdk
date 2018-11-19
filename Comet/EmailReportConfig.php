@@ -49,12 +49,12 @@ class EmailReportConfig {
 		if (property_exists($sc, 'SummaryFrequency')) {
 			$val_2 = [];
 			for($i_2 = 0; $i_2 < count($sc->SummaryFrequency); ++$i_2) {
-				$val_2[] = \Comet\ScheduleConfig::createFromStdclass(isset($sc->SummaryFrequency[$i_2]) ? $sc->SummaryFrequency[$i_2] : []);
+				$val_2[] = \Comet\ScheduleConfig::createFromStdclass($sc->SummaryFrequency[$i_2]);
 			}
 			$this->SummaryFrequency = $val_2;
 		}
 		if (property_exists($sc, 'Filter')) {
-			$this->Filter = \Comet\search.SearchClause::createFromStdclass(isset($sc->Filter) ? $sc->Filter : []);
+			$this->Filter = \Comet\search.SearchClause::createFromStdclass($sc->Filter);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
@@ -143,18 +143,18 @@ class EmailReportConfig {
 			$c0 = [];
 			for($i0 = 0; $i0 < count($this->SummaryFrequency); ++$i0) {
 				if ( $this->SummaryFrequency[$i0] === null ) {
-					$val0 = $for_json_encode ? (object)[] : [];
+					$val0 = new \stdClass();
 				} else {
-					$val0 = $this->SummaryFrequency[$i0]->toArray($for_json_encode);
+					$val0 = $this->SummaryFrequency[$i0]->toArray();
 				}
 				$c0[] = $val0;
 			}
 			$ret["SummaryFrequency"] = $c0;
 		}
 		if ( $this->Filter === null ) {
-			$ret["Filter"] = $for_json_encode ? (object)[] : [];
+			$ret["Filter"] = new \stdClass();
 		} else {
-			$ret["Filter"] = $this->Filter->toArray($for_json_encode);
+			$ret["Filter"] = $this->Filter->toArray();
 		}
 		
 		// Reinstate unknown properties from future server versions

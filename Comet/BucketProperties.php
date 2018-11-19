@@ -58,7 +58,7 @@ class BucketProperties {
 			$this->ReadWriteKey = (string)($sc->ReadWriteKey);
 		}
 		if (property_exists($sc, 'Size')) {
-			$this->Size = \Comet\SizeMeasurement::createFromStdclass(isset($sc->Size) ? $sc->Size : []);
+			$this->Size = \Comet\SizeMeasurement::createFromStdclass($sc->Size);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
@@ -147,9 +147,9 @@ class BucketProperties {
 		$ret["ReadWriteKeyFormat"] = $this->ReadWriteKeyFormat;
 		$ret["ReadWriteKey"] = $this->ReadWriteKey;
 		if ( $this->Size === null ) {
-			$ret["Size"] = $for_json_encode ? (object)[] : [];
+			$ret["Size"] = new \stdClass();
 		} else {
-			$ret["Size"] = $this->Size->toArray($for_json_encode);
+			$ret["Size"] = $this->Size->toArray();
 		}
 		
 		// Reinstate unknown properties from future server versions

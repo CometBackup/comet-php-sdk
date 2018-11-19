@@ -91,7 +91,7 @@ class AdminGetUserProfileAndHashRequest implements \Comet\NetworkRequest {
 		}
 		
 		// Parse as GetProfileAndHashResponseMessage
-		$ret = \Comet\GetProfileAndHashResponseMessage::createFromStdclass(isset($decoded) ? $decoded : []);
+		$ret = \Comet\GetProfileAndHashResponseMessage::createFromStdclass($decoded);
 		
 		return $ret;
 	}

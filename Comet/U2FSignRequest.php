@@ -60,7 +60,7 @@ class U2FSignRequest {
 		if (property_exists($sc, 'RegisteredKeys')) {
 			$val_2 = [];
 			for($i_2 = 0; $i_2 < count($sc->RegisteredKeys); ++$i_2) {
-				$val_2[] = \Comet\U2FRegisteredKey::createFromStdclass(isset($sc->RegisteredKeys[$i_2]) ? $sc->RegisteredKeys[$i_2] : []);
+				$val_2[] = \Comet\U2FRegisteredKey::createFromStdclass($sc->RegisteredKeys[$i_2]);
 			}
 			$this->RegisteredKeys = $val_2;
 		}
@@ -154,9 +154,9 @@ class U2FSignRequest {
 			$c0 = [];
 			for($i0 = 0; $i0 < count($this->RegisteredKeys); ++$i0) {
 				if ( $this->RegisteredKeys[$i0] === null ) {
-					$val0 = $for_json_encode ? (object)[] : [];
+					$val0 = new \stdClass();
 				} else {
-					$val0 = $this->RegisteredKeys[$i0]->toArray($for_json_encode);
+					$val0 = $this->RegisteredKeys[$i0]->toArray();
 				}
 				$c0[] = $val0;
 			}

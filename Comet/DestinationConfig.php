@@ -383,15 +383,15 @@ class DestinationConfig {
 			$this->LocalcopyWinSMBPasswordFormat = (int)($sc->LocalcopyWinSMBPasswordFormat);
 		}
 		if (property_exists($sc, 'Swift')) {
-			$this->Swift = \Comet\SwiftDestinationLocation::createFromStdclass(isset($sc->Swift) ? $sc->Swift : []);
+			$this->Swift = \Comet\SwiftDestinationLocation::createFromStdclass($sc->Swift);
 		}
 		if (property_exists($sc, 'B2')) {
-			$this->B2 = \Comet\B2DestinationLocation::createFromStdclass(isset($sc->B2) ? $sc->B2 : []);
+			$this->B2 = \Comet\B2DestinationLocation::createFromStdclass($sc->B2);
 		}
 		if (property_exists($sc, 'SpanTargets')) {
 			$val_2 = [];
 			for($i_2 = 0; $i_2 < count($sc->SpanTargets); ++$i_2) {
-				$val_2[] = \Comet\DestinationLocation::createFromStdclass(isset($sc->SpanTargets[$i_2]) ? $sc->SpanTargets[$i_2] : []);
+				$val_2[] = \Comet\DestinationLocation::createFromStdclass($sc->SpanTargets[$i_2]);
 			}
 			$this->SpanTargets = $val_2;
 		}
@@ -411,10 +411,10 @@ class DestinationConfig {
 			$this->StorageLimitBytes = (int)($sc->StorageLimitBytes);
 		}
 		if (property_exists($sc, 'Statistics')) {
-			$this->Statistics = \Comet\DestinationStatistics::createFromStdclass(isset($sc->Statistics) ? $sc->Statistics : []);
+			$this->Statistics = \Comet\DestinationStatistics::createFromStdclass($sc->Statistics);
 		}
 		if (property_exists($sc, 'DefaultRetention')) {
-			$this->DefaultRetention = \Comet\RetentionPolicy::createFromStdclass(isset($sc->DefaultRetention) ? $sc->DefaultRetention : []);
+			$this->DefaultRetention = \Comet\RetentionPolicy::createFromStdclass($sc->DefaultRetention);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
@@ -594,22 +594,22 @@ class DestinationConfig {
 		$ret["LocalcopyWinSMBPassword"] = $this->LocalcopyWinSMBPassword;
 		$ret["LocalcopyWinSMBPasswordFormat"] = $this->LocalcopyWinSMBPasswordFormat;
 		if ( $this->Swift === null ) {
-			$ret["Swift"] = $for_json_encode ? (object)[] : [];
+			$ret["Swift"] = new \stdClass();
 		} else {
-			$ret["Swift"] = $this->Swift->toArray($for_json_encode);
+			$ret["Swift"] = $this->Swift->toArray();
 		}
 		if ( $this->B2 === null ) {
-			$ret["B2"] = $for_json_encode ? (object)[] : [];
+			$ret["B2"] = new \stdClass();
 		} else {
-			$ret["B2"] = $this->B2->toArray($for_json_encode);
+			$ret["B2"] = $this->B2->toArray();
 		}
 		{
 			$c0 = [];
 			for($i0 = 0; $i0 < count($this->SpanTargets); ++$i0) {
 				if ( $this->SpanTargets[$i0] === null ) {
-					$val0 = $for_json_encode ? (object)[] : [];
+					$val0 = new \stdClass();
 				} else {
-					$val0 = $this->SpanTargets[$i0]->toArray($for_json_encode);
+					$val0 = $this->SpanTargets[$i0]->toArray();
 				}
 				$c0[] = $val0;
 			}
@@ -621,14 +621,14 @@ class DestinationConfig {
 		$ret["StorageLimitEnabled"] = $this->StorageLimitEnabled;
 		$ret["StorageLimitBytes"] = $this->StorageLimitBytes;
 		if ( $this->Statistics === null ) {
-			$ret["Statistics"] = $for_json_encode ? (object)[] : [];
+			$ret["Statistics"] = new \stdClass();
 		} else {
-			$ret["Statistics"] = $this->Statistics->toArray($for_json_encode);
+			$ret["Statistics"] = $this->Statistics->toArray();
 		}
 		if ( $this->DefaultRetention === null ) {
-			$ret["DefaultRetention"] = $for_json_encode ? (object)[] : [];
+			$ret["DefaultRetention"] = new \stdClass();
 		} else {
-			$ret["DefaultRetention"] = $this->DefaultRetention->toArray($for_json_encode);
+			$ret["DefaultRetention"] = $this->DefaultRetention->toArray();
 		}
 		
 		// Reinstate unknown properties from future server versions

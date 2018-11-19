@@ -68,7 +68,7 @@ class SearchClause {
 		if (property_exists($sc, 'ClauseChildren')) {
 			$val_2 = [];
 			for($i_2 = 0; $i_2 < count($sc->ClauseChildren); ++$i_2) {
-				$val_2[] = \Comet\SearchClause::createFromStdclass(isset($sc->ClauseChildren[$i_2]) ? $sc->ClauseChildren[$i_2] : []);
+				$val_2[] = \Comet\SearchClause::createFromStdclass($sc->ClauseChildren[$i_2]);
 			}
 			$this->ClauseChildren = $val_2;
 		}
@@ -164,9 +164,9 @@ class SearchClause {
 			$c0 = [];
 			for($i0 = 0; $i0 < count($this->ClauseChildren); ++$i0) {
 				if ( $this->ClauseChildren[$i0] === null ) {
-					$val0 = $for_json_encode ? (object)[] : [];
+					$val0 = new \stdClass();
 				} else {
-					$val0 = $this->ClauseChildren[$i0]->toArray($for_json_encode);
+					$val0 = $this->ClauseChildren[$i0]->toArray();
 				}
 				$c0[] = $val0;
 			}

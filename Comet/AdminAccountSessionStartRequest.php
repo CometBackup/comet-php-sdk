@@ -90,7 +90,7 @@ class AdminAccountSessionStartRequest implements \Comet\NetworkRequest {
 		}
 		
 		// Parse as SessionKeyRegeneratedResponse
-		$ret = \Comet\SessionKeyRegeneratedResponse::createFromStdclass(isset($decoded) ? $decoded : []);
+		$ret = \Comet\SessionKeyRegeneratedResponse::createFromStdclass($decoded);
 		
 		return $ret;
 	}

@@ -79,7 +79,7 @@ class AdminAccountRegenerateTotpRequest implements \Comet\NetworkRequest {
 		}
 		
 		// Parse as TotpRegeneratedResponse
-		$ret = \Comet\TotpRegeneratedResponse::createFromStdclass(isset($decoded) ? $decoded : []);
+		$ret = \Comet\TotpRegeneratedResponse::createFromStdclass($decoded);
 		
 		return $ret;
 	}

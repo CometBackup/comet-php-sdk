@@ -149,11 +149,7 @@ class DispatcherAdminSourcesResponse {
 				$vo_0 = $v0;
 				$c0[ $ko_0 ] = $vo_0;
 			}
-			if ($for_json_encode && count($c0) == 0) {
-				$ret["ImportSources"] = (object)[];
-			} else {
-				$ret["ImportSources"] = $c0;
-			}
+			$ret["ImportSources"] = $c0;
 		}
 		
 		// Reinstate unknown properties from future server versions

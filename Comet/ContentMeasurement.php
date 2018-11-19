@@ -52,7 +52,7 @@ class ContentMeasurement {
 		if (property_exists($sc, 'Components')) {
 			$val_2 = [];
 			for($i_2 = 0; $i_2 < count($sc->Components); ++$i_2) {
-				$val_2[] = \Comet\ContentMeasurementComponent::createFromStdclass(isset($sc->Components[$i_2]) ? $sc->Components[$i_2] : []);
+				$val_2[] = \Comet\ContentMeasurementComponent::createFromStdclass($sc->Components[$i_2]);
 			}
 			$this->Components = $val_2;
 		}
@@ -144,9 +144,9 @@ class ContentMeasurement {
 			$c0 = [];
 			for($i0 = 0; $i0 < count($this->Components); ++$i0) {
 				if ( $this->Components[$i0] === null ) {
-					$val0 = $for_json_encode ? (object)[] : [];
+					$val0 = new \stdClass();
 				} else {
-					$val0 = $this->Components[$i0]->toArray($for_json_encode);
+					$val0 = $this->Components[$i0]->toArray();
 				}
 				$c0[] = $val0;
 			}

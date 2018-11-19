@@ -79,7 +79,7 @@ class AdminAccountPropertiesRequest implements \Comet\NetworkRequest {
 		}
 		
 		// Parse as AdminAccountPropertiesResponse
-		$ret = \Comet\AdminAccountPropertiesResponse::createFromStdclass(isset($decoded) ? $decoded : []);
+		$ret = \Comet\AdminAccountPropertiesResponse::createFromStdclass($decoded);
 		
 		return $ret;
 	}

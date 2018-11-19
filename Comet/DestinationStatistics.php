@@ -54,10 +54,10 @@ class DestinationStatistics {
 	protected function inflateFrom(\stdClass $sc)
 	{
 		if (property_exists($sc, 'ClientProvidedSize')) {
-			$this->ClientProvidedSize = \Comet\SizeMeasurement::createFromStdclass(isset($sc->ClientProvidedSize) ? $sc->ClientProvidedSize : []);
+			$this->ClientProvidedSize = \Comet\SizeMeasurement::createFromStdclass($sc->ClientProvidedSize);
 		}
 		if (property_exists($sc, 'ClientProvidedContent')) {
-			$this->ClientProvidedContent = \Comet\ContentMeasurement::createFromStdclass(isset($sc->ClientProvidedContent) ? $sc->ClientProvidedContent : []);
+			$this->ClientProvidedContent = \Comet\ContentMeasurement::createFromStdclass($sc->ClientProvidedContent);
 		}
 		if (property_exists($sc, 'LastSuccessfulDeepVerify_GUID')) {
 			$this->LastSuccessfulDeepVerify_GUID = (string)($sc->LastSuccessfulDeepVerify_GUID);
@@ -153,14 +153,14 @@ class DestinationStatistics {
 	{
 		$ret = [];
 		if ( $this->ClientProvidedSize === null ) {
-			$ret["ClientProvidedSize"] = $for_json_encode ? (object)[] : [];
+			$ret["ClientProvidedSize"] = new \stdClass();
 		} else {
-			$ret["ClientProvidedSize"] = $this->ClientProvidedSize->toArray($for_json_encode);
+			$ret["ClientProvidedSize"] = $this->ClientProvidedSize->toArray();
 		}
 		if ( $this->ClientProvidedContent === null ) {
-			$ret["ClientProvidedContent"] = $for_json_encode ? (object)[] : [];
+			$ret["ClientProvidedContent"] = new \stdClass();
 		} else {
-			$ret["ClientProvidedContent"] = $this->ClientProvidedContent->toArray($for_json_encode);
+			$ret["ClientProvidedContent"] = $this->ClientProvidedContent->toArray();
 		}
 		$ret["LastSuccessfulDeepVerify_GUID"] = $this->LastSuccessfulDeepVerify_GUID;
 		$ret["LastSuccessfulDeepVerify_StartTime"] = $this->LastSuccessfulDeepVerify_StartTime;

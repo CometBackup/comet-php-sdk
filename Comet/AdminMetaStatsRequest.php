@@ -92,7 +92,7 @@ class AdminMetaStatsRequest implements \Comet\NetworkRequest {
 		$val_0 = [];
 		foreach($decoded as $k_0 => $v_0) {
 			$phpk_0 = (int)($k_0);
-			$phpv_0 = \Comet\StatResult::createFromStdclass(isset($v_0) ? $v_0 : []);
+			$phpv_0 = \Comet\StatResult::createFromStdclass($v_0);
 			$val_0[$phpk_0] = $phpv_0;
 		}
 		$ret = $val_0;
