@@ -112,6 +112,11 @@ class UserPolicy {
 	public $PreventViewDeviceNames = false;
 	
 	/**
+	 * @var \Comet\DefaultEmailReportPolicy
+	 */
+	public $DefaultEmailReports = null;
+	
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see UserPolicy::RemoveUnknownProperties() Remove all unknown properties
@@ -192,6 +197,9 @@ class UserPolicy {
 		if (property_exists($sc, 'PreventViewDeviceNames')) {
 			$this->PreventViewDeviceNames = (bool)($sc->PreventViewDeviceNames);
 		}
+		if (property_exists($sc, 'DefaultEmailReports')) {
+			$this->DefaultEmailReports = \Comet\DefaultEmailReportPolicy::createFromStdclass(isset($sc->DefaultEmailReports) ? $sc->DefaultEmailReports : []);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'PreventRequestStorageVault':
@@ -214,6 +222,7 @@ class UserPolicy {
 			case 'HideAppVersion':
 			case 'PreventOpenWebUI':
 			case 'PreventViewDeviceNames':
+			case 'DefaultEmailReports':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -330,6 +339,11 @@ class UserPolicy {
 		$ret["HideAppVersion"] = $this->HideAppVersion;
 		$ret["PreventOpenWebUI"] = $this->PreventOpenWebUI;
 		$ret["PreventViewDeviceNames"] = $this->PreventViewDeviceNames;
+		if ( $this->DefaultEmailReports === null ) {
+			$ret["DefaultEmailReports"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["DefaultEmailReports"] = $this->DefaultEmailReports->toArray($for_json_encode);
+		}
 		
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
@@ -384,6 +398,9 @@ class UserPolicy {
 		}
 		if ($this->ProtectedItemEngineTypes !== null) {
 			$this->ProtectedItemEngineTypes->RemoveUnknownProperties();
+		}
+		if ($this->DefaultEmailReports !== null) {
+			$this->DefaultEmailReports->RemoveUnknownProperties();
 		}
 	}
 	
