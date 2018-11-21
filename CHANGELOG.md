@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 2018-11-22 v2.3.1
+- Based on Comet 18.11.1
+- Fix release codename in `\Comet\Def`
+- Fix an issue with error exceptions
+
 ## 2018-11-19 v2.3.0
 - Based on Comet 18.11.1-rc
 - Support new policy email report functionality
