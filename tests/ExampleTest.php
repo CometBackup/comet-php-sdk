@@ -53,6 +53,17 @@ class ExampleTest extends \PHPUnit\Framework\TestCase {
 
 	}
 
+	public function testUnknownUser() {
+		$unknown_username = "comet-test-unknown-user-".time();
+
+		try {
+			$userpc = $this->server->AdminGetUserProfile($unknown_username);
+			$this->fail("Shouldn't reach this");
+		} catch (\Exception $e) {
+			$this->assertTrue(true);
+		}
+	}
+
 	public function testGuzzleAsync() {
 		$client = new \GuzzleHttp\Client();
 
