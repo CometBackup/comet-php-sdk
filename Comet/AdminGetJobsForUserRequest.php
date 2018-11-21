@@ -81,7 +81,7 @@ class AdminGetJobsForUserRequest implements \Comet\NetworkRequest {
 		}
 		
 		// Try to parse as error format
-		$isCARMDerivedType = (($decoded instanceof stdClass) && property_exists($decoded, 'Status') && property_exists($decoded, 'Message'));
+		$isCARMDerivedType = (($decoded instanceof \stdClass) && property_exists($decoded, 'Status') && property_exists($decoded, 'Message'));
 		if ($isCARMDerivedType) {
 			$carm = \Comet\APIResponseMessage::createFromStdclass($decoded);
 			if ($carm->Status !== 200) {
