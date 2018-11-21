@@ -616,7 +616,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const RELEASE_CODENAME = "Voyager";
+	const RELEASE_CODENAME = "Ceres";
 	
 	/**
 	 * @type int
