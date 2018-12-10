@@ -133,9 +133,10 @@ class EmailReportConfig {
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
+	 * @param bool $for_json_encode Represent empty key-value maps as \stdClass instead of plain PHP arrays
 	 * @return array
 	 */
-	public function toArray()
+	public function toArray($for_json_encode = false)
 	{
 		$ret = [];
 		$ret["ReportType"] = $this->ReportType;
@@ -143,18 +144,18 @@ class EmailReportConfig {
 			$c0 = [];
 			for($i0 = 0; $i0 < count($this->SummaryFrequency); ++$i0) {
 				if ( $this->SummaryFrequency[$i0] === null ) {
-					$val0 = new \stdClass();
+					$val0 = $for_json_encode ? (object)[] : [];
 				} else {
-					$val0 = $this->SummaryFrequency[$i0]->toArray();
+					$val0 = $this->SummaryFrequency[$i0]->toArray($for_json_encode);
 				}
 				$c0[] = $val0;
 			}
 			$ret["SummaryFrequency"] = $c0;
 		}
 		if ( $this->Filter === null ) {
-			$ret["Filter"] = new \stdClass();
+			$ret["Filter"] = $for_json_encode ? (object)[] : [];
 		} else {
-			$ret["Filter"] = $this->Filter->toArray();
+			$ret["Filter"] = $this->Filter->toArray($for_json_encode);
 		}
 		
 		// Reinstate unknown properties from future server versions
@@ -173,7 +174,7 @@ class EmailReportConfig {
 	 */
 	public function toJSON()
 	{
-		$arr = self::toArray();
+		$arr = self::toArray(true);
 		if (count($arr) === 0) {
 			return "{}"; // object
 		} else {
@@ -189,7 +190,7 @@ class EmailReportConfig {
 	 */
 	public function toStdClass()
 	{
-		$arr = self::toArray();
+		$arr = self::toArray(false);
 		if (count($arr) === 0) {
 			return new \stdClass();
 		} else {

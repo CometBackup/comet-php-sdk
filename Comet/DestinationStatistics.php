@@ -147,20 +147,21 @@ class DestinationStatistics {
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
+	 * @param bool $for_json_encode Represent empty key-value maps as \stdClass instead of plain PHP arrays
 	 * @return array
 	 */
-	public function toArray()
+	public function toArray($for_json_encode = false)
 	{
 		$ret = [];
 		if ( $this->ClientProvidedSize === null ) {
-			$ret["ClientProvidedSize"] = new \stdClass();
+			$ret["ClientProvidedSize"] = $for_json_encode ? (object)[] : [];
 		} else {
-			$ret["ClientProvidedSize"] = $this->ClientProvidedSize->toArray();
+			$ret["ClientProvidedSize"] = $this->ClientProvidedSize->toArray($for_json_encode);
 		}
 		if ( $this->ClientProvidedContent === null ) {
-			$ret["ClientProvidedContent"] = new \stdClass();
+			$ret["ClientProvidedContent"] = $for_json_encode ? (object)[] : [];
 		} else {
-			$ret["ClientProvidedContent"] = $this->ClientProvidedContent->toArray();
+			$ret["ClientProvidedContent"] = $this->ClientProvidedContent->toArray($for_json_encode);
 		}
 		$ret["LastSuccessfulDeepVerify_GUID"] = $this->LastSuccessfulDeepVerify_GUID;
 		$ret["LastSuccessfulDeepVerify_StartTime"] = $this->LastSuccessfulDeepVerify_StartTime;
@@ -182,7 +183,7 @@ class DestinationStatistics {
 	 */
 	public function toJSON()
 	{
-		$arr = self::toArray();
+		$arr = self::toArray(true);
 		if (count($arr) === 0) {
 			return "{}"; // object
 		} else {
@@ -198,7 +199,7 @@ class DestinationStatistics {
 	 */
 	public function toStdClass()
 	{
-		$arr = self::toArray();
+		$arr = self::toArray(false);
 		if (count($arr) === 0) {
 			return new \stdClass();
 		} else {

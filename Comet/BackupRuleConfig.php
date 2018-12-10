@@ -231,9 +231,10 @@ class BackupRuleConfig {
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
+	 * @param bool $for_json_encode Represent empty key-value maps as \stdClass instead of plain PHP arrays
 	 * @return array
 	 */
-	public function toArray()
+	public function toArray($for_json_encode = false)
 	{
 		$ret = [];
 		$ret["Description"] = $this->Description;
@@ -265,18 +266,18 @@ class BackupRuleConfig {
 			$c0 = [];
 			for($i0 = 0; $i0 < count($this->Schedules); ++$i0) {
 				if ( $this->Schedules[$i0] === null ) {
-					$val0 = new \stdClass();
+					$val0 = $for_json_encode ? (object)[] : [];
 				} else {
-					$val0 = $this->Schedules[$i0]->toArray();
+					$val0 = $this->Schedules[$i0]->toArray($for_json_encode);
 				}
 				$c0[] = $val0;
 			}
 			$ret["Schedules"] = $c0;
 		}
 		if ( $this->EventTriggers === null ) {
-			$ret["EventTriggers"] = new \stdClass();
+			$ret["EventTriggers"] = $for_json_encode ? (object)[] : [];
 		} else {
-			$ret["EventTriggers"] = $this->EventTriggers->toArray();
+			$ret["EventTriggers"] = $this->EventTriggers->toArray($for_json_encode);
 		}
 		
 		// Reinstate unknown properties from future server versions
@@ -295,7 +296,7 @@ class BackupRuleConfig {
 	 */
 	public function toJSON()
 	{
-		$arr = self::toArray();
+		$arr = self::toArray(true);
 		if (count($arr) === 0) {
 			return "{}"; // object
 		} else {
@@ -311,7 +312,7 @@ class BackupRuleConfig {
 	 */
 	public function toStdClass()
 	{
-		$arr = self::toArray();
+		$arr = self::toArray(false);
 		if (count($arr) === 0) {
 			return new \stdClass();
 		} else {

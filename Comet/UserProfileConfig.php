@@ -325,9 +325,10 @@ class UserProfileConfig {
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
+	 * @param bool $for_json_encode Represent empty key-value maps as \stdClass instead of plain PHP arrays
 	 * @return array
 	 */
-	public function toArray()
+	public function toArray($for_json_encode = false)
 	{
 		$ret = [];
 		$ret["Username"] = $this->Username;
@@ -346,13 +347,17 @@ class UserProfileConfig {
 			foreach($this->OverrideEmailSettings as $k0 => $v0) {
 				$ko_0 = $k0;
 				if ( $v0 === null ) {
-					$vo_0 = new \stdClass();
+					$vo_0 = $for_json_encode ? (object)[] : [];
 				} else {
-					$vo_0 = $v0->toArray();
+					$vo_0 = $v0->toArray($for_json_encode);
 				}
 				$c0[ $ko_0 ] = $vo_0;
 			}
-			$ret["OverrideEmailSettings"] = $c0;
+			if ($for_json_encode && count($c0) == 0) {
+				$ret["OverrideEmailSettings"] = (object)[];
+			} else {
+				$ret["OverrideEmailSettings"] = $c0;
+			}
 		}
 		$ret["SendEmailReports"] = $this->SendEmailReports;
 		{
@@ -360,52 +365,68 @@ class UserProfileConfig {
 			foreach($this->Destinations as $k0 => $v0) {
 				$ko_0 = $k0;
 				if ( $v0 === null ) {
-					$vo_0 = new \stdClass();
+					$vo_0 = $for_json_encode ? (object)[] : [];
 				} else {
-					$vo_0 = $v0->toArray();
+					$vo_0 = $v0->toArray($for_json_encode);
 				}
 				$c0[ $ko_0 ] = $vo_0;
 			}
-			$ret["Destinations"] = $c0;
+			if ($for_json_encode && count($c0) == 0) {
+				$ret["Destinations"] = (object)[];
+			} else {
+				$ret["Destinations"] = $c0;
+			}
 		}
 		{
 			$c0 = [];
 			foreach($this->Sources as $k0 => $v0) {
 				$ko_0 = $k0;
 				if ( $v0 === null ) {
-					$vo_0 = new \stdClass();
+					$vo_0 = $for_json_encode ? (object)[] : [];
 				} else {
-					$vo_0 = $v0->toArray();
+					$vo_0 = $v0->toArray($for_json_encode);
 				}
 				$c0[ $ko_0 ] = $vo_0;
 			}
-			$ret["Sources"] = $c0;
+			if ($for_json_encode && count($c0) == 0) {
+				$ret["Sources"] = (object)[];
+			} else {
+				$ret["Sources"] = $c0;
+			}
 		}
 		{
 			$c0 = [];
 			foreach($this->BackupRules as $k0 => $v0) {
 				$ko_0 = $k0;
 				if ( $v0 === null ) {
-					$vo_0 = new \stdClass();
+					$vo_0 = $for_json_encode ? (object)[] : [];
 				} else {
-					$vo_0 = $v0->toArray();
+					$vo_0 = $v0->toArray($for_json_encode);
 				}
 				$c0[ $ko_0 ] = $vo_0;
 			}
-			$ret["BackupRules"] = $c0;
+			if ($for_json_encode && count($c0) == 0) {
+				$ret["BackupRules"] = (object)[];
+			} else {
+				$ret["BackupRules"] = $c0;
+			}
 		}
 		{
 			$c0 = [];
 			foreach($this->Devices as $k0 => $v0) {
 				$ko_0 = $k0;
 				if ( $v0 === null ) {
-					$vo_0 = new \stdClass();
+					$vo_0 = $for_json_encode ? (object)[] : [];
 				} else {
-					$vo_0 = $v0->toArray();
+					$vo_0 = $v0->toArray($for_json_encode);
 				}
 				$c0[ $ko_0 ] = $vo_0;
 			}
-			$ret["Devices"] = $c0;
+			if ($for_json_encode && count($c0) == 0) {
+				$ret["Devices"] = (object)[];
+			} else {
+				$ret["Devices"] = $c0;
+			}
 		}
 		$ret["IsSuspended"] = $this->IsSuspended;
 		$ret["AllProtectedItemsQuotaEnabled"] = $this->AllProtectedItemsQuotaEnabled;
@@ -413,9 +434,9 @@ class UserProfileConfig {
 		$ret["MaximumDevices"] = $this->MaximumDevices;
 		$ret["PolicyID"] = $this->PolicyID;
 		if ( $this->Policy === null ) {
-			$ret["Policy"] = new \stdClass();
+			$ret["Policy"] = $for_json_encode ? (object)[] : [];
 		} else {
-			$ret["Policy"] = $this->Policy->toArray();
+			$ret["Policy"] = $this->Policy->toArray($for_json_encode);
 		}
 		$ret["PasswordFormat"] = $this->PasswordFormat;
 		$ret["PasswordHash"] = $this->PasswordHash;
@@ -439,7 +460,7 @@ class UserProfileConfig {
 	 */
 	public function toJSON()
 	{
-		$arr = self::toArray();
+		$arr = self::toArray(true);
 		if (count($arr) === 0) {
 			return "{}"; // object
 		} else {
@@ -455,7 +476,7 @@ class UserProfileConfig {
 	 */
 	public function toStdClass()
 	{
-		$arr = self::toArray();
+		$arr = self::toArray(false);
 		if (count($arr) === 0) {
 			return new \stdClass();
 		} else {

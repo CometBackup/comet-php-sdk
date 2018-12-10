@@ -264,9 +264,10 @@ class BackupJobDetail {
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
+	 * @param bool $for_json_encode Represent empty key-value maps as \stdClass instead of plain PHP arrays
 	 * @return array
 	 */
-	public function toArray()
+	public function toArray($for_json_encode = false)
 	{
 		$ret = [];
 		$ret["GUID"] = $this->GUID;
@@ -287,9 +288,9 @@ class BackupJobDetail {
 		$ret["DownloadSize"] = $this->DownloadSize;
 		$ret["CancellationID"] = $this->CancellationID;
 		if ( $this->Progress === null ) {
-			$ret["Progress"] = new \stdClass();
+			$ret["Progress"] = $for_json_encode ? (object)[] : [];
 		} else {
-			$ret["Progress"] = $this->Progress->toArray();
+			$ret["Progress"] = $this->Progress->toArray($for_json_encode);
 		}
 		
 		// Reinstate unknown properties from future server versions
@@ -308,7 +309,7 @@ class BackupJobDetail {
 	 */
 	public function toJSON()
 	{
-		$arr = self::toArray();
+		$arr = self::toArray(true);
 		if (count($arr) === 0) {
 			return "{}"; // object
 		} else {
@@ -324,7 +325,7 @@ class BackupJobDetail {
 	 */
 	public function toStdClass()
 	{
-		$arr = self::toArray();
+		$arr = self::toArray(false);
 		if (count($arr) === 0) {
 			return new \stdClass();
 		} else {

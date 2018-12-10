@@ -120,20 +120,21 @@ class AdminAccountPropertiesResponse {
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
+	 * @param bool $for_json_encode Represent empty key-value maps as \stdClass instead of plain PHP arrays
 	 * @return array
 	 */
-	public function toArray()
+	public function toArray($for_json_encode = false)
 	{
 		$ret = [];
 		if ( $this->Permissions === null ) {
-			$ret["Permissions"] = new \stdClass();
+			$ret["Permissions"] = $for_json_encode ? (object)[] : [];
 		} else {
-			$ret["Permissions"] = $this->Permissions->toArray();
+			$ret["Permissions"] = $this->Permissions->toArray($for_json_encode);
 		}
 		if ( $this->Security === null ) {
-			$ret["Security"] = new \stdClass();
+			$ret["Security"] = $for_json_encode ? (object)[] : [];
 		} else {
-			$ret["Security"] = $this->Security->toArray();
+			$ret["Security"] = $this->Security->toArray($for_json_encode);
 		}
 		
 		// Reinstate unknown properties from future server versions
@@ -152,7 +153,7 @@ class AdminAccountPropertiesResponse {
 	 */
 	public function toJSON()
 	{
-		$arr = self::toArray();
+		$arr = self::toArray(true);
 		if (count($arr) === 0) {
 			return "{}"; // object
 		} else {
@@ -168,7 +169,7 @@ class AdminAccountPropertiesResponse {
 	 */
 	public function toStdClass()
 	{
-		$arr = self::toArray();
+		$arr = self::toArray(false);
 		if (count($arr) === 0) {
 			return new \stdClass();
 		} else {

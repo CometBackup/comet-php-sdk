@@ -126,9 +126,10 @@ class DeviceConfig {
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
+	 * @param bool $for_json_encode Represent empty key-value maps as \stdClass instead of plain PHP arrays
 	 * @return array
 	 */
-	public function toArray()
+	public function toArray($for_json_encode = false)
 	{
 		$ret = [];
 		$ret["FriendlyName"] = $this->FriendlyName;
@@ -137,13 +138,17 @@ class DeviceConfig {
 			foreach($this->Sources as $k0 => $v0) {
 				$ko_0 = $k0;
 				if ( $v0 === null ) {
-					$vo_0 = new \stdClass();
+					$vo_0 = $for_json_encode ? (object)[] : [];
 				} else {
-					$vo_0 = $v0->toArray();
+					$vo_0 = $v0->toArray($for_json_encode);
 				}
 				$c0[ $ko_0 ] = $vo_0;
 			}
-			$ret["Sources"] = $c0;
+			if ($for_json_encode && count($c0) == 0) {
+				$ret["Sources"] = (object)[];
+			} else {
+				$ret["Sources"] = $c0;
+			}
 		}
 		
 		// Reinstate unknown properties from future server versions
@@ -162,7 +167,7 @@ class DeviceConfig {
 	 */
 	public function toJSON()
 	{
-		$arr = self::toArray();
+		$arr = self::toArray(true);
 		if (count($arr) === 0) {
 			return "{}"; // object
 		} else {
@@ -178,7 +183,7 @@ class DeviceConfig {
 	 */
 	public function toStdClass()
 	{
-		$arr = self::toArray();
+		$arr = self::toArray(false);
 		if (count($arr) === 0) {
 			return new \stdClass();
 		} else {

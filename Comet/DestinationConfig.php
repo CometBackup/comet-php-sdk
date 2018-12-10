@@ -537,9 +537,10 @@ class DestinationConfig {
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
+	 * @param bool $for_json_encode Represent empty key-value maps as \stdClass instead of plain PHP arrays
 	 * @return array
 	 */
-	public function toArray()
+	public function toArray($for_json_encode = false)
 	{
 		$ret = [];
 		$ret["Description"] = $this->Description;
@@ -594,22 +595,22 @@ class DestinationConfig {
 		$ret["LocalcopyWinSMBPassword"] = $this->LocalcopyWinSMBPassword;
 		$ret["LocalcopyWinSMBPasswordFormat"] = $this->LocalcopyWinSMBPasswordFormat;
 		if ( $this->Swift === null ) {
-			$ret["Swift"] = new \stdClass();
+			$ret["Swift"] = $for_json_encode ? (object)[] : [];
 		} else {
-			$ret["Swift"] = $this->Swift->toArray();
+			$ret["Swift"] = $this->Swift->toArray($for_json_encode);
 		}
 		if ( $this->B2 === null ) {
-			$ret["B2"] = new \stdClass();
+			$ret["B2"] = $for_json_encode ? (object)[] : [];
 		} else {
-			$ret["B2"] = $this->B2->toArray();
+			$ret["B2"] = $this->B2->toArray($for_json_encode);
 		}
 		{
 			$c0 = [];
 			for($i0 = 0; $i0 < count($this->SpanTargets); ++$i0) {
 				if ( $this->SpanTargets[$i0] === null ) {
-					$val0 = new \stdClass();
+					$val0 = $for_json_encode ? (object)[] : [];
 				} else {
-					$val0 = $this->SpanTargets[$i0]->toArray();
+					$val0 = $this->SpanTargets[$i0]->toArray($for_json_encode);
 				}
 				$c0[] = $val0;
 			}
@@ -621,14 +622,14 @@ class DestinationConfig {
 		$ret["StorageLimitEnabled"] = $this->StorageLimitEnabled;
 		$ret["StorageLimitBytes"] = $this->StorageLimitBytes;
 		if ( $this->Statistics === null ) {
-			$ret["Statistics"] = new \stdClass();
+			$ret["Statistics"] = $for_json_encode ? (object)[] : [];
 		} else {
-			$ret["Statistics"] = $this->Statistics->toArray();
+			$ret["Statistics"] = $this->Statistics->toArray($for_json_encode);
 		}
 		if ( $this->DefaultRetention === null ) {
-			$ret["DefaultRetention"] = new \stdClass();
+			$ret["DefaultRetention"] = $for_json_encode ? (object)[] : [];
 		} else {
-			$ret["DefaultRetention"] = $this->DefaultRetention->toArray();
+			$ret["DefaultRetention"] = $this->DefaultRetention->toArray($for_json_encode);
 		}
 		
 		// Reinstate unknown properties from future server versions
@@ -647,7 +648,7 @@ class DestinationConfig {
 	 */
 	public function toJSON()
 	{
-		$arr = self::toArray();
+		$arr = self::toArray(true);
 		if (count($arr) === 0) {
 			return "{}"; // object
 		} else {
@@ -663,7 +664,7 @@ class DestinationConfig {
 	 */
 	public function toStdClass()
 	{
-		$arr = self::toArray();
+		$arr = self::toArray(false);
 		if (count($arr) === 0) {
 			return new \stdClass();
 		} else {

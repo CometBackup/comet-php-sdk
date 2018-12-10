@@ -135,9 +135,10 @@ class DispatcherAdminSourcesResponse {
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
+	 * @param bool $for_json_encode Represent empty key-value maps as \stdClass instead of plain PHP arrays
 	 * @return array
 	 */
-	public function toArray()
+	public function toArray($for_json_encode = false)
 	{
 		$ret = [];
 		$ret["Status"] = $this->Status;
@@ -149,7 +150,11 @@ class DispatcherAdminSourcesResponse {
 				$vo_0 = $v0;
 				$c0[ $ko_0 ] = $vo_0;
 			}
-			$ret["ImportSources"] = $c0;
+			if ($for_json_encode && count($c0) == 0) {
+				$ret["ImportSources"] = (object)[];
+			} else {
+				$ret["ImportSources"] = $c0;
+			}
 		}
 		
 		// Reinstate unknown properties from future server versions
@@ -168,7 +173,7 @@ class DispatcherAdminSourcesResponse {
 	 */
 	public function toJSON()
 	{
-		$arr = self::toArray();
+		$arr = self::toArray(true);
 		if (count($arr) === 0) {
 			return "{}"; // object
 		} else {
@@ -184,7 +189,7 @@ class DispatcherAdminSourcesResponse {
 	 */
 	public function toStdClass()
 	{
-		$arr = self::toArray();
+		$arr = self::toArray(false);
 		if (count($arr) === 0) {
 			return new \stdClass();
 		} else {

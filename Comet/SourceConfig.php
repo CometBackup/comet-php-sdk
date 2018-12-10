@@ -212,9 +212,10 @@ class SourceConfig {
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
+	 * @param bool $for_json_encode Represent empty key-value maps as \stdClass instead of plain PHP arrays
 	 * @return array
 	 */
-	public function toArray()
+	public function toArray($for_json_encode = false)
 	{
 		$ret = [];
 		$ret["Engine"] = $this->Engine;
@@ -245,25 +246,33 @@ class SourceConfig {
 				$vo_0 = $v0;
 				$c0[ $ko_0 ] = $vo_0;
 			}
-			$ret["EngineProps"] = $c0;
+			if ($for_json_encode && count($c0) == 0) {
+				$ret["EngineProps"] = (object)[];
+			} else {
+				$ret["EngineProps"] = $c0;
+			}
 		}
 		{
 			$c0 = [];
 			foreach($this->OverrideDestinationRetention as $k0 => $v0) {
 				$ko_0 = $k0;
 				if ( $v0 === null ) {
-					$vo_0 = new \stdClass();
+					$vo_0 = $for_json_encode ? (object)[] : [];
 				} else {
-					$vo_0 = $v0->toArray();
+					$vo_0 = $v0->toArray($for_json_encode);
 				}
 				$c0[ $ko_0 ] = $vo_0;
 			}
-			$ret["OverrideDestinationRetention"] = $c0;
+			if ($for_json_encode && count($c0) == 0) {
+				$ret["OverrideDestinationRetention"] = (object)[];
+			} else {
+				$ret["OverrideDestinationRetention"] = $c0;
+			}
 		}
 		if ( $this->Statistics === null ) {
-			$ret["Statistics"] = new \stdClass();
+			$ret["Statistics"] = $for_json_encode ? (object)[] : [];
 		} else {
-			$ret["Statistics"] = $this->Statistics->toArray();
+			$ret["Statistics"] = $this->Statistics->toArray($for_json_encode);
 		}
 		
 		// Reinstate unknown properties from future server versions
@@ -282,7 +291,7 @@ class SourceConfig {
 	 */
 	public function toJSON()
 	{
-		$arr = self::toArray();
+		$arr = self::toArray(true);
 		if (count($arr) === 0) {
 			return "{}"; // object
 		} else {
@@ -298,7 +307,7 @@ class SourceConfig {
 	 */
 	public function toStdClass()
 	{
-		$arr = self::toArray();
+		$arr = self::toArray(false);
 		if (count($arr) === 0) {
 			return new \stdClass();
 		} else {

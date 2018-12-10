@@ -295,9 +295,10 @@ class UserPolicy {
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
+	 * @param bool $for_json_encode Represent empty key-value maps as \stdClass instead of plain PHP arrays
 	 * @return array
 	 */
-	public function toArray()
+	public function toArray($for_json_encode = false)
 	{
 		$ret = [];
 		$ret["PreventRequestStorageVault"] = $this->PreventRequestStorageVault;
@@ -305,25 +306,25 @@ class UserPolicy {
 		$ret["PreventEditStorageVault"] = $this->PreventEditStorageVault;
 		$ret["PreventDeleteStorageVault"] = $this->PreventDeleteStorageVault;
 		if ( $this->StorageVaultProviders === null ) {
-			$ret["StorageVaultProviders"] = new \stdClass();
+			$ret["StorageVaultProviders"] = $for_json_encode ? (object)[] : [];
 		} else {
-			$ret["StorageVaultProviders"] = $this->StorageVaultProviders->toArray();
+			$ret["StorageVaultProviders"] = $this->StorageVaultProviders->toArray($for_json_encode);
 		}
 		$ret["PreventNewProtectedItem"] = $this->PreventNewProtectedItem;
 		$ret["PreventEditProtectedItem"] = $this->PreventEditProtectedItem;
 		$ret["PreventDeleteProtectedItem"] = $this->PreventDeleteProtectedItem;
 		if ( $this->ProtectedItemEngineTypes === null ) {
-			$ret["ProtectedItemEngineTypes"] = new \stdClass();
+			$ret["ProtectedItemEngineTypes"] = $for_json_encode ? (object)[] : [];
 		} else {
-			$ret["ProtectedItemEngineTypes"] = $this->ProtectedItemEngineTypes->toArray();
+			$ret["ProtectedItemEngineTypes"] = $this->ProtectedItemEngineTypes->toArray($for_json_encode);
 		}
 		{
 			$c0 = [];
 			for($i0 = 0; $i0 < count($this->FileAndFolderMandatoryExclusions); ++$i0) {
 				if ( $this->FileAndFolderMandatoryExclusions[$i0] === null ) {
-					$val0 = new \stdClass();
+					$val0 = $for_json_encode ? (object)[] : [];
 				} else {
-					$val0 = $this->FileAndFolderMandatoryExclusions[$i0]->toArray();
+					$val0 = $this->FileAndFolderMandatoryExclusions[$i0]->toArray($for_json_encode);
 				}
 				$c0[] = $val0;
 			}
@@ -340,9 +341,9 @@ class UserPolicy {
 		$ret["PreventOpenWebUI"] = $this->PreventOpenWebUI;
 		$ret["PreventViewDeviceNames"] = $this->PreventViewDeviceNames;
 		if ( $this->DefaultEmailReports === null ) {
-			$ret["DefaultEmailReports"] = new \stdClass();
+			$ret["DefaultEmailReports"] = $for_json_encode ? (object)[] : [];
 		} else {
-			$ret["DefaultEmailReports"] = $this->DefaultEmailReports->toArray();
+			$ret["DefaultEmailReports"] = $this->DefaultEmailReports->toArray($for_json_encode);
 		}
 		
 		// Reinstate unknown properties from future server versions
@@ -361,7 +362,7 @@ class UserPolicy {
 	 */
 	public function toJSON()
 	{
-		$arr = self::toArray();
+		$arr = self::toArray(true);
 		if (count($arr) === 0) {
 			return "{}"; // object
 		} else {
@@ -377,7 +378,7 @@ class UserPolicy {
 	 */
 	public function toStdClass()
 	{
-		$arr = self::toArray();
+		$arr = self::toArray(false);
 		if (count($arr) === 0) {
 			return new \stdClass();
 		} else {
