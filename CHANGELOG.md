@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 2018-12-10 v2.3.2
+- Based on Comet 18.12.0
+- Updated list of available languages in `\Comet\Def`
+- Fix an issue with JSON marshalling for objects containing top-level k/v maps
+
 ## 2018-11-22 v2.3.1
 - Based on Comet 18.11.1
 - Fix release codename in `\Comet\Def`
