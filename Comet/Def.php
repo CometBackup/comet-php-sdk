@@ -848,15 +848,16 @@ class Def {
 	function LanguageCodes() {
 		return [
 			'en_US' => 'English',
-			'es_ES' => 'Spanish',
-			'pt_BR' => 'Brazilian Portuguese',
-			'nl_NL' => 'Dutch',
-			'it_IT' => 'Italian',
-			'de_DE' => 'German',
-			'fr_FR' => 'French',
-			'hr_HR' => 'Croatian',
-			'ru_RU' => 'Russian',
-			'he_IL' => 'Hebrew',
+			'de_DE' => 'Deutsch',
+			'es_ES' => 'Español',
+			'fr_FR' => 'Français',
+			'hr_HR' => 'Hrvatski',
+			'it_IT' => 'Italiano',
+			'nl_NL' => 'Nederlands',
+			'pt_BR' => 'Português (Brazil)',
+			'pt_PT' => 'Português (Europe)',
+			'ru_RU' => 'Русский',
+			'he_IL' => 'עברית‬',
 		];
 		
 	}
