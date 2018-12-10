@@ -596,7 +596,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "18.11.1";
+	const APPLICATION_VERSION = "18.12.1";
 	
 	/**
 	 * @type int
@@ -606,7 +606,7 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_MINOR = 11;
+	const APPLICATION_VERSION_MINOR = 12;
 	
 	/**
 	 * @type int
@@ -616,7 +616,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const RELEASE_CODENAME = "Ceres";
+	const RELEASE_CODENAME = "Voyager";
 	
 	/**
 	 * @type int
