@@ -22,6 +22,11 @@ class SourceBasicInfo {
 	public $Size = 0;
 	
 	/**
+	 * @var \Comet\RetentionPolicy[] An array with string keys.
+	 */
+	public $OverrideDestinationRetention = [];
+	
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see SourceBasicInfo::RemoveUnknownProperties() Remove all unknown properties
@@ -44,10 +49,20 @@ class SourceBasicInfo {
 		if (property_exists($sc, 'Size')) {
 			$this->Size = (int)($sc->Size);
 		}
+		if (property_exists($sc, 'OverrideDestinationRetention')) {
+			$val_2 = [];
+			foreach($sc->OverrideDestinationRetention as $k_2 => $v_2) {
+				$phpk_2 = (string)($k_2);
+				$phpv_2 = \Comet\RetentionPolicy::createFromStdclass($v_2);
+				$val_2[$phpk_2] = $phpv_2;
+			}
+			$this->OverrideDestinationRetention = $val_2;
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Description':
 			case 'Size':
+			case 'OverrideDestinationRetention':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -128,6 +143,23 @@ class SourceBasicInfo {
 		$ret = [];
 		$ret["Description"] = $this->Description;
 		$ret["Size"] = $this->Size;
+		{
+			$c0 = [];
+			foreach($this->OverrideDestinationRetention as $k0 => $v0) {
+				$ko_0 = $k0;
+				if ( $v0 === null ) {
+					$vo_0 = $for_json_encode ? (object)[] : [];
+				} else {
+					$vo_0 = $v0->toArray($for_json_encode);
+				}
+				$c0[ $ko_0 ] = $vo_0;
+			}
+			if ($for_json_encode && count($c0) == 0) {
+				$ret["OverrideDestinationRetention"] = (object)[];
+			} else {
+				$ret["OverrideDestinationRetention"] = $c0;
+			}
+		}
 		
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
