@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 2019-02-12 v2.4.0
+- Based on Comet 18.12.6-rc
+- Support new "Account Name" field
+- Support new retention options in policies, backup runtime options
+- Support new software download APIs
+- Support new hybrid admin/user session logon API
+
 ## 2018-12-10 v2.3.2
 - Based on Comet 18.12.0
 - Updated list of available languages in `\Comet\Def`
