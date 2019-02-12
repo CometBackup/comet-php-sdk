@@ -21,7 +21,7 @@ namespace Comet;
 class AdminStorageRegisterBucketRequest implements \Comet\NetworkRequest {
 	
 	/**
-	 * Bucket name (optional)
+	 * Bucket ID (optional)
 	 *
 	 * @var string|null
 	 */
@@ -44,7 +44,7 @@ class AdminStorageRegisterBucketRequest implements \Comet\NetworkRequest {
 	/**
 	 * Construct a new AdminStorageRegisterBucketRequest instance.
 	 *
-	 * @param string $SetBucketValue Bucket name (optional)
+	 * @param string $SetBucketValue Bucket ID (optional)
 	 * @param string $SetKeyHashFormat Bucket key hashing format (optional)
 	 * @param string $SetKeyHashValue Bucket key hash (optional)
 	 */

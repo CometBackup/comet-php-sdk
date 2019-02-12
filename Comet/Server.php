@@ -1552,7 +1552,7 @@ class Server {
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Storage Role to be enabled.
 	 *
-	 * @param string $SetBucketValue Bucket name (optional)
+	 * @param string $SetBucketValue Bucket ID (optional)
 	 * @param string $SetKeyHashFormat Bucket key hashing format (optional)
 	 * @param string $SetKeyHashValue Bucket key hash (optional)
 	 * @return \Comet\AddBucketResponseMessage 
