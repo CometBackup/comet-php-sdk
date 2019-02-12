@@ -27,6 +27,11 @@ class SessionKeyRegeneratedResponse {
 	public $SessionKey = "";
 	
 	/**
+	 * @var string
+	 */
+	public $SessionType = "";
+	
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see SessionKeyRegeneratedResponse::RemoveUnknownProperties() Remove all unknown properties
@@ -52,11 +57,15 @@ class SessionKeyRegeneratedResponse {
 		if (property_exists($sc, 'SessionKey')) {
 			$this->SessionKey = (string)($sc->SessionKey);
 		}
+		if (property_exists($sc, 'SessionType')) {
+			$this->SessionType = (string)($sc->SessionType);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Status':
 			case 'Message':
 			case 'SessionKey':
+			case 'SessionType':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -138,6 +147,7 @@ class SessionKeyRegeneratedResponse {
 		$ret["Status"] = $this->Status;
 		$ret["Message"] = $this->Message;
 		$ret["SessionKey"] = $this->SessionKey;
+		$ret["SessionType"] = $this->SessionType;
 		
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

@@ -1640,6 +1640,19 @@ class Server {
 		return \Comet\AdminUpdateCampaignStatusRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
 
+	/** 
+	 * Generate a session key (log in)
+	 *
+	 * @return \Comet\SessionKeyRegeneratedResponse 
+	 * @throws \Exception
+	 */
+	public function HybridSessionStart()
+	{
+		$nr = new \Comet\HybridSessionStartRequest();
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\HybridSessionStartRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
 	/**
 	 * Get a PSR-7 request object for a \Comet\NetworkRequest.
 	 *
