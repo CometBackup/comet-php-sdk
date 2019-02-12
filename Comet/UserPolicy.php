@@ -89,6 +89,11 @@ class UserPolicy {
 	/**
 	 * @var boolean
 	 */
+	public $PreventChangeAccountName = false;
+	
+	/**
+	 * @var boolean
+	 */
 	public $PreventOpenAppUI = false;
 	
 	/**
@@ -182,6 +187,9 @@ class UserPolicy {
 		if (property_exists($sc, 'PreventChangeEmailSettings')) {
 			$this->PreventChangeEmailSettings = (bool)($sc->PreventChangeEmailSettings);
 		}
+		if (property_exists($sc, 'PreventChangeAccountName')) {
+			$this->PreventChangeAccountName = (bool)($sc->PreventChangeAccountName);
+		}
 		if (property_exists($sc, 'PreventOpenAppUI')) {
 			$this->PreventOpenAppUI = (bool)($sc->PreventOpenAppUI);
 		}
@@ -217,6 +225,7 @@ class UserPolicy {
 			case 'PreventDeleteSingleSnapshots':
 			case 'PreventChangeAccountPassword':
 			case 'PreventChangeEmailSettings':
+			case 'PreventChangeAccountName':
 			case 'PreventOpenAppUI':
 			case 'HideAppImport':
 			case 'HideAppVersion':
@@ -335,6 +344,7 @@ class UserPolicy {
 		$ret["PreventDeleteSingleSnapshots"] = $this->PreventDeleteSingleSnapshots;
 		$ret["PreventChangeAccountPassword"] = $this->PreventChangeAccountPassword;
 		$ret["PreventChangeEmailSettings"] = $this->PreventChangeEmailSettings;
+		$ret["PreventChangeAccountName"] = $this->PreventChangeAccountName;
 		$ret["PreventOpenAppUI"] = $this->PreventOpenAppUI;
 		$ret["HideAppImport"] = $this->HideAppImport;
 		$ret["HideAppVersion"] = $this->HideAppVersion;
