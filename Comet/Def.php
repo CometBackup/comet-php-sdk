@@ -596,7 +596,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "18.12.1";
+	const APPLICATION_VERSION = "18.12.6";
 	
 	/**
 	 * @type int
@@ -611,7 +611,7 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 1;
+	const APPLICATION_VERSION_REVISION = 6;
 	
 	/**
 	 * @type string
