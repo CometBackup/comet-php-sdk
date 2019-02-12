@@ -122,6 +122,21 @@ class UserPolicy {
 	public $DefaultEmailReports = null;
 	
 	/**
+	 * @var \Comet\RetentionPolicy
+	 */
+	public $DefaultStorageVaultRetention = null;
+	
+	/**
+	 * @var boolean
+	 */
+	public $EnforceStorageVaultRetention = false;
+	
+	/**
+	 * @var boolean
+	 */
+	public $PreventProtectedItemRetention = false;
+	
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see UserPolicy::RemoveUnknownProperties() Remove all unknown properties
@@ -208,6 +223,15 @@ class UserPolicy {
 		if (property_exists($sc, 'DefaultEmailReports')) {
 			$this->DefaultEmailReports = \Comet\DefaultEmailReportPolicy::createFromStdclass($sc->DefaultEmailReports);
 		}
+		if (property_exists($sc, 'DefaultStorageVaultRetention')) {
+			$this->DefaultStorageVaultRetention = \Comet\RetentionPolicy::createFromStdclass($sc->DefaultStorageVaultRetention);
+		}
+		if (property_exists($sc, 'EnforceStorageVaultRetention')) {
+			$this->EnforceStorageVaultRetention = (bool)($sc->EnforceStorageVaultRetention);
+		}
+		if (property_exists($sc, 'PreventProtectedItemRetention')) {
+			$this->PreventProtectedItemRetention = (bool)($sc->PreventProtectedItemRetention);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'PreventRequestStorageVault':
@@ -232,6 +256,9 @@ class UserPolicy {
 			case 'PreventOpenWebUI':
 			case 'PreventViewDeviceNames':
 			case 'DefaultEmailReports':
+			case 'DefaultStorageVaultRetention':
+			case 'EnforceStorageVaultRetention':
+			case 'PreventProtectedItemRetention':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -355,6 +382,13 @@ class UserPolicy {
 		} else {
 			$ret["DefaultEmailReports"] = $this->DefaultEmailReports->toArray($for_json_encode);
 		}
+		if ( $this->DefaultStorageVaultRetention === null ) {
+			$ret["DefaultStorageVaultRetention"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["DefaultStorageVaultRetention"] = $this->DefaultStorageVaultRetention->toArray($for_json_encode);
+		}
+		$ret["EnforceStorageVaultRetention"] = $this->EnforceStorageVaultRetention;
+		$ret["PreventProtectedItemRetention"] = $this->PreventProtectedItemRetention;
 		
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
@@ -412,6 +446,9 @@ class UserPolicy {
 		}
 		if ($this->DefaultEmailReports !== null) {
 			$this->DefaultEmailReports->RemoveUnknownProperties();
+		}
+		if ($this->DefaultStorageVaultRetention !== null) {
+			$this->DefaultStorageVaultRetention->RemoveUnknownProperties();
 		}
 	}
 	
