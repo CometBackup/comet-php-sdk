@@ -19,6 +19,11 @@ class UserProfileConfig {
 	/**
 	 * @var string
 	 */
+	public $AccountName = "";
+	
+	/**
+	 * @var string
+	 */
 	public $LocalTimezone = "";
 	
 	/**
@@ -136,6 +141,9 @@ class UserProfileConfig {
 		if (property_exists($sc, 'Username')) {
 			$this->Username = (string)($sc->Username);
 		}
+		if (property_exists($sc, 'AccountName')) {
+			$this->AccountName = (string)($sc->AccountName);
+		}
 		if (property_exists($sc, 'LocalTimezone')) {
 			$this->LocalTimezone = (string)($sc->LocalTimezone);
 		}
@@ -233,6 +241,7 @@ class UserProfileConfig {
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Username':
+			case 'AccountName':
 			case 'LocalTimezone':
 			case 'LanguageCode':
 			case 'Emails':
@@ -332,6 +341,7 @@ class UserProfileConfig {
 	{
 		$ret = [];
 		$ret["Username"] = $this->Username;
+		$ret["AccountName"] = $this->AccountName;
 		$ret["LocalTimezone"] = $this->LocalTimezone;
 		$ret["LanguageCode"] = $this->LanguageCode;
 		{
