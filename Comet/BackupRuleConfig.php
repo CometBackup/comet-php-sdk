@@ -67,6 +67,11 @@ class BackupRuleConfig {
 	public $ReduceDiskConcurrency = false;
 	
 	/**
+	 * @var boolean
+	 */
+	public $UseOnDiskIndexes = false;
+	
+	/**
 	 * @var \Comet\ScheduleConfig[]
 	 */
 	public $Schedules = [];
@@ -134,6 +139,9 @@ class BackupRuleConfig {
 		if (property_exists($sc, 'ReduceDiskConcurrency')) {
 			$this->ReduceDiskConcurrency = (bool)($sc->ReduceDiskConcurrency);
 		}
+		if (property_exists($sc, 'UseOnDiskIndexes')) {
+			$this->UseOnDiskIndexes = (bool)($sc->UseOnDiskIndexes);
+		}
 		if (property_exists($sc, 'Schedules')) {
 			$val_2 = [];
 			for($i_2 = 0; $i_2 < count($sc->Schedules); ++$i_2) {
@@ -157,6 +165,7 @@ class BackupRuleConfig {
 			case 'StopAfter':
 			case 'LimitVaultSpeedBps':
 			case 'ReduceDiskConcurrency':
+			case 'UseOnDiskIndexes':
 			case 'Schedules':
 			case 'EventTriggers':
 				break;
@@ -262,6 +271,7 @@ class BackupRuleConfig {
 		$ret["StopAfter"] = $this->StopAfter;
 		$ret["LimitVaultSpeedBps"] = $this->LimitVaultSpeedBps;
 		$ret["ReduceDiskConcurrency"] = $this->ReduceDiskConcurrency;
+		$ret["UseOnDiskIndexes"] = $this->UseOnDiskIndexes;
 		{
 			$c0 = [];
 			for($i0 = 0; $i0 < count($this->Schedules); ++$i0) {

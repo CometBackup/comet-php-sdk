@@ -32,6 +32,11 @@ class BackupJobAdvancedOptions {
 	public $ReduceDiskConcurrency = false;
 	
 	/**
+	 * @var boolean
+	 */
+	public $UseOnDiskIndexes = false;
+	
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see BackupJobAdvancedOptions::RemoveUnknownProperties() Remove all unknown properties
@@ -60,12 +65,16 @@ class BackupJobAdvancedOptions {
 		if (property_exists($sc, 'ReduceDiskConcurrency')) {
 			$this->ReduceDiskConcurrency = (bool)($sc->ReduceDiskConcurrency);
 		}
+		if (property_exists($sc, 'UseOnDiskIndexes')) {
+			$this->UseOnDiskIndexes = (bool)($sc->UseOnDiskIndexes);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'SkipAlreadyRunning':
 			case 'StopAfter':
 			case 'LimitVaultSpeedBps':
 			case 'ReduceDiskConcurrency':
+			case 'UseOnDiskIndexes':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -148,6 +157,7 @@ class BackupJobAdvancedOptions {
 		$ret["StopAfter"] = $this->StopAfter;
 		$ret["LimitVaultSpeedBps"] = $this->LimitVaultSpeedBps;
 		$ret["ReduceDiskConcurrency"] = $this->ReduceDiskConcurrency;
+		$ret["UseOnDiskIndexes"] = $this->UseOnDiskIndexes;
 		
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
