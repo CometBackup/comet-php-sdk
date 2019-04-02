@@ -812,12 +812,13 @@ class Server {
 	 * @param string $Source The Protected Item ID
 	 * @param string $Destination The Storage Vault ID
 	 * @param string $Snapshot If present, restore a specific snapshot. Otherwise, restore the latest snapshot for the selected Protected Item + Storage Vault pair (optional)
+	 * @param string[] $Paths If present, restore these paths only. Otherwise, restore all data (>= 19.3.0) (optional)
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherRunRestore($TargetID, $Path, $Source, $Destination, $Snapshot = null)
+	public function AdminDispatcherRunRestore($TargetID, $Path, $Source, $Destination, $Snapshot = null, array $Paths = null)
 	{
-		$nr = new \Comet\AdminDispatcherRunRestoreRequest($TargetID, $Path, $Source, $Destination, $Snapshot);
+		$nr = new \Comet\AdminDispatcherRunRestoreRequest($TargetID, $Path, $Source, $Destination, $Snapshot, $Paths);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminDispatcherRunRestoreRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}

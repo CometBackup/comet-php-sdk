@@ -55,6 +55,13 @@ class AdminDispatcherRunRestoreRequest implements \Comet\NetworkRequest {
 	protected $Snapshot = null;
 	
 	/**
+	 * If present, restore these paths only. Otherwise, restore all data (>= 19.3.0) (optional)
+	 *
+	 * @var string[]|null
+	 */
+	protected $Paths = null;
+	
+	/**
 	 * Construct a new AdminDispatcherRunRestoreRequest instance.
 	 *
 	 * @param string $TargetID The live connection GUID
@@ -62,14 +69,16 @@ class AdminDispatcherRunRestoreRequest implements \Comet\NetworkRequest {
 	 * @param string $Source The Protected Item ID
 	 * @param string $Destination The Storage Vault ID
 	 * @param string $Snapshot If present, restore a specific snapshot. Otherwise, restore the latest snapshot for the selected Protected Item + Storage Vault pair (optional)
+	 * @param string[] $Paths If present, restore these paths only. Otherwise, restore all data (>= 19.3.0) (optional)
 	 */
-	public function __construct($TargetID, $Path, $Source, $Destination, $Snapshot = null)
+	public function __construct($TargetID, $Path, $Source, $Destination, $Snapshot = null, array $Paths = null)
 	{
 		$this->TargetID = $TargetID;
 		$this->Path = $Path;
 		$this->Source = $Source;
 		$this->Destination = $Destination;
 		$this->Snapshot = $Snapshot;
+		$this->Paths = $Paths;
 	}
 	
 	/**
@@ -96,6 +105,9 @@ class AdminDispatcherRunRestoreRequest implements \Comet\NetworkRequest {
 		$ret["Destination"] = (string)($this->Destination);
 		if ($this->Snapshot !== null) {
 			$ret["Snapshot"] = (string)($this->Snapshot);
+		}
+		if ($this->Paths !== null) {
+			$ret["Paths"] = (string)($this->Paths);
 		}
 		return $ret;
 	}
