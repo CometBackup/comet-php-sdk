@@ -1419,6 +1419,24 @@ class Server {
 	}
 
 	/** 
+	 * Preview an email report for a customer
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetUser Selected account username
+	 * @param \Comet\EmailReportConfig $EmailReportConfig Email report configuration to preview
+	 * @return \Comet\EmailReportGeneratedPreview 
+	 * @throws \Exception
+	 */
+	public function AdminPreviewUserEmailReport($TargetUser, EmailReportConfig $EmailReportConfig)
+	{
+		$nr = new \Comet\AdminPreviewUserEmailReportRequest($TargetUser, $EmailReportConfig);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminPreviewUserEmailReportRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Get Replication status
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
