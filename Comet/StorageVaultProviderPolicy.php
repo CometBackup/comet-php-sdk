@@ -43,10 +43,12 @@ class StorageVaultProviderPolicy {
 		}
 		if (property_exists($sc, 'AllowedProvidersWhenRestricted')) {
 			$val_2 = [];
-			for($i_2 = 0; $i_2 < count($sc->AllowedProvidersWhenRestricted); ++$i_2) {
-				$val_2[] = (int)($sc->AllowedProvidersWhenRestricted[$i_2]);
+			if ($sc->AllowedProvidersWhenRestricted !== null) {
+				for($i_2 = 0; $i_2 < count($sc->AllowedProvidersWhenRestricted); ++$i_2) {
+					$val_2[] = (int)($sc->AllowedProvidersWhenRestricted[$i_2]);
+				}
+				$this->AllowedProvidersWhenRestricted = $val_2;
 			}
-			$this->AllowedProvidersWhenRestricted = $val_2;
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {

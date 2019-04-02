@@ -51,10 +51,12 @@ class DispatcherVaultSnapshotsResponse {
 		}
 		if (property_exists($sc, 'Snapshots')) {
 			$val_2 = [];
-			for($i_2 = 0; $i_2 < count($sc->Snapshots); ++$i_2) {
-				$val_2[] = \Comet\VaultSnapshot::createFromStdclass($sc->Snapshots[$i_2]);
+			if ($sc->Snapshots !== null) {
+				for($i_2 = 0; $i_2 < count($sc->Snapshots); ++$i_2) {
+					$val_2[] = \Comet\VaultSnapshot::createFromStdclass($sc->Snapshots[$i_2]);
+				}
+				$this->Snapshots = $val_2;
 			}
-			$this->Snapshots = $val_2;
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {

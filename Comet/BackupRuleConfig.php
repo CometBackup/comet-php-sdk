@@ -109,17 +109,21 @@ class BackupRuleConfig {
 		}
 		if (property_exists($sc, 'PreExec')) {
 			$val_2 = [];
-			for($i_2 = 0; $i_2 < count($sc->PreExec); ++$i_2) {
-				$val_2[] = (string)($sc->PreExec[$i_2]);
+			if ($sc->PreExec !== null) {
+				for($i_2 = 0; $i_2 < count($sc->PreExec); ++$i_2) {
+					$val_2[] = (string)($sc->PreExec[$i_2]);
+				}
+				$this->PreExec = $val_2;
 			}
-			$this->PreExec = $val_2;
 		}
 		if (property_exists($sc, 'PostExec')) {
 			$val_2 = [];
-			for($i_2 = 0; $i_2 < count($sc->PostExec); ++$i_2) {
-				$val_2[] = (string)($sc->PostExec[$i_2]);
+			if ($sc->PostExec !== null) {
+				for($i_2 = 0; $i_2 < count($sc->PostExec); ++$i_2) {
+					$val_2[] = (string)($sc->PostExec[$i_2]);
+				}
+				$this->PostExec = $val_2;
 			}
-			$this->PostExec = $val_2;
 		}
 		if (property_exists($sc, 'Source')) {
 			$this->Source = (string)($sc->Source);
@@ -144,10 +148,12 @@ class BackupRuleConfig {
 		}
 		if (property_exists($sc, 'Schedules')) {
 			$val_2 = [];
-			for($i_2 = 0; $i_2 < count($sc->Schedules); ++$i_2) {
-				$val_2[] = \Comet\ScheduleConfig::createFromStdclass($sc->Schedules[$i_2]);
+			if ($sc->Schedules !== null) {
+				for($i_2 = 0; $i_2 < count($sc->Schedules); ++$i_2) {
+					$val_2[] = \Comet\ScheduleConfig::createFromStdclass($sc->Schedules[$i_2]);
+				}
+				$this->Schedules = $val_2;
 			}
-			$this->Schedules = $val_2;
 		}
 		if (property_exists($sc, 'EventTriggers')) {
 			$this->EventTriggers = \Comet\BackupRuleEventTriggers::createFromStdclass($sc->EventTriggers);

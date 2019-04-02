@@ -90,10 +90,12 @@ class AdminSecurityOptions {
 		}
 		if (property_exists($sc, 'U2FRegistrations')) {
 			$val_2 = [];
-			for($i_2 = 0; $i_2 < count($sc->U2FRegistrations); ++$i_2) {
-				$val_2[] = \Comet\AdminU2FRegistration::createFromStdclass($sc->U2FRegistrations[$i_2]);
+			if ($sc->U2FRegistrations !== null) {
+				for($i_2 = 0; $i_2 < count($sc->U2FRegistrations); ++$i_2) {
+					$val_2[] = \Comet\AdminU2FRegistration::createFromStdclass($sc->U2FRegistrations[$i_2]);
+				}
+				$this->U2FRegistrations = $val_2;
 			}
-			$this->U2FRegistrations = $val_2;
 		}
 		if (property_exists($sc, 'TOTPKeyEncryptionFormat')) {
 			$this->TOTPKeyEncryptionFormat = (int)($sc->TOTPKeyEncryptionFormat);

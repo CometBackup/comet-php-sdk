@@ -83,10 +83,12 @@ class UpdateCampaignStatus {
 		}
 		if (property_exists($sc, 'Devices')) {
 			$val_2 = [];
-			for($i_2 = 0; $i_2 < count($sc->Devices); ++$i_2) {
-				$val_2[] = \Comet\UpdateCampaignStatusDeviceEntry::createFromStdclass($sc->Devices[$i_2]);
+			if ($sc->Devices !== null) {
+				for($i_2 = 0; $i_2 < count($sc->Devices); ++$i_2) {
+					$val_2[] = \Comet\UpdateCampaignStatusDeviceEntry::createFromStdclass($sc->Devices[$i_2]);
+				}
+				$this->Devices = $val_2;
 			}
-			$this->Devices = $val_2;
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {

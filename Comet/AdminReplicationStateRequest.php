@@ -79,10 +79,12 @@ class AdminReplicationStateRequest implements \Comet\NetworkRequest {
 		
 		// Parse as []ReplicatorStateAPIResponse
 		$val_0 = [];
-		for($i_0 = 0; $i_0 < count($decoded); ++$i_0) {
-			$val_0[] = \Comet\ReplicatorStateAPIResponse::createFromStdclass($decoded[$i_0]);
+		if ($decoded !== null) {
+			for($i_0 = 0; $i_0 < count($decoded); ++$i_0) {
+				$val_0[] = \Comet\ReplicatorStateAPIResponse::createFromStdclass($decoded[$i_0]);
+			}
+			$ret = $val_0;
 		}
-		$ret = $val_0;
 		
 		return $ret;
 	}

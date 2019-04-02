@@ -35,10 +35,12 @@ class UserCustomEmailSettings {
 	{
 		if (property_exists($sc, 'Reports')) {
 			$val_2 = [];
-			for($i_2 = 0; $i_2 < count($sc->Reports); ++$i_2) {
-				$val_2[] = \Comet\EmailReportConfig::createFromStdclass($sc->Reports[$i_2]);
+			if ($sc->Reports !== null) {
+				for($i_2 = 0; $i_2 < count($sc->Reports); ++$i_2) {
+					$val_2[] = \Comet\EmailReportConfig::createFromStdclass($sc->Reports[$i_2]);
+				}
+				$this->Reports = $val_2;
 			}
-			$this->Reports = $val_2;
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
