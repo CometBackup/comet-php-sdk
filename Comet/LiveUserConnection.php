@@ -42,6 +42,11 @@ class LiveUserConnection {
 	public $ConnectionTime = 0;
 	
 	/**
+	 * @var boolean
+	 */
+	public $AllowsFilenames = false;
+	
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see LiveUserConnection::RemoveUnknownProperties() Remove all unknown properties
@@ -76,6 +81,9 @@ class LiveUserConnection {
 		if (property_exists($sc, 'ConnectionTime')) {
 			$this->ConnectionTime = (int)($sc->ConnectionTime);
 		}
+		if (property_exists($sc, 'AllowsFilenames')) {
+			$this->AllowsFilenames = (bool)($sc->AllowsFilenames);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Username':
@@ -84,6 +92,7 @@ class LiveUserConnection {
 			case 'ReportedPlatform':
 			case 'IPAddress':
 			case 'ConnectionTime':
+			case 'AllowsFilenames':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -168,6 +177,7 @@ class LiveUserConnection {
 		$ret["ReportedPlatform"] = $this->ReportedPlatform;
 		$ret["IPAddress"] = $this->IPAddress;
 		$ret["ConnectionTime"] = $this->ConnectionTime;
+		$ret["AllowsFilenames"] = $this->AllowsFilenames;
 		
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

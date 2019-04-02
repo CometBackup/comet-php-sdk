@@ -72,6 +72,11 @@ class UserPolicy {
 	public $ModeAdminResetPassword = 0;
 	
 	/**
+	 * @var int
+	 */
+	public $ModeAdminViewFilenames = 0;
+	
+	/**
 	 * @var boolean
 	 */
 	public $PreventDeleteSingleSnapshots = false;
@@ -193,6 +198,9 @@ class UserPolicy {
 		if (property_exists($sc, 'ModeAdminResetPassword')) {
 			$this->ModeAdminResetPassword = (int)($sc->ModeAdminResetPassword);
 		}
+		if (property_exists($sc, 'ModeAdminViewFilenames')) {
+			$this->ModeAdminViewFilenames = (int)($sc->ModeAdminViewFilenames);
+		}
 		if (property_exists($sc, 'PreventDeleteSingleSnapshots')) {
 			$this->PreventDeleteSingleSnapshots = (bool)($sc->PreventDeleteSingleSnapshots);
 		}
@@ -246,6 +254,7 @@ class UserPolicy {
 			case 'FileAndFolderMandatoryExclusions':
 			case 'ModeScheduleSkipAlreadyRunning':
 			case 'ModeAdminResetPassword':
+			case 'ModeAdminViewFilenames':
 			case 'PreventDeleteSingleSnapshots':
 			case 'PreventChangeAccountPassword':
 			case 'PreventChangeEmailSettings':
@@ -368,6 +377,7 @@ class UserPolicy {
 		}
 		$ret["ModeScheduleSkipAlreadyRunning"] = $this->ModeScheduleSkipAlreadyRunning;
 		$ret["ModeAdminResetPassword"] = $this->ModeAdminResetPassword;
+		$ret["ModeAdminViewFilenames"] = $this->ModeAdminViewFilenames;
 		$ret["PreventDeleteSingleSnapshots"] = $this->PreventDeleteSingleSnapshots;
 		$ret["PreventChangeAccountPassword"] = $this->PreventChangeAccountPassword;
 		$ret["PreventChangeEmailSettings"] = $this->PreventChangeEmailSettings;
