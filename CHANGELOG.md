@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 2019-04-02 v2.5.1
+- Fix an issue with unmarshalling empty arrays from some versions of Comet Server, that were returning `null` instead of `[]` (v2)
+
 ## 2019-04-02 v2.5.0
 - Based on Comet 19.3.5-rc
 - Support new S3 V2 signing option
