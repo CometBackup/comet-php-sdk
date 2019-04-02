@@ -507,6 +507,16 @@ class Def {
 	const ENGINE_BUILTIN_HYPERV = "engine1/hyperv";
 	
 	/**
+	 * @type string
+	 */
+	const STOREDOBJECTTYPE_FILE = "file";
+	
+	/**
+	 * @type string
+	 */
+	const STOREDOBJECTTYPE_DIRECTORY = "dir";
+	
+	/**
 	 * ExtraFileExclusionOSRestriction: 
 	 *
 	 * @type int

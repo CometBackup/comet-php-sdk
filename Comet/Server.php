@@ -725,6 +725,27 @@ class Server {
 	}
 
 	/** 
+	 * Request a list of stored objects inside an existing backup job
+	 * The remote device must have given consent for an MSP to browse their files.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetID The live connection GUID
+	 * @param string $Destination The Storage Vault ID
+	 * @param string $SnapshotID The selected backup job snapshot
+	 * @param string $TreeID Browse objects inside subdirectory of backup snapshot (optional)
+	 * @return \Comet\DispatcherStoredObjectsResponse 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherRequestStoredObjects($TargetID, $Destination, $SnapshotID, $TreeID = null)
+	{
+		$nr = new \Comet\AdminDispatcherRequestStoredObjectsRequest($TargetID, $Destination, $SnapshotID, $TreeID);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherRequestStoredObjectsRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Request a list of Storage Vault snapshots from a live connected device
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
