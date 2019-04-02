@@ -606,22 +606,22 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "18.12.6";
+	const APPLICATION_VERSION = "19.3.5";
 	
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_MAJOR = 18;
+	const APPLICATION_VERSION_MAJOR = 19;
 	
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_MINOR = 12;
+	const APPLICATION_VERSION_MINOR = 3;
 	
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 6;
+	const APPLICATION_VERSION_REVISION = 5;
 	
 	/**
 	 * @type string
