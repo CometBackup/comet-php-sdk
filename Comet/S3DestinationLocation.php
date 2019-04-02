@@ -42,6 +42,11 @@ class S3DestinationLocation {
 	public $S3Subdir = "";
 	
 	/**
+	 * @var boolean
+	 */
+	public $S3UsesV2Signing = false;
+	
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see S3DestinationLocation::RemoveUnknownProperties() Remove all unknown properties
@@ -76,6 +81,9 @@ class S3DestinationLocation {
 		if (property_exists($sc, 'S3Subdir')) {
 			$this->S3Subdir = (string)($sc->S3Subdir);
 		}
+		if (property_exists($sc, 'S3UsesV2Signing')) {
+			$this->S3UsesV2Signing = (bool)($sc->S3UsesV2Signing);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'S3Server':
@@ -84,6 +92,7 @@ class S3DestinationLocation {
 			case 'S3SecretKey':
 			case 'S3BucketName':
 			case 'S3Subdir':
+			case 'S3UsesV2Signing':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -168,6 +177,7 @@ class S3DestinationLocation {
 		$ret["S3SecretKey"] = $this->S3SecretKey;
 		$ret["S3BucketName"] = $this->S3BucketName;
 		$ret["S3Subdir"] = $this->S3Subdir;
+		$ret["S3UsesV2Signing"] = $this->S3UsesV2Signing;
 		
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

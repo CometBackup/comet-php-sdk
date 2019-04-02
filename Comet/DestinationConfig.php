@@ -87,6 +87,11 @@ class DestinationConfig {
 	public $S3Subdir = "";
 	
 	/**
+	 * @var boolean
+	 */
+	public $S3UsesV2Signing = false;
+	
+	/**
 	 * @var string
 	 */
 	public $SFTPServer = "";
@@ -316,6 +321,9 @@ class DestinationConfig {
 		if (property_exists($sc, 'S3Subdir')) {
 			$this->S3Subdir = (string)($sc->S3Subdir);
 		}
+		if (property_exists($sc, 'S3UsesV2Signing')) {
+			$this->S3UsesV2Signing = (bool)($sc->S3UsesV2Signing);
+		}
 		if (property_exists($sc, 'SFTPServer')) {
 			$this->SFTPServer = (string)($sc->SFTPServer);
 		}
@@ -433,6 +441,7 @@ class DestinationConfig {
 			case 'S3SecretKey':
 			case 'S3BucketName':
 			case 'S3Subdir':
+			case 'S3UsesV2Signing':
 			case 'SFTPServer':
 			case 'SFTPUsername':
 			case 'SFTPRemotePath':
@@ -572,6 +581,7 @@ class DestinationConfig {
 		$ret["S3SecretKey"] = $this->S3SecretKey;
 		$ret["S3BucketName"] = $this->S3BucketName;
 		$ret["S3Subdir"] = $this->S3Subdir;
+		$ret["S3UsesV2Signing"] = $this->S3UsesV2Signing;
 		$ret["SFTPServer"] = $this->SFTPServer;
 		$ret["SFTPUsername"] = $this->SFTPUsername;
 		$ret["SFTPRemotePath"] = $this->SFTPRemotePath;
