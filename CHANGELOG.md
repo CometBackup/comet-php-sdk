@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 2019-04-02 v2.5.0
+- Based on Comet 19.3.5-rc
+- Support new S3 V2 signing option
+- Support new filename consent options
+- Support browsing and restoring single files from snapshots
+- Fix an issue with unmarshalling empty arrays from some versions of Comet Server, that were returning `null` instead of `[]`
+
 ## 2019-02-12 v2.4.0
 - Based on Comet 18.12.6-rc
 - Support new "Account Name" field
