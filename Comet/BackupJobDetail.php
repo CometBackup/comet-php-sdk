@@ -59,6 +59,11 @@ class BackupJobDetail {
 	/**
 	 * @var string
 	 */
+	public $SnapshotID = "";
+	
+	/**
+	 * @var string
+	 */
 	public $ClientVersion = "";
 	
 	/**
@@ -145,6 +150,9 @@ class BackupJobDetail {
 		if (property_exists($sc, 'DeviceID')) {
 			$this->DeviceID = (string)($sc->DeviceID);
 		}
+		if (property_exists($sc, 'SnapshotID')) {
+			$this->SnapshotID = (string)($sc->SnapshotID);
+		}
 		if (property_exists($sc, 'ClientVersion')) {
 			$this->ClientVersion = (string)($sc->ClientVersion);
 		}
@@ -183,6 +191,7 @@ class BackupJobDetail {
 			case 'SourceGUID':
 			case 'DestinationGUID':
 			case 'DeviceID':
+			case 'SnapshotID':
 			case 'ClientVersion':
 			case 'TotalDirectories':
 			case 'TotalFiles':
@@ -279,6 +288,7 @@ class BackupJobDetail {
 		$ret["SourceGUID"] = $this->SourceGUID;
 		$ret["DestinationGUID"] = $this->DestinationGUID;
 		$ret["DeviceID"] = $this->DeviceID;
+		$ret["SnapshotID"] = $this->SnapshotID;
 		$ret["ClientVersion"] = $this->ClientVersion;
 		$ret["TotalDirectories"] = $this->TotalDirectories;
 		$ret["TotalFiles"] = $this->TotalFiles;
