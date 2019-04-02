@@ -55,8 +55,8 @@ class DispatcherVaultSnapshotsResponse {
 				for($i_2 = 0; $i_2 < count($sc->Snapshots); ++$i_2) {
 					$val_2[] = \Comet\VaultSnapshot::createFromStdclass($sc->Snapshots[$i_2]);
 				}
-				$this->Snapshots = $val_2;
 			}
+			$this->Snapshots = $val_2;
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {

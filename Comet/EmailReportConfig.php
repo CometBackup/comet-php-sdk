@@ -52,8 +52,8 @@ class EmailReportConfig {
 				for($i_2 = 0; $i_2 < count($sc->SummaryFrequency); ++$i_2) {
 					$val_2[] = \Comet\ScheduleConfig::createFromStdclass($sc->SummaryFrequency[$i_2]);
 				}
-				$this->SummaryFrequency = $val_2;
 			}
+			$this->SummaryFrequency = $val_2;
 		}
 		if (property_exists($sc, 'Filter')) {
 			$this->Filter = \Comet\search.SearchClause::createFromStdclass($sc->Filter);

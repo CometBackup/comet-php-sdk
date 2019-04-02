@@ -191,8 +191,8 @@ class UserPolicy {
 				for($i_2 = 0; $i_2 < count($sc->FileAndFolderMandatoryExclusions); ++$i_2) {
 					$val_2[] = \Comet\ExtraFileExclusion::createFromStdclass($sc->FileAndFolderMandatoryExclusions[$i_2]);
 				}
-				$this->FileAndFolderMandatoryExclusions = $val_2;
 			}
+			$this->FileAndFolderMandatoryExclusions = $val_2;
 		}
 		if (property_exists($sc, 'ModeScheduleSkipAlreadyRunning')) {
 			$this->ModeScheduleSkipAlreadyRunning = (int)($sc->ModeScheduleSkipAlreadyRunning);

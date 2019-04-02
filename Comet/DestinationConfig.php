@@ -283,8 +283,8 @@ class DestinationConfig {
 				for($i_2 = 0; $i_2 < count($sc->PreExec); ++$i_2) {
 					$val_2[] = (string)($sc->PreExec[$i_2]);
 				}
-				$this->PreExec = $val_2;
 			}
+			$this->PreExec = $val_2;
 		}
 		if (property_exists($sc, 'PostExec')) {
 			$val_2 = [];
@@ -292,8 +292,8 @@ class DestinationConfig {
 				for($i_2 = 0; $i_2 < count($sc->PostExec); ++$i_2) {
 					$val_2[] = (string)($sc->PostExec[$i_2]);
 				}
-				$this->PostExec = $val_2;
 			}
+			$this->PostExec = $val_2;
 		}
 		if (property_exists($sc, 'DestinationType')) {
 			$this->DestinationType = (int)($sc->DestinationType);
@@ -406,8 +406,8 @@ class DestinationConfig {
 				for($i_2 = 0; $i_2 < count($sc->SpanTargets); ++$i_2) {
 					$val_2[] = \Comet\DestinationLocation::createFromStdclass($sc->SpanTargets[$i_2]);
 				}
-				$this->SpanTargets = $val_2;
 			}
+			$this->SpanTargets = $val_2;
 		}
 		if (property_exists($sc, 'EncryptionKeyEncryptionMethod')) {
 			$this->EncryptionKeyEncryptionMethod = (int)($sc->EncryptionKeyEncryptionMethod);

@@ -57,8 +57,8 @@ class ConstellationStatusAPIResponse {
 				for($i_2 = 0; $i_2 < count($sc->Targets); ++$i_2) {
 					$val_2[] = (string)($sc->Targets[$i_2]);
 				}
-				$this->Targets = $val_2;
 			}
+			$this->Targets = $val_2;
 		}
 		if (property_exists($sc, 'TargetNames')) {
 			$val_2 = [];
@@ -66,8 +66,8 @@ class ConstellationStatusAPIResponse {
 				for($i_2 = 0; $i_2 < count($sc->TargetNames); ++$i_2) {
 					$val_2[] = (string)($sc->TargetNames[$i_2]);
 				}
-				$this->TargetNames = $val_2;
 			}
+			$this->TargetNames = $val_2;
 		}
 		if (property_exists($sc, 'Stats')) {
 			$this->Stats = \Comet\ConstellationStats::createFromStdclass($sc->Stats);

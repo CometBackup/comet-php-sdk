@@ -55,8 +55,8 @@ class DispatcherStoredObjectsResponse {
 				for($i_2 = 0; $i_2 < count($sc->StoredObjects); ++$i_2) {
 					$val_2[] = \Comet\StoredObject::createFromStdclass($sc->StoredObjects[$i_2]);
 				}
-				$this->StoredObjects = $val_2;
 			}
+			$this->StoredObjects = $val_2;
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {

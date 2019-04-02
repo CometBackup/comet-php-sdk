@@ -111,8 +111,8 @@ class AdminGetJobsForDateRangeRequest implements \Comet\NetworkRequest {
 			for($i_0 = 0; $i_0 < count($decoded); ++$i_0) {
 				$val_0[] = \Comet\BackupJobDetail::createFromStdclass($decoded[$i_0]);
 			}
-			$ret = $val_0;
 		}
+		$ret = $val_0;
 		
 		return $ret;
 	}

@@ -55,8 +55,8 @@ class ContentMeasurement {
 				for($i_2 = 0; $i_2 < count($sc->Components); ++$i_2) {
 					$val_2[] = \Comet\ContentMeasurementComponent::createFromStdclass($sc->Components[$i_2]);
 				}
-				$this->Components = $val_2;
 			}
+			$this->Components = $val_2;
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
