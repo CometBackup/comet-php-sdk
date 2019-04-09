@@ -22,7 +22,7 @@ class EmailReportConfig {
 	public $SummaryFrequency = [];
 	
 	/**
-	 * @var \Comet\search.SearchClause
+	 * @var \Comet\SearchClause
 	 */
 	public $Filter = null;
 	
@@ -63,9 +63,9 @@ class EmailReportConfig {
 		if (property_exists($sc, 'Filter')) {
 			if (is_array($sc->Filter) && count($sc->Filter) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
-				$this->Filter = \Comet\search.SearchClause::createFromStdclass(new \stdClass());
+				$this->Filter = \Comet\SearchClause::createFromStdclass(new \stdClass());
 			} else {
-				$this->Filter = \Comet\search.SearchClause::createFromStdclass($sc->Filter);
+				$this->Filter = \Comet\SearchClause::createFromStdclass($sc->Filter);
 			}
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
