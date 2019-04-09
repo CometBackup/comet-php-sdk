@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 2019-04-10 v2.5.3
+- Fix an issue with unmarshalling empty objects to array instead of `stdClass`
+
 ## 2019-04-10 v2.5.2
 - Fix an issue with distinguishing empty arrays and empty objects when marshalling data after having used the compatibility methods
 
