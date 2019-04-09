@@ -82,7 +82,11 @@ class AdminListUsersFullRequest implements \Comet\NetworkRequest {
 		$val_0 = [];
 		foreach($decoded as $k_0 => $v_0) {
 			$phpk_0 = (string)($k_0);
-			$phpv_0 = \Comet\UserProfileConfig::createFromStdclass($v_0);
+			if (is_array($v_0)) {
+				$phpv_0 = \Comet\UserProfileConfig::createFromArray($v_0); // unsafe for roundtrips
+			} else {
+				$phpv_0 = \Comet\UserProfileConfig::createFromStdclass($v_0);
+			}
 			$val_0[$phpk_0] = $phpv_0;
 		}
 		$ret = $val_0;

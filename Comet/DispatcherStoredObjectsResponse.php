@@ -53,7 +53,11 @@ class DispatcherStoredObjectsResponse {
 			$val_2 = [];
 			if ($sc->StoredObjects !== null) {
 				for($i_2 = 0; $i_2 < count($sc->StoredObjects); ++$i_2) {
-					$val_2[] = \Comet\StoredObject::createFromStdclass($sc->StoredObjects[$i_2]);
+					if (is_array($sc->StoredObjects[$i_2])) {
+						$val_2[] = \Comet\StoredObject::createFromArray($sc->StoredObjects[$i_2]); // unsafe for roundtrips
+					} else {
+						$val_2[] = \Comet\StoredObject::createFromStdclass($sc->StoredObjects[$i_2]);
+					}
 				}
 			}
 			$this->StoredObjects = $val_2;

@@ -58,7 +58,11 @@ class BucketProperties {
 			$this->ReadWriteKey = (string)($sc->ReadWriteKey);
 		}
 		if (property_exists($sc, 'Size')) {
-			$this->Size = \Comet\SizeMeasurement::createFromStdclass($sc->Size);
+			if (is_array($sc->Size)) {
+				$this->Size = \Comet\SizeMeasurement::createFromArray($sc->Size); // unsafe for roundtrips
+			} else {
+				$this->Size = \Comet\SizeMeasurement::createFromStdclass($sc->Size);
+			}
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {

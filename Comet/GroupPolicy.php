@@ -42,7 +42,11 @@ class GroupPolicy {
 			$this->Description = (string)($sc->Description);
 		}
 		if (property_exists($sc, 'Policy')) {
-			$this->Policy = \Comet\UserPolicy::createFromStdclass($sc->Policy);
+			if (is_array($sc->Policy)) {
+				$this->Policy = \Comet\UserPolicy::createFromArray($sc->Policy); // unsafe for roundtrips
+			} else {
+				$this->Policy = \Comet\UserPolicy::createFromStdclass($sc->Policy);
+			}
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {

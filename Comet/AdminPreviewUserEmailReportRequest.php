@@ -99,7 +99,11 @@ class AdminPreviewUserEmailReportRequest implements \Comet\NetworkRequest {
 		}
 		
 		// Parse as EmailReportGeneratedPreview
-		$ret = \Comet\EmailReportGeneratedPreview::createFromStdclass($decoded);
+		if (is_array($decoded)) {
+			$ret = \Comet\EmailReportGeneratedPreview::createFromArray($decoded); // unsafe for roundtrips
+		} else {
+			$ret = \Comet\EmailReportGeneratedPreview::createFromStdclass($decoded);
+		}
 		
 		return $ret;
 	}

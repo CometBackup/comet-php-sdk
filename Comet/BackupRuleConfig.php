@@ -150,13 +150,21 @@ class BackupRuleConfig {
 			$val_2 = [];
 			if ($sc->Schedules !== null) {
 				for($i_2 = 0; $i_2 < count($sc->Schedules); ++$i_2) {
-					$val_2[] = \Comet\ScheduleConfig::createFromStdclass($sc->Schedules[$i_2]);
+					if (is_array($sc->Schedules[$i_2])) {
+						$val_2[] = \Comet\ScheduleConfig::createFromArray($sc->Schedules[$i_2]); // unsafe for roundtrips
+					} else {
+						$val_2[] = \Comet\ScheduleConfig::createFromStdclass($sc->Schedules[$i_2]);
+					}
 				}
 			}
 			$this->Schedules = $val_2;
 		}
 		if (property_exists($sc, 'EventTriggers')) {
-			$this->EventTriggers = \Comet\BackupRuleEventTriggers::createFromStdclass($sc->EventTriggers);
+			if (is_array($sc->EventTriggers)) {
+				$this->EventTriggers = \Comet\BackupRuleEventTriggers::createFromArray($sc->EventTriggers); // unsafe for roundtrips
+			} else {
+				$this->EventTriggers = \Comet\BackupRuleEventTriggers::createFromStdclass($sc->EventTriggers);
+			}
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {

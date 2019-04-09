@@ -74,7 +74,11 @@ class U2FRegistrationChallengeResponse {
 			$val_2 = [];
 			if ($sc->RegisteredKeys !== null) {
 				for($i_2 = 0; $i_2 < count($sc->RegisteredKeys); ++$i_2) {
-					$val_2[] = \Comet\U2FRegisteredKey::createFromStdclass($sc->RegisteredKeys[$i_2]);
+					if (is_array($sc->RegisteredKeys[$i_2])) {
+						$val_2[] = \Comet\U2FRegisteredKey::createFromArray($sc->RegisteredKeys[$i_2]); // unsafe for roundtrips
+					} else {
+						$val_2[] = \Comet\U2FRegisteredKey::createFromStdclass($sc->RegisteredKeys[$i_2]);
+					}
 				}
 			}
 			$this->RegisteredKeys = $val_2;
@@ -83,7 +87,11 @@ class U2FRegistrationChallengeResponse {
 			$val_2 = [];
 			if ($sc->RegisterRequests !== null) {
 				for($i_2 = 0; $i_2 < count($sc->RegisterRequests); ++$i_2) {
-					$val_2[] = \Comet\U2FRegisterRequest::createFromStdclass($sc->RegisterRequests[$i_2]);
+					if (is_array($sc->RegisterRequests[$i_2])) {
+						$val_2[] = \Comet\U2FRegisterRequest::createFromArray($sc->RegisterRequests[$i_2]); // unsafe for roundtrips
+					} else {
+						$val_2[] = \Comet\U2FRegisterRequest::createFromStdclass($sc->RegisterRequests[$i_2]);
+					}
 				}
 			}
 			$this->RegisterRequests = $val_2;

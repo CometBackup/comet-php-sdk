@@ -122,7 +122,11 @@ class AdminDispatcherRequestStoredObjectsRequest implements \Comet\NetworkReques
 		}
 		
 		// Parse as DispatcherStoredObjectsResponse
-		$ret = \Comet\DispatcherStoredObjectsResponse::createFromStdclass($decoded);
+		if (is_array($decoded)) {
+			$ret = \Comet\DispatcherStoredObjectsResponse::createFromArray($decoded); // unsafe for roundtrips
+		} else {
+			$ret = \Comet\DispatcherStoredObjectsResponse::createFromStdclass($decoded);
+		}
 		
 		return $ret;
 	}

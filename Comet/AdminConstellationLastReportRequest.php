@@ -79,7 +79,11 @@ class AdminConstellationLastReportRequest implements \Comet\NetworkRequest {
 		}
 		
 		// Parse as ConstellationCheckReport
-		$ret = \Comet\ConstellationCheckReport::createFromStdclass($decoded);
+		if (is_array($decoded)) {
+			$ret = \Comet\ConstellationCheckReport::createFromArray($decoded); // unsafe for roundtrips
+		} else {
+			$ret = \Comet\ConstellationCheckReport::createFromStdclass($decoded);
+		}
 		
 		return $ret;
 	}

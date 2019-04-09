@@ -79,7 +79,11 @@ class AdminMetaServerConfigGetRequest implements \Comet\NetworkRequest {
 		}
 		
 		// Parse as ServerConfigOptions
-		$ret = \Comet\ServerConfigOptions::createFromStdclass($decoded);
+		if (is_array($decoded)) {
+			$ret = \Comet\ServerConfigOptions::createFromArray($decoded); // unsafe for roundtrips
+		} else {
+			$ret = \Comet\ServerConfigOptions::createFromStdclass($decoded);
+		}
 		
 		return $ret;
 	}

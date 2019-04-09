@@ -54,10 +54,18 @@ class DestinationStatistics {
 	protected function inflateFrom(\stdClass $sc)
 	{
 		if (property_exists($sc, 'ClientProvidedSize')) {
-			$this->ClientProvidedSize = \Comet\SizeMeasurement::createFromStdclass($sc->ClientProvidedSize);
+			if (is_array($sc->ClientProvidedSize)) {
+				$this->ClientProvidedSize = \Comet\SizeMeasurement::createFromArray($sc->ClientProvidedSize); // unsafe for roundtrips
+			} else {
+				$this->ClientProvidedSize = \Comet\SizeMeasurement::createFromStdclass($sc->ClientProvidedSize);
+			}
 		}
 		if (property_exists($sc, 'ClientProvidedContent')) {
-			$this->ClientProvidedContent = \Comet\ContentMeasurement::createFromStdclass($sc->ClientProvidedContent);
+			if (is_array($sc->ClientProvidedContent)) {
+				$this->ClientProvidedContent = \Comet\ContentMeasurement::createFromArray($sc->ClientProvidedContent); // unsafe for roundtrips
+			} else {
+				$this->ClientProvidedContent = \Comet\ContentMeasurement::createFromStdclass($sc->ClientProvidedContent);
+			}
 		}
 		if (property_exists($sc, 'LastSuccessfulDeepVerify_GUID')) {
 			$this->LastSuccessfulDeepVerify_GUID = (string)($sc->LastSuccessfulDeepVerify_GUID);

@@ -58,7 +58,11 @@ class GetProfileAndHashResponseMessage {
 			$this->ProfileHash = (string)($sc->ProfileHash);
 		}
 		if (property_exists($sc, 'Profile')) {
-			$this->Profile = \Comet\UserProfileConfig::createFromStdclass($sc->Profile);
+			if (is_array($sc->Profile)) {
+				$this->Profile = \Comet\UserProfileConfig::createFromArray($sc->Profile); // unsafe for roundtrips
+			} else {
+				$this->Profile = \Comet\UserProfileConfig::createFromStdclass($sc->Profile);
+			}
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {

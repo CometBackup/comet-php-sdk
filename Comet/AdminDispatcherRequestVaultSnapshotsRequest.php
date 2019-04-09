@@ -99,7 +99,11 @@ class AdminDispatcherRequestVaultSnapshotsRequest implements \Comet\NetworkReque
 		}
 		
 		// Parse as DispatcherVaultSnapshotsResponse
-		$ret = \Comet\DispatcherVaultSnapshotsResponse::createFromStdclass($decoded);
+		if (is_array($decoded)) {
+			$ret = \Comet\DispatcherVaultSnapshotsResponse::createFromArray($decoded); // unsafe for roundtrips
+		} else {
+			$ret = \Comet\DispatcherVaultSnapshotsResponse::createFromStdclass($decoded);
+		}
 		
 		return $ret;
 	}

@@ -308,16 +308,28 @@ class DestinationLocation {
 			$this->LocalcopyWinSMBPasswordFormat = (int)($sc->LocalcopyWinSMBPasswordFormat);
 		}
 		if (property_exists($sc, 'Swift')) {
-			$this->Swift = \Comet\SwiftDestinationLocation::createFromStdclass($sc->Swift);
+			if (is_array($sc->Swift)) {
+				$this->Swift = \Comet\SwiftDestinationLocation::createFromArray($sc->Swift); // unsafe for roundtrips
+			} else {
+				$this->Swift = \Comet\SwiftDestinationLocation::createFromStdclass($sc->Swift);
+			}
 		}
 		if (property_exists($sc, 'B2')) {
-			$this->B2 = \Comet\B2DestinationLocation::createFromStdclass($sc->B2);
+			if (is_array($sc->B2)) {
+				$this->B2 = \Comet\B2DestinationLocation::createFromArray($sc->B2); // unsafe for roundtrips
+			} else {
+				$this->B2 = \Comet\B2DestinationLocation::createFromStdclass($sc->B2);
+			}
 		}
 		if (property_exists($sc, 'SpanTargets')) {
 			$val_2 = [];
 			if ($sc->SpanTargets !== null) {
 				for($i_2 = 0; $i_2 < count($sc->SpanTargets); ++$i_2) {
-					$val_2[] = \Comet\DestinationLocation::createFromStdclass($sc->SpanTargets[$i_2]);
+					if (is_array($sc->SpanTargets[$i_2])) {
+						$val_2[] = \Comet\DestinationLocation::createFromArray($sc->SpanTargets[$i_2]); // unsafe for roundtrips
+					} else {
+						$val_2[] = \Comet\DestinationLocation::createFromStdclass($sc->SpanTargets[$i_2]);
+					}
 				}
 			}
 			$this->SpanTargets = $val_2;

@@ -34,7 +34,11 @@ class SourceStatistics {
 	protected function inflateFrom(\stdClass $sc)
 	{
 		if (property_exists($sc, 'LastBackupJob')) {
-			$this->LastBackupJob = \Comet\BackupJobDetail::createFromStdclass($sc->LastBackupJob);
+			if (is_array($sc->LastBackupJob)) {
+				$this->LastBackupJob = \Comet\BackupJobDetail::createFromArray($sc->LastBackupJob); // unsafe for roundtrips
+			} else {
+				$this->LastBackupJob = \Comet\BackupJobDetail::createFromStdclass($sc->LastBackupJob);
+			}
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {

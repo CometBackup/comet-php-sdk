@@ -85,7 +85,11 @@ class UpdateCampaignStatus {
 			$val_2 = [];
 			if ($sc->Devices !== null) {
 				for($i_2 = 0; $i_2 < count($sc->Devices); ++$i_2) {
-					$val_2[] = \Comet\UpdateCampaignStatusDeviceEntry::createFromStdclass($sc->Devices[$i_2]);
+					if (is_array($sc->Devices[$i_2])) {
+						$val_2[] = \Comet\UpdateCampaignStatusDeviceEntry::createFromArray($sc->Devices[$i_2]); // unsafe for roundtrips
+					} else {
+						$val_2[] = \Comet\UpdateCampaignStatusDeviceEntry::createFromStdclass($sc->Devices[$i_2]);
+					}
 				}
 			}
 			$this->Devices = $val_2;

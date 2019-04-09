@@ -79,7 +79,11 @@ class AdminConstellationStatusRequest implements \Comet\NetworkRequest {
 		}
 		
 		// Parse as ConstellationStatusAPIResponse
-		$ret = \Comet\ConstellationStatusAPIResponse::createFromStdclass($decoded);
+		if (is_array($decoded)) {
+			$ret = \Comet\ConstellationStatusAPIResponse::createFromArray($decoded); // unsafe for roundtrips
+		} else {
+			$ret = \Comet\ConstellationStatusAPIResponse::createFromStdclass($decoded);
+		}
 		
 		return $ret;
 	}

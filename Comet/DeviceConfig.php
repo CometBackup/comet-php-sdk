@@ -45,7 +45,11 @@ class DeviceConfig {
 			$val_2 = [];
 			foreach($sc->Sources as $k_2 => $v_2) {
 				$phpk_2 = (string)($k_2);
-				$phpv_2 = \Comet\SourceBasicInfo::createFromStdclass($v_2);
+				if (is_array($v_2)) {
+					$phpv_2 = \Comet\SourceBasicInfo::createFromArray($v_2); // unsafe for roundtrips
+				} else {
+					$phpv_2 = \Comet\SourceBasicInfo::createFromStdclass($v_2);
+				}
 				$val_2[$phpk_2] = $phpv_2;
 			}
 			$this->Sources = $val_2;

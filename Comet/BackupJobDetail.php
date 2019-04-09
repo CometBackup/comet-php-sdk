@@ -178,7 +178,11 @@ class BackupJobDetail {
 			$this->CancellationID = (string)($sc->CancellationID);
 		}
 		if (property_exists($sc, 'Progress')) {
-			$this->Progress = \Comet\BackupJobProgress::createFromStdclass($sc->Progress);
+			if (is_array($sc->Progress)) {
+				$this->Progress = \Comet\BackupJobProgress::createFromArray($sc->Progress); // unsafe for roundtrips
+			} else {
+				$this->Progress = \Comet\BackupJobProgress::createFromStdclass($sc->Progress);
+			}
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {

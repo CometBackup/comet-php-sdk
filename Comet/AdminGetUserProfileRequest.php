@@ -89,7 +89,11 @@ class AdminGetUserProfileRequest implements \Comet\NetworkRequest {
 		}
 		
 		// Parse as UserProfileConfig
-		$ret = \Comet\UserProfileConfig::createFromStdclass($decoded);
+		if (is_array($decoded)) {
+			$ret = \Comet\UserProfileConfig::createFromArray($decoded); // unsafe for roundtrips
+		} else {
+			$ret = \Comet\UserProfileConfig::createFromStdclass($decoded);
+		}
 		
 		return $ret;
 	}

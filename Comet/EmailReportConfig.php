@@ -50,13 +50,21 @@ class EmailReportConfig {
 			$val_2 = [];
 			if ($sc->SummaryFrequency !== null) {
 				for($i_2 = 0; $i_2 < count($sc->SummaryFrequency); ++$i_2) {
-					$val_2[] = \Comet\ScheduleConfig::createFromStdclass($sc->SummaryFrequency[$i_2]);
+					if (is_array($sc->SummaryFrequency[$i_2])) {
+						$val_2[] = \Comet\ScheduleConfig::createFromArray($sc->SummaryFrequency[$i_2]); // unsafe for roundtrips
+					} else {
+						$val_2[] = \Comet\ScheduleConfig::createFromStdclass($sc->SummaryFrequency[$i_2]);
+					}
 				}
 			}
 			$this->SummaryFrequency = $val_2;
 		}
 		if (property_exists($sc, 'Filter')) {
-			$this->Filter = \Comet\search.SearchClause::createFromStdclass($sc->Filter);
+			if (is_array($sc->Filter)) {
+				$this->Filter = \Comet\search.SearchClause::createFromArray($sc->Filter); // unsafe for roundtrips
+			} else {
+				$this->Filter = \Comet\search.SearchClause::createFromStdclass($sc->Filter);
+			}
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {

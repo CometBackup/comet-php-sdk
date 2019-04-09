@@ -163,7 +163,11 @@ class UserProfileConfig {
 			$val_2 = [];
 			foreach($sc->OverrideEmailSettings as $k_2 => $v_2) {
 				$phpk_2 = (string)($k_2);
-				$phpv_2 = \Comet\UserCustomEmailSettings::createFromStdclass($v_2);
+				if (is_array($v_2)) {
+					$phpv_2 = \Comet\UserCustomEmailSettings::createFromArray($v_2); // unsafe for roundtrips
+				} else {
+					$phpv_2 = \Comet\UserCustomEmailSettings::createFromStdclass($v_2);
+				}
 				$val_2[$phpk_2] = $phpv_2;
 			}
 			$this->OverrideEmailSettings = $val_2;
@@ -175,7 +179,11 @@ class UserProfileConfig {
 			$val_2 = [];
 			foreach($sc->Destinations as $k_2 => $v_2) {
 				$phpk_2 = (string)($k_2);
-				$phpv_2 = \Comet\DestinationConfig::createFromStdclass($v_2);
+				if (is_array($v_2)) {
+					$phpv_2 = \Comet\DestinationConfig::createFromArray($v_2); // unsafe for roundtrips
+				} else {
+					$phpv_2 = \Comet\DestinationConfig::createFromStdclass($v_2);
+				}
 				$val_2[$phpk_2] = $phpv_2;
 			}
 			$this->Destinations = $val_2;
@@ -184,7 +192,11 @@ class UserProfileConfig {
 			$val_2 = [];
 			foreach($sc->Sources as $k_2 => $v_2) {
 				$phpk_2 = (string)($k_2);
-				$phpv_2 = \Comet\SourceConfig::createFromStdclass($v_2);
+				if (is_array($v_2)) {
+					$phpv_2 = \Comet\SourceConfig::createFromArray($v_2); // unsafe for roundtrips
+				} else {
+					$phpv_2 = \Comet\SourceConfig::createFromStdclass($v_2);
+				}
 				$val_2[$phpk_2] = $phpv_2;
 			}
 			$this->Sources = $val_2;
@@ -193,7 +205,11 @@ class UserProfileConfig {
 			$val_2 = [];
 			foreach($sc->BackupRules as $k_2 => $v_2) {
 				$phpk_2 = (string)($k_2);
-				$phpv_2 = \Comet\BackupRuleConfig::createFromStdclass($v_2);
+				if (is_array($v_2)) {
+					$phpv_2 = \Comet\BackupRuleConfig::createFromArray($v_2); // unsafe for roundtrips
+				} else {
+					$phpv_2 = \Comet\BackupRuleConfig::createFromStdclass($v_2);
+				}
 				$val_2[$phpk_2] = $phpv_2;
 			}
 			$this->BackupRules = $val_2;
@@ -202,7 +218,11 @@ class UserProfileConfig {
 			$val_2 = [];
 			foreach($sc->Devices as $k_2 => $v_2) {
 				$phpk_2 = (string)($k_2);
-				$phpv_2 = \Comet\DeviceConfig::createFromStdclass($v_2);
+				if (is_array($v_2)) {
+					$phpv_2 = \Comet\DeviceConfig::createFromArray($v_2); // unsafe for roundtrips
+				} else {
+					$phpv_2 = \Comet\DeviceConfig::createFromStdclass($v_2);
+				}
 				$val_2[$phpk_2] = $phpv_2;
 			}
 			$this->Devices = $val_2;
@@ -223,7 +243,11 @@ class UserProfileConfig {
 			$this->PolicyID = (string)($sc->PolicyID);
 		}
 		if (property_exists($sc, 'Policy')) {
-			$this->Policy = \Comet\UserPolicy::createFromStdclass($sc->Policy);
+			if (is_array($sc->Policy)) {
+				$this->Policy = \Comet\UserPolicy::createFromArray($sc->Policy); // unsafe for roundtrips
+			} else {
+				$this->Policy = \Comet\UserPolicy::createFromStdclass($sc->Policy);
+			}
 		}
 		if (property_exists($sc, 'PasswordFormat')) {
 			$this->PasswordFormat = (int)($sc->PasswordFormat);

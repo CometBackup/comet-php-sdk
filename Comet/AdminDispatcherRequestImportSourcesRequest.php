@@ -89,7 +89,11 @@ class AdminDispatcherRequestImportSourcesRequest implements \Comet\NetworkReques
 		}
 		
 		// Parse as DispatcherAdminSourcesResponse
-		$ret = \Comet\DispatcherAdminSourcesResponse::createFromStdclass($decoded);
+		if (is_array($decoded)) {
+			$ret = \Comet\DispatcherAdminSourcesResponse::createFromArray($decoded); // unsafe for roundtrips
+		} else {
+			$ret = \Comet\DispatcherAdminSourcesResponse::createFromStdclass($decoded);
+		}
 		
 		return $ret;
 	}

@@ -79,7 +79,11 @@ class AdminAccountPropertiesRequest implements \Comet\NetworkRequest {
 		}
 		
 		// Parse as AdminAccountPropertiesResponse
-		$ret = \Comet\AdminAccountPropertiesResponse::createFromStdclass($decoded);
+		if (is_array($decoded)) {
+			$ret = \Comet\AdminAccountPropertiesResponse::createFromArray($decoded); // unsafe for roundtrips
+		} else {
+			$ret = \Comet\AdminAccountPropertiesResponse::createFromStdclass($decoded);
+		}
 		
 		return $ret;
 	}

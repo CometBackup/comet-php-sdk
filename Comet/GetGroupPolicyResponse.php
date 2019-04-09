@@ -55,7 +55,11 @@ class GetGroupPolicyResponse {
 			$this->Message = (string)($sc->Message);
 		}
 		if (property_exists($sc, 'Policy')) {
-			$this->Policy = \Comet\GroupPolicy::createFromStdclass($sc->Policy);
+			if (is_array($sc->Policy)) {
+				$this->Policy = \Comet\GroupPolicy::createFromArray($sc->Policy); // unsafe for roundtrips
+			} else {
+				$this->Policy = \Comet\GroupPolicy::createFromStdclass($sc->Policy);
+			}
 		}
 		if (property_exists($sc, 'PolicyHash')) {
 			$this->PolicyHash = (string)($sc->PolicyHash);

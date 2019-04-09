@@ -69,7 +69,11 @@ class SearchClause {
 			$val_2 = [];
 			if ($sc->ClauseChildren !== null) {
 				for($i_2 = 0; $i_2 < count($sc->ClauseChildren); ++$i_2) {
-					$val_2[] = \Comet\SearchClause::createFromStdclass($sc->ClauseChildren[$i_2]);
+					if (is_array($sc->ClauseChildren[$i_2])) {
+						$val_2[] = \Comet\SearchClause::createFromArray($sc->ClauseChildren[$i_2]); // unsafe for roundtrips
+					} else {
+						$val_2[] = \Comet\SearchClause::createFromStdclass($sc->ClauseChildren[$i_2]);
+					}
 				}
 			}
 			$this->ClauseChildren = $val_2;

@@ -171,7 +171,11 @@ class UserPolicy {
 			$this->PreventDeleteStorageVault = (bool)($sc->PreventDeleteStorageVault);
 		}
 		if (property_exists($sc, 'StorageVaultProviders')) {
-			$this->StorageVaultProviders = \Comet\StorageVaultProviderPolicy::createFromStdclass($sc->StorageVaultProviders);
+			if (is_array($sc->StorageVaultProviders)) {
+				$this->StorageVaultProviders = \Comet\StorageVaultProviderPolicy::createFromArray($sc->StorageVaultProviders); // unsafe for roundtrips
+			} else {
+				$this->StorageVaultProviders = \Comet\StorageVaultProviderPolicy::createFromStdclass($sc->StorageVaultProviders);
+			}
 		}
 		if (property_exists($sc, 'PreventNewProtectedItem')) {
 			$this->PreventNewProtectedItem = (bool)($sc->PreventNewProtectedItem);
@@ -183,13 +187,21 @@ class UserPolicy {
 			$this->PreventDeleteProtectedItem = (bool)($sc->PreventDeleteProtectedItem);
 		}
 		if (property_exists($sc, 'ProtectedItemEngineTypes')) {
-			$this->ProtectedItemEngineTypes = \Comet\ProtectedItemEngineTypePolicy::createFromStdclass($sc->ProtectedItemEngineTypes);
+			if (is_array($sc->ProtectedItemEngineTypes)) {
+				$this->ProtectedItemEngineTypes = \Comet\ProtectedItemEngineTypePolicy::createFromArray($sc->ProtectedItemEngineTypes); // unsafe for roundtrips
+			} else {
+				$this->ProtectedItemEngineTypes = \Comet\ProtectedItemEngineTypePolicy::createFromStdclass($sc->ProtectedItemEngineTypes);
+			}
 		}
 		if (property_exists($sc, 'FileAndFolderMandatoryExclusions')) {
 			$val_2 = [];
 			if ($sc->FileAndFolderMandatoryExclusions !== null) {
 				for($i_2 = 0; $i_2 < count($sc->FileAndFolderMandatoryExclusions); ++$i_2) {
-					$val_2[] = \Comet\ExtraFileExclusion::createFromStdclass($sc->FileAndFolderMandatoryExclusions[$i_2]);
+					if (is_array($sc->FileAndFolderMandatoryExclusions[$i_2])) {
+						$val_2[] = \Comet\ExtraFileExclusion::createFromArray($sc->FileAndFolderMandatoryExclusions[$i_2]); // unsafe for roundtrips
+					} else {
+						$val_2[] = \Comet\ExtraFileExclusion::createFromStdclass($sc->FileAndFolderMandatoryExclusions[$i_2]);
+					}
 				}
 			}
 			$this->FileAndFolderMandatoryExclusions = $val_2;
@@ -231,10 +243,18 @@ class UserPolicy {
 			$this->PreventViewDeviceNames = (bool)($sc->PreventViewDeviceNames);
 		}
 		if (property_exists($sc, 'DefaultEmailReports')) {
-			$this->DefaultEmailReports = \Comet\DefaultEmailReportPolicy::createFromStdclass($sc->DefaultEmailReports);
+			if (is_array($sc->DefaultEmailReports)) {
+				$this->DefaultEmailReports = \Comet\DefaultEmailReportPolicy::createFromArray($sc->DefaultEmailReports); // unsafe for roundtrips
+			} else {
+				$this->DefaultEmailReports = \Comet\DefaultEmailReportPolicy::createFromStdclass($sc->DefaultEmailReports);
+			}
 		}
 		if (property_exists($sc, 'DefaultStorageVaultRetention')) {
-			$this->DefaultStorageVaultRetention = \Comet\RetentionPolicy::createFromStdclass($sc->DefaultStorageVaultRetention);
+			if (is_array($sc->DefaultStorageVaultRetention)) {
+				$this->DefaultStorageVaultRetention = \Comet\RetentionPolicy::createFromArray($sc->DefaultStorageVaultRetention); // unsafe for roundtrips
+			} else {
+				$this->DefaultStorageVaultRetention = \Comet\RetentionPolicy::createFromStdclass($sc->DefaultStorageVaultRetention);
+			}
 		}
 		if (property_exists($sc, 'EnforceStorageVaultRetention')) {
 			$this->EnforceStorageVaultRetention = (bool)($sc->EnforceStorageVaultRetention);

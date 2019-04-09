@@ -37,7 +37,11 @@ class UserCustomEmailSettings {
 			$val_2 = [];
 			if ($sc->Reports !== null) {
 				for($i_2 = 0; $i_2 < count($sc->Reports); ++$i_2) {
-					$val_2[] = \Comet\EmailReportConfig::createFromStdclass($sc->Reports[$i_2]);
+					if (is_array($sc->Reports[$i_2])) {
+						$val_2[] = \Comet\EmailReportConfig::createFromArray($sc->Reports[$i_2]); // unsafe for roundtrips
+					} else {
+						$val_2[] = \Comet\EmailReportConfig::createFromStdclass($sc->Reports[$i_2]);
+					}
 				}
 			}
 			$this->Reports = $val_2;

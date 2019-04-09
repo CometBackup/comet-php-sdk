@@ -83,7 +83,11 @@ class AdminBrandingAvailablePlatformsRequest implements \Comet\NetworkRequest {
 		$val_0 = [];
 		foreach($decoded as $k_0 => $v_0) {
 			$phpk_0 = (int)($k_0);
-			$phpv_0 = \Comet\AvailableDownload::createFromStdclass($v_0);
+			if (is_array($v_0)) {
+				$phpv_0 = \Comet\AvailableDownload::createFromArray($v_0); // unsafe for roundtrips
+			} else {
+				$phpv_0 = \Comet\AvailableDownload::createFromStdclass($v_0);
+			}
 			$val_0[$phpk_0] = $phpv_0;
 		}
 		$ret = $val_0;

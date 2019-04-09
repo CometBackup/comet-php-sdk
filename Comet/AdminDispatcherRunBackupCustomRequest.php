@@ -109,7 +109,11 @@ class AdminDispatcherRunBackupCustomRequest implements \Comet\NetworkRequest {
 		}
 		
 		// Parse as CometAPIResponseMessage
-		$ret = \Comet\APIResponseMessage::createFromStdclass($decoded);
+		if (is_array($decoded)) {
+			$ret = \Comet\APIResponseMessage::createFromArray($decoded); // unsafe for roundtrips
+		} else {
+			$ret = \Comet\APIResponseMessage::createFromStdclass($decoded);
+		}
 		
 		return $ret;
 	}

@@ -37,7 +37,11 @@ class SpannedDestinationLocation {
 			$val_2 = [];
 			if ($sc->SpanTargets !== null) {
 				for($i_2 = 0; $i_2 < count($sc->SpanTargets); ++$i_2) {
-					$val_2[] = \Comet\DestinationLocation::createFromStdclass($sc->SpanTargets[$i_2]);
+					if (is_array($sc->SpanTargets[$i_2])) {
+						$val_2[] = \Comet\DestinationLocation::createFromArray($sc->SpanTargets[$i_2]); // unsafe for roundtrips
+					} else {
+						$val_2[] = \Comet\DestinationLocation::createFromStdclass($sc->SpanTargets[$i_2]);
+					}
 				}
 			}
 			$this->SpanTargets = $val_2;

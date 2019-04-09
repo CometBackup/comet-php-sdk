@@ -70,7 +70,11 @@ class ConstellationStatusAPIResponse {
 			$this->TargetNames = $val_2;
 		}
 		if (property_exists($sc, 'Stats')) {
-			$this->Stats = \Comet\ConstellationStats::createFromStdclass($sc->Stats);
+			if (is_array($sc->Stats)) {
+				$this->Stats = \Comet\ConstellationStats::createFromArray($sc->Stats); // unsafe for roundtrips
+			} else {
+				$this->Stats = \Comet\ConstellationStats::createFromStdclass($sc->Stats);
+			}
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {

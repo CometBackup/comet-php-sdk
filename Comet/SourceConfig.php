@@ -124,13 +124,21 @@ class SourceConfig {
 			$val_2 = [];
 			foreach($sc->OverrideDestinationRetention as $k_2 => $v_2) {
 				$phpk_2 = (string)($k_2);
-				$phpv_2 = \Comet\RetentionPolicy::createFromStdclass($v_2);
+				if (is_array($v_2)) {
+					$phpv_2 = \Comet\RetentionPolicy::createFromArray($v_2); // unsafe for roundtrips
+				} else {
+					$phpv_2 = \Comet\RetentionPolicy::createFromStdclass($v_2);
+				}
 				$val_2[$phpk_2] = $phpv_2;
 			}
 			$this->OverrideDestinationRetention = $val_2;
 		}
 		if (property_exists($sc, 'Statistics')) {
-			$this->Statistics = \Comet\SourceStatistics::createFromStdclass($sc->Statistics);
+			if (is_array($sc->Statistics)) {
+				$this->Statistics = \Comet\SourceStatistics::createFromArray($sc->Statistics); // unsafe for roundtrips
+			} else {
+				$this->Statistics = \Comet\SourceStatistics::createFromStdclass($sc->Statistics);
+			}
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {

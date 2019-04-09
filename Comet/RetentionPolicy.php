@@ -45,7 +45,11 @@ class RetentionPolicy {
 			$val_2 = [];
 			if ($sc->Ranges !== null) {
 				for($i_2 = 0; $i_2 < count($sc->Ranges); ++$i_2) {
-					$val_2[] = \Comet\RetentionRange::createFromStdclass($sc->Ranges[$i_2]);
+					if (is_array($sc->Ranges[$i_2])) {
+						$val_2[] = \Comet\RetentionRange::createFromArray($sc->Ranges[$i_2]); // unsafe for roundtrips
+					} else {
+						$val_2[] = \Comet\RetentionRange::createFromStdclass($sc->Ranges[$i_2]);
+					}
 				}
 			}
 			$this->Ranges = $val_2;

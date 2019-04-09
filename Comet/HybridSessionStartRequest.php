@@ -76,7 +76,11 @@ class HybridSessionStartRequest implements \Comet\NetworkRequest {
 		}
 		
 		// Parse as SessionKeyRegeneratedResponse
-		$ret = \Comet\SessionKeyRegeneratedResponse::createFromStdclass($decoded);
+		if (is_array($decoded)) {
+			$ret = \Comet\SessionKeyRegeneratedResponse::createFromArray($decoded); // unsafe for roundtrips
+		} else {
+			$ret = \Comet\SessionKeyRegeneratedResponse::createFromStdclass($decoded);
+		}
 		
 		return $ret;
 	}

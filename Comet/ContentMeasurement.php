@@ -53,7 +53,11 @@ class ContentMeasurement {
 			$val_2 = [];
 			if ($sc->Components !== null) {
 				for($i_2 = 0; $i_2 < count($sc->Components); ++$i_2) {
-					$val_2[] = \Comet\ContentMeasurementComponent::createFromStdclass($sc->Components[$i_2]);
+					if (is_array($sc->Components[$i_2])) {
+						$val_2[] = \Comet\ContentMeasurementComponent::createFromArray($sc->Components[$i_2]); // unsafe for roundtrips
+					} else {
+						$val_2[] = \Comet\ContentMeasurementComponent::createFromStdclass($sc->Components[$i_2]);
+					}
 				}
 			}
 			$this->Components = $val_2;

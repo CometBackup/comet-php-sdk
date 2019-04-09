@@ -78,7 +78,11 @@ class AdminMetaSoftwareUpdateNewsRequest implements \Comet\NetworkRequest {
 		}
 		
 		// Parse as SoftwareUpdateNewsResponse
-		$ret = \Comet\SoftwareUpdateNewsResponse::createFromStdclass($decoded);
+		if (is_array($decoded)) {
+			$ret = \Comet\SoftwareUpdateNewsResponse::createFromArray($decoded); // unsafe for roundtrips
+		} else {
+			$ret = \Comet\SoftwareUpdateNewsResponse::createFromStdclass($decoded);
+		}
 		
 		return $ret;
 	}

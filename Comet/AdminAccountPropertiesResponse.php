@@ -39,10 +39,18 @@ class AdminAccountPropertiesResponse {
 	protected function inflateFrom(\stdClass $sc)
 	{
 		if (property_exists($sc, 'Permissions')) {
-			$this->Permissions = \Comet\AdminUserPermissions::createFromStdclass($sc->Permissions);
+			if (is_array($sc->Permissions)) {
+				$this->Permissions = \Comet\AdminUserPermissions::createFromArray($sc->Permissions); // unsafe for roundtrips
+			} else {
+				$this->Permissions = \Comet\AdminUserPermissions::createFromStdclass($sc->Permissions);
+			}
 		}
 		if (property_exists($sc, 'Security')) {
-			$this->Security = \Comet\AdminSecurityOptions::createFromStdclass($sc->Security);
+			if (is_array($sc->Security)) {
+				$this->Security = \Comet\AdminSecurityOptions::createFromArray($sc->Security); // unsafe for roundtrips
+			} else {
+				$this->Security = \Comet\AdminSecurityOptions::createFromStdclass($sc->Security);
+			}
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {

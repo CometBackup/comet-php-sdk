@@ -53,7 +53,11 @@ class DispatcherVaultSnapshotsResponse {
 			$val_2 = [];
 			if ($sc->Snapshots !== null) {
 				for($i_2 = 0; $i_2 < count($sc->Snapshots); ++$i_2) {
-					$val_2[] = \Comet\VaultSnapshot::createFromStdclass($sc->Snapshots[$i_2]);
+					if (is_array($sc->Snapshots[$i_2])) {
+						$val_2[] = \Comet\VaultSnapshot::createFromArray($sc->Snapshots[$i_2]); // unsafe for roundtrips
+					} else {
+						$val_2[] = \Comet\VaultSnapshot::createFromStdclass($sc->Snapshots[$i_2]);
+					}
 				}
 			}
 			$this->Snapshots = $val_2;

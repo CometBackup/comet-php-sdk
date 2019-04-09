@@ -79,7 +79,11 @@ class AdminMetaVersionRequest implements \Comet\NetworkRequest {
 		}
 		
 		// Parse as ServerMetaVersionInfo
-		$ret = \Comet\ServerMetaVersionInfo::createFromStdclass($decoded);
+		if (is_array($decoded)) {
+			$ret = \Comet\ServerMetaVersionInfo::createFromArray($decoded); // unsafe for roundtrips
+		} else {
+			$ret = \Comet\ServerMetaVersionInfo::createFromStdclass($decoded);
+		}
 		
 		return $ret;
 	}
