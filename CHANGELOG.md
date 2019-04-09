@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 2019-04-10 v2.5.4
+- Fix an issue with `\Comet\SearchClause` class type definition
+
 ## 2019-04-10 v2.5.3
 - Fix an issue with unmarshalling empty objects to array instead of `stdClass`
 
