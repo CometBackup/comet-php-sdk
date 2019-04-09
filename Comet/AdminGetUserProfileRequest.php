@@ -89,8 +89,9 @@ class AdminGetUserProfileRequest implements \Comet\NetworkRequest {
 		}
 		
 		// Parse as UserProfileConfig
-		if (is_array($decoded)) {
-			$ret = \Comet\UserProfileConfig::createFromArray($decoded); // unsafe for roundtrips
+		if (is_array($decoded) && count($decoded) === 0) {
+		// Work around edge case in json_decode--json_encode stdClass conversion
+			$ret = \Comet\UserProfileConfig::createFromStdclass(new \stdClass());
 		} else {
 			$ret = \Comet\UserProfileConfig::createFromStdclass($decoded);
 		}

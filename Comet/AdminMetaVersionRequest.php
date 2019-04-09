@@ -79,8 +79,9 @@ class AdminMetaVersionRequest implements \Comet\NetworkRequest {
 		}
 		
 		// Parse as ServerMetaVersionInfo
-		if (is_array($decoded)) {
-			$ret = \Comet\ServerMetaVersionInfo::createFromArray($decoded); // unsafe for roundtrips
+		if (is_array($decoded) && count($decoded) === 0) {
+		// Work around edge case in json_decode--json_encode stdClass conversion
+			$ret = \Comet\ServerMetaVersionInfo::createFromStdclass(new \stdClass());
 		} else {
 			$ret = \Comet\ServerMetaVersionInfo::createFromStdclass($decoded);
 		}

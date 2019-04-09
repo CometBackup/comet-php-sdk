@@ -60,6 +60,9 @@ class ServerConfigOptions {
 	public static function createFromArray(array $arr)
 	{
 		$stdClass = json_decode(json_encode($arr));
+		if (is_array($stdClass) && count($stdClass) === 0) {
+			$stdClass = new \stdClass();
+		}
 		return self::createFromStdclass($stdClass);
 	}
 	

@@ -39,15 +39,17 @@ class AdminAccountPropertiesResponse {
 	protected function inflateFrom(\stdClass $sc)
 	{
 		if (property_exists($sc, 'Permissions')) {
-			if (is_array($sc->Permissions)) {
-				$this->Permissions = \Comet\AdminUserPermissions::createFromArray($sc->Permissions); // unsafe for roundtrips
+			if (is_array($sc->Permissions) && count($sc->Permissions) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->Permissions = \Comet\AdminUserPermissions::createFromStdclass(new \stdClass());
 			} else {
 				$this->Permissions = \Comet\AdminUserPermissions::createFromStdclass($sc->Permissions);
 			}
 		}
 		if (property_exists($sc, 'Security')) {
-			if (is_array($sc->Security)) {
-				$this->Security = \Comet\AdminSecurityOptions::createFromArray($sc->Security); // unsafe for roundtrips
+			if (is_array($sc->Security) && count($sc->Security) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->Security = \Comet\AdminSecurityOptions::createFromStdclass(new \stdClass());
 			} else {
 				$this->Security = \Comet\AdminSecurityOptions::createFromStdclass($sc->Security);
 			}
@@ -87,6 +89,9 @@ class AdminAccountPropertiesResponse {
 	public static function createFromArray(array $arr)
 	{
 		$stdClass = json_decode(json_encode($arr));
+		if (is_array($stdClass) && count($stdClass) === 0) {
+			$stdClass = new \stdClass();
+		}
 		return self::createFromStdclass($stdClass);
 	}
 	

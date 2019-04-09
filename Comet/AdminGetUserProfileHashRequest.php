@@ -91,8 +91,9 @@ class AdminGetUserProfileHashRequest implements \Comet\NetworkRequest {
 		}
 		
 		// Parse as GetProfileHashResponseMessage
-		if (is_array($decoded)) {
-			$ret = \Comet\GetProfileHashResponseMessage::createFromArray($decoded); // unsafe for roundtrips
+		if (is_array($decoded) && count($decoded) === 0) {
+		// Work around edge case in json_decode--json_encode stdClass conversion
+			$ret = \Comet\GetProfileHashResponseMessage::createFromStdclass(new \stdClass());
 		} else {
 			$ret = \Comet\GetProfileHashResponseMessage::createFromStdclass($decoded);
 		}

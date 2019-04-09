@@ -42,8 +42,9 @@ class GroupPolicy {
 			$this->Description = (string)($sc->Description);
 		}
 		if (property_exists($sc, 'Policy')) {
-			if (is_array($sc->Policy)) {
-				$this->Policy = \Comet\UserPolicy::createFromArray($sc->Policy); // unsafe for roundtrips
+			if (is_array($sc->Policy) && count($sc->Policy) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->Policy = \Comet\UserPolicy::createFromStdclass(new \stdClass());
 			} else {
 				$this->Policy = \Comet\UserPolicy::createFromStdclass($sc->Policy);
 			}
@@ -83,6 +84,9 @@ class GroupPolicy {
 	public static function createFromArray(array $arr)
 	{
 		$stdClass = json_decode(json_encode($arr));
+		if (is_array($stdClass) && count($stdClass) === 0) {
+			$stdClass = new \stdClass();
+		}
 		return self::createFromStdclass($stdClass);
 	}
 	

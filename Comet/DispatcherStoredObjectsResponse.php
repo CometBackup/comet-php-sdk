@@ -53,8 +53,9 @@ class DispatcherStoredObjectsResponse {
 			$val_2 = [];
 			if ($sc->StoredObjects !== null) {
 				for($i_2 = 0; $i_2 < count($sc->StoredObjects); ++$i_2) {
-					if (is_array($sc->StoredObjects[$i_2])) {
-						$val_2[] = \Comet\StoredObject::createFromArray($sc->StoredObjects[$i_2]); // unsafe for roundtrips
+					if (is_array($sc->StoredObjects[$i_2]) && count($sc->StoredObjects[$i_2]) === 0) {
+					// Work around edge case in json_decode--json_encode stdClass conversion
+						$val_2[] = \Comet\StoredObject::createFromStdclass(new \stdClass());
 					} else {
 						$val_2[] = \Comet\StoredObject::createFromStdclass($sc->StoredObjects[$i_2]);
 					}
@@ -98,6 +99,9 @@ class DispatcherStoredObjectsResponse {
 	public static function createFromArray(array $arr)
 	{
 		$stdClass = json_decode(json_encode($arr));
+		if (is_array($stdClass) && count($stdClass) === 0) {
+			$stdClass = new \stdClass();
+		}
 		return self::createFromStdclass($stdClass);
 	}
 	

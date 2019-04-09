@@ -58,8 +58,9 @@ class GetProfileAndHashResponseMessage {
 			$this->ProfileHash = (string)($sc->ProfileHash);
 		}
 		if (property_exists($sc, 'Profile')) {
-			if (is_array($sc->Profile)) {
-				$this->Profile = \Comet\UserProfileConfig::createFromArray($sc->Profile); // unsafe for roundtrips
+			if (is_array($sc->Profile) && count($sc->Profile) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->Profile = \Comet\UserProfileConfig::createFromStdclass(new \stdClass());
 			} else {
 				$this->Profile = \Comet\UserProfileConfig::createFromStdclass($sc->Profile);
 			}
@@ -101,6 +102,9 @@ class GetProfileAndHashResponseMessage {
 	public static function createFromArray(array $arr)
 	{
 		$stdClass = json_decode(json_encode($arr));
+		if (is_array($stdClass) && count($stdClass) === 0) {
+			$stdClass = new \stdClass();
+		}
 		return self::createFromStdclass($stdClass);
 	}
 	

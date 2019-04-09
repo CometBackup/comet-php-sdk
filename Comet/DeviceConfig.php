@@ -45,8 +45,9 @@ class DeviceConfig {
 			$val_2 = [];
 			foreach($sc->Sources as $k_2 => $v_2) {
 				$phpk_2 = (string)($k_2);
-				if (is_array($v_2)) {
-					$phpv_2 = \Comet\SourceBasicInfo::createFromArray($v_2); // unsafe for roundtrips
+				if (is_array($v_2) && count($v_2) === 0) {
+				// Work around edge case in json_decode--json_encode stdClass conversion
+					$phpv_2 = \Comet\SourceBasicInfo::createFromStdclass(new \stdClass());
 				} else {
 					$phpv_2 = \Comet\SourceBasicInfo::createFromStdclass($v_2);
 				}
@@ -89,6 +90,9 @@ class DeviceConfig {
 	public static function createFromArray(array $arr)
 	{
 		$stdClass = json_decode(json_encode($arr));
+		if (is_array($stdClass) && count($stdClass) === 0) {
+			$stdClass = new \stdClass();
+		}
 		return self::createFromStdclass($stdClass);
 	}
 	

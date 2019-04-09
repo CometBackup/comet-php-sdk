@@ -178,8 +178,9 @@ class BackupJobDetail {
 			$this->CancellationID = (string)($sc->CancellationID);
 		}
 		if (property_exists($sc, 'Progress')) {
-			if (is_array($sc->Progress)) {
-				$this->Progress = \Comet\BackupJobProgress::createFromArray($sc->Progress); // unsafe for roundtrips
+			if (is_array($sc->Progress) && count($sc->Progress) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->Progress = \Comet\BackupJobProgress::createFromStdclass(new \stdClass());
 			} else {
 				$this->Progress = \Comet\BackupJobProgress::createFromStdclass($sc->Progress);
 			}
@@ -236,6 +237,9 @@ class BackupJobDetail {
 	public static function createFromArray(array $arr)
 	{
 		$stdClass = json_decode(json_encode($arr));
+		if (is_array($stdClass) && count($stdClass) === 0) {
+			$stdClass = new \stdClass();
+		}
 		return self::createFromStdclass($stdClass);
 	}
 	

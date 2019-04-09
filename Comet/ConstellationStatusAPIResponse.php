@@ -70,8 +70,9 @@ class ConstellationStatusAPIResponse {
 			$this->TargetNames = $val_2;
 		}
 		if (property_exists($sc, 'Stats')) {
-			if (is_array($sc->Stats)) {
-				$this->Stats = \Comet\ConstellationStats::createFromArray($sc->Stats); // unsafe for roundtrips
+			if (is_array($sc->Stats) && count($sc->Stats) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->Stats = \Comet\ConstellationStats::createFromStdclass(new \stdClass());
 			} else {
 				$this->Stats = \Comet\ConstellationStats::createFromStdclass($sc->Stats);
 			}
@@ -113,6 +114,9 @@ class ConstellationStatusAPIResponse {
 	public static function createFromArray(array $arr)
 	{
 		$stdClass = json_decode(json_encode($arr));
+		if (is_array($stdClass) && count($stdClass) === 0) {
+			$stdClass = new \stdClass();
+		}
 		return self::createFromStdclass($stdClass);
 	}
 	

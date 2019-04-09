@@ -93,8 +93,9 @@ class AdminGetJobsForCustomSearchRequest implements \Comet\NetworkRequest {
 		$val_0 = [];
 		if ($decoded !== null) {
 			for($i_0 = 0; $i_0 < count($decoded); ++$i_0) {
-				if (is_array($decoded[$i_0])) {
-					$val_0[] = \Comet\BackupJobDetail::createFromArray($decoded[$i_0]); // unsafe for roundtrips
+				if (is_array($decoded[$i_0]) && count($decoded[$i_0]) === 0) {
+				// Work around edge case in json_decode--json_encode stdClass conversion
+					$val_0[] = \Comet\BackupJobDetail::createFromStdclass(new \stdClass());
 				} else {
 					$val_0[] = \Comet\BackupJobDetail::createFromStdclass($decoded[$i_0]);
 				}

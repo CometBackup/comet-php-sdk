@@ -163,8 +163,9 @@ class UserProfileConfig {
 			$val_2 = [];
 			foreach($sc->OverrideEmailSettings as $k_2 => $v_2) {
 				$phpk_2 = (string)($k_2);
-				if (is_array($v_2)) {
-					$phpv_2 = \Comet\UserCustomEmailSettings::createFromArray($v_2); // unsafe for roundtrips
+				if (is_array($v_2) && count($v_2) === 0) {
+				// Work around edge case in json_decode--json_encode stdClass conversion
+					$phpv_2 = \Comet\UserCustomEmailSettings::createFromStdclass(new \stdClass());
 				} else {
 					$phpv_2 = \Comet\UserCustomEmailSettings::createFromStdclass($v_2);
 				}
@@ -179,8 +180,9 @@ class UserProfileConfig {
 			$val_2 = [];
 			foreach($sc->Destinations as $k_2 => $v_2) {
 				$phpk_2 = (string)($k_2);
-				if (is_array($v_2)) {
-					$phpv_2 = \Comet\DestinationConfig::createFromArray($v_2); // unsafe for roundtrips
+				if (is_array($v_2) && count($v_2) === 0) {
+				// Work around edge case in json_decode--json_encode stdClass conversion
+					$phpv_2 = \Comet\DestinationConfig::createFromStdclass(new \stdClass());
 				} else {
 					$phpv_2 = \Comet\DestinationConfig::createFromStdclass($v_2);
 				}
@@ -192,8 +194,9 @@ class UserProfileConfig {
 			$val_2 = [];
 			foreach($sc->Sources as $k_2 => $v_2) {
 				$phpk_2 = (string)($k_2);
-				if (is_array($v_2)) {
-					$phpv_2 = \Comet\SourceConfig::createFromArray($v_2); // unsafe for roundtrips
+				if (is_array($v_2) && count($v_2) === 0) {
+				// Work around edge case in json_decode--json_encode stdClass conversion
+					$phpv_2 = \Comet\SourceConfig::createFromStdclass(new \stdClass());
 				} else {
 					$phpv_2 = \Comet\SourceConfig::createFromStdclass($v_2);
 				}
@@ -205,8 +208,9 @@ class UserProfileConfig {
 			$val_2 = [];
 			foreach($sc->BackupRules as $k_2 => $v_2) {
 				$phpk_2 = (string)($k_2);
-				if (is_array($v_2)) {
-					$phpv_2 = \Comet\BackupRuleConfig::createFromArray($v_2); // unsafe for roundtrips
+				if (is_array($v_2) && count($v_2) === 0) {
+				// Work around edge case in json_decode--json_encode stdClass conversion
+					$phpv_2 = \Comet\BackupRuleConfig::createFromStdclass(new \stdClass());
 				} else {
 					$phpv_2 = \Comet\BackupRuleConfig::createFromStdclass($v_2);
 				}
@@ -218,8 +222,9 @@ class UserProfileConfig {
 			$val_2 = [];
 			foreach($sc->Devices as $k_2 => $v_2) {
 				$phpk_2 = (string)($k_2);
-				if (is_array($v_2)) {
-					$phpv_2 = \Comet\DeviceConfig::createFromArray($v_2); // unsafe for roundtrips
+				if (is_array($v_2) && count($v_2) === 0) {
+				// Work around edge case in json_decode--json_encode stdClass conversion
+					$phpv_2 = \Comet\DeviceConfig::createFromStdclass(new \stdClass());
 				} else {
 					$phpv_2 = \Comet\DeviceConfig::createFromStdclass($v_2);
 				}
@@ -243,8 +248,9 @@ class UserProfileConfig {
 			$this->PolicyID = (string)($sc->PolicyID);
 		}
 		if (property_exists($sc, 'Policy')) {
-			if (is_array($sc->Policy)) {
-				$this->Policy = \Comet\UserPolicy::createFromArray($sc->Policy); // unsafe for roundtrips
+			if (is_array($sc->Policy) && count($sc->Policy) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->Policy = \Comet\UserPolicy::createFromStdclass(new \stdClass());
 			} else {
 				$this->Policy = \Comet\UserPolicy::createFromStdclass($sc->Policy);
 			}
@@ -319,6 +325,9 @@ class UserProfileConfig {
 	public static function createFromArray(array $arr)
 	{
 		$stdClass = json_decode(json_encode($arr));
+		if (is_array($stdClass) && count($stdClass) === 0) {
+			$stdClass = new \stdClass();
+		}
 		return self::createFromStdclass($stdClass);
 	}
 	

@@ -85,8 +85,9 @@ class UpdateCampaignStatus {
 			$val_2 = [];
 			if ($sc->Devices !== null) {
 				for($i_2 = 0; $i_2 < count($sc->Devices); ++$i_2) {
-					if (is_array($sc->Devices[$i_2])) {
-						$val_2[] = \Comet\UpdateCampaignStatusDeviceEntry::createFromArray($sc->Devices[$i_2]); // unsafe for roundtrips
+					if (is_array($sc->Devices[$i_2]) && count($sc->Devices[$i_2]) === 0) {
+					// Work around edge case in json_decode--json_encode stdClass conversion
+						$val_2[] = \Comet\UpdateCampaignStatusDeviceEntry::createFromStdclass(new \stdClass());
 					} else {
 						$val_2[] = \Comet\UpdateCampaignStatusDeviceEntry::createFromStdclass($sc->Devices[$i_2]);
 					}
@@ -134,6 +135,9 @@ class UpdateCampaignStatus {
 	public static function createFromArray(array $arr)
 	{
 		$stdClass = json_decode(json_encode($arr));
+		if (is_array($stdClass) && count($stdClass) === 0) {
+			$stdClass = new \stdClass();
+		}
 		return self::createFromStdclass($stdClass);
 	}
 	

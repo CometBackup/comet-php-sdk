@@ -79,8 +79,9 @@ class AdminAccountRegenerateTotpRequest implements \Comet\NetworkRequest {
 		}
 		
 		// Parse as TotpRegeneratedResponse
-		if (is_array($decoded)) {
-			$ret = \Comet\TotpRegeneratedResponse::createFromArray($decoded); // unsafe for roundtrips
+		if (is_array($decoded) && count($decoded) === 0) {
+		// Work around edge case in json_decode--json_encode stdClass conversion
+			$ret = \Comet\TotpRegeneratedResponse::createFromStdclass(new \stdClass());
 		} else {
 			$ret = \Comet\TotpRegeneratedResponse::createFromStdclass($decoded);
 		}

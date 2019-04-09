@@ -122,8 +122,9 @@ class AdminDispatcherRequestStoredObjectsRequest implements \Comet\NetworkReques
 		}
 		
 		// Parse as DispatcherStoredObjectsResponse
-		if (is_array($decoded)) {
-			$ret = \Comet\DispatcherStoredObjectsResponse::createFromArray($decoded); // unsafe for roundtrips
+		if (is_array($decoded) && count($decoded) === 0) {
+		// Work around edge case in json_decode--json_encode stdClass conversion
+			$ret = \Comet\DispatcherStoredObjectsResponse::createFromStdclass(new \stdClass());
 		} else {
 			$ret = \Comet\DispatcherStoredObjectsResponse::createFromStdclass($decoded);
 		}

@@ -171,8 +171,9 @@ class UserPolicy {
 			$this->PreventDeleteStorageVault = (bool)($sc->PreventDeleteStorageVault);
 		}
 		if (property_exists($sc, 'StorageVaultProviders')) {
-			if (is_array($sc->StorageVaultProviders)) {
-				$this->StorageVaultProviders = \Comet\StorageVaultProviderPolicy::createFromArray($sc->StorageVaultProviders); // unsafe for roundtrips
+			if (is_array($sc->StorageVaultProviders) && count($sc->StorageVaultProviders) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->StorageVaultProviders = \Comet\StorageVaultProviderPolicy::createFromStdclass(new \stdClass());
 			} else {
 				$this->StorageVaultProviders = \Comet\StorageVaultProviderPolicy::createFromStdclass($sc->StorageVaultProviders);
 			}
@@ -187,8 +188,9 @@ class UserPolicy {
 			$this->PreventDeleteProtectedItem = (bool)($sc->PreventDeleteProtectedItem);
 		}
 		if (property_exists($sc, 'ProtectedItemEngineTypes')) {
-			if (is_array($sc->ProtectedItemEngineTypes)) {
-				$this->ProtectedItemEngineTypes = \Comet\ProtectedItemEngineTypePolicy::createFromArray($sc->ProtectedItemEngineTypes); // unsafe for roundtrips
+			if (is_array($sc->ProtectedItemEngineTypes) && count($sc->ProtectedItemEngineTypes) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->ProtectedItemEngineTypes = \Comet\ProtectedItemEngineTypePolicy::createFromStdclass(new \stdClass());
 			} else {
 				$this->ProtectedItemEngineTypes = \Comet\ProtectedItemEngineTypePolicy::createFromStdclass($sc->ProtectedItemEngineTypes);
 			}
@@ -197,8 +199,9 @@ class UserPolicy {
 			$val_2 = [];
 			if ($sc->FileAndFolderMandatoryExclusions !== null) {
 				for($i_2 = 0; $i_2 < count($sc->FileAndFolderMandatoryExclusions); ++$i_2) {
-					if (is_array($sc->FileAndFolderMandatoryExclusions[$i_2])) {
-						$val_2[] = \Comet\ExtraFileExclusion::createFromArray($sc->FileAndFolderMandatoryExclusions[$i_2]); // unsafe for roundtrips
+					if (is_array($sc->FileAndFolderMandatoryExclusions[$i_2]) && count($sc->FileAndFolderMandatoryExclusions[$i_2]) === 0) {
+					// Work around edge case in json_decode--json_encode stdClass conversion
+						$val_2[] = \Comet\ExtraFileExclusion::createFromStdclass(new \stdClass());
 					} else {
 						$val_2[] = \Comet\ExtraFileExclusion::createFromStdclass($sc->FileAndFolderMandatoryExclusions[$i_2]);
 					}
@@ -243,15 +246,17 @@ class UserPolicy {
 			$this->PreventViewDeviceNames = (bool)($sc->PreventViewDeviceNames);
 		}
 		if (property_exists($sc, 'DefaultEmailReports')) {
-			if (is_array($sc->DefaultEmailReports)) {
-				$this->DefaultEmailReports = \Comet\DefaultEmailReportPolicy::createFromArray($sc->DefaultEmailReports); // unsafe for roundtrips
+			if (is_array($sc->DefaultEmailReports) && count($sc->DefaultEmailReports) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->DefaultEmailReports = \Comet\DefaultEmailReportPolicy::createFromStdclass(new \stdClass());
 			} else {
 				$this->DefaultEmailReports = \Comet\DefaultEmailReportPolicy::createFromStdclass($sc->DefaultEmailReports);
 			}
 		}
 		if (property_exists($sc, 'DefaultStorageVaultRetention')) {
-			if (is_array($sc->DefaultStorageVaultRetention)) {
-				$this->DefaultStorageVaultRetention = \Comet\RetentionPolicy::createFromArray($sc->DefaultStorageVaultRetention); // unsafe for roundtrips
+			if (is_array($sc->DefaultStorageVaultRetention) && count($sc->DefaultStorageVaultRetention) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->DefaultStorageVaultRetention = \Comet\RetentionPolicy::createFromStdclass(new \stdClass());
 			} else {
 				$this->DefaultStorageVaultRetention = \Comet\RetentionPolicy::createFromStdclass($sc->DefaultStorageVaultRetention);
 			}
@@ -321,6 +326,9 @@ class UserPolicy {
 	public static function createFromArray(array $arr)
 	{
 		$stdClass = json_decode(json_encode($arr));
+		if (is_array($stdClass) && count($stdClass) === 0) {
+			$stdClass = new \stdClass();
+		}
 		return self::createFromStdclass($stdClass);
 	}
 	

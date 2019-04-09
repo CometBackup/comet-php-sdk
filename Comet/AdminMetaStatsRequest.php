@@ -92,8 +92,9 @@ class AdminMetaStatsRequest implements \Comet\NetworkRequest {
 		$val_0 = [];
 		foreach($decoded as $k_0 => $v_0) {
 			$phpk_0 = (int)($k_0);
-			if (is_array($v_0)) {
-				$phpv_0 = \Comet\StatResult::createFromArray($v_0); // unsafe for roundtrips
+			if (is_array($v_0) && count($v_0) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$phpv_0 = \Comet\StatResult::createFromStdclass(new \stdClass());
 			} else {
 				$phpv_0 = \Comet\StatResult::createFromStdclass($v_0);
 			}

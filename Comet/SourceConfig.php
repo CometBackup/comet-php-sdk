@@ -124,8 +124,9 @@ class SourceConfig {
 			$val_2 = [];
 			foreach($sc->OverrideDestinationRetention as $k_2 => $v_2) {
 				$phpk_2 = (string)($k_2);
-				if (is_array($v_2)) {
-					$phpv_2 = \Comet\RetentionPolicy::createFromArray($v_2); // unsafe for roundtrips
+				if (is_array($v_2) && count($v_2) === 0) {
+				// Work around edge case in json_decode--json_encode stdClass conversion
+					$phpv_2 = \Comet\RetentionPolicy::createFromStdclass(new \stdClass());
 				} else {
 					$phpv_2 = \Comet\RetentionPolicy::createFromStdclass($v_2);
 				}
@@ -134,8 +135,9 @@ class SourceConfig {
 			$this->OverrideDestinationRetention = $val_2;
 		}
 		if (property_exists($sc, 'Statistics')) {
-			if (is_array($sc->Statistics)) {
-				$this->Statistics = \Comet\SourceStatistics::createFromArray($sc->Statistics); // unsafe for roundtrips
+			if (is_array($sc->Statistics) && count($sc->Statistics) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->Statistics = \Comet\SourceStatistics::createFromStdclass(new \stdClass());
 			} else {
 				$this->Statistics = \Comet\SourceStatistics::createFromStdclass($sc->Statistics);
 			}
@@ -183,6 +185,9 @@ class SourceConfig {
 	public static function createFromArray(array $arr)
 	{
 		$stdClass = json_decode(json_encode($arr));
+		if (is_array($stdClass) && count($stdClass) === 0) {
+			$stdClass = new \stdClass();
+		}
 		return self::createFromStdclass($stdClass);
 	}
 	

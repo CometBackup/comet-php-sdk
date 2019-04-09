@@ -58,8 +58,9 @@ class BucketProperties {
 			$this->ReadWriteKey = (string)($sc->ReadWriteKey);
 		}
 		if (property_exists($sc, 'Size')) {
-			if (is_array($sc->Size)) {
-				$this->Size = \Comet\SizeMeasurement::createFromArray($sc->Size); // unsafe for roundtrips
+			if (is_array($sc->Size) && count($sc->Size) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->Size = \Comet\SizeMeasurement::createFromStdclass(new \stdClass());
 			} else {
 				$this->Size = \Comet\SizeMeasurement::createFromStdclass($sc->Size);
 			}
@@ -101,6 +102,9 @@ class BucketProperties {
 	public static function createFromArray(array $arr)
 	{
 		$stdClass = json_decode(json_encode($arr));
+		if (is_array($stdClass) && count($stdClass) === 0) {
+			$stdClass = new \stdClass();
+		}
 		return self::createFromStdclass($stdClass);
 	}
 	

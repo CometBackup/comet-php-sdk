@@ -395,15 +395,17 @@ class DestinationConfig {
 			$this->LocalcopyWinSMBPasswordFormat = (int)($sc->LocalcopyWinSMBPasswordFormat);
 		}
 		if (property_exists($sc, 'Swift')) {
-			if (is_array($sc->Swift)) {
-				$this->Swift = \Comet\SwiftDestinationLocation::createFromArray($sc->Swift); // unsafe for roundtrips
+			if (is_array($sc->Swift) && count($sc->Swift) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->Swift = \Comet\SwiftDestinationLocation::createFromStdclass(new \stdClass());
 			} else {
 				$this->Swift = \Comet\SwiftDestinationLocation::createFromStdclass($sc->Swift);
 			}
 		}
 		if (property_exists($sc, 'B2')) {
-			if (is_array($sc->B2)) {
-				$this->B2 = \Comet\B2DestinationLocation::createFromArray($sc->B2); // unsafe for roundtrips
+			if (is_array($sc->B2) && count($sc->B2) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->B2 = \Comet\B2DestinationLocation::createFromStdclass(new \stdClass());
 			} else {
 				$this->B2 = \Comet\B2DestinationLocation::createFromStdclass($sc->B2);
 			}
@@ -412,8 +414,9 @@ class DestinationConfig {
 			$val_2 = [];
 			if ($sc->SpanTargets !== null) {
 				for($i_2 = 0; $i_2 < count($sc->SpanTargets); ++$i_2) {
-					if (is_array($sc->SpanTargets[$i_2])) {
-						$val_2[] = \Comet\DestinationLocation::createFromArray($sc->SpanTargets[$i_2]); // unsafe for roundtrips
+					if (is_array($sc->SpanTargets[$i_2]) && count($sc->SpanTargets[$i_2]) === 0) {
+					// Work around edge case in json_decode--json_encode stdClass conversion
+						$val_2[] = \Comet\DestinationLocation::createFromStdclass(new \stdClass());
 					} else {
 						$val_2[] = \Comet\DestinationLocation::createFromStdclass($sc->SpanTargets[$i_2]);
 					}
@@ -437,15 +440,17 @@ class DestinationConfig {
 			$this->StorageLimitBytes = (int)($sc->StorageLimitBytes);
 		}
 		if (property_exists($sc, 'Statistics')) {
-			if (is_array($sc->Statistics)) {
-				$this->Statistics = \Comet\DestinationStatistics::createFromArray($sc->Statistics); // unsafe for roundtrips
+			if (is_array($sc->Statistics) && count($sc->Statistics) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->Statistics = \Comet\DestinationStatistics::createFromStdclass(new \stdClass());
 			} else {
 				$this->Statistics = \Comet\DestinationStatistics::createFromStdclass($sc->Statistics);
 			}
 		}
 		if (property_exists($sc, 'DefaultRetention')) {
-			if (is_array($sc->DefaultRetention)) {
-				$this->DefaultRetention = \Comet\RetentionPolicy::createFromArray($sc->DefaultRetention); // unsafe for roundtrips
+			if (is_array($sc->DefaultRetention) && count($sc->DefaultRetention) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->DefaultRetention = \Comet\RetentionPolicy::createFromStdclass(new \stdClass());
 			} else {
 				$this->DefaultRetention = \Comet\RetentionPolicy::createFromStdclass($sc->DefaultRetention);
 			}
@@ -531,6 +536,9 @@ class DestinationConfig {
 	public static function createFromArray(array $arr)
 	{
 		$stdClass = json_decode(json_encode($arr));
+		if (is_array($stdClass) && count($stdClass) === 0) {
+			$stdClass = new \stdClass();
+		}
 		return self::createFromStdclass($stdClass);
 	}
 	

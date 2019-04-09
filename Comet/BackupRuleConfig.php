@@ -150,8 +150,9 @@ class BackupRuleConfig {
 			$val_2 = [];
 			if ($sc->Schedules !== null) {
 				for($i_2 = 0; $i_2 < count($sc->Schedules); ++$i_2) {
-					if (is_array($sc->Schedules[$i_2])) {
-						$val_2[] = \Comet\ScheduleConfig::createFromArray($sc->Schedules[$i_2]); // unsafe for roundtrips
+					if (is_array($sc->Schedules[$i_2]) && count($sc->Schedules[$i_2]) === 0) {
+					// Work around edge case in json_decode--json_encode stdClass conversion
+						$val_2[] = \Comet\ScheduleConfig::createFromStdclass(new \stdClass());
 					} else {
 						$val_2[] = \Comet\ScheduleConfig::createFromStdclass($sc->Schedules[$i_2]);
 					}
@@ -160,8 +161,9 @@ class BackupRuleConfig {
 			$this->Schedules = $val_2;
 		}
 		if (property_exists($sc, 'EventTriggers')) {
-			if (is_array($sc->EventTriggers)) {
-				$this->EventTriggers = \Comet\BackupRuleEventTriggers::createFromArray($sc->EventTriggers); // unsafe for roundtrips
+			if (is_array($sc->EventTriggers) && count($sc->EventTriggers) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->EventTriggers = \Comet\BackupRuleEventTriggers::createFromStdclass(new \stdClass());
 			} else {
 				$this->EventTriggers = \Comet\BackupRuleEventTriggers::createFromStdclass($sc->EventTriggers);
 			}
@@ -213,6 +215,9 @@ class BackupRuleConfig {
 	public static function createFromArray(array $arr)
 	{
 		$stdClass = json_decode(json_encode($arr));
+		if (is_array($stdClass) && count($stdClass) === 0) {
+			$stdClass = new \stdClass();
+		}
 		return self::createFromStdclass($stdClass);
 	}
 	

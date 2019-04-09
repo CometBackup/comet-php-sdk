@@ -117,8 +117,9 @@ class AdminStorageRegisterBucketRequest implements \Comet\NetworkRequest {
 		}
 		
 		// Parse as AddBucketResponseMessage
-		if (is_array($decoded)) {
-			$ret = \Comet\AddBucketResponseMessage::createFromArray($decoded); // unsafe for roundtrips
+		if (is_array($decoded) && count($decoded) === 0) {
+		// Work around edge case in json_decode--json_encode stdClass conversion
+			$ret = \Comet\AddBucketResponseMessage::createFromStdclass(new \stdClass());
 		} else {
 			$ret = \Comet\AddBucketResponseMessage::createFromStdclass($decoded);
 		}

@@ -54,15 +54,17 @@ class DestinationStatistics {
 	protected function inflateFrom(\stdClass $sc)
 	{
 		if (property_exists($sc, 'ClientProvidedSize')) {
-			if (is_array($sc->ClientProvidedSize)) {
-				$this->ClientProvidedSize = \Comet\SizeMeasurement::createFromArray($sc->ClientProvidedSize); // unsafe for roundtrips
+			if (is_array($sc->ClientProvidedSize) && count($sc->ClientProvidedSize) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->ClientProvidedSize = \Comet\SizeMeasurement::createFromStdclass(new \stdClass());
 			} else {
 				$this->ClientProvidedSize = \Comet\SizeMeasurement::createFromStdclass($sc->ClientProvidedSize);
 			}
 		}
 		if (property_exists($sc, 'ClientProvidedContent')) {
-			if (is_array($sc->ClientProvidedContent)) {
-				$this->ClientProvidedContent = \Comet\ContentMeasurement::createFromArray($sc->ClientProvidedContent); // unsafe for roundtrips
+			if (is_array($sc->ClientProvidedContent) && count($sc->ClientProvidedContent) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->ClientProvidedContent = \Comet\ContentMeasurement::createFromStdclass(new \stdClass());
 			} else {
 				$this->ClientProvidedContent = \Comet\ContentMeasurement::createFromStdclass($sc->ClientProvidedContent);
 			}
@@ -114,6 +116,9 @@ class DestinationStatistics {
 	public static function createFromArray(array $arr)
 	{
 		$stdClass = json_decode(json_encode($arr));
+		if (is_array($stdClass) && count($stdClass) === 0) {
+			$stdClass = new \stdClass();
+		}
 		return self::createFromStdclass($stdClass);
 	}
 	

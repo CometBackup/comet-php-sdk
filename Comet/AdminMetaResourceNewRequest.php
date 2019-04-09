@@ -81,8 +81,9 @@ class AdminMetaResourceNewRequest implements \Comet\NetworkRequest {
 		}
 		
 		// Parse as AdminResourceResponse
-		if (is_array($decoded)) {
-			$ret = \Comet\AdminResourceResponse::createFromArray($decoded); // unsafe for roundtrips
+		if (is_array($decoded) && count($decoded) === 0) {
+		// Work around edge case in json_decode--json_encode stdClass conversion
+			$ret = \Comet\AdminResourceResponse::createFromStdclass(new \stdClass());
 		} else {
 			$ret = \Comet\AdminResourceResponse::createFromStdclass($decoded);
 		}

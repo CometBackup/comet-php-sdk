@@ -34,8 +34,9 @@ class SourceStatistics {
 	protected function inflateFrom(\stdClass $sc)
 	{
 		if (property_exists($sc, 'LastBackupJob')) {
-			if (is_array($sc->LastBackupJob)) {
-				$this->LastBackupJob = \Comet\BackupJobDetail::createFromArray($sc->LastBackupJob); // unsafe for roundtrips
+			if (is_array($sc->LastBackupJob) && count($sc->LastBackupJob) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->LastBackupJob = \Comet\BackupJobDetail::createFromStdclass(new \stdClass());
 			} else {
 				$this->LastBackupJob = \Comet\BackupJobDetail::createFromStdclass($sc->LastBackupJob);
 			}
@@ -74,6 +75,9 @@ class SourceStatistics {
 	public static function createFromArray(array $arr)
 	{
 		$stdClass = json_decode(json_encode($arr));
+		if (is_array($stdClass) && count($stdClass) === 0) {
+			$stdClass = new \stdClass();
+		}
 		return self::createFromStdclass($stdClass);
 	}
 	

@@ -80,8 +80,9 @@ class AdminUpdateCampaignStatusRequest implements \Comet\NetworkRequest {
 		}
 		
 		// Parse as UpdateCampaignStatus
-		if (is_array($decoded)) {
-			$ret = \Comet\UpdateCampaignStatus::createFromArray($decoded); // unsafe for roundtrips
+		if (is_array($decoded) && count($decoded) === 0) {
+		// Work around edge case in json_decode--json_encode stdClass conversion
+			$ret = \Comet\UpdateCampaignStatus::createFromStdclass(new \stdClass());
 		} else {
 			$ret = \Comet\UpdateCampaignStatus::createFromStdclass($decoded);
 		}

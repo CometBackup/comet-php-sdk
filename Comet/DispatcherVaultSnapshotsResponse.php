@@ -53,8 +53,9 @@ class DispatcherVaultSnapshotsResponse {
 			$val_2 = [];
 			if ($sc->Snapshots !== null) {
 				for($i_2 = 0; $i_2 < count($sc->Snapshots); ++$i_2) {
-					if (is_array($sc->Snapshots[$i_2])) {
-						$val_2[] = \Comet\VaultSnapshot::createFromArray($sc->Snapshots[$i_2]); // unsafe for roundtrips
+					if (is_array($sc->Snapshots[$i_2]) && count($sc->Snapshots[$i_2]) === 0) {
+					// Work around edge case in json_decode--json_encode stdClass conversion
+						$val_2[] = \Comet\VaultSnapshot::createFromStdclass(new \stdClass());
 					} else {
 						$val_2[] = \Comet\VaultSnapshot::createFromStdclass($sc->Snapshots[$i_2]);
 					}
@@ -98,6 +99,9 @@ class DispatcherVaultSnapshotsResponse {
 	public static function createFromArray(array $arr)
 	{
 		$stdClass = json_decode(json_encode($arr));
+		if (is_array($stdClass) && count($stdClass) === 0) {
+			$stdClass = new \stdClass();
+		}
 		return self::createFromStdclass($stdClass);
 	}
 	

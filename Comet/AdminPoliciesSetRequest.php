@@ -113,8 +113,9 @@ class AdminPoliciesSetRequest implements \Comet\NetworkRequest {
 		}
 		
 		// Parse as CometAPIResponseMessage
-		if (is_array($decoded)) {
-			$ret = \Comet\APIResponseMessage::createFromArray($decoded); // unsafe for roundtrips
+		if (is_array($decoded) && count($decoded) === 0) {
+		// Work around edge case in json_decode--json_encode stdClass conversion
+			$ret = \Comet\APIResponseMessage::createFromStdclass(new \stdClass());
 		} else {
 			$ret = \Comet\APIResponseMessage::createFromStdclass($decoded);
 		}
