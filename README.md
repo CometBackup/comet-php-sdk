@@ -39,7 +39,7 @@ require 'vendor/autoload.php'; // Load Composer classes
 
 $server = new \Comet\Server("http://127.0.0.1:8060/", "admin", "admin");
 
-$accounts = $server->AdminListAccounts();
+$accounts = $server->AdminListUsers();
 
 var_dump($accounts);
 ```
