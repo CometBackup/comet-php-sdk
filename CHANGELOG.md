@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 2019-04-10 v2.5.2
+- Fix an issue with distinguishing empty arrays and empty objects when marshalling data after having used the compatibility methods
+
 ## 2019-04-02 v2.5.1
 - Fix an issue with unmarshalling empty arrays from some versions of Comet Server, that were returning `null` instead of `[]` (v2)
 
