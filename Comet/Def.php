@@ -145,6 +145,13 @@ class Def {
 	const JOB_STATUS_RUNNING_ACTIVE = 6001;
 	
 	/**
+	 * JobStatus: A backup job that was marked as stopped or abandoned, but has somehow continued to run
+	 *
+	 * @type int
+	 */
+	const JOB_STATUS_RUNNING_REVIVED = 6002;
+	
+	/**
 	 * JobStatus: 
 	 *
 	 * @type int
