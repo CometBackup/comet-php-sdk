@@ -1228,6 +1228,23 @@ class Server {
 	}
 
 	/** 
+	 * List the available network interfaces on the PC running Comet Server
+	 * Any IPv6 addresses are listed in compressed form without square-brackets.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * Access to this API may be prevented on a per-administrator basis.
+	 *
+	 * @return string[] 
+	 * @throws \Exception
+	 */
+	public function AdminMetaServerConfigNetworkInterfaces()
+	{
+		$nr = new \Comet\AdminMetaServerConfigNetworkInterfacesRequest();
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminMetaServerConfigNetworkInterfacesRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Set server configuration
 	 * The Comet Server process will exit. The service manager should restart the server automatically.
 	 * 
