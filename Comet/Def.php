@@ -131,7 +131,7 @@ class Def {
 	const JOB_STATUS_RUNNING__MIN = 6000;
 	
 	/**
-	 * JobStatus: 
+	 * JobStatus: Unused
 	 *
 	 * @type int
 	 */
