@@ -27,13 +27,22 @@ class AdminDispatcherUpdateSoftwareRequest implements \Comet\NetworkRequest {
 	protected $TargetID = null;
 	
 	/**
+	 * The external URL of this server, used to resolve conflicts (>= 19.3.11) (optional)
+	 *
+	 * @var string|null
+	 */
+	protected $SelfAddress = null;
+	
+	/**
 	 * Construct a new AdminDispatcherUpdateSoftwareRequest instance.
 	 *
 	 * @param string $TargetID The live connection GUID
+	 * @param string $SelfAddress The external URL of this server, used to resolve conflicts (>= 19.3.11) (optional)
 	 */
-	public function __construct($TargetID)
+	public function __construct($TargetID, $SelfAddress = null)
 	{
 		$this->TargetID = $TargetID;
+		$this->SelfAddress = $SelfAddress;
 	}
 	
 	/**
@@ -55,6 +64,9 @@ class AdminDispatcherUpdateSoftwareRequest implements \Comet\NetworkRequest {
 	{
 		$ret = [];
 		$ret["TargetID"] = (string)($this->TargetID);
+		if ($this->SelfAddress !== null) {
+			$ret["SelfAddress"] = (string)($this->SelfAddress);
+		}
 		return $ret;
 	}
 	

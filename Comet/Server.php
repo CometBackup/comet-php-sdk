@@ -851,12 +851,17 @@ class Server {
 	 * This API requires the Software Build Role to be enabled.
 	 *
 	 * @param string $TargetID The live connection GUID
+	 * @param string $SelfAddress The external URL of this server, used to resolve conflicts (>= 19.3.11) (optional)
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherUpdateSoftware($TargetID)
+	public function AdminDispatcherUpdateSoftware($TargetID, $SelfAddress = null)
 	{
-		$nr = new \Comet\AdminDispatcherUpdateSoftwareRequest($TargetID);
+		if ($SelfAddress === null) {
+			$SelfAddress = $this->server_url;
+		}
+
+		$nr = new \Comet\AdminDispatcherUpdateSoftwareRequest($TargetID, $SelfAddress);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminDispatcherUpdateSoftwareRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
