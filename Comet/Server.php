@@ -825,6 +825,29 @@ class Server {
 	}
 
 	/** 
+	 * Instruct a live connected device to perform a local restore
+	 * This command is understood by Comet Backup 18.6.0 and newer.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetID The live connection GUID
+	 * @param string $Source The Protected Item ID
+	 * @param string $Destination The Storage Vault ID
+	 * @param \Comet\RestoreJobAdvancedOptions $Options Restore targets
+	 * @param string $Snapshot If present, restore a specific snapshot. Otherwise, restore the latest snapshot for the selected Protected Item + Storage Vault pair (optional)
+	 * @param string[] $Paths If present, restore these paths only. Otherwise, restore all data (optional)
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherRunRestoreCustom($TargetID, $Source, $Destination, RestoreJobAdvancedOptions $Options, $Snapshot = null, array $Paths = null)
+	{
+		$nr = new \Comet\AdminDispatcherRunRestoreCustomRequest($TargetID, $Source, $Destination, $Options, $Snapshot, $Paths);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherRunRestoreCustomRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Instruct a live connected device to remove lock files from a Storage Vault
 	 * Misuse can cause data loss!
 	 * This command is understood by Comet Backup 17.9.4 and newer.

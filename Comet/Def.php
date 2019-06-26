@@ -314,6 +314,41 @@ class Def {
 	const SEVERITY_ERROR = 'E';
 	
 	/**
+	 * RestoreType: 
+	 *
+	 * @type int
+	 */
+	const RESTORETYPE_INVALID = -1;
+	
+	/**
+	 * RestoreType: 
+	 *
+	 * @type int
+	 */
+	const RESTORETYPE_FILE = 0;
+	
+	/**
+	 * RestoreType: 
+	 *
+	 * @type int
+	 */
+	const RESTORETYPE_NULL = 1;
+	
+	/**
+	 * RestoreType: 
+	 *
+	 * @type int
+	 */
+	const RESTORETYPE_PROCESS_PERFILE = 2;
+	
+	/**
+	 * RestoreType: 
+	 *
+	 * @type int
+	 */
+	const RESTORETYPE_PROCESS_TARBALL = 3;
+	
+	/**
 	 * RetentionMode: If this mode is set in a RetentionPolicy, then RetentionPolicy.Ranges should be ignored.
 	 *
 	 * @type int
