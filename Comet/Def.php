@@ -549,14 +549,60 @@ class Def {
 	const ENGINE_BUILTIN_HYPERV = "engine1/hyperv";
 	
 	/**
+	 * StoredObjectType: 
+	 *
 	 * @type string
 	 */
 	const STOREDOBJECTTYPE_FILE = "file";
 	
 	/**
+	 * StoredObjectType: 
+	 *
 	 * @type string
 	 */
 	const STOREDOBJECTTYPE_DIRECTORY = "dir";
+	
+	/**
+	 * StoredObjectType: 
+	 *
+	 * @type string
+	 */
+	const STOREDOBJECTTYPE_SYMLINK = "symlink";
+	
+	/**
+	 * StoredObjectType: 
+	 *
+	 * @type string
+	 */
+	const STOREDOBJECTTYPE_UNIXBLOCKDEVICE = "dev";
+	
+	/**
+	 * StoredObjectType: 
+	 *
+	 * @type string
+	 */
+	const STOREDOBJECTTYPE_UNIXCHARDEVICE = "chardev";
+	
+	/**
+	 * StoredObjectType: 
+	 *
+	 * @type string
+	 */
+	const STOREDOBJECTTYPE_UNIXFIFO = "fifo";
+	
+	/**
+	 * StoredObjectType: 
+	 *
+	 * @type string
+	 */
+	const STOREDOBJECTTYPE_UNIXSOCKET = "socket";
+	
+	/**
+	 * StoredObjectType: 
+	 *
+	 * @type string
+	 */
+	const STOREDOBJECTTYPE_WINEFS = "winefs";
 	
 	/**
 	 * ExtraFileExclusionOSRestriction: 
