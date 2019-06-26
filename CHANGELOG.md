@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## 2019-06-26 v2.6.0
+- Based on Comet 19.6.2
+- Support new SelfAddress parameter in AdminDispatcherUpdateSoftwareRequest API
+- Support new Scheduled Emailer properties in ServerMetaVersionInfo API
+- Support new custom options in AdminDispatcherRunBackupCustom API
+- Support new AdminDispatcherRunRestoreCustom API
+- Support new AdminMetaServerConfigNetworkInterfaces API
+- Support new JOB_STATUS_RUNNING_REVIVED status
+- Update documentation for JOB_STATUS_RUNNING_INDETERMINATE
+- Update documentation for more STOREDOBJECTYPE constants
+- Fix wrong description for AdminBrandingGenerateClientByPlatform API
+
 ## 2019-04-10 v2.5.4
 - Fix an issue with `\Comet\SearchClause` class type definition
 
