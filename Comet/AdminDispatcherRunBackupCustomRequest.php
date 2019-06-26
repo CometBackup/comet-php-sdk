@@ -40,17 +40,26 @@ class AdminDispatcherRunBackupCustomRequest implements \Comet\NetworkRequest {
 	protected $Destination = null;
 	
 	/**
+	 * Extra job parameters (>= 19.3.6) (optional)
+	 *
+	 * @var \Comet\BackupJobAdvancedOptions|null
+	 */
+	protected $Options = null;
+	
+	/**
 	 * Construct a new AdminDispatcherRunBackupCustomRequest instance.
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param string $Source The Protected Item GUID
 	 * @param string $Destination The Storage Vault GUID
+	 * @param \Comet\BackupJobAdvancedOptions $Options Extra job parameters (>= 19.3.6) (optional)
 	 */
-	public function __construct($TargetID, $Source, $Destination)
+	public function __construct($TargetID, $Source, $Destination, BackupJobAdvancedOptions $Options = null)
 	{
 		$this->TargetID = $TargetID;
 		$this->Source = $Source;
 		$this->Destination = $Destination;
+		$this->Options = $Options;
 	}
 	
 	/**
@@ -74,6 +83,9 @@ class AdminDispatcherRunBackupCustomRequest implements \Comet\NetworkRequest {
 		$ret["TargetID"] = (string)($this->TargetID);
 		$ret["Source"] = (string)($this->Source);
 		$ret["Destination"] = (string)($this->Destination);
+		if ($this->Options !== null) {
+			$ret["Options"] = $this->Options->toJSON();
+		}
 		return $ret;
 	}
 	

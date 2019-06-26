@@ -790,12 +790,13 @@ class Server {
 	 * @param string $TargetID The live connection GUID
 	 * @param string $Source The Protected Item GUID
 	 * @param string $Destination The Storage Vault GUID
+	 * @param \Comet\BackupJobAdvancedOptions $Options Extra job parameters (>= 19.3.6) (optional)
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherRunBackupCustom($TargetID, $Source, $Destination)
+	public function AdminDispatcherRunBackupCustom($TargetID, $Source, $Destination, BackupJobAdvancedOptions $Options = null)
 	{
-		$nr = new \Comet\AdminDispatcherRunBackupCustomRequest($TargetID, $Source, $Destination);
+		$nr = new \Comet\AdminDispatcherRunBackupCustomRequest($TargetID, $Source, $Destination, $Options);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminDispatcherRunBackupCustomRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
