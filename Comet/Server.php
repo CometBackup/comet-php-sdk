@@ -256,7 +256,7 @@ class Server {
 	}
 
 	/** 
-	 * List available software download platforms
+	 * Download software
 	 * 
 	 * This API requires administrator authentication credentials, unless the server is configured to allow unauthenticated software downloads.
 	 * This API requires the Software Build Role to be enabled.
