@@ -87,6 +87,31 @@ class ServerMetaVersionInfo {
 	public $EmailsWaitingInQueue = 0;
 	
 	/**
+	 * @var int
+	 */
+	public $ScheduledEmailThreadCurrentState = 0;
+	
+	/**
+	 * @var int
+	 */
+	public $ScheduledEmailThreadLastCalculateDurationNanos = 0;
+	
+	/**
+	 * @var int
+	 */
+	public $ScheduledEmailThreadWaitingUntil = 0;
+	
+	/**
+	 * @var int
+	 */
+	public $ScheduledEmailThreadLastWakeTime = 0;
+	
+	/**
+	 * @var boolean
+	 */
+	public $ScheduledEmailThreadLastWakeSentEmails = false;
+	
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see ServerMetaVersionInfo::RemoveUnknownProperties() Remove all unknown properties
@@ -148,6 +173,21 @@ class ServerMetaVersionInfo {
 		if (property_exists($sc, 'EmailsWaitingInQueue')) {
 			$this->EmailsWaitingInQueue = (int)($sc->EmailsWaitingInQueue);
 		}
+		if (property_exists($sc, 'ScheduledEmailThreadCurrentState')) {
+			$this->ScheduledEmailThreadCurrentState = (int)($sc->ScheduledEmailThreadCurrentState);
+		}
+		if (property_exists($sc, 'ScheduledEmailThreadLastCalculateDurationNanos')) {
+			$this->ScheduledEmailThreadLastCalculateDurationNanos = (int)($sc->ScheduledEmailThreadLastCalculateDurationNanos);
+		}
+		if (property_exists($sc, 'ScheduledEmailThreadWaitingUntil')) {
+			$this->ScheduledEmailThreadWaitingUntil = (int)($sc->ScheduledEmailThreadWaitingUntil);
+		}
+		if (property_exists($sc, 'ScheduledEmailThreadLastWakeTime')) {
+			$this->ScheduledEmailThreadLastWakeTime = (int)($sc->ScheduledEmailThreadLastWakeTime);
+		}
+		if (property_exists($sc, 'ScheduledEmailThreadLastWakeSentEmails')) {
+			$this->ScheduledEmailThreadLastWakeSentEmails = (bool)($sc->ScheduledEmailThreadLastWakeSentEmails);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Version':
@@ -165,6 +205,11 @@ class ServerMetaVersionInfo {
 			case 'EmailsSentSuccessfully':
 			case 'EmailsSentErrors':
 			case 'EmailsWaitingInQueue':
+			case 'ScheduledEmailThreadCurrentState':
+			case 'ScheduledEmailThreadLastCalculateDurationNanos':
+			case 'ScheduledEmailThreadWaitingUntil':
+			case 'ScheduledEmailThreadLastWakeTime':
+			case 'ScheduledEmailThreadLastWakeSentEmails':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -261,6 +306,11 @@ class ServerMetaVersionInfo {
 		$ret["EmailsSentSuccessfully"] = $this->EmailsSentSuccessfully;
 		$ret["EmailsSentErrors"] = $this->EmailsSentErrors;
 		$ret["EmailsWaitingInQueue"] = $this->EmailsWaitingInQueue;
+		$ret["ScheduledEmailThreadCurrentState"] = $this->ScheduledEmailThreadCurrentState;
+		$ret["ScheduledEmailThreadLastCalculateDurationNanos"] = $this->ScheduledEmailThreadLastCalculateDurationNanos;
+		$ret["ScheduledEmailThreadWaitingUntil"] = $this->ScheduledEmailThreadWaitingUntil;
+		$ret["ScheduledEmailThreadLastWakeTime"] = $this->ScheduledEmailThreadLastWakeTime;
+		$ret["ScheduledEmailThreadLastWakeSentEmails"] = $this->ScheduledEmailThreadLastWakeSentEmails;
 		
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

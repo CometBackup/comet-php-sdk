@@ -639,6 +639,31 @@ class Def {
 	const PASSWORD_FORMAT_PLAINTEXT = 0;
 	
 	/**
+	 * @type int
+	 */
+	const EMAIL_WORKER_STATE_NOT_STARTED = 0;
+	
+	/**
+	 * @type int
+	 */
+	const EMAIL_WORKER_STATE_STARTED = 1;
+	
+	/**
+	 * @type int
+	 */
+	const EMAIL_WORKER_STATE_CALCULATING = 2;
+	
+	/**
+	 * @type int
+	 */
+	const EMAIL_WORKER_STATE_WAITING = 3;
+	
+	/**
+	 * @type int
+	 */
+	const EMAIL_WORKER_STATE_SENDING = 4;
+	
+	/**
 	 * @type string
 	 */
 	const UnknownDeviceError = "ERR_UNKNOWN_DEVICE";
