@@ -1741,6 +1741,38 @@ class Server {
 		return \Comet\HybridSessionStartRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
 
+	/** 
+	 * Revoke a session key (log out)
+	 * 
+	 * You must supply user authentication credentials to use this API, and the user account must be authorized for web access.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function UserWebSessionRevoke()
+	{
+		$nr = new \Comet\UserWebSessionRevokeRequest();
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\UserWebSessionRevokeRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Generate a session key (log in)
+	 * 
+	 * You must supply user authentication credentials to use this API, and the user account must be authorized for web access.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @return \Comet\SessionKeyRegeneratedResponse 
+	 * @throws \Exception
+	 */
+	public function UserWebSessionStart()
+	{
+		$nr = new \Comet\UserWebSessionStartRequest();
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\UserWebSessionStartRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
 	/**
 	 * Get a PSR-7 request object for a \Comet\NetworkRequest.
 	 *
