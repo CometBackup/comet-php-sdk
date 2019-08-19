@@ -682,6 +682,8 @@ class Def {
 	const SETTING_ENFORCED_OFF = 4;
 	
 	/**
+	 * sz.LanguageCode: 
+	 *
 	 * @type string
 	 */
 	const DEFAULT_LANGUAGE = "en_US";
