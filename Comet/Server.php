@@ -146,6 +146,22 @@ class Server {
 	}
 
 	/** 
+	 * Generate a session key for an end-user (log in as end-user)
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 *
+	 * @param string $TargetUser Target account username
+	 * @return \Comet\SessionKeyRegeneratedResponse 
+	 * @throws \Exception
+	 */
+	public function AdminAccountSessionStartAsUser($TargetUser)
+	{
+		$nr = new \Comet\AdminAccountSessionStartAsUserRequest($TargetUser);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminAccountSessionStartAsUserRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Update settings for your own admin account
 	 * Updating your account password requires you to supply your current password.
 	 * To set a new plaintext password, use a password format of 0 (PASSWORD_FORMAT_PLAINTEXT).
