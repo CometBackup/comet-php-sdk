@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 2019-08-20 v2.7.0
+- Based on Comet 19.6.9-rc
+- Support new AdminAccountSessionStartAsUser API
+- Support existing UserWebSessionStart / UserWebSessionRevoke APIs
+- Update documentation for HybridSessionStart API
+- Fix a cosmetic issue with inconsistent terminology for News APIs
+
 ## 2019-06-26 v2.6.0
 - Based on Comet 19.6.2
 - Support new SelfAddress parameter in AdminDispatcherUpdateSoftwareRequest API
