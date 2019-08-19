@@ -11,7 +11,7 @@ namespace Comet;
 
 /** 
  * Comet Server AdminNewsSubmit API 
- * Submit news entry
+ * Submit news item
  * 
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.

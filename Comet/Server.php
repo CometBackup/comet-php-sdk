@@ -1348,7 +1348,7 @@ class Server {
 	}
 
 	/** 
-	 * Remove news entry
+	 * Remove news item
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
@@ -1365,7 +1365,7 @@ class Server {
 	}
 
 	/** 
-	 * Submit news entry
+	 * Submit news item
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
