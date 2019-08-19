@@ -1728,6 +1728,8 @@ class Server {
 
 	/** 
 	 * Generate a session key (log in)
+	 * This hybrid API allows you to log in to the Comet Server as either an administrator or end-user account.
+	 * This API behaves like either AdminSessionStart or UserWebSessionStart, depending on what the supplied credentials were valid for.
 	 *
 	 * @return \Comet\SessionKeyRegeneratedResponse 
 	 * @throws \Exception
