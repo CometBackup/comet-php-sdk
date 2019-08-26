@@ -696,7 +696,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "19.6.9";
+	const APPLICATION_VERSION = "19.9.0";
 	
 	/**
 	 * @type int
@@ -706,12 +706,12 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_MINOR = 6;
+	const APPLICATION_VERSION_MINOR = 9;
 	
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 9;
+	const APPLICATION_VERSION_REVISION = 0;
 	
 	/**
 	 * @type string
