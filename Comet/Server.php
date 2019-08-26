@@ -1542,7 +1542,7 @@ class Server {
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
 	 *
-	 * @param string $TargetUser The user to recieve the new Storage Vault
+	 * @param string $TargetUser The user to receive the new Storage Vault
 	 * @param string $StorageProvider ID for the Requestable destination
 	 * @param string $SelfAddress The external URL for this server. Used to resolve conflicts (optional)
 	 * @return \Comet\APIResponseMessage 

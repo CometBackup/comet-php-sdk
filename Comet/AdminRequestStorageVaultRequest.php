@@ -20,7 +20,7 @@ namespace Comet;
 class AdminRequestStorageVaultRequest implements \Comet\NetworkRequest {
 	
 	/**
-	 * The user to recieve the new Storage Vault
+	 * The user to receive the new Storage Vault
 	 *
 	 * @var string
 	 */
@@ -43,7 +43,7 @@ class AdminRequestStorageVaultRequest implements \Comet\NetworkRequest {
 	/**
 	 * Construct a new AdminRequestStorageVaultRequest instance.
 	 *
-	 * @param string $TargetUser The user to recieve the new Storage Vault
+	 * @param string $TargetUser The user to receive the new Storage Vault
 	 * @param string $StorageProvider ID for the Requestable destination
 	 * @param string $SelfAddress The external URL for this server. Used to resolve conflicts (optional)
 	 */
