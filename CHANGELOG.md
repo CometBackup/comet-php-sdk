@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 2019-08-27 v3.0.0
+- Based on Comet 19.9.0-rc
+- **BREAKING:** Change `AdminRequestStorageVault` response type to add extra parameter. This would be a backwards-compatible change if no callers are checking the exact returned object type from this function.
+- Fix spelling mistake in `AdminRequestStorageVault` API
+
 ## 2019-08-20 v2.7.0
 - Based on Comet 19.6.9-rc
 - Support new `AdminAccountSessionStartAsUser` API
