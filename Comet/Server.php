@@ -1538,6 +1538,7 @@ class Server {
 	/** 
 	 * Request a new Storage Vault on behalf of a user
 	 * This action does not respect the "Prevent creating new Storage Vaults (via Request)" policy setting. New Storage Vaults can be requested regardless of the policy setting.
+	 * Prior to Comet 19.8.0, the response type was CometAPIResponseMessage (i.e. no DestinationID field in response).
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
@@ -1545,7 +1546,7 @@ class Server {
 	 * @param string $TargetUser The user to receive the new Storage Vault
 	 * @param string $StorageProvider ID for the Requestable destination
 	 * @param string $SelfAddress The external URL for this server. Used to resolve conflicts (optional)
-	 * @return \Comet\APIResponseMessage 
+	 * @return \Comet\RequestStorageVaultResponseMessage 
 	 * @throws \Exception
 	 */
 	public function AdminRequestStorageVault($TargetUser, $StorageProvider, $SelfAddress = null)

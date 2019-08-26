@@ -13,6 +13,7 @@ namespace Comet;
  * Comet Server AdminRequestStorageVault API 
  * Request a new Storage Vault on behalf of a user
  * This action does not respect the "Prevent creating new Storage Vaults (via Request)" policy setting. New Storage Vaults can be requested regardless of the policy setting.
+ * Prior to Comet 19.8.0, the response type was CometAPIResponseMessage (i.e. no DestinationID field in response).
  * 
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
@@ -86,7 +87,7 @@ class AdminRequestStorageVaultRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param int $responseCode HTTP response code
 	 * @param string $body HTTP response body
-	 * @return \Comet\APIResponseMessage 
+	 * @return \Comet\RequestStorageVaultResponseMessage 
 	 * @throws \Exception
 	 */
 	public static function ProcessResponse($responseCode, $body)
@@ -111,12 +112,12 @@ class AdminRequestStorageVaultRequest implements \Comet\NetworkRequest {
 			}
 		}
 		
-		// Parse as CometAPIResponseMessage
+		// Parse as RequestStorageVaultResponseMessage
 		if (is_array($decoded) && count($decoded) === 0) {
 		// Work around edge case in json_decode--json_encode stdClass conversion
-			$ret = \Comet\APIResponseMessage::createFromStdclass(new \stdClass());
+			$ret = \Comet\RequestStorageVaultResponseMessage::createFromStdclass(new \stdClass());
 		} else {
-			$ret = \Comet\APIResponseMessage::createFromStdclass($decoded);
+			$ret = \Comet\RequestStorageVaultResponseMessage::createFromStdclass($decoded);
 		}
 		
 		return $ret;
