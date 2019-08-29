@@ -1205,7 +1205,7 @@ class Server {
 	 */
 	public function AdminMetaResourceNew()
 	{
-		throw new Exception("This API is not currently representable by the Comet Server SDK");
+		throw new \Exception("This API is not currently representable by the Comet Server SDK");
 	}
 
 	/** 
