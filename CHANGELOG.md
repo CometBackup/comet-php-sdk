@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 2020-01-10 v3.1.0
+- Based on Comet 19.12.2-rc
+- Support new `AdminDispatcherDeleteSnapshot` and `AdminMetaSendTestEmail` APIs
+- Support new `AllowZeroFilesSuccess` property on backup job advanced options
+- Support new properties for MongoDB, FTPS, Microsoft SQL Server, Regex searches, Periodic schedules
+- Update description for Portuguese languages
+- Fix an issue with exceptions thrown from placeholder `AdminMetaResourceNew` API
+
 ## 2019-08-27 v3.0.0
 - Based on Comet 19.9.0-rc
 - **BREAKING:** Change `AdminRequestStorageVault` response type to add extra parameter. This would be a backwards-compatible change if no callers are checking the exact returned object type from this function.
