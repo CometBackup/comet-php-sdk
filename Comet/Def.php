@@ -518,9 +518,16 @@ class Def {
 	const SCHEDULE_FREQUENCY_MONTHLY = 8014;
 	
 	/**
+	 * SecondsPast: number of seconds per period. Offset: Shunt seconds after unix epoch
+	 *
 	 * @type int
 	 */
-	const SCHEDULE_FREQUENCY_HIGHEST = 8014;
+	const SCHEDULE_FREQUENCY_PERIODIC = 8015;
+	
+	/**
+	 * @type int
+	 */
+	const SCHEDULE_FREQUENCY_HIGHEST = 8015;
 	
 	/**
 	 * 2^50 (1 << 50)

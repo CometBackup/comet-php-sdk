@@ -22,6 +22,11 @@ class ScheduleConfig {
 	public $SecondsPast = 0;
 	
 	/**
+	 * @var int
+	 */
+	public $Offset = 0;
+	
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see ScheduleConfig::RemoveUnknownProperties() Remove all unknown properties
@@ -44,10 +49,14 @@ class ScheduleConfig {
 		if (property_exists($sc, 'SecondsPast')) {
 			$this->SecondsPast = (int)($sc->SecondsPast);
 		}
+		if (property_exists($sc, 'Offset')) {
+			$this->Offset = (int)($sc->Offset);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'FrequencyType':
 			case 'SecondsPast':
+			case 'Offset':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -131,6 +140,7 @@ class ScheduleConfig {
 		$ret = [];
 		$ret["FrequencyType"] = $this->FrequencyType;
 		$ret["SecondsPast"] = $this->SecondsPast;
+		$ret["Offset"] = $this->Offset;
 		
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
