@@ -54,6 +54,11 @@ class AdminBulletinSubmitRequest implements \Comet\NetworkRequest {
 		return '/api/v1/admin/bulletin/submit';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

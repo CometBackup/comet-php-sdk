@@ -36,6 +36,11 @@ class AdminDispatcherListActiveRequest implements \Comet\NetworkRequest {
 		return '/api/v1/admin/dispatcher/list-active';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

@@ -46,6 +46,11 @@ class AdminBrandingGenerateClientMacosX8664Request implements \Comet\NetworkRequ
 		return '/api/v1/admin/branding/generate-client/macos-x86_64';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

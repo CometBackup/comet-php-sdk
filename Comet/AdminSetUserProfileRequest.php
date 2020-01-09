@@ -54,6 +54,11 @@ class AdminSetUserProfileRequest implements \Comet\NetworkRequest {
 		return '/api/v1/admin/set-user-profile';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

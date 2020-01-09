@@ -39,6 +39,11 @@ class AdminMetaShutdownServiceRequest implements \Comet\NetworkRequest {
 		return '/api/v1/admin/meta/shutdown-service';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

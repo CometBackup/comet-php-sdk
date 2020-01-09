@@ -80,6 +80,11 @@ class AdminAccountU2fSubmitChallengeResponseRequest implements \Comet\NetworkReq
 		return '/api/v1/admin/account/u2f/submit-challenge-response';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

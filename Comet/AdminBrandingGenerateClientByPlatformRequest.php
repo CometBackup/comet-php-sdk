@@ -55,6 +55,11 @@ class AdminBrandingGenerateClientByPlatformRequest implements \Comet\NetworkRequ
 		return '/api/v1/admin/branding/generate-client/by-platform';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

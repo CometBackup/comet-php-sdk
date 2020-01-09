@@ -55,6 +55,11 @@ class AdminDispatcherDeepverifyStorageVaultRequest implements \Comet\NetworkRequ
 		return '/api/v1/admin/dispatcher/deepverify-storage-vault';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

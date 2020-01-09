@@ -36,6 +36,11 @@ class AdminMetaVersionRequest implements \Comet\NetworkRequest {
 		return '/api/v1/admin/meta/version';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

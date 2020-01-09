@@ -65,6 +65,11 @@ class AdminStorageRegisterBucketRequest implements \Comet\NetworkRequest {
 		return '/api/v1/admin/storage/register-bucket';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

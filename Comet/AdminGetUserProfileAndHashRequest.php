@@ -47,6 +47,11 @@ class AdminGetUserProfileAndHashRequest implements \Comet\NetworkRequest {
 		return '/api/v1/admin/get-user-profile-and-hash';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

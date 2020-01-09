@@ -54,6 +54,11 @@ class AdminPreviewUserEmailReportRequest implements \Comet\NetworkRequest {
 		return '/api/v1/admin/preview-user-email-report';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

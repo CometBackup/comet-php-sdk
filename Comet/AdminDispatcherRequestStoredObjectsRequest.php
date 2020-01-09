@@ -73,6 +73,11 @@ class AdminDispatcherRequestStoredObjectsRequest implements \Comet\NetworkReques
 		return '/api/v1/admin/dispatcher/request-stored-objects';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

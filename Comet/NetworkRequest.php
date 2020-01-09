@@ -15,4 +15,6 @@ interface NetworkRequest {
 
 	public function Endpoint();
 
+	public function Method();
+
 }

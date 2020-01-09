@@ -63,6 +63,11 @@ class AdminAddUserRequest implements \Comet\NetworkRequest {
 		return '/api/v1/admin/add-user';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

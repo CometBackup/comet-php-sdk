@@ -47,6 +47,11 @@ class AdminBrandingGenerateClientWindowsAnycpuExeRequest implements \Comet\Netwo
 		return '/api/v1/admin/branding/generate-client/windows-anycpu-exe';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

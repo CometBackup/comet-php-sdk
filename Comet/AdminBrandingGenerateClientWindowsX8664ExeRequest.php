@@ -47,6 +47,11 @@ class AdminBrandingGenerateClientWindowsX8664ExeRequest implements \Comet\Networ
 		return '/api/v1/admin/branding/generate-client/windows-x86_64-exe';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

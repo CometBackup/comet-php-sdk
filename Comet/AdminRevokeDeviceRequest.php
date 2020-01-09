@@ -55,6 +55,11 @@ class AdminRevokeDeviceRequest implements \Comet\NetworkRequest {
 		return '/api/v1/admin/revoke-device';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

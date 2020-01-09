@@ -37,6 +37,11 @@ class AdminUpdateCampaignStatusRequest implements \Comet\NetworkRequest {
 		return '/api/v1/admin/update-campaign/status';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

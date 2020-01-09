@@ -46,6 +46,11 @@ class AdminGetJobsForCustomSearchRequest implements \Comet\NetworkRequest {
 		return '/api/v1/admin/get-jobs-for-custom-search';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

@@ -44,6 +44,11 @@ class AdminAccountSessionStartRequest implements \Comet\NetworkRequest {
 		return '/api/v1/admin/account/session-start';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

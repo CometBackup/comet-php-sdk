@@ -35,6 +35,11 @@ class AdminMetaListAvailableLogDaysRequest implements \Comet\NetworkRequest {
 		return '/api/v1/admin/meta/list-available-log-days';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

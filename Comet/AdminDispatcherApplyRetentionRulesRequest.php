@@ -55,6 +55,11 @@ class AdminDispatcherApplyRetentionRulesRequest implements \Comet\NetworkRequest
 		return '/api/v1/admin/dispatcher/apply-retention-rules';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

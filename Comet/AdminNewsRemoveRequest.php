@@ -45,6 +45,11 @@ class AdminNewsRemoveRequest implements \Comet\NetworkRequest {
 		return '/api/v1/admin/news/remove';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

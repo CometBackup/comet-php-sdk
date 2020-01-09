@@ -54,6 +54,11 @@ class AdminDispatcherRequestVaultSnapshotsRequest implements \Comet\NetworkReque
 		return '/api/v1/admin/dispatcher/request-vault-snapshots';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

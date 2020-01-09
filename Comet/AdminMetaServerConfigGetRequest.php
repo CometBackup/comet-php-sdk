@@ -36,6 +36,11 @@ class AdminMetaServerConfigGetRequest implements \Comet\NetworkRequest {
 		return '/api/v1/admin/meta/server-config/get';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

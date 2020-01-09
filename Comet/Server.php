@@ -1804,7 +1804,7 @@ class Server {
 		$params['Password'] = $this->password;
 
 		return new \GuzzleHttp\Psr7\Request(
-			'POST',
+			$nr->Method(),
 			$this->server_url . ltrim($nr->Endpoint(), '/'),
 			[
 				'Content-Type' => 'application/x-www-form-urlencoded',

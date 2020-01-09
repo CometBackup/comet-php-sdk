@@ -35,6 +35,11 @@ class AdminAccountSessionRevokeRequest implements \Comet\NetworkRequest {
 		return '/api/v1/admin/account/session-revoke';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

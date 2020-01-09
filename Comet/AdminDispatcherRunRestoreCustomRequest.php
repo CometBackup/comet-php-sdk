@@ -91,6 +91,11 @@ class AdminDispatcherRunRestoreCustomRequest implements \Comet\NetworkRequest {
 		return '/api/v1/admin/dispatcher/run-restore-custom';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

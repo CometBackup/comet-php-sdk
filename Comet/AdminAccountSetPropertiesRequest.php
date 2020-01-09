@@ -47,6 +47,11 @@ class AdminAccountSetPropertiesRequest implements \Comet\NetworkRequest {
 		return '/api/v1/admin/account/set-properties';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

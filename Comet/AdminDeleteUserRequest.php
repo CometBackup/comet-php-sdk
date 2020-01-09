@@ -47,6 +47,11 @@ class AdminDeleteUserRequest implements \Comet\NetworkRequest {
 		return '/api/v1/admin/delete-user';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

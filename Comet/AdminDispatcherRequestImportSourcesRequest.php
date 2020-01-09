@@ -45,6 +45,11 @@ class AdminDispatcherRequestImportSourcesRequest implements \Comet\NetworkReques
 		return '/api/v1/admin/dispatcher/request-import-sources';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

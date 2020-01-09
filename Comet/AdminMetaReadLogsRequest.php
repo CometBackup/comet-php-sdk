@@ -46,6 +46,11 @@ class AdminMetaReadLogsRequest implements \Comet\NetworkRequest {
 		return '/api/v1/admin/meta/read-logs';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

@@ -46,6 +46,11 @@ class AdminStorageDeleteBucketRequest implements \Comet\NetworkRequest {
 		return '/api/v1/admin/storage/delete-bucket';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

@@ -46,6 +46,11 @@ class AdminBrandingGenerateClientLinuxgenericRequest implements \Comet\NetworkRe
 		return '/api/v1/admin/branding/generate-client/linuxgeneric';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

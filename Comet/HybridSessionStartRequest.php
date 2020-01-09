@@ -35,6 +35,11 @@ class HybridSessionStartRequest implements \Comet\NetworkRequest {
 		return '/api/v1/hybrid/session/start';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

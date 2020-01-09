@@ -35,6 +35,11 @@ class AdminMetaSoftwareUpdateNewsRequest implements \Comet\NetworkRequest {
 		return '/api/v1/admin/meta/software-update-news';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

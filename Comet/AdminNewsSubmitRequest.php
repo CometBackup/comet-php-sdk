@@ -45,6 +45,11 @@ class AdminNewsSubmitRequest implements \Comet\NetworkRequest {
 		return '/api/v1/admin/news/submit';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

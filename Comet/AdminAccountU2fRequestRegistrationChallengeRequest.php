@@ -44,6 +44,11 @@ class AdminAccountU2fRequestRegistrationChallengeRequest implements \Comet\Netwo
 		return '/api/v1/admin/account/u2f/request-registration-challenge';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

@@ -55,6 +55,11 @@ class AdminDispatcherUpdateSoftwareRequest implements \Comet\NetworkRequest {
 		return '/api/v1/admin/dispatcher/update-software';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

@@ -45,6 +45,11 @@ class AdminGetJobLogRequest implements \Comet\NetworkRequest {
 		return '/api/v1/admin/get-job-log';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

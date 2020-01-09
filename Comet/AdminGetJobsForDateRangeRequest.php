@@ -61,6 +61,11 @@ class AdminGetJobsForDateRangeRequest implements \Comet\NetworkRequest {
 		return '/api/v1/admin/get-jobs-for-date-range';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

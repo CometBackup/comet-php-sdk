@@ -65,6 +65,11 @@ class AdminRequestStorageVaultRequest implements \Comet\NetworkRequest {
 		return '/api/v1/admin/request-storage-vault';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

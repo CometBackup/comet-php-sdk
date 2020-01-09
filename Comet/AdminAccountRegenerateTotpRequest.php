@@ -36,6 +36,11 @@ class AdminAccountRegenerateTotpRequest implements \Comet\NetworkRequest {
 		return '/api/v1/admin/account/regenerate-totp';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

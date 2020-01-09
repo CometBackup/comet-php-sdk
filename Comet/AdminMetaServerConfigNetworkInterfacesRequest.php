@@ -37,6 +37,11 @@ class AdminMetaServerConfigNetworkInterfacesRequest implements \Comet\NetworkReq
 		return '/api/v1/admin/meta/server-config/network-interfaces';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

@@ -36,6 +36,11 @@ class UserWebSessionStartRequest implements \Comet\NetworkRequest {
 		return '/api/v1/user/web/session/start';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

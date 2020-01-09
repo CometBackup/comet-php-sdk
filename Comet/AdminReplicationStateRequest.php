@@ -35,6 +35,11 @@ class AdminReplicationStateRequest implements \Comet\NetworkRequest {
 		return '/api/v1/admin/replication/state';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

@@ -46,6 +46,11 @@ class AdminGetJobsForUserRequest implements \Comet\NetworkRequest {
 		return '/api/v1/admin/get-jobs-for-user';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

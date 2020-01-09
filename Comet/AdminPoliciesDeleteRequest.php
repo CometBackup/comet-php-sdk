@@ -45,6 +45,11 @@ class AdminPoliciesDeleteRequest implements \Comet\NetworkRequest {
 		return '/api/v1/admin/policies/delete';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

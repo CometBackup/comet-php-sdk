@@ -36,6 +36,11 @@ class UserWebSessionRevokeRequest implements \Comet\NetworkRequest {
 		return '/api/v1/user/web/session/revoke';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

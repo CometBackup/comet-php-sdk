@@ -45,6 +45,11 @@ class AdminPoliciesNewRequest implements \Comet\NetworkRequest {
 		return '/api/v1/admin/policies/new';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

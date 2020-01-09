@@ -38,6 +38,11 @@ class AdminMetaResourceNewRequest implements \Comet\NetworkRequest {
 		return '/api/v1/admin/meta/resource/new';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

@@ -55,6 +55,11 @@ class AdminResetUserPasswordRequest implements \Comet\NetworkRequest {
 		return '/api/v1/admin/reset-user-password';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

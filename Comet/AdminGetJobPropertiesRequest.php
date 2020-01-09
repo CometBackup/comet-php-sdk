@@ -45,6 +45,11 @@ class AdminGetJobPropertiesRequest implements \Comet\NetworkRequest {
 		return '/api/v1/admin/get-job-properties';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *

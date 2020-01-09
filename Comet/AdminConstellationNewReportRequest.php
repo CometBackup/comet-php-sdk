@@ -36,6 +36,11 @@ class AdminConstellationNewReportRequest implements \Comet\NetworkRequest {
 		return '/api/v1/admin/constellation/new-report';
 	}
 	
+	public function Method()
+	{
+		return 'POST';
+	}
+	
 	/**
 	 * Get the POST parameters for this request.
 	 *
