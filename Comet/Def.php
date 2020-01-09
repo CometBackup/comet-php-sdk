@@ -972,6 +972,16 @@ class Def {
 	/**
 	 * @type string
 	 */
+	const SEARCHOPERATOR_STRING_REGEXMATCH = "str_regexmatch";
+	
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_STRING_NREGEXMATCH = "str_nregexmatch";
+	
+	/**
+	 * @type string
+	 */
 	const SEARCHOPERATOR_INT_EQ = "int_eq";
 	
 	/**
