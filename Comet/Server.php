@@ -1247,6 +1247,25 @@ class Server {
 	}
 
 	/** 
+	 * Send a test email message
+	 * This allows the Comet Server web interface to support testing different email credentials during setup.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * Access to this API may be prevented on a per-administrator basis.
+	 *
+	 * @param \Comet\EmailOptions $EmailOptions Updated configuration content
+	 * @param string $Recipient Target email address to send test email
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminMetaSendTestEmail(EmailOptions $EmailOptions, $Recipient)
+	{
+		$nr = new \Comet\AdminMetaSendTestEmailRequest($EmailOptions, $Recipient);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminMetaSendTestEmailRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Get server configuration
 	 * 
 	 * You must supply administrator authentication credentials to use this API.

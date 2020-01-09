@@ -1026,8 +1026,36 @@ class Def {
 	 */
 	const SEARCHOPERATOR_BOOL_NIS = "bool_nis";
 	
+	/**
+	 * EmailDeliveryType: 
+	 *
+	 * @type string
+	 */
+	const EMAIL_DELIVERY_NONE = "";
 	
-	/*
+	/**
+	 * EmailDeliveryType: 
+	 *
+	 * @type string
+	 */
+	const EMAIL_DELIVERY_BUILTIN = "builtin";
+	
+	/**
+	 * EmailDeliveryType: 
+	 *
+	 * @type string
+	 */
+	const EMAIL_DELIVERY_SMTP = "smtp";
+	
+	/**
+	 * EmailDeliveryType: 
+	 *
+	 * @type string
+	 */
+	const EMAIL_DELIVERY_SMTP_SSL = "smtp-ssl";
+	
+	
+	/**
 	 * Retrieve a mapping of language codes supported by Comet Server.
 	 *
 	 * @return array
