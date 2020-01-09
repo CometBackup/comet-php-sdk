@@ -580,6 +580,20 @@ class Def {
 	const ENGINE_BUILTIN_MONGODB = "engine1/mongodb";
 	
 	/**
+	 * MSSQLAuthMode: 
+	 *
+	 * @type string
+	 */
+	const MSSQL_AUTH_WINDOWS = "windows";
+	
+	/**
+	 * MSSQLAuthMode: 
+	 *
+	 * @type string
+	 */
+	const MSSQL_AUTH_NATIVE = "native";
+	
+	/**
 	 * StoredObjectType: 
 	 *
 	 * @type string
