@@ -314,6 +314,11 @@ class Def {
 	const SEVERITY_ERROR = 'E';
 	
 	/**
+	 * @type int
+	 */
+	const MONGODB_DEFAULT_PORT = 27017;
+	
+	/**
 	 * RestoreType: 
 	 *
 	 * @type int
@@ -452,6 +457,27 @@ class Def {
 	const DESTINATION_SFTP_AUTHMODE_PRIVATEKEY = 2;
 	
 	/**
+	 * SSHAuthMode: 
+	 *
+	 * @type int
+	 */
+	const SSHCONNECTION_AUTHMODE__INVALID = 0;
+	
+	/**
+	 * SSHAuthMode: 
+	 *
+	 * @type int
+	 */
+	const SSHCONNECTION_AUTHMODE_PASSWORD = 1;
+	
+	/**
+	 * SSHAuthMode: n.b. change values
+	 *
+	 * @type int
+	 */
+	const SSHCONNECTION_AUTHMODE_PRIVATEKEY = 2;
+	
+	/**
 	 * @type int
 	 */
 	const SCHEDULE_FREQUENCY_LOWEST = 8010;
@@ -547,6 +573,11 @@ class Def {
 	 * @type string
 	 */
 	const ENGINE_BUILTIN_HYPERV = "engine1/hyperv";
+	
+	/**
+	 * @type string
+	 */
+	const ENGINE_BUILTIN_MONGODB = "engine1/mongodb";
 	
 	/**
 	 * StoredObjectType: 
