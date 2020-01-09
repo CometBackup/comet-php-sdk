@@ -132,6 +132,26 @@ class DestinationLocation {
 	public $FTPCustomBaseDirectory = "";
 	
 	/**
+	 * @var int
+	 */
+	public $FTPSMode = 0;
+	
+	/**
+	 * @var int
+	 */
+	public $FTPPort = 0;
+	
+	/**
+	 * @var int
+	 */
+	public $FTPMaxConnections = 0;
+	
+	/**
+	 * @var boolean
+	 */
+	public $FTPAcceptInvalidSSL = false;
+	
+	/**
 	 * @var string
 	 */
 	public $AZBAccountName = "";
@@ -280,6 +300,18 @@ class DestinationLocation {
 		if (property_exists($sc, 'FTPCustomBaseDirectory')) {
 			$this->FTPCustomBaseDirectory = (string)($sc->FTPCustomBaseDirectory);
 		}
+		if (property_exists($sc, 'FTPSMode')) {
+			$this->FTPSMode = (int)($sc->FTPSMode);
+		}
+		if (property_exists($sc, 'FTPPort')) {
+			$this->FTPPort = (int)($sc->FTPPort);
+		}
+		if (property_exists($sc, 'FTPMaxConnections')) {
+			$this->FTPMaxConnections = (int)($sc->FTPMaxConnections);
+		}
+		if (property_exists($sc, 'FTPAcceptInvalidSSL')) {
+			$this->FTPAcceptInvalidSSL = (bool)($sc->FTPAcceptInvalidSSL);
+		}
 		if (property_exists($sc, 'AZBAccountName')) {
 			$this->AZBAccountName = (string)($sc->AZBAccountName);
 		}
@@ -363,6 +395,10 @@ class DestinationLocation {
 			case 'FTPPassword':
 			case 'FTPBaseUseHomeDirectory':
 			case 'FTPCustomBaseDirectory':
+			case 'FTPSMode':
+			case 'FTPPort':
+			case 'FTPMaxConnections':
+			case 'FTPAcceptInvalidSSL':
 			case 'AZBAccountName':
 			case 'AZBAccountKey':
 			case 'AZBContainer':
@@ -480,6 +516,10 @@ class DestinationLocation {
 		$ret["FTPPassword"] = $this->FTPPassword;
 		$ret["FTPBaseUseHomeDirectory"] = $this->FTPBaseUseHomeDirectory;
 		$ret["FTPCustomBaseDirectory"] = $this->FTPCustomBaseDirectory;
+		$ret["FTPSMode"] = $this->FTPSMode;
+		$ret["FTPPort"] = $this->FTPPort;
+		$ret["FTPMaxConnections"] = $this->FTPMaxConnections;
+		$ret["FTPAcceptInvalidSSL"] = $this->FTPAcceptInvalidSSL;
 		$ret["AZBAccountName"] = $this->AZBAccountName;
 		$ret["AZBAccountKey"] = $this->AZBAccountKey;
 		$ret["AZBContainer"] = $this->AZBContainer;
