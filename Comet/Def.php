@@ -1034,13 +1034,11 @@ class Def {
 			'hr_HR' => 'Hrvatski',
 			'it_IT' => 'Italiano',
 			'nl_NL' => 'Nederlands',
-			'pt_BR' => 'Português (Brazil)',
-			'pt_PT' => 'Português (Europe)',
+			'pt_BR' => 'Português (Brasil)',
+			'pt_PT' => 'Português (Europa)',
 			'ru_RU' => 'Русский',
 			'he_IL' => 'עברית‬',
 		];
-		
 	}
-	
 }
 
