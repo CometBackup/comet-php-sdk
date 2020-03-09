@@ -1733,6 +1733,24 @@ class Server {
 	}
 
 	/** 
+	 * Retrieve available space metrics
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * Access to this API may be prevented on a per-administrator basis.
+	 * This API requires the Storage Role to be enabled.
+	 *
+	 * @param string $BucketID Selected bucket name
+	 * @return \Comet\StorageFreeSpaceInfo 
+	 * @throws \Exception
+	 */
+	public function AdminStorageFreeSpace($BucketID)
+	{
+		$nr = new \Comet\AdminStorageFreeSpaceRequest($BucketID);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminStorageFreeSpaceRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * List all buckets
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
