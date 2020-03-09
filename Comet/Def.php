@@ -748,27 +748,27 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "19.12.2";
+	const APPLICATION_VERSION = "20.2.1";
 	
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_MAJOR = 19;
+	const APPLICATION_VERSION_MAJOR = 20;
 	
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_MINOR = 12;
+	const APPLICATION_VERSION_MINOR = 2;
 	
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 2;
+	const APPLICATION_VERSION_REVISION = 1;
 	
 	/**
 	 * @type string
 	 */
-	const RELEASE_CODENAME = "Voyager";
+	const RELEASE_CODENAME = "Iris";
 	
 	/**
 	 * @type int
