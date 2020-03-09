@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2020-03-09 v3.2.0
+- Based on Comet 20.2.1
+- Support new `AdminBrandingGenerateClientTest` and `AdminStorageFreeSpace` APIs
+- Support new `GroupPolicy.DefaultUserPolicy` field
+- Support new `OSInfo` field in both `LiveUserConnection` and `UserProfileConfig.Devices`
+
 ## 2020-01-10 v3.1.0
 - Based on Comet 19.12.2-rc
 - Support new `AdminDispatcherDeleteSnapshot` and `AdminMetaSendTestEmail` APIs
