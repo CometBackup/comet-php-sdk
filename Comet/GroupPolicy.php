@@ -22,6 +22,11 @@ class GroupPolicy {
 	public $Policy = null;
 	
 	/**
+	 * @var boolean
+	 */
+	public $DefaultUserPolicy = false;
+	
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see GroupPolicy::RemoveUnknownProperties() Remove all unknown properties
@@ -49,10 +54,14 @@ class GroupPolicy {
 				$this->Policy = \Comet\UserPolicy::createFromStdclass($sc->Policy);
 			}
 		}
+		if (property_exists($sc, 'DefaultUserPolicy')) {
+			$this->DefaultUserPolicy = (bool)($sc->DefaultUserPolicy);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Description':
 			case 'Policy':
+			case 'DefaultUserPolicy':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -140,6 +149,7 @@ class GroupPolicy {
 		} else {
 			$ret["Policy"] = $this->Policy->toArray($for_json_encode);
 		}
+		$ret["DefaultUserPolicy"] = $this->DefaultUserPolicy;
 		
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
