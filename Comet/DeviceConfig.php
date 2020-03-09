@@ -17,6 +17,11 @@ class DeviceConfig {
 	public $FriendlyName = "";
 	
 	/**
+	 * @var \Comet\OSInfo
+	 */
+	public $PlatformVersion = null;
+	
+	/**
 	 * @var \Comet\SourceBasicInfo[] An array with string keys.
 	 */
 	public $Sources = [];
@@ -41,6 +46,14 @@ class DeviceConfig {
 		if (property_exists($sc, 'FriendlyName')) {
 			$this->FriendlyName = (string)($sc->FriendlyName);
 		}
+		if (property_exists($sc, 'PlatformVersion')) {
+			if (is_array($sc->PlatformVersion) && count($sc->PlatformVersion) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->PlatformVersion = \Comet\OSInfo::createFromStdclass(new \stdClass());
+			} else {
+				$this->PlatformVersion = \Comet\OSInfo::createFromStdclass($sc->PlatformVersion);
+			}
+		}
 		if (property_exists($sc, 'Sources')) {
 			$val_2 = [];
 			foreach($sc->Sources as $k_2 => $v_2) {
@@ -58,6 +71,7 @@ class DeviceConfig {
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'FriendlyName':
+			case 'PlatformVersion':
 			case 'Sources':
 				break;
 			default:
@@ -141,6 +155,11 @@ class DeviceConfig {
 	{
 		$ret = [];
 		$ret["FriendlyName"] = $this->FriendlyName;
+		if ( $this->PlatformVersion === null ) {
+			$ret["PlatformVersion"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["PlatformVersion"] = $this->PlatformVersion->toArray($for_json_encode);
+		}
 		{
 			$c0 = [];
 			foreach($this->Sources as $k0 => $v0) {
@@ -207,6 +226,9 @@ class DeviceConfig {
 	public function RemoveUnknownProperties()
 	{
 		$this->__unknown_properties = [];
+		if ($this->PlatformVersion !== null) {
+			$this->PlatformVersion->RemoveUnknownProperties();
+		}
 	}
 	
 }
