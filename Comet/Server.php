@@ -339,6 +339,29 @@ class Server {
 	}
 
 	/** 
+	 * Check if a software download is available
+	 * 
+	 * This API requires administrator authentication credentials, unless the server is configured to allow unauthenticated software downloads.
+	 * This API requires the Software Build Role to be enabled.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param int $Platform The selected download platform, from the AdminBrandingAvailablePlatforms API
+	 * @param string $SelfAddress The external URL of this server, used to resolve conflicts (optional)
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminBrandingGenerateClientTest($Platform, $SelfAddress = null)
+	{
+		if ($SelfAddress === null) {
+			$SelfAddress = $this->server_url;
+		}
+
+		$nr = new \Comet\AdminBrandingGenerateClientTestRequest($Platform, $SelfAddress);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminBrandingGenerateClientTestRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Download software update (Windows AnyCPU exe)
 	 * The exe endpoints are not recommended for end-users, as they may not be able to provide a codesigned installer if no custom codesigning certificate is present.
 	 * 
