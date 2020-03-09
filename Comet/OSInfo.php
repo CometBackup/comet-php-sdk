@@ -9,58 +9,33 @@
 
 namespace Comet;
 
-class LiveUserConnection {
+class OSInfo {
 	
 	/**
 	 * @var string
 	 */
-	public $Username = "";
+	public $Version = "";
 	
 	/**
 	 * @var string
 	 */
-	public $DeviceID = "";
+	public $Distribution = "";
 	
 	/**
 	 * @var string
 	 */
-	public $ReportedVersion = "";
-	
-	/**
-	 * @var string
-	 */
-	public $ReportedPlatform = "";
-	
-	/**
-	 * @var \Comet\OSInfo
-	 */
-	public $ReportedPlatformVersion = null;
-	
-	/**
-	 * @var string
-	 */
-	public $IPAddress = "";
-	
-	/**
-	 * @var int
-	 */
-	public $ConnectionTime = 0;
-	
-	/**
-	 * @var boolean
-	 */
-	public $AllowsFilenames = false;
+	public $Build = "";
 	
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
-	 * @see LiveUserConnection::RemoveUnknownProperties() Remove all unknown properties
+	 * @see OSInfo::RemoveUnknownProperties() Remove all unknown properties
 	 * @var array
 	 */
 	private $__unknown_properties = [];
 	
 	/**
-	 * Replace the content of this LiveUserConnection object from a PHP \stdClass.
+	 * Replace the content of this OSInfo object from a PHP \stdClass.
 	 * The data could be supplied from an API call after json_decode(...); or generated manually.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
@@ -68,45 +43,20 @@ class LiveUserConnection {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
-		if (property_exists($sc, 'Username')) {
-			$this->Username = (string)($sc->Username);
+		if (property_exists($sc, 'version')) {
+			$this->Version = (string)($sc->version);
 		}
-		if (property_exists($sc, 'DeviceID')) {
-			$this->DeviceID = (string)($sc->DeviceID);
+		if (property_exists($sc, 'distribution')) {
+			$this->Distribution = (string)($sc->distribution);
 		}
-		if (property_exists($sc, 'ReportedVersion')) {
-			$this->ReportedVersion = (string)($sc->ReportedVersion);
-		}
-		if (property_exists($sc, 'ReportedPlatform')) {
-			$this->ReportedPlatform = (string)($sc->ReportedPlatform);
-		}
-		if (property_exists($sc, 'ReportedPlatformVersion')) {
-			if (is_array($sc->ReportedPlatformVersion) && count($sc->ReportedPlatformVersion) === 0) {
-			// Work around edge case in json_decode--json_encode stdClass conversion
-				$this->ReportedPlatformVersion = \Comet\OSInfo::createFromStdclass(new \stdClass());
-			} else {
-				$this->ReportedPlatformVersion = \Comet\OSInfo::createFromStdclass($sc->ReportedPlatformVersion);
-			}
-		}
-		if (property_exists($sc, 'IPAddress')) {
-			$this->IPAddress = (string)($sc->IPAddress);
-		}
-		if (property_exists($sc, 'ConnectionTime')) {
-			$this->ConnectionTime = (int)($sc->ConnectionTime);
-		}
-		if (property_exists($sc, 'AllowsFilenames')) {
-			$this->AllowsFilenames = (bool)($sc->AllowsFilenames);
+		if (property_exists($sc, 'build')) {
+			$this->Build = (string)($sc->build);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
-			case 'Username':
-			case 'DeviceID':
-			case 'ReportedVersion':
-			case 'ReportedPlatform':
-			case 'ReportedPlatformVersion':
-			case 'IPAddress':
-			case 'ConnectionTime':
-			case 'AllowsFilenames':
+			case 'version':
+			case 'distribution':
+			case 'build':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -115,25 +65,25 @@ class LiveUserConnection {
 	}
 	
 	/**
-	 * Coerce a stdClass into a new strongly-typed LiveUserConnection object.
+	 * Coerce a stdClass into a new strongly-typed OSInfo object.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
-	 * @return LiveUserConnection
+	 * @return OSInfo
 	 */
 	public static function createFromStdclass(\stdClass $sc)
 	{
-		$retn = new LiveUserConnection();
+		$retn = new OSInfo();
 		$retn->inflateFrom($sc);
 		return $retn;
 	}
 	
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed LiveUserConnection object.
+	 * Coerce a plain PHP array into a new strongly-typed OSInfo object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
 	 * @param array $arr Object data as PHP array
-	 * @return LiveUserConnection
+	 * @return OSInfo
 	 */
 	public static function createFromArray(array $arr)
 	{
@@ -145,7 +95,7 @@ class LiveUserConnection {
 	}
 	
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed LiveUserConnection object.
+	 * Coerce a plain PHP array into a new strongly-typed OSInfo object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
@@ -153,7 +103,7 @@ class LiveUserConnection {
 	 *             (A) acknowledge this and continue by switching to createFromArray, or
 	 *             (b) switch to the roundtrip-safe createFromStdclass alternative.
 	 * @param array $arr Object data as PHP array
-	 * @return LiveUserConnection
+	 * @return OSInfo
 	 */
 	public static function createFrom(array $arr)
 	{
@@ -161,10 +111,10 @@ class LiveUserConnection {
 	}
 	
 	/**
-	 * Coerce a JSON string into a new strongly-typed LiveUserConnection object.
+	 * Coerce a JSON string into a new strongly-typed OSInfo object.
 	 *
 	 * @param string $JsonString Object data as JSON string
-	 * @return LiveUserConnection
+	 * @return OSInfo
 	 */
 	public static function createFromJSON($JsonString)
 	{
@@ -172,13 +122,13 @@ class LiveUserConnection {
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg());
 		}
-		$retn = new LiveUserConnection();
+		$retn = new OSInfo();
 		$retn->inflateFrom($decodedJsonObject);
 		return $retn;
 	}
 	
 	/**
-	 * Convert this LiveUserConnection object into a plain PHP array.
+	 * Convert this OSInfo object into a plain PHP array.
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
@@ -188,18 +138,9 @@ class LiveUserConnection {
 	public function toArray($for_json_encode = false)
 	{
 		$ret = [];
-		$ret["Username"] = $this->Username;
-		$ret["DeviceID"] = $this->DeviceID;
-		$ret["ReportedVersion"] = $this->ReportedVersion;
-		$ret["ReportedPlatform"] = $this->ReportedPlatform;
-		if ( $this->ReportedPlatformVersion === null ) {
-			$ret["ReportedPlatformVersion"] = $for_json_encode ? (object)[] : [];
-		} else {
-			$ret["ReportedPlatformVersion"] = $this->ReportedPlatformVersion->toArray($for_json_encode);
-		}
-		$ret["IPAddress"] = $this->IPAddress;
-		$ret["ConnectionTime"] = $this->ConnectionTime;
-		$ret["AllowsFilenames"] = $this->AllowsFilenames;
+		$ret["version"] = $this->Version;
+		$ret["distribution"] = $this->Distribution;
+		$ret["build"] = $this->Build;
 		
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
@@ -249,9 +190,6 @@ class LiveUserConnection {
 	public function RemoveUnknownProperties()
 	{
 		$this->__unknown_properties = [];
-		if ($this->ReportedPlatformVersion !== null) {
-			$this->ReportedPlatformVersion->RemoveUnknownProperties();
-		}
 	}
 	
 }
