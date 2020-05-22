@@ -29,6 +29,11 @@ class UserPolicy {
 	/**
 	 * @var boolean
 	 */
+	public $HideCloudStorageBranding = false;
+	
+	/**
+	 * @var boolean
+	 */
 	public $PreventDeleteStorageVault = false;
 	
 	/**
@@ -167,6 +172,9 @@ class UserPolicy {
 		if (property_exists($sc, 'PreventEditStorageVault')) {
 			$this->PreventEditStorageVault = (bool)($sc->PreventEditStorageVault);
 		}
+		if (property_exists($sc, 'HideCloudStorageBranding')) {
+			$this->HideCloudStorageBranding = (bool)($sc->HideCloudStorageBranding);
+		}
 		if (property_exists($sc, 'PreventDeleteStorageVault')) {
 			$this->PreventDeleteStorageVault = (bool)($sc->PreventDeleteStorageVault);
 		}
@@ -272,6 +280,7 @@ class UserPolicy {
 			case 'PreventRequestStorageVault':
 			case 'PreventAddCustomStorageVault':
 			case 'PreventEditStorageVault':
+			case 'HideCloudStorageBranding':
 			case 'PreventDeleteStorageVault':
 			case 'StorageVaultProviders':
 			case 'PreventNewProtectedItem':
@@ -379,6 +388,7 @@ class UserPolicy {
 		$ret["PreventRequestStorageVault"] = $this->PreventRequestStorageVault;
 		$ret["PreventAddCustomStorageVault"] = $this->PreventAddCustomStorageVault;
 		$ret["PreventEditStorageVault"] = $this->PreventEditStorageVault;
+		$ret["HideCloudStorageBranding"] = $this->HideCloudStorageBranding;
 		$ret["PreventDeleteStorageVault"] = $this->PreventDeleteStorageVault;
 		if ( $this->StorageVaultProviders === null ) {
 			$ret["StorageVaultProviders"] = $for_json_encode ? (object)[] : [];
