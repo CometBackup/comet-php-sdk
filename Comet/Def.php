@@ -96,6 +96,13 @@ class Def {
 	const JOB_CLASSIFICATION_DEEPVERIFY = 4010;
 	
 	/**
+	 * JobClassification: Software uninstall
+	 *
+	 * @type int
+	 */
+	const JOB_CLASSIFICATION_UNINSTALL = 4011;
+	
+	/**
 	 * JobClassification: 
 	 *
 	 * @type int

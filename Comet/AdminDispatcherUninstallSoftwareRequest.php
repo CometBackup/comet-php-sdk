@@ -10,41 +10,38 @@
 namespace Comet;
 
 /** 
- * Comet Server AdminDeleteUser API 
- * Delete user account
- * This does not remove any storage buckets. Unused storage buckets will be cleaned up by the Constellation Role.
- * Any stored data can not be decrypted without the user profile. Misuse can cause data loss!
- * This also allows to uninstall software from active devices under the user account
+ * Comet Server AdminDispatcherUninstallSoftware API 
+ * Instruct a live connected device to self-uninstall the software
  * 
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
  */
-class AdminDeleteUserRequest implements \Comet\NetworkRequest {
+class AdminDispatcherUninstallSoftwareRequest implements \Comet\NetworkRequest {
 	
 	/**
-	 * Selected account username
+	 * The live connection GUID
 	 *
 	 * @var string
 	 */
-	protected $TargetUser = null;
+	protected $TargetID = null;
 	
 	/**
-	 * Uninstall software configuration (>= 20.3.5) (optional)
+	 * Determine if the config.dat file will be deleted at the same time
 	 *
-	 * @var \Comet\UninstallConfig|null
+	 * @var boolean
 	 */
-	protected $UninstallConfig = null;
+	protected $RemoveConfigFile = null;
 	
 	/**
-	 * Construct a new AdminDeleteUserRequest instance.
+	 * Construct a new AdminDispatcherUninstallSoftwareRequest instance.
 	 *
-	 * @param string $TargetUser Selected account username
-	 * @param \Comet\UninstallConfig $UninstallConfig Uninstall software configuration (>= 20.3.5) (optional)
+	 * @param string $TargetID The live connection GUID
+	 * @param boolean $RemoveConfigFile Determine if the config.dat file will be deleted at the same time
 	 */
-	public function __construct($TargetUser, UninstallConfig $UninstallConfig = null)
+	public function __construct($TargetID, $RemoveConfigFile)
 	{
-		$this->TargetUser = $TargetUser;
-		$this->UninstallConfig = $UninstallConfig;
+		$this->TargetID = $TargetID;
+		$this->RemoveConfigFile = $RemoveConfigFile;
 	}
 	
 	/**
@@ -54,7 +51,7 @@ class AdminDeleteUserRequest implements \Comet\NetworkRequest {
 	 */
 	public function Endpoint()
 	{
-		return '/api/v1/admin/delete-user';
+		return '/api/v1/admin/dispatcher/uninstall-software';
 	}
 	
 	public function Method()
@@ -70,10 +67,8 @@ class AdminDeleteUserRequest implements \Comet\NetworkRequest {
 	public function Parameters()
 	{
 		$ret = [];
-		$ret["TargetUser"] = (string)($this->TargetUser);
-		if ($this->UninstallConfig !== null) {
-			$ret["UninstallConfig"] = $this->UninstallConfig->toJSON();
-		}
+		$ret["TargetID"] = (string)($this->TargetID);
+		$ret["RemoveConfigFile"] = (string)($this->RemoveConfigFile);
 		return $ret;
 	}
 	

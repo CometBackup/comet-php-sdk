@@ -602,17 +602,19 @@ class Server {
 	 * Delete user account
 	 * This does not remove any storage buckets. Unused storage buckets will be cleaned up by the Constellation Role.
 	 * Any stored data can not be decrypted without the user profile. Misuse can cause data loss!
+	 * This also allows to uninstall software from active devices under the user account
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
 	 *
 	 * @param string $TargetUser Selected account username
+	 * @param \Comet\UninstallConfig $UninstallConfig Uninstall software configuration (>= 20.3.5) (optional)
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminDeleteUser($TargetUser)
+	public function AdminDeleteUser($TargetUser, UninstallConfig $UninstallConfig = null)
 	{
-		$nr = new \Comet\AdminDeleteUserRequest($TargetUser);
+		$nr = new \Comet\AdminDeleteUserRequest($TargetUser, $UninstallConfig);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminDeleteUserRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
@@ -920,6 +922,24 @@ class Server {
 		$nr = new \Comet\AdminDispatcherRunRestoreCustomRequest($TargetID, $Source, $Destination, $Options, $Snapshot, $Paths);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminDispatcherRunRestoreCustomRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Instruct a live connected device to self-uninstall the software
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetID The live connection GUID
+	 * @param boolean $RemoveConfigFile Determine if the config.dat file will be deleted at the same time
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherUninstallSoftware($TargetID, $RemoveConfigFile)
+	{
+		$nr = new \Comet\AdminDispatcherUninstallSoftwareRequest($TargetID, $RemoveConfigFile);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherUninstallSoftwareRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
 
 	/** 
