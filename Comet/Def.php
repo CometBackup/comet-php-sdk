@@ -755,7 +755,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "20.2.1";
+	const APPLICATION_VERSION = "20.5.0";
 	
 	/**
 	 * @type int
@@ -765,17 +765,17 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_MINOR = 2;
+	const APPLICATION_VERSION_MINOR = 5;
 	
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 1;
+	const APPLICATION_VERSION_REVISION = 0;
 	
 	/**
 	 * @type string
 	 */
-	const RELEASE_CODENAME = "Iris";
+	const RELEASE_CODENAME = "Aurora";
 	
 	/**
 	 * @type int
