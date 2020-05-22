@@ -114,6 +114,26 @@ class UserProfileConfig {
 	/**
 	 * @var boolean
 	 */
+	public $AllowPasswordLogin = false;
+	
+	/**
+	 * @var boolean
+	 */
+	public $AllowPasswordAndTOTPLogin = false;
+	
+	/**
+	 * @var int
+	 */
+	public $TOTPKeyEncryptionFormat = 0;
+	
+	/**
+	 * @var string
+	 */
+	public $TOTPKey = "";
+	
+	/**
+	 * @var boolean
+	 */
 	public $RequirePasswordChange = false;
 	
 	/**
@@ -269,6 +289,18 @@ class UserProfileConfig {
 		if (property_exists($sc, 'PasswordRecovery')) {
 			$this->PasswordRecovery = (string)($sc->PasswordRecovery);
 		}
+		if (property_exists($sc, 'AllowPasswordLogin')) {
+			$this->AllowPasswordLogin = (bool)($sc->AllowPasswordLogin);
+		}
+		if (property_exists($sc, 'AllowPasswordAndTOTPLogin')) {
+			$this->AllowPasswordAndTOTPLogin = (bool)($sc->AllowPasswordAndTOTPLogin);
+		}
+		if (property_exists($sc, 'TOTPKeyEncryptionFormat')) {
+			$this->TOTPKeyEncryptionFormat = (int)($sc->TOTPKeyEncryptionFormat);
+		}
+		if (property_exists($sc, 'TOTPKey')) {
+			$this->TOTPKey = (string)($sc->TOTPKey);
+		}
 		if (property_exists($sc, 'RequirePasswordChange')) {
 			$this->RequirePasswordChange = (bool)($sc->RequirePasswordChange);
 		}
@@ -300,6 +332,10 @@ class UserProfileConfig {
 			case 'PasswordFormat':
 			case 'PasswordHash':
 			case 'PasswordRecovery':
+			case 'AllowPasswordLogin':
+			case 'AllowPasswordAndTOTPLogin':
+			case 'TOTPKeyEncryptionFormat':
+			case 'TOTPKey':
 			case 'RequirePasswordChange':
 			case 'CreateTime':
 			case 'CreationGUID':
@@ -495,6 +531,10 @@ class UserProfileConfig {
 		$ret["PasswordFormat"] = $this->PasswordFormat;
 		$ret["PasswordHash"] = $this->PasswordHash;
 		$ret["PasswordRecovery"] = $this->PasswordRecovery;
+		$ret["AllowPasswordLogin"] = $this->AllowPasswordLogin;
+		$ret["AllowPasswordAndTOTPLogin"] = $this->AllowPasswordAndTOTPLogin;
+		$ret["TOTPKeyEncryptionFormat"] = $this->TOTPKeyEncryptionFormat;
+		$ret["TOTPKey"] = $this->TOTPKey;
 		$ret["RequirePasswordChange"] = $this->RequirePasswordChange;
 		$ret["CreateTime"] = $this->CreateTime;
 		$ret["CreationGUID"] = $this->CreationGUID;

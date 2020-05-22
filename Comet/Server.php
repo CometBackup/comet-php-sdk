@@ -217,6 +217,22 @@ class Server {
 	}
 
 	/** 
+	 * Validate the TOTP code before turning 2fa(TOTP) on
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 *
+	 * @param string $TOTPCode Six-digit code after scanning barcode image
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminAccountValidateTotp($TOTPCode)
+	{
+		$nr = new \Comet\AdminAccountValidateTotpRequest($TOTPCode);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminAccountValidateTotpRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Add a new user account
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
