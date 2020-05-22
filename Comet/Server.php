@@ -785,6 +785,25 @@ class Server {
 	}
 
 	/** 
+	 * Request a list of filesystem objects from a live connected device
+	 * The device must have granted the administrator permission to view its filenames.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetID The live connection GUID
+	 * @param string $Path Browse objects inside this path, if null and windows device, then returns VFS devices, else return `/` path (optional)
+	 * @return \Comet\StoredObject[] 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherRequestFilesystemObjects($TargetID, $Path = null)
+	{
+		$nr = new \Comet\AdminDispatcherRequestFilesystemObjectsRequest($TargetID, $Path);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherRequestFilesystemObjectsRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Request a list of import sources from a live connected device
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
