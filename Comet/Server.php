@@ -982,6 +982,25 @@ class Server {
 	}
 
 	/** 
+	 * Instruct a live connected device to update its login server URL
+	 * The device will attempt to connect to the new Auth Role Comet Server using its current username and password. If the test connection succeeds, the device migrates its saved connection settings and live connections to the new server. If the device is not registered on the new URL, or if the credentials are incorrect, the device remains on the current Auth Role server.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetID The live connection GUID
+	 * @param string $NewURL The new external URL of this server
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherUpdateLoginUrl($TargetID, $NewURL)
+	{
+		$nr = new \Comet\AdminDispatcherUpdateLoginUrlRequest($TargetID, $NewURL);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherUpdateLoginUrlRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Instruct a live connected device to download a software update
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
