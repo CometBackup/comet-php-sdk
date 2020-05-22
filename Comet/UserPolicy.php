@@ -109,6 +109,11 @@ class UserPolicy {
 	/**
 	 * @var boolean
 	 */
+	public $RequirePasswordOpenAppUI = false;
+	
+	/**
+	 * @var boolean
+	 */
 	public $HideAppImport = false;
 	
 	/**
@@ -241,6 +246,9 @@ class UserPolicy {
 		if (property_exists($sc, 'PreventOpenAppUI')) {
 			$this->PreventOpenAppUI = (bool)($sc->PreventOpenAppUI);
 		}
+		if (property_exists($sc, 'RequirePasswordOpenAppUI')) {
+			$this->RequirePasswordOpenAppUI = (bool)($sc->RequirePasswordOpenAppUI);
+		}
 		if (property_exists($sc, 'HideAppImport')) {
 			$this->HideAppImport = (bool)($sc->HideAppImport);
 		}
@@ -296,6 +304,7 @@ class UserPolicy {
 			case 'PreventChangeEmailSettings':
 			case 'PreventChangeAccountName':
 			case 'PreventOpenAppUI':
+			case 'RequirePasswordOpenAppUI':
 			case 'HideAppImport':
 			case 'HideAppVersion':
 			case 'PreventOpenWebUI':
@@ -423,6 +432,7 @@ class UserPolicy {
 		$ret["PreventChangeEmailSettings"] = $this->PreventChangeEmailSettings;
 		$ret["PreventChangeAccountName"] = $this->PreventChangeAccountName;
 		$ret["PreventOpenAppUI"] = $this->PreventOpenAppUI;
+		$ret["RequirePasswordOpenAppUI"] = $this->RequirePasswordOpenAppUI;
 		$ret["HideAppImport"] = $this->HideAppImport;
 		$ret["HideAppVersion"] = $this->HideAppVersion;
 		$ret["PreventOpenWebUI"] = $this->PreventOpenWebUI;
