@@ -225,12 +225,13 @@ class Server {
 	 * @param string $TargetUser New account username
 	 * @param string $TargetPassword New account password
 	 * @param int $StoreRecoveryCode If set to 1, store and keep a password recovery code for the generated user (>= 18.3.9) (optional)
+	 * @param int $RequirePasswordChange If set to 1, require to reset password at the first login for the generated user (>= 20.3.4) (optional)
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminAddUser($TargetUser, $TargetPassword, $StoreRecoveryCode = null)
+	public function AdminAddUser($TargetUser, $TargetPassword, $StoreRecoveryCode = null, $RequirePasswordChange = null)
 	{
-		$nr = new \Comet\AdminAddUserRequest($TargetUser, $TargetPassword, $StoreRecoveryCode);
+		$nr = new \Comet\AdminAddUserRequest($TargetUser, $TargetPassword, $StoreRecoveryCode, $RequirePasswordChange);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminAddUserRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}

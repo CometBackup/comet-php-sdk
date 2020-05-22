@@ -112,6 +112,11 @@ class UserProfileConfig {
 	public $PasswordRecovery = "";
 	
 	/**
+	 * @var boolean
+	 */
+	public $RequirePasswordChange = false;
+	
+	/**
 	 * @var int
 	 */
 	public $CreateTime = 0;
@@ -264,6 +269,9 @@ class UserProfileConfig {
 		if (property_exists($sc, 'PasswordRecovery')) {
 			$this->PasswordRecovery = (string)($sc->PasswordRecovery);
 		}
+		if (property_exists($sc, 'RequirePasswordChange')) {
+			$this->RequirePasswordChange = (bool)($sc->RequirePasswordChange);
+		}
 		if (property_exists($sc, 'CreateTime')) {
 			$this->CreateTime = (int)($sc->CreateTime);
 		}
@@ -292,6 +300,7 @@ class UserProfileConfig {
 			case 'PasswordFormat':
 			case 'PasswordHash':
 			case 'PasswordRecovery':
+			case 'RequirePasswordChange':
 			case 'CreateTime':
 			case 'CreationGUID':
 				break;
@@ -486,6 +495,7 @@ class UserProfileConfig {
 		$ret["PasswordFormat"] = $this->PasswordFormat;
 		$ret["PasswordHash"] = $this->PasswordHash;
 		$ret["PasswordRecovery"] = $this->PasswordRecovery;
+		$ret["RequirePasswordChange"] = $this->RequirePasswordChange;
 		$ret["CreateTime"] = $this->CreateTime;
 		$ret["CreationGUID"] = $this->CreationGUID;
 		
