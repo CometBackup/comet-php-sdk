@@ -979,6 +979,46 @@ class Def {
 	/**
 	 * @type string
 	 */
+	const SEARCHOPERATOR_STRING_EQ_CI = "str_eq_ci";
+	
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_STRING_NEQ_CI = "str_neq_ci";
+	
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_STRING_CONTAINS_CI = "str_contains_ci";
+	
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_STRING_NCONTAINS_CI = "str_ncontains_ci";
+	
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_STRING_STARTSWITH_CI = "str_startswith_ci";
+	
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_STRING_NSTARTSWITH_CI = "str_nstartswith_ci";
+	
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_STRING_ENDSWITH_CI = "str_endswith_ci";
+	
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_STRING_NENDSWITH_CI = "str_nendswith_ci";
+	
+	/**
+	 * @type string
+	 */
 	const SEARCHOPERATOR_STRING_REGEXMATCH = "str_regexmatch";
 	
 	/**
