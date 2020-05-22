@@ -1684,12 +1684,13 @@ class Server {
 	 *
 	 * @param string $TargetUser Selected account username
 	 * @param string $NewPassword New account password
+	 * @param string $OldPassword Old account password (optional)
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminResetUserPassword($TargetUser, $NewPassword)
+	public function AdminResetUserPassword($TargetUser, $NewPassword, $OldPassword)
 	{
-		$nr = new \Comet\AdminResetUserPasswordRequest($TargetUser, $NewPassword);
+		$nr = new \Comet\AdminResetUserPasswordRequest($TargetUser, $NewPassword, $OldPassword);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminResetUserPasswordRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
