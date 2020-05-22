@@ -1608,12 +1608,13 @@ class Server {
 	 *
 	 * @param string $TargetUser Selected account username
 	 * @param \Comet\EmailReportConfig $EmailReportConfig Email report configuration to preview
+	 * @param string $EmailAddress Email address that may be included in the report body (>= 20.3.3) (optional)
 	 * @return \Comet\EmailReportGeneratedPreview 
 	 * @throws \Exception
 	 */
-	public function AdminPreviewUserEmailReport($TargetUser, EmailReportConfig $EmailReportConfig)
+	public function AdminPreviewUserEmailReport($TargetUser, EmailReportConfig $EmailReportConfig, $EmailAddress = null)
 	{
-		$nr = new \Comet\AdminPreviewUserEmailReportRequest($TargetUser, $EmailReportConfig);
+		$nr = new \Comet\AdminPreviewUserEmailReportRequest($TargetUser, $EmailReportConfig, $EmailAddress);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminPreviewUserEmailReportRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}

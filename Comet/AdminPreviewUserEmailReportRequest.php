@@ -33,15 +33,24 @@ class AdminPreviewUserEmailReportRequest implements \Comet\NetworkRequest {
 	protected $EmailReportConfig = null;
 	
 	/**
+	 * Email address that may be included in the report body (>= 20.3.3) (optional)
+	 *
+	 * @var string|null
+	 */
+	protected $EmailAddress = null;
+	
+	/**
 	 * Construct a new AdminPreviewUserEmailReportRequest instance.
 	 *
 	 * @param string $TargetUser Selected account username
 	 * @param \Comet\EmailReportConfig $EmailReportConfig Email report configuration to preview
+	 * @param string $EmailAddress Email address that may be included in the report body (>= 20.3.3) (optional)
 	 */
-	public function __construct($TargetUser, EmailReportConfig $EmailReportConfig)
+	public function __construct($TargetUser, EmailReportConfig $EmailReportConfig, $EmailAddress = null)
 	{
 		$this->TargetUser = $TargetUser;
 		$this->EmailReportConfig = $EmailReportConfig;
+		$this->EmailAddress = $EmailAddress;
 	}
 	
 	/**
@@ -69,6 +78,9 @@ class AdminPreviewUserEmailReportRequest implements \Comet\NetworkRequest {
 		$ret = [];
 		$ret["TargetUser"] = (string)($this->TargetUser);
 		$ret["EmailReportConfig"] = $this->EmailReportConfig->toJSON();
+		if ($this->EmailAddress !== null) {
+			$ret["EmailAddress"] = (string)($this->EmailAddress);
+		}
 		return $ret;
 	}
 	
