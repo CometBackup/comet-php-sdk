@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## 2020-05-22 v3.3.0
+- Based on Comet 20.5.0
+- Support new `RequirePasswordChange` field in `UserProfileConfig`, and matching parameter on existing `AdminAddUserRequest` API
+- Support new TOTP fields in `UserProfileConfig` and corresponding new `AdminAccountValidateTotp` helper API 
+- Support new `B2` field in `StorageFreeSpaceInfo` class type
+- Support new `AdminDispatcherUninstallSoftware` API, and matching `UninstallConfig` parameter on existing `AdminDeleteUser` API
+- Support new `AdminDispatcherRequestFilesystemObjects` API
+- Support new `AdminDispatcherUpdateLoginUrl` API 
+- Support new `HideCloudStorageBranding`, `RequirePasswordOpenAppUI`, and `ModeRequireUserResetPassword` policy fields in the `UserPolicy` class type
+- Support new case-insensitive search clause operators
+- Support new `EmailAddress` parameter on `AdminPreviewUserEmailReport` API
+- Support new `OldPassword` parameter on `AdminResetUserPassword` API
+
 ## 2020-03-09 v3.2.0
 - Based on Comet 20.2.1
 - Support new `AdminBrandingGenerateClientTest` and `AdminStorageFreeSpace` APIs
