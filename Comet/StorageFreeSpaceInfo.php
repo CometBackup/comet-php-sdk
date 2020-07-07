@@ -3,39 +3,39 @@
 /**
  * Copyright (c) 2018-2020 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
- * 
+ *
  * SPDX-License-Identifier: MIT
  */
 
 namespace Comet;
 
 class StorageFreeSpaceInfo {
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $Unlimited = false;
-	
+
 	/**
-	 * @var \Comet\float32
+	 * @var float
 	 */
 	public $UsedPercent = null;
-	
+
 	/**
 	 * @var int
 	 */
 	public $AvailableBytes = 0;
-	
+
 	/**
 	 * @var \Comet\SpannedStorageExtraInfo
 	 */
 	public $Spanned = null;
-	
+
 	/**
 	 * @var \Comet\B2StorageExtraInfo
 	 */
 	public $B2 = null;
-	
+
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
@@ -43,7 +43,7 @@ class StorageFreeSpaceInfo {
 	 * @var array
 	 */
 	private $__unknown_properties = [];
-	
+
 	/**
 	 * Replace the content of this StorageFreeSpaceInfo object from a PHP \stdClass.
 	 * The data could be supplied from an API call after json_decode(...); or generated manually.
@@ -59,9 +59,9 @@ class StorageFreeSpaceInfo {
 		if (property_exists($sc, 'UsedPercent')) {
 			if (is_array($sc->UsedPercent) && count($sc->UsedPercent) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
-				$this->UsedPercent = \Comet\float32::createFromStdclass(new \stdClass());
+				$this->UsedPercent = 0.0;
 			} else {
-				$this->UsedPercent = \Comet\float32::createFromStdclass($sc->UsedPercent);
+				$this->UsedPercent = (float) $sc->UsedPercent;
 			}
 		}
 		if (property_exists($sc, 'AvailableBytes')) {
@@ -96,7 +96,7 @@ class StorageFreeSpaceInfo {
 			}
 		}
 	}
-	
+
 	/**
 	 * Coerce a stdClass into a new strongly-typed StorageFreeSpaceInfo object.
 	 *
@@ -109,7 +109,7 @@ class StorageFreeSpaceInfo {
 		$retn->inflateFrom($sc);
 		return $retn;
 	}
-	
+
 	/**
 	 * Coerce a plain PHP array into a new strongly-typed StorageFreeSpaceInfo object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
@@ -126,13 +126,13 @@ class StorageFreeSpaceInfo {
 		}
 		return self::createFromStdclass($stdClass);
 	}
-	
+
 	/**
 	 * Coerce a plain PHP array into a new strongly-typed StorageFreeSpaceInfo object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
-	 * @deprecated 3.0.0 Unsafe for round-trip server traversal. You should either 
+	 * @deprecated 3.0.0 Unsafe for round-trip server traversal. You should either
 	 *             (A) acknowledge this and continue by switching to createFromArray, or
 	 *             (b) switch to the roundtrip-safe createFromStdclass alternative.
 	 * @param array $arr Object data as PHP array
@@ -142,7 +142,7 @@ class StorageFreeSpaceInfo {
 	{
 		return self::createFromArray($arr);
 	}
-	
+
 	/**
 	 * Coerce a JSON string into a new strongly-typed StorageFreeSpaceInfo object.
 	 *
@@ -159,7 +159,7 @@ class StorageFreeSpaceInfo {
 		$retn->inflateFrom($decodedJsonObject);
 		return $retn;
 	}
-	
+
 	/**
 	 * Convert this StorageFreeSpaceInfo object into a plain PHP array.
 	 *
@@ -188,15 +188,15 @@ class StorageFreeSpaceInfo {
 		} else {
 			$ret["B2"] = $this->B2->toArray($for_json_encode);
 		}
-		
+
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
 			$ret[$k] = $v;
 		}
-		
+
 		return $ret;
 	}
-	
+
 	/**
 	 * Convert this object to a JSON string.
 	 * The result is suitable to submit to the Comet Server API.
@@ -212,7 +212,7 @@ class StorageFreeSpaceInfo {
 			return json_encode($arr);
 		}
 	}
-	
+
 	/**
 	 * Convert this object to a PHP \stdClass.
 	 * This may be a more convenient format for working with unknown class properties.
@@ -228,7 +228,7 @@ class StorageFreeSpaceInfo {
 			return json_decode(json_encode($arr));
 		}
 	}
-	
+
 	/**
 	 * Erase any preserved object properties that are unknown to this Comet Server SDK.
 	 *
@@ -247,6 +247,6 @@ class StorageFreeSpaceInfo {
 			$this->B2->RemoveUnknownProperties();
 		}
 	}
-	
+
 }
 
