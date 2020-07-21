@@ -358,7 +358,49 @@ class Def {
 	 *
 	 * @type int
 	 */
+	const RESTORETYPE_PROCESS_ARCHIVE = 3;
+	
+	/**
+	 * RestoreType: 
+	 *
+	 * @type int
+	 */
+	const RESTORETYPE_FILE_ARCHIVE = 5;
+	
+	/**
+	 * RestoreType: RESTORETYPE_PROCESS_ARCHIVE
+	 *
+	 * @type int
+	 */
 	const RESTORETYPE_PROCESS_TARBALL = 3;
+	
+	/**
+	 * RestoreArchiveFormat: 
+	 *
+	 * @type int
+	 */
+	const RESTOREARCHIVEFORMAT_TAR = 0;
+	
+	/**
+	 * RestoreArchiveFormat: 
+	 *
+	 * @type int
+	 */
+	const RESTOREARCHIVEFORMAT_TARGZ = 1;
+	
+	/**
+	 * RestoreArchiveFormat: 
+	 *
+	 * @type int
+	 */
+	const RESTOREARCHIVEFORMAT_ZIP = 2;
+	
+	/**
+	 * RestoreArchiveFormat: SquashFS container
+	 *
+	 * @type int
+	 */
+	const RESTOREARCHIVEFORMAT_SQFS = 3;
 	
 	/**
 	 * RetentionMode: If this mode is set in a RetentionPolicy, then RetentionPolicy.Ranges should be ignored.

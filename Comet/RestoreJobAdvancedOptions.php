@@ -27,6 +27,11 @@ class RestoreJobAdvancedOptions {
 	public $DestPath = "";
 	
 	/**
+	 * @var int
+	 */
+	public $ArchiveFormat = 0;
+	
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see RestoreJobAdvancedOptions::RemoveUnknownProperties() Remove all unknown properties
@@ -52,11 +57,15 @@ class RestoreJobAdvancedOptions {
 		if (property_exists($sc, 'DestPath')) {
 			$this->DestPath = (string)($sc->DestPath);
 		}
+		if (property_exists($sc, 'ArchiveFormat')) {
+			$this->ArchiveFormat = (int)($sc->ArchiveFormat);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Type':
 			case 'OverwriteExistingFiles':
 			case 'DestPath':
+			case 'ArchiveFormat':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -141,6 +150,7 @@ class RestoreJobAdvancedOptions {
 		$ret["Type"] = $this->Type;
 		$ret["OverwriteExistingFiles"] = $this->OverwriteExistingFiles;
 		$ret["DestPath"] = $this->DestPath;
+		$ret["ArchiveFormat"] = $this->ArchiveFormat;
 		
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
