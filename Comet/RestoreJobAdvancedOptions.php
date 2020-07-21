@@ -27,6 +27,11 @@ class RestoreJobAdvancedOptions {
 	public $DestPath = "";
 	
 	/**
+	 * @var string[]
+	 */
+	public $ExactDestPaths = [];
+	
+	/**
 	 * @var int
 	 */
 	public $ArchiveFormat = 0;
@@ -57,6 +62,15 @@ class RestoreJobAdvancedOptions {
 		if (property_exists($sc, 'DestPath')) {
 			$this->DestPath = (string)($sc->DestPath);
 		}
+		if (property_exists($sc, 'ExactDestPaths')) {
+			$val_2 = [];
+			if ($sc->ExactDestPaths !== null) {
+				for($i_2 = 0; $i_2 < count($sc->ExactDestPaths); ++$i_2) {
+					$val_2[] = (string)($sc->ExactDestPaths[$i_2]);
+				}
+			}
+			$this->ExactDestPaths = $val_2;
+		}
 		if (property_exists($sc, 'ArchiveFormat')) {
 			$this->ArchiveFormat = (int)($sc->ArchiveFormat);
 		}
@@ -65,6 +79,7 @@ class RestoreJobAdvancedOptions {
 			case 'Type':
 			case 'OverwriteExistingFiles':
 			case 'DestPath':
+			case 'ExactDestPaths':
 			case 'ArchiveFormat':
 				break;
 			default:
@@ -150,6 +165,14 @@ class RestoreJobAdvancedOptions {
 		$ret["Type"] = $this->Type;
 		$ret["OverwriteExistingFiles"] = $this->OverwriteExistingFiles;
 		$ret["DestPath"] = $this->DestPath;
+		{
+			$c0 = [];
+			for($i0 = 0; $i0 < count($this->ExactDestPaths); ++$i0) {
+				$val0 = $this->ExactDestPaths[$i0];
+				$c0[] = $val0;
+			}
+			$ret["ExactDestPaths"] = $c0;
+		}
 		$ret["ArchiveFormat"] = $this->ArchiveFormat;
 		
 		// Reinstate unknown properties from future server versions

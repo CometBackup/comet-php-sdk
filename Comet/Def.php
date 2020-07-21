@@ -365,6 +365,13 @@ class Def {
 	 *
 	 * @type int
 	 */
+	const RESTORETYPE_WINDISK = 4;
+	
+	/**
+	 * RestoreType: 
+	 *
+	 * @type int
+	 */
 	const RESTORETYPE_FILE_ARCHIVE = 5;
 	
 	/**
