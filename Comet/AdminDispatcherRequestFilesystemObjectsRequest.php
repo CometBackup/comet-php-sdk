@@ -27,7 +27,7 @@ class AdminDispatcherRequestFilesystemObjectsRequest implements \Comet\NetworkRe
 	protected $TargetID = null;
 	
 	/**
-	 * Browse objects inside this path, if null and windows device, then returns VFS devices, else return `/` path (optional)
+	 * Browse objects inside this path. If empty or not present, returns the top-level device paths (optional)
 	 *
 	 * @var string|null
 	 */
@@ -37,7 +37,7 @@ class AdminDispatcherRequestFilesystemObjectsRequest implements \Comet\NetworkRe
 	 * Construct a new AdminDispatcherRequestFilesystemObjectsRequest instance.
 	 *
 	 * @param string $TargetID The live connection GUID
-	 * @param string $Path Browse objects inside this path, if null and windows device, then returns VFS devices, else return `/` path (optional)
+	 * @param string $Path Browse objects inside this path. If empty or not present, returns the top-level device paths (optional)
 	 */
 	public function __construct($TargetID, $Path = null)
 	{

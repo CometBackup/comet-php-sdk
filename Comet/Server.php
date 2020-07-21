@@ -843,7 +843,7 @@ class Server {
 	 * This API requires the Auth Role to be enabled.
 	 *
 	 * @param string $TargetID The live connection GUID
-	 * @param string $Path Browse objects inside this path, if null and windows device, then returns VFS devices, else return `/` path (optional)
+	 * @param string $Path Browse objects inside this path. If empty or not present, returns the top-level device paths (optional)
 	 * @return \Comet\StoredObject[] 
 	 * @throws \Exception
 	 */
