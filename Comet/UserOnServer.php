@@ -9,33 +9,28 @@
 
 namespace Comet;
 
-class ConstellationCheckReport {
+class UserOnServer {
 	
 	/**
 	 * @var int
 	 */
-	public $CheckStarted = 0;
+	public $ServerID = 0;
 	
 	/**
-	 * @var int
+	 * @var string
 	 */
-	public $CheckCompleted = 0;
-	
-	/**
-	 * @var \Comet\BucketUsageInfo[] An array with string keys.
-	 */
-	public $Usage = [];
+	public $Username = "";
 	
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
-	 * @see ConstellationCheckReport::RemoveUnknownProperties() Remove all unknown properties
+	 * @see UserOnServer::RemoveUnknownProperties() Remove all unknown properties
 	 * @var array
 	 */
 	private $__unknown_properties = [];
 	
 	/**
-	 * Replace the content of this ConstellationCheckReport object from a PHP \stdClass.
+	 * Replace the content of this UserOnServer object from a PHP \stdClass.
 	 * The data could be supplied from an API call after json_decode(...); or generated manually.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
@@ -43,31 +38,16 @@ class ConstellationCheckReport {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
-		if (property_exists($sc, 'CheckStarted')) {
-			$this->CheckStarted = (int)($sc->CheckStarted);
+		if (property_exists($sc, 'ServerID')) {
+			$this->ServerID = (int)($sc->ServerID);
 		}
-		if (property_exists($sc, 'CheckCompleted')) {
-			$this->CheckCompleted = (int)($sc->CheckCompleted);
-		}
-		if (property_exists($sc, 'Usage')) {
-			$val_2 = [];
-			foreach($sc->Usage as $k_2 => $v_2) {
-				$phpk_2 = (string)($k_2);
-				if (is_array($v_2) && count($v_2) === 0) {
-				// Work around edge case in json_decode--json_encode stdClass conversion
-					$phpv_2 = \Comet\BucketUsageInfo::createFromStdclass(new \stdClass());
-				} else {
-					$phpv_2 = \Comet\BucketUsageInfo::createFromStdclass($v_2);
-				}
-				$val_2[$phpk_2] = $phpv_2;
-			}
-			$this->Usage = $val_2;
+		if (property_exists($sc, 'Username')) {
+			$this->Username = (string)($sc->Username);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
-			case 'CheckStarted':
-			case 'CheckCompleted':
-			case 'Usage':
+			case 'ServerID':
+			case 'Username':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -76,25 +56,25 @@ class ConstellationCheckReport {
 	}
 	
 	/**
-	 * Coerce a stdClass into a new strongly-typed ConstellationCheckReport object.
+	 * Coerce a stdClass into a new strongly-typed UserOnServer object.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
-	 * @return ConstellationCheckReport
+	 * @return UserOnServer
 	 */
 	public static function createFromStdclass(\stdClass $sc)
 	{
-		$retn = new ConstellationCheckReport();
+		$retn = new UserOnServer();
 		$retn->inflateFrom($sc);
 		return $retn;
 	}
 	
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed ConstellationCheckReport object.
+	 * Coerce a plain PHP array into a new strongly-typed UserOnServer object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
 	 * @param array $arr Object data as PHP array
-	 * @return ConstellationCheckReport
+	 * @return UserOnServer
 	 */
 	public static function createFromArray(array $arr)
 	{
@@ -106,7 +86,7 @@ class ConstellationCheckReport {
 	}
 	
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed ConstellationCheckReport object.
+	 * Coerce a plain PHP array into a new strongly-typed UserOnServer object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
@@ -114,7 +94,7 @@ class ConstellationCheckReport {
 	 *             (A) acknowledge this and continue by switching to createFromArray, or
 	 *             (b) switch to the roundtrip-safe createFromStdclass alternative.
 	 * @param array $arr Object data as PHP array
-	 * @return ConstellationCheckReport
+	 * @return UserOnServer
 	 */
 	public static function createFrom(array $arr)
 	{
@@ -122,10 +102,10 @@ class ConstellationCheckReport {
 	}
 	
 	/**
-	 * Coerce a JSON string into a new strongly-typed ConstellationCheckReport object.
+	 * Coerce a JSON string into a new strongly-typed UserOnServer object.
 	 *
 	 * @param string $JsonString Object data as JSON string
-	 * @return ConstellationCheckReport
+	 * @return UserOnServer
 	 */
 	public static function createFromJSON($JsonString)
 	{
@@ -133,13 +113,13 @@ class ConstellationCheckReport {
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg());
 		}
-		$retn = new ConstellationCheckReport();
+		$retn = new UserOnServer();
 		$retn->inflateFrom($decodedJsonObject);
 		return $retn;
 	}
 	
 	/**
-	 * Convert this ConstellationCheckReport object into a plain PHP array.
+	 * Convert this UserOnServer object into a plain PHP array.
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
@@ -149,25 +129,8 @@ class ConstellationCheckReport {
 	public function toArray($for_json_encode = false)
 	{
 		$ret = [];
-		$ret["CheckStarted"] = $this->CheckStarted;
-		$ret["CheckCompleted"] = $this->CheckCompleted;
-		{
-			$c0 = [];
-			foreach($this->Usage as $k0 => $v0) {
-				$ko_0 = $k0;
-				if ( $v0 === null ) {
-					$vo_0 = $for_json_encode ? (object)[] : [];
-				} else {
-					$vo_0 = $v0->toArray($for_json_encode);
-				}
-				$c0[ $ko_0 ] = $vo_0;
-			}
-			if ($for_json_encode && count($c0) == 0) {
-				$ret["Usage"] = (object)[];
-			} else {
-				$ret["Usage"] = $c0;
-			}
-		}
+		$ret["ServerID"] = $this->ServerID;
+		$ret["Username"] = $this->Username;
 		
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
