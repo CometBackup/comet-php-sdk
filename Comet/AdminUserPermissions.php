@@ -22,6 +22,21 @@ class AdminUserPermissions {
 	public $PreventServerShutdown = false;
 	
 	/**
+	 * @var boolean
+	 */
+	public $PreventChangePassword = false;
+	
+	/**
+	 * @var boolean
+	 */
+	public $AllowEditBranding = false;
+	
+	/**
+	 * @var boolean
+	 */
+	public $AllowEditRemoteStorage = false;
+	
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see AdminUserPermissions::RemoveUnknownProperties() Remove all unknown properties
@@ -44,10 +59,22 @@ class AdminUserPermissions {
 		if (property_exists($sc, 'PreventServerShutdown')) {
 			$this->PreventServerShutdown = (bool)($sc->PreventServerShutdown);
 		}
+		if (property_exists($sc, 'PreventChangePassword')) {
+			$this->PreventChangePassword = (bool)($sc->PreventChangePassword);
+		}
+		if (property_exists($sc, 'AllowEditBranding')) {
+			$this->AllowEditBranding = (bool)($sc->AllowEditBranding);
+		}
+		if (property_exists($sc, 'AllowEditRemoteStorage')) {
+			$this->AllowEditRemoteStorage = (bool)($sc->AllowEditRemoteStorage);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'PreventEditServerSettings':
 			case 'PreventServerShutdown':
+			case 'PreventChangePassword':
+			case 'AllowEditBranding':
+			case 'AllowEditRemoteStorage':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -131,6 +158,9 @@ class AdminUserPermissions {
 		$ret = [];
 		$ret["PreventEditServerSettings"] = $this->PreventEditServerSettings;
 		$ret["PreventServerShutdown"] = $this->PreventServerShutdown;
+		$ret["PreventChangePassword"] = $this->PreventChangePassword;
+		$ret["AllowEditBranding"] = $this->AllowEditBranding;
+		$ret["AllowEditRemoteStorage"] = $this->AllowEditRemoteStorage;
 		
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
