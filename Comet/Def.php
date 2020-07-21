@@ -1160,6 +1160,55 @@ class Def {
 	 */
 	const EMAIL_DELIVERY_SMTP_SSL = "smtp-ssl";
 	
+	/**
+	 * StreamableEventType: 
+	 *
+	 * @type int
+	 */
+	const SEVT_META_HELLO = 4000;
+	
+	/**
+	 * StreamableEventType: Data is the profile object
+	 *
+	 * @type int
+	 */
+	const SEVT_ACCOUNT_NEW = 4100;
+	
+	/**
+	 * StreamableEventType: Data is the username
+	 *
+	 * @type int
+	 */
+	const SEVT_ACCOUNT_REMOVED = 4101;
+	
+	/**
+	 * StreamableEventType: Data is the profile object
+	 *
+	 * @type int
+	 */
+	const SEVT_ACCOUNT_UPDATED = 4102;
+	
+	/**
+	 * StreamableEventType: 
+	 *
+	 * @type int
+	 */
+	const SEVT_JOB_NEW = 4200;
+	
+	/**
+	 * StreamableEventType: 
+	 *
+	 * @type int
+	 */
+	const SEVT_JOB_COMPLETED = 4201;
+	
+	/**
+	 * StreamableEventType: Data is the string bucket ref
+	 *
+	 * @type int
+	 */
+	const SEVT_BUCKET_NEW = 4300;
+	
 	
 	/**
 	 * Retrieve a mapping of language codes supported by Comet Server.

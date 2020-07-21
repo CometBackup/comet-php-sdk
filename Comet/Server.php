@@ -1569,6 +1569,38 @@ class Server {
 	}
 
 	/** 
+	 * Get the server webhook configuration
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 *
+	 * @return \Comet\WebhookOption[] An array with string keys. 
+	 * @throws \Exception
+	 */
+	public function AdminMetaWebhookOptionsGet()
+	{
+		$nr = new \Comet\AdminMetaWebhookOptionsGetRequest();
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminMetaWebhookOptionsGetRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Update the server webhook configuration
+	 * Calling this endpoint will interrupt any messages currently queued for existing webhook destinations.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 *
+	 * @param \Comet\WebhookOptions $map[string]WebhookOption A json encoded string of the new webhook target options.
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminMetaWebhookOptionsSet(WebhookOptions $map[string]WebhookOption)
+	{
+		$nr = new \Comet\AdminMetaWebhookOptionsSetRequest($map[string]WebhookOption);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminMetaWebhookOptionsSetRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Get News entries (Admin)
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
