@@ -633,6 +633,11 @@ class Def {
 	/**
 	 * @type string
 	 */
+	const ENGINE_BUILTIN_WINDISK = "engine1/windisk";
+	
+	/**
+	 * @type string
+	 */
 	const ENGINE_BUILTIN_MONGODB = "engine1/mongodb";
 	
 	/**
