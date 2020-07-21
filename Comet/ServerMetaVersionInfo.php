@@ -47,6 +47,11 @@ class ServerMetaVersionInfo {
 	public $ConstellationRole = false;
 	
 	/**
+	 * @var string[]
+	 */
+	public $ExperimentalOptions = [];
+	
+	/**
 	 * @var int
 	 */
 	public $ServerStartTime = 0;
@@ -149,6 +154,15 @@ class ServerMetaVersionInfo {
 		if (property_exists($sc, 'ConstellationRole')) {
 			$this->ConstellationRole = (bool)($sc->ConstellationRole);
 		}
+		if (property_exists($sc, 'ExperimentalOptions')) {
+			$val_2 = [];
+			if ($sc->ExperimentalOptions !== null) {
+				for($i_2 = 0; $i_2 < count($sc->ExperimentalOptions); ++$i_2) {
+					$val_2[] = (string)($sc->ExperimentalOptions[$i_2]);
+				}
+			}
+			$this->ExperimentalOptions = $val_2;
+		}
 		if (property_exists($sc, 'ServerStartTime')) {
 			$this->ServerStartTime = (int)($sc->ServerStartTime);
 		}
@@ -197,6 +211,7 @@ class ServerMetaVersionInfo {
 			case 'SoftwareBuildRole':
 			case 'OverseerRole':
 			case 'ConstellationRole':
+			case 'ExperimentalOptions':
 			case 'ServerStartTime':
 			case 'ServerStartHash':
 			case 'CurrentTime':
@@ -298,6 +313,14 @@ class ServerMetaVersionInfo {
 		$ret["SoftwareBuildRole"] = $this->SoftwareBuildRole;
 		$ret["OverseerRole"] = $this->ConstellationRole_Legacy;
 		$ret["ConstellationRole"] = $this->ConstellationRole;
+		{
+			$c0 = [];
+			for($i0 = 0; $i0 < count($this->ExperimentalOptions); ++$i0) {
+				$val0 = $this->ExperimentalOptions[$i0];
+				$c0[] = $val0;
+			}
+			$ret["ExperimentalOptions"] = $c0;
+		}
 		$ret["ServerStartTime"] = $this->ServerStartTime;
 		$ret["ServerStartHash"] = $this->ServerStartHash;
 		$ret["CurrentTime"] = $this->CurrentTime;
