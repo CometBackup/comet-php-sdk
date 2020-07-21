@@ -785,6 +785,23 @@ class Server {
 	}
 
 	/** 
+	 * Request a list of installed VSS Writers (Application-Aware Writers) from a live connected device
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetID The live connection GUID
+	 * @return \Comet\BrowseVSSResponse 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherRequestBrowseVssAaw($TargetID)
+	{
+		$nr = new \Comet\AdminDispatcherRequestBrowseVssAawRequest($TargetID);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherRequestBrowseVssAawRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Request a list of filesystem objects from a live connected device
 	 * The device must have granted the administrator permission to view its filenames.
 	 * 
