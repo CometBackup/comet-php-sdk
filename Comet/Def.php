@@ -860,6 +860,11 @@ class Def {
 	const UnknownDeviceError = "ERR_UNKNOWN_DEVICE";
 	
 	/**
+	 * @type string
+	 */
+	const TOTPRequiredError = "ERR_TOTP_REQUIRED";
+	
+	/**
 	 * UpdateStatus: 
 	 *
 	 * @type int

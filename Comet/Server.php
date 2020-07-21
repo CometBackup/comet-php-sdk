@@ -620,6 +620,23 @@ class Server {
 	}
 
 	/** 
+	 * Disable user account 2FA(TOTP) authentication
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetUser Selected account username
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminDisableUserTotp($TargetUser)
+	{
+		$nr = new \Comet\AdminDisableUserTotpRequest($TargetUser);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDisableUserTotpRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Instruct a live connected device to apply retention rules now
 	 * This command is understood by Comet Backup 17.6.9 and newer.
 	 * 
