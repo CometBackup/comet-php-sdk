@@ -785,6 +785,23 @@ class Server {
 	}
 
 	/** 
+	 * Request a list of Exchange EDB databases from a live connected device
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetID The live connection GUID
+	 * @return \Comet\BrowseEDBResponse 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherRequestBrowseExchangeEdb($TargetID)
+	{
+		$nr = new \Comet\AdminDispatcherRequestBrowseExchangeEdbRequest($TargetID);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherRequestBrowseExchangeEdbRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Request a list of Hyper-V virtual machines from a live connected device
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
