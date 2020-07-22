@@ -1345,6 +1345,40 @@ class Server {
 	}
 
 	/** 
+	 * Get Branding configuration
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * Access to this API may be prevented on a per-administrator basis.
+	 *
+	 * @return \Comet\ServerConfigOptionsBrandingFragment 
+	 * @throws \Exception
+	 */
+	public function AdminMetaBrandingConfigGet()
+	{
+		$nr = new \Comet\AdminMetaBrandingConfigGetRequest();
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminMetaBrandingConfigGetRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Set Branding configuration
+	 * Note that file resources must be provided using a resource URI I.E `"resource://05ba0b90ee66bda433169581188aba8d29faa938f9464cccd651a02fdf2e5b57"`. See AdminMetaResourceNew for the API documentation to create new file resources.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * Access to this API may be prevented on a per-administrator basis.
+	 *
+	 * @param \Comet\BrandingOptions $BrandingConfig Updated configuration content
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminMetaBrandingConfigSet(BrandingOptions $BrandingConfig)
+	{
+		$nr = new \Comet\AdminMetaBrandingConfigSetRequest($BrandingConfig);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminMetaBrandingConfigSetRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Get Software Build Role configuration
 	 * 
 	 * You must supply administrator authentication credentials to use this API.

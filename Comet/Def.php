@@ -1189,6 +1189,27 @@ class Def {
 	const REMOTESERVER_WASABI = "wasabi";
 	
 	/**
+	 * MacOSCodesignLevel: 
+	 *
+	 * @type int
+	 */
+	const MACOSCODESIGN_LEVEL_SIGN = 0;
+	
+	/**
+	 * MacOSCodesignLevel: 
+	 *
+	 * @type int
+	 */
+	const MACOSCODESIGN_LEVEL_SIGN_NOTARISE = 1;
+	
+	/**
+	 * MacOSCodesignLevel: 
+	 *
+	 * @type int
+	 */
+	const MACOSCODESIGN_LEVEL_SIGN_NOTARISE_STAPLE = 2;
+	
+	/**
 	 * StreamableEventType: 
 	 *
 	 * @type int
