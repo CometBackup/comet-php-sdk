@@ -1378,6 +1378,39 @@ class Server {
 	}
 
 	/** 
+	 * Get Requesting Remote Storage Vault Config
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * Access to this API may be prevented on a per-administrator basis.
+	 *
+	 * @return \Comet\RemoteStorageOption[] 
+	 * @throws \Exception
+	 */
+	public function AdminMetaRemoteStorageVaultGet()
+	{
+		$nr = new \Comet\AdminMetaRemoteStorageVaultGetRequest();
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminMetaRemoteStorageVaultGetRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Set Requestable Remote Storage Vault options
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * Access to this API may be prevented on a per-administrator basis.
+	 *
+	 * @param \Comet\RemoteStorageOption[] $RemoteStorageOptions Updated configuration content
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminMetaRemoteStorageVaultSet(array $RemoteStorageOptions)
+	{
+		$nr = new \Comet\AdminMetaRemoteStorageVaultSetRequest($RemoteStorageOptions);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminMetaRemoteStorageVaultSetRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Get a resource file
 	 * Resources are used to upload files within the server configuration.
 	 * 

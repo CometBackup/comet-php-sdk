@@ -1161,6 +1161,34 @@ class Def {
 	const EMAIL_DELIVERY_SMTP_SSL = "smtp-ssl";
 	
 	/**
+	 * RemoteServerType: 
+	 *
+	 * @type string
+	 */
+	const REMOTESERVER_COMET = "comet";
+	
+	/**
+	 * RemoteServerType: 
+	 *
+	 * @type string
+	 */
+	const REMOTESERVER_LDAP = "ldap";
+	
+	/**
+	 * RemoteServerType: 
+	 *
+	 * @type string
+	 */
+	const REMOTESERVER_B2 = "b2";
+	
+	/**
+	 * RemoteServerType: 
+	 *
+	 * @type string
+	 */
+	const REMOTESERVER_WASABI = "wasabi";
+	
+	/**
 	 * StreamableEventType: 
 	 *
 	 * @type int
