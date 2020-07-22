@@ -1345,6 +1345,39 @@ class Server {
 	}
 
 	/** 
+	 * Get Software Build Role configuration
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * Access to this API may be prevented on a per-administrator basis.
+	 *
+	 * @return \Comet\ServerConfigOptionsSoftwareBuildRoleFragment 
+	 * @throws \Exception
+	 */
+	public function AdminMetaBuildConfigGet()
+	{
+		$nr = new \Comet\AdminMetaBuildConfigGetRequest();
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminMetaBuildConfigGetRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Set Build Role configuration
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * Access to this API may be prevented on a per-administrator basis.
+	 *
+	 * @param \Comet\SoftwareBuildRoleOptions $SoftwareBuildRoleConfig Updated configuration content
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminMetaBuildConfigSet(SoftwareBuildRoleOptions $SoftwareBuildRoleConfig)
+	{
+		$nr = new \Comet\AdminMetaBuildConfigSetRequest($SoftwareBuildRoleConfig);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminMetaBuildConfigSetRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Get log files
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
