@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## 2020-07-22 v3.4.0
+- Based on Comet 20.6.6-rc
+- Support new Disk Image Protected Item type
+- Support restoring files as archive (`RESTORETYPE_FILE_ARCHIVE`) or as physical disk image (`RESTORETYPE_WINDISK`)
+- Support remotely browsing Application-Aware Writers, Exchange EDB databases, Hyper-V VMs, Disk Image drives
+- Support webhooks (configure by submitting `WebhookOption` structs to `AdminMetaWebhookOptions` APIs; webhook target will receive `StreamableEvent` by POST)
+- Support new limited permission APIs to modify server settings (`AdminMetaRemoteStorageVault`, `AdminMetaBuildConfig`, `AdminMetaBrandingConfig`)
+- Support new limited permission flags for admin user accounts (`PreventChangePassword`, `AllowEditBranding`, `AllowEditRemoteStorage`)
+- Support new `AdminDisableUserTotp` API
+- Update field definitions for `ConstellationCheckReport` data structure and its embedded data structures
+- Update description for `AdminDispatcherRequestFilesystemObjects` parameter
+- Fix an issue with incorrect data type marshalling in `AdminU2FRegistration` class `Registration` field
+
 ## 2020-05-22 v3.3.0
 - Based on Comet 20.5.0
 - Support new `RequirePasswordChange` field in `UserProfileConfig`, and matching parameter on existing `AdminAddUserRequest` API
