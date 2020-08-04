@@ -59,4 +59,6 @@ find ./Comet/ -name '*.php' -exec php -l {} \;
 
 ## Getting Help
 
-Please submit issues via the ticket system at [cometbackup.com](https://cometbackup.com/).
+Bug reports and pull requests are welcome on GitHub at [https://github.com/CometBackup/comet-php-sdk](https://github.com/CometBackup/comet-php-sdk).
+
+You may also submit issues via the ticket system at [cometbackup.com](https://cometbackup.com/).
