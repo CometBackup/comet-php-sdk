@@ -1154,7 +1154,7 @@ class Def {
 	 *
 	 * @type string
 	 */
-	const EMAIL_DELIVERY_BUILTIN = "builtin";
+	const EMAIL_DELIVERY_MX_DIRECT = "builtin";
 	
 	/**
 	 * EmailDeliveryType: 
@@ -1169,6 +1169,13 @@ class Def {
 	 * @type string
 	 */
 	const EMAIL_DELIVERY_SMTP_SSL = "smtp-ssl";
+	
+	/**
+	 * EmailDeliveryType: Legacy alias
+	 *
+	 * @type string
+	 */
+	const EMAIL_DELIVERY_BUILTIN = self::EMAIL_DELIVERY_MX_DIRECT ;
 	
 	/**
 	 * RemoteServerType: 
