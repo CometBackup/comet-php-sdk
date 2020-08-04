@@ -172,11 +172,7 @@ class StorageFreeSpaceInfo {
 	{
 		$ret = [];
 		$ret["Unlimited"] = $this->Unlimited;
-		if ( $this->UsedPercent === null ) {
-			$ret["UsedPercent"] = $for_json_encode ? (object)[] : [];
-		} else {
-			$ret["UsedPercent"] = $this->UsedPercent->toArray($for_json_encode);
-		}
+		$ret["UsedPercent"] = $this->UsedPercent;
 		$ret["AvailableBytes"] = $this->AvailableBytes;
 		if ( $this->Spanned === null ) {
 			$ret["Spanned"] = $for_json_encode ? (object)[] : [];
@@ -237,9 +233,6 @@ class StorageFreeSpaceInfo {
 	public function RemoveUnknownProperties()
 	{
 		$this->__unknown_properties = [];
-		if ($this->UsedPercent !== null) {
-			$this->UsedPercent->RemoveUnknownProperties();
-		}
 		if ($this->Spanned !== null) {
 			$this->Spanned->RemoveUnknownProperties();
 		}
