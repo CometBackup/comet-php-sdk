@@ -286,6 +286,16 @@ class Def {
 	const DESTINATIONTYPE_B2 = 1008;
 	
 	/**
+	 * @type int
+	 */
+	const DESTINATIONTYPE_LATEST = 1100;
+	
+	/**
+	 * @type int
+	 */
+	const DESTINATIONTYPE_ALL = 1101;
+	
+	/**
 	 * EmailReportType: 
 	 *
 	 * @type int

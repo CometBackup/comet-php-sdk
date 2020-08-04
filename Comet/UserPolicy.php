@@ -157,6 +157,21 @@ class UserPolicy {
 	public $PreventProtectedItemRetention = false;
 	
 	/**
+	 * @var \Comet\SourceConfig[] An array with string keys.
+	 */
+	public $DefaultSources = [];
+	
+	/**
+	 * @var \Comet\BackupRuleConfig[] An array with string keys.
+	 */
+	public $DefaultSourcesBackupRules = [];
+	
+	/**
+	 * @var \Comet\BackupRuleConfig[] An array with string keys.
+	 */
+	public $DefaultBackupRules = [];
+	
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see UserPolicy::RemoveUnknownProperties() Remove all unknown properties
@@ -291,6 +306,48 @@ class UserPolicy {
 		if (property_exists($sc, 'PreventProtectedItemRetention')) {
 			$this->PreventProtectedItemRetention = (bool)($sc->PreventProtectedItemRetention);
 		}
+		if (property_exists($sc, 'DefaultSources')) {
+			$val_2 = [];
+			foreach($sc->DefaultSources as $k_2 => $v_2) {
+				$phpk_2 = (string)($k_2);
+				if (is_array($v_2) && count($v_2) === 0) {
+				// Work around edge case in json_decode--json_encode stdClass conversion
+					$phpv_2 = \Comet\SourceConfig::createFromStdclass(new \stdClass());
+				} else {
+					$phpv_2 = \Comet\SourceConfig::createFromStdclass($v_2);
+				}
+				$val_2[$phpk_2] = $phpv_2;
+			}
+			$this->DefaultSources = $val_2;
+		}
+		if (property_exists($sc, 'DefaultSourcesBackupRules')) {
+			$val_2 = [];
+			foreach($sc->DefaultSourcesBackupRules as $k_2 => $v_2) {
+				$phpk_2 = (string)($k_2);
+				if (is_array($v_2) && count($v_2) === 0) {
+				// Work around edge case in json_decode--json_encode stdClass conversion
+					$phpv_2 = \Comet\BackupRuleConfig::createFromStdclass(new \stdClass());
+				} else {
+					$phpv_2 = \Comet\BackupRuleConfig::createFromStdclass($v_2);
+				}
+				$val_2[$phpk_2] = $phpv_2;
+			}
+			$this->DefaultSourcesBackupRules = $val_2;
+		}
+		if (property_exists($sc, 'DefaultBackupRules')) {
+			$val_2 = [];
+			foreach($sc->DefaultBackupRules as $k_2 => $v_2) {
+				$phpk_2 = (string)($k_2);
+				if (is_array($v_2) && count($v_2) === 0) {
+				// Work around edge case in json_decode--json_encode stdClass conversion
+					$phpv_2 = \Comet\BackupRuleConfig::createFromStdclass(new \stdClass());
+				} else {
+					$phpv_2 = \Comet\BackupRuleConfig::createFromStdclass($v_2);
+				}
+				$val_2[$phpk_2] = $phpv_2;
+			}
+			$this->DefaultBackupRules = $val_2;
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'PreventRequestStorageVault':
@@ -322,6 +379,9 @@ class UserPolicy {
 			case 'DefaultStorageVaultRetention':
 			case 'EnforceStorageVaultRetention':
 			case 'PreventProtectedItemRetention':
+			case 'DefaultSources':
+			case 'DefaultSourcesBackupRules':
+			case 'DefaultBackupRules':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -459,6 +519,57 @@ class UserPolicy {
 		}
 		$ret["EnforceStorageVaultRetention"] = $this->EnforceStorageVaultRetention;
 		$ret["PreventProtectedItemRetention"] = $this->PreventProtectedItemRetention;
+		{
+			$c0 = [];
+			foreach($this->DefaultSources as $k0 => $v0) {
+				$ko_0 = $k0;
+				if ( $v0 === null ) {
+					$vo_0 = $for_json_encode ? (object)[] : [];
+				} else {
+					$vo_0 = $v0->toArray($for_json_encode);
+				}
+				$c0[ $ko_0 ] = $vo_0;
+			}
+			if ($for_json_encode && count($c0) == 0) {
+				$ret["DefaultSources"] = (object)[];
+			} else {
+				$ret["DefaultSources"] = $c0;
+			}
+		}
+		{
+			$c0 = [];
+			foreach($this->DefaultSourcesBackupRules as $k0 => $v0) {
+				$ko_0 = $k0;
+				if ( $v0 === null ) {
+					$vo_0 = $for_json_encode ? (object)[] : [];
+				} else {
+					$vo_0 = $v0->toArray($for_json_encode);
+				}
+				$c0[ $ko_0 ] = $vo_0;
+			}
+			if ($for_json_encode && count($c0) == 0) {
+				$ret["DefaultSourcesBackupRules"] = (object)[];
+			} else {
+				$ret["DefaultSourcesBackupRules"] = $c0;
+			}
+		}
+		{
+			$c0 = [];
+			foreach($this->DefaultBackupRules as $k0 => $v0) {
+				$ko_0 = $k0;
+				if ( $v0 === null ) {
+					$vo_0 = $for_json_encode ? (object)[] : [];
+				} else {
+					$vo_0 = $v0->toArray($for_json_encode);
+				}
+				$c0[ $ko_0 ] = $vo_0;
+			}
+			if ($for_json_encode && count($c0) == 0) {
+				$ret["DefaultBackupRules"] = (object)[];
+			} else {
+				$ret["DefaultBackupRules"] = $c0;
+			}
+		}
 		
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
