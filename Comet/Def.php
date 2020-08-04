@@ -672,6 +672,20 @@ class Def {
 	const MSSQL_AUTH_NATIVE = "native";
 	
 	/**
+	 * MSSQLMethod: 
+	 *
+	 * @type string
+	 */
+	const MSSQL_METHOD_OLEDB_NATIVE = "OLEDB_NATIVE";
+	
+	/**
+	 * MSSQLMethod: 
+	 *
+	 * @type string
+	 */
+	const MSSQL_METHOD_OLEDB_32 = "OLEDB_32";
+	
+	/**
 	 * StoredObjectType: 
 	 *
 	 * @type string
