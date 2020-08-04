@@ -833,7 +833,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "20.6.6";
+	const APPLICATION_VERSION = "20.6.8";
 	
 	/**
 	 * @type int
@@ -848,7 +848,7 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 6;
+	const APPLICATION_VERSION_REVISION = 8;
 	
 	/**
 	 * @type string
