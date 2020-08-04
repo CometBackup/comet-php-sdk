@@ -21,18 +21,18 @@ class AdminMetaWebhookOptionsSetRequest implements \Comet\NetworkRequest {
 	/**
 	 * A json encoded string of the new webhook target options.
 	 *
-	 * @var \Comet\WebhookOptions
+	 * @var \Comet\WebhookOption[] An array with string keys.
 	 */
-	protected $map[string]WebhookOption = null;
+	protected $WebhookOptions = null;
 	
 	/**
 	 * Construct a new AdminMetaWebhookOptionsSetRequest instance.
 	 *
-	 * @param \Comet\WebhookOptions $map[string]WebhookOption A json encoded string of the new webhook target options.
+	 * @param \Comet\WebhookOption[] An array with string keys. $WebhookOptions A json encoded string of the new webhook target options.
 	 */
-	public function __construct(WebhookOptions $map[string]WebhookOption)
+	public function __construct(array $WebhookOptions)
 	{
-		$this->map[string]WebhookOption = $map[string]WebhookOption;
+		$this->WebhookOptions = $WebhookOptions;
 	}
 	
 	/**
@@ -58,7 +58,7 @@ class AdminMetaWebhookOptionsSetRequest implements \Comet\NetworkRequest {
 	public function Parameters()
 	{
 		$ret = [];
-		$ret["map[string]WebhookOption"] = $this->map[string]WebhookOption->toJSON();
+		$ret["WebhookOptions"] = (string)($this->WebhookOptions);
 		return $ret;
 	}
 	

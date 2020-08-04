@@ -1689,13 +1689,13 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 *
-	 * @param \Comet\WebhookOptions $map[string]WebhookOption A json encoded string of the new webhook target options.
+	 * @param \Comet\WebhookOption[] An array with string keys. $WebhookOptions A json encoded string of the new webhook target options.
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminMetaWebhookOptionsSet(WebhookOptions $map[string]WebhookOption)
+	public function AdminMetaWebhookOptionsSet(array $WebhookOptions)
 	{
-		$nr = new \Comet\AdminMetaWebhookOptionsSetRequest($map[string]WebhookOption);
+		$nr = new \Comet\AdminMetaWebhookOptionsSetRequest($WebhookOptions);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminMetaWebhookOptionsSetRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
