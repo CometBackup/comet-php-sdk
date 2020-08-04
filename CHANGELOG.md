@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 2020-08-05 v3.5.0
+- Based on Comet 20.6.8-rc
+- Support new feature for configuring default Protected Items and default Schedules in Policies
+- Support new Microsoft SQL Server OLE DB method type constants
+- Support new MX Direct email method constant
+- Fix an issue with wrong API name in phpdoc comment for `HybridSessionStartRequest`
+- Fix an issue with type definitions for `WebhookOptions` and for `StorageSpaceFreeInfo->UsedPercent`
+- Fix an issue with statically calling non-static methods in `toJSON` and `toStdClass` methods
+
 ## 2020-07-22 v3.4.0
 - Based on Comet 20.6.6-rc
 - Support new Disk Image Protected Item type
