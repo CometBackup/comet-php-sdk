@@ -1109,7 +1109,7 @@ class Server {
 	}
 
 	/** 
-	 * Get the report log entries for a single job
+	 * Get the report log entries for a single job, in plaintext format
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
@@ -1123,6 +1123,23 @@ class Server {
 		$nr = new \Comet\AdminGetJobLogRequest($JobID);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminGetJobLogRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Get the report log entries for a single job
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $JobID Selected job ID
+	 * @return \Comet\JobEntry[] 
+	 * @throws \Exception
+	 */
+	public function AdminGetJobLogEntries($JobID)
+	{
+		$nr = new \Comet\AdminGetJobLogEntriesRequest($JobID);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminGetJobLogEntriesRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
 
 	/** 

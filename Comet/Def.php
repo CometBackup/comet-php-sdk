@@ -314,21 +314,21 @@ class Def {
 	 *
 	 * @type string
 	 */
-	const SEVERITY_INFO = 'I';
+	const SEVERITY_INFO = "I";
 	
 	/**
 	 * Severity: 
 	 *
 	 * @type string
 	 */
-	const SEVERITY_WARNING = 'W';
+	const SEVERITY_WARNING = "W";
 	
 	/**
 	 * Severity: 
 	 *
 	 * @type string
 	 */
-	const SEVERITY_ERROR = 'E';
+	const SEVERITY_ERROR = "E";
 	
 	/**
 	 * @type int
