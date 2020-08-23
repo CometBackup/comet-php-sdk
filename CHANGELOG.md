@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2020-08-24 v3.6.0
+- Based on Comet 20.8.0
+- Support new AdminGetJobLogEntries endpoint
+
 ## 2020-08-05 v3.5.0
 - Based on Comet 20.6.8-rc
 - Support new feature for configuring default Protected Items and default Schedules in Policies
