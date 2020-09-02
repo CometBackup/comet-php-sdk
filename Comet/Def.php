@@ -1256,7 +1256,7 @@ class Def {
 	const MACOSCODESIGN_LEVEL_SIGN_NOTARISE_STAPLE = 2;
 	
 	/**
-	 * StreamableEventType: 
+	 * StreamableEventType: Event is emitted when the webhook is registered, or when the server starts up. The Data associated is ServerMetaVersionInfo
 	 *
 	 * @type int
 	 */
