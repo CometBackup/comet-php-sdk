@@ -19,7 +19,7 @@ namespace Comet;
 class AdminMetaWebhookOptionsSetRequest implements \Comet\NetworkRequest {
 	
 	/**
-	 * A json encoded string of the new webhook target options.
+	 * The replacement webhook target options.
 	 *
 	 * @var \Comet\WebhookOption[] An array with string keys.
 	 */
@@ -28,7 +28,7 @@ class AdminMetaWebhookOptionsSetRequest implements \Comet\NetworkRequest {
 	/**
 	 * Construct a new AdminMetaWebhookOptionsSetRequest instance.
 	 *
-	 * @param \Comet\WebhookOption[] An array with string keys. $WebhookOptions A json encoded string of the new webhook target options.
+	 * @param \Comet\WebhookOption[] An array with string keys. $WebhookOptions The replacement webhook target options.
 	 */
 	public function __construct(array $WebhookOptions)
 	{

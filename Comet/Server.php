@@ -1706,7 +1706,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 *
-	 * @param \Comet\WebhookOption[] An array with string keys. $WebhookOptions A json encoded string of the new webhook target options.
+	 * @param \Comet\WebhookOption[] An array with string keys. $WebhookOptions The replacement webhook target options.
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
