@@ -1220,6 +1220,21 @@ class Def {
 	const REMOTESERVER_WASABI = "wasabi";
 	
 	/**
+	 * @type string
+	 */
+	const LDAPSECURITYMETHOD_PLAIN = "plain";
+	
+	/**
+	 * @type string
+	 */
+	const LDAPSECURITYMETHOD_LDAPS = "ldaps";
+	
+	/**
+	 * @type string
+	 */
+	const LDAPSECURITYMETHOD_STARTTLS = "starttls";
+	
+	/**
 	 * MacOSCodesignLevel: 
 	 *
 	 * @type int
