@@ -59,12 +59,12 @@ class Server {
 		// Construct a GuzzleHttp client using its default options.
 		// The client can be customised later {@see setClient()}.
 		$this->client = new \GuzzleHttp\Client([
-			'defaults' => [
-				'headers' => [
-					'User-Agent' => 'comet-php-sdk/1.x',
-				],
-				'allow_redirects' => false,
+			'headers' => [
+				'User-Agent' => 'comet-php-sdk/1.x',
+				'Accept-Encoding' => 'gzip',
 			],
+			'allow_redirects' => false,
+			'decode_content' => true,
 		]);
 	}
 
