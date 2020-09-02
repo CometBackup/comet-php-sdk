@@ -58,9 +58,26 @@ class AdminMetaWebhookOptionsSetRequest implements \Comet\NetworkRequest {
 	public function Parameters()
 	{
 		$ret = [];
-		$ret["WebhookOptions"] = json_encode(array_map(function ($webhookOption) {
-            return $webhookOption->toArray();
-        }, $this->WebhookOptions));
+		{
+			$c0 = [];
+			foreach($this->WebhookOptions as $k0 => $v0) {
+				$ko_0 = $k0;
+				
+				if ( $v0 === null ) {
+					$vo_0 = true ? (object)[] : [];
+				} else {
+					$vo_0 = $v0->toArray(true);
+				}
+				
+				$c0[ $ko_0 ] = $vo_0;
+			}
+			if (count($c0) == 0) {
+				$ret["WebhookOptions"] = '[]';
+			} else {
+				$ret["WebhookOptions"] = json_encode($c0);
+			}
+		}
+		
 		return $ret;
 	}
 	

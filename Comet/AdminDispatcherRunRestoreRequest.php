@@ -112,7 +112,16 @@ class AdminDispatcherRunRestoreRequest implements \Comet\NetworkRequest {
 			$ret["Snapshot"] = (string)($this->Snapshot);
 		}
 		if ($this->Paths !== null) {
-			$ret["Paths"] = (string)($this->Paths);
+			{
+				$c0 = [];
+				for($i0 = 0; $i0 < count($this->Paths); ++$i0) {
+					$val0 = $this->Paths[$i0];
+					
+					$c0[] = $val0;
+				}
+				$ret["Paths"] = json_encode($c0);
+			}
+			
 		}
 		return $ret;
 	}
