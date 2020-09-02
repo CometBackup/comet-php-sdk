@@ -134,6 +134,11 @@ class ExampleTest extends \PHPUnit\Framework\TestCase {
 		for ($i = 0; $i < 20; ++$i) { // max wait=10s
 			try {
 				$inf = $this->server->AdminMetaVersion();
+				if ($inf->ServerStartTime === $current_server_start_time) {
+					// The server hasn't restarted yet	
+					usleep(500000); // 500ms
+					continue; // suppress
+				}
 
 				$back_online = true;
 				break; // success
