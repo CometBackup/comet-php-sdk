@@ -68,7 +68,7 @@ class AdminDispatcherUninstallSoftwareRequest implements \Comet\NetworkRequest {
 	{
 		$ret = [];
 		$ret["TargetID"] = (string)($this->TargetID);
-		$ret["RemoveConfigFile"] = (string)($this->RemoveConfigFile);
+		$ret["RemoveConfigFile"] = ($this->RemoveConfigFile ? '1' : '0');
 		return $ret;
 	}
 	

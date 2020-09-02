@@ -58,7 +58,7 @@ class AdminMetaStatsRequest implements \Comet\NetworkRequest {
 	public function Parameters()
 	{
 		$ret = [];
-		$ret["Simple"] = (string)($this->Simple);
+		$ret["Simple"] = ($this->Simple ? '1' : '0');
 		return $ret;
 	}
 	
