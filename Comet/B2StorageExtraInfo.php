@@ -35,15 +35,17 @@ class B2StorageExtraInfo {
 	{
 		if (property_exists($sc, 'TotalTransactionsInTimeInterval')) {
 			$val_2 = [];
-			foreach($sc->TotalTransactionsInTimeInterval as $k_2 => $v_2) {
-				$phpk_2 = (int)($k_2);
-				if (is_array($v_2) && count($v_2) === 0) {
-				// Work around edge case in json_decode--json_encode stdClass conversion
-					$phpv_2 = \Comet\B2TransactionTotals::createFromStdclass(new \stdClass());
-				} else {
-					$phpv_2 = \Comet\B2TransactionTotals::createFromStdclass($v_2);
+			if ($sc->TotalTransactionsInTimeInterval !== null) {
+				foreach($sc->TotalTransactionsInTimeInterval as $k_2 => $v_2) {
+					$phpk_2 = (int)($k_2);
+					if (is_array($v_2) && count($v_2) === 0) {
+					// Work around edge case in json_decode--json_encode stdClass conversion
+						$phpv_2 = \Comet\B2TransactionTotals::createFromStdclass(new \stdClass());
+					} else {
+						$phpv_2 = \Comet\B2TransactionTotals::createFromStdclass($v_2);
+					}
+					$val_2[$phpk_2] = $phpv_2;
 				}
-				$val_2[$phpk_2] = $phpv_2;
 			}
 			$this->TotalTransactionsInTimeInterval = $val_2;
 		}

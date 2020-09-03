@@ -51,10 +51,12 @@ class DispatcherAdminSourcesResponse {
 		}
 		if (property_exists($sc, 'ImportSources')) {
 			$val_2 = [];
-			foreach($sc->ImportSources as $k_2 => $v_2) {
-				$phpk_2 = (string)($k_2);
-				$phpv_2 = (string)($v_2);
-				$val_2[$phpk_2] = $phpv_2;
+			if ($sc->ImportSources !== null) {
+				foreach($sc->ImportSources as $k_2 => $v_2) {
+					$phpk_2 = (string)($k_2);
+					$phpv_2 = (string)($v_2);
+					$val_2[$phpk_2] = $phpv_2;
+				}
 			}
 			$this->ImportSources = $val_2;
 		}

@@ -51,15 +51,17 @@ class SourceBasicInfo {
 		}
 		if (property_exists($sc, 'OverrideDestinationRetention')) {
 			$val_2 = [];
-			foreach($sc->OverrideDestinationRetention as $k_2 => $v_2) {
-				$phpk_2 = (string)($k_2);
-				if (is_array($v_2) && count($v_2) === 0) {
-				// Work around edge case in json_decode--json_encode stdClass conversion
-					$phpv_2 = \Comet\RetentionPolicy::createFromStdclass(new \stdClass());
-				} else {
-					$phpv_2 = \Comet\RetentionPolicy::createFromStdclass($v_2);
+			if ($sc->OverrideDestinationRetention !== null) {
+				foreach($sc->OverrideDestinationRetention as $k_2 => $v_2) {
+					$phpk_2 = (string)($k_2);
+					if (is_array($v_2) && count($v_2) === 0) {
+					// Work around edge case in json_decode--json_encode stdClass conversion
+						$phpv_2 = \Comet\RetentionPolicy::createFromStdclass(new \stdClass());
+					} else {
+						$phpv_2 = \Comet\RetentionPolicy::createFromStdclass($v_2);
+					}
+					$val_2[$phpk_2] = $phpv_2;
 				}
-				$val_2[$phpk_2] = $phpv_2;
 			}
 			$this->OverrideDestinationRetention = $val_2;
 		}

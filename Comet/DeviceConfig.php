@@ -56,15 +56,17 @@ class DeviceConfig {
 		}
 		if (property_exists($sc, 'Sources')) {
 			$val_2 = [];
-			foreach($sc->Sources as $k_2 => $v_2) {
-				$phpk_2 = (string)($k_2);
-				if (is_array($v_2) && count($v_2) === 0) {
-				// Work around edge case in json_decode--json_encode stdClass conversion
-					$phpv_2 = \Comet\SourceBasicInfo::createFromStdclass(new \stdClass());
-				} else {
-					$phpv_2 = \Comet\SourceBasicInfo::createFromStdclass($v_2);
+			if ($sc->Sources !== null) {
+				foreach($sc->Sources as $k_2 => $v_2) {
+					$phpk_2 = (string)($k_2);
+					if (is_array($v_2) && count($v_2) === 0) {
+					// Work around edge case in json_decode--json_encode stdClass conversion
+						$phpv_2 = \Comet\SourceBasicInfo::createFromStdclass(new \stdClass());
+					} else {
+						$phpv_2 = \Comet\SourceBasicInfo::createFromStdclass($v_2);
+					}
+					$val_2[$phpk_2] = $phpv_2;
 				}
-				$val_2[$phpk_2] = $phpv_2;
 			}
 			$this->Sources = $val_2;
 		}

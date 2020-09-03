@@ -308,43 +308,49 @@ class UserPolicy {
 		}
 		if (property_exists($sc, 'DefaultSources')) {
 			$val_2 = [];
-			foreach($sc->DefaultSources as $k_2 => $v_2) {
-				$phpk_2 = (string)($k_2);
-				if (is_array($v_2) && count($v_2) === 0) {
-				// Work around edge case in json_decode--json_encode stdClass conversion
-					$phpv_2 = \Comet\SourceConfig::createFromStdclass(new \stdClass());
-				} else {
-					$phpv_2 = \Comet\SourceConfig::createFromStdclass($v_2);
+			if ($sc->DefaultSources !== null) {
+				foreach($sc->DefaultSources as $k_2 => $v_2) {
+					$phpk_2 = (string)($k_2);
+					if (is_array($v_2) && count($v_2) === 0) {
+					// Work around edge case in json_decode--json_encode stdClass conversion
+						$phpv_2 = \Comet\SourceConfig::createFromStdclass(new \stdClass());
+					} else {
+						$phpv_2 = \Comet\SourceConfig::createFromStdclass($v_2);
+					}
+					$val_2[$phpk_2] = $phpv_2;
 				}
-				$val_2[$phpk_2] = $phpv_2;
 			}
 			$this->DefaultSources = $val_2;
 		}
 		if (property_exists($sc, 'DefaultSourcesBackupRules')) {
 			$val_2 = [];
-			foreach($sc->DefaultSourcesBackupRules as $k_2 => $v_2) {
-				$phpk_2 = (string)($k_2);
-				if (is_array($v_2) && count($v_2) === 0) {
-				// Work around edge case in json_decode--json_encode stdClass conversion
-					$phpv_2 = \Comet\BackupRuleConfig::createFromStdclass(new \stdClass());
-				} else {
-					$phpv_2 = \Comet\BackupRuleConfig::createFromStdclass($v_2);
+			if ($sc->DefaultSourcesBackupRules !== null) {
+				foreach($sc->DefaultSourcesBackupRules as $k_2 => $v_2) {
+					$phpk_2 = (string)($k_2);
+					if (is_array($v_2) && count($v_2) === 0) {
+					// Work around edge case in json_decode--json_encode stdClass conversion
+						$phpv_2 = \Comet\BackupRuleConfig::createFromStdclass(new \stdClass());
+					} else {
+						$phpv_2 = \Comet\BackupRuleConfig::createFromStdclass($v_2);
+					}
+					$val_2[$phpk_2] = $phpv_2;
 				}
-				$val_2[$phpk_2] = $phpv_2;
 			}
 			$this->DefaultSourcesBackupRules = $val_2;
 		}
 		if (property_exists($sc, 'DefaultBackupRules')) {
 			$val_2 = [];
-			foreach($sc->DefaultBackupRules as $k_2 => $v_2) {
-				$phpk_2 = (string)($k_2);
-				if (is_array($v_2) && count($v_2) === 0) {
-				// Work around edge case in json_decode--json_encode stdClass conversion
-					$phpv_2 = \Comet\BackupRuleConfig::createFromStdclass(new \stdClass());
-				} else {
-					$phpv_2 = \Comet\BackupRuleConfig::createFromStdclass($v_2);
+			if ($sc->DefaultBackupRules !== null) {
+				foreach($sc->DefaultBackupRules as $k_2 => $v_2) {
+					$phpk_2 = (string)($k_2);
+					if (is_array($v_2) && count($v_2) === 0) {
+					// Work around edge case in json_decode--json_encode stdClass conversion
+						$phpv_2 = \Comet\BackupRuleConfig::createFromStdclass(new \stdClass());
+					} else {
+						$phpv_2 = \Comet\BackupRuleConfig::createFromStdclass($v_2);
+					}
+					$val_2[$phpk_2] = $phpv_2;
 				}
-				$val_2[$phpk_2] = $phpv_2;
 			}
 			$this->DefaultBackupRules = $val_2;
 		}
