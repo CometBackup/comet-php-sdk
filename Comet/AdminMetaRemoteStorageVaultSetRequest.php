@@ -61,11 +61,7 @@ class AdminMetaRemoteStorageVaultSetRequest implements \Comet\NetworkRequest {
 		{
 			$c0 = [];
 			for($i0 = 0; $i0 < count($this->RemoteStorageOptions); ++$i0) {
-				if ( $this->RemoteStorageOptions[$i0] === null ) {
-					$val0 = true ? (object)[] : [];
-				} else {
-					$val0 = $this->RemoteStorageOptions[$i0]->toArray(true);
-				}
+				$val0 = $this->RemoteStorageOptions[$i0]->toArray(true);
 				
 				$c0[] = $val0;
 			}

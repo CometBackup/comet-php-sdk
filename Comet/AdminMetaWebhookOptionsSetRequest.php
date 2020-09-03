@@ -63,11 +63,7 @@ class AdminMetaWebhookOptionsSetRequest implements \Comet\NetworkRequest {
 			foreach($this->WebhookOptions as $k0 => $v0) {
 				$ko_0 = $k0;
 				
-				if ( $v0 === null ) {
-					$vo_0 = true ? (object)[] : [];
-				} else {
-					$vo_0 = $v0->toArray(true);
-				}
+				$vo_0 = $v0->toArray(true);
 				
 				$c0[ $ko_0 ] = $vo_0;
 			}
