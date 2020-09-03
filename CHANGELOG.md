@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## 2020-09-03 v3.7.0
+- Add definitions for B2/Wasabi direct to cloud storage
+- Add definitions for remote LDAP servers
+- Use gzip content-encoding for all response bodies
+- Update descriptions for `SEVT_META_HELLO` and `AdminMetaWebhookOptionsSet`
+- Fix an issue with submitting boolean, array, and map parameters to the Comet Server
+- Fix an issue with receiving 2xx status codes other than 200
+- Fix an issue with interpreting null parameters where an array or key-value map was expected in the response
+- Fix an issue with running the test suite against current versions of Comet Server
+- Fix an issue with not properly configuring a custom SDK User-Agent for API requests
+
 ## 2020-08-24 v3.6.0
 - Based on Comet 20.8.0
 - Support new AdminGetJobLogEntries endpoint
