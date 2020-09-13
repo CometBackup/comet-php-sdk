@@ -2204,7 +2204,7 @@ class Server {
 	 * @param NetworkRequest $nr
 	 * @return \Psr\Http\Message\RequestInterface
 	 */
-	public function AsPSR7(NetworkRequest $nr, $TOTPCode = '') {
+	public function AsPSR7(NetworkRequest $nr) {
 		$params = $nr->Parameters();
 		$params['Username'] = $this->username;
 		$params['AuthType'] = 'Password';
