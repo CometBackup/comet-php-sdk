@@ -620,6 +620,26 @@ class Server {
 	}
 
 	/** 
+	 * Create token for silent installation (Windows only)
+	 * Provide the installation token to silently install the client on windows `install.exe /TOKEN=<installtoken>`
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetUser Selected account username
+	 * @param string $TargetPassword Selected account password
+	 * @param string $Server External URL of the authentication server that is different from the current server (optional)
+	 * @return \Comet\InstallTokenResponse 
+	 * @throws \Exception
+	 */
+	public function AdminCreateInstallToken($TargetUser, $TargetPassword, $Server = null)
+	{
+		$nr = new \Comet\AdminCreateInstallTokenRequest($TargetUser, $TargetPassword, $Server);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminCreateInstallTokenRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Delete user account
 	 * This does not remove any storage buckets. Unused storage buckets will be cleaned up by the Constellation Role.
 	 * Any stored data can not be decrypted without the user profile. Misuse can cause data loss!
