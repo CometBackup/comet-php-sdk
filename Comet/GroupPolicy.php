@@ -17,6 +17,11 @@ class GroupPolicy {
 	public $Description = "";
 	
 	/**
+	 * @var string
+	 */
+	public $OrganizationID = "";
+	
+	/**
 	 * @var \Comet\UserPolicy
 	 */
 	public $Policy = null;
@@ -46,6 +51,9 @@ class GroupPolicy {
 		if (property_exists($sc, 'Description')) {
 			$this->Description = (string)($sc->Description);
 		}
+		if (property_exists($sc, 'OrganizationID')) {
+			$this->OrganizationID = (string)($sc->OrganizationID);
+		}
 		if (property_exists($sc, 'Policy')) {
 			if (is_array($sc->Policy) && count($sc->Policy) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
@@ -60,6 +68,7 @@ class GroupPolicy {
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Description':
+			case 'OrganizationID':
 			case 'Policy':
 			case 'DefaultUserPolicy':
 				break;
@@ -144,6 +153,7 @@ class GroupPolicy {
 	{
 		$ret = [];
 		$ret["Description"] = $this->Description;
+		$ret["OrganizationID"] = $this->OrganizationID;
 		if ( $this->Policy === null ) {
 			$ret["Policy"] = $for_json_encode ? (object)[] : [];
 		} else {

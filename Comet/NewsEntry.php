@@ -12,6 +12,11 @@ namespace Comet;
 class NewsEntry {
 	
 	/**
+	 * @var string
+	 */
+	public $OrganizationID = "";
+	
+	/**
 	 * @var int
 	 */
 	public $DateTime = 0;
@@ -38,6 +43,9 @@ class NewsEntry {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
+		if (property_exists($sc, 'OrganizationID')) {
+			$this->OrganizationID = (string)($sc->OrganizationID);
+		}
 		if (property_exists($sc, 'DateTime')) {
 			$this->DateTime = (int)($sc->DateTime);
 		}
@@ -46,6 +54,7 @@ class NewsEntry {
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
+			case 'OrganizationID':
 			case 'DateTime':
 			case 'TextContent':
 				break;
@@ -129,6 +138,7 @@ class NewsEntry {
 	public function toArray($for_json_encode = false)
 	{
 		$ret = [];
+		$ret["OrganizationID"] = $this->OrganizationID;
 		$ret["DateTime"] = $this->DateTime;
 		$ret["TextContent"] = $this->TextContent;
 		

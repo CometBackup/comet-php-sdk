@@ -12,6 +12,11 @@ namespace Comet;
 class StreamableEvent {
 	
 	/**
+	 * @var string
+	 */
+	public $OwnerOrganizationID = "";
+	
+	/**
 	 * @var int
 	 */
 	public $Type = 0;
@@ -38,6 +43,9 @@ class StreamableEvent {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
+		if (property_exists($sc, 'OwnerOrganizationID')) {
+			$this->OwnerOrganizationID = (string)($sc->OwnerOrganizationID);
+		}
 		if (property_exists($sc, 'Type')) {
 			$this->Type = (int)($sc->Type);
 		}
@@ -46,6 +54,7 @@ class StreamableEvent {
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
+			case 'OwnerOrganizationID':
 			case 'Type':
 			case 'Data':
 				break;
@@ -129,6 +138,7 @@ class StreamableEvent {
 	public function toArray($for_json_encode = false)
 	{
 		$ret = [];
+		$ret["OwnerOrganizationID"] = $this->OwnerOrganizationID;
 		$ret["Type"] = $this->Type;
 		$ret["Data"] = $this->Data;
 		

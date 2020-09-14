@@ -12,6 +12,11 @@ namespace Comet;
 class AdminAccountPropertiesResponse {
 	
 	/**
+	 * @var string
+	 */
+	public $OrganizationID = "";
+	
+	/**
 	 * @var \Comet\AdminUserPermissions
 	 */
 	public $Permissions = null;
@@ -38,6 +43,9 @@ class AdminAccountPropertiesResponse {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
+		if (property_exists($sc, 'OrganizationID')) {
+			$this->OrganizationID = (string)($sc->OrganizationID);
+		}
 		if (property_exists($sc, 'Permissions')) {
 			if (is_array($sc->Permissions) && count($sc->Permissions) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
@@ -56,6 +64,7 @@ class AdminAccountPropertiesResponse {
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
+			case 'OrganizationID':
 			case 'Permissions':
 			case 'Security':
 				break;
@@ -139,6 +148,7 @@ class AdminAccountPropertiesResponse {
 	public function toArray($for_json_encode = false)
 	{
 		$ret = [];
+		$ret["OrganizationID"] = $this->OrganizationID;
 		if ( $this->Permissions === null ) {
 			$ret["Permissions"] = $for_json_encode ? (object)[] : [];
 		} else {

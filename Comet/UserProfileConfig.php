@@ -32,6 +32,11 @@ class UserProfileConfig {
 	public $LanguageCode = "";
 	
 	/**
+	 * @var string
+	 */
+	public $OrganizationID = "";
+	
+	/**
 	 * @var string[]
 	 */
 	public $Emails = [];
@@ -174,6 +179,9 @@ class UserProfileConfig {
 		}
 		if (property_exists($sc, 'LanguageCode')) {
 			$this->LanguageCode = (string)($sc->LanguageCode);
+		}
+		if (property_exists($sc, 'OrganizationID')) {
+			$this->OrganizationID = (string)($sc->OrganizationID);
 		}
 		if (property_exists($sc, 'Emails')) {
 			$val_2 = [];
@@ -326,6 +334,7 @@ class UserProfileConfig {
 			case 'AccountName':
 			case 'LocalTimezone':
 			case 'LanguageCode':
+			case 'OrganizationID':
 			case 'Emails':
 			case 'OverrideEmailSettings':
 			case 'SendEmailReports':
@@ -434,6 +443,7 @@ class UserProfileConfig {
 		$ret["AccountName"] = $this->AccountName;
 		$ret["LocalTimezone"] = $this->LocalTimezone;
 		$ret["LanguageCode"] = $this->LanguageCode;
+		$ret["OrganizationID"] = $this->OrganizationID;
 		{
 			$c0 = [];
 			for($i0 = 0; $i0 < count($this->Emails); ++$i0) {

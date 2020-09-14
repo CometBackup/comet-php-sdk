@@ -12,6 +12,11 @@ namespace Comet;
 class BucketProperties {
 	
 	/**
+	 * @var string
+	 */
+	public $OrganizationID = "";
+	
+	/**
 	 * @var int
 	 */
 	public $CreateTime = 0;
@@ -48,6 +53,9 @@ class BucketProperties {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
+		if (property_exists($sc, 'OrganizationID')) {
+			$this->OrganizationID = (string)($sc->OrganizationID);
+		}
 		if (property_exists($sc, 'CreateTime')) {
 			$this->CreateTime = (int)($sc->CreateTime);
 		}
@@ -67,6 +75,7 @@ class BucketProperties {
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
+			case 'OrganizationID':
 			case 'CreateTime':
 			case 'ReadWriteKeyFormat':
 			case 'ReadWriteKey':
@@ -152,6 +161,7 @@ class BucketProperties {
 	public function toArray($for_json_encode = false)
 	{
 		$ret = [];
+		$ret["OrganizationID"] = $this->OrganizationID;
 		$ret["CreateTime"] = $this->CreateTime;
 		$ret["ReadWriteKeyFormat"] = $this->ReadWriteKeyFormat;
 		$ret["ReadWriteKey"] = $this->ReadWriteKey;
