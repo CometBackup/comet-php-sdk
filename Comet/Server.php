@@ -2209,9 +2209,9 @@ class Server {
 		$params['Username'] = $this->username;
 		$params['AuthType'] = 'Password';
 		$params['Password'] = $this->password;
-		if((strlen($TOTPCode) > 0) || (strlen($this->TOTPCode) > 0)) {
+		if(strlen($this->TOTPCode) > 0) {
 			$params['AuthType'] = 'PasswordTOTP';
-			$params['TOTP'] = (strlen($TOTPCode) > 0 ? $TOTPCode : $this->TOTPCode);
+			$params['TOTP'] = $this->TOTPCode;
 		}
 
 		return new \GuzzleHttp\Psr7\Request(
