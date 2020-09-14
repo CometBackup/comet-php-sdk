@@ -36,12 +36,12 @@ class Server {
 	 */
 	protected $password = '';
 
-        /**
+	/**
 	 * The TOTP code for administrative API requests to the Comet Server
 	 *
 	 * @var string
 	 */
-        protected $TOTPCode = '';
+	protected $TOTPCode = '';
 
 	/**
 	 * The GuzzleHttp client used to make synchronous network requests
@@ -91,8 +91,7 @@ class Server {
 	 * @param string $TOTPCode
 	 * @return void
 	 */
-	public function setTOTPCode($TOTPCode)
-	{
+	public function setTOTPCode($TOTPCode) {
 		$this->TOTPCode = $TOTPCode;
 	}
 
@@ -2209,9 +2208,9 @@ class Server {
 		$params['Username'] = $this->username;
 		$params['AuthType'] = 'Password';
 		$params['Password'] = $this->password;
-		if(strlen($this->TOTPCode) > 0) {
+		if (strlen($this->TOTPCode) > 0) {
 			$params['AuthType'] = 'PasswordTOTP';
-			$params['TOTP'] = $this->TOTPCode;
+			$params['TOTP']     = $this->TOTPCode;
 		}
 
 		return new \GuzzleHttp\Psr7\Request(
