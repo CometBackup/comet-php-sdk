@@ -16,6 +16,7 @@ namespace Comet;
  * This API does not automatically convert line endings; around the 18.3.2 timeframe, log content may even contain mixed line-endings.
  * 
  * You must supply administrator authentication credentials to use this API.
+ * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
  */
 class AdminMetaReadLogsRequest implements \Comet\NetworkRequest {
 	

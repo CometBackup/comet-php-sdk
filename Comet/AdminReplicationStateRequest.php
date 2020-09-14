@@ -14,6 +14,7 @@ namespace Comet;
  * Get Replication status
  * 
  * You must supply administrator authentication credentials to use this API.
+ * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
  */
 class AdminReplicationStateRequest implements \Comet\NetworkRequest {
 	

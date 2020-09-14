@@ -14,6 +14,7 @@ namespace Comet;
  * Get Constellation status
  * 
  * You must supply administrator authentication credentials to use this API.
+ * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
  * This API requires the Constellation Role to be enabled.
  */
 class AdminConstellationStatusRequest implements \Comet\NetworkRequest {

@@ -15,6 +15,7 @@ namespace Comet;
  * 
  * You must supply administrator authentication credentials to use this API.
  * Access to this API may be prevented on a per-administrator basis.
+ * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
  */
 class AdminMetaServerConfigGetRequest implements \Comet\NetworkRequest {
 	

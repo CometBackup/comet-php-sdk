@@ -14,6 +14,7 @@ namespace Comet;
  * Get current campaign status
  * 
  * You must supply administrator authentication credentials to use this API.
+ * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
  * This API requires the Software Build Role to be enabled.
  * This API requires the Auth Role to be enabled.
  */
