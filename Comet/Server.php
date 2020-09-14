@@ -1872,6 +1872,58 @@ class Server {
 	}
 
 	/** 
+	 * Delete an organization and all related users
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
+	 *
+	 * @param string $OrganizationID (No description available) (optional)
+	 * @param \Comet\UninstallConfig $UninstallConfig Uninstall software configuration (optional)
+	 * @return \Comet\OrganizationResponse 
+	 * @throws \Exception
+	 */
+	public function AdminOrganizationDelete($OrganizationID = null, UninstallConfig $UninstallConfig = null)
+	{
+		$nr = new \Comet\AdminOrganizationDeleteRequest($OrganizationID, $UninstallConfig);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminOrganizationDeleteRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * List Organizations
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
+	 *
+	 * @return \Comet\Organization[] An array with string keys. 
+	 * @throws \Exception
+	 */
+	public function AdminOrganizationList()
+	{
+		$nr = new \Comet\AdminOrganizationListRequest();
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminOrganizationListRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Create or Update an Organization
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
+	 *
+	 * @param string $OrganizationID (No description available) (optional)
+	 * @param \Comet\Organization $Organization (No description available) (optional)
+	 * @return \Comet\OrganizationResponse 
+	 * @throws \Exception
+	 */
+	public function AdminOrganizationSet($OrganizationID = null, Organization $Organization = null)
+	{
+		$nr = new \Comet\AdminOrganizationSetRequest($OrganizationID, $Organization);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminOrganizationSetRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Delete an existing policy object
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
