@@ -289,6 +289,61 @@ class Server {
 	}
 
 	/** 
+	 * Delete an administrator
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * Access to this API may be prevented on a per-administrator basis.
+	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
+	 *
+	 * @param string $TargetUser the username of the admin to be deleted
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminAdminUserDelete($TargetUser)
+	{
+		$nr = new \Comet\AdminAdminUserDeleteRequest($TargetUser);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminAdminUserDeleteRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * List administrators
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * Access to this API may be prevented on a per-administrator basis.
+	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
+	 *
+	 * @return \Comet\AllowedAdminUser[] 
+	 * @throws \Exception
+	 */
+	public function AdminAdminUserList()
+	{
+		$nr = new \Comet\AdminAdminUserListRequest();
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminAdminUserListRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Add a new administrator
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * Access to this API may be prevented on a per-administrator basis.
+	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
+	 *
+	 * @param string $TargetUser the username for this new admin
+	 * @param string $TargetPassword the password for this new admin user
+	 * @param string $TargetOrgID provide the organization ID for this user, it will default to the org of the authenticating user otherwise (optional)
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminAdminUserNew($TargetUser, $TargetPassword, $TargetOrgID = null)
+	{
+		$nr = new \Comet\AdminAdminUserNewRequest($TargetUser, $TargetPassword, $TargetOrgID);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminAdminUserNewRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * List available software download platforms
 	 * 
 	 * This API requires administrator authentication credentials, unless the server is configured to allow unauthenticated software downloads.
