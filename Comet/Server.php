@@ -2119,12 +2119,13 @@ class Server {
 	 * @param string $SetBucketValue Bucket ID (optional)
 	 * @param string $SetKeyHashFormat Bucket key hashing format (optional)
 	 * @param string $SetKeyHashValue Bucket key hash (optional)
+	 * @param string $SetOrganizationID Target organization ID (>= 20.9.0) (optional)
 	 * @return \Comet\AddBucketResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminStorageRegisterBucket($SetBucketValue = null, $SetKeyHashFormat = null, $SetKeyHashValue = null)
+	public function AdminStorageRegisterBucket($SetBucketValue = null, $SetKeyHashFormat = null, $SetKeyHashValue = null, $SetOrganizationID = null)
 	{
-		$nr = new \Comet\AdminStorageRegisterBucketRequest($SetBucketValue, $SetKeyHashFormat, $SetKeyHashValue);
+		$nr = new \Comet\AdminStorageRegisterBucketRequest($SetBucketValue, $SetKeyHashFormat, $SetKeyHashValue, $SetOrganizationID);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminStorageRegisterBucketRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}

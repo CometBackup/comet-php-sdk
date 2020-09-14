@@ -42,17 +42,26 @@ class AdminStorageRegisterBucketRequest implements \Comet\NetworkRequest {
 	protected $SetKeyHashValue = null;
 	
 	/**
+	 * Target organization ID (>= 20.9.0) (optional)
+	 *
+	 * @var string|null
+	 */
+	protected $SetOrganizationID = null;
+	
+	/**
 	 * Construct a new AdminStorageRegisterBucketRequest instance.
 	 *
 	 * @param string $SetBucketValue Bucket ID (optional)
 	 * @param string $SetKeyHashFormat Bucket key hashing format (optional)
 	 * @param string $SetKeyHashValue Bucket key hash (optional)
+	 * @param string $SetOrganizationID Target organization ID (>= 20.9.0) (optional)
 	 */
-	public function __construct($SetBucketValue = null, $SetKeyHashFormat = null, $SetKeyHashValue = null)
+	public function __construct($SetBucketValue = null, $SetKeyHashFormat = null, $SetKeyHashValue = null, $SetOrganizationID = null)
 	{
 		$this->SetBucketValue = $SetBucketValue;
 		$this->SetKeyHashFormat = $SetKeyHashFormat;
 		$this->SetKeyHashValue = $SetKeyHashValue;
+		$this->SetOrganizationID = $SetOrganizationID;
 	}
 	
 	/**
@@ -86,6 +95,9 @@ class AdminStorageRegisterBucketRequest implements \Comet\NetworkRequest {
 		}
 		if ($this->SetKeyHashValue !== null) {
 			$ret["SetKeyHashValue"] = (string)($this->SetKeyHashValue);
+		}
+		if ($this->SetOrganizationID !== null) {
+			$ret["SetOrganizationID"] = (string)($this->SetOrganizationID);
 		}
 		return $ret;
 	}
