@@ -19,7 +19,7 @@ class StorageFreeSpaceInfo {
 	/**
 	 * @var float
 	 */
-	public $UsedPercent = null;
+	public $UsedPercent = 0;
 
 	/**
 	 * @var int
@@ -57,12 +57,7 @@ class StorageFreeSpaceInfo {
 			$this->Unlimited = (bool)($sc->Unlimited);
 		}
 		if (property_exists($sc, 'UsedPercent')) {
-			if (is_array($sc->UsedPercent) && count($sc->UsedPercent) === 0) {
-			// Work around edge case in json_decode--json_encode stdClass conversion
-				$this->UsedPercent = 0.0;
-			} else {
-				$this->UsedPercent = (float) $sc->UsedPercent;
-			}
+			$this->UsedPercent = (float)($sc->UsedPercent);
 		}
 		if (property_exists($sc, 'AvailableBytes')) {
 			$this->AvailableBytes = (int)($sc->AvailableBytes);
