@@ -3,39 +3,39 @@
 /**
  * Copyright (c) 2018-2020 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
- * 
+ *
  * SPDX-License-Identifier: MIT
  */
 
 namespace Comet;
 
 class BucketProperties {
-	
+
 	/**
 	 * @var string
 	 */
 	public $OrganizationID = "";
-	
+
 	/**
 	 * @var int
 	 */
 	public $CreateTime = 0;
-	
+
 	/**
 	 * @var int
 	 */
 	public $ReadWriteKeyFormat = 0;
-	
+
 	/**
 	 * @var string
 	 */
 	public $ReadWriteKey = "";
-	
+
 	/**
 	 * @var \Comet\SizeMeasurement
 	 */
 	public $Size = null;
-	
+
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
@@ -43,7 +43,7 @@ class BucketProperties {
 	 * @var array
 	 */
 	private $__unknown_properties = [];
-	
+
 	/**
 	 * Replace the content of this BucketProperties object from a PHP \stdClass.
 	 * The data could be supplied from an API call after json_decode(...); or generated manually.
@@ -86,7 +86,7 @@ class BucketProperties {
 			}
 		}
 	}
-	
+
 	/**
 	 * Coerce a stdClass into a new strongly-typed BucketProperties object.
 	 *
@@ -99,7 +99,7 @@ class BucketProperties {
 		$retn->inflateFrom($sc);
 		return $retn;
 	}
-	
+
 	/**
 	 * Coerce a plain PHP array into a new strongly-typed BucketProperties object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
@@ -116,13 +116,13 @@ class BucketProperties {
 		}
 		return self::createFromStdclass($stdClass);
 	}
-	
+
 	/**
 	 * Coerce a plain PHP array into a new strongly-typed BucketProperties object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
-	 * @deprecated 3.0.0 Unsafe for round-trip server traversal. You should either 
+	 * @deprecated 3.0.0 Unsafe for round-trip server traversal. You should either
 	 *             (A) acknowledge this and continue by switching to createFromArray, or
 	 *             (b) switch to the roundtrip-safe createFromStdclass alternative.
 	 * @param array $arr Object data as PHP array
@@ -132,7 +132,7 @@ class BucketProperties {
 	{
 		return self::createFromArray($arr);
 	}
-	
+
 	/**
 	 * Coerce a JSON string into a new strongly-typed BucketProperties object.
 	 *
@@ -149,7 +149,7 @@ class BucketProperties {
 		$retn->inflateFrom($decodedJsonObject);
 		return $retn;
 	}
-	
+
 	/**
 	 * Convert this BucketProperties object into a plain PHP array.
 	 *
@@ -170,15 +170,15 @@ class BucketProperties {
 		} else {
 			$ret["Size"] = $this->Size->toArray($for_json_encode);
 		}
-		
+
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
 			$ret[$k] = $v;
 		}
-		
+
 		return $ret;
 	}
-	
+
 	/**
 	 * Convert this object to a JSON string.
 	 * The result is suitable to submit to the Comet Server API.
@@ -194,7 +194,7 @@ class BucketProperties {
 			return json_encode($arr);
 		}
 	}
-	
+
 	/**
 	 * Convert this object to a PHP \stdClass.
 	 * This may be a more convenient format for working with unknown class properties.
@@ -210,7 +210,7 @@ class BucketProperties {
 			return json_decode(json_encode($arr));
 		}
 	}
-	
+
 	/**
 	 * Erase any preserved object properties that are unknown to this Comet Server SDK.
 	 *
@@ -223,6 +223,6 @@ class BucketProperties {
 			$this->Size->RemoveUnknownProperties();
 		}
 	}
-	
+
 }
 

@@ -3,36 +3,36 @@
 /**
  * Copyright (c) 2018-2020 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
- * 
+ *
  * SPDX-License-Identifier: MIT
  */
 
 namespace Comet;
 
-/** 
- * Comet Server AdminDispatcherDeepverifyStorageVault API 
+/**
+ * Comet Server AdminDispatcherDeepverifyStorageVault API
  * Instruct a live connected device to deeply verify Storage Vault content
  * This command is understood by Comet Backup 18.8.2 and newer.
- * 
+ *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
  */
 class AdminDispatcherDeepverifyStorageVaultRequest implements \Comet\NetworkRequest {
-	
+
 	/**
 	 * The live connection GUID
 	 *
 	 * @var string
 	 */
 	protected $TargetID = null;
-	
+
 	/**
 	 * The Storage Vault GUID
 	 *
 	 * @var string
 	 */
 	protected $Destination = null;
-	
+
 	/**
 	 * Construct a new AdminDispatcherDeepverifyStorageVaultRequest instance.
 	 *
@@ -44,7 +44,7 @@ class AdminDispatcherDeepverifyStorageVaultRequest implements \Comet\NetworkRequ
 		$this->TargetID = $TargetID;
 		$this->Destination = $Destination;
 	}
-	
+
 	/**
 	 * Get the URL where this POST request should be submitted to.
 	 *
@@ -54,12 +54,12 @@ class AdminDispatcherDeepverifyStorageVaultRequest implements \Comet\NetworkRequ
 	{
 		return '/api/v1/admin/dispatcher/deepverify-storage-vault';
 	}
-	
+
 	public function Method()
 	{
 		return 'POST';
 	}
-	
+
 	/**
 	 * Get the POST parameters for this request.
 	 *
@@ -72,14 +72,14 @@ class AdminDispatcherDeepverifyStorageVaultRequest implements \Comet\NetworkRequ
 		$ret["Destination"] = (string)($this->Destination);
 		return $ret;
 	}
-	
+
 	/**
 	 * Decode types used in a response to this request.
 	 * Use any network library to make the request.
 	 *
 	 * @param int $responseCode HTTP response code
 	 * @param string $body HTTP response body
-	 * @return \Comet\APIResponseMessage 
+	 * @return \Comet\APIResponseMessage
 	 * @throws \Exception
 	 */
 	public static function ProcessResponse($responseCode, $body)
@@ -88,13 +88,13 @@ class AdminDispatcherDeepverifyStorageVaultRequest implements \Comet\NetworkRequ
 		if ($responseCode !== 200) {
 			throw new \Exception("Unexpected HTTP " . intval($responseCode) . " response");
 		}
-		
+
 		// Decode JSON
 		$decoded = \json_decode($body); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg());
 		}
-		
+
 		// Try to parse as error format
 		$isCARMDerivedType = (($decoded instanceof \stdClass) && property_exists($decoded, 'Status') && property_exists($decoded, 'Message'));
 		if ($isCARMDerivedType) {
@@ -103,7 +103,7 @@ class AdminDispatcherDeepverifyStorageVaultRequest implements \Comet\NetworkRequ
 				throw new \Exception("Error " . $carm->Status . ": " . $carm->Message);
 			}
 		}
-		
+
 		// Parse as CometAPIResponseMessage
 		if (is_array($decoded) && count($decoded) === 0) {
 		// Work around edge case in json_decode--json_encode stdClass conversion
@@ -111,9 +111,9 @@ class AdminDispatcherDeepverifyStorageVaultRequest implements \Comet\NetworkRequ
 		} else {
 			$ret = \Comet\APIResponseMessage::createFromStdclass($decoded);
 		}
-		
+
 		return $ret;
 	}
-	
+
 }
 

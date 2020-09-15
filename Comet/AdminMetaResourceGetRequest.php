@@ -3,28 +3,28 @@
 /**
  * Copyright (c) 2018-2020 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
- * 
+ *
  * SPDX-License-Identifier: MIT
  */
 
 namespace Comet;
 
-/** 
- * Comet Server AdminMetaResourceGet API 
+/**
+ * Comet Server AdminMetaResourceGet API
  * Get a resource file
  * Resources are used to upload files within the server configuration.
- * 
+ *
  * You must supply administrator authentication credentials to use this API.
  */
 class AdminMetaResourceGetRequest implements \Comet\NetworkRequest {
-	
+
 	/**
 	 * The resource identifier
 	 *
 	 * @var string
 	 */
 	protected $Hash = null;
-	
+
 	/**
 	 * Construct a new AdminMetaResourceGetRequest instance.
 	 *
@@ -34,7 +34,7 @@ class AdminMetaResourceGetRequest implements \Comet\NetworkRequest {
 	{
 		$this->Hash = $Hash;
 	}
-	
+
 	/**
 	 * Get the URL where this POST request should be submitted to.
 	 *
@@ -44,12 +44,12 @@ class AdminMetaResourceGetRequest implements \Comet\NetworkRequest {
 	{
 		return '/api/v1/admin/meta/resource/get';
 	}
-	
+
 	public function Method()
 	{
 		return 'POST';
 	}
-	
+
 	/**
 	 * Get the POST parameters for this request.
 	 *
@@ -61,14 +61,14 @@ class AdminMetaResourceGetRequest implements \Comet\NetworkRequest {
 		$ret["Hash"] = (string)($this->Hash);
 		return $ret;
 	}
-	
+
 	/**
 	 * Decode types used in a response to this request.
 	 * Use any network library to make the request.
 	 *
 	 * @param int $responseCode HTTP response code
 	 * @param string $body HTTP response body
-	 * @return string 
+	 * @return string
 	 * @throws \Exception
 	 */
 	public static function ProcessResponse($responseCode, $body)
@@ -77,9 +77,9 @@ class AdminMetaResourceGetRequest implements \Comet\NetworkRequest {
 		if ($responseCode !== 200) {
 			throw new \Exception("Unexpected HTTP " . intval($responseCode) . " response");
 		}
-		
+
 		return $body;
 	}
-	
+
 }
 

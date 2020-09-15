@@ -3,174 +3,174 @@
 /**
  * Copyright (c) 2018-2020 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
- * 
+ *
  * SPDX-License-Identifier: MIT
  */
 
 namespace Comet;
 
 class UserPolicy {
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $PreventRequestStorageVault = false;
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $PreventAddCustomStorageVault = false;
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $PreventEditStorageVault = false;
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $HideCloudStorageBranding = false;
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $PreventDeleteStorageVault = false;
-	
+
 	/**
 	 * @var \Comet\StorageVaultProviderPolicy
 	 */
 	public $StorageVaultProviders = null;
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $PreventNewProtectedItem = false;
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $PreventEditProtectedItem = false;
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $PreventDeleteProtectedItem = false;
-	
+
 	/**
 	 * @var \Comet\ProtectedItemEngineTypePolicy
 	 */
 	public $ProtectedItemEngineTypes = null;
-	
+
 	/**
 	 * @var \Comet\ExtraFileExclusion[]
 	 */
 	public $FileAndFolderMandatoryExclusions = [];
-	
+
 	/**
 	 * @var int
 	 */
 	public $ModeScheduleSkipAlreadyRunning = 0;
-	
+
 	/**
 	 * @var int
 	 */
 	public $ModeAdminResetPassword = 0;
-	
+
 	/**
 	 * @var int
 	 */
 	public $ModeAdminViewFilenames = 0;
-	
+
 	/**
 	 * @var int
 	 */
 	public $ModeRequireUserResetPassword = 0;
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $PreventDeleteSingleSnapshots = false;
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $PreventChangeAccountPassword = false;
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $PreventChangeEmailSettings = false;
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $PreventChangeAccountName = false;
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $PreventOpenAppUI = false;
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $RequirePasswordOpenAppUI = false;
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $HideAppImport = false;
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $HideAppVersion = false;
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $PreventOpenWebUI = false;
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $PreventViewDeviceNames = false;
-	
+
 	/**
 	 * @var \Comet\DefaultEmailReportPolicy
 	 */
 	public $DefaultEmailReports = null;
-	
+
 	/**
 	 * @var \Comet\RetentionPolicy
 	 */
 	public $DefaultStorageVaultRetention = null;
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $EnforceStorageVaultRetention = false;
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $PreventProtectedItemRetention = false;
-	
+
 	/**
 	 * @var \Comet\SourceConfig[] An array with string keys.
 	 */
 	public $DefaultSources = [];
-	
+
 	/**
 	 * @var \Comet\BackupRuleConfig[] An array with string keys.
 	 */
 	public $DefaultSourcesBackupRules = [];
-	
+
 	/**
 	 * @var \Comet\BackupRuleConfig[] An array with string keys.
 	 */
 	public $DefaultBackupRules = [];
-	
+
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
@@ -178,7 +178,7 @@ class UserPolicy {
 	 * @var array
 	 */
 	private $__unknown_properties = [];
-	
+
 	/**
 	 * Replace the content of this UserPolicy object from a PHP \stdClass.
 	 * The data could be supplied from an API call after json_decode(...); or generated manually.
@@ -394,7 +394,7 @@ class UserPolicy {
 			}
 		}
 	}
-	
+
 	/**
 	 * Coerce a stdClass into a new strongly-typed UserPolicy object.
 	 *
@@ -407,7 +407,7 @@ class UserPolicy {
 		$retn->inflateFrom($sc);
 		return $retn;
 	}
-	
+
 	/**
 	 * Coerce a plain PHP array into a new strongly-typed UserPolicy object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
@@ -424,13 +424,13 @@ class UserPolicy {
 		}
 		return self::createFromStdclass($stdClass);
 	}
-	
+
 	/**
 	 * Coerce a plain PHP array into a new strongly-typed UserPolicy object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
-	 * @deprecated 3.0.0 Unsafe for round-trip server traversal. You should either 
+	 * @deprecated 3.0.0 Unsafe for round-trip server traversal. You should either
 	 *             (A) acknowledge this and continue by switching to createFromArray, or
 	 *             (b) switch to the roundtrip-safe createFromStdclass alternative.
 	 * @param array $arr Object data as PHP array
@@ -440,7 +440,7 @@ class UserPolicy {
 	{
 		return self::createFromArray($arr);
 	}
-	
+
 	/**
 	 * Coerce a JSON string into a new strongly-typed UserPolicy object.
 	 *
@@ -457,7 +457,7 @@ class UserPolicy {
 		$retn->inflateFrom($decodedJsonObject);
 		return $retn;
 	}
-	
+
 	/**
 	 * Convert this UserPolicy object into a plain PHP array.
 	 *
@@ -576,15 +576,15 @@ class UserPolicy {
 				$ret["DefaultBackupRules"] = $c0;
 			}
 		}
-		
+
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
 			$ret[$k] = $v;
 		}
-		
+
 		return $ret;
 	}
-	
+
 	/**
 	 * Convert this object to a JSON string.
 	 * The result is suitable to submit to the Comet Server API.
@@ -600,7 +600,7 @@ class UserPolicy {
 			return json_encode($arr);
 		}
 	}
-	
+
 	/**
 	 * Convert this object to a PHP \stdClass.
 	 * This may be a more convenient format for working with unknown class properties.
@@ -616,7 +616,7 @@ class UserPolicy {
 			return json_decode(json_encode($arr));
 		}
 	}
-	
+
 	/**
 	 * Erase any preserved object properties that are unknown to this Comet Server SDK.
 	 *
@@ -638,6 +638,6 @@ class UserPolicy {
 			$this->DefaultStorageVaultRetention->RemoveUnknownProperties();
 		}
 	}
-	
+
 }
 

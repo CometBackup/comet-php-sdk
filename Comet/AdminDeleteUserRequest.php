@@ -3,38 +3,38 @@
 /**
  * Copyright (c) 2018-2020 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
- * 
+ *
  * SPDX-License-Identifier: MIT
  */
 
 namespace Comet;
 
-/** 
- * Comet Server AdminDeleteUser API 
+/**
+ * Comet Server AdminDeleteUser API
  * Delete user account
  * This does not remove any storage buckets. Unused storage buckets will be cleaned up by the Constellation Role.
  * Any stored data can not be decrypted without the user profile. Misuse can cause data loss!
  * This also allows to uninstall software from active devices under the user account
- * 
+ *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
  */
 class AdminDeleteUserRequest implements \Comet\NetworkRequest {
-	
+
 	/**
 	 * Selected account username
 	 *
 	 * @var string
 	 */
 	protected $TargetUser = null;
-	
+
 	/**
 	 * Uninstall software configuration (>= 20.3.5) (optional)
 	 *
 	 * @var \Comet\UninstallConfig|null
 	 */
 	protected $UninstallConfig = null;
-	
+
 	/**
 	 * Construct a new AdminDeleteUserRequest instance.
 	 *
@@ -46,7 +46,7 @@ class AdminDeleteUserRequest implements \Comet\NetworkRequest {
 		$this->TargetUser = $TargetUser;
 		$this->UninstallConfig = $UninstallConfig;
 	}
-	
+
 	/**
 	 * Get the URL where this POST request should be submitted to.
 	 *
@@ -56,12 +56,12 @@ class AdminDeleteUserRequest implements \Comet\NetworkRequest {
 	{
 		return '/api/v1/admin/delete-user';
 	}
-	
+
 	public function Method()
 	{
 		return 'POST';
 	}
-	
+
 	/**
 	 * Get the POST parameters for this request.
 	 *
@@ -76,14 +76,14 @@ class AdminDeleteUserRequest implements \Comet\NetworkRequest {
 		}
 		return $ret;
 	}
-	
+
 	/**
 	 * Decode types used in a response to this request.
 	 * Use any network library to make the request.
 	 *
 	 * @param int $responseCode HTTP response code
 	 * @param string $body HTTP response body
-	 * @return \Comet\APIResponseMessage 
+	 * @return \Comet\APIResponseMessage
 	 * @throws \Exception
 	 */
 	public static function ProcessResponse($responseCode, $body)
@@ -92,13 +92,13 @@ class AdminDeleteUserRequest implements \Comet\NetworkRequest {
 		if ($responseCode !== 200) {
 			throw new \Exception("Unexpected HTTP " . intval($responseCode) . " response");
 		}
-		
+
 		// Decode JSON
 		$decoded = \json_decode($body); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg());
 		}
-		
+
 		// Try to parse as error format
 		$isCARMDerivedType = (($decoded instanceof \stdClass) && property_exists($decoded, 'Status') && property_exists($decoded, 'Message'));
 		if ($isCARMDerivedType) {
@@ -107,7 +107,7 @@ class AdminDeleteUserRequest implements \Comet\NetworkRequest {
 				throw new \Exception("Error " . $carm->Status . ": " . $carm->Message);
 			}
 		}
-		
+
 		// Parse as CometAPIResponseMessage
 		if (is_array($decoded) && count($decoded) === 0) {
 		// Work around edge case in json_decode--json_encode stdClass conversion
@@ -115,9 +115,9 @@ class AdminDeleteUserRequest implements \Comet\NetworkRequest {
 		} else {
 			$ret = \Comet\APIResponseMessage::createFromStdclass($decoded);
 		}
-		
+
 		return $ret;
 	}
-	
+
 }
 

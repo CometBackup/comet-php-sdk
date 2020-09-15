@@ -3,154 +3,154 @@
 /**
  * Copyright (c) 2018-2020 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
- * 
+ *
  * SPDX-License-Identifier: MIT
  */
 
 namespace Comet;
 
 class UserProfileConfig {
-	
+
 	/**
 	 * @var string
 	 */
 	public $Username = "";
-	
+
 	/**
 	 * @var string
 	 */
 	public $AccountName = "";
-	
+
 	/**
 	 * @var string
 	 */
 	public $LocalTimezone = "";
-	
+
 	/**
 	 * @var string
 	 */
 	public $LanguageCode = "";
-	
+
 	/**
 	 * @var string
 	 */
 	public $OrganizationID = "";
-	
+
 	/**
 	 * @var string[]
 	 */
 	public $Emails = [];
-	
+
 	/**
 	 * @var \Comet\UserCustomEmailSettings[] An array with string keys.
 	 */
 	public $OverrideEmailSettings = [];
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $SendEmailReports = false;
-	
+
 	/**
 	 * @var \Comet\DestinationConfig[] An array with string keys.
 	 */
 	public $Destinations = [];
-	
+
 	/**
 	 * @var \Comet\SourceConfig[] An array with string keys.
 	 */
 	public $Sources = [];
-	
+
 	/**
 	 * @var \Comet\BackupRuleConfig[] An array with string keys.
 	 */
 	public $BackupRules = [];
-	
+
 	/**
 	 * @var \Comet\DeviceConfig[] An array with string keys.
 	 */
 	public $Devices = [];
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $IsSuspended = false;
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $AllProtectedItemsQuotaEnabled = false;
-	
+
 	/**
 	 * @var int
 	 */
 	public $AllProtectedItemsQuotaBytes = 0;
-	
+
 	/**
 	 * @var int
 	 */
 	public $MaximumDevices = 0;
-	
+
 	/**
 	 * @var string
 	 */
 	public $PolicyID = "";
-	
+
 	/**
 	 * @var \Comet\UserPolicy
 	 */
 	public $Policy = null;
-	
+
 	/**
 	 * @var int
 	 */
 	public $PasswordFormat = 0;
-	
+
 	/**
 	 * @var string
 	 */
 	public $PasswordHash = "";
-	
+
 	/**
 	 * @var string
 	 */
 	public $PasswordRecovery = "";
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $AllowPasswordLogin = false;
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $AllowPasswordAndTOTPLogin = false;
-	
+
 	/**
 	 * @var int
 	 */
 	public $TOTPKeyEncryptionFormat = 0;
-	
+
 	/**
 	 * @var string
 	 */
 	public $TOTPKey = "";
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $RequirePasswordChange = false;
-	
+
 	/**
 	 * @var int
 	 */
 	public $CreateTime = 0;
-	
+
 	/**
 	 * @var string
 	 */
 	public $CreationGUID = "";
-	
+
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
@@ -158,7 +158,7 @@ class UserProfileConfig {
 	 * @var array
 	 */
 	private $__unknown_properties = [];
-	
+
 	/**
 	 * Replace the content of this UserProfileConfig object from a PHP \stdClass.
 	 * The data could be supplied from an API call after json_decode(...); or generated manually.
@@ -364,7 +364,7 @@ class UserProfileConfig {
 			}
 		}
 	}
-	
+
 	/**
 	 * Coerce a stdClass into a new strongly-typed UserProfileConfig object.
 	 *
@@ -377,7 +377,7 @@ class UserProfileConfig {
 		$retn->inflateFrom($sc);
 		return $retn;
 	}
-	
+
 	/**
 	 * Coerce a plain PHP array into a new strongly-typed UserProfileConfig object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
@@ -394,13 +394,13 @@ class UserProfileConfig {
 		}
 		return self::createFromStdclass($stdClass);
 	}
-	
+
 	/**
 	 * Coerce a plain PHP array into a new strongly-typed UserProfileConfig object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
-	 * @deprecated 3.0.0 Unsafe for round-trip server traversal. You should either 
+	 * @deprecated 3.0.0 Unsafe for round-trip server traversal. You should either
 	 *             (A) acknowledge this and continue by switching to createFromArray, or
 	 *             (b) switch to the roundtrip-safe createFromStdclass alternative.
 	 * @param array $arr Object data as PHP array
@@ -410,7 +410,7 @@ class UserProfileConfig {
 	{
 		return self::createFromArray($arr);
 	}
-	
+
 	/**
 	 * Coerce a JSON string into a new strongly-typed UserProfileConfig object.
 	 *
@@ -427,7 +427,7 @@ class UserProfileConfig {
 		$retn->inflateFrom($decodedJsonObject);
 		return $retn;
 	}
-	
+
 	/**
 	 * Convert this UserProfileConfig object into a plain PHP array.
 	 *
@@ -558,15 +558,15 @@ class UserProfileConfig {
 		$ret["RequirePasswordChange"] = $this->RequirePasswordChange;
 		$ret["CreateTime"] = $this->CreateTime;
 		$ret["CreationGUID"] = $this->CreationGUID;
-		
+
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
 			$ret[$k] = $v;
 		}
-		
+
 		return $ret;
 	}
-	
+
 	/**
 	 * Convert this object to a JSON string.
 	 * The result is suitable to submit to the Comet Server API.
@@ -582,7 +582,7 @@ class UserProfileConfig {
 			return json_encode($arr);
 		}
 	}
-	
+
 	/**
 	 * Convert this object to a PHP \stdClass.
 	 * This may be a more convenient format for working with unknown class properties.
@@ -598,7 +598,7 @@ class UserProfileConfig {
 			return json_decode(json_encode($arr));
 		}
 	}
-	
+
 	/**
 	 * Erase any preserved object properties that are unknown to this Comet Server SDK.
 	 *
@@ -611,6 +611,6 @@ class UserProfileConfig {
 			$this->Policy->RemoveUnknownProperties();
 		}
 	}
-	
+
 }
 

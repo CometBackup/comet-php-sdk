@@ -3,23 +3,23 @@
 /**
  * Copyright (c) 2018-2020 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
- * 
+ *
  * SPDX-License-Identifier: MIT
  */
 
 namespace Comet;
 
-/** 
- * Comet Server AdminMetaServerConfigNetworkInterfaces API 
+/**
+ * Comet Server AdminMetaServerConfigNetworkInterfaces API
  * List the available network interfaces on the PC running Comet Server
  * Any IPv6 addresses are listed in compressed form without square-brackets.
- * 
+ *
  * You must supply administrator authentication credentials to use this API.
  * Access to this API may be prevented on a per-administrator basis.
  * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
  */
 class AdminMetaServerConfigNetworkInterfacesRequest implements \Comet\NetworkRequest {
-	
+
 	/**
 	 * Construct a new AdminMetaServerConfigNetworkInterfacesRequest instance.
 	 *
@@ -27,7 +27,7 @@ class AdminMetaServerConfigNetworkInterfacesRequest implements \Comet\NetworkReq
 	public function __construct()
 	{
 	}
-	
+
 	/**
 	 * Get the URL where this POST request should be submitted to.
 	 *
@@ -37,12 +37,12 @@ class AdminMetaServerConfigNetworkInterfacesRequest implements \Comet\NetworkReq
 	{
 		return '/api/v1/admin/meta/server-config/network-interfaces';
 	}
-	
+
 	public function Method()
 	{
 		return 'POST';
 	}
-	
+
 	/**
 	 * Get the POST parameters for this request.
 	 *
@@ -53,14 +53,14 @@ class AdminMetaServerConfigNetworkInterfacesRequest implements \Comet\NetworkReq
 		$ret = [];
 		return $ret;
 	}
-	
+
 	/**
 	 * Decode types used in a response to this request.
 	 * Use any network library to make the request.
 	 *
 	 * @param int $responseCode HTTP response code
 	 * @param string $body HTTP response body
-	 * @return string[] 
+	 * @return string[]
 	 * @throws \Exception
 	 */
 	public static function ProcessResponse($responseCode, $body)
@@ -69,13 +69,13 @@ class AdminMetaServerConfigNetworkInterfacesRequest implements \Comet\NetworkReq
 		if ($responseCode !== 200) {
 			throw new \Exception("Unexpected HTTP " . intval($responseCode) . " response");
 		}
-		
+
 		// Decode JSON
 		$decoded = \json_decode($body); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg());
 		}
-		
+
 		// Try to parse as error format
 		$isCARMDerivedType = (($decoded instanceof \stdClass) && property_exists($decoded, 'Status') && property_exists($decoded, 'Message'));
 		if ($isCARMDerivedType) {
@@ -84,7 +84,7 @@ class AdminMetaServerConfigNetworkInterfacesRequest implements \Comet\NetworkReq
 				throw new \Exception("Error " . $carm->Status . ": " . $carm->Message);
 			}
 		}
-		
+
 		// Parse as []string
 		$val_0 = [];
 		if ($decoded !== null) {
@@ -93,9 +93,9 @@ class AdminMetaServerConfigNetworkInterfacesRequest implements \Comet\NetworkReq
 			}
 		}
 		$ret = $val_0;
-		
+
 		return $ret;
 	}
-	
+
 }
 

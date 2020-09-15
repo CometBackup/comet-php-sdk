@@ -3,119 +3,119 @@
 /**
  * Copyright (c) 2018-2020 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
- * 
+ *
  * SPDX-License-Identifier: MIT
  */
 
 namespace Comet;
 
 class ServerMetaVersionInfo {
-	
+
 	/**
 	 * @var string
 	 */
 	public $Version = "";
-	
+
 	/**
 	 * @var string
 	 */
 	public $VersionCodename = "";
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $StorageRole = false;
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $AuthenticationRole = false;
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $SoftwareBuildRole = false;
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $ConstellationRole_Legacy = false;
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $ConstellationRole = false;
-	
+
 	/**
 	 * @var string[]
 	 */
 	public $ExperimentalOptions = [];
-	
+
 	/**
 	 * @var int
 	 */
 	public $ServerStartTime = 0;
-	
+
 	/**
 	 * @var string
 	 */
 	public $ServerStartHash = "";
-	
+
 	/**
 	 * @var int
 	 */
 	public $CurrentTime = 0;
-	
+
 	/**
 	 * @var string
 	 */
 	public $ServerLicenseHash = "";
-	
+
 	/**
 	 * @var int
 	 */
 	public $LicenseValidUntil = 0;
-	
+
 	/**
 	 * @var int
 	 */
 	public $EmailsSentSuccessfully = 0;
-	
+
 	/**
 	 * @var int
 	 */
 	public $EmailsSentErrors = 0;
-	
+
 	/**
 	 * @var int
 	 */
 	public $EmailsWaitingInQueue = 0;
-	
+
 	/**
 	 * @var int
 	 */
 	public $ScheduledEmailThreadCurrentState = 0;
-	
+
 	/**
 	 * @var int
 	 */
 	public $ScheduledEmailThreadLastCalculateDurationNanos = 0;
-	
+
 	/**
 	 * @var int
 	 */
 	public $ScheduledEmailThreadWaitingUntil = 0;
-	
+
 	/**
 	 * @var int
 	 */
 	public $ScheduledEmailThreadLastWakeTime = 0;
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $ScheduledEmailThreadLastWakeSentEmails = false;
-	
+
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
@@ -123,7 +123,7 @@ class ServerMetaVersionInfo {
 	 * @var array
 	 */
 	private $__unknown_properties = [];
-	
+
 	/**
 	 * Replace the content of this ServerMetaVersionInfo object from a PHP \stdClass.
 	 * The data could be supplied from an API call after json_decode(...); or generated manually.
@@ -231,7 +231,7 @@ class ServerMetaVersionInfo {
 			}
 		}
 	}
-	
+
 	/**
 	 * Coerce a stdClass into a new strongly-typed ServerMetaVersionInfo object.
 	 *
@@ -244,7 +244,7 @@ class ServerMetaVersionInfo {
 		$retn->inflateFrom($sc);
 		return $retn;
 	}
-	
+
 	/**
 	 * Coerce a plain PHP array into a new strongly-typed ServerMetaVersionInfo object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
@@ -261,13 +261,13 @@ class ServerMetaVersionInfo {
 		}
 		return self::createFromStdclass($stdClass);
 	}
-	
+
 	/**
 	 * Coerce a plain PHP array into a new strongly-typed ServerMetaVersionInfo object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
-	 * @deprecated 3.0.0 Unsafe for round-trip server traversal. You should either 
+	 * @deprecated 3.0.0 Unsafe for round-trip server traversal. You should either
 	 *             (A) acknowledge this and continue by switching to createFromArray, or
 	 *             (b) switch to the roundtrip-safe createFromStdclass alternative.
 	 * @param array $arr Object data as PHP array
@@ -277,7 +277,7 @@ class ServerMetaVersionInfo {
 	{
 		return self::createFromArray($arr);
 	}
-	
+
 	/**
 	 * Coerce a JSON string into a new strongly-typed ServerMetaVersionInfo object.
 	 *
@@ -294,7 +294,7 @@ class ServerMetaVersionInfo {
 		$retn->inflateFrom($decodedJsonObject);
 		return $retn;
 	}
-	
+
 	/**
 	 * Convert this ServerMetaVersionInfo object into a plain PHP array.
 	 *
@@ -334,15 +334,15 @@ class ServerMetaVersionInfo {
 		$ret["ScheduledEmailThreadWaitingUntil"] = $this->ScheduledEmailThreadWaitingUntil;
 		$ret["ScheduledEmailThreadLastWakeTime"] = $this->ScheduledEmailThreadLastWakeTime;
 		$ret["ScheduledEmailThreadLastWakeSentEmails"] = $this->ScheduledEmailThreadLastWakeSentEmails;
-		
+
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
 			$ret[$k] = $v;
 		}
-		
+
 		return $ret;
 	}
-	
+
 	/**
 	 * Convert this object to a JSON string.
 	 * The result is suitable to submit to the Comet Server API.
@@ -358,7 +358,7 @@ class ServerMetaVersionInfo {
 			return json_encode($arr);
 		}
 	}
-	
+
 	/**
 	 * Convert this object to a PHP \stdClass.
 	 * This may be a more convenient format for working with unknown class properties.
@@ -374,7 +374,7 @@ class ServerMetaVersionInfo {
 			return json_decode(json_encode($arr));
 		}
 	}
-	
+
 	/**
 	 * Erase any preserved object properties that are unknown to this Comet Server SDK.
 	 *
@@ -384,6 +384,6 @@ class ServerMetaVersionInfo {
 	{
 		$this->__unknown_properties = [];
 	}
-	
+
 }
 

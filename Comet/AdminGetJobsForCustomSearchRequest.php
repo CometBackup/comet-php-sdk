@@ -3,29 +3,29 @@
 /**
  * Copyright (c) 2018-2020 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
- * 
+ *
  * SPDX-License-Identifier: MIT
  */
 
 namespace Comet;
 
-/** 
- * Comet Server AdminGetJobsForCustomSearch API 
+/**
+ * Comet Server AdminGetJobsForCustomSearch API
  * Get jobs (for custom search)
  * The jobs are returned in an unspecified order.
- * 
+ *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
  */
 class AdminGetJobsForCustomSearchRequest implements \Comet\NetworkRequest {
-	
+
 	/**
 	 * (No description available)
 	 *
 	 * @var \Comet\SearchClause
 	 */
 	protected $Query = null;
-	
+
 	/**
 	 * Construct a new AdminGetJobsForCustomSearchRequest instance.
 	 *
@@ -35,7 +35,7 @@ class AdminGetJobsForCustomSearchRequest implements \Comet\NetworkRequest {
 	{
 		$this->Query = $Query;
 	}
-	
+
 	/**
 	 * Get the URL where this POST request should be submitted to.
 	 *
@@ -45,12 +45,12 @@ class AdminGetJobsForCustomSearchRequest implements \Comet\NetworkRequest {
 	{
 		return '/api/v1/admin/get-jobs-for-custom-search';
 	}
-	
+
 	public function Method()
 	{
 		return 'POST';
 	}
-	
+
 	/**
 	 * Get the POST parameters for this request.
 	 *
@@ -62,14 +62,14 @@ class AdminGetJobsForCustomSearchRequest implements \Comet\NetworkRequest {
 		$ret["Query"] = $this->Query->toJSON();
 		return $ret;
 	}
-	
+
 	/**
 	 * Decode types used in a response to this request.
 	 * Use any network library to make the request.
 	 *
 	 * @param int $responseCode HTTP response code
 	 * @param string $body HTTP response body
-	 * @return \Comet\BackupJobDetail[] 
+	 * @return \Comet\BackupJobDetail[]
 	 * @throws \Exception
 	 */
 	public static function ProcessResponse($responseCode, $body)
@@ -78,13 +78,13 @@ class AdminGetJobsForCustomSearchRequest implements \Comet\NetworkRequest {
 		if ($responseCode !== 200) {
 			throw new \Exception("Unexpected HTTP " . intval($responseCode) . " response");
 		}
-		
+
 		// Decode JSON
 		$decoded = \json_decode($body); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg());
 		}
-		
+
 		// Try to parse as error format
 		$isCARMDerivedType = (($decoded instanceof \stdClass) && property_exists($decoded, 'Status') && property_exists($decoded, 'Message'));
 		if ($isCARMDerivedType) {
@@ -93,7 +93,7 @@ class AdminGetJobsForCustomSearchRequest implements \Comet\NetworkRequest {
 				throw new \Exception("Error " . $carm->Status . ": " . $carm->Message);
 			}
 		}
-		
+
 		// Parse as []BackupJobDetail
 		$val_0 = [];
 		if ($decoded !== null) {
@@ -107,9 +107,9 @@ class AdminGetJobsForCustomSearchRequest implements \Comet\NetworkRequest {
 			}
 		}
 		$ret = $val_0;
-		
+
 		return $ret;
 	}
-	
+
 }
 

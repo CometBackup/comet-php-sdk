@@ -3,214 +3,214 @@
 /**
  * Copyright (c) 2018-2020 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
- * 
+ *
  * SPDX-License-Identifier: MIT
  */
 
 namespace Comet;
 
 class DestinationLocation {
-	
+
 	/**
 	 * @var int
 	 */
 	public $DestinationType = 0;
-	
+
 	/**
 	 * @var string
 	 */
 	public $CometServer = "";
-	
+
 	/**
 	 * @var string
 	 */
 	public $CometBucket = "";
-	
+
 	/**
 	 * @var string
 	 */
 	public $CometBucketKey = "";
-	
+
 	/**
 	 * @var string
 	 */
 	public $S3Server = "";
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $S3UsesTLS = false;
-	
+
 	/**
 	 * @var string
 	 */
 	public $S3AccessKey = "";
-	
+
 	/**
 	 * @var string
 	 */
 	public $S3SecretKey = "";
-	
+
 	/**
 	 * @var string
 	 */
 	public $S3BucketName = "";
-	
+
 	/**
 	 * @var string
 	 */
 	public $S3Subdir = "";
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $S3UsesV2Signing = false;
-	
+
 	/**
 	 * @var string
 	 */
 	public $SFTPServer = "";
-	
+
 	/**
 	 * @var string
 	 */
 	public $SFTPUsername = "";
-	
+
 	/**
 	 * @var string
 	 */
 	public $SFTPRemotePath = "";
-	
+
 	/**
 	 * @var int
 	 */
 	public $SFTPAuthMode = 0;
-	
+
 	/**
 	 * @var string
 	 */
 	public $SFTPPassword = "";
-	
+
 	/**
 	 * @var string
 	 */
 	public $SFTPPrivateKey = "";
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $SFTPCustomAuth_UseKnownHostsFile = false;
-	
+
 	/**
 	 * @var string
 	 */
 	public $SFTPCustomAuth_KnownHostsFile = "";
-	
+
 	/**
 	 * @var string
 	 */
 	public $FTPServer = "";
-	
+
 	/**
 	 * @var string
 	 */
 	public $FTPUsername = "";
-	
+
 	/**
 	 * @var string
 	 */
 	public $FTPPassword = "";
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $FTPBaseUseHomeDirectory = false;
-	
+
 	/**
 	 * @var string
 	 */
 	public $FTPCustomBaseDirectory = "";
-	
+
 	/**
 	 * @var int
 	 */
 	public $FTPSMode = 0;
-	
+
 	/**
 	 * @var int
 	 */
 	public $FTPPort = 0;
-	
+
 	/**
 	 * @var int
 	 */
 	public $FTPMaxConnections = 0;
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $FTPAcceptInvalidSSL = false;
-	
+
 	/**
 	 * @var string
 	 */
 	public $AZBAccountName = "";
-	
+
 	/**
 	 * @var string
 	 */
 	public $AZBAccountKey = "";
-	
+
 	/**
 	 * @var string
 	 */
 	public $AZBContainer = "";
-	
+
 	/**
 	 * @var string
 	 */
 	public $AZBRealm = "";
-	
+
 	/**
 	 * @var string
 	 */
 	public $AZBPrefix = "";
-	
+
 	/**
 	 * @var string
 	 */
 	public $LocalcopyPath = "";
-	
+
 	/**
 	 * @var string
 	 */
 	public $LocalcopyWinSMBUsername = "";
-	
+
 	/**
 	 * @var string
 	 */
 	public $LocalcopyWinSMBPassword = "";
-	
+
 	/**
 	 * @var int
 	 */
 	public $LocalcopyWinSMBPasswordFormat = 0;
-	
+
 	/**
 	 * @var \Comet\SwiftDestinationLocation
 	 */
 	public $Swift = null;
-	
+
 	/**
 	 * @var \Comet\B2DestinationLocation
 	 */
 	public $B2 = null;
-	
+
 	/**
 	 * @var \Comet\DestinationLocation[]
 	 */
 	public $SpanTargets = [];
-	
+
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
@@ -218,7 +218,7 @@ class DestinationLocation {
 	 * @var array
 	 */
 	private $__unknown_properties = [];
-	
+
 	/**
 	 * Replace the content of this DestinationLocation object from a PHP \stdClass.
 	 * The data could be supplied from an API call after json_decode(...); or generated manually.
@@ -417,7 +417,7 @@ class DestinationLocation {
 			}
 		}
 	}
-	
+
 	/**
 	 * Coerce a stdClass into a new strongly-typed DestinationLocation object.
 	 *
@@ -430,7 +430,7 @@ class DestinationLocation {
 		$retn->inflateFrom($sc);
 		return $retn;
 	}
-	
+
 	/**
 	 * Coerce a plain PHP array into a new strongly-typed DestinationLocation object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
@@ -447,13 +447,13 @@ class DestinationLocation {
 		}
 		return self::createFromStdclass($stdClass);
 	}
-	
+
 	/**
 	 * Coerce a plain PHP array into a new strongly-typed DestinationLocation object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
-	 * @deprecated 3.0.0 Unsafe for round-trip server traversal. You should either 
+	 * @deprecated 3.0.0 Unsafe for round-trip server traversal. You should either
 	 *             (A) acknowledge this and continue by switching to createFromArray, or
 	 *             (b) switch to the roundtrip-safe createFromStdclass alternative.
 	 * @param array $arr Object data as PHP array
@@ -463,7 +463,7 @@ class DestinationLocation {
 	{
 		return self::createFromArray($arr);
 	}
-	
+
 	/**
 	 * Coerce a JSON string into a new strongly-typed DestinationLocation object.
 	 *
@@ -480,7 +480,7 @@ class DestinationLocation {
 		$retn->inflateFrom($decodedJsonObject);
 		return $retn;
 	}
-	
+
 	/**
 	 * Convert this DestinationLocation object into a plain PHP array.
 	 *
@@ -551,15 +551,15 @@ class DestinationLocation {
 			}
 			$ret["SpanTargets"] = $c0;
 		}
-		
+
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
 			$ret[$k] = $v;
 		}
-		
+
 		return $ret;
 	}
-	
+
 	/**
 	 * Convert this object to a JSON string.
 	 * The result is suitable to submit to the Comet Server API.
@@ -575,7 +575,7 @@ class DestinationLocation {
 			return json_encode($arr);
 		}
 	}
-	
+
 	/**
 	 * Convert this object to a PHP \stdClass.
 	 * This may be a more convenient format for working with unknown class properties.
@@ -591,7 +591,7 @@ class DestinationLocation {
 			return json_decode(json_encode($arr));
 		}
 	}
-	
+
 	/**
 	 * Erase any preserved object properties that are unknown to this Comet Server SDK.
 	 *
@@ -607,6 +607,6 @@ class DestinationLocation {
 			$this->B2->RemoveUnknownProperties();
 		}
 	}
-	
+
 }
 

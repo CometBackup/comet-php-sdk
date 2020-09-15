@@ -3,30 +3,30 @@
 /**
  * Copyright (c) 2018-2020 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
- * 
+ *
  * SPDX-License-Identifier: MIT
  */
 
 namespace Comet;
 
-/** 
- * Comet Server AdminBrandingGenerateClientWindowsX8664Zip API 
+/**
+ * Comet Server AdminBrandingGenerateClientWindowsX8664Zip API
  * Download software (Windows x86_64 zip)
  * The zip endpoints are recommended for end-users, as they may be able to provide a codesigned installer even when no custom codesigning certificate is present.
- * 
+ *
  * This API requires administrator authentication credentials, unless the server is configured to allow unauthenticated software downloads.
  * This API requires the Software Build Role to be enabled.
  * This API requires the Auth Role to be enabled.
  */
 class AdminBrandingGenerateClientWindowsX8664ZipRequest implements \Comet\NetworkRequest {
-	
+
 	/**
 	 * The external URL of this server, used to resolve conflicts (optional)
 	 *
 	 * @var string|null
 	 */
 	protected $SelfAddress = null;
-	
+
 	/**
 	 * Construct a new AdminBrandingGenerateClientWindowsX8664ZipRequest instance.
 	 *
@@ -36,7 +36,7 @@ class AdminBrandingGenerateClientWindowsX8664ZipRequest implements \Comet\Networ
 	{
 		$this->SelfAddress = $SelfAddress;
 	}
-	
+
 	/**
 	 * Get the URL where this POST request should be submitted to.
 	 *
@@ -46,12 +46,12 @@ class AdminBrandingGenerateClientWindowsX8664ZipRequest implements \Comet\Networ
 	{
 		return '/api/v1/admin/branding/generate-client/windows-x86_64-zip';
 	}
-	
+
 	public function Method()
 	{
 		return 'POST';
 	}
-	
+
 	/**
 	 * Get the POST parameters for this request.
 	 *
@@ -65,14 +65,14 @@ class AdminBrandingGenerateClientWindowsX8664ZipRequest implements \Comet\Networ
 		}
 		return $ret;
 	}
-	
+
 	/**
 	 * Decode types used in a response to this request.
 	 * Use any network library to make the request.
 	 *
 	 * @param int $responseCode HTTP response code
 	 * @param string $body HTTP response body
-	 * @return string 
+	 * @return string
 	 * @throws \Exception
 	 */
 	public static function ProcessResponse($responseCode, $body)
@@ -81,9 +81,9 @@ class AdminBrandingGenerateClientWindowsX8664ZipRequest implements \Comet\Networ
 		if ($responseCode !== 200) {
 			throw new \Exception("Unexpected HTTP " . intval($responseCode) . " response");
 		}
-		
+
 		return $body;
 	}
-	
+
 }
 

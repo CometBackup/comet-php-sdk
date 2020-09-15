@@ -3,30 +3,30 @@
 /**
  * Copyright (c) 2018-2020 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
- * 
+ *
  * SPDX-License-Identifier: MIT
  */
 
 namespace Comet;
 
-/** 
- * Comet Server AdminGetUserProfileHash API 
+/**
+ * Comet Server AdminGetUserProfileHash API
  * Get user account profile (hash)
  * The profile hash can be used to determine if a user account profile has changed.
  * The hash format is not publicly documented and may change in a future server version. Use server APIs to retrieve current hash values.
- * 
+ *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
  */
 class AdminGetUserProfileHashRequest implements \Comet\NetworkRequest {
-	
+
 	/**
 	 * Selected account username
 	 *
 	 * @var string
 	 */
 	protected $TargetUser = null;
-	
+
 	/**
 	 * Construct a new AdminGetUserProfileHashRequest instance.
 	 *
@@ -36,7 +36,7 @@ class AdminGetUserProfileHashRequest implements \Comet\NetworkRequest {
 	{
 		$this->TargetUser = $TargetUser;
 	}
-	
+
 	/**
 	 * Get the URL where this POST request should be submitted to.
 	 *
@@ -46,12 +46,12 @@ class AdminGetUserProfileHashRequest implements \Comet\NetworkRequest {
 	{
 		return '/api/v1/admin/get-user-profile-hash';
 	}
-	
+
 	public function Method()
 	{
 		return 'POST';
 	}
-	
+
 	/**
 	 * Get the POST parameters for this request.
 	 *
@@ -63,14 +63,14 @@ class AdminGetUserProfileHashRequest implements \Comet\NetworkRequest {
 		$ret["TargetUser"] = (string)($this->TargetUser);
 		return $ret;
 	}
-	
+
 	/**
 	 * Decode types used in a response to this request.
 	 * Use any network library to make the request.
 	 *
 	 * @param int $responseCode HTTP response code
 	 * @param string $body HTTP response body
-	 * @return \Comet\GetProfileHashResponseMessage 
+	 * @return \Comet\GetProfileHashResponseMessage
 	 * @throws \Exception
 	 */
 	public static function ProcessResponse($responseCode, $body)
@@ -79,13 +79,13 @@ class AdminGetUserProfileHashRequest implements \Comet\NetworkRequest {
 		if ($responseCode !== 200) {
 			throw new \Exception("Unexpected HTTP " . intval($responseCode) . " response");
 		}
-		
+
 		// Decode JSON
 		$decoded = \json_decode($body); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg());
 		}
-		
+
 		// Try to parse as error format
 		$isCARMDerivedType = (($decoded instanceof \stdClass) && property_exists($decoded, 'Status') && property_exists($decoded, 'Message'));
 		if ($isCARMDerivedType) {
@@ -94,7 +94,7 @@ class AdminGetUserProfileHashRequest implements \Comet\NetworkRequest {
 				throw new \Exception("Error " . $carm->Status . ": " . $carm->Message);
 			}
 		}
-		
+
 		// Parse as GetProfileHashResponseMessage
 		if (is_array($decoded) && count($decoded) === 0) {
 		// Work around edge case in json_decode--json_encode stdClass conversion
@@ -102,9 +102,9 @@ class AdminGetUserProfileHashRequest implements \Comet\NetworkRequest {
 		} else {
 			$ret = \Comet\GetProfileHashResponseMessage::createFromStdclass($decoded);
 		}
-		
+
 		return $ret;
 	}
-	
+
 }
 

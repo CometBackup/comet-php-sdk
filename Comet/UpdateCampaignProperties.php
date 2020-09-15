@@ -3,44 +3,44 @@
 /**
  * Copyright (c) 2018-2020 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
- * 
+ *
  * SPDX-License-Identifier: MIT
  */
 
 namespace Comet;
 
 class UpdateCampaignProperties {
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $Active = false;
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $UpgradeOlder = false;
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $ReinstallCurrentVer = false;
-	
+
 	/**
 	 * @var boolean
 	 */
 	public $DowngradeNewer = false;
-	
+
 	/**
 	 * @var int
 	 */
 	public $StartTime = 0;
-	
+
 	/**
 	 * @var string
 	 */
 	public $TargetVersion = "";
-	
+
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
@@ -48,7 +48,7 @@ class UpdateCampaignProperties {
 	 * @var array
 	 */
 	private $__unknown_properties = [];
-	
+
 	/**
 	 * Replace the content of this UpdateCampaignProperties object from a PHP \stdClass.
 	 * The data could be supplied from an API call after json_decode(...); or generated manually.
@@ -90,7 +90,7 @@ class UpdateCampaignProperties {
 			}
 		}
 	}
-	
+
 	/**
 	 * Coerce a stdClass into a new strongly-typed UpdateCampaignProperties object.
 	 *
@@ -103,7 +103,7 @@ class UpdateCampaignProperties {
 		$retn->inflateFrom($sc);
 		return $retn;
 	}
-	
+
 	/**
 	 * Coerce a plain PHP array into a new strongly-typed UpdateCampaignProperties object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
@@ -120,13 +120,13 @@ class UpdateCampaignProperties {
 		}
 		return self::createFromStdclass($stdClass);
 	}
-	
+
 	/**
 	 * Coerce a plain PHP array into a new strongly-typed UpdateCampaignProperties object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
-	 * @deprecated 3.0.0 Unsafe for round-trip server traversal. You should either 
+	 * @deprecated 3.0.0 Unsafe for round-trip server traversal. You should either
 	 *             (A) acknowledge this and continue by switching to createFromArray, or
 	 *             (b) switch to the roundtrip-safe createFromStdclass alternative.
 	 * @param array $arr Object data as PHP array
@@ -136,7 +136,7 @@ class UpdateCampaignProperties {
 	{
 		return self::createFromArray($arr);
 	}
-	
+
 	/**
 	 * Coerce a JSON string into a new strongly-typed UpdateCampaignProperties object.
 	 *
@@ -153,7 +153,7 @@ class UpdateCampaignProperties {
 		$retn->inflateFrom($decodedJsonObject);
 		return $retn;
 	}
-	
+
 	/**
 	 * Convert this UpdateCampaignProperties object into a plain PHP array.
 	 *
@@ -171,15 +171,15 @@ class UpdateCampaignProperties {
 		$ret["DowngradeNewer"] = $this->DowngradeNewer;
 		$ret["StartTime"] = $this->StartTime;
 		$ret["TargetVersion"] = $this->TargetVersion;
-		
+
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
 			$ret[$k] = $v;
 		}
-		
+
 		return $ret;
 	}
-	
+
 	/**
 	 * Convert this object to a JSON string.
 	 * The result is suitable to submit to the Comet Server API.
@@ -195,7 +195,7 @@ class UpdateCampaignProperties {
 			return json_encode($arr);
 		}
 	}
-	
+
 	/**
 	 * Convert this object to a PHP \stdClass.
 	 * This may be a more convenient format for working with unknown class properties.
@@ -211,7 +211,7 @@ class UpdateCampaignProperties {
 			return json_decode(json_encode($arr));
 		}
 	}
-	
+
 	/**
 	 * Erase any preserved object properties that are unknown to this Comet Server SDK.
 	 *
@@ -221,6 +221,6 @@ class UpdateCampaignProperties {
 	{
 		$this->__unknown_properties = [];
 	}
-	
+
 }
 
