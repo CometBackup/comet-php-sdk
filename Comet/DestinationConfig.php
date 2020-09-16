@@ -272,6 +272,11 @@ class DestinationConfig {
 	public $DefaultRetention = null;
 
 	/**
+	 * @var boolean
+	 */
+	public $RebrandStorage = false;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see DestinationConfig::RemoveUnknownProperties() Remove all unknown properties
@@ -487,6 +492,9 @@ class DestinationConfig {
 				$this->DefaultRetention = \Comet\RetentionPolicy::createFromStdclass($sc->DefaultRetention);
 			}
 		}
+		if (property_exists($sc, 'RebrandStorage')) {
+			$this->RebrandStorage = (bool)($sc->RebrandStorage);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Description':
@@ -541,6 +549,7 @@ class DestinationConfig {
 			case 'StorageLimitBytes':
 			case 'Statistics':
 			case 'DefaultRetention':
+			case 'RebrandStorage':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -715,6 +724,7 @@ class DestinationConfig {
 		} else {
 			$ret["DefaultRetention"] = $this->DefaultRetention->toArray($for_json_encode);
 		}
+		$ret["RebrandStorage"] = $this->RebrandStorage;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

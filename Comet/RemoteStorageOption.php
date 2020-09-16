@@ -62,6 +62,11 @@ class RemoteStorageOption {
 	public $StorageLimitBytes = 0;
 
 	/**
+	 * @var boolean
+	 */
+	public $RebrandStorage = false;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see RemoteStorageOption::RemoveUnknownProperties() Remove all unknown properties
@@ -123,6 +128,9 @@ class RemoteStorageOption {
 		if (property_exists($sc, 'StorageLimitBytes')) {
 			$this->StorageLimitBytes = (int)($sc->StorageLimitBytes);
 		}
+		if (property_exists($sc, 'RebrandStorage')) {
+			$this->RebrandStorage = (bool)($sc->RebrandStorage);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Type':
@@ -135,6 +143,7 @@ class RemoteStorageOption {
 			case 'Wasabi':
 			case 'StorageLimitEnabled':
 			case 'StorageLimitBytes':
+			case 'RebrandStorage':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -238,6 +247,7 @@ class RemoteStorageOption {
 		}
 		$ret["StorageLimitEnabled"] = $this->StorageLimitEnabled;
 		$ret["StorageLimitBytes"] = $this->StorageLimitBytes;
+		$ret["RebrandStorage"] = $this->RebrandStorage;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
