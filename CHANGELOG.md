@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## 2020-09-16 v3.8.0
+- Based on Comet 20.9.1
+- Support `SetTOTPCode` function, to authenticate against Comet Server with a temporary 6-digit TOTP code
+- Support new Organization feature
+- Support new `AdminCreateInstallTokenRequest` API
+- Support new Admin user management APIs
+- Support new `RebrandStorage` property on Storage Vaults and on Requestable destination targets
+- Fix an issue with incorrect type marshalling in `StorageFreeSpaceInfo.UsedPercent`
+- Remove some unnecessary null checks and constant comparisons when submitting an API parameter containing object data
+
 ## 2020-09-03 v3.7.0
 - Add definitions for B2/Wasabi direct to cloud storage
 - Add definitions for remote LDAP servers
