@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 2020-10-08 v1.1.0
+- Based on Comet 20.9.6
+- Support new `AdminStorageBucketProperties` API
+- Allow passing in null or no value for `AdminStorageFreeSpace` parameter
+
 ## 2020-09-16 v3.8.0
 - Based on Comet 20.9.1
 - Support `SetTOTPCode` function, to authenticate against Comet Server with a temporary 6-digit TOTP code
