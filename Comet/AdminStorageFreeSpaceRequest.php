@@ -21,18 +21,18 @@ namespace Comet;
 class AdminStorageFreeSpaceRequest implements \Comet\NetworkRequest {
 
 	/**
-	 * Selected bucket name
+	 * (This parameter is not used) (optional)
 	 *
-	 * @var string
+	 * @var string|null
 	 */
 	protected $BucketID = null;
 
 	/**
 	 * Construct a new AdminStorageFreeSpaceRequest instance.
 	 *
-	 * @param string $BucketID Selected bucket name
+	 * @param string $BucketID (This parameter is not used) (optional)
 	 */
-	public function __construct($BucketID)
+	public function __construct($BucketID = null)
 	{
 		$this->BucketID = $BucketID;
 	}
@@ -60,7 +60,9 @@ class AdminStorageFreeSpaceRequest implements \Comet\NetworkRequest {
 	public function Parameters()
 	{
 		$ret = [];
-		$ret["BucketID"] = (string)($this->BucketID);
+		if ($this->BucketID !== null) {
+			$ret["BucketID"] = (string)($this->BucketID);
+		}
 		return $ret;
 	}
 

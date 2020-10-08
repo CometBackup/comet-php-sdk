@@ -2208,11 +2208,11 @@ class Server {
 	 * This API requires the Storage Role to be enabled.
 	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
 	 *
-	 * @param string $BucketID Selected bucket name
+	 * @param string $BucketID (This parameter is not used) (optional)
 	 * @return \Comet\StorageFreeSpaceInfo 
 	 * @throws \Exception
 	 */
-	public function AdminStorageFreeSpace($BucketID)
+	public function AdminStorageFreeSpace($BucketID = null)
 	{
 		$nr = new \Comet\AdminStorageFreeSpaceRequest($BucketID);
 		$response = $this->client->send($this->AsPSR7($nr));
