@@ -2183,6 +2183,25 @@ class Server {
 	}
 
 	/** 
+	 * Retrieve properties for a single bucket
+	 * This API can also be used to refresh the size measurement for a single bucket by passing a valid AfterTimestamp parameter.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Storage Role to be enabled.
+	 *
+	 * @param string $BucketID Bucket ID
+	 * @param int $AfterTimestamp Allow a stale size measurement if it is at least as new as the supplied Unix timestamp. Timestamps in the future may produce a result clamped down to the Comet Server's current time. If not present, the size measurement may be arbitrarily stale. (optional)
+	 * @return \Comet\BucketProperties 
+	 * @throws \Exception
+	 */
+	public function AdminStorageBucketProperties($BucketID, $AfterTimestamp = null)
+	{
+		$nr = new \Comet\AdminStorageBucketPropertiesRequest($BucketID, $AfterTimestamp);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminStorageBucketPropertiesRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Delete a bucket
 	 * All data will be removed from the server. Misuse can cause data loss!
 	 * 
