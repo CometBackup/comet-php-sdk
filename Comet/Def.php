@@ -310,6 +310,27 @@ class Def {
 	const EMAILREPORTTYPE_SUMMARY = 1;
 
 	/**
+	 * FtpsModeType:
+	 *
+	 * @type int
+	 */
+	const FTPS_MODE_PLAINTEXT = 0;
+
+	/**
+	 * FtpsModeType:
+	 *
+	 * @type int
+	 */
+	const FTPS_MODE_IMPLICIT = 1;
+
+	/**
+	 * FtpsModeType:
+	 *
+	 * @type int
+	 */
+	const FTPS_MODE_EXPLICIT = 2;
+
+	/**
 	 * Severity:
 	 *
 	 * @type string
