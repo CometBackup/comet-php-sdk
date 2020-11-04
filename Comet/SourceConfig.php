@@ -44,6 +44,11 @@ class SourceConfig {
 	/**
 	 * @var string[]
 	 */
+	public $ThawExec = [];
+
+	/**
+	 * @var string[]
+	 */
 	public $PostExec = [];
 
 	/**
@@ -102,6 +107,15 @@ class SourceConfig {
 			}
 			$this->PreExec = $val_2;
 		}
+		if (property_exists($sc, 'ThawExec')) {
+			$val_2 = [];
+			if ($sc->ThawExec !== null) {
+				for($i_2 = 0; $i_2 < count($sc->ThawExec); ++$i_2) {
+					$val_2[] = (string)($sc->ThawExec[$i_2]);
+				}
+			}
+			$this->ThawExec = $val_2;
+		}
 		if (property_exists($sc, 'PostExec')) {
 			$val_2 = [];
 			if ($sc->PostExec !== null) {
@@ -154,6 +168,7 @@ class SourceConfig {
 			case 'CreateTime':
 			case 'ModifyTime':
 			case 'PreExec':
+			case 'ThawExec':
 			case 'PostExec':
 			case 'EngineProps':
 			case 'OverrideDestinationRetention':
@@ -251,6 +266,14 @@ class SourceConfig {
 				$c0[] = $val0;
 			}
 			$ret["PreExec"] = $c0;
+		}
+		{
+			$c0 = [];
+			for($i0 = 0; $i0 < count($this->ThawExec); ++$i0) {
+				$val0 = $this->ThawExec[$i0];
+				$c0[] = $val0;
+			}
+			$ret["ThawExec"] = $c0;
 		}
 		{
 			$c0 = [];
