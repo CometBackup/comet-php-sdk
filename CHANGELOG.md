@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 2020-10-08 v1.1.0
+## 2020-10-08 v3.9.0
 - Based on Comet 20.9.6
 - Support new `AdminStorageBucketProperties` API
 - Allow passing in null or no value for `AdminStorageFreeSpace` parameter
