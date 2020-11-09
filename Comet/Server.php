@@ -810,6 +810,26 @@ class Server {
 	}
 
 	/** 
+	 * Instruct a live connected device to delete multiple stored snapshots
+	 * The target device must be running Comet 20.9.10 or later.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetID The live connection GUID
+	 * @param string $DestinationID The Storage Vault GUID
+	 * @param string[] $SnapshotIDs The backup job snapshot IDs to delete
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherDeleteSnapshots($TargetID, $DestinationID, array $SnapshotIDs)
+	{
+		$nr = new \Comet\AdminDispatcherDeleteSnapshotsRequest($TargetID, $DestinationID, $SnapshotIDs);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherDeleteSnapshotsRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Disconnect a live connected device
 	 * The device will almost certainly attempt to reconnect.
 	 * 
