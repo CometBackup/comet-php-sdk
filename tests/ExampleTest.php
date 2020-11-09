@@ -155,5 +155,30 @@ class ExampleTest extends \PHPUnit\Framework\TestCase {
 		// Check if our trivial modification is still there
 		// TODO
 	}
+
+	public function testOtherLanguage() {
+		$unknown_username = "comet-test-unknown-user-".time();
+
+		$this->server->setLanguage('en_US');
+
+		try {
+			$userpc = $this->server->AdminGetUserProfile($unknown_username);
+			$this->fail("Shouldn't reach this");
+		} catch (\Exception $e) {
+			$this->assertEquals("Error 403: Unauthorised", $e->getMessage());
+		}
+
+		$this->server->setLanguage('es_ES');
+		
+		try {
+			$userpc = $this->server->AdminGetUserProfile($unknown_username);
+			$this->fail("Shouldn't reach this");
+		} catch (\Exception $e) {
+			$this->assertEquals("Error 403: No autorizado", $e->getMessage());
+		}
+
+		// Revert back
+		$this->server->setLanguage('en_US');
+	}
 	
 }
