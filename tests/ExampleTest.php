@@ -100,7 +100,7 @@ class ExampleTest extends \PHPUnit\Framework\TestCase {
 		$this->assertTrue( self::sizeWithinRange(strlen($data), 15, 20), "Got size ".strlen($data)." for macos-x86_64, expected 15-20 MB" );
 
 		$data = $this->server->AdminBrandingGenerateClientWindowsAnycpuZip();
-		$this->assertTrue( self::sizeWithinRange(strlen($data), 40, 50), "Got size ".strlen($data)." for windows-anycpu-zip, expected 40-50 MB" );
+		$this->assertTrue( self::sizeWithinRange(strlen($data), 40, 60), "Got size ".strlen($data)." for windows-anycpu-zip, expected 40-60 MB" );
 
 		$data = $this->server->AdminBrandingGenerateClientWindowsX8632Zip();
 		$this->assertTrue( self::sizeWithinRange(strlen($data), 20, 30), "Got size ".strlen($data)." for windows-x86_32-zip, expected 20-30 MB" );
