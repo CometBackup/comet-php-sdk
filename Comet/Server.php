@@ -51,6 +51,14 @@ class Server {
 	protected $client = null;
 
 	/**
+	 * The language string to send to the remote Comet Server, for receiving translated
+	 * status message text
+	 * 
+	 * @var string|null
+	 */
+	protected $language = null;
+
+	/**
 	 * Construct a new \Comet\Server instance.
 	 *
 	 * @param string $server_url The fully qualified URL to the Comet Server, including protocol and trailing slash
@@ -93,6 +101,18 @@ class Server {
 	 */
 	public function setTOTPCode($TOTPCode) {
 		$this->TOTPCode = $TOTPCode;
+	}
+
+	/**
+	 * Specify our preferred language. The Comet Server may supply translated response messages.
+	 * 
+	 * The value should be one of Comet Server's supported languages, such as 'en_US' or 'pt_BR'.
+	 *
+	 * @param string $language
+	 * @return void
+	 */
+	public function setLanguage($language) {
+		$this->language = $language;
 	}
 
 	/** 
@@ -2376,12 +2396,17 @@ class Server {
 			$params['TOTP']     = $this->TOTPCode;
 		}
 
+		$headers = [
+			'Content-Type' => 'application/x-www-form-urlencoded',
+		];
+		if ($this->language !== null) {
+			$headers['Accept-Language'] = str_replace('_', '-', $this->language).';q=0.9, en;q=0.8, *;q=0.5';
+		}
+
 		return new \GuzzleHttp\Psr7\Request(
 			$nr->Method(),
 			$this->server_url . ltrim($nr->Endpoint(), '/'),
-			[
-				'Content-Type' => 'application/x-www-form-urlencoded',
-			],
+			$headers,
 			http_build_query($params)
 		);
 	}
