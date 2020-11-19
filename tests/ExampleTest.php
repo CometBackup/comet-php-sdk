@@ -180,5 +180,18 @@ class ExampleTest extends \PHPUnit\Framework\TestCase {
 		// Revert back
 		$this->server->setLanguage('en_US');
 	}
+
+	public function testMultipartResource() {
+		// The AdminMetaResourceNew API uses a multipart submission body instead of a
+		// regular form body. Test that we can round-trip a binary resource
+
+		$resource_content = "comet-test-resource-content-".time();
+
+		$props = $this->server->AdminMetaResourceNew($resource_content);
+
+		$result = $this->server->AdminMetaResourceGet($props->ResourceHash);
+
+		$this->assertEquals($resource_content, $result);
+	}
 	
 }
