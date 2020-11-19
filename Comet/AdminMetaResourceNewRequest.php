@@ -43,6 +43,11 @@ class AdminMetaResourceNewRequest implements \Comet\NetworkRequest {
 		return 'POST';
 	}
 
+	public function ContentType()
+	{
+		return 'multipart/form-data';
+	}
+
 	/**
 	 * Get the POST parameters for this request.
 	 *

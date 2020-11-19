@@ -49,6 +49,11 @@ class AdminAccountSessionStartAsUserRequest implements \Comet\NetworkRequest {
 		return 'POST';
 	}
 
+	public function ContentType()
+	{
+		return 'application/x-www-form-urlencoded';
+	}
+
 	/**
 	 * Get the POST parameters for this request.
 	 *

@@ -17,4 +17,6 @@ interface NetworkRequest {
 
 	public function Method();
 
+	public function ContentType();
+
 }
