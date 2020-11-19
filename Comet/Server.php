@@ -2408,27 +2408,80 @@ class Server {
 	 */
 	public function AsPSR7(NetworkRequest $nr) {
 		$params = $nr->Parameters();
-		$params['Username'] = $this->username;
-		$params['AuthType'] = 'Password';
-		$params['Password'] = $this->password;
-		if (strlen($this->TOTPCode) > 0) {
-			$params['AuthType'] = 'PasswordTOTP';
-			$params['TOTP']     = $this->TOTPCode;
-		}
-
-		$headers = [
-			'Content-Type' => 'application/x-www-form-urlencoded',
-		];
+		
+		$contentType = $nr->ContentType();
+		
+		$headers = [];
 		if ($this->language !== null) {
 			$headers['Accept-Language'] = str_replace('_', '-', $this->language).';q=0.9, en;q=0.8, *;q=0.5';
 		}
+
+		$body = '';
+
+		if ($contentType === 'application/x-www-form-urlencoded') {
+			
+			// Authentication parameters go in the body
+			$params['Username'] = $this->username;
+			$params['AuthType'] = 'Password';
+			$params['Password'] = $this->password;
+			if (strlen($this->TOTPCode) > 0) {
+				$params['AuthType'] = 'PasswordTOTP';
+				$params['TOTP']     = $this->TOTPCode;
+			}
+
+			$headers['Content-Type'] = $contentType;
+			$body = http_build_query($params);
+
+		} else if ($contentType === 'multipart/form-data') {
+			
+			// Authentication parameters go in the headers
+			$headers['X-Comet-Admin-Username'] = $this->username;
+			$headers['X-Comet-Admin-AuthType'] = 'Password';
+			$headers['X-Comet-Admin-Password'] = $this->password;
+			if (strlen($this->TOTPCode) > 0) {
+				$headers['X-Comet-Admin-AuthType'] = 'PasswordTOTP';
+				$headers['X-Comet-Admin-TOTP']     = $this->TOTPCode;
+			}
+
+			$boundary = '-------------' . uniqid();
+			$headers['Content-Type'] = $contentType.'; boundary='.$boundary;
+			$body = self::http_build_query_multipart($params, $boundary);
+
+		} else {
+			throw new \Exception("Unexpected ContentType '{$contentType}'");
+
+		}
+
+		$headers['Content-Length'] = strlen($body);
 
 		return new \GuzzleHttp\Psr7\Request(
 			$nr->Method(),
 			$this->server_url . ltrim($nr->Endpoint(), '/'),
 			$headers,
-			http_build_query($params)
+			$body			
 		);
+	}
+
+	/**
+	 * http_build_query_multipart is a version of \http_build_query() that produces a
+	 * multipart/form-data POST body instead of an application/x-www-form-urlencoded one.
+	 * 
+	 * @param array $params POST parameters
+	 * @param string $boundary Boundary with leading hyphens
+	 * @return string POST body
+	 */ 
+	protected static function http_build_query_multipart(array $params, $boundary) {
+		$ret = '';
+
+		foreach($params as $k => $v) {
+			$ret .= "--{$boundary}\r\n";
+			$ret .= "Content-Disposition: form-data; name=\"{$k}\"; filename=\"{$k}\"\r\n\r\n";
+			$ret .= $v . "\r\n";
+		}
+
+		$ret .= "--{$boundary}--\r\n";
+
+		return $ret;
 	}
 
 }
