@@ -854,7 +854,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "20.9.10";
+	const APPLICATION_VERSION = "20.11.0";
 
 	/**
 	 * @type int
@@ -864,17 +864,17 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_MINOR = 9;
+	const APPLICATION_VERSION_MINOR = 11;
 
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 10;
+	const APPLICATION_VERSION_REVISION = 0;
 
 	/**
 	 * @type string
 	 */
-	const RELEASE_CODENAME = "Voyager";
+	const RELEASE_CODENAME = "Io";
 
 	/**
 	 * @type int
