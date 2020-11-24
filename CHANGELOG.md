@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 2020-11-24 v3.11.0
+- Based on Comet 20.11.0
+- Support new `AdminDispatcherDeleteSnapshots` API for deleting multiple snapshots in a single step
+- Support `AdminMetaResourceNew` API using multipart request
+- Support `setLanguage()` to request translated error messages and status codes
+- Fix an issue with expected filesizes unit tests for downloading software versions
+- Fix a cosmetic issue with capitalization in AdminMetaResourceNewRequest API description
+
 ## 2020-11-05 v3.10.0
 - Based on Comet 20.9.10
 - Support new `ThawExec` feature
