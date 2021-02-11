@@ -242,6 +242,11 @@ class DestinationConfig {
 	public $SpanTargets = [];
 
 	/**
+	 * @var boolean
+	 */
+	public $SpanUseStaticSlots = false;
+
+	/**
 	 * @var int
 	 */
 	public $EncryptionKeyEncryptionMethod = 0;
@@ -475,6 +480,9 @@ class DestinationConfig {
 			}
 			$this->SpanTargets = $val_2;
 		}
+		if (property_exists($sc, 'SpanUseStaticSlots')) {
+			$this->SpanUseStaticSlots = (bool)($sc->SpanUseStaticSlots);
+		}
 		if (property_exists($sc, 'EncryptionKeyEncryptionMethod')) {
 			$this->EncryptionKeyEncryptionMethod = (int)($sc->EncryptionKeyEncryptionMethod);
 		}
@@ -557,6 +565,7 @@ class DestinationConfig {
 			case 'Swift':
 			case 'B2':
 			case 'SpanTargets':
+			case 'SpanUseStaticSlots':
 			case 'EncryptionKeyEncryptionMethod':
 			case 'EncryptedEncryptionKey':
 			case 'RepoInitTimestamp':
@@ -732,6 +741,7 @@ class DestinationConfig {
 			}
 			$ret["SpanTargets"] = $c0;
 		}
+		$ret["SpanUseStaticSlots"] = $this->SpanUseStaticSlots;
 		$ret["EncryptionKeyEncryptionMethod"] = $this->EncryptionKeyEncryptionMethod;
 		$ret["EncryptedEncryptionKey"] = $this->EncryptedEncryptionKey;
 		$ret["RepoInitTimestamp"] = $this->RepoInitTimestamp;

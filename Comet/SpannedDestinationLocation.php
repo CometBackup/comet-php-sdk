@@ -17,6 +17,11 @@ class SpannedDestinationLocation {
 	public $SpanTargets = [];
 
 	/**
+	 * @var boolean
+	 */
+	public $SpanUseStaticSlots = false;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see SpannedDestinationLocation::RemoveUnknownProperties() Remove all unknown properties
@@ -47,9 +52,13 @@ class SpannedDestinationLocation {
 			}
 			$this->SpanTargets = $val_2;
 		}
+		if (property_exists($sc, 'SpanUseStaticSlots')) {
+			$this->SpanUseStaticSlots = (bool)($sc->SpanUseStaticSlots);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'SpanTargets':
+			case 'SpanUseStaticSlots':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -143,6 +152,7 @@ class SpannedDestinationLocation {
 			}
 			$ret["SpanTargets"] = $c0;
 		}
+		$ret["SpanUseStaticSlots"] = $this->SpanUseStaticSlots;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
