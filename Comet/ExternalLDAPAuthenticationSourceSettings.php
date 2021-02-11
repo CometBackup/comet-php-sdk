@@ -32,6 +32,26 @@ class ExternalLDAPAuthenticationSourceSettings {
 	public $BindUser = "";
 
 	/**
+	 * @var string
+	 */
+	public $BindPassword = "";
+
+	/**
+	 * @var string
+	 */
+	public $SearchDN = "";
+
+	/**
+	 * @var string
+	 */
+	public $SearchFilter = "";
+
+	/**
+	 * @var boolean
+	 */
+	public $AcceptInvalidSSL = false;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see ExternalLDAPAuthenticationSourceSettings::RemoveUnknownProperties() Remove all unknown properties
@@ -60,12 +80,28 @@ class ExternalLDAPAuthenticationSourceSettings {
 		if (property_exists($sc, 'BindUser')) {
 			$this->BindUser = (string)($sc->BindUser);
 		}
+		if (property_exists($sc, 'BindPassword')) {
+			$this->BindPassword = (string)($sc->BindPassword);
+		}
+		if (property_exists($sc, 'SearchDN')) {
+			$this->SearchDN = (string)($sc->SearchDN);
+		}
+		if (property_exists($sc, 'SearchFilter')) {
+			$this->SearchFilter = (string)($sc->SearchFilter);
+		}
+		if (property_exists($sc, 'AcceptInvalidSSL')) {
+			$this->AcceptInvalidSSL = (bool)($sc->AcceptInvalidSSL);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Hostname':
 			case 'Port':
 			case 'SecurityMethod':
 			case 'BindUser':
+			case 'BindPassword':
+			case 'SearchDN':
+			case 'SearchFilter':
+			case 'AcceptInvalidSSL':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -151,6 +187,10 @@ class ExternalLDAPAuthenticationSourceSettings {
 		$ret["Port"] = $this->Port;
 		$ret["SecurityMethod"] = $this->SecurityMethod;
 		$ret["BindUser"] = $this->BindUser;
+		$ret["BindPassword"] = $this->BindPassword;
+		$ret["SearchDN"] = $this->SearchDN;
+		$ret["SearchFilter"] = $this->SearchFilter;
+		$ret["AcceptInvalidSSL"] = $this->AcceptInvalidSSL;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
