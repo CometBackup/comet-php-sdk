@@ -1014,7 +1014,7 @@ class Server {
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param string $Path Browse objects inside this path. If empty or not present, returns the top-level device paths (optional)
-	 * @return \Comet\StoredObject[] 
+	 * @return \Comet\DispatcherStoredObjectsResponse 
 	 * @throws \Exception
 	 */
 	public function AdminDispatcherRequestFilesystemObjects($TargetID, $Path = null)

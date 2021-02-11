@@ -86,7 +86,7 @@ class AdminDispatcherRequestFilesystemObjectsRequest implements \Comet\NetworkRe
 	 *
 	 * @param int $responseCode HTTP response code
 	 * @param string $body HTTP response body
-	 * @return \Comet\StoredObject[]
+	 * @return \Comet\DispatcherStoredObjectsResponse
 	 * @throws \Exception
 	 */
 	public static function ProcessResponse($responseCode, $body)
@@ -111,19 +111,13 @@ class AdminDispatcherRequestFilesystemObjectsRequest implements \Comet\NetworkRe
 			}
 		}
 
-		// Parse as []StoredObject
-		$val_0 = [];
-		if ($decoded !== null) {
-			for($i_0 = 0; $i_0 < count($decoded); ++$i_0) {
-				if (is_array($decoded[$i_0]) && count($decoded[$i_0]) === 0) {
-				// Work around edge case in json_decode--json_encode stdClass conversion
-					$val_0[] = \Comet\StoredObject::createFromStdclass(new \stdClass());
-				} else {
-					$val_0[] = \Comet\StoredObject::createFromStdclass($decoded[$i_0]);
-				}
-			}
+		// Parse as DispatcherStoredObjectsResponse
+		if (is_array($decoded) && count($decoded) === 0) {
+		// Work around edge case in json_decode--json_encode stdClass conversion
+			$ret = \Comet\DispatcherStoredObjectsResponse::createFromStdclass(new \stdClass());
+		} else {
+			$ret = \Comet\DispatcherStoredObjectsResponse::createFromStdclass($decoded);
 		}
-		$ret = $val_0;
 
 		return $ret;
 	}
