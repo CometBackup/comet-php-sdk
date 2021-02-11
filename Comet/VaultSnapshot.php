@@ -27,6 +27,11 @@ class VaultSnapshot {
 	public $CreateTime = 0;
 
 	/**
+	 * @var boolean
+	 */
+	public $HasOriginalPathInfo = false;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see VaultSnapshot::RemoveUnknownProperties() Remove all unknown properties
@@ -52,11 +57,15 @@ class VaultSnapshot {
 		if (property_exists($sc, 'CreateTime')) {
 			$this->CreateTime = (int)($sc->CreateTime);
 		}
+		if (property_exists($sc, 'HasOriginalPathInfo')) {
+			$this->HasOriginalPathInfo = (bool)($sc->HasOriginalPathInfo);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Snapshot':
 			case 'Source':
 			case 'CreateTime':
+			case 'HasOriginalPathInfo':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -141,6 +150,7 @@ class VaultSnapshot {
 		$ret["Snapshot"] = $this->Snapshot;
 		$ret["Source"] = $this->Source;
 		$ret["CreateTime"] = $this->CreateTime;
+		$ret["HasOriginalPathInfo"] = $this->HasOriginalPathInfo;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
