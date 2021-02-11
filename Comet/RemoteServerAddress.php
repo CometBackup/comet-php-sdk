@@ -52,6 +52,11 @@ class RemoteServerAddress {
 	public $Wasabi = null;
 
 	/**
+	 * @var \Comet\CustomRemoteBucketSettings
+	 */
+	public $Custom = null;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see RemoteServerAddress::RemoveUnknownProperties() Remove all unknown properties
@@ -107,6 +112,14 @@ class RemoteServerAddress {
 				$this->Wasabi = \Comet\WasabiVirtualStorageRoleSettings::createFromStdclass($sc->Wasabi);
 			}
 		}
+		if (property_exists($sc, 'Custom')) {
+			if (is_array($sc->Custom) && count($sc->Custom) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->Custom = \Comet\CustomRemoteBucketSettings::createFromStdclass(new \stdClass());
+			} else {
+				$this->Custom = \Comet\CustomRemoteBucketSettings::createFromStdclass($sc->Custom);
+			}
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Type':
@@ -117,6 +130,7 @@ class RemoteServerAddress {
 			case 'LDAP':
 			case 'B2':
 			case 'Wasabi':
+			case 'Custom':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -218,6 +232,11 @@ class RemoteServerAddress {
 		} else {
 			$ret["Wasabi"] = $this->Wasabi->toArray($for_json_encode);
 		}
+		if ( $this->Custom === null ) {
+			$ret["Custom"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["Custom"] = $this->Custom->toArray($for_json_encode);
+		}
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
@@ -275,6 +294,9 @@ class RemoteServerAddress {
 		}
 		if ($this->Wasabi !== null) {
 			$this->Wasabi->RemoveUnknownProperties();
+		}
+		if ($this->Custom !== null) {
+			$this->Custom->RemoveUnknownProperties();
 		}
 	}
 

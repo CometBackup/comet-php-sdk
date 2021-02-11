@@ -1241,6 +1241,13 @@ class Def {
 	const REMOTESERVER_WASABI = "wasabi";
 
 	/**
+	 * RemoteServerType:
+	 *
+	 * @type string
+	 */
+	const REMOTESERVER_CUSTOM = "custom";
+
+	/**
 	 * @type string
 	 */
 	const LDAPSECURITYMETHOD_PLAIN = "plain";

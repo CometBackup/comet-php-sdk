@@ -52,6 +52,11 @@ class RemoteStorageOption {
 	public $Wasabi = null;
 
 	/**
+	 * @var \Comet\CustomRemoteBucketSettings
+	 */
+	public $Custom = null;
+
+	/**
 	 * @var boolean
 	 */
 	public $StorageLimitEnabled = false;
@@ -122,6 +127,14 @@ class RemoteStorageOption {
 				$this->Wasabi = \Comet\WasabiVirtualStorageRoleSettings::createFromStdclass($sc->Wasabi);
 			}
 		}
+		if (property_exists($sc, 'Custom')) {
+			if (is_array($sc->Custom) && count($sc->Custom) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->Custom = \Comet\CustomRemoteBucketSettings::createFromStdclass(new \stdClass());
+			} else {
+				$this->Custom = \Comet\CustomRemoteBucketSettings::createFromStdclass($sc->Custom);
+			}
+		}
 		if (property_exists($sc, 'StorageLimitEnabled')) {
 			$this->StorageLimitEnabled = (bool)($sc->StorageLimitEnabled);
 		}
@@ -141,6 +154,7 @@ class RemoteStorageOption {
 			case 'LDAP':
 			case 'B2':
 			case 'Wasabi':
+			case 'Custom':
 			case 'StorageLimitEnabled':
 			case 'StorageLimitBytes':
 			case 'RebrandStorage':
@@ -245,6 +259,11 @@ class RemoteStorageOption {
 		} else {
 			$ret["Wasabi"] = $this->Wasabi->toArray($for_json_encode);
 		}
+		if ( $this->Custom === null ) {
+			$ret["Custom"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["Custom"] = $this->Custom->toArray($for_json_encode);
+		}
 		$ret["StorageLimitEnabled"] = $this->StorageLimitEnabled;
 		$ret["StorageLimitBytes"] = $this->StorageLimitBytes;
 		$ret["RebrandStorage"] = $this->RebrandStorage;
@@ -305,6 +324,9 @@ class RemoteStorageOption {
 		}
 		if ($this->Wasabi !== null) {
 			$this->Wasabi->RemoveUnknownProperties();
+		}
+		if ($this->Custom !== null) {
+			$this->Custom->RemoveUnknownProperties();
 		}
 	}
 
