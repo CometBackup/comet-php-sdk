@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 2021-03-03 v3.12.0
+- Based on Comet 21.2.1
+- Support restoring files to original paths
+- Support the new "Custom" requestable Storage Vault provider type and its `CustomRemoteBucketSettings` structure
+- Support new `SpanUseStaticSlots` attribute
+- Fix missing fields in `ExternalLDAPAuthenticationSourceSettings` structure
+- Fix broken `AdminDispatcherRequestFilesystemObjects` that was parsing into the wrong response type
+
 ## 2020-11-24 v3.11.0
 - Based on Comet 20.11.0
 - Support new `AdminDispatcherDeleteSnapshots` API for deleting multiple snapshots in a single step
