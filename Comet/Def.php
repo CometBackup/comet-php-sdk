@@ -854,27 +854,27 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "20.11.0";
+	const APPLICATION_VERSION = "21.2.1";
 
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_MAJOR = 20;
+	const APPLICATION_VERSION_MAJOR = 21;
 
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_MINOR = 11;
+	const APPLICATION_VERSION_MINOR = 2;
 
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 0;
+	const APPLICATION_VERSION_REVISION = 1;
 
 	/**
 	 * @type string
 	 */
-	const RELEASE_CODENAME = "Io";
+	const RELEASE_CODENAME = "Ganymede";
 
 	/**
 	 * @type int
