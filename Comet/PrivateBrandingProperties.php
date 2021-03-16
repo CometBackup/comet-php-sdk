@@ -24,6 +24,11 @@ class PrivateBrandingProperties {
 	/**
 	 * @var string
 	 */
+	public $PathMenuBarIcnsFile = "";
+
+	/**
+	 * @var string
+	 */
 	public $PathEulaRtf = "";
 
 	/**
@@ -114,6 +119,9 @@ class PrivateBrandingProperties {
 		if (property_exists($sc, 'PathIcnsFile')) {
 			$this->PathIcnsFile = (string)($sc->PathIcnsFile);
 		}
+		if (property_exists($sc, 'PathMenuBarIcnsFile')) {
+			$this->PathMenuBarIcnsFile = (string)($sc->PathMenuBarIcnsFile);
+		}
 		if (property_exists($sc, 'PathEulaRtf')) {
 			$this->PathEulaRtf = (string)($sc->PathEulaRtf);
 		}
@@ -165,6 +173,7 @@ class PrivateBrandingProperties {
 			switch($k) {
 			case 'PathIcoFile':
 			case 'PathIcnsFile':
+			case 'PathMenuBarIcnsFile':
 			case 'PathEulaRtf':
 			case 'PathTilePng':
 			case 'PathHeaderImage':
@@ -262,6 +271,7 @@ class PrivateBrandingProperties {
 		$ret = [];
 		$ret["PathIcoFile"] = $this->PathIcoFile;
 		$ret["PathIcnsFile"] = $this->PathIcnsFile;
+		$ret["PathMenuBarIcnsFile"] = $this->PathMenuBarIcnsFile;
 		$ret["PathEulaRtf"] = $this->PathEulaRtf;
 		$ret["PathTilePng"] = $this->PathTilePng;
 		$ret["PathHeaderImage"] = $this->PathHeaderImage;

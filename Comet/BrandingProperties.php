@@ -64,6 +64,11 @@ class BrandingProperties {
 	/**
 	 * @var string
 	 */
+	public $PathMenuBarIcnsFile = "";
+
+	/**
+	 * @var string
+	 */
 	public $PathEulaRtf = "";
 
 	/**
@@ -178,6 +183,9 @@ class BrandingProperties {
 		if (property_exists($sc, 'PathIcnsFile')) {
 			$this->PathIcnsFile = (string)($sc->PathIcnsFile);
 		}
+		if (property_exists($sc, 'PathMenuBarIcnsFile')) {
+			$this->PathMenuBarIcnsFile = (string)($sc->PathMenuBarIcnsFile);
+		}
 		if (property_exists($sc, 'PathEulaRtf')) {
 			$this->PathEulaRtf = (string)($sc->PathEulaRtf);
 		}
@@ -237,6 +245,7 @@ class BrandingProperties {
 			case 'HideBackgroundLogo':
 			case 'PathIcoFile':
 			case 'PathIcnsFile':
+			case 'PathMenuBarIcnsFile':
 			case 'PathEulaRtf':
 			case 'PathTilePng':
 			case 'PathHeaderImage':
@@ -342,6 +351,7 @@ class BrandingProperties {
 		$ret["HideBackgroundLogo"] = $this->HideBackgroundLogo;
 		$ret["PathIcoFile"] = $this->PathIcoFile;
 		$ret["PathIcnsFile"] = $this->PathIcnsFile;
+		$ret["PathMenuBarIcnsFile"] = $this->PathMenuBarIcnsFile;
 		$ret["PathEulaRtf"] = $this->PathEulaRtf;
 		$ret["PathTilePng"] = $this->PathTilePng;
 		$ret["PathHeaderImage"] = $this->PathHeaderImage;
