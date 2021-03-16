@@ -47,6 +47,11 @@ class Organization {
 	public $Email = null;
 
 	/**
+	 * @var boolean
+	 */
+	public $IsSuspended = false;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see Organization::RemoveUnknownProperties() Remove all unknown properties
@@ -129,6 +134,9 @@ class Organization {
 				$this->Email = \Comet\AdminEmailOptions::createFromStdclass($sc->Email);
 			}
 		}
+		if (property_exists($sc, 'IsSuspended')) {
+			$this->IsSuspended = (bool)($sc->IsSuspended);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Name':
@@ -138,6 +146,7 @@ class Organization {
 			case 'RemoteStorage':
 			case 'WebhookOptions':
 			case 'Email':
+			case 'IsSuspended':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -272,6 +281,7 @@ class Organization {
 		} else {
 			$ret["Email"] = $this->Email->toArray($for_json_encode);
 		}
+		$ret["IsSuspended"] = $this->IsSuspended;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
