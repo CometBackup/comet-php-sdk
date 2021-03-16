@@ -79,16 +79,16 @@ class RemoteServerAddress {
 		if (property_exists($sc, 'Description')) {
 			$this->Description = (string)($sc->Description);
 		}
-		if (property_exists($sc, 'RemoteAddress')) {
+		if (property_exists($sc, 'RemoteAddress') && !is_null($sc->RemoteAddress)) {
 			$this->RemoteAddress = (string)($sc->RemoteAddress);
 		}
-		if (property_exists($sc, 'Username')) {
+		if (property_exists($sc, 'Username') && !is_null($sc->Username)) {
 			$this->Username = (string)($sc->Username);
 		}
-		if (property_exists($sc, 'Password')) {
+		if (property_exists($sc, 'Password') && !is_null($sc->Password)) {
 			$this->Password = (string)($sc->Password);
 		}
-		if (property_exists($sc, 'LDAP')) {
+		if (property_exists($sc, 'LDAP') && !is_null($sc->LDAP)) {
 			if (is_array($sc->LDAP) && count($sc->LDAP) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
 				$this->LDAP = \Comet\ExternalLDAPAuthenticationSourceSettings::createFromStdclass(new \stdClass());
@@ -96,7 +96,7 @@ class RemoteServerAddress {
 				$this->LDAP = \Comet\ExternalLDAPAuthenticationSourceSettings::createFromStdclass($sc->LDAP);
 			}
 		}
-		if (property_exists($sc, 'B2')) {
+		if (property_exists($sc, 'B2') && !is_null($sc->B2)) {
 			if (is_array($sc->B2) && count($sc->B2) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
 				$this->B2 = \Comet\B2VirtualStorageRoleSettings::createFromStdclass(new \stdClass());
@@ -104,7 +104,7 @@ class RemoteServerAddress {
 				$this->B2 = \Comet\B2VirtualStorageRoleSettings::createFromStdclass($sc->B2);
 			}
 		}
-		if (property_exists($sc, 'Wasabi')) {
+		if (property_exists($sc, 'Wasabi') && !is_null($sc->Wasabi)) {
 			if (is_array($sc->Wasabi) && count($sc->Wasabi) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
 				$this->Wasabi = \Comet\WasabiVirtualStorageRoleSettings::createFromStdclass(new \stdClass());
@@ -112,7 +112,7 @@ class RemoteServerAddress {
 				$this->Wasabi = \Comet\WasabiVirtualStorageRoleSettings::createFromStdclass($sc->Wasabi);
 			}
 		}
-		if (property_exists($sc, 'Custom')) {
+		if (property_exists($sc, 'Custom') && !is_null($sc->Custom)) {
 			if (is_array($sc->Custom) && count($sc->Custom) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
 				$this->Custom = \Comet\CustomRemoteBucketSettings::createFromStdclass(new \stdClass());

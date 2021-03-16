@@ -46,7 +46,7 @@ class DeviceConfig {
 		if (property_exists($sc, 'FriendlyName')) {
 			$this->FriendlyName = (string)($sc->FriendlyName);
 		}
-		if (property_exists($sc, 'PlatformVersion')) {
+		if (property_exists($sc, 'PlatformVersion') && !is_null($sc->PlatformVersion)) {
 			if (is_array($sc->PlatformVersion) && count($sc->PlatformVersion) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
 				$this->PlatformVersion = \Comet\OSInfo::createFromStdclass(new \stdClass());
@@ -54,7 +54,7 @@ class DeviceConfig {
 				$this->PlatformVersion = \Comet\OSInfo::createFromStdclass($sc->PlatformVersion);
 			}
 		}
-		if (property_exists($sc, 'Sources')) {
+		if (property_exists($sc, 'Sources') && !is_null($sc->Sources)) {
 			$val_2 = [];
 			if ($sc->Sources !== null) {
 				foreach($sc->Sources as $k_2 => $v_2) {

@@ -53,19 +53,19 @@ class AdminUserPermissions {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
-		if (property_exists($sc, 'PreventEditServerSettings')) {
+		if (property_exists($sc, 'PreventEditServerSettings') && !is_null($sc->PreventEditServerSettings)) {
 			$this->PreventEditServerSettings = (bool)($sc->PreventEditServerSettings);
 		}
-		if (property_exists($sc, 'PreventServerShutdown')) {
+		if (property_exists($sc, 'PreventServerShutdown') && !is_null($sc->PreventServerShutdown)) {
 			$this->PreventServerShutdown = (bool)($sc->PreventServerShutdown);
 		}
-		if (property_exists($sc, 'PreventChangePassword')) {
+		if (property_exists($sc, 'PreventChangePassword') && !is_null($sc->PreventChangePassword)) {
 			$this->PreventChangePassword = (bool)($sc->PreventChangePassword);
 		}
-		if (property_exists($sc, 'AllowEditBranding')) {
+		if (property_exists($sc, 'AllowEditBranding') && !is_null($sc->AllowEditBranding)) {
 			$this->AllowEditBranding = (bool)($sc->AllowEditBranding);
 		}
-		if (property_exists($sc, 'AllowEditRemoteStorage')) {
+		if (property_exists($sc, 'AllowEditRemoteStorage') && !is_null($sc->AllowEditRemoteStorage)) {
 			$this->AllowEditRemoteStorage = (bool)($sc->AllowEditRemoteStorage);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {

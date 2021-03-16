@@ -49,7 +49,7 @@ class StreamableEvent {
 		if (property_exists($sc, 'Type')) {
 			$this->Type = (int)($sc->Type);
 		}
-		if (property_exists($sc, 'Data')) {
+		if (property_exists($sc, 'Data') && !is_null($sc->Data)) {
 			$this->Data = $sc->Data; // May be any type
 		}
 		foreach(get_object_vars($sc) as $k => $v) {

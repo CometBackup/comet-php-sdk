@@ -180,7 +180,7 @@ class UserProfileConfig {
 		if (property_exists($sc, 'LanguageCode')) {
 			$this->LanguageCode = (string)($sc->LanguageCode);
 		}
-		if (property_exists($sc, 'OrganizationID')) {
+		if (property_exists($sc, 'OrganizationID') && !is_null($sc->OrganizationID)) {
 			$this->OrganizationID = (string)($sc->OrganizationID);
 		}
 		if (property_exists($sc, 'Emails')) {
@@ -304,7 +304,7 @@ class UserProfileConfig {
 		if (property_exists($sc, 'PasswordHash')) {
 			$this->PasswordHash = (string)($sc->PasswordHash);
 		}
-		if (property_exists($sc, 'PasswordRecovery')) {
+		if (property_exists($sc, 'PasswordRecovery') && !is_null($sc->PasswordRecovery)) {
 			$this->PasswordRecovery = (string)($sc->PasswordRecovery);
 		}
 		if (property_exists($sc, 'AllowPasswordLogin')) {

@@ -53,19 +53,19 @@ class B2DestinationLocation {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
-		if (property_exists($sc, 'AccountID')) {
+		if (property_exists($sc, 'AccountID') && !is_null($sc->AccountID)) {
 			$this->AccountID = (string)($sc->AccountID);
 		}
-		if (property_exists($sc, 'Key')) {
+		if (property_exists($sc, 'Key') && !is_null($sc->Key)) {
 			$this->Key = (string)($sc->Key);
 		}
-		if (property_exists($sc, 'Bucket')) {
+		if (property_exists($sc, 'Bucket') && !is_null($sc->Bucket)) {
 			$this->Bucket = (string)($sc->Bucket);
 		}
-		if (property_exists($sc, 'Prefix')) {
+		if (property_exists($sc, 'Prefix') && !is_null($sc->Prefix)) {
 			$this->Prefix = (string)($sc->Prefix);
 		}
-		if (property_exists($sc, 'MaxConnections')) {
+		if (property_exists($sc, 'MaxConnections') && !is_null($sc->MaxConnections)) {
 			$this->MaxConnections = (int)($sc->MaxConnections);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {

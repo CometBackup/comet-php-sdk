@@ -136,7 +136,7 @@ class SourceConfig {
 			}
 			$this->EngineProps = $val_2;
 		}
-		if (property_exists($sc, 'OverrideDestinationRetention')) {
+		if (property_exists($sc, 'OverrideDestinationRetention') && !is_null($sc->OverrideDestinationRetention)) {
 			$val_2 = [];
 			if ($sc->OverrideDestinationRetention !== null) {
 				foreach($sc->OverrideDestinationRetention as $k_2 => $v_2) {
@@ -152,7 +152,7 @@ class SourceConfig {
 			}
 			$this->OverrideDestinationRetention = $val_2;
 		}
-		if (property_exists($sc, 'Statistics')) {
+		if (property_exists($sc, 'Statistics') && !is_null($sc->Statistics)) {
 			if (is_array($sc->Statistics) && count($sc->Statistics) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
 				$this->Statistics = \Comet\SourceStatistics::createFromStdclass(new \stdClass());

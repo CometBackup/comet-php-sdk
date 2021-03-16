@@ -80,7 +80,7 @@ class LiveUserConnection {
 		if (property_exists($sc, 'ReportedPlatform')) {
 			$this->ReportedPlatform = (string)($sc->ReportedPlatform);
 		}
-		if (property_exists($sc, 'ReportedPlatformVersion')) {
+		if (property_exists($sc, 'ReportedPlatformVersion') && !is_null($sc->ReportedPlatformVersion)) {
 			if (is_array($sc->ReportedPlatformVersion) && count($sc->ReportedPlatformVersion) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
 				$this->ReportedPlatformVersion = \Comet\OSInfo::createFromStdclass(new \stdClass());
@@ -88,7 +88,7 @@ class LiveUserConnection {
 				$this->ReportedPlatformVersion = \Comet\OSInfo::createFromStdclass($sc->ReportedPlatformVersion);
 			}
 		}
-		if (property_exists($sc, 'IPAddress')) {
+		if (property_exists($sc, 'IPAddress') && !is_null($sc->IPAddress)) {
 			$this->IPAddress = (string)($sc->IPAddress);
 		}
 		if (property_exists($sc, 'ConnectionTime')) {

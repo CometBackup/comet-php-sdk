@@ -62,7 +62,7 @@ class StorageFreeSpaceInfo {
 		if (property_exists($sc, 'AvailableBytes')) {
 			$this->AvailableBytes = (int)($sc->AvailableBytes);
 		}
-		if (property_exists($sc, 'Spanned')) {
+		if (property_exists($sc, 'Spanned') && !is_null($sc->Spanned)) {
 			if (is_array($sc->Spanned) && count($sc->Spanned) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
 				$this->Spanned = \Comet\SpannedStorageExtraInfo::createFromStdclass(new \stdClass());
@@ -70,7 +70,7 @@ class StorageFreeSpaceInfo {
 				$this->Spanned = \Comet\SpannedStorageExtraInfo::createFromStdclass($sc->Spanned);
 			}
 		}
-		if (property_exists($sc, 'B2')) {
+		if (property_exists($sc, 'B2') && !is_null($sc->B2)) {
 			if (is_array($sc->B2) && count($sc->B2) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
 				$this->B2 = \Comet\B2StorageExtraInfo::createFromStdclass(new \stdClass());

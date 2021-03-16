@@ -82,22 +82,22 @@ class EmailOptions {
 		if (property_exists($sc, 'FromName')) {
 			$this->FromName = (string)($sc->FromName);
 		}
-		if (property_exists($sc, 'SMTPHost')) {
+		if (property_exists($sc, 'SMTPHost') && !is_null($sc->SMTPHost)) {
 			$this->SMTPHost = (string)($sc->SMTPHost);
 		}
-		if (property_exists($sc, 'SMTPPort')) {
+		if (property_exists($sc, 'SMTPPort') && !is_null($sc->SMTPPort)) {
 			$this->SMTPPort = (int)($sc->SMTPPort);
 		}
-		if (property_exists($sc, 'SMTPUsername')) {
+		if (property_exists($sc, 'SMTPUsername') && !is_null($sc->SMTPUsername)) {
 			$this->SMTPUsername = (string)($sc->SMTPUsername);
 		}
-		if (property_exists($sc, 'SMTPPassword')) {
+		if (property_exists($sc, 'SMTPPassword') && !is_null($sc->SMTPPassword)) {
 			$this->SMTPPassword = (string)($sc->SMTPPassword);
 		}
-		if (property_exists($sc, 'SMTPAllowInvalidCertificate')) {
+		if (property_exists($sc, 'SMTPAllowInvalidCertificate') && !is_null($sc->SMTPAllowInvalidCertificate)) {
 			$this->SMTPAllowInvalidCertificate = (bool)($sc->SMTPAllowInvalidCertificate);
 		}
-		if (property_exists($sc, 'SMTPAllowUnencrypted')) {
+		if (property_exists($sc, 'SMTPAllowUnencrypted') && !is_null($sc->SMTPAllowUnencrypted)) {
 			$this->SMTPAllowUnencrypted = (bool)($sc->SMTPAllowUnencrypted);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {

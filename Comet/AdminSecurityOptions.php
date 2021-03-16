@@ -88,7 +88,7 @@ class AdminSecurityOptions {
 		if (property_exists($sc, 'AllowPasswordAndU2FLogin')) {
 			$this->AllowPasswordAndU2FLogin = (bool)($sc->AllowPasswordAndU2FLogin);
 		}
-		if (property_exists($sc, 'U2FRegistrations')) {
+		if (property_exists($sc, 'U2FRegistrations') && !is_null($sc->U2FRegistrations)) {
 			$val_2 = [];
 			if ($sc->U2FRegistrations !== null) {
 				for($i_2 = 0; $i_2 < count($sc->U2FRegistrations); ++$i_2) {
@@ -102,13 +102,13 @@ class AdminSecurityOptions {
 			}
 			$this->U2FRegistrations = $val_2;
 		}
-		if (property_exists($sc, 'TOTPKeyEncryptionFormat')) {
+		if (property_exists($sc, 'TOTPKeyEncryptionFormat') && !is_null($sc->TOTPKeyEncryptionFormat)) {
 			$this->TOTPKeyEncryptionFormat = (int)($sc->TOTPKeyEncryptionFormat);
 		}
-		if (property_exists($sc, 'TOTPKey')) {
+		if (property_exists($sc, 'TOTPKey') && !is_null($sc->TOTPKey)) {
 			$this->TOTPKey = (string)($sc->TOTPKey);
 		}
-		if (property_exists($sc, 'IPWhitelist')) {
+		if (property_exists($sc, 'IPWhitelist') && !is_null($sc->IPWhitelist)) {
 			$this->IPWhitelist = (string)($sc->IPWhitelist);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {

@@ -65,7 +65,7 @@ class SearchClause {
 		if (property_exists($sc, 'RuleValue')) {
 			$this->RuleValue = (string)($sc->RuleValue);
 		}
-		if (property_exists($sc, 'ClauseChildren')) {
+		if (property_exists($sc, 'ClauseChildren') && !is_null($sc->ClauseChildren)) {
 			$val_2 = [];
 			if ($sc->ClauseChildren !== null) {
 				for($i_2 = 0; $i_2 < count($sc->ClauseChildren); ++$i_2) {

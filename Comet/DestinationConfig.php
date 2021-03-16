@@ -498,7 +498,7 @@ class DestinationConfig {
 		if (property_exists($sc, 'StorageLimitBytes')) {
 			$this->StorageLimitBytes = (int)($sc->StorageLimitBytes);
 		}
-		if (property_exists($sc, 'Statistics')) {
+		if (property_exists($sc, 'Statistics') && !is_null($sc->Statistics)) {
 			if (is_array($sc->Statistics) && count($sc->Statistics) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
 				$this->Statistics = \Comet\DestinationStatistics::createFromStdclass(new \stdClass());

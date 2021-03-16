@@ -49,7 +49,7 @@ class ScheduleConfig {
 		if (property_exists($sc, 'SecondsPast')) {
 			$this->SecondsPast = (int)($sc->SecondsPast);
 		}
-		if (property_exists($sc, 'Offset')) {
+		if (property_exists($sc, 'Offset') && !is_null($sc->Offset)) {
 			$this->Offset = (int)($sc->Offset);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {

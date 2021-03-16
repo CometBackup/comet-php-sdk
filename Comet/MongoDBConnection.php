@@ -183,7 +183,7 @@ class MongoDBConnection {
 		if (property_exists($sc, 'UseSSH')) {
 			$this->UseSSH = (bool)($sc->UseSSH);
 		}
-		if (property_exists($sc, 'SSHConnection')) {
+		if (property_exists($sc, 'SSHConnection') && !is_null($sc->SSHConnection)) {
 			if (is_array($sc->SSHConnection) && count($sc->SSHConnection) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
 				$this->SSHConnection = \Comet\SSHConnection::createFromStdclass(new \stdClass());

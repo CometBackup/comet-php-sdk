@@ -159,7 +159,7 @@ class ServerMetaVersionInfo {
 		if (property_exists($sc, 'ConstellationRole')) {
 			$this->ConstellationRole = (bool)($sc->ConstellationRole);
 		}
-		if (property_exists($sc, 'ExperimentalOptions')) {
+		if (property_exists($sc, 'ExperimentalOptions') && !is_null($sc->ExperimentalOptions)) {
 			$val_2 = [];
 			if ($sc->ExperimentalOptions !== null) {
 				for($i_2 = 0; $i_2 < count($sc->ExperimentalOptions); ++$i_2) {

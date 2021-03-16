@@ -43,13 +43,13 @@ class OSInfo {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
-		if (property_exists($sc, 'version')) {
+		if (property_exists($sc, 'version') && !is_null($sc->version)) {
 			$this->Version = (string)($sc->version);
 		}
-		if (property_exists($sc, 'distribution')) {
+		if (property_exists($sc, 'distribution') && !is_null($sc->distribution)) {
 			$this->Distribution = (string)($sc->distribution);
 		}
-		if (property_exists($sc, 'build')) {
+		if (property_exists($sc, 'build') && !is_null($sc->build)) {
 			$this->Build = (string)($sc->build);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {

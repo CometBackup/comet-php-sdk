@@ -228,7 +228,7 @@ class UserPolicy {
 				$this->ProtectedItemEngineTypes = \Comet\ProtectedItemEngineTypePolicy::createFromStdclass($sc->ProtectedItemEngineTypes);
 			}
 		}
-		if (property_exists($sc, 'FileAndFolderMandatoryExclusions')) {
+		if (property_exists($sc, 'FileAndFolderMandatoryExclusions') && !is_null($sc->FileAndFolderMandatoryExclusions)) {
 			$val_2 = [];
 			if ($sc->FileAndFolderMandatoryExclusions !== null) {
 				for($i_2 = 0; $i_2 < count($sc->FileAndFolderMandatoryExclusions); ++$i_2) {
@@ -242,16 +242,16 @@ class UserPolicy {
 			}
 			$this->FileAndFolderMandatoryExclusions = $val_2;
 		}
-		if (property_exists($sc, 'ModeScheduleSkipAlreadyRunning')) {
+		if (property_exists($sc, 'ModeScheduleSkipAlreadyRunning') && !is_null($sc->ModeScheduleSkipAlreadyRunning)) {
 			$this->ModeScheduleSkipAlreadyRunning = (int)($sc->ModeScheduleSkipAlreadyRunning);
 		}
-		if (property_exists($sc, 'ModeAdminResetPassword')) {
+		if (property_exists($sc, 'ModeAdminResetPassword') && !is_null($sc->ModeAdminResetPassword)) {
 			$this->ModeAdminResetPassword = (int)($sc->ModeAdminResetPassword);
 		}
-		if (property_exists($sc, 'ModeAdminViewFilenames')) {
+		if (property_exists($sc, 'ModeAdminViewFilenames') && !is_null($sc->ModeAdminViewFilenames)) {
 			$this->ModeAdminViewFilenames = (int)($sc->ModeAdminViewFilenames);
 		}
-		if (property_exists($sc, 'ModeRequireUserResetPassword')) {
+		if (property_exists($sc, 'ModeRequireUserResetPassword') && !is_null($sc->ModeRequireUserResetPassword)) {
 			$this->ModeRequireUserResetPassword = (int)($sc->ModeRequireUserResetPassword);
 		}
 		if (property_exists($sc, 'PreventDeleteSingleSnapshots')) {

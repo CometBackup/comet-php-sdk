@@ -38,10 +38,10 @@ class BackupRuleEventTriggers {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
-		if (property_exists($sc, 'OnPCBoot')) {
+		if (property_exists($sc, 'OnPCBoot') && !is_null($sc->OnPCBoot)) {
 			$this->OnPCBoot = (bool)($sc->OnPCBoot);
 		}
-		if (property_exists($sc, 'OnPCBootIfLastJobMissed')) {
+		if (property_exists($sc, 'OnPCBootIfLastJobMissed') && !is_null($sc->OnPCBootIfLastJobMissed)) {
 			$this->OnPCBootIfLastJobMissed = (bool)($sc->OnPCBootIfLastJobMissed);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {

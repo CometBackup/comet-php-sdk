@@ -49,7 +49,7 @@ class SourceBasicInfo {
 		if (property_exists($sc, 'Size')) {
 			$this->Size = (int)($sc->Size);
 		}
-		if (property_exists($sc, 'OverrideDestinationRetention')) {
+		if (property_exists($sc, 'OverrideDestinationRetention') && !is_null($sc->OverrideDestinationRetention)) {
 			$val_2 = [];
 			if ($sc->OverrideDestinationRetention !== null) {
 				foreach($sc->OverrideDestinationRetention as $k_2 => $v_2) {

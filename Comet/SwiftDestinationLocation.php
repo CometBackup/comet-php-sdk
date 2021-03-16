@@ -93,43 +93,43 @@ class SwiftDestinationLocation {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
-		if (property_exists($sc, 'Username')) {
+		if (property_exists($sc, 'Username') && !is_null($sc->Username)) {
 			$this->Username = (string)($sc->Username);
 		}
-		if (property_exists($sc, 'APIKey')) {
+		if (property_exists($sc, 'APIKey') && !is_null($sc->APIKey)) {
 			$this->APIKey = (string)($sc->APIKey);
 		}
-		if (property_exists($sc, 'Region')) {
+		if (property_exists($sc, 'Region') && !is_null($sc->Region)) {
 			$this->Region = (string)($sc->Region);
 		}
-		if (property_exists($sc, 'AuthURL')) {
+		if (property_exists($sc, 'AuthURL') && !is_null($sc->AuthURL)) {
 			$this->AuthURL = (string)($sc->AuthURL);
 		}
-		if (property_exists($sc, 'Domain')) {
+		if (property_exists($sc, 'Domain') && !is_null($sc->Domain)) {
 			$this->Domain = (string)($sc->Domain);
 		}
-		if (property_exists($sc, 'Tenant')) {
+		if (property_exists($sc, 'Tenant') && !is_null($sc->Tenant)) {
 			$this->Tenant = (string)($sc->Tenant);
 		}
-		if (property_exists($sc, 'TenantDomain')) {
+		if (property_exists($sc, 'TenantDomain') && !is_null($sc->TenantDomain)) {
 			$this->TenantDomain = (string)($sc->TenantDomain);
 		}
-		if (property_exists($sc, 'TenantID')) {
+		if (property_exists($sc, 'TenantID') && !is_null($sc->TenantID)) {
 			$this->TenantID = (string)($sc->TenantID);
 		}
-		if (property_exists($sc, 'TrustID')) {
+		if (property_exists($sc, 'TrustID') && !is_null($sc->TrustID)) {
 			$this->TrustID = (string)($sc->TrustID);
 		}
-		if (property_exists($sc, 'AuthToken')) {
+		if (property_exists($sc, 'AuthToken') && !is_null($sc->AuthToken)) {
 			$this->AuthToken = (string)($sc->AuthToken);
 		}
-		if (property_exists($sc, 'Prefix')) {
+		if (property_exists($sc, 'Prefix') && !is_null($sc->Prefix)) {
 			$this->Prefix = (string)($sc->Prefix);
 		}
-		if (property_exists($sc, 'Container')) {
+		if (property_exists($sc, 'Container') && !is_null($sc->Container)) {
 			$this->Container = (string)($sc->Container);
 		}
-		if (property_exists($sc, 'DefaultContainerPolicy')) {
+		if (property_exists($sc, 'DefaultContainerPolicy') && !is_null($sc->DefaultContainerPolicy)) {
 			$this->DefaultContainerPolicy = (string)($sc->DefaultContainerPolicy);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {

@@ -69,13 +69,13 @@ class DestinationStatistics {
 				$this->ClientProvidedContent = \Comet\ContentMeasurement::createFromStdclass($sc->ClientProvidedContent);
 			}
 		}
-		if (property_exists($sc, 'LastSuccessfulDeepVerify_GUID')) {
+		if (property_exists($sc, 'LastSuccessfulDeepVerify_GUID') && !is_null($sc->LastSuccessfulDeepVerify_GUID)) {
 			$this->LastSuccessfulDeepVerify_GUID = (string)($sc->LastSuccessfulDeepVerify_GUID);
 		}
-		if (property_exists($sc, 'LastSuccessfulDeepVerify_StartTime')) {
+		if (property_exists($sc, 'LastSuccessfulDeepVerify_StartTime') && !is_null($sc->LastSuccessfulDeepVerify_StartTime)) {
 			$this->LastSuccessfulDeepVerify_StartTime = (int)($sc->LastSuccessfulDeepVerify_StartTime);
 		}
-		if (property_exists($sc, 'LastSuccessfulDeepVerify_EndTime')) {
+		if (property_exists($sc, 'LastSuccessfulDeepVerify_EndTime') && !is_null($sc->LastSuccessfulDeepVerify_EndTime)) {
 			$this->LastSuccessfulDeepVerify_EndTime = (int)($sc->LastSuccessfulDeepVerify_EndTime);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {

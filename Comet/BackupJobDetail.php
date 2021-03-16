@@ -150,7 +150,7 @@ class BackupJobDetail {
 		if (property_exists($sc, 'DeviceID')) {
 			$this->DeviceID = (string)($sc->DeviceID);
 		}
-		if (property_exists($sc, 'SnapshotID')) {
+		if (property_exists($sc, 'SnapshotID') && !is_null($sc->SnapshotID)) {
 			$this->SnapshotID = (string)($sc->SnapshotID);
 		}
 		if (property_exists($sc, 'ClientVersion')) {
@@ -174,10 +174,10 @@ class BackupJobDetail {
 		if (property_exists($sc, 'DownloadSize')) {
 			$this->DownloadSize = (int)($sc->DownloadSize);
 		}
-		if (property_exists($sc, 'CancellationID')) {
+		if (property_exists($sc, 'CancellationID') && !is_null($sc->CancellationID)) {
 			$this->CancellationID = (string)($sc->CancellationID);
 		}
-		if (property_exists($sc, 'Progress')) {
+		if (property_exists($sc, 'Progress') && !is_null($sc->Progress)) {
 			if (is_array($sc->Progress) && count($sc->Progress) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
 				$this->Progress = \Comet\BackupJobProgress::createFromStdclass(new \stdClass());

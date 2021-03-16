@@ -60,7 +60,7 @@ class ConstellationStatusAPIResponse {
 			}
 			$this->Targets = $val_2;
 		}
-		if (property_exists($sc, 'TargetNames')) {
+		if (property_exists($sc, 'TargetNames') && !is_null($sc->TargetNames)) {
 			$val_2 = [];
 			if ($sc->TargetNames !== null) {
 				for($i_2 = 0; $i_2 < count($sc->TargetNames); ++$i_2) {
