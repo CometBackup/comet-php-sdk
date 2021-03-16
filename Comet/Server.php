@@ -1044,6 +1044,7 @@ class Server {
 	/** 
 	 * Request a list of stored objects inside an existing backup job
 	 * The remote device must have given consent for an MSP to browse their files.
+	 * To service this request, the remote device must connect to the Storage Vault and load index data. There may be a small delay. If the remote device is running Comet 20.12.0 or later, the necessary index data is cached when this API is first called, for 15 minutes after the last repeated call. This can improve performance for interactively browsing an entire tree of stored objects.
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
