@@ -117,6 +117,11 @@ class ServerMetaVersionInfo {
 	public $ScheduledEmailThreadLastWakeSentEmails = false;
 
 	/**
+	 * @var \Comet\SelfBackupStatistics[]
+	 */
+	public $SelfBackup = [];
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see ServerMetaVersionInfo::RemoveUnknownProperties() Remove all unknown properties
@@ -202,6 +207,20 @@ class ServerMetaVersionInfo {
 		if (property_exists($sc, 'ScheduledEmailThreadLastWakeSentEmails')) {
 			$this->ScheduledEmailThreadLastWakeSentEmails = (bool)($sc->ScheduledEmailThreadLastWakeSentEmails);
 		}
+		if (property_exists($sc, 'SelfBackup')) {
+			$val_2 = [];
+			if ($sc->SelfBackup !== null) {
+				for($i_2 = 0; $i_2 < count($sc->SelfBackup); ++$i_2) {
+					if (is_array($sc->SelfBackup[$i_2]) && count($sc->SelfBackup[$i_2]) === 0) {
+					// Work around edge case in json_decode--json_encode stdClass conversion
+						$val_2[] = \Comet\SelfBackupStatistics::createFromStdclass(new \stdClass());
+					} else {
+						$val_2[] = \Comet\SelfBackupStatistics::createFromStdclass($sc->SelfBackup[$i_2]);
+					}
+				}
+			}
+			$this->SelfBackup = $val_2;
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Version':
@@ -225,6 +244,7 @@ class ServerMetaVersionInfo {
 			case 'ScheduledEmailThreadWaitingUntil':
 			case 'ScheduledEmailThreadLastWakeTime':
 			case 'ScheduledEmailThreadLastWakeSentEmails':
+			case 'SelfBackup':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -334,6 +354,18 @@ class ServerMetaVersionInfo {
 		$ret["ScheduledEmailThreadWaitingUntil"] = $this->ScheduledEmailThreadWaitingUntil;
 		$ret["ScheduledEmailThreadLastWakeTime"] = $this->ScheduledEmailThreadLastWakeTime;
 		$ret["ScheduledEmailThreadLastWakeSentEmails"] = $this->ScheduledEmailThreadLastWakeSentEmails;
+		{
+			$c0 = [];
+			for($i0 = 0; $i0 < count($this->SelfBackup); ++$i0) {
+				if ( $this->SelfBackup[$i0] === null ) {
+					$val0 = $for_json_encode ? (object)[] : [];
+				} else {
+					$val0 = $this->SelfBackup[$i0]->toArray($for_json_encode);
+				}
+				$c0[] = $val0;
+			}
+			$ret["SelfBackup"] = $c0;
+		}
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
