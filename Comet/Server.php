@@ -989,6 +989,63 @@ class Server {
 	}
 
 	/** 
+	 * Request a list of tables in MongoDB database
+	 * The remote device must have given consent for an MSP to browse their files.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetID The live connection GUID
+	 * @param \Comet\MongoDBConnection $Credentials The Mongo database authentication settings
+	 * @return \Comet\BrowseSQLServerResponse 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherRequestBrowseMongodb($TargetID, MongoDBConnection $Credentials)
+	{
+		$nr = new \Comet\AdminDispatcherRequestBrowseMongodbRequest($TargetID, $Credentials);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherRequestBrowseMongodbRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Request a list of tables in MSSQL database
+	 * The remote device must have given consent for an MSP to browse their files.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetID The live connection GUID
+	 * @param \Comet\MSSQLConnection $Credentials The MSSQL database authentication settings
+	 * @return \Comet\BrowseSQLServerResponse 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherRequestBrowseMssql($TargetID, MSSQLConnection $Credentials)
+	{
+		$nr = new \Comet\AdminDispatcherRequestBrowseMssqlRequest($TargetID, $Credentials);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherRequestBrowseMssqlRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Request a list of tables in MySQL database
+	 * The remote device must have given consent for an MSP to browse their files.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetID The live connection GUID
+	 * @param \Comet\MySQLConnection $Credentials The MySQL database authentication settings
+	 * @return \Comet\BrowseSQLServerResponse 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherRequestBrowseMysql($TargetID, MySQLConnection $Credentials)
+	{
+		$nr = new \Comet\AdminDispatcherRequestBrowseMysqlRequest($TargetID, $Credentials);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherRequestBrowseMysqlRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Request a list of installed VSS Writers (Application-Aware Writers) from a live connected device
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
