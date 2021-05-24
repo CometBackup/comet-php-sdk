@@ -406,6 +406,13 @@ class Def {
 	const RESTORETYPE_FILE_ARCHIVE = 5;
 
 	/**
+	 * RestoreType:
+	 *
+	 * @type int
+	 */
+	const RESTORETYPE_OFFICE365_CLOUD = 6;
+
+	/**
 	 * RestoreType: RESTORETYPE_PROCESS_ARCHIVE
 	 *
 	 * @type int
