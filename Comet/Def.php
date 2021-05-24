@@ -679,6 +679,11 @@ class Def {
 	const ENGINE_BUILTIN_MONGODB = "engine1/mongodb";
 
 	/**
+	 * @type string
+	 */
+	const ENGINE_BUILTIN_MSOFFICE = "engine1/winmsofficemail";
+
+	/**
 	 * MSSQLAuthMode:
 	 *
 	 * @type string
