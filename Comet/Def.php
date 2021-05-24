@@ -929,7 +929,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "21.2.1";
+	const APPLICATION_VERSION = "21.6.1";
 
 	/**
 	 * @type int
@@ -939,7 +939,7 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_MINOR = 2;
+	const APPLICATION_VERSION_MINOR = 6;
 
 	/**
 	 * @type int
@@ -949,7 +949,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const RELEASE_CODENAME = "Ganymede";
+	const RELEASE_CODENAME = "Voyager";
 
 	/**
 	 * @type int
