@@ -919,6 +919,44 @@ class Server {
 	}
 
 	/** 
+	 * Begin the process of registering a new Azure AD application that can access Office 365 for backup
+	 * After calling this API, you should supply the login details to the end-user, and then begin polling the AdminDispatcherRegisterOfficeApplicationCheck with the supplied "Continuation" parameter to check on the registration process.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetID The live connection GUID
+	 * @param string $EmailAddress The email address of the Azure AD administrator
+	 * @return \Comet\RegisterOfficeApplicationBeginResponse 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherRegisterOfficeApplicationBegin($TargetID, $EmailAddress)
+	{
+		$nr = new \Comet\AdminDispatcherRegisterOfficeApplicationBeginRequest($TargetID, $EmailAddress);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherRegisterOfficeApplicationBeginRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Check the process of registering a new Azure AD application that can access Office 365 for backup
+	 * You should begin the process by calling AdminDispatcherRegisterOfficeApplicationBegin and asking the end-user to complete the Azure authentication steps.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetID The live connection GUID
+	 * @param string $Continuation The ID returned from the AdminDispatcherRegisterOfficeApplicationBegin endpoint
+	 * @return \Comet\RegisterOfficeApplicationCheckResponse 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherRegisterOfficeApplicationCheck($TargetID, $Continuation)
+	{
+		$nr = new \Comet\AdminDispatcherRegisterOfficeApplicationCheckRequest($TargetID, $Continuation);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherRegisterOfficeApplicationCheckRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Instruct a live connected device to rebuild Storage Vault indexes now
 	 * This command is understood by Comet Backup 18.6.9 and newer.
 	 * 
