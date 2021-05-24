@@ -763,6 +763,69 @@ class Def {
 	const STOREDOBJECTTYPE_WINEFS = "winefs";
 
 	/**
+	 * StoredObjectType: "file"
+	 *
+	 * @type string
+	 */
+	const STOREDOBJECTTYPE_EMAILMESSAGE = "emailmessage" ;
+
+	/**
+	 * StoredObjectType: "dir"
+	 *
+	 * @type string
+	 */
+	const STOREDOBJECTTYPE_EMAILFOLDER = "mailfolder" ;
+
+	/**
+	 * StoredObjectType: "file"
+	 *
+	 * @type string
+	 */
+	const STOREDOBJECTTYPE_OFFICECONTACT = "contact" ;
+
+	/**
+	 * StoredObjectType: "dir"
+	 *
+	 * @type string
+	 */
+	const STOREDOBJECTTYPE_OFFICECONTACTFOLDER = "contactfolder" ;
+
+	/**
+	 * StoredObjectType: "file"
+	 *
+	 * @type string
+	 */
+	const STOREDOBJECTTYPE_OFFICECALENDAREVENT = "calendarevent" ;
+
+	/**
+	 * StoredObjectType: "dir"
+	 *
+	 * @type string
+	 */
+	const STOREDOBJECTTYPE_OFFICECALENDAR = "calendar" ;
+
+	/**
+	 * StoredObjectType:
+	 *
+	 * @type string
+	 */
+	const STOREDOBJECTTYPE_MSSITE = "mssite";
+
+	/**
+	 * StoredObjectType:
+	 *
+	 * @type string
+	 */
+	const STOREDOBJECTTYPE_MSSITELISTENTITY = "mssitelistentity";
+
+	/**
+	 * StoredObjectType:
+	 *
+	 * @type string
+	 */
+	const STOREDOBJECTTYPE_MSSITEITEMENTITY = "mssiteitementity";
+
+	/**
 	 * ExtraFileExclusionOSRestriction:
 	 *
 	 * @type int

@@ -37,6 +37,46 @@ class StoredObject {
 	public $Size = 0;
 
 	/**
+	 * @var string
+	 */
+	public $DisplayName = "";
+
+	/**
+	 * @var string
+	 */
+	public $ItemClass = "";
+
+	/**
+	 * @var string
+	 */
+	public $From = "";
+
+	/**
+	 * @var string
+	 */
+	public $To = "";
+
+	/**
+	 * @var int
+	 */
+	public $ReceivedDateTime = 0;
+
+	/**
+	 * @var boolean
+	 */
+	public $HasAttachments = false;
+
+	/**
+	 * @var int
+	 */
+	public $StartTime = 0;
+
+	/**
+	 * @var int
+	 */
+	public $EndTime = 0;
+
+	/**
 	 * @var boolean
 	 */
 	public $RecursiveCountKnown = false;
@@ -88,16 +128,40 @@ class StoredObject {
 		if (property_exists($sc, 'size')) {
 			$this->Size = (int)($sc->size);
 		}
-		if (property_exists($sc, 'r')) {
+		if (property_exists($sc, 'dname') && !is_null($sc->dname)) {
+			$this->DisplayName = (string)($sc->dname);
+		}
+		if (property_exists($sc, 'itemClass') && !is_null($sc->itemClass)) {
+			$this->ItemClass = (string)($sc->itemClass);
+		}
+		if (property_exists($sc, 'from') && !is_null($sc->from)) {
+			$this->From = (string)($sc->from);
+		}
+		if (property_exists($sc, 'to') && !is_null($sc->to)) {
+			$this->To = (string)($sc->to);
+		}
+		if (property_exists($sc, 'rtime') && !is_null($sc->rtime)) {
+			$this->ReceivedDateTime = (int)($sc->rtime);
+		}
+		if (property_exists($sc, 'has_attachments') && !is_null($sc->has_attachments)) {
+			$this->HasAttachments = (bool)($sc->has_attachments);
+		}
+		if (property_exists($sc, 'stime') && !is_null($sc->stime)) {
+			$this->StartTime = (int)($sc->stime);
+		}
+		if (property_exists($sc, 'etime') && !is_null($sc->etime)) {
+			$this->EndTime = (int)($sc->etime);
+		}
+		if (property_exists($sc, 'r') && !is_null($sc->r)) {
 			$this->RecursiveCountKnown = (bool)($sc->r);
 		}
-		if (property_exists($sc, 'f')) {
+		if (property_exists($sc, 'f') && !is_null($sc->f)) {
 			$this->RecursiveFiles = (int)($sc->f);
 		}
-		if (property_exists($sc, 'b')) {
+		if (property_exists($sc, 'b') && !is_null($sc->b)) {
 			$this->RecursiveBytes = (int)($sc->b);
 		}
-		if (property_exists($sc, 'd')) {
+		if (property_exists($sc, 'd') && !is_null($sc->d)) {
 			$this->RecursiveFolders = (int)($sc->d);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
@@ -107,6 +171,14 @@ class StoredObject {
 			case 'type':
 			case 'subtree':
 			case 'size':
+			case 'dname':
+			case 'itemClass':
+			case 'from':
+			case 'to':
+			case 'rtime':
+			case 'has_attachments':
+			case 'stime':
+			case 'etime':
 			case 'r':
 			case 'f':
 			case 'b':
@@ -197,6 +269,14 @@ class StoredObject {
 		$ret["type"] = $this->Type;
 		$ret["subtree"] = $this->Subtree;
 		$ret["size"] = $this->Size;
+		$ret["dname"] = $this->DisplayName;
+		$ret["itemClass"] = $this->ItemClass;
+		$ret["from"] = $this->From;
+		$ret["to"] = $this->To;
+		$ret["rtime"] = $this->ReceivedDateTime;
+		$ret["has_attachments"] = $this->HasAttachments;
+		$ret["stime"] = $this->StartTime;
+		$ret["etime"] = $this->EndTime;
 		$ret["r"] = $this->RecursiveCountKnown;
 		$ret["f"] = $this->RecursiveFiles;
 		$ret["b"] = $this->RecursiveBytes;
