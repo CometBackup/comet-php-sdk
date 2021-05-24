@@ -1137,6 +1137,44 @@ class Server {
 	}
 
 	/** 
+	 * Request a list of Office365 mailbox accounts
+	 * The remote device must have given consent for an MSP to browse their files.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetID The live connection GUID
+	 * @param \Comet\Office365Credential $Credentials The Office365 account credential
+	 * @return \Comet\BrowseOffice365ObjectsResponse 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherRequestOffice365Accounts($TargetID, Office365Credential $Credentials)
+	{
+		$nr = new \Comet\AdminDispatcherRequestOffice365AccountsRequest($TargetID, $Credentials);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherRequestOffice365AccountsRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Request a list of Office365 sites
+	 * The remote device must have given consent for an MSP to browse their files.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetID The live connection GUID
+	 * @param \Comet\Office365Credential $Credentials The Office365 account credential
+	 * @return \Comet\BrowseOffice365ObjectsResponse 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherRequestOffice365Sites($TargetID, Office365Credential $Credentials)
+	{
+		$nr = new \Comet\AdminDispatcherRequestOffice365SitesRequest($TargetID, $Credentials);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherRequestOffice365SitesRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Request a list of stored objects inside an existing backup job
 	 * The remote device must have given consent for an MSP to browse their files.
 	 * To service this request, the remote device must connect to the Storage Vault and load index data. There may be a small delay. If the remote device is running Comet 20.12.0 or later, the necessary index data is cached when this API is first called, for 15 minutes after the last repeated call. This can improve performance for interactively browsing an entire tree of stored objects.
