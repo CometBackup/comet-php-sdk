@@ -97,6 +97,21 @@ class BackupJobDetail {
 	public $DownloadSize = 0;
 
 	/**
+	 * @var int
+	 */
+	public $TotalMailsCount = 0;
+
+	/**
+	 * @var int
+	 */
+	public $TotalSitesCount = 0;
+
+	/**
+	 * @var int
+	 */
+	public $TotalAccountsCount = 0;
+
+	/**
 	 * @var string
 	 */
 	public $CancellationID = "";
@@ -174,6 +189,15 @@ class BackupJobDetail {
 		if (property_exists($sc, 'DownloadSize')) {
 			$this->DownloadSize = (int)($sc->DownloadSize);
 		}
+		if (property_exists($sc, 'TotalMailsCount') && !is_null($sc->TotalMailsCount)) {
+			$this->TotalMailsCount = (int)($sc->TotalMailsCount);
+		}
+		if (property_exists($sc, 'TotalSitesCount') && !is_null($sc->TotalSitesCount)) {
+			$this->TotalSitesCount = (int)($sc->TotalSitesCount);
+		}
+		if (property_exists($sc, 'TotalAccountsCount') && !is_null($sc->TotalAccountsCount)) {
+			$this->TotalAccountsCount = (int)($sc->TotalAccountsCount);
+		}
 		if (property_exists($sc, 'CancellationID') && !is_null($sc->CancellationID)) {
 			$this->CancellationID = (string)($sc->CancellationID);
 		}
@@ -204,6 +228,9 @@ class BackupJobDetail {
 			case 'TotalChunks':
 			case 'UploadSize':
 			case 'DownloadSize':
+			case 'TotalMailsCount':
+			case 'TotalSitesCount':
+			case 'TotalAccountsCount':
 			case 'CancellationID':
 			case 'Progress':
 				break;
@@ -304,6 +331,9 @@ class BackupJobDetail {
 		$ret["TotalChunks"] = $this->TotalChunks;
 		$ret["UploadSize"] = $this->UploadSize;
 		$ret["DownloadSize"] = $this->DownloadSize;
+		$ret["TotalMailsCount"] = $this->TotalMailsCount;
+		$ret["TotalSitesCount"] = $this->TotalSitesCount;
+		$ret["TotalAccountsCount"] = $this->TotalAccountsCount;
 		$ret["CancellationID"] = $this->CancellationID;
 		if ( $this->Progress === null ) {
 			$ret["Progress"] = $for_json_encode ? (object)[] : [];
