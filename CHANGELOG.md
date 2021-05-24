@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## 2021-05-25 v3.13.0
+- Based on Comet 21.6.1
+- Add new APIs to remotely browse MySQL, MongoDB, MSSQL database servers
+- Add Microsoft Office 365 properties on BackupJobDetail and on StoredObject
+- Add Microsoft Office 365 browsing APIs
+- Add Microsoft Office 365 Engine definition (`ENGINE_BUILTIN_MSOFFICE`) and associated `EngineProp` data structure definitions
+- Add `AdminDispatcherRegisterOfficeApplication` APIs
+- Add `RESTORETYPE_OFFICE365_CLOUD` constant
+- Support suspending organizations
+- Support reading the Server Self-Backup status
+- Support new `PathMenuBarIcnsFile` branding option for Comet Backup on macOS
+- Add more detailed description for `AdminDispatcherRequestStoredObjects`
+- Add defensive null checks when parsing fields that may be omitted
+
 ## 2021-03-03 v3.12.0
 - Based on Comet 21.2.1
 - Support restoring files to original paths
