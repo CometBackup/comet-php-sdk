@@ -167,6 +167,11 @@ class UserPolicy {
 	public $DefaultSourcesBackupRules = [];
 
 	/**
+	 * @var \Comet\DefaultSourceWithOSRestriction[] An array with string keys.
+	 */
+	public $DefaultSourcesWithOSRestriction = [];
+
+	/**
 	 * @var \Comet\BackupRuleConfig[] An array with string keys.
 	 */
 	public $DefaultBackupRules = [];
@@ -338,6 +343,22 @@ class UserPolicy {
 			}
 			$this->DefaultSourcesBackupRules = $val_2;
 		}
+		if (property_exists($sc, 'DefaultSourcesWithOSRestriction')) {
+			$val_2 = [];
+			if ($sc->DefaultSourcesWithOSRestriction !== null) {
+				foreach($sc->DefaultSourcesWithOSRestriction as $k_2 => $v_2) {
+					$phpk_2 = (string)($k_2);
+					if (is_array($v_2) && count($v_2) === 0) {
+					// Work around edge case in json_decode--json_encode stdClass conversion
+						$phpv_2 = \Comet\DefaultSourceWithOSRestriction::createFromStdclass(new \stdClass());
+					} else {
+						$phpv_2 = \Comet\DefaultSourceWithOSRestriction::createFromStdclass($v_2);
+					}
+					$val_2[$phpk_2] = $phpv_2;
+				}
+			}
+			$this->DefaultSourcesWithOSRestriction = $val_2;
+		}
 		if (property_exists($sc, 'DefaultBackupRules')) {
 			$val_2 = [];
 			if ($sc->DefaultBackupRules !== null) {
@@ -387,6 +408,7 @@ class UserPolicy {
 			case 'PreventProtectedItemRetention':
 			case 'DefaultSources':
 			case 'DefaultSourcesBackupRules':
+			case 'DefaultSourcesWithOSRestriction':
 			case 'DefaultBackupRules':
 				break;
 			default:
@@ -557,6 +579,23 @@ class UserPolicy {
 				$ret["DefaultSourcesBackupRules"] = (object)[];
 			} else {
 				$ret["DefaultSourcesBackupRules"] = $c0;
+			}
+		}
+		{
+			$c0 = [];
+			foreach($this->DefaultSourcesWithOSRestriction as $k0 => $v0) {
+				$ko_0 = $k0;
+				if ( $v0 === null ) {
+					$vo_0 = $for_json_encode ? (object)[] : [];
+				} else {
+					$vo_0 = $v0->toArray($for_json_encode);
+				}
+				$c0[ $ko_0 ] = $vo_0;
+			}
+			if ($for_json_encode && count($c0) == 0) {
+				$ret["DefaultSourcesWithOSRestriction"] = (object)[];
+			} else {
+				$ret["DefaultSourcesWithOSRestriction"] = $c0;
 			}
 		}
 		{
