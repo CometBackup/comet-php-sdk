@@ -2491,6 +2491,19 @@ class Server {
 	}
 
 	/** 
+	 * Retreve basic information about this Comet Server
+	 *
+	 * @return \Comet\ServerMetaBrandingProperties 
+	 * @throws \Exception
+	 */
+	public function BrandingProps()
+	{
+		$nr = new \Comet\BrandingPropsRequest();
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\BrandingPropsRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Generate a session key (log in)
 	 * This hybrid API allows you to log in to the Comet Server as either an administrator or end-user account.
 	 * This API behaves like either AdminAccountSessionStart or UserWebSessionStart, depending on what the supplied credentials were valid for.
