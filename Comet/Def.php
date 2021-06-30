@@ -828,6 +828,13 @@ class Def {
 	 *
 	 * @type string
 	 */
+	const STOREDOBJECTTYPE_MSSITE_TEAM = "mssiteteam";
+
+	/**
+	 * StoredObjectType:
+	 *
+	 * @type string
+	 */
 	const STOREDOBJECTTYPE_MSSITELISTENTITY = "mssitelistentity";
 
 	/**
