@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 2021-07-01 v3.14.0
+- Based on Comet 21.6.6
+- Support new `DefaultSourceWithOSRestriction` and `LastSuccessfulBackupJob` fields
+- Support custom credentials when performing a cloud Office 365 restore job
+- Support identifying Microsoft Teams folders inside a Sharepoint backup job
+- Document the `SourceIncludePattern` structure used for `PINCLUDE`/`RINCLUDE` rules in a File-type `EngineProps` array
+- Document existing `BrandingProps` endpoint
+
 ## 2021-05-25 v3.13.0
 - Based on Comet 21.6.1
 - Add new APIs to remotely browse MySQL, MongoDB, MSSQL database servers
