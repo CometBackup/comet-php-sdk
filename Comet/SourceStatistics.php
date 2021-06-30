@@ -17,6 +17,11 @@ class SourceStatistics {
 	public $LastBackupJob = null;
 
 	/**
+	 * @var \Comet\BackupJobDetail
+	 */
+	public $LastSuccessfulBackupJob = null;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see SourceStatistics::RemoveUnknownProperties() Remove all unknown properties
@@ -41,9 +46,18 @@ class SourceStatistics {
 				$this->LastBackupJob = \Comet\BackupJobDetail::createFromStdclass($sc->LastBackupJob);
 			}
 		}
+		if (property_exists($sc, 'LastSuccessfulBackupJob')) {
+			if (is_array($sc->LastSuccessfulBackupJob) && count($sc->LastSuccessfulBackupJob) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->LastSuccessfulBackupJob = \Comet\BackupJobDetail::createFromStdclass(new \stdClass());
+			} else {
+				$this->LastSuccessfulBackupJob = \Comet\BackupJobDetail::createFromStdclass($sc->LastSuccessfulBackupJob);
+			}
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'LastBackupJob':
+			case 'LastSuccessfulBackupJob':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -130,6 +144,11 @@ class SourceStatistics {
 		} else {
 			$ret["LastBackupJob"] = $this->LastBackupJob->toArray($for_json_encode);
 		}
+		if ( $this->LastSuccessfulBackupJob === null ) {
+			$ret["LastSuccessfulBackupJob"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["LastSuccessfulBackupJob"] = $this->LastSuccessfulBackupJob->toArray($for_json_encode);
+		}
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
@@ -181,6 +200,9 @@ class SourceStatistics {
 		$this->__unknown_properties = [];
 		if ($this->LastBackupJob !== null) {
 			$this->LastBackupJob->RemoveUnknownProperties();
+		}
+		if ($this->LastSuccessfulBackupJob !== null) {
+			$this->LastSuccessfulBackupJob->RemoveUnknownProperties();
 		}
 	}
 
