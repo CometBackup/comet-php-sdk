@@ -42,6 +42,11 @@ class RestoreJobAdvancedOptions {
 	public $ArchiveFormat = 0;
 
 	/**
+	 * @var \Comet\Office365Credential
+	 */
+	public $Office365Credential = null;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see RestoreJobAdvancedOptions::RemoveUnknownProperties() Remove all unknown properties
@@ -82,6 +87,14 @@ class RestoreJobAdvancedOptions {
 		if (property_exists($sc, 'ArchiveFormat')) {
 			$this->ArchiveFormat = (int)($sc->ArchiveFormat);
 		}
+		if (property_exists($sc, 'Office365Credential') && !is_null($sc->Office365Credential)) {
+			if (is_array($sc->Office365Credential) && count($sc->Office365Credential) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->Office365Credential = \Comet\Office365Credential::createFromStdclass(new \stdClass());
+			} else {
+				$this->Office365Credential = \Comet\Office365Credential::createFromStdclass($sc->Office365Credential);
+			}
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Type':
@@ -90,6 +103,7 @@ class RestoreJobAdvancedOptions {
 			case 'DestPath':
 			case 'ExactDestPaths':
 			case 'ArchiveFormat':
+			case 'Office365Credential':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -184,6 +198,11 @@ class RestoreJobAdvancedOptions {
 			$ret["ExactDestPaths"] = $c0;
 		}
 		$ret["ArchiveFormat"] = $this->ArchiveFormat;
+		if ( $this->Office365Credential === null ) {
+			$ret["Office365Credential"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["Office365Credential"] = $this->Office365Credential->toArray($for_json_encode);
+		}
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
@@ -233,6 +252,9 @@ class RestoreJobAdvancedOptions {
 	public function RemoveUnknownProperties()
 	{
 		$this->__unknown_properties = [];
+		if ($this->Office365Credential !== null) {
+			$this->Office365Credential->RemoveUnknownProperties();
+		}
 	}
 
 }
