@@ -27,6 +27,11 @@ class DeviceConfig {
 	public $Sources = [];
 
 	/**
+	 * @var string
+	 */
+	public $DeviceTimezone = "";
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see DeviceConfig::RemoveUnknownProperties() Remove all unknown properties
@@ -70,11 +75,15 @@ class DeviceConfig {
 			}
 			$this->Sources = $val_2;
 		}
+		if (property_exists($sc, 'DeviceTimezone') && !is_null($sc->DeviceTimezone)) {
+			$this->DeviceTimezone = (string)($sc->DeviceTimezone);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'FriendlyName':
 			case 'PlatformVersion':
 			case 'Sources':
+			case 'DeviceTimezone':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -179,6 +188,7 @@ class DeviceConfig {
 				$ret["Sources"] = $c0;
 			}
 		}
+		$ret["DeviceTimezone"] = $this->DeviceTimezone;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

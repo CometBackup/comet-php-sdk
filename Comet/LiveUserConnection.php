@@ -39,6 +39,11 @@ class LiveUserConnection {
 	/**
 	 * @var string
 	 */
+	public $DeviceTimeZone = "";
+
+	/**
+	 * @var string
+	 */
 	public $IPAddress = "";
 
 	/**
@@ -88,6 +93,9 @@ class LiveUserConnection {
 				$this->ReportedPlatformVersion = \Comet\OSInfo::createFromStdclass($sc->ReportedPlatformVersion);
 			}
 		}
+		if (property_exists($sc, 'DeviceTimeZone') && !is_null($sc->DeviceTimeZone)) {
+			$this->DeviceTimeZone = (string)($sc->DeviceTimeZone);
+		}
 		if (property_exists($sc, 'IPAddress') && !is_null($sc->IPAddress)) {
 			$this->IPAddress = (string)($sc->IPAddress);
 		}
@@ -104,6 +112,7 @@ class LiveUserConnection {
 			case 'ReportedVersion':
 			case 'ReportedPlatform':
 			case 'ReportedPlatformVersion':
+			case 'DeviceTimeZone':
 			case 'IPAddress':
 			case 'ConnectionTime':
 			case 'AllowsFilenames':
@@ -197,6 +206,7 @@ class LiveUserConnection {
 		} else {
 			$ret["ReportedPlatformVersion"] = $this->ReportedPlatformVersion->toArray($for_json_encode);
 		}
+		$ret["DeviceTimeZone"] = $this->DeviceTimeZone;
 		$ret["IPAddress"] = $this->IPAddress;
 		$ret["ConnectionTime"] = $this->ConnectionTime;
 		$ret["AllowsFilenames"] = $this->AllowsFilenames;
