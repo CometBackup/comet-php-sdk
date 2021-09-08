@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## 2021-09-08 v3.15.0
+- Based on Comet 21.9.1
+- Support new device_timezone field on the DeviceConfig class.
+- Add admin_dispatcher_ping_destination api method
+- Add support for new retention range type constants: RETENTIONRANGE_LAST_X_BACKUPS_ONE_FOR_EACH_DAY
+- Add support for new retention range type constants: RETENTIONRANGE_LAST_X_BACKUPS_ONE_FOR_EACH_WEEK
+- Add support for new retention range type constants: RETENTIONRANGE_LAST_X_BACKUPS_ONE_FOR_EACH_MONTH
+- Add support for Microsoft Office 365 Sharepoiint constant STOREDOBJECTTYPE_MSSITELISTDRIVEENTITY
+- Add Microsoft Office 365 Region cloud region constants OFFICE_365_REGION_PUBLIC
+- Add Microsoft Office 365 Region cloud region constants OFFICE_365_REGION_CHINA
+- Add Microsoft Office 365 Region cloud region constants OFFICE_365_REGION_GERMANY
+- Add Microsoft Office 365 Region cloud region constants OFFICE_365_REGION_US_GOVT
+- Add Microsoft Office 365 Region cloud region constants OFFICE_365_REGION_US_DOD
+
 ## 2021-07-01 v3.14.0
 - Based on Comet 21.6.6
 - Support new `DefaultSourceWithOSRestriction` and `LastSuccessfulBackupJob` fields

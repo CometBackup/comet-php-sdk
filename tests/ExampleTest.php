@@ -9,7 +9,7 @@ class ExampleTest extends \PHPUnit\Framework\TestCase {
 	 */
 	protected $server = null;
 
-	public function setUp() {
+	public function setUp(): void {
 		$this->server = new \Comet\Server(
 			$_SERVER['COMET_SERVER_ADDR'],
 			$_SERVER['COMET_SERVER_USER'],
@@ -94,7 +94,7 @@ class ExampleTest extends \PHPUnit\Framework\TestCase {
 		// same running server instance should be faster
 
 		$data = $this->server->AdminBrandingGenerateClientLinuxgeneric();
-		$this->assertTrue( self::sizeWithinRange(strlen($data), 15, 20), "Got size ".strlen($data)." for linux-generic, expected 15-20 MB" );
+		$this->assertTrue( self::sizeWithinRange(strlen($data), 19, 25), "Got size ".strlen($data)." for linux-generic, expected 19-25 MB" );
 
 		$data = $this->server->AdminBrandingGenerateClientMacosX8664();
 		$this->assertTrue( self::sizeWithinRange(strlen($data), 15, 20), "Got size ".strlen($data)." for macos-x86_64, expected 15-20 MB" );
