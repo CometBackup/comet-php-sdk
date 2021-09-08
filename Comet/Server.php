@@ -902,6 +902,24 @@ class Server {
 	}
 
 	/** 
+	 * Test the connection to the storage bucket
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetID The live connection GUID
+	 * @param \Comet\DestinationLocation $ExtraData The destination location settings
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherPingDestination($TargetID, DestinationLocation $ExtraData)
+	{
+		$nr = new \Comet\AdminDispatcherPingDestinationRequest($TargetID, $ExtraData);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherPingDestinationRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Instruct a live connected device to refresh their profile
 	 * This command is understood by Comet Backup 17.12.0 and newer.
 	 * 
