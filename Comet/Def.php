@@ -518,11 +518,32 @@ class Def {
 	const RETENTIONRANGE_FIRST_JOB_FOR_LAST_X_WEEKS = 906;
 
 	/**
+	 * RetentionRangeType: Uses Jobs
+	 *
+	 * @type int
+	 */
+	const RETENTIONRANGE_LAST_X_BACKUPS_ONE_FOR_EACH_DAY = 907;
+
+	/**
+	 * RetentionRangeType: Uses Jobs
+	 *
+	 * @type int
+	 */
+	const RETENTIONRANGE_LAST_X_BACKUPS_ONE_FOR_EACH_WEEK = 908;
+
+	/**
+	 * RetentionRangeType: Uses Jobs
+	 *
+	 * @type int
+	 */
+	const RETENTIONRANGE_LAST_X_BACKUPS_ONE_FOR_EACH_MONTH = 909;
+
+	/**
 	 * RetentionRangeType:
 	 *
 	 * @type int
 	 */
-	const RETENTIONRANGE__HIGHEST = 906;
+	const RETENTIONRANGE__HIGHEST = 909;
 
 	/**
 	 * @type int

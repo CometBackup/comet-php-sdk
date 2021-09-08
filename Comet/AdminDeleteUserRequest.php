@@ -15,6 +15,7 @@ namespace Comet;
  * This does not remove any storage buckets. Unused storage buckets will be cleaned up by the Constellation Role.
  * Any stored data can not be decrypted without the user profile. Misuse can cause data loss!
  * This also allows to uninstall software from active devices under the user account
+ * This also removes all job history for the user account.
  *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
