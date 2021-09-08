@@ -866,6 +866,13 @@ class Def {
 	const STOREDOBJECTTYPE_MSSITEITEMENTITY = "mssiteitementity";
 
 	/**
+	 * StoredObjectType:
+	 *
+	 * @type string
+	 */
+	const STOREDOBJECTTYPE_MSSITELISTDRIVEENTITY = "mssitelistdriveentity";
+
+	/**
 	 * ExtraFileExclusionOSRestriction:
 	 *
 	 * @type int
@@ -1434,6 +1441,31 @@ class Def {
 	 * @type int
 	 */
 	const SEVT_BUCKET_NEW = 4300;
+
+	/**
+	 * @type string
+	 */
+	const OFFICE365_REGION_PUBLIC = "GlobalPublicCloud";
+
+	/**
+	 * @type string
+	 */
+	const OFFICE365_REGION_CHINA = "ChinaCloud";
+
+	/**
+	 * @type string
+	 */
+	const OFFICE365_REGION_GERMANY = "GermanCloud";
+
+	/**
+	 * @type string
+	 */
+	const OFFICE365_REGION_US_GOVT = "USGovtGccCloud";
+
+	/**
+	 * @type string
+	 */
+	const OFFICE365_REGION_US_DOD = "USGovtGccDoDCloud";
 
 
 	/**
