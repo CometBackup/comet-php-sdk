@@ -964,7 +964,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "21.9.1";
+	const APPLICATION_VERSION = "21.9.2";
 
 	/**
 	 * @type int
@@ -979,7 +979,7 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 1;
+	const APPLICATION_VERSION_REVISION = 2;
 
 	/**
 	 * @type string
@@ -1394,6 +1394,13 @@ class Def {
 	const MACOSCODESIGN_LEVEL_SIGN_NOTARISE_STAPLE = 2;
 
 	/**
+	 * StreamableEventType:
+	 *
+	 * @type int
+	 */
+	const SEVT__MIN = 4000;
+
+	/**
 	 * StreamableEventType: Event is emitted when the webhook is registered, or when the server starts up. The Data associated is ServerMetaVersionInfo
 	 *
 	 * @type int
@@ -1441,6 +1448,13 @@ class Def {
 	 * @type int
 	 */
 	const SEVT_BUCKET_NEW = 4300;
+
+	/**
+	 * StreamableEventType:
+	 *
+	 * @type int
+	 */
+	const SEVT__MAX = 4999;
 
 	/**
 	 * @type string

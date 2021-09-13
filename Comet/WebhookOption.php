@@ -22,6 +22,11 @@ class WebhookOption {
 	public $WhiteListedEventTypes = [];
 
 	/**
+	 * @var string[] An array with string keys.
+	 */
+	public $CustomHeaders = [];
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see WebhookOption::RemoveUnknownProperties() Remove all unknown properties
@@ -50,10 +55,22 @@ class WebhookOption {
 			}
 			$this->WhiteListedEventTypes = $val_2;
 		}
+		if (property_exists($sc, 'CustomHeaders')) {
+			$val_2 = [];
+			if ($sc->CustomHeaders !== null) {
+				foreach($sc->CustomHeaders as $k_2 => $v_2) {
+					$phpk_2 = (string)($k_2);
+					$phpv_2 = (string)($v_2);
+					$val_2[$phpk_2] = $phpv_2;
+				}
+			}
+			$this->CustomHeaders = $val_2;
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'URL':
 			case 'WhiteListedEventTypes':
+			case 'CustomHeaders':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -143,6 +160,19 @@ class WebhookOption {
 				$c0[] = $val0;
 			}
 			$ret["WhiteListedEventTypes"] = $c0;
+		}
+		{
+			$c0 = [];
+			foreach($this->CustomHeaders as $k0 => $v0) {
+				$ko_0 = $k0;
+				$vo_0 = $v0;
+				$c0[ $ko_0 ] = $vo_0;
+			}
+			if ($for_json_encode && count($c0) == 0) {
+				$ret["CustomHeaders"] = (object)[];
+			} else {
+				$ret["CustomHeaders"] = $c0;
+			}
 		}
 
 		// Reinstate unknown properties from future server versions
