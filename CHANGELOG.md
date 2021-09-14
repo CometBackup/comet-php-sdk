@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 2021-09-14 v3.16.0
+- Based on Comet 21.9.2
+- Support new `CustomHeaders` option on the `WebhookOption` class for specifying custom HTTP headers
+  to be sent in webhook POST requests from Comet Server
+
 ## 2021-09-08 v3.15.0
 - Based on Comet 21.9.1
 - Support new device_timezone field on the DeviceConfig class.
