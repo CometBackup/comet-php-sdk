@@ -1234,6 +1234,25 @@ class Server {
 	}
 
 	/** 
+	 * Request a Disk Image snapshot with the windiskbrowse-style from a live connected device
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetID The live connection GUID
+	 * @param string $Destination The Storage Vault ID
+	 * @param string $SnapshotID The Snapshot ID
+	 * @return \Comet\DispatcherWindiskSnapshotResponse 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherRequestWindiskSnapshot($TargetID, $Destination, $SnapshotID)
+	{
+		$nr = new \Comet\AdminDispatcherRequestWindiskSnapshotRequest($TargetID, $Destination, $SnapshotID);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherRequestWindiskSnapshotRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Instruct a live connected device to run a scheduled backup
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
@@ -1602,6 +1621,7 @@ class Server {
 	 * Cancel a running job
 	 * A request is sent to the live-connected device, asking it to cancel the operation. This may fail if there is no live-connection.
 	 * Only jobs from Comet 18.3.5 or newer can be cancelled. A job can only be cancelled if it has a non-empty CancellationID field in its properties.
+	 * If the device is running Comet 21.9.5 or later, this API will wait up to ten seconds for a confirmation from the client.
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
@@ -1731,6 +1751,24 @@ class Server {
 		$nr = new \Comet\AdminMetaListAvailableLogDaysRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminMetaListAvailableLogDaysRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Get a ZIP file of all of the server's log files
+	 * On non-Windows platforms, log content uses LF line endings. On Windows, Comet changed from LF to CRLF line endings in 18.3.2.
+	 * This API does not automatically convert line endings; around the 18.3.2 timeframe, log content may even contain mixed line-endings.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
+	 *
+	 * @return string 
+	 * @throws \Exception
+	 */
+	public function AdminMetaReadAllLogs()
+	{
+		$nr = new \Comet\AdminMetaReadAllLogsRequest();
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminMetaReadAllLogsRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
 
 	/** 
