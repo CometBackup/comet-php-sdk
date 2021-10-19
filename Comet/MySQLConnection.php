@@ -32,6 +32,31 @@ class MySQLConnection {
 	public $Password = "";
 
 	/**
+	 * @var boolean
+	 */
+	public $UseTLS = false;
+
+	/**
+	 * @var boolean
+	 */
+	public $TLSSkipVerify = false;
+
+	/**
+	 * @var string
+	 */
+	public $TLSCustomServerCAPath = "";
+
+	/**
+	 * @var string
+	 */
+	public $TLSCustomClientCrtPath = "";
+
+	/**
+	 * @var string
+	 */
+	public $TLSCustomClientKeyPath = "";
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see MySQLConnection::RemoveUnknownProperties() Remove all unknown properties
@@ -60,12 +85,32 @@ class MySQLConnection {
 		if (property_exists($sc, 'Password')) {
 			$this->Password = (string)($sc->Password);
 		}
+		if (property_exists($sc, 'UseTLS')) {
+			$this->UseTLS = (bool)($sc->UseTLS);
+		}
+		if (property_exists($sc, 'TLSSkipVerify')) {
+			$this->TLSSkipVerify = (bool)($sc->TLSSkipVerify);
+		}
+		if (property_exists($sc, 'TLSCustomServerCAPath')) {
+			$this->TLSCustomServerCAPath = (string)($sc->TLSCustomServerCAPath);
+		}
+		if (property_exists($sc, 'TLSCustomClientCrtPath')) {
+			$this->TLSCustomClientCrtPath = (string)($sc->TLSCustomClientCrtPath);
+		}
+		if (property_exists($sc, 'TLSCustomClientKeyPath')) {
+			$this->TLSCustomClientKeyPath = (string)($sc->TLSCustomClientKeyPath);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Host':
 			case 'Port':
 			case 'Username':
 			case 'Password':
+			case 'UseTLS':
+			case 'TLSSkipVerify':
+			case 'TLSCustomServerCAPath':
+			case 'TLSCustomClientCrtPath':
+			case 'TLSCustomClientKeyPath':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -151,6 +196,11 @@ class MySQLConnection {
 		$ret["Port"] = $this->Port;
 		$ret["Username"] = $this->Username;
 		$ret["Password"] = $this->Password;
+		$ret["UseTLS"] = $this->UseTLS;
+		$ret["TLSSkipVerify"] = $this->TLSSkipVerify;
+		$ret["TLSCustomServerCAPath"] = $this->TLSCustomServerCAPath;
+		$ret["TLSCustomClientCrtPath"] = $this->TLSCustomClientCrtPath;
+		$ret["TLSCustomClientKeyPath"] = $this->TLSCustomClientKeyPath;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
