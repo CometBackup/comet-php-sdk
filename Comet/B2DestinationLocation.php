@@ -37,6 +37,11 @@ class B2DestinationLocation {
 	public $MaxConnections = 0;
 
 	/**
+	 * @var boolean
+	 */
+	public $HideDeletedFiles = false;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see B2DestinationLocation::RemoveUnknownProperties() Remove all unknown properties
@@ -68,6 +73,9 @@ class B2DestinationLocation {
 		if (property_exists($sc, 'MaxConnections') && !is_null($sc->MaxConnections)) {
 			$this->MaxConnections = (int)($sc->MaxConnections);
 		}
+		if (property_exists($sc, 'HideDeletedFiles') && !is_null($sc->HideDeletedFiles)) {
+			$this->HideDeletedFiles = (bool)($sc->HideDeletedFiles);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'AccountID':
@@ -75,6 +83,7 @@ class B2DestinationLocation {
 			case 'Bucket':
 			case 'Prefix':
 			case 'MaxConnections':
+			case 'HideDeletedFiles':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -161,6 +170,7 @@ class B2DestinationLocation {
 		$ret["Bucket"] = $this->Bucket;
 		$ret["Prefix"] = $this->Prefix;
 		$ret["MaxConnections"] = $this->MaxConnections;
+		$ret["HideDeletedFiles"] = $this->HideDeletedFiles;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

@@ -27,6 +27,11 @@ class B2VirtualStorageRoleSettings {
 	public $AppKey = "";
 
 	/**
+	 * @var boolean
+	 */
+	public $HideDeletedFiles = false;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see B2VirtualStorageRoleSettings::RemoveUnknownProperties() Remove all unknown properties
@@ -52,11 +57,15 @@ class B2VirtualStorageRoleSettings {
 		if (property_exists($sc, 'AppKey')) {
 			$this->AppKey = (string)($sc->AppKey);
 		}
+		if (property_exists($sc, 'HideDeletedFiles')) {
+			$this->HideDeletedFiles = (bool)($sc->HideDeletedFiles);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'MasterBucket':
 			case 'KeyID':
 			case 'AppKey':
+			case 'HideDeletedFiles':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -141,6 +150,7 @@ class B2VirtualStorageRoleSettings {
 		$ret["MasterBucket"] = $this->MasterBucket;
 		$ret["KeyID"] = $this->KeyID;
 		$ret["AppKey"] = $this->AppKey;
+		$ret["HideDeletedFiles"] = $this->HideDeletedFiles;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
