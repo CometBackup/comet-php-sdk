@@ -17,6 +17,11 @@ class DeviceConfig {
 	public $FriendlyName = "";
 
 	/**
+	 * @var int
+	 */
+	public $RegistrationTime = 0;
+
+	/**
 	 * @var \Comet\OSInfo
 	 */
 	public $PlatformVersion = null;
@@ -51,6 +56,9 @@ class DeviceConfig {
 		if (property_exists($sc, 'FriendlyName')) {
 			$this->FriendlyName = (string)($sc->FriendlyName);
 		}
+		if (property_exists($sc, 'RegistrationTime') && !is_null($sc->RegistrationTime)) {
+			$this->RegistrationTime = (int)($sc->RegistrationTime);
+		}
 		if (property_exists($sc, 'PlatformVersion') && !is_null($sc->PlatformVersion)) {
 			if (is_array($sc->PlatformVersion) && count($sc->PlatformVersion) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
@@ -81,6 +89,7 @@ class DeviceConfig {
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'FriendlyName':
+			case 'RegistrationTime':
 			case 'PlatformVersion':
 			case 'Sources':
 			case 'DeviceTimezone':
@@ -166,6 +175,7 @@ class DeviceConfig {
 	{
 		$ret = [];
 		$ret["FriendlyName"] = $this->FriendlyName;
+		$ret["RegistrationTime"] = $this->RegistrationTime;
 		if ( $this->PlatformVersion === null ) {
 			$ret["PlatformVersion"] = $for_json_encode ? (object)[] : [];
 		} else {
