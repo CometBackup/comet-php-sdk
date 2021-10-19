@@ -14,6 +14,7 @@ namespace Comet;
  * Cancel a running job
  * A request is sent to the live-connected device, asking it to cancel the operation. This may fail if there is no live-connection.
  * Only jobs from Comet 18.3.5 or newer can be cancelled. A job can only be cancelled if it has a non-empty CancellationID field in its properties.
+ * If the device is running Comet 21.9.5 or later, this API will wait up to ten seconds for a confirmation from the client.
  *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
