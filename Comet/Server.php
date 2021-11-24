@@ -849,6 +849,27 @@ class Server {
 	}
 
 	/** 
+	 * Request HTML content of an email
+	 * The remote device must have given consent for an MSP to browse their mail
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetID The live connection GUID
+	 * @param string $Snapshot where the email belongs to
+	 * @param string $Destination The Storage Vault ID
+	 * @param string $Path of the email to view
+	 * @return \Comet\EmailReportGeneratedPreview 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherEmailPreview($TargetID, $Snapshot, $Destination, $Path)
+	{
+		$nr = new \Comet\AdminDispatcherEmailPreviewRequest($TargetID, $Snapshot, $Destination, $Path);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherEmailPreviewRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Instruct a live connected device to import settings from an installed product
 	 * This command is understood by Comet Backup 17.12.0 and newer.
 	 * 
@@ -899,6 +920,25 @@ class Server {
 		$nr = new \Comet\AdminDispatcherListActiveRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminDispatcherListActiveRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Request a list of Office365 Resources (groups, sites, teams groups and users)
+	 * The remote device must have given consent for an MSP to browse their files.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetID The live connection GUID
+	 * @param \Comet\Office365Credential $Credentials The Office365 account credential
+	 * @return \Comet\BrowseOffice365ListVirtualAccountsResponse 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherOffice365ListVirtualAccounts($TargetID, Office365Credential $Credentials)
+	{
+		$nr = new \Comet\AdminDispatcherOffice365ListVirtualAccountsRequest($TargetID, $Credentials);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherOffice365ListVirtualAccountsRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
 
 	/** 
@@ -2665,7 +2705,7 @@ class Server {
 			$nr->Method(),
 			$this->server_url . ltrim($nr->Endpoint(), '/'),
 			$headers,
-			$body			
+			$body
 		);
 	}
 

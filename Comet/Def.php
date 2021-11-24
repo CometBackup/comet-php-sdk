@@ -357,6 +357,51 @@ class Def {
 	const MONGODB_DEFAULT_PORT = 27017;
 
 	/**
+	 * @type int
+	 */
+	const SERVICE_CALENDAR = 1;
+
+	/**
+	 * @type int
+	 */
+	const SERVICE_CONTACT = 2;
+
+	/**
+	 * @type int
+	 */
+	const SERVICE_MAIL = 4;
+
+	/**
+	 * @type int
+	 */
+	const SERVICE_SHAREPOINT = 8;
+
+	/**
+	 * @type int
+	 */
+	const SERVICE_ONEDRIVE = 16;
+
+	/**
+	 * @type int
+	 */
+	const MIXED_VIRTUAL_ACCOUNT_TYPE_USER = 1;
+
+	/**
+	 * @type int
+	 */
+	const MIXED_VIRTUAL_ACCOUNT_TYPE_GROUP = 2;
+
+	/**
+	 * @type int
+	 */
+	const MIXED_VIRTUAL_ACCOUNT_TYPE_TEAM_GROUP = 3;
+
+	/**
+	 * @type int
+	 */
+	const MIXED_VIRTUAL_ACCOUNT_TYPE_SHAREPOINT_ONLY = 4;
+
+	/**
 	 * RestoreType:
 	 *
 	 * @type int
@@ -964,7 +1009,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "21.9.7";
+	const APPLICATION_VERSION = "21.9.13";
 
 	/**
 	 * @type int
@@ -979,7 +1024,7 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 7;
+	const APPLICATION_VERSION_REVISION = 13;
 
 	/**
 	 * @type string
@@ -1490,6 +1535,7 @@ class Def {
 	function LanguageCodes() {
 		return [
 			'en_US' => 'English',
+			'da_DK' => 'Dansk',
 			'de_DE' => 'Deutsch',
 			'es_ES' => 'Español',
 			'fr_FR' => 'Français',
@@ -1500,6 +1546,7 @@ class Def {
 			'pt_PT' => 'Português (Europa)',
 			'ru_RU' => 'Русский',
 			'he_IL' => 'עברית‬',
+			'th_TH' => 'ภาษาไทย',
 		];
 	}
 }

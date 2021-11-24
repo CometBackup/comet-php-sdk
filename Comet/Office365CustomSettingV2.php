@@ -9,68 +9,33 @@
 
 namespace Comet;
 
-class ServerMetaBrandingProperties {
-
-	/**
-	 * @var string
-	 */
-	public $BrandName = "";
-
-	/**
-	 * @var string
-	 */
-	public $ProductName = "";
+class Office365CustomSettingV2 {
 
 	/**
 	 * @var boolean
 	 */
-	public $HasImage = false;
+	public $Organization = false;
 
 	/**
-	 * @var string
+	 * @var int[] An array with string keys.
 	 */
-	public $ImageEtag = "";
+	public $BackupOptions = [];
 
 	/**
-	 * @var string
+	 * @var int[] An array with string keys.
 	 */
-	public $TopColor = "";
-
-	/**
-	 * @var boolean
-	 */
-	public $HideNewsArea = false;
-
-	/**
-	 * @var boolean
-	 */
-	public $AllowUnauthenticatedDownloads = false;
-
-	/**
-	 * @var boolean
-	 */
-	public $AllowAuthenticatedDownloads = false;
-
-	/**
-	 * @var int
-	 */
-	public $PruneLogsAfterDays = 0;
-
-	/**
-	 * @var int
-	 */
-	public $ExpiredInSeconds = 0;
+	public $MemberBackupOptions = [];
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
-	 * @see ServerMetaBrandingProperties::RemoveUnknownProperties() Remove all unknown properties
+	 * @see Office365CustomSettingV2::RemoveUnknownProperties() Remove all unknown properties
 	 * @var array
 	 */
 	private $__unknown_properties = [];
 
 	/**
-	 * Replace the content of this ServerMetaBrandingProperties object from a PHP \stdClass.
+	 * Replace the content of this Office365CustomSettingV2 object from a PHP \stdClass.
 	 * The data could be supplied from an API call after json_decode(...); or generated manually.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
@@ -78,48 +43,36 @@ class ServerMetaBrandingProperties {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
-		if (property_exists($sc, 'BrandName')) {
-			$this->BrandName = (string)($sc->BrandName);
+		if (property_exists($sc, 'Organization')) {
+			$this->Organization = (bool)($sc->Organization);
 		}
-		if (property_exists($sc, 'ProductName')) {
-			$this->ProductName = (string)($sc->ProductName);
+		if (property_exists($sc, 'BackupOptions') && !is_null($sc->BackupOptions)) {
+			$val_2 = [];
+			if ($sc->BackupOptions !== null) {
+				foreach($sc->BackupOptions as $k_2 => $v_2) {
+					$phpk_2 = (string)($k_2);
+					$phpv_2 = (int)($v_2);
+					$val_2[$phpk_2] = $phpv_2;
+				}
+			}
+			$this->BackupOptions = $val_2;
 		}
-		if (property_exists($sc, 'HasImage')) {
-			$this->HasImage = (bool)($sc->HasImage);
-		}
-		if (property_exists($sc, 'ImageEtag')) {
-			$this->ImageEtag = (string)($sc->ImageEtag);
-		}
-		if (property_exists($sc, 'TopColor')) {
-			$this->TopColor = (string)($sc->TopColor);
-		}
-		if (property_exists($sc, 'HideNewsArea')) {
-			$this->HideNewsArea = (bool)($sc->HideNewsArea);
-		}
-		if (property_exists($sc, 'AllowUnauthenticatedDownloads')) {
-			$this->AllowUnauthenticatedDownloads = (bool)($sc->AllowUnauthenticatedDownloads);
-		}
-		if (property_exists($sc, 'AllowAuthenticatedDownloads')) {
-			$this->AllowAuthenticatedDownloads = (bool)($sc->AllowAuthenticatedDownloads);
-		}
-		if (property_exists($sc, 'PruneLogsAfterDays')) {
-			$this->PruneLogsAfterDays = (int)($sc->PruneLogsAfterDays);
-		}
-		if (property_exists($sc, 'ExpiredInSeconds')) {
-			$this->ExpiredInSeconds = (int)($sc->ExpiredInSeconds);
+		if (property_exists($sc, 'MemberBackupOptions') && !is_null($sc->MemberBackupOptions)) {
+			$val_2 = [];
+			if ($sc->MemberBackupOptions !== null) {
+				foreach($sc->MemberBackupOptions as $k_2 => $v_2) {
+					$phpk_2 = (string)($k_2);
+					$phpv_2 = (int)($v_2);
+					$val_2[$phpk_2] = $phpv_2;
+				}
+			}
+			$this->MemberBackupOptions = $val_2;
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
-			case 'BrandName':
-			case 'ProductName':
-			case 'HasImage':
-			case 'ImageEtag':
-			case 'TopColor':
-			case 'HideNewsArea':
-			case 'AllowUnauthenticatedDownloads':
-			case 'AllowAuthenticatedDownloads':
-			case 'PruneLogsAfterDays':
-			case 'ExpiredInSeconds':
+			case 'Organization':
+			case 'BackupOptions':
+			case 'MemberBackupOptions':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -128,25 +81,25 @@ class ServerMetaBrandingProperties {
 	}
 
 	/**
-	 * Coerce a stdClass into a new strongly-typed ServerMetaBrandingProperties object.
+	 * Coerce a stdClass into a new strongly-typed Office365CustomSettingV2 object.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
-	 * @return ServerMetaBrandingProperties
+	 * @return Office365CustomSettingV2
 	 */
 	public static function createFromStdclass(\stdClass $sc)
 	{
-		$retn = new ServerMetaBrandingProperties();
+		$retn = new Office365CustomSettingV2();
 		$retn->inflateFrom($sc);
 		return $retn;
 	}
 
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed ServerMetaBrandingProperties object.
+	 * Coerce a plain PHP array into a new strongly-typed Office365CustomSettingV2 object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
 	 * @param array $arr Object data as PHP array
-	 * @return ServerMetaBrandingProperties
+	 * @return Office365CustomSettingV2
 	 */
 	public static function createFromArray(array $arr)
 	{
@@ -158,7 +111,7 @@ class ServerMetaBrandingProperties {
 	}
 
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed ServerMetaBrandingProperties object.
+	 * Coerce a plain PHP array into a new strongly-typed Office365CustomSettingV2 object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
@@ -166,7 +119,7 @@ class ServerMetaBrandingProperties {
 	 *             (A) acknowledge this and continue by switching to createFromArray, or
 	 *             (b) switch to the roundtrip-safe createFromStdclass alternative.
 	 * @param array $arr Object data as PHP array
-	 * @return ServerMetaBrandingProperties
+	 * @return Office365CustomSettingV2
 	 */
 	public static function createFrom(array $arr)
 	{
@@ -174,10 +127,10 @@ class ServerMetaBrandingProperties {
 	}
 
 	/**
-	 * Coerce a JSON string into a new strongly-typed ServerMetaBrandingProperties object.
+	 * Coerce a JSON string into a new strongly-typed Office365CustomSettingV2 object.
 	 *
 	 * @param string $JsonString Object data as JSON string
-	 * @return ServerMetaBrandingProperties
+	 * @return Office365CustomSettingV2
 	 */
 	public static function createFromJSON($JsonString)
 	{
@@ -185,13 +138,13 @@ class ServerMetaBrandingProperties {
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg());
 		}
-		$retn = new ServerMetaBrandingProperties();
+		$retn = new Office365CustomSettingV2();
 		$retn->inflateFrom($decodedJsonObject);
 		return $retn;
 	}
 
 	/**
-	 * Convert this ServerMetaBrandingProperties object into a plain PHP array.
+	 * Convert this Office365CustomSettingV2 object into a plain PHP array.
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
@@ -201,16 +154,33 @@ class ServerMetaBrandingProperties {
 	public function toArray($for_json_encode = false)
 	{
 		$ret = [];
-		$ret["BrandName"] = $this->BrandName;
-		$ret["ProductName"] = $this->ProductName;
-		$ret["HasImage"] = $this->HasImage;
-		$ret["ImageEtag"] = $this->ImageEtag;
-		$ret["TopColor"] = $this->TopColor;
-		$ret["HideNewsArea"] = $this->HideNewsArea;
-		$ret["AllowUnauthenticatedDownloads"] = $this->AllowUnauthenticatedDownloads;
-		$ret["AllowAuthenticatedDownloads"] = $this->AllowAuthenticatedDownloads;
-		$ret["PruneLogsAfterDays"] = $this->PruneLogsAfterDays;
-		$ret["ExpiredInSeconds"] = $this->ExpiredInSeconds;
+		$ret["Organization"] = $this->Organization;
+		{
+			$c0 = [];
+			foreach($this->BackupOptions as $k0 => $v0) {
+				$ko_0 = $k0;
+				$vo_0 = $v0;
+				$c0[ $ko_0 ] = $vo_0;
+			}
+			if ($for_json_encode && count($c0) == 0) {
+				$ret["BackupOptions"] = (object)[];
+			} else {
+				$ret["BackupOptions"] = $c0;
+			}
+		}
+		{
+			$c0 = [];
+			foreach($this->MemberBackupOptions as $k0 => $v0) {
+				$ko_0 = $k0;
+				$vo_0 = $v0;
+				$c0[ $ko_0 ] = $vo_0;
+			}
+			if ($for_json_encode && count($c0) == 0) {
+				$ret["MemberBackupOptions"] = (object)[];
+			} else {
+				$ret["MemberBackupOptions"] = $c0;
+			}
+		}
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

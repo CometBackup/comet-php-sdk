@@ -9,68 +9,78 @@
 
 namespace Comet;
 
-class ServerMetaBrandingProperties {
+class Office365MixedVirtualAccount {
 
 	/**
 	 * @var string
 	 */
-	public $BrandName = "";
-
-	/**
-	 * @var string
-	 */
-	public $ProductName = "";
-
-	/**
-	 * @var boolean
-	 */
-	public $HasImage = false;
-
-	/**
-	 * @var string
-	 */
-	public $ImageEtag = "";
-
-	/**
-	 * @var string
-	 */
-	public $TopColor = "";
-
-	/**
-	 * @var boolean
-	 */
-	public $HideNewsArea = false;
-
-	/**
-	 * @var boolean
-	 */
-	public $AllowUnauthenticatedDownloads = false;
-
-	/**
-	 * @var boolean
-	 */
-	public $AllowAuthenticatedDownloads = false;
+	public $ID = "";
 
 	/**
 	 * @var int
 	 */
-	public $PruneLogsAfterDays = 0;
+	public $Type = 0;
+
+	/**
+	 * @var string
+	 */
+	public $DisplayName = "";
+
+	/**
+	 * @var string
+	 */
+	public $Mail = "";
+
+	/**
+	 * @var string
+	 */
+	public $JobTitle = "";
+
+	/**
+	 * @var string
+	 */
+	public $SiteID = "";
+
+	/**
+	 * @var string
+	 */
+	public $WebID = "";
+
+	/**
+	 * @var string
+	 */
+	public $WebURL = "";
 
 	/**
 	 * @var int
 	 */
-	public $ExpiredInSeconds = 0;
+	public $EnabledServiceOption = 0;
+
+	/**
+	 * @var string[]
+	 */
+	public $Members = [];
+
+	/**
+	 * @var int
+	 */
+	public $ServiceOptions = 0;
+
+	/**
+	 * @var int
+	 */
+	public $MemberServiceOptions = 0;
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
-	 * @see ServerMetaBrandingProperties::RemoveUnknownProperties() Remove all unknown properties
+	 * @see Office365MixedVirtualAccount::RemoveUnknownProperties() Remove all unknown properties
 	 * @var array
 	 */
 	private $__unknown_properties = [];
 
 	/**
-	 * Replace the content of this ServerMetaBrandingProperties object from a PHP \stdClass.
+	 * Replace the content of this Office365MixedVirtualAccount object from a PHP \stdClass.
 	 * The data could be supplied from an API call after json_decode(...); or generated manually.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
@@ -78,48 +88,62 @@ class ServerMetaBrandingProperties {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
-		if (property_exists($sc, 'BrandName')) {
-			$this->BrandName = (string)($sc->BrandName);
+		if (property_exists($sc, 'id')) {
+			$this->ID = (string)($sc->id);
 		}
-		if (property_exists($sc, 'ProductName')) {
-			$this->ProductName = (string)($sc->ProductName);
+		if (property_exists($sc, 'Type') && !is_null($sc->Type)) {
+			$this->Type = (int)($sc->Type);
 		}
-		if (property_exists($sc, 'HasImage')) {
-			$this->HasImage = (bool)($sc->HasImage);
+		if (property_exists($sc, 'DisplayName') && !is_null($sc->DisplayName)) {
+			$this->DisplayName = (string)($sc->DisplayName);
 		}
-		if (property_exists($sc, 'ImageEtag')) {
-			$this->ImageEtag = (string)($sc->ImageEtag);
+		if (property_exists($sc, 'Mail') && !is_null($sc->Mail)) {
+			$this->Mail = (string)($sc->Mail);
 		}
-		if (property_exists($sc, 'TopColor')) {
-			$this->TopColor = (string)($sc->TopColor);
+		if (property_exists($sc, 'JobTitle') && !is_null($sc->JobTitle)) {
+			$this->JobTitle = (string)($sc->JobTitle);
 		}
-		if (property_exists($sc, 'HideNewsArea')) {
-			$this->HideNewsArea = (bool)($sc->HideNewsArea);
+		if (property_exists($sc, 'SiteID') && !is_null($sc->SiteID)) {
+			$this->SiteID = (string)($sc->SiteID);
 		}
-		if (property_exists($sc, 'AllowUnauthenticatedDownloads')) {
-			$this->AllowUnauthenticatedDownloads = (bool)($sc->AllowUnauthenticatedDownloads);
+		if (property_exists($sc, 'WebID') && !is_null($sc->WebID)) {
+			$this->WebID = (string)($sc->WebID);
 		}
-		if (property_exists($sc, 'AllowAuthenticatedDownloads')) {
-			$this->AllowAuthenticatedDownloads = (bool)($sc->AllowAuthenticatedDownloads);
+		if (property_exists($sc, 'WebURL') && !is_null($sc->WebURL)) {
+			$this->WebURL = (string)($sc->WebURL);
 		}
-		if (property_exists($sc, 'PruneLogsAfterDays')) {
-			$this->PruneLogsAfterDays = (int)($sc->PruneLogsAfterDays);
+		if (property_exists($sc, 'EnabledServiceOption') && !is_null($sc->EnabledServiceOption)) {
+			$this->EnabledServiceOption = (int)($sc->EnabledServiceOption);
 		}
-		if (property_exists($sc, 'ExpiredInSeconds')) {
-			$this->ExpiredInSeconds = (int)($sc->ExpiredInSeconds);
+		if (property_exists($sc, 'Members') && !is_null($sc->Members)) {
+			$val_2 = [];
+			if ($sc->Members !== null) {
+				for($i_2 = 0; $i_2 < count($sc->Members); ++$i_2) {
+					$val_2[] = (string)($sc->Members[$i_2]);
+				}
+			}
+			$this->Members = $val_2;
+		}
+		if (property_exists($sc, 'ServiceOptions') && !is_null($sc->ServiceOptions)) {
+			$this->ServiceOptions = (int)($sc->ServiceOptions);
+		}
+		if (property_exists($sc, 'MemberServiceOptions') && !is_null($sc->MemberServiceOptions)) {
+			$this->MemberServiceOptions = (int)($sc->MemberServiceOptions);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
-			case 'BrandName':
-			case 'ProductName':
-			case 'HasImage':
-			case 'ImageEtag':
-			case 'TopColor':
-			case 'HideNewsArea':
-			case 'AllowUnauthenticatedDownloads':
-			case 'AllowAuthenticatedDownloads':
-			case 'PruneLogsAfterDays':
-			case 'ExpiredInSeconds':
+			case 'id':
+			case 'Type':
+			case 'DisplayName':
+			case 'Mail':
+			case 'JobTitle':
+			case 'SiteID':
+			case 'WebID':
+			case 'WebURL':
+			case 'EnabledServiceOption':
+			case 'Members':
+			case 'ServiceOptions':
+			case 'MemberServiceOptions':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -128,25 +152,25 @@ class ServerMetaBrandingProperties {
 	}
 
 	/**
-	 * Coerce a stdClass into a new strongly-typed ServerMetaBrandingProperties object.
+	 * Coerce a stdClass into a new strongly-typed Office365MixedVirtualAccount object.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
-	 * @return ServerMetaBrandingProperties
+	 * @return Office365MixedVirtualAccount
 	 */
 	public static function createFromStdclass(\stdClass $sc)
 	{
-		$retn = new ServerMetaBrandingProperties();
+		$retn = new Office365MixedVirtualAccount();
 		$retn->inflateFrom($sc);
 		return $retn;
 	}
 
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed ServerMetaBrandingProperties object.
+	 * Coerce a plain PHP array into a new strongly-typed Office365MixedVirtualAccount object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
 	 * @param array $arr Object data as PHP array
-	 * @return ServerMetaBrandingProperties
+	 * @return Office365MixedVirtualAccount
 	 */
 	public static function createFromArray(array $arr)
 	{
@@ -158,7 +182,7 @@ class ServerMetaBrandingProperties {
 	}
 
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed ServerMetaBrandingProperties object.
+	 * Coerce a plain PHP array into a new strongly-typed Office365MixedVirtualAccount object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
@@ -166,7 +190,7 @@ class ServerMetaBrandingProperties {
 	 *             (A) acknowledge this and continue by switching to createFromArray, or
 	 *             (b) switch to the roundtrip-safe createFromStdclass alternative.
 	 * @param array $arr Object data as PHP array
-	 * @return ServerMetaBrandingProperties
+	 * @return Office365MixedVirtualAccount
 	 */
 	public static function createFrom(array $arr)
 	{
@@ -174,10 +198,10 @@ class ServerMetaBrandingProperties {
 	}
 
 	/**
-	 * Coerce a JSON string into a new strongly-typed ServerMetaBrandingProperties object.
+	 * Coerce a JSON string into a new strongly-typed Office365MixedVirtualAccount object.
 	 *
 	 * @param string $JsonString Object data as JSON string
-	 * @return ServerMetaBrandingProperties
+	 * @return Office365MixedVirtualAccount
 	 */
 	public static function createFromJSON($JsonString)
 	{
@@ -185,13 +209,13 @@ class ServerMetaBrandingProperties {
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg());
 		}
-		$retn = new ServerMetaBrandingProperties();
+		$retn = new Office365MixedVirtualAccount();
 		$retn->inflateFrom($decodedJsonObject);
 		return $retn;
 	}
 
 	/**
-	 * Convert this ServerMetaBrandingProperties object into a plain PHP array.
+	 * Convert this Office365MixedVirtualAccount object into a plain PHP array.
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
@@ -201,16 +225,25 @@ class ServerMetaBrandingProperties {
 	public function toArray($for_json_encode = false)
 	{
 		$ret = [];
-		$ret["BrandName"] = $this->BrandName;
-		$ret["ProductName"] = $this->ProductName;
-		$ret["HasImage"] = $this->HasImage;
-		$ret["ImageEtag"] = $this->ImageEtag;
-		$ret["TopColor"] = $this->TopColor;
-		$ret["HideNewsArea"] = $this->HideNewsArea;
-		$ret["AllowUnauthenticatedDownloads"] = $this->AllowUnauthenticatedDownloads;
-		$ret["AllowAuthenticatedDownloads"] = $this->AllowAuthenticatedDownloads;
-		$ret["PruneLogsAfterDays"] = $this->PruneLogsAfterDays;
-		$ret["ExpiredInSeconds"] = $this->ExpiredInSeconds;
+		$ret["id"] = $this->ID;
+		$ret["Type"] = $this->Type;
+		$ret["DisplayName"] = $this->DisplayName;
+		$ret["Mail"] = $this->Mail;
+		$ret["JobTitle"] = $this->JobTitle;
+		$ret["SiteID"] = $this->SiteID;
+		$ret["WebID"] = $this->WebID;
+		$ret["WebURL"] = $this->WebURL;
+		$ret["EnabledServiceOption"] = $this->EnabledServiceOption;
+		{
+			$c0 = [];
+			for($i0 = 0; $i0 < count($this->Members); ++$i0) {
+				$val0 = $this->Members[$i0];
+				$c0[] = $val0;
+			}
+			$ret["Members"] = $c0;
+		}
+		$ret["ServiceOptions"] = $this->ServiceOptions;
+		$ret["MemberServiceOptions"] = $this->MemberServiceOptions;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

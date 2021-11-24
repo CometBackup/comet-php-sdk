@@ -24,6 +24,16 @@ class EmailReportGeneratedPreview {
 	/**
 	 * @var string
 	 */
+	public $From = "";
+
+	/**
+	 * @var string[]
+	 */
+	public $To = [];
+
+	/**
+	 * @var string
+	 */
 	public $EmailSubject = "";
 
 	/**
@@ -59,6 +69,18 @@ class EmailReportGeneratedPreview {
 		if (property_exists($sc, 'Message')) {
 			$this->Message = (string)($sc->Message);
 		}
+		if (property_exists($sc, 'From')) {
+			$this->From = (string)($sc->From);
+		}
+		if (property_exists($sc, 'To')) {
+			$val_2 = [];
+			if ($sc->To !== null) {
+				for($i_2 = 0; $i_2 < count($sc->To); ++$i_2) {
+					$val_2[] = (string)($sc->To[$i_2]);
+				}
+			}
+			$this->To = $val_2;
+		}
 		if (property_exists($sc, 'EmailSubject')) {
 			$this->EmailSubject = (string)($sc->EmailSubject);
 		}
@@ -72,6 +94,8 @@ class EmailReportGeneratedPreview {
 			switch($k) {
 			case 'Status':
 			case 'Message':
+			case 'From':
+			case 'To':
 			case 'EmailSubject':
 			case 'EmailBodyHTML':
 			case 'EmailBodyPlaintext':
@@ -158,6 +182,15 @@ class EmailReportGeneratedPreview {
 		$ret = [];
 		$ret["Status"] = $this->Status;
 		$ret["Message"] = $this->Message;
+		$ret["From"] = $this->From;
+		{
+			$c0 = [];
+			for($i0 = 0; $i0 < count($this->To); ++$i0) {
+				$val0 = $this->To[$i0];
+				$c0[] = $val0;
+			}
+			$ret["To"] = $c0;
+		}
 		$ret["EmailSubject"] = $this->EmailSubject;
 		$ret["EmailBodyHTML"] = $this->EmailBodyHTML;
 		$ret["EmailBodyPlaintext"] = $this->EmailBodyPlaintext;

@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 2021-11-24 v3.18.0
+- Based on 21.9.12
+- Add support for Thai and Danish localizations
+- Add From and To fields to the EmailReportGenerated API
+- Add `AdminDispatcherEmailPreview` api method for requesting the HTML content of an email
+- Add `ImageEtag` field to the response of the ServerMetaBrandingProperties endpoint.
+- Add support for new engine properties on the Office365 backup type.
+- Add `AdminDispatcherOffice365ListVirtualAccounts` api method for requesting Objects that Office365 is capable of backing up.
+
 ## 2021-10-21 v3.17.0
 - Based on 21.9.7
 - Add Support for HideFiles parameter in B2 Destination Locations

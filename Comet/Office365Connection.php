@@ -37,6 +37,11 @@ class Office365Connection {
 	public $SiteUniqueMembers = [];
 
 	/**
+	 * @var \Comet\Office365CustomSettingV2
+	 */
+	public $CustomSettingV2 = null;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see Office365Connection::RemoveUnknownProperties() Remove all unknown properties
@@ -90,6 +95,14 @@ class Office365Connection {
 			}
 			$this->SiteUniqueMembers = $val_2;
 		}
+		if (property_exists($sc, 'CustomSettingV2')) {
+			if (is_array($sc->CustomSettingV2) && count($sc->CustomSettingV2) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->CustomSettingV2 = \Comet\Office365CustomSettingV2::createFromStdclass(new \stdClass());
+			} else {
+				$this->CustomSettingV2 = \Comet\Office365CustomSettingV2::createFromStdclass($sc->CustomSettingV2);
+			}
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'FeatureFlag':
@@ -97,6 +110,7 @@ class Office365Connection {
 			case 'CustomSetting':
 			case 'MailboxUniqueMembers':
 			case 'SiteUniqueMembers':
+			case 'CustomSettingV2':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -205,6 +219,11 @@ class Office365Connection {
 			}
 			$ret["SiteUniqueMembers"] = $c0;
 		}
+		if ( $this->CustomSettingV2 === null ) {
+			$ret["CustomSettingV2"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["CustomSettingV2"] = $this->CustomSettingV2->toArray($for_json_encode);
+		}
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
@@ -259,6 +278,9 @@ class Office365Connection {
 		}
 		if ($this->CustomSetting !== null) {
 			$this->CustomSetting->RemoveUnknownProperties();
+		}
+		if ($this->CustomSettingV2 !== null) {
+			$this->CustomSettingV2->RemoveUnknownProperties();
 		}
 	}
 
