@@ -10,67 +10,46 @@
 namespace Comet;
 
 /**
- * Comet Server AdminAccountU2fSubmitChallengeResponse API
- * Register a new FIDO U2F token
- * Browser support for U2F is ending in February 2022. WebAuthn is backwards
- * compatible with U2F keys, and Comet will automatically migrate existing U2F keys
- * to allow their use with the WebAuthn endpoints.
+ * Comet Server AdminAccountWebauthnSubmitChallengeResponse API
+ * Register a new FIDO2 WebAuthn token
  *
  * You must supply administrator authentication credentials to use this API.
  */
-class AdminAccountU2fSubmitChallengeResponseRequest implements \Comet\NetworkRequest {
+class AdminAccountWebauthnSubmitChallengeResponseRequest implements \Comet\NetworkRequest {
 
 	/**
-	 * Associated value from AdminAccountU2fRequestRegistrationChallenge API
+	 * External URL of this server, used as WebAuthn ID
 	 *
 	 * @var string
 	 */
-	protected $U2FChallengeID = null;
+	protected $SelfAddress = null;
 
 	/**
-	 * U2F response data supplied by hardware token
+	 * Associated value from AdminAccountWebAuthnRequestRegistrationChallenge API
 	 *
 	 * @var string
 	 */
-	protected $U2FClientData = null;
+	protected $ChallengeID = null;
 
 	/**
-	 * U2F response data supplied by hardware token
+	 * JSON-encoded credential
 	 *
 	 * @var string
 	 */
-	protected $U2FRegistrationData = null;
+	protected $Credential = null;
 
 	/**
-	 * U2F response data supplied by hardware token
+	 * Construct a new AdminAccountWebauthnSubmitChallengeResponseRequest instance.
 	 *
-	 * @var string
+	 * @param string $SelfAddress External URL of this server, used as WebAuthn ID
+	 * @param string $ChallengeID Associated value from AdminAccountWebAuthnRequestRegistrationChallenge API
+	 * @param string $Credential JSON-encoded credential
 	 */
-	protected $U2FVersion = null;
-
-	/**
-	 * Optional description of the token
-	 *
-	 * @var string
-	 */
-	protected $Description = null;
-
-	/**
-	 * Construct a new AdminAccountU2fSubmitChallengeResponseRequest instance.
-	 *
-	 * @param string $U2FChallengeID Associated value from AdminAccountU2fRequestRegistrationChallenge API
-	 * @param string $U2FClientData U2F response data supplied by hardware token
-	 * @param string $U2FRegistrationData U2F response data supplied by hardware token
-	 * @param string $U2FVersion U2F response data supplied by hardware token
-	 * @param string $Description Optional description of the token
-	 */
-	public function __construct($U2FChallengeID, $U2FClientData, $U2FRegistrationData, $U2FVersion, $Description)
+	public function __construct($SelfAddress, $ChallengeID, $Credential)
 	{
-		$this->U2FChallengeID = $U2FChallengeID;
-		$this->U2FClientData = $U2FClientData;
-		$this->U2FRegistrationData = $U2FRegistrationData;
-		$this->U2FVersion = $U2FVersion;
-		$this->Description = $Description;
+		$this->SelfAddress = $SelfAddress;
+		$this->ChallengeID = $ChallengeID;
+		$this->Credential = $Credential;
 	}
 
 	/**
@@ -80,7 +59,7 @@ class AdminAccountU2fSubmitChallengeResponseRequest implements \Comet\NetworkReq
 	 */
 	public function Endpoint()
 	{
-		return '/api/v1/admin/account/u2f/submit-challenge-response';
+		return '/api/v1/admin/account/webauthn/submit-challenge-response';
 	}
 
 	public function Method()
@@ -101,11 +80,9 @@ class AdminAccountU2fSubmitChallengeResponseRequest implements \Comet\NetworkReq
 	public function Parameters()
 	{
 		$ret = [];
-		$ret["U2FChallengeID"] = (string)($this->U2FChallengeID);
-		$ret["U2FClientData"] = (string)($this->U2FClientData);
-		$ret["U2FRegistrationData"] = (string)($this->U2FRegistrationData);
-		$ret["U2FVersion"] = (string)($this->U2FVersion);
-		$ret["Description"] = (string)($this->Description);
+		$ret["SelfAddress"] = (string)($this->SelfAddress);
+		$ret["ChallengeID"] = (string)($this->ChallengeID);
+		$ret["Credential"] = (string)($this->Credential);
 		return $ret;
 	}
 

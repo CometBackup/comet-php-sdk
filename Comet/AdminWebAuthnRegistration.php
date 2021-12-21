@@ -9,43 +9,43 @@
 
 namespace Comet;
 
-class StatResult {
+class AdminWebAuthnRegistration {
+
+	/**
+	 * @var string
+	 */
+	public $Description = "";
 
 	/**
 	 * @var int
 	 */
-	public $Buckets = 0;
+	public $RegisterTime = 0;
 
 	/**
-	 * @var int
+	 * @var boolean
 	 */
-	public $Users = 0;
+	public $IsLegacyU2F = false;
 
 	/**
-	 * @var int
+	 * @var string
 	 */
-	public $Devices = 0;
+	public $ID = "";
 
 	/**
-	 * @var int
+	 * @var \Comet\WebAuthnCredential
 	 */
-	public $Boosters = 0;
-
-	/**
-	 * @var int
-	 */
-	public $NetworkDevices = 0;
+	public $Credential = null;
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
-	 * @see StatResult::RemoveUnknownProperties() Remove all unknown properties
+	 * @see AdminWebAuthnRegistration::RemoveUnknownProperties() Remove all unknown properties
 	 * @var array
 	 */
 	private $__unknown_properties = [];
 
 	/**
-	 * Replace the content of this StatResult object from a PHP \stdClass.
+	 * Replace the content of this AdminWebAuthnRegistration object from a PHP \stdClass.
 	 * The data could be supplied from an API call after json_decode(...); or generated manually.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
@@ -53,28 +53,33 @@ class StatResult {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
-		if (property_exists($sc, 'Buckets')) {
-			$this->Buckets = (int)($sc->Buckets);
+		if (property_exists($sc, 'Description')) {
+			$this->Description = (string)($sc->Description);
 		}
-		if (property_exists($sc, 'Users')) {
-			$this->Users = (int)($sc->Users);
+		if (property_exists($sc, 'RegisterTime')) {
+			$this->RegisterTime = (int)($sc->RegisterTime);
 		}
-		if (property_exists($sc, 'Devices')) {
-			$this->Devices = (int)($sc->Devices);
+		if (property_exists($sc, 'IsLegacyU2F') && !is_null($sc->IsLegacyU2F)) {
+			$this->IsLegacyU2F = (bool)($sc->IsLegacyU2F);
 		}
-		if (property_exists($sc, 'Boosters')) {
-			$this->Boosters = (int)($sc->Boosters);
+		if (property_exists($sc, 'ID') && !is_null($sc->ID)) {
+			$this->ID = base64_decode($sc->ID);
 		}
-		if (property_exists($sc, 'NetworkDevices')) {
-			$this->NetworkDevices = (int)($sc->NetworkDevices);
+		if (property_exists($sc, 'Credential') && !is_null($sc->Credential)) {
+			if (is_array($sc->Credential) && count($sc->Credential) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->Credential = \Comet\WebAuthnCredential::createFromStdclass(new \stdClass());
+			} else {
+				$this->Credential = \Comet\WebAuthnCredential::createFromStdclass($sc->Credential);
+			}
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
-			case 'Buckets':
-			case 'Users':
-			case 'Devices':
-			case 'Boosters':
-			case 'NetworkDevices':
+			case 'Description':
+			case 'RegisterTime':
+			case 'IsLegacyU2F':
+			case 'ID':
+			case 'Credential':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -83,25 +88,25 @@ class StatResult {
 	}
 
 	/**
-	 * Coerce a stdClass into a new strongly-typed StatResult object.
+	 * Coerce a stdClass into a new strongly-typed AdminWebAuthnRegistration object.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
-	 * @return StatResult
+	 * @return AdminWebAuthnRegistration
 	 */
 	public static function createFromStdclass(\stdClass $sc)
 	{
-		$retn = new StatResult();
+		$retn = new AdminWebAuthnRegistration();
 		$retn->inflateFrom($sc);
 		return $retn;
 	}
 
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed StatResult object.
+	 * Coerce a plain PHP array into a new strongly-typed AdminWebAuthnRegistration object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
 	 * @param array $arr Object data as PHP array
-	 * @return StatResult
+	 * @return AdminWebAuthnRegistration
 	 */
 	public static function createFromArray(array $arr)
 	{
@@ -113,7 +118,7 @@ class StatResult {
 	}
 
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed StatResult object.
+	 * Coerce a plain PHP array into a new strongly-typed AdminWebAuthnRegistration object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
@@ -121,7 +126,7 @@ class StatResult {
 	 *             (A) acknowledge this and continue by switching to createFromArray, or
 	 *             (b) switch to the roundtrip-safe createFromStdclass alternative.
 	 * @param array $arr Object data as PHP array
-	 * @return StatResult
+	 * @return AdminWebAuthnRegistration
 	 */
 	public static function createFrom(array $arr)
 	{
@@ -129,10 +134,10 @@ class StatResult {
 	}
 
 	/**
-	 * Coerce a JSON string into a new strongly-typed StatResult object.
+	 * Coerce a JSON string into a new strongly-typed AdminWebAuthnRegistration object.
 	 *
 	 * @param string $JsonString Object data as JSON string
-	 * @return StatResult
+	 * @return AdminWebAuthnRegistration
 	 */
 	public static function createFromJSON($JsonString)
 	{
@@ -140,13 +145,13 @@ class StatResult {
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg());
 		}
-		$retn = new StatResult();
+		$retn = new AdminWebAuthnRegistration();
 		$retn->inflateFrom($decodedJsonObject);
 		return $retn;
 	}
 
 	/**
-	 * Convert this StatResult object into a plain PHP array.
+	 * Convert this AdminWebAuthnRegistration object into a plain PHP array.
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
@@ -156,11 +161,15 @@ class StatResult {
 	public function toArray($for_json_encode = false)
 	{
 		$ret = [];
-		$ret["Buckets"] = $this->Buckets;
-		$ret["Users"] = $this->Users;
-		$ret["Devices"] = $this->Devices;
-		$ret["Boosters"] = $this->Boosters;
-		$ret["NetworkDevices"] = $this->NetworkDevices;
+		$ret["Description"] = $this->Description;
+		$ret["RegisterTime"] = $this->RegisterTime;
+		$ret["IsLegacyU2F"] = $this->IsLegacyU2F;
+		$ret["ID"] = base64_encode($this->ID);
+		if ( $this->Credential === null ) {
+			$ret["Credential"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["Credential"] = $this->Credential->toArray($for_json_encode);
+		}
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
@@ -210,6 +219,9 @@ class StatResult {
 	public function RemoveUnknownProperties()
 	{
 		$this->__unknown_properties = [];
+		if ($this->Credential !== null) {
+			$this->Credential->RemoveUnknownProperties();
+		}
 	}
 
 }

@@ -18,7 +18,7 @@ namespace Comet;
 class AdminAccountSessionStartRequest implements \Comet\NetworkRequest {
 
 	/**
-	 * External URL of this server (used for U2F AppID) (optional)
+	 * External URL of this server (optional)
 	 *
 	 * @var string|null
 	 */
@@ -27,7 +27,7 @@ class AdminAccountSessionStartRequest implements \Comet\NetworkRequest {
 	/**
 	 * Construct a new AdminAccountSessionStartRequest instance.
 	 *
-	 * @param string $SelfAddress External URL of this server (used for U2F AppID) (optional)
+	 * @param string $SelfAddress External URL of this server (optional)
 	 */
 	public function __construct($SelfAddress = null)
 	{

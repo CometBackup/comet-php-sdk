@@ -9,43 +9,28 @@
 
 namespace Comet;
 
-class StatResult {
+class WebAuthnCredentialParameter {
+
+	/**
+	 * @var string
+	 */
+	public $Type = "";
 
 	/**
 	 * @var int
 	 */
-	public $Buckets = 0;
-
-	/**
-	 * @var int
-	 */
-	public $Users = 0;
-
-	/**
-	 * @var int
-	 */
-	public $Devices = 0;
-
-	/**
-	 * @var int
-	 */
-	public $Boosters = 0;
-
-	/**
-	 * @var int
-	 */
-	public $NetworkDevices = 0;
+	public $Algorithm = 0;
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
-	 * @see StatResult::RemoveUnknownProperties() Remove all unknown properties
+	 * @see WebAuthnCredentialParameter::RemoveUnknownProperties() Remove all unknown properties
 	 * @var array
 	 */
 	private $__unknown_properties = [];
 
 	/**
-	 * Replace the content of this StatResult object from a PHP \stdClass.
+	 * Replace the content of this WebAuthnCredentialParameter object from a PHP \stdClass.
 	 * The data could be supplied from an API call after json_decode(...); or generated manually.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
@@ -53,28 +38,16 @@ class StatResult {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
-		if (property_exists($sc, 'Buckets')) {
-			$this->Buckets = (int)($sc->Buckets);
+		if (property_exists($sc, 'type')) {
+			$this->Type = (string)($sc->type);
 		}
-		if (property_exists($sc, 'Users')) {
-			$this->Users = (int)($sc->Users);
-		}
-		if (property_exists($sc, 'Devices')) {
-			$this->Devices = (int)($sc->Devices);
-		}
-		if (property_exists($sc, 'Boosters')) {
-			$this->Boosters = (int)($sc->Boosters);
-		}
-		if (property_exists($sc, 'NetworkDevices')) {
-			$this->NetworkDevices = (int)($sc->NetworkDevices);
+		if (property_exists($sc, 'alg')) {
+			$this->Algorithm = (int)($sc->alg);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
-			case 'Buckets':
-			case 'Users':
-			case 'Devices':
-			case 'Boosters':
-			case 'NetworkDevices':
+			case 'type':
+			case 'alg':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -83,25 +56,25 @@ class StatResult {
 	}
 
 	/**
-	 * Coerce a stdClass into a new strongly-typed StatResult object.
+	 * Coerce a stdClass into a new strongly-typed WebAuthnCredentialParameter object.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
-	 * @return StatResult
+	 * @return WebAuthnCredentialParameter
 	 */
 	public static function createFromStdclass(\stdClass $sc)
 	{
-		$retn = new StatResult();
+		$retn = new WebAuthnCredentialParameter();
 		$retn->inflateFrom($sc);
 		return $retn;
 	}
 
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed StatResult object.
+	 * Coerce a plain PHP array into a new strongly-typed WebAuthnCredentialParameter object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
 	 * @param array $arr Object data as PHP array
-	 * @return StatResult
+	 * @return WebAuthnCredentialParameter
 	 */
 	public static function createFromArray(array $arr)
 	{
@@ -113,7 +86,7 @@ class StatResult {
 	}
 
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed StatResult object.
+	 * Coerce a plain PHP array into a new strongly-typed WebAuthnCredentialParameter object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
@@ -121,7 +94,7 @@ class StatResult {
 	 *             (A) acknowledge this and continue by switching to createFromArray, or
 	 *             (b) switch to the roundtrip-safe createFromStdclass alternative.
 	 * @param array $arr Object data as PHP array
-	 * @return StatResult
+	 * @return WebAuthnCredentialParameter
 	 */
 	public static function createFrom(array $arr)
 	{
@@ -129,10 +102,10 @@ class StatResult {
 	}
 
 	/**
-	 * Coerce a JSON string into a new strongly-typed StatResult object.
+	 * Coerce a JSON string into a new strongly-typed WebAuthnCredentialParameter object.
 	 *
 	 * @param string $JsonString Object data as JSON string
-	 * @return StatResult
+	 * @return WebAuthnCredentialParameter
 	 */
 	public static function createFromJSON($JsonString)
 	{
@@ -140,13 +113,13 @@ class StatResult {
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg());
 		}
-		$retn = new StatResult();
+		$retn = new WebAuthnCredentialParameter();
 		$retn->inflateFrom($decodedJsonObject);
 		return $retn;
 	}
 
 	/**
-	 * Convert this StatResult object into a plain PHP array.
+	 * Convert this WebAuthnCredentialParameter object into a plain PHP array.
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
@@ -156,11 +129,8 @@ class StatResult {
 	public function toArray($for_json_encode = false)
 	{
 		$ret = [];
-		$ret["Buckets"] = $this->Buckets;
-		$ret["Users"] = $this->Users;
-		$ret["Devices"] = $this->Devices;
-		$ret["Boosters"] = $this->Boosters;
-		$ret["NetworkDevices"] = $this->NetworkDevices;
+		$ret["type"] = $this->Type;
+		$ret["alg"] = $this->Algorithm;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

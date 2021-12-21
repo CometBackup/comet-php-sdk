@@ -9,7 +9,22 @@
 
 namespace Comet;
 
-class AdminSecurityOptions {
+class AllowedAdminUser {
+
+	/**
+	 * @var string
+	 */
+	public $Username = "";
+
+	/**
+	 * @var string
+	 */
+	public $OrganizationID = "";
+
+	/**
+	 * @var string
+	 */
+	public $ExternalAuthenticationSource = "";
 
 	/**
 	 * @var int
@@ -67,15 +82,20 @@ class AdminSecurityOptions {
 	public $IPWhitelist = "";
 
 	/**
+	 * @var \Comet\AdminUserPermissions
+	 */
+	public $Permissions = null;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
-	 * @see AdminSecurityOptions::RemoveUnknownProperties() Remove all unknown properties
+	 * @see AllowedAdminUser::RemoveUnknownProperties() Remove all unknown properties
 	 * @var array
 	 */
 	private $__unknown_properties = [];
 
 	/**
-	 * Replace the content of this AdminSecurityOptions object from a PHP \stdClass.
+	 * Replace the content of this AllowedAdminUser object from a PHP \stdClass.
 	 * The data could be supplied from an API call after json_decode(...); or generated manually.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
@@ -83,6 +103,15 @@ class AdminSecurityOptions {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
+		if (property_exists($sc, 'Username')) {
+			$this->Username = (string)($sc->Username);
+		}
+		if (property_exists($sc, 'OrganizationID')) {
+			$this->OrganizationID = (string)($sc->OrganizationID);
+		}
+		if (property_exists($sc, 'ExternalAuthenticationSource') && !is_null($sc->ExternalAuthenticationSource)) {
+			$this->ExternalAuthenticationSource = (string)($sc->ExternalAuthenticationSource);
+		}
 		if (property_exists($sc, 'PasswordFormat')) {
 			$this->PasswordFormat = (int)($sc->PasswordFormat);
 		}
@@ -138,8 +167,19 @@ class AdminSecurityOptions {
 		if (property_exists($sc, 'IPWhitelist') && !is_null($sc->IPWhitelist)) {
 			$this->IPWhitelist = (string)($sc->IPWhitelist);
 		}
+		if (property_exists($sc, 'Permissions')) {
+			if (is_array($sc->Permissions) && count($sc->Permissions) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->Permissions = \Comet\AdminUserPermissions::createFromStdclass(new \stdClass());
+			} else {
+				$this->Permissions = \Comet\AdminUserPermissions::createFromStdclass($sc->Permissions);
+			}
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
+			case 'Username':
+			case 'OrganizationID':
+			case 'ExternalAuthenticationSource':
 			case 'PasswordFormat':
 			case 'Password':
 			case 'AllowPasswordLogin':
@@ -151,6 +191,7 @@ class AdminSecurityOptions {
 			case 'TOTPKeyEncryptionFormat':
 			case 'TOTPKey':
 			case 'IPWhitelist':
+			case 'Permissions':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -159,25 +200,25 @@ class AdminSecurityOptions {
 	}
 
 	/**
-	 * Coerce a stdClass into a new strongly-typed AdminSecurityOptions object.
+	 * Coerce a stdClass into a new strongly-typed AllowedAdminUser object.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
-	 * @return AdminSecurityOptions
+	 * @return AllowedAdminUser
 	 */
 	public static function createFromStdclass(\stdClass $sc)
 	{
-		$retn = new AdminSecurityOptions();
+		$retn = new AllowedAdminUser();
 		$retn->inflateFrom($sc);
 		return $retn;
 	}
 
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed AdminSecurityOptions object.
+	 * Coerce a plain PHP array into a new strongly-typed AllowedAdminUser object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
 	 * @param array $arr Object data as PHP array
-	 * @return AdminSecurityOptions
+	 * @return AllowedAdminUser
 	 */
 	public static function createFromArray(array $arr)
 	{
@@ -189,7 +230,7 @@ class AdminSecurityOptions {
 	}
 
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed AdminSecurityOptions object.
+	 * Coerce a plain PHP array into a new strongly-typed AllowedAdminUser object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
@@ -197,7 +238,7 @@ class AdminSecurityOptions {
 	 *             (A) acknowledge this and continue by switching to createFromArray, or
 	 *             (b) switch to the roundtrip-safe createFromStdclass alternative.
 	 * @param array $arr Object data as PHP array
-	 * @return AdminSecurityOptions
+	 * @return AllowedAdminUser
 	 */
 	public static function createFrom(array $arr)
 	{
@@ -205,10 +246,10 @@ class AdminSecurityOptions {
 	}
 
 	/**
-	 * Coerce a JSON string into a new strongly-typed AdminSecurityOptions object.
+	 * Coerce a JSON string into a new strongly-typed AllowedAdminUser object.
 	 *
 	 * @param string $JsonString Object data as JSON string
-	 * @return AdminSecurityOptions
+	 * @return AllowedAdminUser
 	 */
 	public static function createFromJSON($JsonString)
 	{
@@ -216,13 +257,13 @@ class AdminSecurityOptions {
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg());
 		}
-		$retn = new AdminSecurityOptions();
+		$retn = new AllowedAdminUser();
 		$retn->inflateFrom($decodedJsonObject);
 		return $retn;
 	}
 
 	/**
-	 * Convert this AdminSecurityOptions object into a plain PHP array.
+	 * Convert this AllowedAdminUser object into a plain PHP array.
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
@@ -232,6 +273,9 @@ class AdminSecurityOptions {
 	public function toArray($for_json_encode = false)
 	{
 		$ret = [];
+		$ret["Username"] = $this->Username;
+		$ret["OrganizationID"] = $this->OrganizationID;
+		$ret["ExternalAuthenticationSource"] = $this->ExternalAuthenticationSource;
 		$ret["PasswordFormat"] = $this->PasswordFormat;
 		$ret["Password"] = $this->Password;
 		$ret["AllowPasswordLogin"] = $this->AllowPasswordLogin;
@@ -265,6 +309,11 @@ class AdminSecurityOptions {
 		$ret["TOTPKeyEncryptionFormat"] = $this->TOTPKeyEncryptionFormat;
 		$ret["TOTPKey"] = $this->TOTPKey;
 		$ret["IPWhitelist"] = $this->IPWhitelist;
+		if ( $this->Permissions === null ) {
+			$ret["Permissions"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["Permissions"] = $this->Permissions->toArray($for_json_encode);
+		}
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
@@ -314,6 +363,9 @@ class AdminSecurityOptions {
 	public function RemoveUnknownProperties()
 	{
 		$this->__unknown_properties = [];
+		if ($this->Permissions !== null) {
+			$this->Permissions->RemoveUnknownProperties();
+		}
 	}
 
 }

@@ -167,7 +167,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 *
-	 * @param string $SelfAddress External URL of this server (used for U2F AppID) (optional)
+	 * @param string $SelfAddress External URL of this server (optional)
 	 * @return \Comet\SessionKeyRegeneratedResponse 
 	 * @throws \Exception
 	 */
@@ -219,6 +219,9 @@ class Server {
 
 	/** 
 	 * Register a new FIDO U2F token
+	 * Browser support for U2F is ending in February 2022. WebAuthn is backwards
+	 * compatible with U2F keys, and Comet will automatically migrate existing U2F keys
+	 * to allow their use with the WebAuthn endpoints.
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 *
@@ -235,6 +238,9 @@ class Server {
 
 	/** 
 	 * Register a new FIDO U2F token
+	 * Browser support for U2F is ending in February 2022. WebAuthn is backwards
+	 * compatible with U2F keys, and Comet will automatically migrate existing U2F keys
+	 * to allow their use with the WebAuthn endpoints.
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 *
@@ -267,6 +273,40 @@ class Server {
 		$nr = new \Comet\AdminAccountValidateTotpRequest($TOTPCode);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminAccountValidateTotpRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Register a new FIDO2 WebAuthn token
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 *
+	 * @param string $SelfAddress External URL of this server, used as WebAuthn ID
+	 * @return \Comet\WebAuthnRegistrationChallengeResponse 
+	 * @throws \Exception
+	 */
+	public function AdminAccountWebauthnRequestRegistrationChallenge($SelfAddress)
+	{
+		$nr = new \Comet\AdminAccountWebauthnRequestRegistrationChallengeRequest($SelfAddress);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminAccountWebauthnRequestRegistrationChallengeRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Register a new FIDO2 WebAuthn token
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 *
+	 * @param string $SelfAddress External URL of this server, used as WebAuthn ID
+	 * @param string $ChallengeID Associated value from AdminAccountWebAuthnRequestRegistrationChallenge API
+	 * @param string $Credential JSON-encoded credential
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminAccountWebauthnSubmitChallengeResponse($SelfAddress, $ChallengeID, $Credential)
+	{
+		$nr = new \Comet\AdminAccountWebauthnSubmitChallengeResponseRequest($SelfAddress, $ChallengeID, $Credential);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminAccountWebauthnSubmitChallengeResponseRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
 
 	/** 

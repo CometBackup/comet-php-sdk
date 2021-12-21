@@ -10,27 +10,24 @@
 namespace Comet;
 
 /**
- * Comet Server AdminAccountU2fRequestRegistrationChallenge API
- * Register a new FIDO U2F token
- * Browser support for U2F is ending in February 2022. WebAuthn is backwards
- * compatible with U2F keys, and Comet will automatically migrate existing U2F keys
- * to allow their use with the WebAuthn endpoints.
+ * Comet Server AdminAccountWebauthnRequestRegistrationChallenge API
+ * Register a new FIDO2 WebAuthn token
  *
  * You must supply administrator authentication credentials to use this API.
  */
-class AdminAccountU2fRequestRegistrationChallengeRequest implements \Comet\NetworkRequest {
+class AdminAccountWebauthnRequestRegistrationChallengeRequest implements \Comet\NetworkRequest {
 
 	/**
-	 * External URL of this server, used as U2F AppID and Facet
+	 * External URL of this server, used as WebAuthn ID
 	 *
 	 * @var string
 	 */
 	protected $SelfAddress = null;
 
 	/**
-	 * Construct a new AdminAccountU2fRequestRegistrationChallengeRequest instance.
+	 * Construct a new AdminAccountWebauthnRequestRegistrationChallengeRequest instance.
 	 *
-	 * @param string $SelfAddress External URL of this server, used as U2F AppID and Facet
+	 * @param string $SelfAddress External URL of this server, used as WebAuthn ID
 	 */
 	public function __construct($SelfAddress)
 	{
@@ -44,7 +41,7 @@ class AdminAccountU2fRequestRegistrationChallengeRequest implements \Comet\Netwo
 	 */
 	public function Endpoint()
 	{
-		return '/api/v1/admin/account/u2f/request-registration-challenge';
+		return '/api/v1/admin/account/webauthn/request-registration-challenge';
 	}
 
 	public function Method()
@@ -75,7 +72,7 @@ class AdminAccountU2fRequestRegistrationChallengeRequest implements \Comet\Netwo
 	 *
 	 * @param int $responseCode HTTP response code
 	 * @param string $body HTTP response body
-	 * @return \Comet\U2FRegistrationChallengeResponse
+	 * @return \Comet\WebAuthnRegistrationChallengeResponse
 	 * @throws \Exception
 	 */
 	public static function ProcessResponse($responseCode, $body)
@@ -100,12 +97,12 @@ class AdminAccountU2fRequestRegistrationChallengeRequest implements \Comet\Netwo
 			}
 		}
 
-		// Parse as U2FRegistrationChallengeResponse
+		// Parse as WebAuthnRegistrationChallengeResponse
 		if (is_array($decoded) && count($decoded) === 0) {
 		// Work around edge case in json_decode--json_encode stdClass conversion
-			$ret = \Comet\U2FRegistrationChallengeResponse::createFromStdclass(new \stdClass());
+			$ret = \Comet\WebAuthnRegistrationChallengeResponse::createFromStdclass(new \stdClass());
 		} else {
-			$ret = \Comet\U2FRegistrationChallengeResponse::createFromStdclass($decoded);
+			$ret = \Comet\WebAuthnRegistrationChallengeResponse::createFromStdclass($decoded);
 		}
 
 		return $ret;
