@@ -10,39 +10,29 @@
 namespace Comet;
 
 /**
- * Comet Server AdminBrandingGenerateClientTest API
- * Check if a software download is available
+ * Comet Server AdminStoragePingDestination API
+ * Ping a storage destination
  *
- * This API requires administrator authentication credentials, unless the server is configured to allow unauthenticated software downloads.
- * This API requires the Software Build Role to be enabled.
- * This API requires the Auth Role to be enabled.
+ * You must supply administrator authentication credentials to use this API.
+ * This API requires the Storage Role to be enabled.
  */
-class AdminBrandingGenerateClientTestRequest implements \Comet\NetworkRequest {
+class AdminStoragePingDestinationRequest implements \Comet\NetworkRequest {
 
 	/**
-	 * The selected download platform, from the AdminBrandingAvailablePlatforms API
+	 * The destination location settings
 	 *
-	 * @var int
+	 * @var \Comet\DestinationLocation
 	 */
-	protected $Platform = null;
+	protected $ExtraData = null;
 
 	/**
-	 * The external URL of this server, used to resolve conflicts (optional)
+	 * Construct a new AdminStoragePingDestinationRequest instance.
 	 *
-	 * @var string|null
+	 * @param \Comet\DestinationLocation $ExtraData The destination location settings
 	 */
-	protected $SelfAddress = null;
-
-	/**
-	 * Construct a new AdminBrandingGenerateClientTestRequest instance.
-	 *
-	 * @param int $Platform The selected download platform, from the AdminBrandingAvailablePlatforms API
-	 * @param string $SelfAddress The external URL of this server, used to resolve conflicts (optional)
-	 */
-	public function __construct($Platform, $SelfAddress = null)
+	public function __construct(DestinationLocation $ExtraData)
 	{
-		$this->Platform = $Platform;
-		$this->SelfAddress = $SelfAddress;
+		$this->ExtraData = $ExtraData;
 	}
 
 	/**
@@ -52,7 +42,7 @@ class AdminBrandingGenerateClientTestRequest implements \Comet\NetworkRequest {
 	 */
 	public function Endpoint()
 	{
-		return '/api/v1/admin/branding/generate-client/test';
+		return '/api/v1/admin/storage/ping-destination';
 	}
 
 	public function Method()
@@ -73,10 +63,7 @@ class AdminBrandingGenerateClientTestRequest implements \Comet\NetworkRequest {
 	public function Parameters()
 	{
 		$ret = [];
-		$ret["Platform"] = (string)($this->Platform);
-		if ($this->SelfAddress !== null) {
-			$ret["SelfAddress"] = (string)($this->SelfAddress);
-		}
+		$ret["ExtraData"] = $this->ExtraData->toJSON();
 		return $ret;
 	}
 

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2021 Comet Licensing Ltd.
+ * Copyright (c) 2018-2022 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -1009,7 +1009,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "21.12.1";
+	const APPLICATION_VERSION = "21.12.2";
 
 	/**
 	 * @type int
@@ -1024,7 +1024,7 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 1;
+	const APPLICATION_VERSION_REVISION = 2;
 
 	/**
 	 * @type string
@@ -1075,6 +1075,55 @@ class Def {
 	 * @type string
 	 */
 	const TOTPRequiredError = "ERR_TOTP_REQUIRED";
+
+	/**
+	 * WebAuthnDeviceType:
+	 *
+	 * @type int
+	 */
+	const WEBAUTHN_DEVICE_TYPE__UNKNOWN = 0;
+
+	/**
+	 * WebAuthnDeviceType:
+	 *
+	 * @type int
+	 */
+	const WEBAUTHN_DEVICE_TYPE__HARDWARE_TOKEN = 1;
+
+	/**
+	 * WebAuthnDeviceType:
+	 *
+	 * @type int
+	 */
+	const WEBAUTHN_DEVICE_TYPE__ANDROID = 2;
+
+	/**
+	 * WebAuthnDeviceType:
+	 *
+	 * @type int
+	 */
+	const WEBAUTHN_DEVICE_TYPE__APPLE = 3;
+
+	/**
+	 * WebAuthnDeviceType:
+	 *
+	 * @type int
+	 */
+	const WEBAUTHN_DEVICE_TYPE__TPM_GENERIC = 4;
+
+	/**
+	 * WebAuthnDeviceType:
+	 *
+	 * @type int
+	 */
+	const WEBAUTHN_DEVICE_TYPE__TPM_WINDOWS = 5;
+
+	/**
+	 * WebAuthnDeviceType:
+	 *
+	 * @type int
+	 */
+	const WEBAUTHN_DEVICE_TYPE__TPM_LINUX = 6;
 
 	/**
 	 * UpdateStatus:

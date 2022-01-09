@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2021 Comet Licensing Ltd.
+ * Copyright (c) 2018-2022 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -20,6 +20,11 @@ class AdminWebAuthnRegistration {
 	 * @var int
 	 */
 	public $RegisterTime = 0;
+
+	/**
+	 * @var int
+	 */
+	public $Type = 0;
 
 	/**
 	 * @var boolean
@@ -59,6 +64,9 @@ class AdminWebAuthnRegistration {
 		if (property_exists($sc, 'RegisterTime')) {
 			$this->RegisterTime = (int)($sc->RegisterTime);
 		}
+		if (property_exists($sc, 'Type')) {
+			$this->Type = (int)($sc->Type);
+		}
 		if (property_exists($sc, 'IsLegacyU2F') && !is_null($sc->IsLegacyU2F)) {
 			$this->IsLegacyU2F = (bool)($sc->IsLegacyU2F);
 		}
@@ -77,6 +85,7 @@ class AdminWebAuthnRegistration {
 			switch($k) {
 			case 'Description':
 			case 'RegisterTime':
+			case 'Type':
 			case 'IsLegacyU2F':
 			case 'ID':
 			case 'Credential':
@@ -163,6 +172,7 @@ class AdminWebAuthnRegistration {
 		$ret = [];
 		$ret["Description"] = $this->Description;
 		$ret["RegisterTime"] = $this->RegisterTime;
+		$ret["Type"] = $this->Type;
 		$ret["IsLegacyU2F"] = $this->IsLegacyU2F;
 		$ret["ID"] = base64_encode($this->ID);
 		if ( $this->Credential === null ) {

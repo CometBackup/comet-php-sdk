@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2021 Comet Licensing Ltd.
+ * Copyright (c) 2018-2022 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  * 
  * SPDX-License-Identifier: MIT
@@ -2566,6 +2566,23 @@ class Server {
 		$nr = new \Comet\AdminStorageListBucketsRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminStorageListBucketsRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Ping a storage destination
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Storage Role to be enabled.
+	 *
+	 * @param \Comet\DestinationLocation $ExtraData The destination location settings
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminStoragePingDestination(DestinationLocation $ExtraData)
+	{
+		$nr = new \Comet\AdminStoragePingDestinationRequest($ExtraData);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminStoragePingDestinationRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
 
 	/** 
