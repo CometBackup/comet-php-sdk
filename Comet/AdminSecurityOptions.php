@@ -33,6 +33,7 @@ class AdminSecurityOptions {
 
 	/**
 	 * @var boolean
+	 * @deprecated 21.12.0 This member has been deprecated since Comet version 21.12.0
 	 */
 	public $AllowPasswordAndU2FLogin = false;
 
@@ -43,6 +44,7 @@ class AdminSecurityOptions {
 
 	/**
 	 * @var \Comet\AdminU2FRegistration[]
+	 * @deprecated 21.12.0 This member has been deprecated since Comet version 21.12.0
 	 */
 	public $U2FRegistrations = [];
 

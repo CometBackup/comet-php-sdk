@@ -47,7 +47,7 @@ class WebAuthnPublicKeyCredentialCreationOptions {
 	public $CredentialExcludeList = [];
 
 	/**
-	 * @var \Comet\interface[] An array with string keys.
+	 * @var mixed[] An array with string keys.
 	 */
 	public $Extensions = [];
 
@@ -136,12 +136,7 @@ class WebAuthnPublicKeyCredentialCreationOptions {
 			if ($sc->extensions !== null) {
 				foreach($sc->extensions as $k_2 => $v_2) {
 					$phpk_2 = (string)($k_2);
-					if (is_array($v_2) && count($v_2) === 0) {
-					// Work around edge case in json_decode--json_encode stdClass conversion
-						$phpv_2 = \Comet\interface::createFromStdclass(new \stdClass());
-					} else {
-						$phpv_2 = \Comet\interface::createFromStdclass($v_2);
-					}
+					$phpv_2 = $v_2; // May be any type
 					$val_2[$phpk_2] = $phpv_2;
 				}
 			}
@@ -287,11 +282,7 @@ class WebAuthnPublicKeyCredentialCreationOptions {
 			$c0 = [];
 			foreach($this->Extensions as $k0 => $v0) {
 				$ko_0 = $k0;
-				if ( $v0 === null ) {
-					$vo_0 = $for_json_encode ? (object)[] : [];
-				} else {
-					$vo_0 = $v0->toArray($for_json_encode);
-				}
+				$vo_0 = $v0;
 				$c0[ $ko_0 ] = $vo_0;
 			}
 			if ($for_json_encode && count($c0) == 0) {

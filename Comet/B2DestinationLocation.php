@@ -33,6 +33,7 @@ class B2DestinationLocation {
 
 	/**
 	 * @var int
+	 * @deprecated 21.9.7 This member has been deprecated since Comet version 21.9.7
 	 */
 	public $MaxConnections = 0;
 
