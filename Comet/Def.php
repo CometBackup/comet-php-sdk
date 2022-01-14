@@ -845,42 +845,42 @@ class Def {
 	 *
 	 * @type string
 	 */
-	const STOREDOBJECTTYPE_EMAILMESSAGE = "emailmessage" ;
+	const STOREDOBJECTTYPE_EMAILMESSAGE = "emailmessage";
 
 	/**
 	 * StoredObjectType: "dir"
 	 *
 	 * @type string
 	 */
-	const STOREDOBJECTTYPE_EMAILFOLDER = "mailfolder" ;
+	const STOREDOBJECTTYPE_EMAILFOLDER = "mailfolder";
 
 	/**
 	 * StoredObjectType: "file"
 	 *
 	 * @type string
 	 */
-	const STOREDOBJECTTYPE_OFFICECONTACT = "contact" ;
+	const STOREDOBJECTTYPE_OFFICECONTACT = "contact";
 
 	/**
 	 * StoredObjectType: "dir"
 	 *
 	 * @type string
 	 */
-	const STOREDOBJECTTYPE_OFFICECONTACTFOLDER = "contactfolder" ;
+	const STOREDOBJECTTYPE_OFFICECONTACTFOLDER = "contactfolder";
 
 	/**
 	 * StoredObjectType: "file"
 	 *
 	 * @type string
 	 */
-	const STOREDOBJECTTYPE_OFFICECALENDAREVENT = "calendarevent" ;
+	const STOREDOBJECTTYPE_OFFICECALENDAREVENT = "calendarevent";
 
 	/**
 	 * StoredObjectType: "dir"
 	 *
 	 * @type string
 	 */
-	const STOREDOBJECTTYPE_OFFICECALENDAR = "calendar" ;
+	const STOREDOBJECTTYPE_OFFICECALENDAR = "calendar";
 
 	/**
 	 * StoredObjectType:
@@ -995,7 +995,7 @@ class Def {
 	const SETTING_ENFORCED_OFF = 4;
 
 	/**
-	 * sz.LanguageCode:
+	 * LanguageCode:
 	 *
 	 * @type string
 	 */
@@ -1042,6 +1042,16 @@ class Def {
 	const PASSWORD_FORMAT_PLAINTEXT = 0;
 
 	/**
+	 * @type string
+	 */
+	const UnknownDeviceError = "ERR_UNKNOWN_DEVICE";
+
+	/**
+	 * @type string
+	 */
+	const TOTPRequiredError = "ERR_TOTP_REQUIRED";
+
+	/**
 	 * @type int
 	 */
 	const EMAIL_WORKER_STATE_NOT_STARTED = 0;
@@ -1065,16 +1075,6 @@ class Def {
 	 * @type int
 	 */
 	const EMAIL_WORKER_STATE_SENDING = 4;
-
-	/**
-	 * @type string
-	 */
-	const UnknownDeviceError = "ERR_UNKNOWN_DEVICE";
-
-	/**
-	 * @type string
-	 */
-	const TOTPRequiredError = "ERR_TOTP_REQUIRED";
 
 	/**
 	 * WebAuthnDeviceType:
@@ -1414,7 +1414,7 @@ class Def {
 	 *
 	 * @type string
 	 */
-	const EMAIL_DELIVERY_BUILTIN = self::EMAIL_DELIVERY_MX_DIRECT ;
+	const EMAIL_DELIVERY_BUILTIN = self::EMAIL_DELIVERY_MX_DIRECT;
 
 	/**
 	 * RemoteServerType:

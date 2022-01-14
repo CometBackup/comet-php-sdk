@@ -9,6 +9,9 @@
 
 namespace Comet;
 
+/**
+ * @deprecated 21.12.0 This type has been deprecated since Comet version 21.12.0
+ */
 class U2FRegisterRequest {
 
 	/**
