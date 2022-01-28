@@ -132,6 +132,16 @@ class BackupJobDetail {
 	public $Progress = null;
 
 	/**
+	 * @var \Comet\SizeMeasurement
+	 */
+	public $DestinationSizeStart = null;
+
+	/**
+	 * @var \Comet\SizeMeasurement
+	 */
+	public $DestinationSizeEnd = null;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see BackupJobDetail::RemoveUnknownProperties() Remove all unknown properties
@@ -225,6 +235,22 @@ class BackupJobDetail {
 				$this->Progress = \Comet\BackupJobProgress::createFromStdclass($sc->Progress);
 			}
 		}
+		if (property_exists($sc, 'DestinationSizeStart') && !is_null($sc->DestinationSizeStart)) {
+			if (is_array($sc->DestinationSizeStart) && count($sc->DestinationSizeStart) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->DestinationSizeStart = \Comet\SizeMeasurement::createFromStdclass(new \stdClass());
+			} else {
+				$this->DestinationSizeStart = \Comet\SizeMeasurement::createFromStdclass($sc->DestinationSizeStart);
+			}
+		}
+		if (property_exists($sc, 'DestinationSizeEnd') && !is_null($sc->DestinationSizeEnd)) {
+			if (is_array($sc->DestinationSizeEnd) && count($sc->DestinationSizeEnd) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->DestinationSizeEnd = \Comet\SizeMeasurement::createFromStdclass(new \stdClass());
+			} else {
+				$this->DestinationSizeEnd = \Comet\SizeMeasurement::createFromStdclass($sc->DestinationSizeEnd);
+			}
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'GUID':
@@ -251,6 +277,8 @@ class BackupJobDetail {
 			case 'TotalUnlicensedMailsCount':
 			case 'CancellationID':
 			case 'Progress':
+			case 'DestinationSizeStart':
+			case 'DestinationSizeEnd':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -360,6 +388,16 @@ class BackupJobDetail {
 		} else {
 			$ret["Progress"] = $this->Progress->toArray($for_json_encode);
 		}
+		if ( $this->DestinationSizeStart === null ) {
+			$ret["DestinationSizeStart"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["DestinationSizeStart"] = $this->DestinationSizeStart->toArray($for_json_encode);
+		}
+		if ( $this->DestinationSizeEnd === null ) {
+			$ret["DestinationSizeEnd"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["DestinationSizeEnd"] = $this->DestinationSizeEnd->toArray($for_json_encode);
+		}
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
@@ -411,6 +449,12 @@ class BackupJobDetail {
 		$this->__unknown_properties = [];
 		if ($this->Progress !== null) {
 			$this->Progress->RemoveUnknownProperties();
+		}
+		if ($this->DestinationSizeStart !== null) {
+			$this->DestinationSizeStart->RemoveUnknownProperties();
+		}
+		if ($this->DestinationSizeEnd !== null) {
+			$this->DestinationSizeEnd->RemoveUnknownProperties();
 		}
 	}
 
