@@ -72,6 +72,11 @@ class Office365MixedVirtualAccount {
 	public $MemberServiceOptions = 0;
 
 	/**
+	 * @var boolean
+	 */
+	public $HasLicense = false;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see Office365MixedVirtualAccount::RemoveUnknownProperties() Remove all unknown properties
@@ -130,6 +135,9 @@ class Office365MixedVirtualAccount {
 		if (property_exists($sc, 'MemberServiceOptions') && !is_null($sc->MemberServiceOptions)) {
 			$this->MemberServiceOptions = (int)($sc->MemberServiceOptions);
 		}
+		if (property_exists($sc, 'hasLicense') && !is_null($sc->hasLicense)) {
+			$this->HasLicense = (bool)($sc->hasLicense);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'id':
@@ -144,6 +152,7 @@ class Office365MixedVirtualAccount {
 			case 'Members':
 			case 'ServiceOptions':
 			case 'MemberServiceOptions':
+			case 'hasLicense':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -244,6 +253,7 @@ class Office365MixedVirtualAccount {
 		}
 		$ret["ServiceOptions"] = $this->ServiceOptions;
 		$ret["MemberServiceOptions"] = $this->MemberServiceOptions;
+		$ret["hasLicense"] = $this->HasLicense;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

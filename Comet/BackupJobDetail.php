@@ -112,6 +112,16 @@ class BackupJobDetail {
 	public $TotalAccountsCount = 0;
 
 	/**
+	 * @var int
+	 */
+	public $TotalLicensedMailsCount = 0;
+
+	/**
+	 * @var int
+	 */
+	public $TotalUnlicensedMailsCount = 0;
+
+	/**
 	 * @var string
 	 */
 	public $CancellationID = "";
@@ -198,6 +208,12 @@ class BackupJobDetail {
 		if (property_exists($sc, 'TotalAccountsCount') && !is_null($sc->TotalAccountsCount)) {
 			$this->TotalAccountsCount = (int)($sc->TotalAccountsCount);
 		}
+		if (property_exists($sc, 'TotalLicensedMailsCount') && !is_null($sc->TotalLicensedMailsCount)) {
+			$this->TotalLicensedMailsCount = (int)($sc->TotalLicensedMailsCount);
+		}
+		if (property_exists($sc, 'TotalUnlicensedMailsCount') && !is_null($sc->TotalUnlicensedMailsCount)) {
+			$this->TotalUnlicensedMailsCount = (int)($sc->TotalUnlicensedMailsCount);
+		}
 		if (property_exists($sc, 'CancellationID') && !is_null($sc->CancellationID)) {
 			$this->CancellationID = (string)($sc->CancellationID);
 		}
@@ -231,6 +247,8 @@ class BackupJobDetail {
 			case 'TotalMailsCount':
 			case 'TotalSitesCount':
 			case 'TotalAccountsCount':
+			case 'TotalLicensedMailsCount':
+			case 'TotalUnlicensedMailsCount':
 			case 'CancellationID':
 			case 'Progress':
 				break;
@@ -334,6 +352,8 @@ class BackupJobDetail {
 		$ret["TotalMailsCount"] = $this->TotalMailsCount;
 		$ret["TotalSitesCount"] = $this->TotalSitesCount;
 		$ret["TotalAccountsCount"] = $this->TotalAccountsCount;
+		$ret["TotalLicensedMailsCount"] = $this->TotalLicensedMailsCount;
+		$ret["TotalUnlicensedMailsCount"] = $this->TotalUnlicensedMailsCount;
 		$ret["CancellationID"] = $this->CancellationID;
 		if ( $this->Progress === null ) {
 			$ret["Progress"] = $for_json_encode ? (object)[] : [];
