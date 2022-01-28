@@ -9,6 +9,9 @@
 
 namespace Comet;
 
+/**
+ * @deprecated 21.9.xx This type has been deprecated since Comet version 21.9.xx
+ */
 class Office365CustomSetting {
 
 	/**
