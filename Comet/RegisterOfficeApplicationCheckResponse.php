@@ -57,7 +57,7 @@ class RegisterOfficeApplicationCheckResponse {
 		if (property_exists($sc, 'Error')) {
 			$this->Error = (string)($sc->Error);
 		}
-		if (property_exists($sc, 'Result')) {
+		if (property_exists($sc, 'Result') && !is_null($sc->Result)) {
 			if (is_array($sc->Result) && count($sc->Result) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
 				$this->Result = \Comet\Office365Credential::createFromStdclass(new \stdClass());
