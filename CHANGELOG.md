@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 2022-01-28 v3.20.0
+- Based on 21.12.4
+- Add `AdminStoragePingDestination` API to perform a server-side Test Connections action when configuring Storage Role
+- Add `HasLicense` on `Office365MixedVirtualAccount` struct, and add `TotalLicensedMailsCount` and `TotalUnlicensedMailsCount` on `BackupJobDetail` struct, to track Office 365 license usage
+- Add `AdminWebAuthnRegistration` new `Type` field and `WEBAUTHN_DEVICE_TYPE` constants, to determine the type of hardware WebAuthn device
+- Add deprecation comments to U2F types (use WebAuthn instead), to `B2DestinationLocation.MaxConnections`, and to `Office365CustomSetting` (use Office365CustomSettingV2 instead)
+- Fix an issue with wrong array types in `WebAuthnPublicKeyCredentialCreationOptions` and `WebAuthnPublicKeyCredentialRequestOptions`
+- Fix an issue with executable permissions on some files
+
 ## 2021-12-22 v3.19.0
 - Based on 21.12.1
 - Add `AdminAccountWebauthnRegistration` endpoint for new WebAuthn support.
