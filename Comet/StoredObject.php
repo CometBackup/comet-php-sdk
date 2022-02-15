@@ -22,6 +22,8 @@ class StoredObject {
 	public $ModifyTime = 0;
 
 	/**
+	 * One of the STOREDOBJECTTYPE_... constant values
+	 *
 	 * @var string
 	 */
 	public $Type = "";

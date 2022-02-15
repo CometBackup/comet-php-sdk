@@ -9,6 +9,9 @@
 
 namespace Comet;
 
+/**
+ * JobEntry is a single entry within a job report.
+ */
 class JobEntry {
 
 	/**

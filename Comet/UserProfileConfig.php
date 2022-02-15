@@ -9,6 +9,9 @@
 
 namespace Comet;
 
+/**
+ * This is the main data structure for a user's profile.
+ */
 class UserProfileConfig {
 
 	/**
@@ -32,6 +35,8 @@ class UserProfileConfig {
 	public $LanguageCode = "";
 
 	/**
+	 * Tenant
+	 *
 	 * @var string
 	 */
 	public $OrganizationID = "";
@@ -52,11 +57,15 @@ class UserProfileConfig {
 	public $SendEmailReports = false;
 
 	/**
+	 * Storage Vaults
+	 *
 	 * @var \Comet\DestinationConfig[] An array with string keys.
 	 */
 	public $Destinations = [];
 
 	/**
+	 * Protected Items
+	 *
 	 * @var \Comet\SourceConfig[] An array with string keys.
 	 */
 	public $Sources = [];
@@ -92,6 +101,10 @@ class UserProfileConfig {
 	public $MaximumDevices = 0;
 
 	/**
+	 * If the PolicyID field is set to a non-empty string, the Comet Server will enforce the contents of
+	 * the Policy field based on the matching server's policy. Otherwise if the PolicyID field is set to an
+	 * empty string, the administrator may configure any custom values in the Policy field.
+	 *
 	 * @var string
 	 */
 	public $PolicyID = "";
@@ -102,6 +115,9 @@ class UserProfileConfig {
 	public $Policy = null;
 
 	/**
+	 * To change the user's password, use the AdminResetUserPassword API instead of accessing these fields
+	 * directly. Otherwise, other encrypted fields in the user profile may become corrupted.
+	 *
 	 * @var int
 	 */
 	public $PasswordFormat = 0;
