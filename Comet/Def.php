@@ -486,6 +486,13 @@ class Def {
 	const RESTORETYPE_OFFICE365_CLOUD = 6;
 
 	/**
+	 * RestoreType:
+	 *
+	 * @type int
+	 */
+	const RESTORETYPE_VMDK_FILE = 7;
+
+	/**
 	 * RestoreType: RESTORETYPE_PROCESS_ARCHIVE
 	 *
 	 * @type int
@@ -946,6 +953,20 @@ class Def {
 	const STOREDOBJECTTYPE_MSSITELISTDRIVEENTITY = "mssitelistdriveentity";
 
 	/**
+	 * StoredObjectType:
+	 *
+	 * @type string
+	 */
+	const STOREDOBJECTTYPE_VMDK_FILE = "vmdkfile";
+
+	/**
+	 * StoredObjectType:
+	 *
+	 * @type string
+	 */
+	const STOREDOBJECTTYPE_VMDK_DIRECTORY = "vmdkdir";
+
+	/**
 	 * ExtraFileExclusionOSRestriction:
 	 *
 	 * @type int
@@ -1078,6 +1099,11 @@ class Def {
 	 * @type string
 	 */
 	const TOTPRequiredError = "ERR_TOTP_REQUIRED";
+
+	/**
+	 * @type string
+	 */
+	const UnsupportVmdkFileSystem = "ERR_UNSUPPORT_VMDK_FILE_SYSTEM";
 
 	/**
 	 * @type int

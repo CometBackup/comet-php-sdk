@@ -42,11 +42,18 @@ class AdminDispatcherRequestStoredObjectsRequest implements \Comet\NetworkReques
 	protected $SnapshotID = null;
 
 	/**
-	 * Browse objects inside subdirectory of backup snapshot (optional)
+	 * Browse objects inside subdirectory of backup snapshot. If it is for VMDK single file restore, it should be the disk image's subtree ID. (optional)
 	 *
 	 * @var string|null
 	 */
 	protected $TreeID = null;
+
+	/**
+	 * Request a list of stored objects in vmdk file (optional)
+	 *
+	 * @var \Comet\VMDKSnapshotViewOptions|null
+	 */
+	protected $Options = null;
 
 	/**
 	 * Construct a new AdminDispatcherRequestStoredObjectsRequest instance.
@@ -54,14 +61,16 @@ class AdminDispatcherRequestStoredObjectsRequest implements \Comet\NetworkReques
 	 * @param string $TargetID The live connection GUID
 	 * @param string $Destination The Storage Vault ID
 	 * @param string $SnapshotID The selected backup job snapshot
-	 * @param string $TreeID Browse objects inside subdirectory of backup snapshot (optional)
+	 * @param string $TreeID Browse objects inside subdirectory of backup snapshot. If it is for VMDK single file restore, it should be the disk image's subtree ID. (optional)
+	 * @param \Comet\VMDKSnapshotViewOptions $Options Request a list of stored objects in vmdk file (optional)
 	 */
-	public function __construct($TargetID, $Destination, $SnapshotID, $TreeID = null)
+	public function __construct($TargetID, $Destination, $SnapshotID, $TreeID = null, VMDKSnapshotViewOptions $Options = null)
 	{
 		$this->TargetID = $TargetID;
 		$this->Destination = $Destination;
 		$this->SnapshotID = $SnapshotID;
 		$this->TreeID = $TreeID;
+		$this->Options = $Options;
 	}
 
 	/**
@@ -97,6 +106,9 @@ class AdminDispatcherRequestStoredObjectsRequest implements \Comet\NetworkReques
 		$ret["SnapshotID"] = (string)($this->SnapshotID);
 		if ($this->TreeID !== null) {
 			$ret["TreeID"] = (string)($this->TreeID);
+		}
+		if ($this->Options !== null) {
+			$ret["Options"] = $this->Options->toJSON();
 		}
 		return $ret;
 	}
