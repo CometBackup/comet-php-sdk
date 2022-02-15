@@ -12,6 +12,34 @@ namespace Comet;
 class Def {
 
 	/**
+	 * AutoRetentionLevel: The system will automatically choose how often to run an automatic Retention Pass after each backup job.
+	 *
+	 * @type int
+	 */
+	const BACKUPJOBAUTORETENTION_AUTOMATIC = 0;
+
+	/**
+	 * AutoRetentionLevel: The system will run a Retention Pass after every single backup job. This is more system-intensive, but is the most responsive at freeing storage space.
+	 *
+	 * @type int
+	 */
+	const BACKUPJOBAUTORETENTION_IMMEDIATE = 1;
+
+	/**
+	 * AutoRetentionLevel: The system will follow the automatic ruleset for a 'High Power' device.
+	 *
+	 * @type int
+	 */
+	const BACKUPJOBAUTORETENTION_MORE_OFTEN = 2;
+
+	/**
+	 * AutoRetentionLevel: The system will follow the automatic ruleset for a 'Low Power' device.
+	 *
+	 * @type int
+	 */
+	const BACKUPJOBAUTORETENTION_LESS_OFTEN = 3;
+
+	/**
 	 * JobClassification:
 	 *
 	 * @type int

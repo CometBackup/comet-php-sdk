@@ -82,6 +82,11 @@ class BackupRuleConfig {
 	public $AllowZeroFilesSuccess = false;
 
 	/**
+	 * @var int
+	 */
+	public $AutoRetentionLevel = 0;
+
+	/**
 	 * @var \Comet\ScheduleConfig[]
 	 */
 	public $Schedules = [];
@@ -168,6 +173,9 @@ class BackupRuleConfig {
 		if (property_exists($sc, 'AllowZeroFilesSuccess')) {
 			$this->AllowZeroFilesSuccess = (bool)($sc->AllowZeroFilesSuccess);
 		}
+		if (property_exists($sc, 'AutoRetentionLevel')) {
+			$this->AutoRetentionLevel = (int)($sc->AutoRetentionLevel);
+		}
 		if (property_exists($sc, 'Schedules')) {
 			$val_2 = [];
 			if ($sc->Schedules !== null) {
@@ -206,6 +214,7 @@ class BackupRuleConfig {
 			case 'ReduceDiskConcurrency':
 			case 'UseOnDiskIndexes':
 			case 'AllowZeroFilesSuccess':
+			case 'AutoRetentionLevel':
 			case 'Schedules':
 			case 'EventTriggers':
 				break;
@@ -324,6 +333,7 @@ class BackupRuleConfig {
 		$ret["ReduceDiskConcurrency"] = $this->ReduceDiskConcurrency;
 		$ret["UseOnDiskIndexes"] = $this->UseOnDiskIndexes;
 		$ret["AllowZeroFilesSuccess"] = $this->AllowZeroFilesSuccess;
+		$ret["AutoRetentionLevel"] = $this->AutoRetentionLevel;
 		{
 			$c0 = [];
 			for($i0 = 0; $i0 < count($this->Schedules); ++$i0) {

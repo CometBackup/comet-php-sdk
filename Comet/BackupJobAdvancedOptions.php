@@ -42,6 +42,11 @@ class BackupJobAdvancedOptions {
 	public $AllowZeroFilesSuccess = false;
 
 	/**
+	 * @var int
+	 */
+	public $AutoRetentionLevel = 0;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see BackupJobAdvancedOptions::RemoveUnknownProperties() Remove all unknown properties
@@ -76,6 +81,9 @@ class BackupJobAdvancedOptions {
 		if (property_exists($sc, 'AllowZeroFilesSuccess')) {
 			$this->AllowZeroFilesSuccess = (bool)($sc->AllowZeroFilesSuccess);
 		}
+		if (property_exists($sc, 'AutoRetentionLevel')) {
+			$this->AutoRetentionLevel = (int)($sc->AutoRetentionLevel);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'SkipAlreadyRunning':
@@ -84,6 +92,7 @@ class BackupJobAdvancedOptions {
 			case 'ReduceDiskConcurrency':
 			case 'UseOnDiskIndexes':
 			case 'AllowZeroFilesSuccess':
+			case 'AutoRetentionLevel':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -171,6 +180,7 @@ class BackupJobAdvancedOptions {
 		$ret["ReduceDiskConcurrency"] = $this->ReduceDiskConcurrency;
 		$ret["UseOnDiskIndexes"] = $this->UseOnDiskIndexes;
 		$ret["AllowZeroFilesSuccess"] = $this->AllowZeroFilesSuccess;
+		$ret["AutoRetentionLevel"] = $this->AutoRetentionLevel;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
