@@ -735,8 +735,10 @@ class Server {
 	}
 
 	/** 
-	 * Create token for silent installation (Windows only)
+	 * Create token for silent installation
+	 * Currently only supported for Windows & macOS only
 	 * Provide the installation token to silently install the client on windows `install.exe /TOKEN=<installtoken>`
+	 * Provide the installation token to silently install the client on Mac OS `sudo launchctl setenv BACKUP_APP_TOKEN "installtoken" && sudo /usr/sbin/installer -allowUntrusted -pkg "Comet Backup.pkg" -target /`
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
