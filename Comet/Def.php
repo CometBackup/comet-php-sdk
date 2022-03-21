@@ -1091,27 +1091,27 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "21.12.4";
+	const APPLICATION_VERSION = "22.2.0";
 
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_MAJOR = 21;
+	const APPLICATION_VERSION_MAJOR = 22;
 
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_MINOR = 12;
+	const APPLICATION_VERSION_MINOR = 2;
 
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 4;
+	const APPLICATION_VERSION_REVISION = 0;
 
 	/**
 	 * @type string
 	 */
-	const RELEASE_CODENAME = "Voyager";
+	const RELEASE_CODENAME = "Elara";
 
 	/**
 	 * @type int
