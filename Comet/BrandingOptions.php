@@ -109,6 +109,11 @@ class BrandingOptions {
 	/**
 	 * @var string
 	 */
+	public $PathAppIconImage = "";
+
+	/**
+	 * @var string
+	 */
 	public $PackageIdentifier = "";
 
 	/**
@@ -235,6 +240,9 @@ class BrandingOptions {
 		if (property_exists($sc, 'PathHeaderImage')) {
 			$this->PathHeaderImage = (string)($sc->PathHeaderImage);
 		}
+		if (property_exists($sc, 'PathAppIconImage')) {
+			$this->PathAppIconImage = (string)($sc->PathAppIconImage);
+		}
 		if (property_exists($sc, 'PackageIdentifier')) {
 			$this->PackageIdentifier = (string)($sc->PackageIdentifier);
 		}
@@ -294,6 +302,7 @@ class BrandingOptions {
 			case 'PathEulaRtf':
 			case 'PathTilePng':
 			case 'PathHeaderImage':
+			case 'PathAppIconImage':
 			case 'PackageIdentifier':
 			case 'WindowsCodeSignPKCS12FilePath':
 			case 'WindowsCodeSignPKCS12PasswordFormat':
@@ -405,6 +414,7 @@ class BrandingOptions {
 		$ret["PathEulaRtf"] = $this->PathEulaRtf;
 		$ret["PathTilePng"] = $this->PathTilePng;
 		$ret["PathHeaderImage"] = $this->PathHeaderImage;
+		$ret["PathAppIconImage"] = $this->PathAppIconImage;
 		$ret["PackageIdentifier"] = $this->PackageIdentifier;
 		$ret["WindowsCodeSignPKCS12FilePath"] = $this->WindowsCodeSignPKCS12FilePath;
 		$ret["WindowsCodeSignPKCS12PasswordFormat"] = $this->WindowsCodeSignPKCS12PasswordFormat;

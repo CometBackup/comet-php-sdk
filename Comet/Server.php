@@ -488,6 +488,50 @@ class Server {
 	}
 
 	/** 
+	 * Download software (Synology SPK for DSM 6)
+	 * 
+	 * This API requires administrator authentication credentials, unless the server is configured to allow unauthenticated software downloads.
+	 * This API requires the Software Build Role to be enabled.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $SelfAddress The external URL of this server, used to resolve conflicts (optional)
+	 * @return string 
+	 * @throws \Exception
+	 */
+	public function AdminBrandingGenerateClientSpkDsm6($SelfAddress = null)
+	{
+		if ($SelfAddress === null) {
+			$SelfAddress = $this->server_url;
+		}
+
+		$nr = new \Comet\AdminBrandingGenerateClientSpkDsm6Request($SelfAddress);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminBrandingGenerateClientSpkDsm6Request::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Download software (Synology SPK for DSM 7)
+	 * 
+	 * This API requires administrator authentication credentials, unless the server is configured to allow unauthenticated software downloads.
+	 * This API requires the Software Build Role to be enabled.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $SelfAddress The external URL of this server, used to resolve conflicts (optional)
+	 * @return string 
+	 * @throws \Exception
+	 */
+	public function AdminBrandingGenerateClientSpkDsm7($SelfAddress = null)
+	{
+		if ($SelfAddress === null) {
+			$SelfAddress = $this->server_url;
+		}
+
+		$nr = new \Comet\AdminBrandingGenerateClientSpkDsm7Request($SelfAddress);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminBrandingGenerateClientSpkDsm7Request::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Check if a software download is available
 	 * 
 	 * This API requires administrator authentication credentials, unless the server is configured to allow unauthenticated software downloads.

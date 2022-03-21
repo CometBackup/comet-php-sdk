@@ -359,6 +359,11 @@ class Def {
 	const FTPS_MODE_EXPLICIT = 2;
 
 	/**
+	 * @type string
+	 */
+	const InstallerMetadataFile = "installer.json";
+
+	/**
 	 * Severity:
 	 *
 	 * @type string
