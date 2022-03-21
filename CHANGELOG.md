@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 2022-03-21 v3.21.0
+- Based on 22.2.0
+- Add new `AdminBrandingGenerateClientSpkDsm6` and `AdminBrandingGenerateClientSpkDsm7` APIs and associated types for generating and downloading Synology SPKs
+- Add new `PathAppIconImage` field to branding options types to support branding of the app icon when installed in Synology's Package Center (and other software managers)
+- Add new constants for VMDK single file restore
+- Fix an issue with serialization of types which include BASE64-ed byte array fields
+
 ## 2022-01-28 v3.20.0
 - Based on 21.12.4
 - Add `AdminStoragePingDestination` API to perform a server-side Test Connections action when configuring Storage Role
