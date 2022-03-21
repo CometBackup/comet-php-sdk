@@ -32,6 +32,21 @@ class UpdateCampaignProperties {
 	public $DowngradeNewer = false;
 
 	/**
+	 * @var boolean
+	 */
+	public $ForceUpgradeRunning = false;
+
+	/**
+	 * @var boolean
+	 */
+	public $ApplyDeviceFilter = false;
+
+	/**
+	 * @var \Comet\SearchClause
+	 */
+	public $DeviceFilter = null;
+
+	/**
 	 * @var int
 	 */
 	public $StartTime = 0;
@@ -70,6 +85,20 @@ class UpdateCampaignProperties {
 		if (property_exists($sc, 'DowngradeNewer')) {
 			$this->DowngradeNewer = (bool)($sc->DowngradeNewer);
 		}
+		if (property_exists($sc, 'ForceUpgradeRunning')) {
+			$this->ForceUpgradeRunning = (bool)($sc->ForceUpgradeRunning);
+		}
+		if (property_exists($sc, 'ApplyDeviceFilter')) {
+			$this->ApplyDeviceFilter = (bool)($sc->ApplyDeviceFilter);
+		}
+		if (property_exists($sc, 'DeviceFilter')) {
+			if (is_array($sc->DeviceFilter) && count($sc->DeviceFilter) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->DeviceFilter = \Comet\SearchClause::createFromStdclass(new \stdClass());
+			} else {
+				$this->DeviceFilter = \Comet\SearchClause::createFromStdclass($sc->DeviceFilter);
+			}
+		}
 		if (property_exists($sc, 'StartTime')) {
 			$this->StartTime = (int)($sc->StartTime);
 		}
@@ -82,6 +111,9 @@ class UpdateCampaignProperties {
 			case 'UpgradeOlder':
 			case 'ReinstallCurrentVer':
 			case 'DowngradeNewer':
+			case 'ForceUpgradeRunning':
+			case 'ApplyDeviceFilter':
+			case 'DeviceFilter':
 			case 'StartTime':
 			case 'TargetVersion':
 				break;
@@ -169,6 +201,13 @@ class UpdateCampaignProperties {
 		$ret["UpgradeOlder"] = $this->UpgradeOlder;
 		$ret["ReinstallCurrentVer"] = $this->ReinstallCurrentVer;
 		$ret["DowngradeNewer"] = $this->DowngradeNewer;
+		$ret["ForceUpgradeRunning"] = $this->ForceUpgradeRunning;
+		$ret["ApplyDeviceFilter"] = $this->ApplyDeviceFilter;
+		if ( $this->DeviceFilter === null ) {
+			$ret["DeviceFilter"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["DeviceFilter"] = $this->DeviceFilter->toArray($for_json_encode);
+		}
 		$ret["StartTime"] = $this->StartTime;
 		$ret["TargetVersion"] = $this->TargetVersion;
 
@@ -220,6 +259,9 @@ class UpdateCampaignProperties {
 	public function RemoveUnknownProperties()
 	{
 		$this->__unknown_properties = [];
+		if ($this->DeviceFilter !== null) {
+			$this->DeviceFilter->RemoveUnknownProperties();
+		}
 	}
 
 }

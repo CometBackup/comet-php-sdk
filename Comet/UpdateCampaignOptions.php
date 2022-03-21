@@ -9,6 +9,11 @@
 
 namespace Comet;
 
+/**
+ * This data structure describes which devices should receive a remote software upgrade. Both the
+ * target version criteria (UpgradeOlder/ReinstallCurrentVer/DowngradeNewer) and the target device
+ * criteria (ApplyDeviceFilter/DeviceFilter) must be met in order for the remote upgrade to be applied.
+ */
 class UpdateCampaignOptions {
 
 	/**
@@ -30,6 +35,21 @@ class UpdateCampaignOptions {
 	 * @var boolean
 	 */
 	public $DowngradeNewer = false;
+
+	/**
+	 * @var boolean
+	 */
+	public $ForceUpgradeRunning = false;
+
+	/**
+	 * @var boolean
+	 */
+	public $ApplyDeviceFilter = false;
+
+	/**
+	 * @var \Comet\SearchClause
+	 */
+	public $DeviceFilter = null;
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
@@ -60,12 +80,29 @@ class UpdateCampaignOptions {
 		if (property_exists($sc, 'DowngradeNewer')) {
 			$this->DowngradeNewer = (bool)($sc->DowngradeNewer);
 		}
+		if (property_exists($sc, 'ForceUpgradeRunning')) {
+			$this->ForceUpgradeRunning = (bool)($sc->ForceUpgradeRunning);
+		}
+		if (property_exists($sc, 'ApplyDeviceFilter')) {
+			$this->ApplyDeviceFilter = (bool)($sc->ApplyDeviceFilter);
+		}
+		if (property_exists($sc, 'DeviceFilter')) {
+			if (is_array($sc->DeviceFilter) && count($sc->DeviceFilter) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->DeviceFilter = \Comet\SearchClause::createFromStdclass(new \stdClass());
+			} else {
+				$this->DeviceFilter = \Comet\SearchClause::createFromStdclass($sc->DeviceFilter);
+			}
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Active':
 			case 'UpgradeOlder':
 			case 'ReinstallCurrentVer':
 			case 'DowngradeNewer':
+			case 'ForceUpgradeRunning':
+			case 'ApplyDeviceFilter':
+			case 'DeviceFilter':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -151,6 +188,13 @@ class UpdateCampaignOptions {
 		$ret["UpgradeOlder"] = $this->UpgradeOlder;
 		$ret["ReinstallCurrentVer"] = $this->ReinstallCurrentVer;
 		$ret["DowngradeNewer"] = $this->DowngradeNewer;
+		$ret["ForceUpgradeRunning"] = $this->ForceUpgradeRunning;
+		$ret["ApplyDeviceFilter"] = $this->ApplyDeviceFilter;
+		if ( $this->DeviceFilter === null ) {
+			$ret["DeviceFilter"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["DeviceFilter"] = $this->DeviceFilter->toArray($for_json_encode);
+		}
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
@@ -200,6 +244,9 @@ class UpdateCampaignOptions {
 	public function RemoveUnknownProperties()
 	{
 		$this->__unknown_properties = [];
+		if ($this->DeviceFilter !== null) {
+			$this->DeviceFilter->RemoveUnknownProperties();
+		}
 	}
 
 }
