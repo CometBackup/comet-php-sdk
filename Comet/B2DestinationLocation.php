@@ -115,7 +115,7 @@ class B2DestinationLocation {
 	 */
 	public static function createFromArray(array $arr)
 	{
-		$stdClass = json_decode(json_encode($arr));
+		$stdClass = json_decode(json_encode($arr, JSON_UNESCAPED_SLASHES));
 		if (is_array($stdClass) && count($stdClass) === 0) {
 			$stdClass = new \stdClass();
 		}
@@ -193,7 +193,7 @@ class B2DestinationLocation {
 		if (count($arr) === 0) {
 			return "{}"; // object
 		} else {
-			return json_encode($arr);
+			return json_encode($arr, JSON_UNESCAPED_SLASHES);
 		}
 	}
 
@@ -209,7 +209,7 @@ class B2DestinationLocation {
 		if (count($arr) === 0) {
 			return new \stdClass();
 		} else {
-			return json_decode(json_encode($arr));
+			return json_decode(json_encode($arr, JSON_UNESCAPED_SLASHES));
 		}
 	}
 
