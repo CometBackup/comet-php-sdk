@@ -498,6 +498,20 @@ class Def {
 	const RESTORETYPE_VMDK_FILE = 7;
 
 	/**
+	 * RestoreType:
+	 *
+	 * @type int
+	 */
+	const RESTORETYPE_VMDK_FILE_NULL = 8;
+
+	/**
+	 * RestoreType:
+	 *
+	 * @type int
+	 */
+	const RESTORETYPE_VMDK_FILE_ARCHIVE = 9;
+
+	/**
 	 * RestoreType: RESTORETYPE_PROCESS_ARCHIVE
 	 *
 	 * @type int
@@ -970,6 +984,20 @@ class Def {
 	 * @type string
 	 */
 	const STOREDOBJECTTYPE_VMDK_DIRECTORY = "vmdkdir";
+
+	/**
+	 * StoredObjectType:
+	 *
+	 * @type string
+	 */
+	const STOREDOBJECTTYPE_VMDK_WINEFS = "vmdkwinefs";
+
+	/**
+	 * StoredObjectType:
+	 *
+	 * @type string
+	 */
+	const STOREDOBJECTTYPE_VMDK_SYMLINK = "vmdksymlink";
 
 	/**
 	 * ExtraFileExclusionOSRestriction:
