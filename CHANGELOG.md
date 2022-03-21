@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2022-03-21 v3.22.0
+- Based on 22.3.0
+- Add new `ForceUpgradeRunning`, `ApplyDeviceFilter`, and `DeviceFilter` fields to `UpdateCampaign` types to support sending a bulk upgrade to a custom query of users
+
 ## 2022-03-21 v3.21.0
 - Based on 22.2.0
 - Add new `AdminBrandingGenerateClientSpkDsm6` and `AdminBrandingGenerateClientSpkDsm7` APIs and associated types for generating and downloading Synology SPKs
