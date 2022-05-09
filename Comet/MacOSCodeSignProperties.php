@@ -17,6 +17,11 @@ class MacOSCodeSignProperties {
 	public $Level = 0;
 
 	/**
+	 * @var boolean
+	 */
+	public $SignLocally = false;
+
+	/**
 	 * @var \Comet\SSHConnection
 	 */
 	public $SSHServer = null;
@@ -47,6 +52,41 @@ class MacOSCodeSignProperties {
 	public $AppleIDPassFormat = 0;
 
 	/**
+	 * @var string
+	 */
+	public $CertificateFile = "";
+
+	/**
+	 * @var string
+	 */
+	public $AppCertificateFile = "";
+
+	/**
+	 * @var string
+	 */
+	public $PfxFilePassword = "";
+
+	/**
+	 * @var int
+	 */
+	public $PfxFilePasswordFormat = 0;
+
+	/**
+	 * @var string
+	 */
+	public $NotaryAPIIssuerID = "";
+
+	/**
+	 * @var string
+	 */
+	public $NotaryAPIKeyID = "";
+
+	/**
+	 * @var string
+	 */
+	public $NotaryAPIKeyFile = "";
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see MacOSCodeSignProperties::RemoveUnknownProperties() Remove all unknown properties
@@ -65,6 +105,9 @@ class MacOSCodeSignProperties {
 	{
 		if (property_exists($sc, 'Level')) {
 			$this->Level = (int)($sc->Level);
+		}
+		if (property_exists($sc, 'SignLocally')) {
+			$this->SignLocally = (bool)($sc->SignLocally);
 		}
 		if (property_exists($sc, 'SSHServer')) {
 			if (is_array($sc->SSHServer) && count($sc->SSHServer) === 0) {
@@ -89,15 +132,44 @@ class MacOSCodeSignProperties {
 		if (property_exists($sc, 'AppleIDPassFormat')) {
 			$this->AppleIDPassFormat = (int)($sc->AppleIDPassFormat);
 		}
+		if (property_exists($sc, 'CertificateFile')) {
+			$this->CertificateFile = (string)($sc->CertificateFile);
+		}
+		if (property_exists($sc, 'AppCertificateFile')) {
+			$this->AppCertificateFile = (string)($sc->AppCertificateFile);
+		}
+		if (property_exists($sc, 'PfxFilePassword')) {
+			$this->PfxFilePassword = (string)($sc->PfxFilePassword);
+		}
+		if (property_exists($sc, 'PfxFilePasswordFormat')) {
+			$this->PfxFilePasswordFormat = (int)($sc->PfxFilePasswordFormat);
+		}
+		if (property_exists($sc, 'NotaryAPIIssuerID')) {
+			$this->NotaryAPIIssuerID = (string)($sc->NotaryAPIIssuerID);
+		}
+		if (property_exists($sc, 'NotaryAPIKeyID')) {
+			$this->NotaryAPIKeyID = (string)($sc->NotaryAPIKeyID);
+		}
+		if (property_exists($sc, 'NotaryAPIKeyFile')) {
+			$this->NotaryAPIKeyFile = (string)($sc->NotaryAPIKeyFile);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Level':
+			case 'SignLocally':
 			case 'SSHServer':
 			case 'CertificateName':
 			case 'AppCertificateName':
 			case 'AppleID':
 			case 'AppleIDPass':
 			case 'AppleIDPassFormat':
+			case 'CertificateFile':
+			case 'AppCertificateFile':
+			case 'PfxFilePassword':
+			case 'PfxFilePasswordFormat':
+			case 'NotaryAPIIssuerID':
+			case 'NotaryAPIKeyID':
+			case 'NotaryAPIKeyFile':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -180,6 +252,7 @@ class MacOSCodeSignProperties {
 	{
 		$ret = [];
 		$ret["Level"] = $this->Level;
+		$ret["SignLocally"] = $this->SignLocally;
 		if ( $this->SSHServer === null ) {
 			$ret["SSHServer"] = $for_json_encode ? (object)[] : [];
 		} else {
@@ -190,6 +263,13 @@ class MacOSCodeSignProperties {
 		$ret["AppleID"] = $this->AppleID;
 		$ret["AppleIDPass"] = $this->AppleIDPass;
 		$ret["AppleIDPassFormat"] = $this->AppleIDPassFormat;
+		$ret["CertificateFile"] = $this->CertificateFile;
+		$ret["AppCertificateFile"] = $this->AppCertificateFile;
+		$ret["PfxFilePassword"] = $this->PfxFilePassword;
+		$ret["PfxFilePasswordFormat"] = $this->PfxFilePasswordFormat;
+		$ret["NotaryAPIIssuerID"] = $this->NotaryAPIIssuerID;
+		$ret["NotaryAPIKeyID"] = $this->NotaryAPIKeyID;
+		$ret["NotaryAPIKeyFile"] = $this->NotaryAPIKeyFile;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
