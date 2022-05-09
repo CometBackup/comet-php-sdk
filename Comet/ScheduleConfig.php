@@ -27,6 +27,31 @@ class ScheduleConfig {
 	public $Offset = 0;
 
 	/**
+	 * @var boolean
+	 */
+	public $RestrictRuntime = false;
+
+	/**
+	 * @var \Comet\HourSchedConfig
+	 */
+	public $FromTime = null;
+
+	/**
+	 * @var \Comet\HourSchedConfig
+	 */
+	public $ToTime = null;
+
+	/**
+	 * @var boolean
+	 */
+	public $RestrictDays = false;
+
+	/**
+	 * @var \Comet\DaysOfWeekConfig
+	 */
+	public $DaysSelect = null;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see ScheduleConfig::RemoveUnknownProperties() Remove all unknown properties
@@ -52,11 +77,46 @@ class ScheduleConfig {
 		if (property_exists($sc, 'Offset') && !is_null($sc->Offset)) {
 			$this->Offset = (int)($sc->Offset);
 		}
+		if (property_exists($sc, 'RestrictRuntime')) {
+			$this->RestrictRuntime = (bool)($sc->RestrictRuntime);
+		}
+		if (property_exists($sc, 'FromTime')) {
+			if (is_array($sc->FromTime) && count($sc->FromTime) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->FromTime = \Comet\HourSchedConfig::createFromStdclass(new \stdClass());
+			} else {
+				$this->FromTime = \Comet\HourSchedConfig::createFromStdclass($sc->FromTime);
+			}
+		}
+		if (property_exists($sc, 'ToTime')) {
+			if (is_array($sc->ToTime) && count($sc->ToTime) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->ToTime = \Comet\HourSchedConfig::createFromStdclass(new \stdClass());
+			} else {
+				$this->ToTime = \Comet\HourSchedConfig::createFromStdclass($sc->ToTime);
+			}
+		}
+		if (property_exists($sc, 'RestrictDays')) {
+			$this->RestrictDays = (bool)($sc->RestrictDays);
+		}
+		if (property_exists($sc, 'DaysSelect')) {
+			if (is_array($sc->DaysSelect) && count($sc->DaysSelect) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->DaysSelect = \Comet\DaysOfWeekConfig::createFromStdclass(new \stdClass());
+			} else {
+				$this->DaysSelect = \Comet\DaysOfWeekConfig::createFromStdclass($sc->DaysSelect);
+			}
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'FrequencyType':
 			case 'SecondsPast':
 			case 'Offset':
+			case 'RestrictRuntime':
+			case 'FromTime':
+			case 'ToTime':
+			case 'RestrictDays':
+			case 'DaysSelect':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -141,6 +201,23 @@ class ScheduleConfig {
 		$ret["FrequencyType"] = $this->FrequencyType;
 		$ret["SecondsPast"] = $this->SecondsPast;
 		$ret["Offset"] = $this->Offset;
+		$ret["RestrictRuntime"] = $this->RestrictRuntime;
+		if ( $this->FromTime === null ) {
+			$ret["FromTime"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["FromTime"] = $this->FromTime->toArray($for_json_encode);
+		}
+		if ( $this->ToTime === null ) {
+			$ret["ToTime"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["ToTime"] = $this->ToTime->toArray($for_json_encode);
+		}
+		$ret["RestrictDays"] = $this->RestrictDays;
+		if ( $this->DaysSelect === null ) {
+			$ret["DaysSelect"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["DaysSelect"] = $this->DaysSelect->toArray($for_json_encode);
+		}
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
@@ -190,6 +267,15 @@ class ScheduleConfig {
 	public function RemoveUnknownProperties()
 	{
 		$this->__unknown_properties = [];
+		if ($this->FromTime !== null) {
+			$this->FromTime->RemoveUnknownProperties();
+		}
+		if ($this->ToTime !== null) {
+			$this->ToTime->RemoveUnknownProperties();
+		}
+		if ($this->DaysSelect !== null) {
+			$this->DaysSelect->RemoveUnknownProperties();
+		}
 	}
 
 }
