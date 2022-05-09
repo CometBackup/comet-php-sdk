@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2022-05-10 v3.23.0
+- Based on 22.3.5
+- Add new `RestrictRuntime`, `FromTime`, `ToTime`, `RestrictDays`, `DaysSelect` types to ScheduleConfig to add time and day restrictions in a hourly schedule.
+- Add new `TotalVmCount` to `BackupJobDetail` API.
+- Add new fields to `MacOSCodeSignProperties` to support code signing.
+
 ## 2022-03-21 v3.22.0
 - Based on 22.3.0
 - Add new `ForceUpgradeRunning`, `ApplyDeviceFilter`, and `DeviceFilter` fields to `UpdateCampaign` types to support sending a bulk upgrade to a custom query of users
