@@ -99,6 +99,11 @@ class BackupJobDetail {
 	/**
 	 * @var int
 	 */
+	public $TotalVmCount = 0;
+
+	/**
+	 * @var int
+	 */
 	public $TotalMailsCount = 0;
 
 	/**
@@ -209,6 +214,9 @@ class BackupJobDetail {
 		if (property_exists($sc, 'DownloadSize')) {
 			$this->DownloadSize = (int)($sc->DownloadSize);
 		}
+		if (property_exists($sc, 'TotalVmCount') && !is_null($sc->TotalVmCount)) {
+			$this->TotalVmCount = (int)($sc->TotalVmCount);
+		}
 		if (property_exists($sc, 'TotalMailsCount') && !is_null($sc->TotalMailsCount)) {
 			$this->TotalMailsCount = (int)($sc->TotalMailsCount);
 		}
@@ -270,6 +278,7 @@ class BackupJobDetail {
 			case 'TotalChunks':
 			case 'UploadSize':
 			case 'DownloadSize':
+			case 'TotalVmCount':
 			case 'TotalMailsCount':
 			case 'TotalSitesCount':
 			case 'TotalAccountsCount':
@@ -377,6 +386,7 @@ class BackupJobDetail {
 		$ret["TotalChunks"] = $this->TotalChunks;
 		$ret["UploadSize"] = $this->UploadSize;
 		$ret["DownloadSize"] = $this->DownloadSize;
+		$ret["TotalVmCount"] = $this->TotalVmCount;
 		$ret["TotalMailsCount"] = $this->TotalMailsCount;
 		$ret["TotalSitesCount"] = $this->TotalSitesCount;
 		$ret["TotalAccountsCount"] = $this->TotalAccountsCount;
