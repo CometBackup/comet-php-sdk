@@ -57,6 +57,11 @@ class RemoteStorageOption {
 	public $Custom = null;
 
 	/**
+	 * @var \Comet\S3GenericVirtualStorageRole
+	 */
+	public $S3 = null;
+
+	/**
 	 * @var boolean
 	 */
 	public $StorageLimitEnabled = false;
@@ -135,6 +140,14 @@ class RemoteStorageOption {
 				$this->Custom = \Comet\CustomRemoteBucketSettings::createFromStdclass($sc->Custom);
 			}
 		}
+		if (property_exists($sc, 'S3') && !is_null($sc->S3)) {
+			if (is_array($sc->S3) && count($sc->S3) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->S3 = \Comet\S3GenericVirtualStorageRole::createFromStdclass(new \stdClass());
+			} else {
+				$this->S3 = \Comet\S3GenericVirtualStorageRole::createFromStdclass($sc->S3);
+			}
+		}
 		if (property_exists($sc, 'StorageLimitEnabled')) {
 			$this->StorageLimitEnabled = (bool)($sc->StorageLimitEnabled);
 		}
@@ -155,6 +168,7 @@ class RemoteStorageOption {
 			case 'B2':
 			case 'Wasabi':
 			case 'Custom':
+			case 'S3':
 			case 'StorageLimitEnabled':
 			case 'StorageLimitBytes':
 			case 'RebrandStorage':
@@ -264,6 +278,11 @@ class RemoteStorageOption {
 		} else {
 			$ret["Custom"] = $this->Custom->toArray($for_json_encode);
 		}
+		if ( $this->S3 === null ) {
+			$ret["S3"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["S3"] = $this->S3->toArray($for_json_encode);
+		}
 		$ret["StorageLimitEnabled"] = $this->StorageLimitEnabled;
 		$ret["StorageLimitBytes"] = $this->StorageLimitBytes;
 		$ret["RebrandStorage"] = $this->RebrandStorage;
@@ -327,6 +346,9 @@ class RemoteStorageOption {
 		}
 		if ($this->Custom !== null) {
 			$this->Custom->RemoveUnknownProperties();
+		}
+		if ($this->S3 !== null) {
+			$this->S3->RemoveUnknownProperties();
 		}
 	}
 
