@@ -165,7 +165,7 @@ class ExampleTest extends \PHPUnit\Framework\TestCase {
 			$userpc = $this->server->AdminGetUserProfile($unknown_username);
 			$this->fail("Shouldn't reach this");
 		} catch (\Exception $e) {
-			$this->assertEquals("Error 403: Unauthorised", $e->getMessage());
+			$this->assertEquals("Error 400: User not found", $e->getMessage());
 		}
 
 		$this->server->setLanguage('es_ES');
@@ -174,7 +174,7 @@ class ExampleTest extends \PHPUnit\Framework\TestCase {
 			$userpc = $this->server->AdminGetUserProfile($unknown_username);
 			$this->fail("Shouldn't reach this");
 		} catch (\Exception $e) {
-			$this->assertEquals("Error 403: No autorizado", $e->getMessage());
+			$this->assertEquals("Error 400: Usuario no encontrado", $e->getMessage());
 		}
 
 		// Revert back
