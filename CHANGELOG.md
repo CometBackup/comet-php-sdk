@@ -1,4 +1,8 @@
 # CHANGELOG
+## 2022-05-25 v3.24.0
+- Based on 22.3.7
+- Add new `REMOTESERVER_S3_GENERIC` `RemoteServerType`
+- add new `S3GenericVirtualStorageRole` support to the `RemoteServerAddress`
 
 ## 2022-05-10 v3.23.0
 - Based on 22.3.5
