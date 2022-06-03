@@ -12,6 +12,7 @@ namespace Comet;
 /**
  * Comet Server AdminPoliciesList API
  * List all policy object names
+ * For the top-level organization, the API result includes all policies for all organizations, unless the TargetOrganization parameter is present.
  *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
@@ -19,11 +20,20 @@ namespace Comet;
 class AdminPoliciesListRequest implements \Comet\NetworkRequest {
 
 	/**
+	 * If present, list the policies belonging to another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.3.7) (optional)
+	 *
+	 * @var string|null
+	 */
+	protected $TargetOrganization = null;
+
+	/**
 	 * Construct a new AdminPoliciesListRequest instance.
 	 *
+	 * @param string $TargetOrganization If present, list the policies belonging to another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.3.7) (optional)
 	 */
-	public function __construct()
+	public function __construct($TargetOrganization = null)
 	{
+		$this->TargetOrganization = $TargetOrganization;
 	}
 
 	/**
@@ -54,6 +64,9 @@ class AdminPoliciesListRequest implements \Comet\NetworkRequest {
 	public function Parameters()
 	{
 		$ret = [];
+		if ($this->TargetOrganization !== null) {
+			$ret["TargetOrganization"] = (string)($this->TargetOrganization);
+		}
 		return $ret;
 	}
 

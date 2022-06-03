@@ -34,15 +34,24 @@ class AdminAddUserFromProfileRequest implements \Comet\NetworkRequest {
 	protected $ProfileData = null;
 
 	/**
+	 * If present, create the user account on behalf of another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.3.7) (optional)
+	 *
+	 * @var string|null
+	 */
+	protected $TargetOrganization = null;
+
+	/**
 	 * Construct a new AdminAddUserFromProfileRequest instance.
 	 *
 	 * @param string $TargetUser New account username
 	 * @param \Comet\UserProfileConfig $ProfileData New account profile
+	 * @param string $TargetOrganization If present, create the user account on behalf of another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.3.7) (optional)
 	 */
-	public function __construct($TargetUser, UserProfileConfig $ProfileData)
+	public function __construct($TargetUser, UserProfileConfig $ProfileData, $TargetOrganization = null)
 	{
 		$this->TargetUser = $TargetUser;
 		$this->ProfileData = $ProfileData;
+		$this->TargetOrganization = $TargetOrganization;
 	}
 
 	/**
@@ -75,6 +84,9 @@ class AdminAddUserFromProfileRequest implements \Comet\NetworkRequest {
 		$ret = [];
 		$ret["TargetUser"] = (string)($this->TargetUser);
 		$ret["ProfileData"] = $this->ProfileData->toJSON();
+		if ($this->TargetOrganization !== null) {
+			$ret["TargetOrganization"] = (string)($this->TargetOrganization);
+		}
 		return $ret;
 	}
 

@@ -14,6 +14,7 @@ namespace Comet;
  * Request a new Storage Vault on behalf of a user
  * This action does not respect the "Prevent creating new Storage Vaults (via Request)" policy setting. New Storage Vaults can be requested regardless of the policy setting.
  * Prior to Comet 19.8.0, the response type was CometAPIResponseMessage (i.e. no DestinationID field in response).
+ * The StorageProvider must exist for the target user account's organization.
  *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.

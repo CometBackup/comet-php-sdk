@@ -19,11 +19,20 @@ namespace Comet;
 class AdminRequestStorageVaultProvidersRequest implements \Comet\NetworkRequest {
 
 	/**
+	 * If present, list the requestable Storage Vault options belonging to another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.3.7) (optional)
+	 *
+	 * @var string|null
+	 */
+	protected $TargetOrganization = null;
+
+	/**
 	 * Construct a new AdminRequestStorageVaultProvidersRequest instance.
 	 *
+	 * @param string $TargetOrganization If present, list the requestable Storage Vault options belonging to another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.3.7) (optional)
 	 */
-	public function __construct()
+	public function __construct($TargetOrganization = null)
 	{
+		$this->TargetOrganization = $TargetOrganization;
 	}
 
 	/**
@@ -54,6 +63,9 @@ class AdminRequestStorageVaultProvidersRequest implements \Comet\NetworkRequest 
 	public function Parameters()
 	{
 		$ret = [];
+		if ($this->TargetOrganization !== null) {
+			$ret["TargetOrganization"] = (string)($this->TargetOrganization);
+		}
 		return $ret;
 	}
 

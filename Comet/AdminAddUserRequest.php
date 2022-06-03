@@ -47,19 +47,28 @@ class AdminAddUserRequest implements \Comet\NetworkRequest {
 	protected $RequirePasswordChange = null;
 
 	/**
+	 * If present, create the user account on behalf of another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.3.7) (optional)
+	 *
+	 * @var string|null
+	 */
+	protected $TargetOrganization = null;
+
+	/**
 	 * Construct a new AdminAddUserRequest instance.
 	 *
 	 * @param string $TargetUser New account username
 	 * @param string $TargetPassword New account password
 	 * @param int $StoreRecoveryCode If set to 1, store and keep a password recovery code for the generated user (>= 18.3.9) (optional)
 	 * @param int $RequirePasswordChange If set to 1, require to reset password at the first login for the generated user (>= 20.3.4) (optional)
+	 * @param string $TargetOrganization If present, create the user account on behalf of another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.3.7) (optional)
 	 */
-	public function __construct($TargetUser, $TargetPassword, $StoreRecoveryCode = null, $RequirePasswordChange = null)
+	public function __construct($TargetUser, $TargetPassword, $StoreRecoveryCode = null, $RequirePasswordChange = null, $TargetOrganization = null)
 	{
 		$this->TargetUser = $TargetUser;
 		$this->TargetPassword = $TargetPassword;
 		$this->StoreRecoveryCode = $StoreRecoveryCode;
 		$this->RequirePasswordChange = $RequirePasswordChange;
+		$this->TargetOrganization = $TargetOrganization;
 	}
 
 	/**
@@ -97,6 +106,9 @@ class AdminAddUserRequest implements \Comet\NetworkRequest {
 		}
 		if ($this->RequirePasswordChange !== null) {
 			$ret["RequirePasswordChange"] = (string)($this->RequirePasswordChange);
+		}
+		if ($this->TargetOrganization !== null) {
+			$ret["TargetOrganization"] = (string)($this->TargetOrganization);
 		}
 		return $ret;
 	}

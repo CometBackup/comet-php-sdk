@@ -319,12 +319,13 @@ class Server {
 	 * @param string $TargetPassword New account password
 	 * @param int $StoreRecoveryCode If set to 1, store and keep a password recovery code for the generated user (>= 18.3.9) (optional)
 	 * @param int $RequirePasswordChange If set to 1, require to reset password at the first login for the generated user (>= 20.3.4) (optional)
+	 * @param string $TargetOrganization If present, create the user account on behalf of another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.3.7) (optional)
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminAddUser($TargetUser, $TargetPassword, $StoreRecoveryCode = null, $RequirePasswordChange = null)
+	public function AdminAddUser($TargetUser, $TargetPassword, $StoreRecoveryCode = null, $RequirePasswordChange = null, $TargetOrganization = null)
 	{
-		$nr = new \Comet\AdminAddUserRequest($TargetUser, $TargetPassword, $StoreRecoveryCode, $RequirePasswordChange);
+		$nr = new \Comet\AdminAddUserRequest($TargetUser, $TargetPassword, $StoreRecoveryCode, $RequirePasswordChange, $TargetOrganization);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminAddUserRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
@@ -338,12 +339,13 @@ class Server {
 	 *
 	 * @param string $TargetUser New account username
 	 * @param \Comet\UserProfileConfig $ProfileData New account profile
+	 * @param string $TargetOrganization If present, create the user account on behalf of another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.3.7) (optional)
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminAddUserFromProfile($TargetUser, UserProfileConfig $ProfileData)
+	public function AdminAddUserFromProfile($TargetUser, UserProfileConfig $ProfileData, $TargetOrganization = null)
 	{
-		$nr = new \Comet\AdminAddUserFromProfileRequest($TargetUser, $ProfileData);
+		$nr = new \Comet\AdminAddUserFromProfileRequest($TargetUser, $ProfileData, $TargetOrganization);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminAddUserFromProfileRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
@@ -2321,32 +2323,36 @@ class Server {
 
 	/** 
 	 * List all policy object names
+	 * For the top-level organization, the API result includes all policies for all organizations, unless the TargetOrganization parameter is present.
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
 	 *
+	 * @param string $TargetOrganization If present, list the policies belonging to another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.3.7) (optional)
 	 * @return string[] An array with string keys. 
 	 * @throws \Exception
 	 */
-	public function AdminPoliciesList()
+	public function AdminPoliciesList($TargetOrganization = null)
 	{
-		$nr = new \Comet\AdminPoliciesListRequest();
+		$nr = new \Comet\AdminPoliciesListRequest($TargetOrganization);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminPoliciesListRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
 
 	/** 
 	 * Get all policy objects
+	 * For the top-level organization, the API result includes all policies for all organizations, unless the TargetOrganization parameter is present.
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
 	 *
+	 * @param string $TargetOrganization If present, list the policies belonging to another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.3.7) (optional)
 	 * @return \Comet\GroupPolicy[] An array with string keys. 
 	 * @throws \Exception
 	 */
-	public function AdminPoliciesListFull()
+	public function AdminPoliciesListFull($TargetOrganization = null)
 	{
-		$nr = new \Comet\AdminPoliciesListFullRequest();
+		$nr = new \Comet\AdminPoliciesListFullRequest($TargetOrganization);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminPoliciesListFullRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
@@ -2428,6 +2434,7 @@ class Server {
 	 * Request a new Storage Vault on behalf of a user
 	 * This action does not respect the "Prevent creating new Storage Vaults (via Request)" policy setting. New Storage Vaults can be requested regardless of the policy setting.
 	 * Prior to Comet 19.8.0, the response type was CometAPIResponseMessage (i.e. no DestinationID field in response).
+	 * The StorageProvider must exist for the target user account's organization.
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
@@ -2455,12 +2462,13 @@ class Server {
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
 	 *
+	 * @param string $TargetOrganization If present, list the requestable Storage Vault options belonging to another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.3.7) (optional)
 	 * @return string[] An array with string keys. 
 	 * @throws \Exception
 	 */
-	public function AdminRequestStorageVaultProviders()
+	public function AdminRequestStorageVaultProviders($TargetOrganization = null)
 	{
-		$nr = new \Comet\AdminRequestStorageVaultProvidersRequest();
+		$nr = new \Comet\AdminRequestStorageVaultProvidersRequest($TargetOrganization);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminRequestStorageVaultProvidersRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
