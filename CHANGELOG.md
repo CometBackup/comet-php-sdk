@@ -1,4 +1,13 @@
 # CHANGELOG
+
+## 2022-06-03 v3.25.0
+- Based on 22.5.0
+- Add support for AWS Virtual Storage Roles
+- Add `$TargetOrganization` to some API methods to support cross-tenant actions
+- Add `RESTOREARCHIVEFORMAT_TARZSTD` for tar.zst archive restore format
+- Add `COMPRESS_*` Server Self-Backup compression settings
+- Add zh-TW language
+
 ## 2022-05-25 v3.24.0
 - Based on 22.3.7
 - Add new `REMOTESERVER_S3_GENERIC` `RemoteServerType`
