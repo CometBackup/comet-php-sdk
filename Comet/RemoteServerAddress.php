@@ -62,6 +62,13 @@ class RemoteServerAddress {
 	public $S3 = null;
 
 	/**
+	 * Amazon AWS - Virtual Storage Role
+	 *
+	 * @var \Comet\AmazonAWSVirtualStorageRoleSettings
+	 */
+	public $AWS = null;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see RemoteServerAddress::RemoveUnknownProperties() Remove all unknown properties
@@ -133,6 +140,14 @@ class RemoteServerAddress {
 				$this->S3 = \Comet\S3GenericVirtualStorageRole::createFromStdclass($sc->S3);
 			}
 		}
+		if (property_exists($sc, 'AWS') && !is_null($sc->AWS)) {
+			if (is_array($sc->AWS) && count($sc->AWS) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->AWS = \Comet\AmazonAWSVirtualStorageRoleSettings::createFromStdclass(new \stdClass());
+			} else {
+				$this->AWS = \Comet\AmazonAWSVirtualStorageRoleSettings::createFromStdclass($sc->AWS);
+			}
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Type':
@@ -145,6 +160,7 @@ class RemoteServerAddress {
 			case 'Wasabi':
 			case 'Custom':
 			case 'S3':
+			case 'AWS':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -256,6 +272,11 @@ class RemoteServerAddress {
 		} else {
 			$ret["S3"] = $this->S3->toArray($for_json_encode);
 		}
+		if ( $this->AWS === null ) {
+			$ret["AWS"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["AWS"] = $this->AWS->toArray($for_json_encode);
+		}
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
@@ -319,6 +340,9 @@ class RemoteServerAddress {
 		}
 		if ($this->S3 !== null) {
 			$this->S3->RemoveUnknownProperties();
+		}
+		if ($this->AWS !== null) {
+			$this->AWS->RemoveUnknownProperties();
 		}
 	}
 

@@ -1546,6 +1546,13 @@ class Def {
 	const REMOTESERVER_S3_GENERIC = "s3";
 
 	/**
+	 * RemoteServerType:
+	 *
+	 * @type string
+	 */
+	const REMOTESERVER_AWS = "aws";
+
+	/**
 	 * @type string
 	 */
 	const LDAPSECURITYMETHOD_PLAIN = "plain";
