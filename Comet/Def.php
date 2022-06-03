@@ -1659,6 +1659,62 @@ class Def {
 	const SEVT__MAX = 4999;
 
 	/**
+	 * CompressMode:
+	 *
+	 * @type int
+	 */
+	const COMPRESS_INVALID = 0;
+
+	/**
+	 * CompressMode:
+	 *
+	 * @type int
+	 */
+	const COMPRESS_LVL_1 = 1;
+
+	/**
+	 * CompressMode:
+	 *
+	 * @type int
+	 */
+	const COMPRESS_LVL_2 = 2;
+
+	/**
+	 * CompressMode:
+	 *
+	 * @type int
+	 */
+	const COMPRESS_LVL_3 = 3;
+
+	/**
+	 * CompressMode:
+	 *
+	 * @type int
+	 */
+	const COMPRESS_LVL_4 = 4;
+
+	/**
+	 * CompressMode:
+	 *
+	 * @type int
+	 */
+	const COMPRESS_LVL_5 = 5;
+
+	/**
+	 * CompressMode:
+	 *
+	 * @type int
+	 */
+	const COMPRESS_MAX = self::COMPRESS_LVL_5;
+
+	/**
+	 * CompressMode:
+	 *
+	 * @type int
+	 */
+	const COMPRESS_DEFAULT = self::COMPRESS_LVL_4;
+
+	/**
 	 * @type string
 	 */
 	const OFFICE365_REGION_PUBLIC = "GlobalPublicCloud";
