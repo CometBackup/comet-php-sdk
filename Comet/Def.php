@@ -1098,7 +1098,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "22.5.0";
+	const APPLICATION_VERSION = "22.6.1";
 
 	/**
 	 * @type int
@@ -1108,17 +1108,17 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_MINOR = 5;
+	const APPLICATION_VERSION_MINOR = 6;
 
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 0;
+	const APPLICATION_VERSION_REVISION = 1;
 
 	/**
 	 * @type string
 	 */
-	const RELEASE_CODENAME = "Lysithea";
+	const RELEASE_CODENAME = "Voyager";
 
 	/**
 	 * @type int
