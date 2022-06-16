@@ -13,6 +13,8 @@ namespace Comet;
  * Comet Server AdminOrganizationSet API
  * Create or Update an Organization
  *
+ * Prior to Comet 22.6.0, the 'ID' and 'Organization' fields were not present in the response.
+ *
  * You must supply administrator authentication credentials to use this API.
  * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
  */

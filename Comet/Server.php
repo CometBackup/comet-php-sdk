@@ -1639,7 +1639,9 @@ class Server {
 	 * 
 	 * This API will return all jobs that either started or ended within the supplied range.
 	 * 
-	 * Incomplete jobs have an end time of `0`. You can use this API to find incomplete jobs by setting both `Start` and `End` to `0`.
+	 * Incomplete jobs have an end time of `0`. You can use this API to find only incomplete jobs by setting both `Start` and `End` to `0`.
+	 * 
+	 * Prior to Comet Server 22.6.0, additional Incomplete jobs may have been returned if you specified non-zero arguments for both `Start` and `End`.
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
@@ -2237,12 +2239,14 @@ class Server {
 	/** 
 	 * Delete an organization and all related users
 	 * 
+	 * Prior to Comet 22.6.0, this API was documented as returning the OrganizationResponse type. However, it always has returned only a CometAPIResponseMessage.
+	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
 	 *
 	 * @param string $OrganizationID (No description available) (optional)
 	 * @param \Comet\UninstallConfig $UninstallConfig Uninstall software configuration (optional)
-	 * @return \Comet\OrganizationResponse 
+	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
 	public function AdminOrganizationDelete($OrganizationID = null, UninstallConfig $UninstallConfig = null)
@@ -2270,6 +2274,8 @@ class Server {
 
 	/** 
 	 * Create or Update an Organization
+	 * 
+	 * Prior to Comet 22.6.0, the 'ID' and 'Organization' fields were not present in the response.
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.

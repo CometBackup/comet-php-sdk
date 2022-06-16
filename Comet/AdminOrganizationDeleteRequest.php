@@ -13,6 +13,8 @@ namespace Comet;
  * Comet Server AdminOrganizationDelete API
  * Delete an organization and all related users
  *
+ * Prior to Comet 22.6.0, this API was documented as returning the OrganizationResponse type. However, it always has returned only a CometAPIResponseMessage.
+ *
  * You must supply administrator authentication credentials to use this API.
  * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
  */
@@ -87,7 +89,7 @@ class AdminOrganizationDeleteRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param int $responseCode HTTP response code
 	 * @param string $body HTTP response body
-	 * @return \Comet\OrganizationResponse
+	 * @return \Comet\APIResponseMessage
 	 * @throws \Exception
 	 */
 	public static function ProcessResponse($responseCode, $body)
@@ -112,12 +114,12 @@ class AdminOrganizationDeleteRequest implements \Comet\NetworkRequest {
 			}
 		}
 
-		// Parse as OrganizationResponse
+		// Parse as CometAPIResponseMessage
 		if (is_array($decoded) && count($decoded) === 0) {
 		// Work around edge case in json_decode--json_encode stdClass conversion
-			$ret = \Comet\OrganizationResponse::createFromStdclass(new \stdClass());
+			$ret = \Comet\APIResponseMessage::createFromStdclass(new \stdClass());
 		} else {
-			$ret = \Comet\OrganizationResponse::createFromStdclass($decoded);
+			$ret = \Comet\APIResponseMessage::createFromStdclass($decoded);
 		}
 
 		return $ret;

@@ -18,7 +18,9 @@ namespace Comet;
  *
  * This API will return all jobs that either started or ended within the supplied range.
  *
- * Incomplete jobs have an end time of `0`. You can use this API to find incomplete jobs by setting both `Start` and `End` to `0`.
+ * Incomplete jobs have an end time of `0`. You can use this API to find only incomplete jobs by setting both `Start` and `End` to `0`.
+ *
+ * Prior to Comet Server 22.6.0, additional Incomplete jobs may have been returned if you specified non-zero arguments for both `Start` and `End`.
  *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
