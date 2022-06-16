@@ -1560,16 +1560,22 @@ class Def {
 	const REMOTESERVER_AWS = "aws";
 
 	/**
+	 * LDAPSecurityMethod:
+	 *
 	 * @type string
 	 */
 	const LDAPSECURITYMETHOD_PLAIN = "plain";
 
 	/**
+	 * LDAPSecurityMethod:
+	 *
 	 * @type string
 	 */
 	const LDAPSECURITYMETHOD_LDAPS = "ldaps";
 
 	/**
+	 * LDAPSecurityMethod:
+	 *
 	 * @type string
 	 */
 	const LDAPSECURITYMETHOD_STARTTLS = "starttls";

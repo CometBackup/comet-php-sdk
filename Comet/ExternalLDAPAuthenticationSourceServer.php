@@ -9,7 +9,7 @@
 
 namespace Comet;
 
-class ExternalLDAPAuthenticationSourceSettings {
+class ExternalLDAPAuthenticationSourceServer {
 
 	/**
 	 * @var string
@@ -32,40 +32,15 @@ class ExternalLDAPAuthenticationSourceSettings {
 	public $AcceptInvalidSSL = false;
 
 	/**
-	 * @var \Comet\ExternalLDAPAuthenticationSourceServer[]
-	 */
-	public $FallbackServers = [];
-
-	/**
-	 * @var string
-	 */
-	public $BindUser = "";
-
-	/**
-	 * @var string
-	 */
-	public $BindPassword = "";
-
-	/**
-	 * @var string
-	 */
-	public $SearchDN = "";
-
-	/**
-	 * @var string
-	 */
-	public $SearchFilter = "";
-
-	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
-	 * @see ExternalLDAPAuthenticationSourceSettings::RemoveUnknownProperties() Remove all unknown properties
+	 * @see ExternalLDAPAuthenticationSourceServer::RemoveUnknownProperties() Remove all unknown properties
 	 * @var array
 	 */
 	private $__unknown_properties = [];
 
 	/**
-	 * Replace the content of this ExternalLDAPAuthenticationSourceSettings object from a PHP \stdClass.
+	 * Replace the content of this ExternalLDAPAuthenticationSourceServer object from a PHP \stdClass.
 	 * The data could be supplied from an API call after json_decode(...); or generated manually.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
@@ -85,43 +60,12 @@ class ExternalLDAPAuthenticationSourceSettings {
 		if (property_exists($sc, 'AcceptInvalidSSL')) {
 			$this->AcceptInvalidSSL = (bool)($sc->AcceptInvalidSSL);
 		}
-		if (property_exists($sc, 'FallbackServers')) {
-			$val_2 = [];
-			if ($sc->FallbackServers !== null) {
-				for($i_2 = 0; $i_2 < count($sc->FallbackServers); ++$i_2) {
-					if (is_array($sc->FallbackServers[$i_2]) && count($sc->FallbackServers[$i_2]) === 0) {
-					// Work around edge case in json_decode--json_encode stdClass conversion
-						$val_2[] = \Comet\ExternalLDAPAuthenticationSourceServer::createFromStdclass(new \stdClass());
-					} else {
-						$val_2[] = \Comet\ExternalLDAPAuthenticationSourceServer::createFromStdclass($sc->FallbackServers[$i_2]);
-					}
-				}
-			}
-			$this->FallbackServers = $val_2;
-		}
-		if (property_exists($sc, 'BindUser')) {
-			$this->BindUser = (string)($sc->BindUser);
-		}
-		if (property_exists($sc, 'BindPassword')) {
-			$this->BindPassword = (string)($sc->BindPassword);
-		}
-		if (property_exists($sc, 'SearchDN')) {
-			$this->SearchDN = (string)($sc->SearchDN);
-		}
-		if (property_exists($sc, 'SearchFilter')) {
-			$this->SearchFilter = (string)($sc->SearchFilter);
-		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Hostname':
 			case 'Port':
 			case 'SecurityMethod':
 			case 'AcceptInvalidSSL':
-			case 'FallbackServers':
-			case 'BindUser':
-			case 'BindPassword':
-			case 'SearchDN':
-			case 'SearchFilter':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -130,25 +74,25 @@ class ExternalLDAPAuthenticationSourceSettings {
 	}
 
 	/**
-	 * Coerce a stdClass into a new strongly-typed ExternalLDAPAuthenticationSourceSettings object.
+	 * Coerce a stdClass into a new strongly-typed ExternalLDAPAuthenticationSourceServer object.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
-	 * @return ExternalLDAPAuthenticationSourceSettings
+	 * @return ExternalLDAPAuthenticationSourceServer
 	 */
 	public static function createFromStdclass(\stdClass $sc)
 	{
-		$retn = new ExternalLDAPAuthenticationSourceSettings();
+		$retn = new ExternalLDAPAuthenticationSourceServer();
 		$retn->inflateFrom($sc);
 		return $retn;
 	}
 
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed ExternalLDAPAuthenticationSourceSettings object.
+	 * Coerce a plain PHP array into a new strongly-typed ExternalLDAPAuthenticationSourceServer object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
 	 * @param array $arr Object data as PHP array
-	 * @return ExternalLDAPAuthenticationSourceSettings
+	 * @return ExternalLDAPAuthenticationSourceServer
 	 */
 	public static function createFromArray(array $arr)
 	{
@@ -160,7 +104,7 @@ class ExternalLDAPAuthenticationSourceSettings {
 	}
 
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed ExternalLDAPAuthenticationSourceSettings object.
+	 * Coerce a plain PHP array into a new strongly-typed ExternalLDAPAuthenticationSourceServer object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
@@ -168,7 +112,7 @@ class ExternalLDAPAuthenticationSourceSettings {
 	 *             (A) acknowledge this and continue by switching to createFromArray, or
 	 *             (b) switch to the roundtrip-safe createFromStdclass alternative.
 	 * @param array $arr Object data as PHP array
-	 * @return ExternalLDAPAuthenticationSourceSettings
+	 * @return ExternalLDAPAuthenticationSourceServer
 	 */
 	public static function createFrom(array $arr)
 	{
@@ -176,10 +120,10 @@ class ExternalLDAPAuthenticationSourceSettings {
 	}
 
 	/**
-	 * Coerce a JSON string into a new strongly-typed ExternalLDAPAuthenticationSourceSettings object.
+	 * Coerce a JSON string into a new strongly-typed ExternalLDAPAuthenticationSourceServer object.
 	 *
 	 * @param string $JsonString Object data as JSON string
-	 * @return ExternalLDAPAuthenticationSourceSettings
+	 * @return ExternalLDAPAuthenticationSourceServer
 	 */
 	public static function createFromJSON($JsonString)
 	{
@@ -187,13 +131,13 @@ class ExternalLDAPAuthenticationSourceSettings {
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg());
 		}
-		$retn = new ExternalLDAPAuthenticationSourceSettings();
+		$retn = new ExternalLDAPAuthenticationSourceServer();
 		$retn->inflateFrom($decodedJsonObject);
 		return $retn;
 	}
 
 	/**
-	 * Convert this ExternalLDAPAuthenticationSourceSettings object into a plain PHP array.
+	 * Convert this ExternalLDAPAuthenticationSourceServer object into a plain PHP array.
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
@@ -207,22 +151,6 @@ class ExternalLDAPAuthenticationSourceSettings {
 		$ret["Port"] = $this->Port;
 		$ret["SecurityMethod"] = $this->SecurityMethod;
 		$ret["AcceptInvalidSSL"] = $this->AcceptInvalidSSL;
-		{
-			$c0 = [];
-			for($i0 = 0; $i0 < count($this->FallbackServers); ++$i0) {
-				if ( $this->FallbackServers[$i0] === null ) {
-					$val0 = $for_json_encode ? (object)[] : [];
-				} else {
-					$val0 = $this->FallbackServers[$i0]->toArray($for_json_encode);
-				}
-				$c0[] = $val0;
-			}
-			$ret["FallbackServers"] = $c0;
-		}
-		$ret["BindUser"] = $this->BindUser;
-		$ret["BindPassword"] = $this->BindPassword;
-		$ret["SearchDN"] = $this->SearchDN;
-		$ret["SearchFilter"] = $this->SearchFilter;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
