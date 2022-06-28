@@ -12,6 +12,11 @@ namespace Comet;
 class PrivateBrandingProperties {
 
 	/**
+	 * @var int
+	 */
+	public $BuildMode = 0;
+
+	/**
 	 * @var string
 	 */
 	public $PathIcoFile = "";
@@ -118,6 +123,9 @@ class PrivateBrandingProperties {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
+		if (property_exists($sc, 'BuildMode')) {
+			$this->BuildMode = (int)($sc->BuildMode);
+		}
 		if (property_exists($sc, 'PathIcoFile')) {
 			$this->PathIcoFile = (string)($sc->PathIcoFile);
 		}
@@ -179,6 +187,7 @@ class PrivateBrandingProperties {
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
+			case 'BuildMode':
 			case 'PathIcoFile':
 			case 'PathIcnsFile':
 			case 'PathMenuBarIcnsFile':
@@ -262,6 +271,7 @@ class PrivateBrandingProperties {
 	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
+		$ret["BuildMode"] = $this->BuildMode;
 		$ret["PathIcoFile"] = $this->PathIcoFile;
 		$ret["PathIcnsFile"] = $this->PathIcnsFile;
 		$ret["PathMenuBarIcnsFile"] = $this->PathMenuBarIcnsFile;

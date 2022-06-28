@@ -52,6 +52,11 @@ class BrandingProperties {
 	public $HideBackgroundLogo = false;
 
 	/**
+	 * @var int
+	 */
+	public $BuildMode = 0;
+
+	/**
 	 * @var string
 	 */
 	public $PathIcoFile = "";
@@ -182,6 +187,9 @@ class BrandingProperties {
 		if (property_exists($sc, 'HideBackgroundLogo')) {
 			$this->HideBackgroundLogo = (bool)($sc->HideBackgroundLogo);
 		}
+		if (property_exists($sc, 'BuildMode')) {
+			$this->BuildMode = (int)($sc->BuildMode);
+		}
 		if (property_exists($sc, 'PathIcoFile')) {
 			$this->PathIcoFile = (string)($sc->PathIcoFile);
 		}
@@ -251,6 +259,7 @@ class BrandingProperties {
 			case 'TileBackgroundColor':
 			case 'AccountRegisterURL':
 			case 'HideBackgroundLogo':
+			case 'BuildMode':
 			case 'PathIcoFile':
 			case 'PathIcnsFile':
 			case 'PathMenuBarIcnsFile':
@@ -342,6 +351,7 @@ class BrandingProperties {
 		$ret["TileBackgroundColor"] = $this->TileBackgroundColor;
 		$ret["AccountRegisterURL"] = $this->AccountRegisterURL;
 		$ret["HideBackgroundLogo"] = $this->HideBackgroundLogo;
+		$ret["BuildMode"] = $this->BuildMode;
 		$ret["PathIcoFile"] = $this->PathIcoFile;
 		$ret["PathIcnsFile"] = $this->PathIcnsFile;
 		$ret["PathMenuBarIcnsFile"] = $this->PathMenuBarIcnsFile;
