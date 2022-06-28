@@ -173,22 +173,6 @@ class Partition {
 	}
 
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed Partition object.
-	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
-	 * the result of this method may not be safe to re-submit to the Comet Server.
-	 *
-	 * @deprecated 3.0.0 Unsafe for round-trip server traversal. You should either
-	 *             (A) acknowledge this and continue by switching to createFromArray, or
-	 *             (b) switch to the roundtrip-safe createFromStdclass alternative.
-	 * @param array $arr Object data as PHP array
-	 * @return Partition
-	 */
-	public static function createFrom(array $arr): \Comet\Partition
-	{
-		return self::createFromArray($arr);
-	}
-
-	/**
 	 * Coerce a JSON string into a new strongly-typed Partition object.
 	 *
 	 * @param string $JsonString Object data as JSON string
