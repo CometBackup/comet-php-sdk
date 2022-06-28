@@ -42,7 +42,7 @@ class Organization {
 	public $WebhookOptions = [];
 
 	/**
-	 * @var \Comet\AdminEmailOptions
+	 * @var \Comet\EmailOptions
 	 */
 	public $Email = null;
 
@@ -129,9 +129,9 @@ class Organization {
 		if (property_exists($sc, 'Email')) {
 			if (is_array($sc->Email) && count($sc->Email) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
-				$this->Email = \Comet\AdminEmailOptions::createFromStdclass(new \stdClass());
+				$this->Email = \Comet\EmailOptions::createFromStdclass(new \stdClass());
 			} else {
-				$this->Email = \Comet\AdminEmailOptions::createFromStdclass($sc->Email);
+				$this->Email = \Comet\EmailOptions::createFromStdclass($sc->Email);
 			}
 		}
 		if (property_exists($sc, 'IsSuspended')) {
