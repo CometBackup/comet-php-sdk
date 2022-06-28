@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## 2022-06-28 v4.0.0
+- Based on 22.6.2
+- **BREAKING:** Add support for PHP 7 return type declarations and scalar argument types. PHP 7.0 is now the minimum required PHP version
+- **BREAKING:** Remove deprecated `::createFrom()` methods, deprecated since SDK 3.0.0. Callers should switch to `createFromArray` (drop-in compatible, but with known issues for server round-trips) or `createFromStdclass`
+- **BREAKING:** The `Organization::Email` class member is now declared as `EmailOptions` type instead of `AdminEmailOptions`. This change is fully backward-compatible on the HTTP/JSON level, but may cause issues if your application code checked this type explicitly
+- **BREAKING:** The `AdminOrganizationDeleteRequest` API's response type has changed to be `APIResponseMessage`, not `OrganizationResponse`. The Comet Server API had only ever filled in the `APIResponseMessage`-compatible fields of the `OrganizationResponse` structure, so the HTTP/JSON response is unchanged, but this may cause issues if your application code checked this type explicitly
+- "Requestable" Storage Vaults have been renamed to "Storage Templates". The API endpoint is unchanged, so this is backward-compatible with older Comet Server instances
+- Document all `ServerConfigOptions` types for the `AdminMetaServerConfigSet` and `AdminMetaServerConfigGet` APIs
+ -Add new `FallbackServers` option for LDAP external authentication sources
+- Add new `RandomDelaySecs` option for job schedules
+
 ## 2022-06-03 v3.25.0
 - Based on 22.5.0
 - Add support for AWS Virtual Storage Roles
