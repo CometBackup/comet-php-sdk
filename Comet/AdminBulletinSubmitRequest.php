@@ -38,7 +38,7 @@ class AdminBulletinSubmitRequest implements \Comet\NetworkRequest {
 	 * @param string $Subject Bulletin subject line
 	 * @param string $Content Bulletin message content
 	 */
-	public function __construct($Subject, $Content)
+	public function __construct(string $Subject, string $Content)
 	{
 		$this->Subject = $Subject;
 		$this->Content = $Content;
@@ -49,17 +49,17 @@ class AdminBulletinSubmitRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/bulletin/submit';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -69,7 +69,7 @@ class AdminBulletinSubmitRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["Subject"] = (string)($this->Subject);
@@ -86,7 +86,7 @@ class AdminBulletinSubmitRequest implements \Comet\NetworkRequest {
 	 * @return \Comet\APIResponseMessage
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\APIResponseMessage
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

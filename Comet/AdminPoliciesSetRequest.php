@@ -48,7 +48,7 @@ class AdminPoliciesSetRequest implements \Comet\NetworkRequest {
 	 * @param \Comet\GroupPolicy $Policy The policy data
 	 * @param string $CheckPolicyHash An atomic verification hash as supplied by the AdminPoliciesGet API (optional)
 	 */
-	public function __construct($PolicyID, GroupPolicy $Policy, $CheckPolicyHash = null)
+	public function __construct(string $PolicyID, \Comet\GroupPolicy $Policy, string $CheckPolicyHash = null)
 	{
 		$this->PolicyID = $PolicyID;
 		$this->Policy = $Policy;
@@ -60,17 +60,17 @@ class AdminPoliciesSetRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/policies/set';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -80,7 +80,7 @@ class AdminPoliciesSetRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["PolicyID"] = (string)($this->PolicyID);
@@ -100,7 +100,7 @@ class AdminPoliciesSetRequest implements \Comet\NetworkRequest {
 	 * @return \Comet\APIResponseMessage
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\APIResponseMessage
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

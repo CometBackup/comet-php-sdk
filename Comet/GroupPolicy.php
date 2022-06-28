@@ -84,7 +84,7 @@ class GroupPolicy {
 	 * @param \stdClass $sc Object data as stdClass
 	 * @return GroupPolicy
 	 */
-	public static function createFromStdclass(\stdClass $sc)
+	public static function createFromStdclass(\stdClass $sc): \Comet\GroupPolicy
 	{
 		$retn = new GroupPolicy();
 		$retn->inflateFrom($sc);
@@ -99,7 +99,7 @@ class GroupPolicy {
 	 * @param array $arr Object data as PHP array
 	 * @return GroupPolicy
 	 */
-	public static function createFromArray(array $arr)
+	public static function createFromArray(array $arr): \Comet\GroupPolicy
 	{
 		$stdClass = json_decode(json_encode($arr, JSON_UNESCAPED_SLASHES));
 		if (is_array($stdClass) && count($stdClass) === 0) {
@@ -119,7 +119,7 @@ class GroupPolicy {
 	 * @param array $arr Object data as PHP array
 	 * @return GroupPolicy
 	 */
-	public static function createFrom(array $arr)
+	public static function createFrom(array $arr): \Comet\GroupPolicy
 	{
 		return self::createFromArray($arr);
 	}
@@ -130,7 +130,7 @@ class GroupPolicy {
 	 * @param string $JsonString Object data as JSON string
 	 * @return GroupPolicy
 	 */
-	public static function createFromJSON($JsonString)
+	public static function createFromJSON(string $JsonString): \Comet\GroupPolicy
 	{
 		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
@@ -149,7 +149,7 @@ class GroupPolicy {
 	 * @param bool $for_json_encode Represent empty key-value maps as \stdClass instead of plain PHP arrays
 	 * @return array
 	 */
-	public function toArray($for_json_encode = false)
+	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
 		$ret["Description"] = $this->Description;
@@ -175,7 +175,7 @@ class GroupPolicy {
 	 *
 	 * @return string
 	 */
-	public function toJSON()
+	public function toJSON(): string
 	{
 		$arr = $this->toArray(true);
 		if (count($arr) === 0) {
@@ -191,7 +191,7 @@ class GroupPolicy {
 	 *
 	 * @return \stdClass
 	 */
-	public function toStdClass()
+	public function toStdClass(): \stdClass
 	{
 		$arr = $this->toArray(false);
 		if (count($arr) === 0) {

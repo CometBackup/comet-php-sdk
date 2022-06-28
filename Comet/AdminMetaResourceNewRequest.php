@@ -32,7 +32,7 @@ class AdminMetaResourceNewRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param string $upload The uploaded file contents, as a multipart/form-data part.
 	 */
-	public function __construct($upload)
+	public function __construct(string $upload)
 	{
 		$this->upload = $upload;
 	}
@@ -42,17 +42,17 @@ class AdminMetaResourceNewRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/meta/resource/new';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'multipart/form-data';
 	}
@@ -62,7 +62,7 @@ class AdminMetaResourceNewRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["upload"] = (string)($this->upload);
@@ -78,7 +78,7 @@ class AdminMetaResourceNewRequest implements \Comet\NetworkRequest {
 	 * @return \Comet\AdminResourceResponse
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\AdminResourceResponse
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

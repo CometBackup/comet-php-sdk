@@ -45,7 +45,7 @@ class AdminAccountWebauthnSubmitChallengeResponseRequest implements \Comet\Netwo
 	 * @param string $ChallengeID Associated value from AdminAccountWebAuthnRequestRegistrationChallenge API
 	 * @param string $Credential JSON-encoded credential
 	 */
-	public function __construct($SelfAddress, $ChallengeID, $Credential)
+	public function __construct(string $SelfAddress, string $ChallengeID, string $Credential)
 	{
 		$this->SelfAddress = $SelfAddress;
 		$this->ChallengeID = $ChallengeID;
@@ -57,17 +57,17 @@ class AdminAccountWebauthnSubmitChallengeResponseRequest implements \Comet\Netwo
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/account/webauthn/submit-challenge-response';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -77,7 +77,7 @@ class AdminAccountWebauthnSubmitChallengeResponseRequest implements \Comet\Netwo
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["SelfAddress"] = (string)($this->SelfAddress);
@@ -95,7 +95,7 @@ class AdminAccountWebauthnSubmitChallengeResponseRequest implements \Comet\Netwo
 	 * @return \Comet\APIResponseMessage
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\APIResponseMessage
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

@@ -62,7 +62,7 @@ class AdminAddUserRequest implements \Comet\NetworkRequest {
 	 * @param int $RequirePasswordChange If set to 1, require to reset password at the first login for the generated user (>= 20.3.4) (optional)
 	 * @param string $TargetOrganization If present, create the user account on behalf of another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.3.7) (optional)
 	 */
-	public function __construct($TargetUser, $TargetPassword, $StoreRecoveryCode = null, $RequirePasswordChange = null, $TargetOrganization = null)
+	public function __construct(string $TargetUser, string $TargetPassword, int $StoreRecoveryCode = null, int $RequirePasswordChange = null, string $TargetOrganization = null)
 	{
 		$this->TargetUser = $TargetUser;
 		$this->TargetPassword = $TargetPassword;
@@ -76,17 +76,17 @@ class AdminAddUserRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/add-user';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -96,7 +96,7 @@ class AdminAddUserRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["TargetUser"] = (string)($this->TargetUser);
@@ -122,7 +122,7 @@ class AdminAddUserRequest implements \Comet\NetworkRequest {
 	 * @return \Comet\APIResponseMessage
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\APIResponseMessage
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

@@ -32,7 +32,7 @@ class AdminBrandingGenerateClientWindowsAnycpuZipRequest implements \Comet\Netwo
 	 *
 	 * @param string $SelfAddress The external URL of this server, used to resolve conflicts (optional)
 	 */
-	public function __construct($SelfAddress = null)
+	public function __construct(string $SelfAddress = null)
 	{
 		$this->SelfAddress = $SelfAddress;
 	}
@@ -42,17 +42,17 @@ class AdminBrandingGenerateClientWindowsAnycpuZipRequest implements \Comet\Netwo
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/branding/generate-client/windows-anycpu-zip';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -62,7 +62,7 @@ class AdminBrandingGenerateClientWindowsAnycpuZipRequest implements \Comet\Netwo
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		if ($this->SelfAddress !== null) {
@@ -80,7 +80,7 @@ class AdminBrandingGenerateClientWindowsAnycpuZipRequest implements \Comet\Netwo
 	 * @return string
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): string
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

@@ -49,7 +49,7 @@ class AdminCreateInstallTokenRequest implements \Comet\NetworkRequest {
 	 * @param string $TargetPassword Selected account password
 	 * @param string $Server External URL of the authentication server that is different from the current server (optional)
 	 */
-	public function __construct($TargetUser, $TargetPassword, $Server = null)
+	public function __construct(string $TargetUser, string $TargetPassword, string $Server = null)
 	{
 		$this->TargetUser = $TargetUser;
 		$this->TargetPassword = $TargetPassword;
@@ -61,17 +61,17 @@ class AdminCreateInstallTokenRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/create-install-token';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -81,7 +81,7 @@ class AdminCreateInstallTokenRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["TargetUser"] = (string)($this->TargetUser);
@@ -101,7 +101,7 @@ class AdminCreateInstallTokenRequest implements \Comet\NetworkRequest {
 	 * @return \Comet\InstallTokenResponse
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\InstallTokenResponse
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

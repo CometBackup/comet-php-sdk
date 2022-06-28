@@ -30,7 +30,7 @@ class AdminMetaBuildConfigSetRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param \Comet\SoftwareBuildRoleOptions $SoftwareBuildRoleConfig Updated configuration content
 	 */
-	public function __construct(SoftwareBuildRoleOptions $SoftwareBuildRoleConfig)
+	public function __construct(\Comet\SoftwareBuildRoleOptions $SoftwareBuildRoleConfig)
 	{
 		$this->SoftwareBuildRoleConfig = $SoftwareBuildRoleConfig;
 	}
@@ -40,17 +40,17 @@ class AdminMetaBuildConfigSetRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/meta/build-config/set';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -60,7 +60,7 @@ class AdminMetaBuildConfigSetRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["SoftwareBuildRoleConfig"] = $this->SoftwareBuildRoleConfig->toJSON();
@@ -76,7 +76,7 @@ class AdminMetaBuildConfigSetRequest implements \Comet\NetworkRequest {
 	 * @return \Comet\APIResponseMessage
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\APIResponseMessage
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

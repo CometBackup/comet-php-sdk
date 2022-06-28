@@ -52,7 +52,7 @@ class UserProfileFragment {
 	 * @param \stdClass $sc Object data as stdClass
 	 * @return UserProfileFragment
 	 */
-	public static function createFromStdclass(\stdClass $sc)
+	public static function createFromStdclass(\stdClass $sc): \Comet\UserProfileFragment
 	{
 		$retn = new UserProfileFragment();
 		$retn->inflateFrom($sc);
@@ -67,7 +67,7 @@ class UserProfileFragment {
 	 * @param array $arr Object data as PHP array
 	 * @return UserProfileFragment
 	 */
-	public static function createFromArray(array $arr)
+	public static function createFromArray(array $arr): \Comet\UserProfileFragment
 	{
 		$stdClass = json_decode(json_encode($arr, JSON_UNESCAPED_SLASHES));
 		if (is_array($stdClass) && count($stdClass) === 0) {
@@ -87,7 +87,7 @@ class UserProfileFragment {
 	 * @param array $arr Object data as PHP array
 	 * @return UserProfileFragment
 	 */
-	public static function createFrom(array $arr)
+	public static function createFrom(array $arr): \Comet\UserProfileFragment
 	{
 		return self::createFromArray($arr);
 	}
@@ -98,7 +98,7 @@ class UserProfileFragment {
 	 * @param string $JsonString Object data as JSON string
 	 * @return UserProfileFragment
 	 */
-	public static function createFromJSON($JsonString)
+	public static function createFromJSON(string $JsonString): \Comet\UserProfileFragment
 	{
 		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
@@ -117,7 +117,7 @@ class UserProfileFragment {
 	 * @param bool $for_json_encode Represent empty key-value maps as \stdClass instead of plain PHP arrays
 	 * @return array
 	 */
-	public function toArray($for_json_encode = false)
+	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
 		$ret["Username"] = $this->Username;
@@ -136,7 +136,7 @@ class UserProfileFragment {
 	 *
 	 * @return string
 	 */
-	public function toJSON()
+	public function toJSON(): string
 	{
 		$arr = $this->toArray(true);
 		if (count($arr) === 0) {
@@ -152,7 +152,7 @@ class UserProfileFragment {
 	 *
 	 * @return \stdClass
 	 */
-	public function toStdClass()
+	public function toStdClass(): \stdClass
 	{
 		$arr = $this->toArray(false);
 		if (count($arr) === 0) {

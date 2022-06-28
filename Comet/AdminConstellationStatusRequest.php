@@ -32,17 +32,17 @@ class AdminConstellationStatusRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/constellation/status';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -52,7 +52,7 @@ class AdminConstellationStatusRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		return $ret;
@@ -67,7 +67,7 @@ class AdminConstellationStatusRequest implements \Comet\NetworkRequest {
 	 * @return \Comet\ConstellationStatusAPIResponse
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\ConstellationStatusAPIResponse
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

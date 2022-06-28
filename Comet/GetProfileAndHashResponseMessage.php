@@ -84,7 +84,7 @@ class GetProfileAndHashResponseMessage {
 	 * @param \stdClass $sc Object data as stdClass
 	 * @return GetProfileAndHashResponseMessage
 	 */
-	public static function createFromStdclass(\stdClass $sc)
+	public static function createFromStdclass(\stdClass $sc): \Comet\GetProfileAndHashResponseMessage
 	{
 		$retn = new GetProfileAndHashResponseMessage();
 		$retn->inflateFrom($sc);
@@ -99,7 +99,7 @@ class GetProfileAndHashResponseMessage {
 	 * @param array $arr Object data as PHP array
 	 * @return GetProfileAndHashResponseMessage
 	 */
-	public static function createFromArray(array $arr)
+	public static function createFromArray(array $arr): \Comet\GetProfileAndHashResponseMessage
 	{
 		$stdClass = json_decode(json_encode($arr, JSON_UNESCAPED_SLASHES));
 		if (is_array($stdClass) && count($stdClass) === 0) {
@@ -119,7 +119,7 @@ class GetProfileAndHashResponseMessage {
 	 * @param array $arr Object data as PHP array
 	 * @return GetProfileAndHashResponseMessage
 	 */
-	public static function createFrom(array $arr)
+	public static function createFrom(array $arr): \Comet\GetProfileAndHashResponseMessage
 	{
 		return self::createFromArray($arr);
 	}
@@ -130,7 +130,7 @@ class GetProfileAndHashResponseMessage {
 	 * @param string $JsonString Object data as JSON string
 	 * @return GetProfileAndHashResponseMessage
 	 */
-	public static function createFromJSON($JsonString)
+	public static function createFromJSON(string $JsonString): \Comet\GetProfileAndHashResponseMessage
 	{
 		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
@@ -149,7 +149,7 @@ class GetProfileAndHashResponseMessage {
 	 * @param bool $for_json_encode Represent empty key-value maps as \stdClass instead of plain PHP arrays
 	 * @return array
 	 */
-	public function toArray($for_json_encode = false)
+	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
 		$ret["Status"] = $this->Status;
@@ -175,7 +175,7 @@ class GetProfileAndHashResponseMessage {
 	 *
 	 * @return string
 	 */
-	public function toJSON()
+	public function toJSON(): string
 	{
 		$arr = $this->toArray(true);
 		if (count($arr) === 0) {
@@ -191,7 +191,7 @@ class GetProfileAndHashResponseMessage {
 	 *
 	 * @return \stdClass
 	 */
-	public function toStdClass()
+	public function toStdClass(): \stdClass
 	{
 		$arr = $this->toArray(false);
 		if (count($arr) === 0) {

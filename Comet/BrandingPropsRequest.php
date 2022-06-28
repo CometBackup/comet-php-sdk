@@ -28,17 +28,17 @@ class BrandingPropsRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/gen/branding.props';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'GET';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -48,7 +48,7 @@ class BrandingPropsRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		return $ret;
@@ -63,7 +63,7 @@ class BrandingPropsRequest implements \Comet\NetworkRequest {
 	 * @return \Comet\ServerMetaBrandingProperties
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\ServerMetaBrandingProperties
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

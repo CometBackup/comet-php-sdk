@@ -39,7 +39,7 @@ class AdminDispatcherDeepverifyStorageVaultRequest implements \Comet\NetworkRequ
 	 * @param string $TargetID The live connection GUID
 	 * @param string $Destination The Storage Vault GUID
 	 */
-	public function __construct($TargetID, $Destination)
+	public function __construct(string $TargetID, string $Destination)
 	{
 		$this->TargetID = $TargetID;
 		$this->Destination = $Destination;
@@ -50,17 +50,17 @@ class AdminDispatcherDeepverifyStorageVaultRequest implements \Comet\NetworkRequ
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/dispatcher/deepverify-storage-vault';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -70,7 +70,7 @@ class AdminDispatcherDeepverifyStorageVaultRequest implements \Comet\NetworkRequ
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["TargetID"] = (string)($this->TargetID);
@@ -87,7 +87,7 @@ class AdminDispatcherDeepverifyStorageVaultRequest implements \Comet\NetworkRequ
 	 * @return \Comet\APIResponseMessage
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\APIResponseMessage
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

@@ -19,7 +19,7 @@ namespace Comet;
 class AdminRequestStorageVaultProvidersRequest implements \Comet\NetworkRequest {
 
 	/**
-	 * If present, list the requestable Storage Vault options belonging to another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.3.7) (optional)
+	 * If present, list the storage template options belonging to another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.3.7) (optional)
 	 *
 	 * @var string|null
 	 */
@@ -28,9 +28,9 @@ class AdminRequestStorageVaultProvidersRequest implements \Comet\NetworkRequest 
 	/**
 	 * Construct a new AdminRequestStorageVaultProvidersRequest instance.
 	 *
-	 * @param string $TargetOrganization If present, list the requestable Storage Vault options belonging to another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.3.7) (optional)
+	 * @param string $TargetOrganization If present, list the storage template options belonging to another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.3.7) (optional)
 	 */
-	public function __construct($TargetOrganization = null)
+	public function __construct(string $TargetOrganization = null)
 	{
 		$this->TargetOrganization = $TargetOrganization;
 	}
@@ -40,17 +40,17 @@ class AdminRequestStorageVaultProvidersRequest implements \Comet\NetworkRequest 
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/request-storage-vault-providers';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -60,7 +60,7 @@ class AdminRequestStorageVaultProvidersRequest implements \Comet\NetworkRequest 
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		if ($this->TargetOrganization !== null) {
@@ -78,7 +78,7 @@ class AdminRequestStorageVaultProvidersRequest implements \Comet\NetworkRequest 
 	 * @return string[] An array with string keys.
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): array
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

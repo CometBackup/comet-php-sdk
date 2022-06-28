@@ -282,7 +282,7 @@ class BrandingProperties {
 	 * @param \stdClass $sc Object data as stdClass
 	 * @return BrandingProperties
 	 */
-	public static function createFromStdclass(\stdClass $sc)
+	public static function createFromStdclass(\stdClass $sc): \Comet\BrandingProperties
 	{
 		$retn = new BrandingProperties();
 		$retn->inflateFrom($sc);
@@ -297,7 +297,7 @@ class BrandingProperties {
 	 * @param array $arr Object data as PHP array
 	 * @return BrandingProperties
 	 */
-	public static function createFromArray(array $arr)
+	public static function createFromArray(array $arr): \Comet\BrandingProperties
 	{
 		$stdClass = json_decode(json_encode($arr, JSON_UNESCAPED_SLASHES));
 		if (is_array($stdClass) && count($stdClass) === 0) {
@@ -317,7 +317,7 @@ class BrandingProperties {
 	 * @param array $arr Object data as PHP array
 	 * @return BrandingProperties
 	 */
-	public static function createFrom(array $arr)
+	public static function createFrom(array $arr): \Comet\BrandingProperties
 	{
 		return self::createFromArray($arr);
 	}
@@ -328,7 +328,7 @@ class BrandingProperties {
 	 * @param string $JsonString Object data as JSON string
 	 * @return BrandingProperties
 	 */
-	public static function createFromJSON($JsonString)
+	public static function createFromJSON(string $JsonString): \Comet\BrandingProperties
 	{
 		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
@@ -347,7 +347,7 @@ class BrandingProperties {
 	 * @param bool $for_json_encode Represent empty key-value maps as \stdClass instead of plain PHP arrays
 	 * @return array
 	 */
-	public function toArray($for_json_encode = false)
+	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
 		$ret["ProductName"] = $this->ProductName;
@@ -395,7 +395,7 @@ class BrandingProperties {
 	 *
 	 * @return string
 	 */
-	public function toJSON()
+	public function toJSON(): string
 	{
 		$arr = $this->toArray(true);
 		if (count($arr) === 0) {
@@ -411,7 +411,7 @@ class BrandingProperties {
 	 *
 	 * @return \stdClass
 	 */
-	public function toStdClass()
+	public function toStdClass(): \stdClass
 	{
 		$arr = $this->toArray(false);
 		if (count($arr) === 0) {

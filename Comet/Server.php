@@ -124,7 +124,7 @@ class Server {
 	 * @return \Comet\AdminAccountPropertiesResponse 
 	 * @throws \Exception
 	 */
-	public function AdminAccountProperties()
+	public function AdminAccountProperties(): \Comet\AdminAccountPropertiesResponse
 	{
 		$nr = new \Comet\AdminAccountPropertiesRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -140,7 +140,7 @@ class Server {
 	 * @return \Comet\TotpRegeneratedResponse 
 	 * @throws \Exception
 	 */
-	public function AdminAccountRegenerateTotp()
+	public function AdminAccountRegenerateTotp(): \Comet\TotpRegeneratedResponse
 	{
 		$nr = new \Comet\AdminAccountRegenerateTotpRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -155,7 +155,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminAccountSessionRevoke()
+	public function AdminAccountSessionRevoke(): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminAccountSessionRevokeRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -171,7 +171,7 @@ class Server {
 	 * @return \Comet\SessionKeyRegeneratedResponse 
 	 * @throws \Exception
 	 */
-	public function AdminAccountSessionStart($SelfAddress = null)
+	public function AdminAccountSessionStart(string $SelfAddress = null): \Comet\SessionKeyRegeneratedResponse
 	{
 		if ($SelfAddress === null) {
 			$SelfAddress = $this->server_url;
@@ -191,7 +191,7 @@ class Server {
 	 * @return \Comet\SessionKeyRegeneratedResponse 
 	 * @throws \Exception
 	 */
-	public function AdminAccountSessionStartAsUser($TargetUser)
+	public function AdminAccountSessionStartAsUser(string $TargetUser): \Comet\SessionKeyRegeneratedResponse
 	{
 		$nr = new \Comet\AdminAccountSessionStartAsUserRequest($TargetUser);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -210,7 +210,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminAccountSetProperties(AdminSecurityOptions $Security)
+	public function AdminAccountSetProperties(\Comet\AdminSecurityOptions $Security): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminAccountSetPropertiesRequest($Security);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -229,7 +229,7 @@ class Server {
 	 * @return \Comet\U2FRegistrationChallengeResponse 
 	 * @throws \Exception
 	 */
-	public function AdminAccountU2fRequestRegistrationChallenge($SelfAddress)
+	public function AdminAccountU2fRequestRegistrationChallenge(string $SelfAddress): \Comet\U2FRegistrationChallengeResponse
 	{
 		$nr = new \Comet\AdminAccountU2fRequestRegistrationChallengeRequest($SelfAddress);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -252,7 +252,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminAccountU2fSubmitChallengeResponse($U2FChallengeID, $U2FClientData, $U2FRegistrationData, $U2FVersion, $Description)
+	public function AdminAccountU2fSubmitChallengeResponse(string $U2FChallengeID, string $U2FClientData, string $U2FRegistrationData, string $U2FVersion, string $Description): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminAccountU2fSubmitChallengeResponseRequest($U2FChallengeID, $U2FClientData, $U2FRegistrationData, $U2FVersion, $Description);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -268,7 +268,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminAccountValidateTotp($TOTPCode)
+	public function AdminAccountValidateTotp(string $TOTPCode): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminAccountValidateTotpRequest($TOTPCode);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -284,7 +284,7 @@ class Server {
 	 * @return \Comet\WebAuthnRegistrationChallengeResponse 
 	 * @throws \Exception
 	 */
-	public function AdminAccountWebauthnRequestRegistrationChallenge($SelfAddress)
+	public function AdminAccountWebauthnRequestRegistrationChallenge(string $SelfAddress): \Comet\WebAuthnRegistrationChallengeResponse
 	{
 		$nr = new \Comet\AdminAccountWebauthnRequestRegistrationChallengeRequest($SelfAddress);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -302,7 +302,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminAccountWebauthnSubmitChallengeResponse($SelfAddress, $ChallengeID, $Credential)
+	public function AdminAccountWebauthnSubmitChallengeResponse(string $SelfAddress, string $ChallengeID, string $Credential): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminAccountWebauthnSubmitChallengeResponseRequest($SelfAddress, $ChallengeID, $Credential);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -323,7 +323,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminAddUser($TargetUser, $TargetPassword, $StoreRecoveryCode = null, $RequirePasswordChange = null, $TargetOrganization = null)
+	public function AdminAddUser(string $TargetUser, string $TargetPassword, int $StoreRecoveryCode = null, int $RequirePasswordChange = null, string $TargetOrganization = null): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminAddUserRequest($TargetUser, $TargetPassword, $StoreRecoveryCode, $RequirePasswordChange, $TargetOrganization);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -343,7 +343,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminAddUserFromProfile($TargetUser, UserProfileConfig $ProfileData, $TargetOrganization = null)
+	public function AdminAddUserFromProfile(string $TargetUser, \Comet\UserProfileConfig $ProfileData, string $TargetOrganization = null): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminAddUserFromProfileRequest($TargetUser, $ProfileData, $TargetOrganization);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -361,7 +361,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminAdminUserDelete($TargetUser)
+	public function AdminAdminUserDelete(string $TargetUser): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminAdminUserDeleteRequest($TargetUser);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -378,7 +378,7 @@ class Server {
 	 * @return \Comet\AllowedAdminUser[] 
 	 * @throws \Exception
 	 */
-	public function AdminAdminUserList()
+	public function AdminAdminUserList(): array
 	{
 		$nr = new \Comet\AdminAdminUserListRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -398,7 +398,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminAdminUserNew($TargetUser, $TargetPassword, $TargetOrgID = null)
+	public function AdminAdminUserNew(string $TargetUser, string $TargetPassword, string $TargetOrgID = null): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminAdminUserNewRequest($TargetUser, $TargetPassword, $TargetOrgID);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -415,7 +415,7 @@ class Server {
 	 * @return \Comet\AvailableDownload[] An array with int keys. 
 	 * @throws \Exception
 	 */
-	public function AdminBrandingAvailablePlatforms()
+	public function AdminBrandingAvailablePlatforms(): array
 	{
 		$nr = new \Comet\AdminBrandingAvailablePlatformsRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -434,7 +434,7 @@ class Server {
 	 * @return string 
 	 * @throws \Exception
 	 */
-	public function AdminBrandingGenerateClientByPlatform($Platform, $SelfAddress = null)
+	public function AdminBrandingGenerateClientByPlatform(int $Platform, string $SelfAddress = null): string
 	{
 		if ($SelfAddress === null) {
 			$SelfAddress = $this->server_url;
@@ -456,7 +456,7 @@ class Server {
 	 * @return string 
 	 * @throws \Exception
 	 */
-	public function AdminBrandingGenerateClientLinuxgeneric($SelfAddress = null)
+	public function AdminBrandingGenerateClientLinuxgeneric(string $SelfAddress = null): string
 	{
 		if ($SelfAddress === null) {
 			$SelfAddress = $this->server_url;
@@ -478,7 +478,7 @@ class Server {
 	 * @return string 
 	 * @throws \Exception
 	 */
-	public function AdminBrandingGenerateClientMacosX8664($SelfAddress = null)
+	public function AdminBrandingGenerateClientMacosX8664(string $SelfAddress = null): string
 	{
 		if ($SelfAddress === null) {
 			$SelfAddress = $this->server_url;
@@ -500,7 +500,7 @@ class Server {
 	 * @return string 
 	 * @throws \Exception
 	 */
-	public function AdminBrandingGenerateClientSpkDsm6($SelfAddress = null)
+	public function AdminBrandingGenerateClientSpkDsm6(string $SelfAddress = null): string
 	{
 		if ($SelfAddress === null) {
 			$SelfAddress = $this->server_url;
@@ -522,7 +522,7 @@ class Server {
 	 * @return string 
 	 * @throws \Exception
 	 */
-	public function AdminBrandingGenerateClientSpkDsm7($SelfAddress = null)
+	public function AdminBrandingGenerateClientSpkDsm7(string $SelfAddress = null): string
 	{
 		if ($SelfAddress === null) {
 			$SelfAddress = $this->server_url;
@@ -545,7 +545,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminBrandingGenerateClientTest($Platform, $SelfAddress = null)
+	public function AdminBrandingGenerateClientTest(int $Platform, string $SelfAddress = null): \Comet\APIResponseMessage
 	{
 		if ($SelfAddress === null) {
 			$SelfAddress = $this->server_url;
@@ -568,7 +568,7 @@ class Server {
 	 * @return string 
 	 * @throws \Exception
 	 */
-	public function AdminBrandingGenerateClientWindowsAnycpuExe($SelfAddress = null)
+	public function AdminBrandingGenerateClientWindowsAnycpuExe(string $SelfAddress = null): string
 	{
 		if ($SelfAddress === null) {
 			$SelfAddress = $this->server_url;
@@ -591,7 +591,7 @@ class Server {
 	 * @return string 
 	 * @throws \Exception
 	 */
-	public function AdminBrandingGenerateClientWindowsAnycpuZip($SelfAddress = null)
+	public function AdminBrandingGenerateClientWindowsAnycpuZip(string $SelfAddress = null): string
 	{
 		if ($SelfAddress === null) {
 			$SelfAddress = $this->server_url;
@@ -614,7 +614,7 @@ class Server {
 	 * @return string 
 	 * @throws \Exception
 	 */
-	public function AdminBrandingGenerateClientWindowsX8632Exe($SelfAddress = null)
+	public function AdminBrandingGenerateClientWindowsX8632Exe(string $SelfAddress = null): string
 	{
 		if ($SelfAddress === null) {
 			$SelfAddress = $this->server_url;
@@ -637,7 +637,7 @@ class Server {
 	 * @return string 
 	 * @throws \Exception
 	 */
-	public function AdminBrandingGenerateClientWindowsX8632Zip($SelfAddress = null)
+	public function AdminBrandingGenerateClientWindowsX8632Zip(string $SelfAddress = null): string
 	{
 		if ($SelfAddress === null) {
 			$SelfAddress = $this->server_url;
@@ -660,7 +660,7 @@ class Server {
 	 * @return string 
 	 * @throws \Exception
 	 */
-	public function AdminBrandingGenerateClientWindowsX8664Exe($SelfAddress = null)
+	public function AdminBrandingGenerateClientWindowsX8664Exe(string $SelfAddress = null): string
 	{
 		if ($SelfAddress === null) {
 			$SelfAddress = $this->server_url;
@@ -683,7 +683,7 @@ class Server {
 	 * @return string 
 	 * @throws \Exception
 	 */
-	public function AdminBrandingGenerateClientWindowsX8664Zip($SelfAddress = null)
+	public function AdminBrandingGenerateClientWindowsX8664Zip(string $SelfAddress = null): string
 	{
 		if ($SelfAddress === null) {
 			$SelfAddress = $this->server_url;
@@ -705,7 +705,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminBulletinSubmit($Subject, $Content)
+	public function AdminBulletinSubmit(string $Subject, string $Content): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminBulletinSubmitRequest($Subject, $Content);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -722,7 +722,7 @@ class Server {
 	 * @return \Comet\ConstellationCheckReport 
 	 * @throws \Exception
 	 */
-	public function AdminConstellationLastReport()
+	public function AdminConstellationLastReport(): \Comet\ConstellationCheckReport
 	{
 		$nr = new \Comet\AdminConstellationLastReportRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -739,7 +739,7 @@ class Server {
 	 * @return \Comet\ConstellationCheckReport 
 	 * @throws \Exception
 	 */
-	public function AdminConstellationNewReport()
+	public function AdminConstellationNewReport(): \Comet\ConstellationCheckReport
 	{
 		$nr = new \Comet\AdminConstellationNewReportRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -756,7 +756,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminConstellationPruneNow()
+	public function AdminConstellationPruneNow(): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminConstellationPruneNowRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -773,7 +773,7 @@ class Server {
 	 * @return \Comet\ConstellationStatusAPIResponse 
 	 * @throws \Exception
 	 */
-	public function AdminConstellationStatus()
+	public function AdminConstellationStatus(): \Comet\ConstellationStatusAPIResponse
 	{
 		$nr = new \Comet\AdminConstellationStatusRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -795,7 +795,7 @@ class Server {
 	 * @return \Comet\InstallTokenResponse 
 	 * @throws \Exception
 	 */
-	public function AdminCreateInstallToken($TargetUser, $TargetPassword, $Server = null)
+	public function AdminCreateInstallToken(string $TargetUser, string $TargetPassword, string $Server = null): \Comet\InstallTokenResponse
 	{
 		$nr = new \Comet\AdminCreateInstallTokenRequest($TargetUser, $TargetPassword, $Server);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -817,7 +817,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminDeleteUser($TargetUser, UninstallConfig $UninstallConfig = null)
+	public function AdminDeleteUser(string $TargetUser, \Comet\UninstallConfig $UninstallConfig = null): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminDeleteUserRequest($TargetUser, $UninstallConfig);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -834,7 +834,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminDisableUserTotp($TargetUser)
+	public function AdminDisableUserTotp(string $TargetUser): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminDisableUserTotpRequest($TargetUser);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -853,7 +853,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherApplyRetentionRules($TargetID, $Destination)
+	public function AdminDispatcherApplyRetentionRules(string $TargetID, string $Destination): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminDispatcherApplyRetentionRulesRequest($TargetID, $Destination);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -872,7 +872,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherDeepverifyStorageVault($TargetID, $Destination)
+	public function AdminDispatcherDeepverifyStorageVault(string $TargetID, string $Destination): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminDispatcherDeepverifyStorageVaultRequest($TargetID, $Destination);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -891,7 +891,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherDeleteSnapshot($TargetID, $DestinationID, $SnapshotID)
+	public function AdminDispatcherDeleteSnapshot(string $TargetID, string $DestinationID, string $SnapshotID): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminDispatcherDeleteSnapshotRequest($TargetID, $DestinationID, $SnapshotID);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -911,7 +911,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherDeleteSnapshots($TargetID, $DestinationID, array $SnapshotIDs)
+	public function AdminDispatcherDeleteSnapshots(string $TargetID, string $DestinationID, array $SnapshotIDs): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminDispatcherDeleteSnapshotsRequest($TargetID, $DestinationID, $SnapshotIDs);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -929,7 +929,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherDropConnection($TargetID)
+	public function AdminDispatcherDropConnection(string $TargetID): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminDispatcherDropConnectionRequest($TargetID);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -950,7 +950,7 @@ class Server {
 	 * @return \Comet\EmailReportGeneratedPreview 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherEmailPreview($TargetID, $Snapshot, $Destination, $Path)
+	public function AdminDispatcherEmailPreview(string $TargetID, string $Snapshot, string $Destination, string $Path): \Comet\EmailReportGeneratedPreview
 	{
 		$nr = new \Comet\AdminDispatcherEmailPreviewRequest($TargetID, $Snapshot, $Destination, $Path);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -969,7 +969,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherImportApply($TargetID, $ImportSourceID)
+	public function AdminDispatcherImportApply(string $TargetID, string $ImportSourceID): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminDispatcherImportApplyRequest($TargetID, $ImportSourceID);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -987,7 +987,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherKillProcess($TargetID)
+	public function AdminDispatcherKillProcess(string $TargetID): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminDispatcherKillProcessRequest($TargetID);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1003,7 +1003,7 @@ class Server {
 	 * @return \Comet\LiveUserConnection[] An array with string keys. 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherListActive()
+	public function AdminDispatcherListActive(): array
 	{
 		$nr = new \Comet\AdminDispatcherListActiveRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1022,7 +1022,7 @@ class Server {
 	 * @return \Comet\BrowseOffice365ListVirtualAccountsResponse 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherOffice365ListVirtualAccounts($TargetID, Office365Credential $Credentials)
+	public function AdminDispatcherOffice365ListVirtualAccounts(string $TargetID, \Comet\Office365Credential $Credentials): \Comet\BrowseOffice365ListVirtualAccountsResponse
 	{
 		$nr = new \Comet\AdminDispatcherOffice365ListVirtualAccountsRequest($TargetID, $Credentials);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1040,7 +1040,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherPingDestination($TargetID, DestinationLocation $ExtraData)
+	public function AdminDispatcherPingDestination(string $TargetID, \Comet\DestinationLocation $ExtraData): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminDispatcherPingDestinationRequest($TargetID, $ExtraData);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1058,7 +1058,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherRefetchProfile($TargetID)
+	public function AdminDispatcherRefetchProfile(string $TargetID): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminDispatcherRefetchProfileRequest($TargetID);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1077,7 +1077,7 @@ class Server {
 	 * @return \Comet\RegisterOfficeApplicationBeginResponse 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherRegisterOfficeApplicationBegin($TargetID, $EmailAddress)
+	public function AdminDispatcherRegisterOfficeApplicationBegin(string $TargetID, string $EmailAddress): \Comet\RegisterOfficeApplicationBeginResponse
 	{
 		$nr = new \Comet\AdminDispatcherRegisterOfficeApplicationBeginRequest($TargetID, $EmailAddress);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1096,7 +1096,7 @@ class Server {
 	 * @return \Comet\RegisterOfficeApplicationCheckResponse 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherRegisterOfficeApplicationCheck($TargetID, $Continuation)
+	public function AdminDispatcherRegisterOfficeApplicationCheck(string $TargetID, string $Continuation): \Comet\RegisterOfficeApplicationCheckResponse
 	{
 		$nr = new \Comet\AdminDispatcherRegisterOfficeApplicationCheckRequest($TargetID, $Continuation);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1115,7 +1115,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherReindexStorageVault($TargetID, $Destination)
+	public function AdminDispatcherReindexStorageVault(string $TargetID, string $Destination): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminDispatcherReindexStorageVaultRequest($TargetID, $Destination);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1132,7 +1132,7 @@ class Server {
 	 * @return \Comet\BrowseDiskDrivesResponse 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherRequestBrowseDiskDrives($TargetID)
+	public function AdminDispatcherRequestBrowseDiskDrives(string $TargetID): \Comet\BrowseDiskDrivesResponse
 	{
 		$nr = new \Comet\AdminDispatcherRequestBrowseDiskDrivesRequest($TargetID);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1149,7 +1149,7 @@ class Server {
 	 * @return \Comet\BrowseEDBResponse 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherRequestBrowseExchangeEdb($TargetID)
+	public function AdminDispatcherRequestBrowseExchangeEdb(string $TargetID): \Comet\BrowseEDBResponse
 	{
 		$nr = new \Comet\AdminDispatcherRequestBrowseExchangeEdbRequest($TargetID);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1166,7 +1166,7 @@ class Server {
 	 * @return \Comet\BrowseHVResponse 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherRequestBrowseHyperv($TargetID)
+	public function AdminDispatcherRequestBrowseHyperv(string $TargetID): \Comet\BrowseHVResponse
 	{
 		$nr = new \Comet\AdminDispatcherRequestBrowseHypervRequest($TargetID);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1185,7 +1185,7 @@ class Server {
 	 * @return \Comet\BrowseSQLServerResponse 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherRequestBrowseMongodb($TargetID, MongoDBConnection $Credentials)
+	public function AdminDispatcherRequestBrowseMongodb(string $TargetID, \Comet\MongoDBConnection $Credentials): \Comet\BrowseSQLServerResponse
 	{
 		$nr = new \Comet\AdminDispatcherRequestBrowseMongodbRequest($TargetID, $Credentials);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1204,7 +1204,7 @@ class Server {
 	 * @return \Comet\BrowseSQLServerResponse 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherRequestBrowseMssql($TargetID, MSSQLConnection $Credentials)
+	public function AdminDispatcherRequestBrowseMssql(string $TargetID, \Comet\MSSQLConnection $Credentials): \Comet\BrowseSQLServerResponse
 	{
 		$nr = new \Comet\AdminDispatcherRequestBrowseMssqlRequest($TargetID, $Credentials);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1223,7 +1223,7 @@ class Server {
 	 * @return \Comet\BrowseSQLServerResponse 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherRequestBrowseMysql($TargetID, MySQLConnection $Credentials)
+	public function AdminDispatcherRequestBrowseMysql(string $TargetID, \Comet\MySQLConnection $Credentials): \Comet\BrowseSQLServerResponse
 	{
 		$nr = new \Comet\AdminDispatcherRequestBrowseMysqlRequest($TargetID, $Credentials);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1240,7 +1240,7 @@ class Server {
 	 * @return \Comet\BrowseVSSResponse 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherRequestBrowseVssAaw($TargetID)
+	public function AdminDispatcherRequestBrowseVssAaw(string $TargetID): \Comet\BrowseVSSResponse
 	{
 		$nr = new \Comet\AdminDispatcherRequestBrowseVssAawRequest($TargetID);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1259,7 +1259,7 @@ class Server {
 	 * @return \Comet\DispatcherStoredObjectsResponse 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherRequestFilesystemObjects($TargetID, $Path = null)
+	public function AdminDispatcherRequestFilesystemObjects(string $TargetID, string $Path = null): \Comet\DispatcherStoredObjectsResponse
 	{
 		$nr = new \Comet\AdminDispatcherRequestFilesystemObjectsRequest($TargetID, $Path);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1276,7 +1276,7 @@ class Server {
 	 * @return \Comet\DispatcherAdminSourcesResponse 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherRequestImportSources($TargetID)
+	public function AdminDispatcherRequestImportSources(string $TargetID): \Comet\DispatcherAdminSourcesResponse
 	{
 		$nr = new \Comet\AdminDispatcherRequestImportSourcesRequest($TargetID);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1295,7 +1295,7 @@ class Server {
 	 * @return \Comet\BrowseOffice365ObjectsResponse 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherRequestOffice365Accounts($TargetID, Office365Credential $Credentials)
+	public function AdminDispatcherRequestOffice365Accounts(string $TargetID, \Comet\Office365Credential $Credentials): \Comet\BrowseOffice365ObjectsResponse
 	{
 		$nr = new \Comet\AdminDispatcherRequestOffice365AccountsRequest($TargetID, $Credentials);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1314,7 +1314,7 @@ class Server {
 	 * @return \Comet\BrowseOffice365ObjectsResponse 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherRequestOffice365Sites($TargetID, Office365Credential $Credentials)
+	public function AdminDispatcherRequestOffice365Sites(string $TargetID, \Comet\Office365Credential $Credentials): \Comet\BrowseOffice365ObjectsResponse
 	{
 		$nr = new \Comet\AdminDispatcherRequestOffice365SitesRequest($TargetID, $Credentials);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1337,7 +1337,7 @@ class Server {
 	 * @return \Comet\DispatcherStoredObjectsResponse 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherRequestStoredObjects($TargetID, $Destination, $SnapshotID, $TreeID = null, VMDKSnapshotViewOptions $Options = null)
+	public function AdminDispatcherRequestStoredObjects(string $TargetID, string $Destination, string $SnapshotID, string $TreeID = null, \Comet\VMDKSnapshotViewOptions $Options = null): \Comet\DispatcherStoredObjectsResponse
 	{
 		$nr = new \Comet\AdminDispatcherRequestStoredObjectsRequest($TargetID, $Destination, $SnapshotID, $TreeID, $Options);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1355,7 +1355,7 @@ class Server {
 	 * @return \Comet\DispatcherVaultSnapshotsResponse 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherRequestVaultSnapshots($TargetID, $Destination)
+	public function AdminDispatcherRequestVaultSnapshots(string $TargetID, string $Destination): \Comet\DispatcherVaultSnapshotsResponse
 	{
 		$nr = new \Comet\AdminDispatcherRequestVaultSnapshotsRequest($TargetID, $Destination);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1374,7 +1374,7 @@ class Server {
 	 * @return \Comet\DispatcherWindiskSnapshotResponse 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherRequestWindiskSnapshot($TargetID, $Destination, $SnapshotID)
+	public function AdminDispatcherRequestWindiskSnapshot(string $TargetID, string $Destination, string $SnapshotID): \Comet\DispatcherWindiskSnapshotResponse
 	{
 		$nr = new \Comet\AdminDispatcherRequestWindiskSnapshotRequest($TargetID, $Destination, $SnapshotID);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1392,7 +1392,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherRunBackup($TargetID, $BackupRule)
+	public function AdminDispatcherRunBackup(string $TargetID, string $BackupRule): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminDispatcherRunBackupRequest($TargetID, $BackupRule);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1412,7 +1412,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherRunBackupCustom($TargetID, $Source, $Destination, BackupJobAdvancedOptions $Options = null)
+	public function AdminDispatcherRunBackupCustom(string $TargetID, string $Source, string $Destination, \Comet\BackupJobAdvancedOptions $Options = null): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminDispatcherRunBackupCustomRequest($TargetID, $Source, $Destination, $Options);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1435,7 +1435,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherRunRestore($TargetID, $Path, $Source, $Destination, $Snapshot = null, array $Paths = null)
+	public function AdminDispatcherRunRestore(string $TargetID, string $Path, string $Source, string $Destination, string $Snapshot = null, array $Paths = null): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminDispatcherRunRestoreRequest($TargetID, $Path, $Source, $Destination, $Snapshot, $Paths);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1458,7 +1458,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherRunRestoreCustom($TargetID, $Source, $Destination, RestoreJobAdvancedOptions $Options, $Snapshot = null, array $Paths = null)
+	public function AdminDispatcherRunRestoreCustom(string $TargetID, string $Source, string $Destination, \Comet\RestoreJobAdvancedOptions $Options, string $Snapshot = null, array $Paths = null): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminDispatcherRunRestoreCustomRequest($TargetID, $Source, $Destination, $Options, $Snapshot, $Paths);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1476,7 +1476,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherUninstallSoftware($TargetID, $RemoveConfigFile)
+	public function AdminDispatcherUninstallSoftware(string $TargetID, bool $RemoveConfigFile): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminDispatcherUninstallSoftwareRequest($TargetID, $RemoveConfigFile);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1496,7 +1496,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherUnlock($TargetID, $Destination)
+	public function AdminDispatcherUnlock(string $TargetID, string $Destination): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminDispatcherUnlockRequest($TargetID, $Destination);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1515,7 +1515,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherUpdateLoginUrl($TargetID, $NewURL)
+	public function AdminDispatcherUpdateLoginUrl(string $TargetID, string $NewURL): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminDispatcherUpdateLoginUrlRequest($TargetID, $NewURL);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1534,7 +1534,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherUpdateSoftware($TargetID, $SelfAddress = null)
+	public function AdminDispatcherUpdateSoftware(string $TargetID, string $SelfAddress = null): \Comet\APIResponseMessage
 	{
 		if ($SelfAddress === null) {
 			$SelfAddress = $this->server_url;
@@ -1555,7 +1555,7 @@ class Server {
 	 * @return string 
 	 * @throws \Exception
 	 */
-	public function AdminGetJobLog($JobID)
+	public function AdminGetJobLog(string $JobID): string
 	{
 		$nr = new \Comet\AdminGetJobLogRequest($JobID);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1572,7 +1572,7 @@ class Server {
 	 * @return \Comet\JobEntry[] 
 	 * @throws \Exception
 	 */
-	public function AdminGetJobLogEntries($JobID)
+	public function AdminGetJobLogEntries(string $JobID): array
 	{
 		$nr = new \Comet\AdminGetJobLogEntriesRequest($JobID);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1589,7 +1589,7 @@ class Server {
 	 * @return \Comet\BackupJobDetail 
 	 * @throws \Exception
 	 */
-	public function AdminGetJobProperties($JobID)
+	public function AdminGetJobProperties(string $JobID): \Comet\BackupJobDetail
 	{
 		$nr = new \Comet\AdminGetJobPropertiesRequest($JobID);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1606,7 +1606,7 @@ class Server {
 	 * @return \Comet\BackupJobDetail[] 
 	 * @throws \Exception
 	 */
-	public function AdminGetJobsAll()
+	public function AdminGetJobsAll(): array
 	{
 		$nr = new \Comet\AdminGetJobsAllRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1624,7 +1624,7 @@ class Server {
 	 * @return \Comet\BackupJobDetail[] 
 	 * @throws \Exception
 	 */
-	public function AdminGetJobsForCustomSearch(SearchClause $Query)
+	public function AdminGetJobsForCustomSearch(\Comet\SearchClause $Query): array
 	{
 		$nr = new \Comet\AdminGetJobsForCustomSearchRequest($Query);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1651,7 +1651,7 @@ class Server {
 	 * @return \Comet\BackupJobDetail[] 
 	 * @throws \Exception
 	 */
-	public function AdminGetJobsForDateRange($Start, $End)
+	public function AdminGetJobsForDateRange(int $Start, int $End): array
 	{
 		$nr = new \Comet\AdminGetJobsForDateRangeRequest($Start, $End);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1669,7 +1669,7 @@ class Server {
 	 * @return \Comet\BackupJobDetail[] 
 	 * @throws \Exception
 	 */
-	public function AdminGetJobsForUser($TargetUser)
+	public function AdminGetJobsForUser(string $TargetUser): array
 	{
 		$nr = new \Comet\AdminGetJobsForUserRequest($TargetUser);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1686,7 +1686,7 @@ class Server {
 	 * @return \Comet\BackupJobDetail[] 
 	 * @throws \Exception
 	 */
-	public function AdminGetJobsRecent()
+	public function AdminGetJobsRecent(): array
 	{
 		$nr = new \Comet\AdminGetJobsRecentRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1703,7 +1703,7 @@ class Server {
 	 * @return \Comet\UserProfileConfig 
 	 * @throws \Exception
 	 */
-	public function AdminGetUserProfile($TargetUser)
+	public function AdminGetUserProfile(string $TargetUser): \Comet\UserProfileConfig
 	{
 		$nr = new \Comet\AdminGetUserProfileRequest($TargetUser);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1722,7 +1722,7 @@ class Server {
 	 * @return \Comet\GetProfileAndHashResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminGetUserProfileAndHash($TargetUser)
+	public function AdminGetUserProfileAndHash(string $TargetUser): \Comet\GetProfileAndHashResponseMessage
 	{
 		$nr = new \Comet\AdminGetUserProfileAndHashRequest($TargetUser);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1741,7 +1741,7 @@ class Server {
 	 * @return \Comet\GetProfileHashResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminGetUserProfileHash($TargetUser)
+	public function AdminGetUserProfileHash(string $TargetUser): \Comet\GetProfileHashResponseMessage
 	{
 		$nr = new \Comet\AdminGetUserProfileHashRequest($TargetUser);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1762,7 +1762,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminJobCancel($TargetUser, $JobID)
+	public function AdminJobCancel(string $TargetUser, string $JobID): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminJobCancelRequest($TargetUser, $JobID);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1778,7 +1778,7 @@ class Server {
 	 * @return string[] 
 	 * @throws \Exception
 	 */
-	public function AdminListUsers()
+	public function AdminListUsers(): array
 	{
 		$nr = new \Comet\AdminListUsersRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1794,7 +1794,7 @@ class Server {
 	 * @return \Comet\UserProfileConfig[] An array with string keys. 
 	 * @throws \Exception
 	 */
-	public function AdminListUsersFull()
+	public function AdminListUsersFull(): array
 	{
 		$nr = new \Comet\AdminListUsersFullRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1810,7 +1810,7 @@ class Server {
 	 * @return \Comet\ServerConfigOptionsBrandingFragment 
 	 * @throws \Exception
 	 */
-	public function AdminMetaBrandingConfigGet()
+	public function AdminMetaBrandingConfigGet(): \Comet\ServerConfigOptionsBrandingFragment
 	{
 		$nr = new \Comet\AdminMetaBrandingConfigGetRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1828,7 +1828,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminMetaBrandingConfigSet(BrandingOptions $BrandingConfig)
+	public function AdminMetaBrandingConfigSet(\Comet\BrandingOptions $BrandingConfig): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminMetaBrandingConfigSetRequest($BrandingConfig);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1844,7 +1844,7 @@ class Server {
 	 * @return \Comet\ServerConfigOptionsSoftwareBuildRoleFragment 
 	 * @throws \Exception
 	 */
-	public function AdminMetaBuildConfigGet()
+	public function AdminMetaBuildConfigGet(): \Comet\ServerConfigOptionsSoftwareBuildRoleFragment
 	{
 		$nr = new \Comet\AdminMetaBuildConfigGetRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1861,7 +1861,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminMetaBuildConfigSet(SoftwareBuildRoleOptions $SoftwareBuildRoleConfig)
+	public function AdminMetaBuildConfigSet(\Comet\SoftwareBuildRoleOptions $SoftwareBuildRoleConfig): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminMetaBuildConfigSetRequest($SoftwareBuildRoleConfig);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1877,7 +1877,7 @@ class Server {
 	 * @return int[] 
 	 * @throws \Exception
 	 */
-	public function AdminMetaListAvailableLogDays()
+	public function AdminMetaListAvailableLogDays(): array
 	{
 		$nr = new \Comet\AdminMetaListAvailableLogDaysRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1895,7 +1895,7 @@ class Server {
 	 * @return string 
 	 * @throws \Exception
 	 */
-	public function AdminMetaReadAllLogs()
+	public function AdminMetaReadAllLogs(): string
 	{
 		$nr = new \Comet\AdminMetaReadAllLogsRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1914,7 +1914,7 @@ class Server {
 	 * @return string 
 	 * @throws \Exception
 	 */
-	public function AdminMetaReadLogs($Log)
+	public function AdminMetaReadLogs(int $Log): string
 	{
 		$nr = new \Comet\AdminMetaReadLogsRequest($Log);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1930,7 +1930,7 @@ class Server {
 	 * @return \Comet\RemoteStorageOption[] 
 	 * @throws \Exception
 	 */
-	public function AdminMetaRemoteStorageVaultGet()
+	public function AdminMetaRemoteStorageVaultGet(): array
 	{
 		$nr = new \Comet\AdminMetaRemoteStorageVaultGetRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1938,7 +1938,7 @@ class Server {
 	}
 
 	/** 
-	 * Set Requestable Remote Storage Vault options
+	 * Set Storage template vault options
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * Access to this API may be prevented on a per-administrator basis.
@@ -1947,7 +1947,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminMetaRemoteStorageVaultSet(array $RemoteStorageOptions)
+	public function AdminMetaRemoteStorageVaultSet(array $RemoteStorageOptions): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminMetaRemoteStorageVaultSetRequest($RemoteStorageOptions);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1964,7 +1964,7 @@ class Server {
 	 * @return string 
 	 * @throws \Exception
 	 */
-	public function AdminMetaResourceGet($Hash)
+	public function AdminMetaResourceGet(string $Hash): string
 	{
 		$nr = new \Comet\AdminMetaResourceGetRequest($Hash);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1983,7 +1983,7 @@ class Server {
 	 * @return \Comet\AdminResourceResponse 
 	 * @throws \Exception
 	 */
-	public function AdminMetaResourceNew($upload)
+	public function AdminMetaResourceNew(string $upload): \Comet\AdminResourceResponse
 	{
 		$nr = new \Comet\AdminMetaResourceNewRequest($upload);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2003,7 +2003,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminMetaRestartService()
+	public function AdminMetaRestartService(): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminMetaRestartServiceRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2023,7 +2023,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminMetaSendTestEmail(EmailOptions $EmailOptions, $Recipient)
+	public function AdminMetaSendTestEmail(\Comet\EmailOptions $EmailOptions, string $Recipient): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminMetaSendTestEmailRequest($EmailOptions, $Recipient);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2040,7 +2040,7 @@ class Server {
 	 * @return \Comet\ServerConfigOptions 
 	 * @throws \Exception
 	 */
-	public function AdminMetaServerConfigGet()
+	public function AdminMetaServerConfigGet(): \Comet\ServerConfigOptions
 	{
 		$nr = new \Comet\AdminMetaServerConfigGetRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2058,7 +2058,7 @@ class Server {
 	 * @return string[] 
 	 * @throws \Exception
 	 */
-	public function AdminMetaServerConfigNetworkInterfaces()
+	public function AdminMetaServerConfigNetworkInterfaces(): array
 	{
 		$nr = new \Comet\AdminMetaServerConfigNetworkInterfacesRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2079,7 +2079,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminMetaServerConfigSet(ServerConfigOptions $Config)
+	public function AdminMetaServerConfigSet(\Comet\ServerConfigOptions $Config): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminMetaServerConfigSetRequest($Config);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2099,7 +2099,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminMetaShutdownService()
+	public function AdminMetaShutdownService(): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminMetaShutdownServiceRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2114,7 +2114,7 @@ class Server {
 	 * @return \Comet\SoftwareUpdateNewsResponse 
 	 * @throws \Exception
 	 */
-	public function AdminMetaSoftwareUpdateNews()
+	public function AdminMetaSoftwareUpdateNews(): \Comet\SoftwareUpdateNewsResponse
 	{
 		$nr = new \Comet\AdminMetaSoftwareUpdateNewsRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2131,7 +2131,7 @@ class Server {
 	 * @return \Comet\StatResult[] An array with int keys. 
 	 * @throws \Exception
 	 */
-	public function AdminMetaStats($Simple)
+	public function AdminMetaStats(bool $Simple): array
 	{
 		$nr = new \Comet\AdminMetaStatsRequest($Simple);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2147,7 +2147,7 @@ class Server {
 	 * @return \Comet\ServerMetaVersionInfo 
 	 * @throws \Exception
 	 */
-	public function AdminMetaVersion()
+	public function AdminMetaVersion(): \Comet\ServerMetaVersionInfo
 	{
 		$nr = new \Comet\AdminMetaVersionRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2162,7 +2162,7 @@ class Server {
 	 * @return \Comet\WebhookOption[] An array with string keys. 
 	 * @throws \Exception
 	 */
-	public function AdminMetaWebhookOptionsGet()
+	public function AdminMetaWebhookOptionsGet(): array
 	{
 		$nr = new \Comet\AdminMetaWebhookOptionsGetRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2179,7 +2179,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminMetaWebhookOptionsSet(array $WebhookOptions)
+	public function AdminMetaWebhookOptionsSet(array $WebhookOptions): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminMetaWebhookOptionsSetRequest($WebhookOptions);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2195,7 +2195,7 @@ class Server {
 	 * @return \Comet\NewsEntry[] An array with string keys. 
 	 * @throws \Exception
 	 */
-	public function AdminNewsGetAll()
+	public function AdminNewsGetAll(): array
 	{
 		$nr = new \Comet\AdminNewsGetAllRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2212,7 +2212,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminNewsRemove($NewsItem)
+	public function AdminNewsRemove(string $NewsItem): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminNewsRemoveRequest($NewsItem);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2229,7 +2229,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminNewsSubmit($NewsContent)
+	public function AdminNewsSubmit(string $NewsContent): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminNewsSubmitRequest($NewsContent);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2249,7 +2249,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminOrganizationDelete($OrganizationID = null, UninstallConfig $UninstallConfig = null)
+	public function AdminOrganizationDelete(string $OrganizationID = null, \Comet\UninstallConfig $UninstallConfig = null): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminOrganizationDeleteRequest($OrganizationID, $UninstallConfig);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2265,7 +2265,7 @@ class Server {
 	 * @return \Comet\Organization[] An array with string keys. 
 	 * @throws \Exception
 	 */
-	public function AdminOrganizationList()
+	public function AdminOrganizationList(): array
 	{
 		$nr = new \Comet\AdminOrganizationListRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2285,7 +2285,7 @@ class Server {
 	 * @return \Comet\OrganizationResponse 
 	 * @throws \Exception
 	 */
-	public function AdminOrganizationSet($OrganizationID = null, Organization $Organization = null)
+	public function AdminOrganizationSet(string $OrganizationID = null, \Comet\Organization $Organization = null): \Comet\OrganizationResponse
 	{
 		$nr = new \Comet\AdminOrganizationSetRequest($OrganizationID, $Organization);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2302,7 +2302,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminPoliciesDelete($PolicyID)
+	public function AdminPoliciesDelete(string $PolicyID): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminPoliciesDeleteRequest($PolicyID);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2320,7 +2320,7 @@ class Server {
 	 * @return \Comet\GetGroupPolicyResponse 
 	 * @throws \Exception
 	 */
-	public function AdminPoliciesGet($PolicyID)
+	public function AdminPoliciesGet(string $PolicyID): \Comet\GetGroupPolicyResponse
 	{
 		$nr = new \Comet\AdminPoliciesGetRequest($PolicyID);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2338,7 +2338,7 @@ class Server {
 	 * @return string[] An array with string keys. 
 	 * @throws \Exception
 	 */
-	public function AdminPoliciesList($TargetOrganization = null)
+	public function AdminPoliciesList(string $TargetOrganization = null): array
 	{
 		$nr = new \Comet\AdminPoliciesListRequest($TargetOrganization);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2356,7 +2356,7 @@ class Server {
 	 * @return \Comet\GroupPolicy[] An array with string keys. 
 	 * @throws \Exception
 	 */
-	public function AdminPoliciesListFull($TargetOrganization = null)
+	public function AdminPoliciesListFull(string $TargetOrganization = null): array
 	{
 		$nr = new \Comet\AdminPoliciesListFullRequest($TargetOrganization);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2373,7 +2373,7 @@ class Server {
 	 * @return \Comet\CreateGroupPolicyResponse 
 	 * @throws \Exception
 	 */
-	public function AdminPoliciesNew(GroupPolicy $Policy)
+	public function AdminPoliciesNew(\Comet\GroupPolicy $Policy): \Comet\CreateGroupPolicyResponse
 	{
 		$nr = new \Comet\AdminPoliciesNewRequest($Policy);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2394,7 +2394,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminPoliciesSet($PolicyID, GroupPolicy $Policy, $CheckPolicyHash = null)
+	public function AdminPoliciesSet(string $PolicyID, \Comet\GroupPolicy $Policy, string $CheckPolicyHash = null): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminPoliciesSetRequest($PolicyID, $Policy, $CheckPolicyHash);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2413,7 +2413,7 @@ class Server {
 	 * @return \Comet\EmailReportGeneratedPreview 
 	 * @throws \Exception
 	 */
-	public function AdminPreviewUserEmailReport($TargetUser, EmailReportConfig $EmailReportConfig, $EmailAddress = null)
+	public function AdminPreviewUserEmailReport(string $TargetUser, \Comet\EmailReportConfig $EmailReportConfig, string $EmailAddress = null): \Comet\EmailReportGeneratedPreview
 	{
 		$nr = new \Comet\AdminPreviewUserEmailReportRequest($TargetUser, $EmailReportConfig, $EmailAddress);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2429,7 +2429,7 @@ class Server {
 	 * @return \Comet\ReplicatorStateAPIResponse[] 
 	 * @throws \Exception
 	 */
-	public function AdminReplicationState()
+	public function AdminReplicationState(): array
 	{
 		$nr = new \Comet\AdminReplicationStateRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2446,12 +2446,12 @@ class Server {
 	 * This API requires the Auth Role to be enabled.
 	 *
 	 * @param string $TargetUser The user to receive the new Storage Vault
-	 * @param string $StorageProvider ID for the Requestable destination
+	 * @param string $StorageProvider ID for the storage template destination
 	 * @param string $SelfAddress The external URL for this server. Used to resolve conflicts (optional)
 	 * @return \Comet\RequestStorageVaultResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminRequestStorageVault($TargetUser, $StorageProvider, $SelfAddress = null)
+	public function AdminRequestStorageVault(string $TargetUser, string $StorageProvider, string $SelfAddress = null): \Comet\RequestStorageVaultResponseMessage
 	{
 		if ($SelfAddress === null) {
 			$SelfAddress = $this->server_url;
@@ -2468,11 +2468,11 @@ class Server {
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
 	 *
-	 * @param string $TargetOrganization If present, list the requestable Storage Vault options belonging to another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.3.7) (optional)
+	 * @param string $TargetOrganization If present, list the storage template options belonging to another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.3.7) (optional)
 	 * @return string[] An array with string keys. 
 	 * @throws \Exception
 	 */
-	public function AdminRequestStorageVaultProviders($TargetOrganization = null)
+	public function AdminRequestStorageVaultProviders(string $TargetOrganization = null): array
 	{
 		$nr = new \Comet\AdminRequestStorageVaultProvidersRequest($TargetOrganization);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2492,7 +2492,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminResetUserPassword($TargetUser, $NewPassword, $OldPassword)
+	public function AdminResetUserPassword(string $TargetUser, string $NewPassword, string $OldPassword): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminResetUserPasswordRequest($TargetUser, $NewPassword, $OldPassword);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2511,7 +2511,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminRevokeDevice($TargetUser, $TargetDevice)
+	public function AdminRevokeDevice(string $TargetUser, string $TargetDevice): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminRevokeDeviceRequest($TargetUser, $TargetDevice);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2529,7 +2529,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminSetUserProfile($TargetUser, UserProfileConfig $ProfileData)
+	public function AdminSetUserProfile(string $TargetUser, \Comet\UserProfileConfig $ProfileData): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminSetUserProfileRequest($TargetUser, $ProfileData);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2550,7 +2550,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminSetUserProfileHash($TargetUser, UserProfileConfig $ProfileData, $RequireHash)
+	public function AdminSetUserProfileHash(string $TargetUser, \Comet\UserProfileConfig $ProfileData, string $RequireHash): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminSetUserProfileHashRequest($TargetUser, $ProfileData, $RequireHash);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2569,7 +2569,7 @@ class Server {
 	 * @return \Comet\BucketProperties 
 	 * @throws \Exception
 	 */
-	public function AdminStorageBucketProperties($BucketID, $AfterTimestamp = null)
+	public function AdminStorageBucketProperties(string $BucketID, int $AfterTimestamp = null): \Comet\BucketProperties
 	{
 		$nr = new \Comet\AdminStorageBucketPropertiesRequest($BucketID, $AfterTimestamp);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2587,7 +2587,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminStorageDeleteBucket($BucketID)
+	public function AdminStorageDeleteBucket(string $BucketID): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminStorageDeleteBucketRequest($BucketID);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2606,7 +2606,7 @@ class Server {
 	 * @return \Comet\StorageFreeSpaceInfo 
 	 * @throws \Exception
 	 */
-	public function AdminStorageFreeSpace($BucketID = null)
+	public function AdminStorageFreeSpace(string $BucketID = null): \Comet\StorageFreeSpaceInfo
 	{
 		$nr = new \Comet\AdminStorageFreeSpaceRequest($BucketID);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2622,7 +2622,7 @@ class Server {
 	 * @return \Comet\BucketProperties[] An array with string keys. 
 	 * @throws \Exception
 	 */
-	public function AdminStorageListBuckets()
+	public function AdminStorageListBuckets(): array
 	{
 		$nr = new \Comet\AdminStorageListBucketsRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2641,7 +2641,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminStoragePingDestination(DestinationLocation $ExtraData)
+	public function AdminStoragePingDestination(\Comet\DestinationLocation $ExtraData): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminStoragePingDestinationRequest($ExtraData);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2663,7 +2663,7 @@ class Server {
 	 * @return \Comet\AddBucketResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminStorageRegisterBucket($SetBucketValue = null, $SetKeyHashFormat = null, $SetKeyHashValue = null, $SetOrganizationID = null)
+	public function AdminStorageRegisterBucket(string $SetBucketValue = null, string $SetKeyHashFormat = null, string $SetKeyHashValue = null, string $SetOrganizationID = null): \Comet\AddBucketResponseMessage
 	{
 		$nr = new \Comet\AdminStorageRegisterBucketRequest($SetBucketValue, $SetKeyHashFormat, $SetKeyHashValue, $SetOrganizationID);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2682,7 +2682,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminUpdateCampaignStart(UpdateCampaignOptions $Options)
+	public function AdminUpdateCampaignStart(\Comet\UpdateCampaignOptions $Options): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminUpdateCampaignStartRequest($Options);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2700,7 +2700,7 @@ class Server {
 	 * @return \Comet\UpdateCampaignStatus 
 	 * @throws \Exception
 	 */
-	public function AdminUpdateCampaignStatus()
+	public function AdminUpdateCampaignStatus(): \Comet\UpdateCampaignStatus
 	{
 		$nr = new \Comet\AdminUpdateCampaignStatusRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2713,7 +2713,7 @@ class Server {
 	 * @return \Comet\ServerMetaBrandingProperties 
 	 * @throws \Exception
 	 */
-	public function BrandingProps()
+	public function BrandingProps(): \Comet\ServerMetaBrandingProperties
 	{
 		$nr = new \Comet\BrandingPropsRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2728,7 +2728,7 @@ class Server {
 	 * @return \Comet\SessionKeyRegeneratedResponse 
 	 * @throws \Exception
 	 */
-	public function HybridSessionStart()
+	public function HybridSessionStart(): \Comet\SessionKeyRegeneratedResponse
 	{
 		$nr = new \Comet\HybridSessionStartRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2744,7 +2744,7 @@ class Server {
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function UserWebSessionRevoke()
+	public function UserWebSessionRevoke(): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\UserWebSessionRevokeRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2760,7 +2760,7 @@ class Server {
 	 * @return \Comet\SessionKeyRegeneratedResponse 
 	 * @throws \Exception
 	 */
-	public function UserWebSessionStart()
+	public function UserWebSessionStart(): \Comet\SessionKeyRegeneratedResponse
 	{
 		$nr = new \Comet\UserWebSessionStartRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -2773,7 +2773,7 @@ class Server {
 	 * @param NetworkRequest $nr
 	 * @return \Psr\Http\Message\RequestInterface
 	 */
-	public function AsPSR7(NetworkRequest $nr) {
+	public function AsPSR7(NetworkRequest $nr): \Psr\Http\Message\RequestInterface {
 		$params = $nr->Parameters();
 		
 		$contentType = $nr->ContentType();
@@ -2837,7 +2837,7 @@ class Server {
 	 * @param string $boundary Boundary with leading hyphens
 	 * @return string POST body
 	 */ 
-	protected static function http_build_query_multipart(array $params, $boundary) {
+	protected static function http_build_query_multipart(array $params, string $boundary): string {
 		$ret = '';
 
 		foreach($params as $k => $v) {

@@ -423,7 +423,7 @@ class UserPolicy {
 	 * @param \stdClass $sc Object data as stdClass
 	 * @return UserPolicy
 	 */
-	public static function createFromStdclass(\stdClass $sc)
+	public static function createFromStdclass(\stdClass $sc): \Comet\UserPolicy
 	{
 		$retn = new UserPolicy();
 		$retn->inflateFrom($sc);
@@ -438,7 +438,7 @@ class UserPolicy {
 	 * @param array $arr Object data as PHP array
 	 * @return UserPolicy
 	 */
-	public static function createFromArray(array $arr)
+	public static function createFromArray(array $arr): \Comet\UserPolicy
 	{
 		$stdClass = json_decode(json_encode($arr, JSON_UNESCAPED_SLASHES));
 		if (is_array($stdClass) && count($stdClass) === 0) {
@@ -458,7 +458,7 @@ class UserPolicy {
 	 * @param array $arr Object data as PHP array
 	 * @return UserPolicy
 	 */
-	public static function createFrom(array $arr)
+	public static function createFrom(array $arr): \Comet\UserPolicy
 	{
 		return self::createFromArray($arr);
 	}
@@ -469,7 +469,7 @@ class UserPolicy {
 	 * @param string $JsonString Object data as JSON string
 	 * @return UserPolicy
 	 */
-	public static function createFromJSON($JsonString)
+	public static function createFromJSON(string $JsonString): \Comet\UserPolicy
 	{
 		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
@@ -488,7 +488,7 @@ class UserPolicy {
 	 * @param bool $for_json_encode Represent empty key-value maps as \stdClass instead of plain PHP arrays
 	 * @return array
 	 */
-	public function toArray($for_json_encode = false)
+	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
 		$ret["PreventRequestStorageVault"] = $this->PreventRequestStorageVault;
@@ -630,7 +630,7 @@ class UserPolicy {
 	 *
 	 * @return string
 	 */
-	public function toJSON()
+	public function toJSON(): string
 	{
 		$arr = $this->toArray(true);
 		if (count($arr) === 0) {
@@ -646,7 +646,7 @@ class UserPolicy {
 	 *
 	 * @return \stdClass
 	 */
-	public function toStdClass()
+	public function toStdClass(): \stdClass
 	{
 		$arr = $this->toArray(false);
 		if (count($arr) === 0) {

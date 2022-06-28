@@ -39,7 +39,7 @@ class AdminDispatcherRegisterOfficeApplicationCheckRequest implements \Comet\Net
 	 * @param string $TargetID The live connection GUID
 	 * @param string $Continuation The ID returned from the AdminDispatcherRegisterOfficeApplicationBegin endpoint
 	 */
-	public function __construct($TargetID, $Continuation)
+	public function __construct(string $TargetID, string $Continuation)
 	{
 		$this->TargetID = $TargetID;
 		$this->Continuation = $Continuation;
@@ -50,17 +50,17 @@ class AdminDispatcherRegisterOfficeApplicationCheckRequest implements \Comet\Net
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/dispatcher/register-office-application/check';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -70,7 +70,7 @@ class AdminDispatcherRegisterOfficeApplicationCheckRequest implements \Comet\Net
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["TargetID"] = (string)($this->TargetID);
@@ -87,7 +87,7 @@ class AdminDispatcherRegisterOfficeApplicationCheckRequest implements \Comet\Net
 	 * @return \Comet\RegisterOfficeApplicationCheckResponse
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\RegisterOfficeApplicationCheckResponse
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

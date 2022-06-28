@@ -160,7 +160,7 @@ class SwiftDestinationLocation {
 	 * @param \stdClass $sc Object data as stdClass
 	 * @return SwiftDestinationLocation
 	 */
-	public static function createFromStdclass(\stdClass $sc)
+	public static function createFromStdclass(\stdClass $sc): \Comet\SwiftDestinationLocation
 	{
 		$retn = new SwiftDestinationLocation();
 		$retn->inflateFrom($sc);
@@ -175,7 +175,7 @@ class SwiftDestinationLocation {
 	 * @param array $arr Object data as PHP array
 	 * @return SwiftDestinationLocation
 	 */
-	public static function createFromArray(array $arr)
+	public static function createFromArray(array $arr): \Comet\SwiftDestinationLocation
 	{
 		$stdClass = json_decode(json_encode($arr, JSON_UNESCAPED_SLASHES));
 		if (is_array($stdClass) && count($stdClass) === 0) {
@@ -195,7 +195,7 @@ class SwiftDestinationLocation {
 	 * @param array $arr Object data as PHP array
 	 * @return SwiftDestinationLocation
 	 */
-	public static function createFrom(array $arr)
+	public static function createFrom(array $arr): \Comet\SwiftDestinationLocation
 	{
 		return self::createFromArray($arr);
 	}
@@ -206,7 +206,7 @@ class SwiftDestinationLocation {
 	 * @param string $JsonString Object data as JSON string
 	 * @return SwiftDestinationLocation
 	 */
-	public static function createFromJSON($JsonString)
+	public static function createFromJSON(string $JsonString): \Comet\SwiftDestinationLocation
 	{
 		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
@@ -225,7 +225,7 @@ class SwiftDestinationLocation {
 	 * @param bool $for_json_encode Represent empty key-value maps as \stdClass instead of plain PHP arrays
 	 * @return array
 	 */
-	public function toArray($for_json_encode = false)
+	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
 		$ret["Username"] = $this->Username;
@@ -256,7 +256,7 @@ class SwiftDestinationLocation {
 	 *
 	 * @return string
 	 */
-	public function toJSON()
+	public function toJSON(): string
 	{
 		$arr = $this->toArray(true);
 		if (count($arr) === 0) {
@@ -272,7 +272,7 @@ class SwiftDestinationLocation {
 	 *
 	 * @return \stdClass
 	 */
-	public function toStdClass()
+	public function toStdClass(): \stdClass
 	{
 		$arr = $this->toArray(false);
 		if (count($arr) === 0) {

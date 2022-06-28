@@ -32,7 +32,7 @@ class AdminStorageFreeSpaceRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param string $BucketID (This parameter is not used) (optional)
 	 */
-	public function __construct($BucketID = null)
+	public function __construct(string $BucketID = null)
 	{
 		$this->BucketID = $BucketID;
 	}
@@ -42,17 +42,17 @@ class AdminStorageFreeSpaceRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/storage/free-space';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -62,7 +62,7 @@ class AdminStorageFreeSpaceRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		if ($this->BucketID !== null) {
@@ -80,7 +80,7 @@ class AdminStorageFreeSpaceRequest implements \Comet\NetworkRequest {
 	 * @return \Comet\StorageFreeSpaceInfo
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\StorageFreeSpaceInfo
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

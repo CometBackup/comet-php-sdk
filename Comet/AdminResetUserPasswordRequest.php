@@ -47,7 +47,7 @@ class AdminResetUserPasswordRequest implements \Comet\NetworkRequest {
 	 * @param string $NewPassword New account password
 	 * @param string $OldPassword Old account password (optional)
 	 */
-	public function __construct($TargetUser, $NewPassword, $OldPassword)
+	public function __construct(string $TargetUser, string $NewPassword, string $OldPassword)
 	{
 		$this->TargetUser = $TargetUser;
 		$this->NewPassword = $NewPassword;
@@ -59,17 +59,17 @@ class AdminResetUserPasswordRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/reset-user-password';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -79,7 +79,7 @@ class AdminResetUserPasswordRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["TargetUser"] = (string)($this->TargetUser);
@@ -97,7 +97,7 @@ class AdminResetUserPasswordRequest implements \Comet\NetworkRequest {
 	 * @return \Comet\APIResponseMessage
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\APIResponseMessage
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

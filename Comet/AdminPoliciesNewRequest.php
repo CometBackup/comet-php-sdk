@@ -30,7 +30,7 @@ class AdminPoliciesNewRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param \Comet\GroupPolicy $Policy The policy data
 	 */
-	public function __construct(GroupPolicy $Policy)
+	public function __construct(\Comet\GroupPolicy $Policy)
 	{
 		$this->Policy = $Policy;
 	}
@@ -40,17 +40,17 @@ class AdminPoliciesNewRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/policies/new';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -60,7 +60,7 @@ class AdminPoliciesNewRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["Policy"] = $this->Policy->toJSON();
@@ -76,7 +76,7 @@ class AdminPoliciesNewRequest implements \Comet\NetworkRequest {
 	 * @return \Comet\CreateGroupPolicyResponse
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\CreateGroupPolicyResponse
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

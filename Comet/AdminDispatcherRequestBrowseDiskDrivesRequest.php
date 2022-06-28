@@ -30,7 +30,7 @@ class AdminDispatcherRequestBrowseDiskDrivesRequest implements \Comet\NetworkReq
 	 *
 	 * @param string $TargetID The live connection GUID
 	 */
-	public function __construct($TargetID)
+	public function __construct(string $TargetID)
 	{
 		$this->TargetID = $TargetID;
 	}
@@ -40,17 +40,17 @@ class AdminDispatcherRequestBrowseDiskDrivesRequest implements \Comet\NetworkReq
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/dispatcher/request-browse-disk-drives';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -60,7 +60,7 @@ class AdminDispatcherRequestBrowseDiskDrivesRequest implements \Comet\NetworkReq
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["TargetID"] = (string)($this->TargetID);
@@ -76,7 +76,7 @@ class AdminDispatcherRequestBrowseDiskDrivesRequest implements \Comet\NetworkReq
 	 * @return \Comet\BrowseDiskDrivesResponse
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\BrowseDiskDrivesResponse
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

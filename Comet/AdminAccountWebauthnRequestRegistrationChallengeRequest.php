@@ -29,7 +29,7 @@ class AdminAccountWebauthnRequestRegistrationChallengeRequest implements \Comet\
 	 *
 	 * @param string $SelfAddress External URL of this server, used as WebAuthn ID
 	 */
-	public function __construct($SelfAddress)
+	public function __construct(string $SelfAddress)
 	{
 		$this->SelfAddress = $SelfAddress;
 	}
@@ -39,17 +39,17 @@ class AdminAccountWebauthnRequestRegistrationChallengeRequest implements \Comet\
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/account/webauthn/request-registration-challenge';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -59,7 +59,7 @@ class AdminAccountWebauthnRequestRegistrationChallengeRequest implements \Comet\
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["SelfAddress"] = (string)($this->SelfAddress);
@@ -75,7 +75,7 @@ class AdminAccountWebauthnRequestRegistrationChallengeRequest implements \Comet\
 	 * @return \Comet\WebAuthnRegistrationChallengeResponse
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\WebAuthnRegistrationChallengeResponse
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

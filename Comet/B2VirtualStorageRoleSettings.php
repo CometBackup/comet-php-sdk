@@ -79,7 +79,7 @@ class B2VirtualStorageRoleSettings {
 	 * @param \stdClass $sc Object data as stdClass
 	 * @return B2VirtualStorageRoleSettings
 	 */
-	public static function createFromStdclass(\stdClass $sc)
+	public static function createFromStdclass(\stdClass $sc): \Comet\B2VirtualStorageRoleSettings
 	{
 		$retn = new B2VirtualStorageRoleSettings();
 		$retn->inflateFrom($sc);
@@ -94,7 +94,7 @@ class B2VirtualStorageRoleSettings {
 	 * @param array $arr Object data as PHP array
 	 * @return B2VirtualStorageRoleSettings
 	 */
-	public static function createFromArray(array $arr)
+	public static function createFromArray(array $arr): \Comet\B2VirtualStorageRoleSettings
 	{
 		$stdClass = json_decode(json_encode($arr, JSON_UNESCAPED_SLASHES));
 		if (is_array($stdClass) && count($stdClass) === 0) {
@@ -114,7 +114,7 @@ class B2VirtualStorageRoleSettings {
 	 * @param array $arr Object data as PHP array
 	 * @return B2VirtualStorageRoleSettings
 	 */
-	public static function createFrom(array $arr)
+	public static function createFrom(array $arr): \Comet\B2VirtualStorageRoleSettings
 	{
 		return self::createFromArray($arr);
 	}
@@ -125,7 +125,7 @@ class B2VirtualStorageRoleSettings {
 	 * @param string $JsonString Object data as JSON string
 	 * @return B2VirtualStorageRoleSettings
 	 */
-	public static function createFromJSON($JsonString)
+	public static function createFromJSON(string $JsonString): \Comet\B2VirtualStorageRoleSettings
 	{
 		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
@@ -144,7 +144,7 @@ class B2VirtualStorageRoleSettings {
 	 * @param bool $for_json_encode Represent empty key-value maps as \stdClass instead of plain PHP arrays
 	 * @return array
 	 */
-	public function toArray($for_json_encode = false)
+	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
 		$ret["MasterBucket"] = $this->MasterBucket;
@@ -166,7 +166,7 @@ class B2VirtualStorageRoleSettings {
 	 *
 	 * @return string
 	 */
-	public function toJSON()
+	public function toJSON(): string
 	{
 		$arr = $this->toArray(true);
 		if (count($arr) === 0) {
@@ -182,7 +182,7 @@ class B2VirtualStorageRoleSettings {
 	 *
 	 * @return \stdClass
 	 */
-	public function toStdClass()
+	public function toStdClass(): \stdClass
 	{
 		$arr = $this->toArray(false);
 		if (count($arr) === 0) {

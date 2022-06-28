@@ -52,6 +52,11 @@ class ScheduleConfig {
 	public $DaysSelect = null;
 
 	/**
+	 * @var int
+	 */
+	public $RandomDelaySecs = 0;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see ScheduleConfig::RemoveUnknownProperties() Remove all unknown properties
@@ -107,6 +112,9 @@ class ScheduleConfig {
 				$this->DaysSelect = \Comet\DaysOfWeekConfig::createFromStdclass($sc->DaysSelect);
 			}
 		}
+		if (property_exists($sc, 'RandomDelaySecs') && !is_null($sc->RandomDelaySecs)) {
+			$this->RandomDelaySecs = (int)($sc->RandomDelaySecs);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'FrequencyType':
@@ -117,6 +125,7 @@ class ScheduleConfig {
 			case 'ToTime':
 			case 'RestrictDays':
 			case 'DaysSelect':
+			case 'RandomDelaySecs':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -130,7 +139,7 @@ class ScheduleConfig {
 	 * @param \stdClass $sc Object data as stdClass
 	 * @return ScheduleConfig
 	 */
-	public static function createFromStdclass(\stdClass $sc)
+	public static function createFromStdclass(\stdClass $sc): \Comet\ScheduleConfig
 	{
 		$retn = new ScheduleConfig();
 		$retn->inflateFrom($sc);
@@ -145,7 +154,7 @@ class ScheduleConfig {
 	 * @param array $arr Object data as PHP array
 	 * @return ScheduleConfig
 	 */
-	public static function createFromArray(array $arr)
+	public static function createFromArray(array $arr): \Comet\ScheduleConfig
 	{
 		$stdClass = json_decode(json_encode($arr, JSON_UNESCAPED_SLASHES));
 		if (is_array($stdClass) && count($stdClass) === 0) {
@@ -165,7 +174,7 @@ class ScheduleConfig {
 	 * @param array $arr Object data as PHP array
 	 * @return ScheduleConfig
 	 */
-	public static function createFrom(array $arr)
+	public static function createFrom(array $arr): \Comet\ScheduleConfig
 	{
 		return self::createFromArray($arr);
 	}
@@ -176,7 +185,7 @@ class ScheduleConfig {
 	 * @param string $JsonString Object data as JSON string
 	 * @return ScheduleConfig
 	 */
-	public static function createFromJSON($JsonString)
+	public static function createFromJSON(string $JsonString): \Comet\ScheduleConfig
 	{
 		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
@@ -195,7 +204,7 @@ class ScheduleConfig {
 	 * @param bool $for_json_encode Represent empty key-value maps as \stdClass instead of plain PHP arrays
 	 * @return array
 	 */
-	public function toArray($for_json_encode = false)
+	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
 		$ret["FrequencyType"] = $this->FrequencyType;
@@ -218,6 +227,7 @@ class ScheduleConfig {
 		} else {
 			$ret["DaysSelect"] = $this->DaysSelect->toArray($for_json_encode);
 		}
+		$ret["RandomDelaySecs"] = $this->RandomDelaySecs;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
@@ -233,7 +243,7 @@ class ScheduleConfig {
 	 *
 	 * @return string
 	 */
-	public function toJSON()
+	public function toJSON(): string
 	{
 		$arr = $this->toArray(true);
 		if (count($arr) === 0) {
@@ -249,7 +259,7 @@ class ScheduleConfig {
 	 *
 	 * @return \stdClass
 	 */
-	public function toStdClass()
+	public function toStdClass(): \stdClass
 	{
 		$arr = $this->toArray(false);
 		if (count($arr) === 0) {

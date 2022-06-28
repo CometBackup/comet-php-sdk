@@ -47,7 +47,7 @@ class AdminGetJobsForDateRangeRequest implements \Comet\NetworkRequest {
 	 * @param int $Start Timestamp (Unix)
 	 * @param int $End Timestamp (Unix)
 	 */
-	public function __construct($Start, $End)
+	public function __construct(int $Start, int $End)
 	{
 		$this->Start = $Start;
 		$this->End = $End;
@@ -58,17 +58,17 @@ class AdminGetJobsForDateRangeRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/get-jobs-for-date-range';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -78,7 +78,7 @@ class AdminGetJobsForDateRangeRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["Start"] = (string)($this->Start);
@@ -95,7 +95,7 @@ class AdminGetJobsForDateRangeRequest implements \Comet\NetworkRequest {
 	 * @return \Comet\BackupJobDetail[]
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): array
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

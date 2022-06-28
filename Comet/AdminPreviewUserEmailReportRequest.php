@@ -46,7 +46,7 @@ class AdminPreviewUserEmailReportRequest implements \Comet\NetworkRequest {
 	 * @param \Comet\EmailReportConfig $EmailReportConfig Email report configuration to preview
 	 * @param string $EmailAddress Email address that may be included in the report body (>= 20.3.3) (optional)
 	 */
-	public function __construct($TargetUser, EmailReportConfig $EmailReportConfig, $EmailAddress = null)
+	public function __construct(string $TargetUser, \Comet\EmailReportConfig $EmailReportConfig, string $EmailAddress = null)
 	{
 		$this->TargetUser = $TargetUser;
 		$this->EmailReportConfig = $EmailReportConfig;
@@ -58,17 +58,17 @@ class AdminPreviewUserEmailReportRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/preview-user-email-report';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -78,7 +78,7 @@ class AdminPreviewUserEmailReportRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["TargetUser"] = (string)($this->TargetUser);
@@ -98,7 +98,7 @@ class AdminPreviewUserEmailReportRequest implements \Comet\NetworkRequest {
 	 * @return \Comet\EmailReportGeneratedPreview
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\EmailReportGeneratedPreview
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

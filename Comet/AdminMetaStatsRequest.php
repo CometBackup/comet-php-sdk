@@ -30,7 +30,7 @@ class AdminMetaStatsRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param boolean $Simple Remove redundant statistics
 	 */
-	public function __construct($Simple)
+	public function __construct(bool $Simple)
 	{
 		$this->Simple = $Simple;
 	}
@@ -40,17 +40,17 @@ class AdminMetaStatsRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/meta/stats';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -60,7 +60,7 @@ class AdminMetaStatsRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["Simple"] = ($this->Simple ? '1' : '0');
@@ -76,7 +76,7 @@ class AdminMetaStatsRequest implements \Comet\NetworkRequest {
 	 * @return \Comet\StatResult[] An array with int keys.
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): array
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

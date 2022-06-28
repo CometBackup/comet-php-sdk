@@ -64,7 +64,7 @@ class AdminAccountU2fSubmitChallengeResponseRequest implements \Comet\NetworkReq
 	 * @param string $U2FVersion U2F response data supplied by hardware token
 	 * @param string $Description Optional description of the token
 	 */
-	public function __construct($U2FChallengeID, $U2FClientData, $U2FRegistrationData, $U2FVersion, $Description)
+	public function __construct(string $U2FChallengeID, string $U2FClientData, string $U2FRegistrationData, string $U2FVersion, string $Description)
 	{
 		$this->U2FChallengeID = $U2FChallengeID;
 		$this->U2FClientData = $U2FClientData;
@@ -78,17 +78,17 @@ class AdminAccountU2fSubmitChallengeResponseRequest implements \Comet\NetworkReq
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/account/u2f/submit-challenge-response';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -98,7 +98,7 @@ class AdminAccountU2fSubmitChallengeResponseRequest implements \Comet\NetworkReq
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["U2FChallengeID"] = (string)($this->U2FChallengeID);
@@ -118,7 +118,7 @@ class AdminAccountU2fSubmitChallengeResponseRequest implements \Comet\NetworkReq
 	 * @return \Comet\APIResponseMessage
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\APIResponseMessage
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

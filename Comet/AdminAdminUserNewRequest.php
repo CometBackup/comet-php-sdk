@@ -47,7 +47,7 @@ class AdminAdminUserNewRequest implements \Comet\NetworkRequest {
 	 * @param string $TargetPassword the password for this new admin user
 	 * @param string $TargetOrgID provide the organization ID for this user, it will default to the org of the authenticating user otherwise (optional)
 	 */
-	public function __construct($TargetUser, $TargetPassword, $TargetOrgID = null)
+	public function __construct(string $TargetUser, string $TargetPassword, string $TargetOrgID = null)
 	{
 		$this->TargetUser = $TargetUser;
 		$this->TargetPassword = $TargetPassword;
@@ -59,17 +59,17 @@ class AdminAdminUserNewRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/admin-user/new';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -79,7 +79,7 @@ class AdminAdminUserNewRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["TargetUser"] = (string)($this->TargetUser);
@@ -99,7 +99,7 @@ class AdminAdminUserNewRequest implements \Comet\NetworkRequest {
 	 * @return \Comet\APIResponseMessage
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\APIResponseMessage
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

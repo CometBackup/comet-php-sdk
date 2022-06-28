@@ -31,7 +31,7 @@ class AdminPoliciesGetRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param string $PolicyID The policy ID to retrieve
 	 */
-	public function __construct($PolicyID)
+	public function __construct(string $PolicyID)
 	{
 		$this->PolicyID = $PolicyID;
 	}
@@ -41,17 +41,17 @@ class AdminPoliciesGetRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/policies/get';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -61,7 +61,7 @@ class AdminPoliciesGetRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["PolicyID"] = (string)($this->PolicyID);
@@ -77,7 +77,7 @@ class AdminPoliciesGetRequest implements \Comet\NetworkRequest {
 	 * @return \Comet\GetGroupPolicyResponse
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\GetGroupPolicyResponse
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

@@ -46,7 +46,7 @@ class AdminDispatcherRequestWindiskSnapshotRequest implements \Comet\NetworkRequ
 	 * @param string $Destination The Storage Vault ID
 	 * @param string $SnapshotID The Snapshot ID
 	 */
-	public function __construct($TargetID, $Destination, $SnapshotID)
+	public function __construct(string $TargetID, string $Destination, string $SnapshotID)
 	{
 		$this->TargetID = $TargetID;
 		$this->Destination = $Destination;
@@ -58,17 +58,17 @@ class AdminDispatcherRequestWindiskSnapshotRequest implements \Comet\NetworkRequ
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/dispatcher/request-windisk-snapshot';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -78,7 +78,7 @@ class AdminDispatcherRequestWindiskSnapshotRequest implements \Comet\NetworkRequ
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["TargetID"] = (string)($this->TargetID);
@@ -96,7 +96,7 @@ class AdminDispatcherRequestWindiskSnapshotRequest implements \Comet\NetworkRequ
 	 * @return \Comet\DispatcherWindiskSnapshotResponse
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\DispatcherWindiskSnapshotResponse
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

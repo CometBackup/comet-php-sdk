@@ -31,7 +31,7 @@ class AdminGetJobsForCustomSearchRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param \Comet\SearchClause $Query (No description available)
 	 */
-	public function __construct(SearchClause $Query)
+	public function __construct(\Comet\SearchClause $Query)
 	{
 		$this->Query = $Query;
 	}
@@ -41,17 +41,17 @@ class AdminGetJobsForCustomSearchRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/get-jobs-for-custom-search';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -61,7 +61,7 @@ class AdminGetJobsForCustomSearchRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["Query"] = $this->Query->toJSON();
@@ -77,7 +77,7 @@ class AdminGetJobsForCustomSearchRequest implements \Comet\NetworkRequest {
 	 * @return \Comet\BackupJobDetail[]
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): array
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

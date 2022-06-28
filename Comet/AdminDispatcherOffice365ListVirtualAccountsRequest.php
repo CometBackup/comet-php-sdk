@@ -39,7 +39,7 @@ class AdminDispatcherOffice365ListVirtualAccountsRequest implements \Comet\Netwo
 	 * @param string $TargetID The live connection GUID
 	 * @param \Comet\Office365Credential $Credentials The Office365 account credential
 	 */
-	public function __construct($TargetID, Office365Credential $Credentials)
+	public function __construct(string $TargetID, \Comet\Office365Credential $Credentials)
 	{
 		$this->TargetID = $TargetID;
 		$this->Credentials = $Credentials;
@@ -50,17 +50,17 @@ class AdminDispatcherOffice365ListVirtualAccountsRequest implements \Comet\Netwo
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/dispatcher/office365-list-virtual-accounts';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -70,7 +70,7 @@ class AdminDispatcherOffice365ListVirtualAccountsRequest implements \Comet\Netwo
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["TargetID"] = (string)($this->TargetID);
@@ -87,7 +87,7 @@ class AdminDispatcherOffice365ListVirtualAccountsRequest implements \Comet\Netwo
 	 * @return \Comet\BrowseOffice365ListVirtualAccountsResponse
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\BrowseOffice365ListVirtualAccountsResponse
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

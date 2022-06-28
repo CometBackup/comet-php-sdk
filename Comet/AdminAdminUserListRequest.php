@@ -32,17 +32,17 @@ class AdminAdminUserListRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/admin-user/list';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -52,7 +52,7 @@ class AdminAdminUserListRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		return $ret;
@@ -67,7 +67,7 @@ class AdminAdminUserListRequest implements \Comet\NetworkRequest {
 	 * @return \Comet\AllowedAdminUser[]
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): array
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

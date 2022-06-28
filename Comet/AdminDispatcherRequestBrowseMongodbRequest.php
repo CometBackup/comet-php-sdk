@@ -39,7 +39,7 @@ class AdminDispatcherRequestBrowseMongodbRequest implements \Comet\NetworkReques
 	 * @param string $TargetID The live connection GUID
 	 * @param \Comet\MongoDBConnection $Credentials The Mongo database authentication settings
 	 */
-	public function __construct($TargetID, MongoDBConnection $Credentials)
+	public function __construct(string $TargetID, \Comet\MongoDBConnection $Credentials)
 	{
 		$this->TargetID = $TargetID;
 		$this->Credentials = $Credentials;
@@ -50,17 +50,17 @@ class AdminDispatcherRequestBrowseMongodbRequest implements \Comet\NetworkReques
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/dispatcher/request-browse-mongodb';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -70,7 +70,7 @@ class AdminDispatcherRequestBrowseMongodbRequest implements \Comet\NetworkReques
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["TargetID"] = (string)($this->TargetID);
@@ -87,7 +87,7 @@ class AdminDispatcherRequestBrowseMongodbRequest implements \Comet\NetworkReques
 	 * @return \Comet\BrowseSQLServerResponse
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\BrowseSQLServerResponse
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

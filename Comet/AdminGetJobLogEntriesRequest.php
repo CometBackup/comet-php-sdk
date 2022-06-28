@@ -30,7 +30,7 @@ class AdminGetJobLogEntriesRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param string $JobID Selected job ID
 	 */
-	public function __construct($JobID)
+	public function __construct(string $JobID)
 	{
 		$this->JobID = $JobID;
 	}
@@ -40,17 +40,17 @@ class AdminGetJobLogEntriesRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/get-job-log-entries';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -60,7 +60,7 @@ class AdminGetJobLogEntriesRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["JobID"] = (string)($this->JobID);
@@ -76,7 +76,7 @@ class AdminGetJobLogEntriesRequest implements \Comet\NetworkRequest {
 	 * @return \Comet\JobEntry[]
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): array
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

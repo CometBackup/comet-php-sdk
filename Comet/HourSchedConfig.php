@@ -61,7 +61,7 @@ class HourSchedConfig {
 	 * @param \stdClass $sc Object data as stdClass
 	 * @return HourSchedConfig
 	 */
-	public static function createFromStdclass(\stdClass $sc)
+	public static function createFromStdclass(\stdClass $sc): \Comet\HourSchedConfig
 	{
 		$retn = new HourSchedConfig();
 		$retn->inflateFrom($sc);
@@ -76,7 +76,7 @@ class HourSchedConfig {
 	 * @param array $arr Object data as PHP array
 	 * @return HourSchedConfig
 	 */
-	public static function createFromArray(array $arr)
+	public static function createFromArray(array $arr): \Comet\HourSchedConfig
 	{
 		$stdClass = json_decode(json_encode($arr, JSON_UNESCAPED_SLASHES));
 		if (is_array($stdClass) && count($stdClass) === 0) {
@@ -96,7 +96,7 @@ class HourSchedConfig {
 	 * @param array $arr Object data as PHP array
 	 * @return HourSchedConfig
 	 */
-	public static function createFrom(array $arr)
+	public static function createFrom(array $arr): \Comet\HourSchedConfig
 	{
 		return self::createFromArray($arr);
 	}
@@ -107,7 +107,7 @@ class HourSchedConfig {
 	 * @param string $JsonString Object data as JSON string
 	 * @return HourSchedConfig
 	 */
-	public static function createFromJSON($JsonString)
+	public static function createFromJSON(string $JsonString): \Comet\HourSchedConfig
 	{
 		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
@@ -126,7 +126,7 @@ class HourSchedConfig {
 	 * @param bool $for_json_encode Represent empty key-value maps as \stdClass instead of plain PHP arrays
 	 * @return array
 	 */
-	public function toArray($for_json_encode = false)
+	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
 		$ret["Hour"] = $this->Hour;
@@ -146,7 +146,7 @@ class HourSchedConfig {
 	 *
 	 * @return string
 	 */
-	public function toJSON()
+	public function toJSON(): string
 	{
 		$arr = $this->toArray(true);
 		if (count($arr) === 0) {
@@ -162,7 +162,7 @@ class HourSchedConfig {
 	 *
 	 * @return \stdClass
 	 */
-	public function toStdClass()
+	public function toStdClass(): \stdClass
 	{
 		$arr = $this->toArray(false);
 		if (count($arr) === 0) {

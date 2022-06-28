@@ -64,7 +64,7 @@ class AdminDispatcherRequestStoredObjectsRequest implements \Comet\NetworkReques
 	 * @param string $TreeID Browse objects inside subdirectory of backup snapshot. If it is for VMDK single file restore, it should be the disk image's subtree ID. (optional)
 	 * @param \Comet\VMDKSnapshotViewOptions $Options Request a list of stored objects in vmdk file (optional)
 	 */
-	public function __construct($TargetID, $Destination, $SnapshotID, $TreeID = null, VMDKSnapshotViewOptions $Options = null)
+	public function __construct(string $TargetID, string $Destination, string $SnapshotID, string $TreeID = null, \Comet\VMDKSnapshotViewOptions $Options = null)
 	{
 		$this->TargetID = $TargetID;
 		$this->Destination = $Destination;
@@ -78,17 +78,17 @@ class AdminDispatcherRequestStoredObjectsRequest implements \Comet\NetworkReques
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/dispatcher/request-stored-objects';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -98,7 +98,7 @@ class AdminDispatcherRequestStoredObjectsRequest implements \Comet\NetworkReques
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["TargetID"] = (string)($this->TargetID);
@@ -122,7 +122,7 @@ class AdminDispatcherRequestStoredObjectsRequest implements \Comet\NetworkReques
 	 * @return \Comet\DispatcherStoredObjectsResponse
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\DispatcherStoredObjectsResponse
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

@@ -93,7 +93,7 @@ class BucketProperties {
 	 * @param \stdClass $sc Object data as stdClass
 	 * @return BucketProperties
 	 */
-	public static function createFromStdclass(\stdClass $sc)
+	public static function createFromStdclass(\stdClass $sc): \Comet\BucketProperties
 	{
 		$retn = new BucketProperties();
 		$retn->inflateFrom($sc);
@@ -108,7 +108,7 @@ class BucketProperties {
 	 * @param array $arr Object data as PHP array
 	 * @return BucketProperties
 	 */
-	public static function createFromArray(array $arr)
+	public static function createFromArray(array $arr): \Comet\BucketProperties
 	{
 		$stdClass = json_decode(json_encode($arr, JSON_UNESCAPED_SLASHES));
 		if (is_array($stdClass) && count($stdClass) === 0) {
@@ -128,7 +128,7 @@ class BucketProperties {
 	 * @param array $arr Object data as PHP array
 	 * @return BucketProperties
 	 */
-	public static function createFrom(array $arr)
+	public static function createFrom(array $arr): \Comet\BucketProperties
 	{
 		return self::createFromArray($arr);
 	}
@@ -139,7 +139,7 @@ class BucketProperties {
 	 * @param string $JsonString Object data as JSON string
 	 * @return BucketProperties
 	 */
-	public static function createFromJSON($JsonString)
+	public static function createFromJSON(string $JsonString): \Comet\BucketProperties
 	{
 		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
@@ -158,7 +158,7 @@ class BucketProperties {
 	 * @param bool $for_json_encode Represent empty key-value maps as \stdClass instead of plain PHP arrays
 	 * @return array
 	 */
-	public function toArray($for_json_encode = false)
+	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
 		$ret["OrganizationID"] = $this->OrganizationID;
@@ -185,7 +185,7 @@ class BucketProperties {
 	 *
 	 * @return string
 	 */
-	public function toJSON()
+	public function toJSON(): string
 	{
 		$arr = $this->toArray(true);
 		if (count($arr) === 0) {
@@ -201,7 +201,7 @@ class BucketProperties {
 	 *
 	 * @return \stdClass
 	 */
-	public function toStdClass()
+	public function toStdClass(): \stdClass
 	{
 		$arr = $this->toArray(false);
 		if (count($arr) === 0) {

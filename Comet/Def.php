@@ -751,6 +751,13 @@ class Def {
 	const SCHEDULE_FREQUENCY_HIGHEST = 8015;
 
 	/**
+	 * Maximum random delay (5 hours)
+	 *
+	 * @type int
+	 */
+	const SCHEDULE_MAX_RANDOM_DELAY_SECS = 18000;
+
+	/**
 	 * 2^50 (1 << 50)
 	 *
 	 * @type int
@@ -1098,7 +1105,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "22.6.1";
+	const APPLICATION_VERSION = "22.6.2";
 
 	/**
 	 * @type int
@@ -1113,7 +1120,7 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 1;
+	const APPLICATION_VERSION_REVISION = 2;
 
 	/**
 	 * @type string

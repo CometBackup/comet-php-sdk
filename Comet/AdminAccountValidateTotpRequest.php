@@ -29,7 +29,7 @@ class AdminAccountValidateTotpRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param string $TOTPCode Six-digit code after scanning barcode image
 	 */
-	public function __construct($TOTPCode)
+	public function __construct(string $TOTPCode)
 	{
 		$this->TOTPCode = $TOTPCode;
 	}
@@ -39,17 +39,17 @@ class AdminAccountValidateTotpRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/account/validate-totp';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -59,7 +59,7 @@ class AdminAccountValidateTotpRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["TOTPCode"] = (string)($this->TOTPCode);
@@ -75,7 +75,7 @@ class AdminAccountValidateTotpRequest implements \Comet\NetworkRequest {
 	 * @return \Comet\APIResponseMessage
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\APIResponseMessage
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

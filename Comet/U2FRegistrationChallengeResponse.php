@@ -122,7 +122,7 @@ class U2FRegistrationChallengeResponse {
 	 * @param \stdClass $sc Object data as stdClass
 	 * @return U2FRegistrationChallengeResponse
 	 */
-	public static function createFromStdclass(\stdClass $sc)
+	public static function createFromStdclass(\stdClass $sc): \Comet\U2FRegistrationChallengeResponse
 	{
 		$retn = new U2FRegistrationChallengeResponse();
 		$retn->inflateFrom($sc);
@@ -137,7 +137,7 @@ class U2FRegistrationChallengeResponse {
 	 * @param array $arr Object data as PHP array
 	 * @return U2FRegistrationChallengeResponse
 	 */
-	public static function createFromArray(array $arr)
+	public static function createFromArray(array $arr): \Comet\U2FRegistrationChallengeResponse
 	{
 		$stdClass = json_decode(json_encode($arr, JSON_UNESCAPED_SLASHES));
 		if (is_array($stdClass) && count($stdClass) === 0) {
@@ -157,7 +157,7 @@ class U2FRegistrationChallengeResponse {
 	 * @param array $arr Object data as PHP array
 	 * @return U2FRegistrationChallengeResponse
 	 */
-	public static function createFrom(array $arr)
+	public static function createFrom(array $arr): \Comet\U2FRegistrationChallengeResponse
 	{
 		return self::createFromArray($arr);
 	}
@@ -168,7 +168,7 @@ class U2FRegistrationChallengeResponse {
 	 * @param string $JsonString Object data as JSON string
 	 * @return U2FRegistrationChallengeResponse
 	 */
-	public static function createFromJSON($JsonString)
+	public static function createFromJSON(string $JsonString): \Comet\U2FRegistrationChallengeResponse
 	{
 		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
@@ -187,7 +187,7 @@ class U2FRegistrationChallengeResponse {
 	 * @param bool $for_json_encode Represent empty key-value maps as \stdClass instead of plain PHP arrays
 	 * @return array
 	 */
-	public function toArray($for_json_encode = false)
+	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
 		$ret["Status"] = $this->Status;
@@ -233,7 +233,7 @@ class U2FRegistrationChallengeResponse {
 	 *
 	 * @return string
 	 */
-	public function toJSON()
+	public function toJSON(): string
 	{
 		$arr = $this->toArray(true);
 		if (count($arr) === 0) {
@@ -249,7 +249,7 @@ class U2FRegistrationChallengeResponse {
 	 *
 	 * @return \stdClass
 	 */
-	public function toStdClass()
+	public function toStdClass(): \stdClass
 	{
 		$arr = $this->toArray(false);
 		if (count($arr) === 0) {

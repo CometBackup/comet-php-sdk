@@ -166,7 +166,7 @@ class AdminSecurityOptions {
 	 * @param \stdClass $sc Object data as stdClass
 	 * @return AdminSecurityOptions
 	 */
-	public static function createFromStdclass(\stdClass $sc)
+	public static function createFromStdclass(\stdClass $sc): \Comet\AdminSecurityOptions
 	{
 		$retn = new AdminSecurityOptions();
 		$retn->inflateFrom($sc);
@@ -181,7 +181,7 @@ class AdminSecurityOptions {
 	 * @param array $arr Object data as PHP array
 	 * @return AdminSecurityOptions
 	 */
-	public static function createFromArray(array $arr)
+	public static function createFromArray(array $arr): \Comet\AdminSecurityOptions
 	{
 		$stdClass = json_decode(json_encode($arr, JSON_UNESCAPED_SLASHES));
 		if (is_array($stdClass) && count($stdClass) === 0) {
@@ -201,7 +201,7 @@ class AdminSecurityOptions {
 	 * @param array $arr Object data as PHP array
 	 * @return AdminSecurityOptions
 	 */
-	public static function createFrom(array $arr)
+	public static function createFrom(array $arr): \Comet\AdminSecurityOptions
 	{
 		return self::createFromArray($arr);
 	}
@@ -212,7 +212,7 @@ class AdminSecurityOptions {
 	 * @param string $JsonString Object data as JSON string
 	 * @return AdminSecurityOptions
 	 */
-	public static function createFromJSON($JsonString)
+	public static function createFromJSON(string $JsonString): \Comet\AdminSecurityOptions
 	{
 		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
@@ -231,7 +231,7 @@ class AdminSecurityOptions {
 	 * @param bool $for_json_encode Represent empty key-value maps as \stdClass instead of plain PHP arrays
 	 * @return array
 	 */
-	public function toArray($for_json_encode = false)
+	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
 		$ret["PasswordFormat"] = $this->PasswordFormat;
@@ -282,7 +282,7 @@ class AdminSecurityOptions {
 	 *
 	 * @return string
 	 */
-	public function toJSON()
+	public function toJSON(): string
 	{
 		$arr = $this->toArray(true);
 		if (count($arr) === 0) {
@@ -298,7 +298,7 @@ class AdminSecurityOptions {
 	 *
 	 * @return \stdClass
 	 */
-	public function toStdClass()
+	public function toStdClass(): \stdClass
 	{
 		$arr = $this->toArray(false);
 		if (count($arr) === 0) {

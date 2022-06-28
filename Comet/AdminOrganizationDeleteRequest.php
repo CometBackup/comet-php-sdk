@@ -40,7 +40,7 @@ class AdminOrganizationDeleteRequest implements \Comet\NetworkRequest {
 	 * @param string $OrganizationID (No description available) (optional)
 	 * @param \Comet\UninstallConfig $UninstallConfig Uninstall software configuration (optional)
 	 */
-	public function __construct($OrganizationID = null, UninstallConfig $UninstallConfig = null)
+	public function __construct(string $OrganizationID = null, \Comet\UninstallConfig $UninstallConfig = null)
 	{
 		$this->OrganizationID = $OrganizationID;
 		$this->UninstallConfig = $UninstallConfig;
@@ -51,17 +51,17 @@ class AdminOrganizationDeleteRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/organization/delete';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -71,7 +71,7 @@ class AdminOrganizationDeleteRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		if ($this->OrganizationID !== null) {
@@ -92,7 +92,7 @@ class AdminOrganizationDeleteRequest implements \Comet\NetworkRequest {
 	 * @return \Comet\APIResponseMessage
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\APIResponseMessage
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

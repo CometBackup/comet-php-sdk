@@ -31,7 +31,7 @@ class AdminPoliciesListFullRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param string $TargetOrganization If present, list the policies belonging to another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.3.7) (optional)
 	 */
-	public function __construct($TargetOrganization = null)
+	public function __construct(string $TargetOrganization = null)
 	{
 		$this->TargetOrganization = $TargetOrganization;
 	}
@@ -41,17 +41,17 @@ class AdminPoliciesListFullRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/policies/list-full';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -61,7 +61,7 @@ class AdminPoliciesListFullRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		if ($this->TargetOrganization !== null) {
@@ -79,7 +79,7 @@ class AdminPoliciesListFullRequest implements \Comet\NetworkRequest {
 	 * @return \Comet\GroupPolicy[] An array with string keys.
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): array
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

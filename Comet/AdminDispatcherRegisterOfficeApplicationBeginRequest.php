@@ -39,7 +39,7 @@ class AdminDispatcherRegisterOfficeApplicationBeginRequest implements \Comet\Net
 	 * @param string $TargetID The live connection GUID
 	 * @param string $EmailAddress The email address of the Azure AD administrator
 	 */
-	public function __construct($TargetID, $EmailAddress)
+	public function __construct(string $TargetID, string $EmailAddress)
 	{
 		$this->TargetID = $TargetID;
 		$this->EmailAddress = $EmailAddress;
@@ -50,17 +50,17 @@ class AdminDispatcherRegisterOfficeApplicationBeginRequest implements \Comet\Net
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/dispatcher/register-office-application/begin';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -70,7 +70,7 @@ class AdminDispatcherRegisterOfficeApplicationBeginRequest implements \Comet\Net
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["TargetID"] = (string)($this->TargetID);
@@ -87,7 +87,7 @@ class AdminDispatcherRegisterOfficeApplicationBeginRequest implements \Comet\Net
 	 * @return \Comet\RegisterOfficeApplicationBeginResponse
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\RegisterOfficeApplicationBeginResponse
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

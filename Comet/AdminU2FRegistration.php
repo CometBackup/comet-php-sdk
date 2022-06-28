@@ -73,7 +73,7 @@ class AdminU2FRegistration {
 	 * @param \stdClass $sc Object data as stdClass
 	 * @return AdminU2FRegistration
 	 */
-	public static function createFromStdclass(\stdClass $sc)
+	public static function createFromStdclass(\stdClass $sc): \Comet\AdminU2FRegistration
 	{
 		$retn = new AdminU2FRegistration();
 		$retn->inflateFrom($sc);
@@ -88,7 +88,7 @@ class AdminU2FRegistration {
 	 * @param array $arr Object data as PHP array
 	 * @return AdminU2FRegistration
 	 */
-	public static function createFromArray(array $arr)
+	public static function createFromArray(array $arr): \Comet\AdminU2FRegistration
 	{
 		$stdClass = json_decode(json_encode($arr, JSON_UNESCAPED_SLASHES));
 		if (is_array($stdClass) && count($stdClass) === 0) {
@@ -108,7 +108,7 @@ class AdminU2FRegistration {
 	 * @param array $arr Object data as PHP array
 	 * @return AdminU2FRegistration
 	 */
-	public static function createFrom(array $arr)
+	public static function createFrom(array $arr): \Comet\AdminU2FRegistration
 	{
 		return self::createFromArray($arr);
 	}
@@ -119,7 +119,7 @@ class AdminU2FRegistration {
 	 * @param string $JsonString Object data as JSON string
 	 * @return AdminU2FRegistration
 	 */
-	public static function createFromJSON($JsonString)
+	public static function createFromJSON(string $JsonString): \Comet\AdminU2FRegistration
 	{
 		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
@@ -138,7 +138,7 @@ class AdminU2FRegistration {
 	 * @param bool $for_json_encode Represent empty key-value maps as \stdClass instead of plain PHP arrays
 	 * @return array
 	 */
-	public function toArray($for_json_encode = false)
+	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
 		$ret["Description"] = $this->Description;
@@ -159,7 +159,7 @@ class AdminU2FRegistration {
 	 *
 	 * @return string
 	 */
-	public function toJSON()
+	public function toJSON(): string
 	{
 		$arr = $this->toArray(true);
 		if (count($arr) === 0) {
@@ -175,7 +175,7 @@ class AdminU2FRegistration {
 	 *
 	 * @return \stdClass
 	 */
-	public function toStdClass()
+	public function toStdClass(): \stdClass
 	{
 		$arr = $this->toArray(false);
 		if (count($arr) === 0) {

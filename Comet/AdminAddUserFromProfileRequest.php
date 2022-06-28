@@ -47,7 +47,7 @@ class AdminAddUserFromProfileRequest implements \Comet\NetworkRequest {
 	 * @param \Comet\UserProfileConfig $ProfileData New account profile
 	 * @param string $TargetOrganization If present, create the user account on behalf of another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.3.7) (optional)
 	 */
-	public function __construct($TargetUser, UserProfileConfig $ProfileData, $TargetOrganization = null)
+	public function __construct(string $TargetUser, \Comet\UserProfileConfig $ProfileData, string $TargetOrganization = null)
 	{
 		$this->TargetUser = $TargetUser;
 		$this->ProfileData = $ProfileData;
@@ -59,17 +59,17 @@ class AdminAddUserFromProfileRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/add-user-from-profile';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -79,7 +79,7 @@ class AdminAddUserFromProfileRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["TargetUser"] = (string)($this->TargetUser);
@@ -99,7 +99,7 @@ class AdminAddUserFromProfileRequest implements \Comet\NetworkRequest {
 	 * @return \Comet\APIResponseMessage
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\APIResponseMessage
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

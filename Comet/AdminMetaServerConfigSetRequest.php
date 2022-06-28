@@ -34,7 +34,7 @@ class AdminMetaServerConfigSetRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param \Comet\ServerConfigOptions $Config Updated configuration content
 	 */
-	public function __construct(ServerConfigOptions $Config)
+	public function __construct(\Comet\ServerConfigOptions $Config)
 	{
 		$this->Config = $Config;
 	}
@@ -44,17 +44,17 @@ class AdminMetaServerConfigSetRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/meta/server-config/set';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -64,7 +64,7 @@ class AdminMetaServerConfigSetRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["Config"] = $this->Config->toJSON();
@@ -80,7 +80,7 @@ class AdminMetaServerConfigSetRequest implements \Comet\NetworkRequest {
 	 * @return \Comet\APIResponseMessage
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\APIResponseMessage
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

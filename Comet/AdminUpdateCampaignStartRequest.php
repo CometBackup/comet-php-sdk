@@ -32,7 +32,7 @@ class AdminUpdateCampaignStartRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param \Comet\UpdateCampaignOptions $Options Configure targets for the software update campaign
 	 */
-	public function __construct(UpdateCampaignOptions $Options)
+	public function __construct(\Comet\UpdateCampaignOptions $Options)
 	{
 		$this->Options = $Options;
 	}
@@ -42,17 +42,17 @@ class AdminUpdateCampaignStartRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/update-campaign/start';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -62,7 +62,7 @@ class AdminUpdateCampaignStartRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["Options"] = $this->Options->toJSON();
@@ -78,7 +78,7 @@ class AdminUpdateCampaignStartRequest implements \Comet\NetworkRequest {
 	 * @return \Comet\APIResponseMessage
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\APIResponseMessage
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

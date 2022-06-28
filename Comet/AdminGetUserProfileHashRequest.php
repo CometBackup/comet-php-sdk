@@ -32,7 +32,7 @@ class AdminGetUserProfileHashRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param string $TargetUser Selected account username
 	 */
-	public function __construct($TargetUser)
+	public function __construct(string $TargetUser)
 	{
 		$this->TargetUser = $TargetUser;
 	}
@@ -42,17 +42,17 @@ class AdminGetUserProfileHashRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/get-user-profile-hash';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -62,7 +62,7 @@ class AdminGetUserProfileHashRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["TargetUser"] = (string)($this->TargetUser);
@@ -78,7 +78,7 @@ class AdminGetUserProfileHashRequest implements \Comet\NetworkRequest {
 	 * @return \Comet\GetProfileHashResponseMessage
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\GetProfileHashResponseMessage
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

@@ -38,7 +38,7 @@ class AdminSetUserProfileRequest implements \Comet\NetworkRequest {
 	 * @param string $TargetUser Selected account username
 	 * @param \Comet\UserProfileConfig $ProfileData Modified user profile
 	 */
-	public function __construct($TargetUser, UserProfileConfig $ProfileData)
+	public function __construct(string $TargetUser, \Comet\UserProfileConfig $ProfileData)
 	{
 		$this->TargetUser = $TargetUser;
 		$this->ProfileData = $ProfileData;
@@ -49,17 +49,17 @@ class AdminSetUserProfileRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/set-user-profile';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -69,7 +69,7 @@ class AdminSetUserProfileRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["TargetUser"] = (string)($this->TargetUser);
@@ -86,7 +86,7 @@ class AdminSetUserProfileRequest implements \Comet\NetworkRequest {
 	 * @return \Comet\APIResponseMessage
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\APIResponseMessage
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

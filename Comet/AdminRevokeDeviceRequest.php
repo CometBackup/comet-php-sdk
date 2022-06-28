@@ -39,7 +39,7 @@ class AdminRevokeDeviceRequest implements \Comet\NetworkRequest {
 	 * @param string $TargetUser Selected account username
 	 * @param string $TargetDevice Selected Device ID
 	 */
-	public function __construct($TargetUser, $TargetDevice)
+	public function __construct(string $TargetUser, string $TargetDevice)
 	{
 		$this->TargetUser = $TargetUser;
 		$this->TargetDevice = $TargetDevice;
@@ -50,17 +50,17 @@ class AdminRevokeDeviceRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/revoke-device';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -70,7 +70,7 @@ class AdminRevokeDeviceRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["TargetUser"] = (string)($this->TargetUser);
@@ -87,7 +87,7 @@ class AdminRevokeDeviceRequest implements \Comet\NetworkRequest {
 	 * @return \Comet\APIResponseMessage
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\APIResponseMessage
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

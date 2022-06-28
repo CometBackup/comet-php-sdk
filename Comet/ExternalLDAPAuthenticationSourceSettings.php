@@ -135,7 +135,7 @@ class ExternalLDAPAuthenticationSourceSettings {
 	 * @param \stdClass $sc Object data as stdClass
 	 * @return ExternalLDAPAuthenticationSourceSettings
 	 */
-	public static function createFromStdclass(\stdClass $sc)
+	public static function createFromStdclass(\stdClass $sc): \Comet\ExternalLDAPAuthenticationSourceSettings
 	{
 		$retn = new ExternalLDAPAuthenticationSourceSettings();
 		$retn->inflateFrom($sc);
@@ -150,7 +150,7 @@ class ExternalLDAPAuthenticationSourceSettings {
 	 * @param array $arr Object data as PHP array
 	 * @return ExternalLDAPAuthenticationSourceSettings
 	 */
-	public static function createFromArray(array $arr)
+	public static function createFromArray(array $arr): \Comet\ExternalLDAPAuthenticationSourceSettings
 	{
 		$stdClass = json_decode(json_encode($arr, JSON_UNESCAPED_SLASHES));
 		if (is_array($stdClass) && count($stdClass) === 0) {
@@ -170,7 +170,7 @@ class ExternalLDAPAuthenticationSourceSettings {
 	 * @param array $arr Object data as PHP array
 	 * @return ExternalLDAPAuthenticationSourceSettings
 	 */
-	public static function createFrom(array $arr)
+	public static function createFrom(array $arr): \Comet\ExternalLDAPAuthenticationSourceSettings
 	{
 		return self::createFromArray($arr);
 	}
@@ -181,7 +181,7 @@ class ExternalLDAPAuthenticationSourceSettings {
 	 * @param string $JsonString Object data as JSON string
 	 * @return ExternalLDAPAuthenticationSourceSettings
 	 */
-	public static function createFromJSON($JsonString)
+	public static function createFromJSON(string $JsonString): \Comet\ExternalLDAPAuthenticationSourceSettings
 	{
 		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
@@ -200,7 +200,7 @@ class ExternalLDAPAuthenticationSourceSettings {
 	 * @param bool $for_json_encode Represent empty key-value maps as \stdClass instead of plain PHP arrays
 	 * @return array
 	 */
-	public function toArray($for_json_encode = false)
+	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
 		$ret["Hostname"] = $this->Hostname;
@@ -238,7 +238,7 @@ class ExternalLDAPAuthenticationSourceSettings {
 	 *
 	 * @return string
 	 */
-	public function toJSON()
+	public function toJSON(): string
 	{
 		$arr = $this->toArray(true);
 		if (count($arr) === 0) {
@@ -254,7 +254,7 @@ class ExternalLDAPAuthenticationSourceSettings {
 	 *
 	 * @return \stdClass
 	 */
-	public function toStdClass()
+	public function toStdClass(): \stdClass
 	{
 		$arr = $this->toArray(false);
 		if (count($arr) === 0) {

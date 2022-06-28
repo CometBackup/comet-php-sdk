@@ -40,7 +40,7 @@ class AdminMetaSendTestEmailRequest implements \Comet\NetworkRequest {
 	 * @param \Comet\EmailOptions $EmailOptions Updated configuration content
 	 * @param string $Recipient Target email address to send test email
 	 */
-	public function __construct(EmailOptions $EmailOptions, $Recipient)
+	public function __construct(\Comet\EmailOptions $EmailOptions, string $Recipient)
 	{
 		$this->EmailOptions = $EmailOptions;
 		$this->Recipient = $Recipient;
@@ -51,17 +51,17 @@ class AdminMetaSendTestEmailRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/meta/send-test-email';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -71,7 +71,7 @@ class AdminMetaSendTestEmailRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["EmailOptions"] = $this->EmailOptions->toJSON();
@@ -88,7 +88,7 @@ class AdminMetaSendTestEmailRequest implements \Comet\NetworkRequest {
 	 * @return \Comet\APIResponseMessage
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\APIResponseMessage
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

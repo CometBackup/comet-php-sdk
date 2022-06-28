@@ -39,7 +39,7 @@ class AdminBrandingGenerateClientTestRequest implements \Comet\NetworkRequest {
 	 * @param int $Platform The selected download platform, from the AdminBrandingAvailablePlatforms API
 	 * @param string $SelfAddress The external URL of this server, used to resolve conflicts (optional)
 	 */
-	public function __construct($Platform, $SelfAddress = null)
+	public function __construct(int $Platform, string $SelfAddress = null)
 	{
 		$this->Platform = $Platform;
 		$this->SelfAddress = $SelfAddress;
@@ -50,17 +50,17 @@ class AdminBrandingGenerateClientTestRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/branding/generate-client/test';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -70,7 +70,7 @@ class AdminBrandingGenerateClientTestRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["Platform"] = (string)($this->Platform);
@@ -89,7 +89,7 @@ class AdminBrandingGenerateClientTestRequest implements \Comet\NetworkRequest {
 	 * @return \Comet\APIResponseMessage
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\APIResponseMessage
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

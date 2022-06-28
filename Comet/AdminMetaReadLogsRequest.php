@@ -32,7 +32,7 @@ class AdminMetaReadLogsRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param int $Log A log day, selected from the options returned by the Get Log Files API
 	 */
-	public function __construct($Log)
+	public function __construct(int $Log)
 	{
 		$this->Log = $Log;
 	}
@@ -42,17 +42,17 @@ class AdminMetaReadLogsRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/meta/read-logs';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -62,7 +62,7 @@ class AdminMetaReadLogsRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["Log"] = (string)($this->Log);
@@ -78,7 +78,7 @@ class AdminMetaReadLogsRequest implements \Comet\NetworkRequest {
 	 * @return string
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): string
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

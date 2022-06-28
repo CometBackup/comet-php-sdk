@@ -32,7 +32,7 @@ class AdminAccountU2fRequestRegistrationChallengeRequest implements \Comet\Netwo
 	 *
 	 * @param string $SelfAddress External URL of this server, used as U2F AppID and Facet
 	 */
-	public function __construct($SelfAddress)
+	public function __construct(string $SelfAddress)
 	{
 		$this->SelfAddress = $SelfAddress;
 	}
@@ -42,17 +42,17 @@ class AdminAccountU2fRequestRegistrationChallengeRequest implements \Comet\Netwo
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/account/u2f/request-registration-challenge';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -62,7 +62,7 @@ class AdminAccountU2fRequestRegistrationChallengeRequest implements \Comet\Netwo
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["SelfAddress"] = (string)($this->SelfAddress);
@@ -78,7 +78,7 @@ class AdminAccountU2fRequestRegistrationChallengeRequest implements \Comet\Netwo
 	 * @return \Comet\U2FRegistrationChallengeResponse
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\U2FRegistrationChallengeResponse
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

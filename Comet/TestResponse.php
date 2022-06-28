@@ -70,7 +70,7 @@ class TestResponse {
 	 * @param \stdClass $sc Object data as stdClass
 	 * @return TestResponse
 	 */
-	public static function createFromStdclass(\stdClass $sc)
+	public static function createFromStdclass(\stdClass $sc): \Comet\TestResponse
 	{
 		$retn = new TestResponse();
 		$retn->inflateFrom($sc);
@@ -85,7 +85,7 @@ class TestResponse {
 	 * @param array $arr Object data as PHP array
 	 * @return TestResponse
 	 */
-	public static function createFromArray(array $arr)
+	public static function createFromArray(array $arr): \Comet\TestResponse
 	{
 		$stdClass = json_decode(json_encode($arr, JSON_UNESCAPED_SLASHES));
 		if (is_array($stdClass) && count($stdClass) === 0) {
@@ -105,7 +105,7 @@ class TestResponse {
 	 * @param array $arr Object data as PHP array
 	 * @return TestResponse
 	 */
-	public static function createFrom(array $arr)
+	public static function createFrom(array $arr): \Comet\TestResponse
 	{
 		return self::createFromArray($arr);
 	}
@@ -116,7 +116,7 @@ class TestResponse {
 	 * @param string $JsonString Object data as JSON string
 	 * @return TestResponse
 	 */
-	public static function createFromJSON($JsonString)
+	public static function createFromJSON(string $JsonString): \Comet\TestResponse
 	{
 		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
@@ -135,7 +135,7 @@ class TestResponse {
 	 * @param bool $for_json_encode Represent empty key-value maps as \stdClass instead of plain PHP arrays
 	 * @return array
 	 */
-	public function toArray($for_json_encode = false)
+	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
 		$ret["Status"] = $this->Status;
@@ -156,7 +156,7 @@ class TestResponse {
 	 *
 	 * @return string
 	 */
-	public function toJSON()
+	public function toJSON(): string
 	{
 		$arr = $this->toArray(true);
 		if (count($arr) === 0) {
@@ -172,7 +172,7 @@ class TestResponse {
 	 *
 	 * @return \stdClass
 	 */
-	public function toStdClass()
+	public function toStdClass(): \stdClass
 	{
 		$arr = $this->toArray(false);
 		if (count($arr) === 0) {

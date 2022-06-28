@@ -29,7 +29,7 @@ class AdminRequestStorageVaultRequest implements \Comet\NetworkRequest {
 	protected $TargetUser = null;
 
 	/**
-	 * ID for the Requestable destination
+	 * ID for the storage template destination
 	 *
 	 * @var string
 	 */
@@ -46,10 +46,10 @@ class AdminRequestStorageVaultRequest implements \Comet\NetworkRequest {
 	 * Construct a new AdminRequestStorageVaultRequest instance.
 	 *
 	 * @param string $TargetUser The user to receive the new Storage Vault
-	 * @param string $StorageProvider ID for the Requestable destination
+	 * @param string $StorageProvider ID for the storage template destination
 	 * @param string $SelfAddress The external URL for this server. Used to resolve conflicts (optional)
 	 */
-	public function __construct($TargetUser, $StorageProvider, $SelfAddress = null)
+	public function __construct(string $TargetUser, string $StorageProvider, string $SelfAddress = null)
 	{
 		$this->TargetUser = $TargetUser;
 		$this->StorageProvider = $StorageProvider;
@@ -61,17 +61,17 @@ class AdminRequestStorageVaultRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/request-storage-vault';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -81,7 +81,7 @@ class AdminRequestStorageVaultRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["TargetUser"] = (string)($this->TargetUser);
@@ -101,7 +101,7 @@ class AdminRequestStorageVaultRequest implements \Comet\NetworkRequest {
 	 * @return \Comet\RequestStorageVaultResponseMessage
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\RequestStorageVaultResponseMessage
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

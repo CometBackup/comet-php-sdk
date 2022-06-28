@@ -30,7 +30,7 @@ class AdminPoliciesDeleteRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param string $PolicyID The policy ID to update or create
 	 */
-	public function __construct($PolicyID)
+	public function __construct(string $PolicyID)
 	{
 		$this->PolicyID = $PolicyID;
 	}
@@ -40,17 +40,17 @@ class AdminPoliciesDeleteRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/policies/delete';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -60,7 +60,7 @@ class AdminPoliciesDeleteRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["PolicyID"] = (string)($this->PolicyID);
@@ -76,7 +76,7 @@ class AdminPoliciesDeleteRequest implements \Comet\NetworkRequest {
 	 * @return \Comet\APIResponseMessage
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\APIResponseMessage
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

@@ -39,7 +39,7 @@ class AdminStorageBucketPropertiesRequest implements \Comet\NetworkRequest {
 	 * @param string $BucketID Bucket ID
 	 * @param int $AfterTimestamp Allow a stale size measurement if it is at least as new as the supplied Unix timestamp. Timestamps in the future may produce a result clamped down to the Comet Server's current time. If not present, the size measurement may be arbitrarily stale. (optional)
 	 */
-	public function __construct($BucketID, $AfterTimestamp = null)
+	public function __construct(string $BucketID, int $AfterTimestamp = null)
 	{
 		$this->BucketID = $BucketID;
 		$this->AfterTimestamp = $AfterTimestamp;
@@ -50,17 +50,17 @@ class AdminStorageBucketPropertiesRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/storage/bucket-properties';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -70,7 +70,7 @@ class AdminStorageBucketPropertiesRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["BucketID"] = (string)($this->BucketID);
@@ -89,7 +89,7 @@ class AdminStorageBucketPropertiesRequest implements \Comet\NetworkRequest {
 	 * @return \Comet\BucketProperties
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\BucketProperties
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

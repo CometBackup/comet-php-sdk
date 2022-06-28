@@ -79,7 +79,7 @@ class VSSComponent {
 	 * @param \stdClass $sc Object data as stdClass
 	 * @return VSSComponent
 	 */
-	public static function createFromStdclass(\stdClass $sc)
+	public static function createFromStdclass(\stdClass $sc): \Comet\VSSComponent
 	{
 		$retn = new VSSComponent();
 		$retn->inflateFrom($sc);
@@ -94,7 +94,7 @@ class VSSComponent {
 	 * @param array $arr Object data as PHP array
 	 * @return VSSComponent
 	 */
-	public static function createFromArray(array $arr)
+	public static function createFromArray(array $arr): \Comet\VSSComponent
 	{
 		$stdClass = json_decode(json_encode($arr, JSON_UNESCAPED_SLASHES));
 		if (is_array($stdClass) && count($stdClass) === 0) {
@@ -114,7 +114,7 @@ class VSSComponent {
 	 * @param array $arr Object data as PHP array
 	 * @return VSSComponent
 	 */
-	public static function createFrom(array $arr)
+	public static function createFrom(array $arr): \Comet\VSSComponent
 	{
 		return self::createFromArray($arr);
 	}
@@ -125,7 +125,7 @@ class VSSComponent {
 	 * @param string $JsonString Object data as JSON string
 	 * @return VSSComponent
 	 */
-	public static function createFromJSON($JsonString)
+	public static function createFromJSON(string $JsonString): \Comet\VSSComponent
 	{
 		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
@@ -144,7 +144,7 @@ class VSSComponent {
 	 * @param bool $for_json_encode Represent empty key-value maps as \stdClass instead of plain PHP arrays
 	 * @return array
 	 */
-	public function toArray($for_json_encode = false)
+	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
 		$ret["Path"] = $this->Path;
@@ -166,7 +166,7 @@ class VSSComponent {
 	 *
 	 * @return string
 	 */
-	public function toJSON()
+	public function toJSON(): string
 	{
 		$arr = $this->toArray(true);
 		if (count($arr) === 0) {
@@ -182,7 +182,7 @@ class VSSComponent {
 	 *
 	 * @return \stdClass
 	 */
-	public function toStdClass()
+	public function toStdClass(): \stdClass
 	{
 		$arr = $this->toArray(false);
 		if (count($arr) === 0) {

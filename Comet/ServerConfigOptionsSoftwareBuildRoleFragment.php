@@ -57,7 +57,7 @@ class ServerConfigOptionsSoftwareBuildRoleFragment {
 	 * @param \stdClass $sc Object data as stdClass
 	 * @return ServerConfigOptionsSoftwareBuildRoleFragment
 	 */
-	public static function createFromStdclass(\stdClass $sc)
+	public static function createFromStdclass(\stdClass $sc): \Comet\ServerConfigOptionsSoftwareBuildRoleFragment
 	{
 		$retn = new ServerConfigOptionsSoftwareBuildRoleFragment();
 		$retn->inflateFrom($sc);
@@ -72,7 +72,7 @@ class ServerConfigOptionsSoftwareBuildRoleFragment {
 	 * @param array $arr Object data as PHP array
 	 * @return ServerConfigOptionsSoftwareBuildRoleFragment
 	 */
-	public static function createFromArray(array $arr)
+	public static function createFromArray(array $arr): \Comet\ServerConfigOptionsSoftwareBuildRoleFragment
 	{
 		$stdClass = json_decode(json_encode($arr, JSON_UNESCAPED_SLASHES));
 		if (is_array($stdClass) && count($stdClass) === 0) {
@@ -92,7 +92,7 @@ class ServerConfigOptionsSoftwareBuildRoleFragment {
 	 * @param array $arr Object data as PHP array
 	 * @return ServerConfigOptionsSoftwareBuildRoleFragment
 	 */
-	public static function createFrom(array $arr)
+	public static function createFrom(array $arr): \Comet\ServerConfigOptionsSoftwareBuildRoleFragment
 	{
 		return self::createFromArray($arr);
 	}
@@ -103,7 +103,7 @@ class ServerConfigOptionsSoftwareBuildRoleFragment {
 	 * @param string $JsonString Object data as JSON string
 	 * @return ServerConfigOptionsSoftwareBuildRoleFragment
 	 */
-	public static function createFromJSON($JsonString)
+	public static function createFromJSON(string $JsonString): \Comet\ServerConfigOptionsSoftwareBuildRoleFragment
 	{
 		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
@@ -122,7 +122,7 @@ class ServerConfigOptionsSoftwareBuildRoleFragment {
 	 * @param bool $for_json_encode Represent empty key-value maps as \stdClass instead of plain PHP arrays
 	 * @return array
 	 */
-	public function toArray($for_json_encode = false)
+	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
 		if ( $this->SoftwareBuildRole === null ) {
@@ -145,7 +145,7 @@ class ServerConfigOptionsSoftwareBuildRoleFragment {
 	 *
 	 * @return string
 	 */
-	public function toJSON()
+	public function toJSON(): string
 	{
 		$arr = $this->toArray(true);
 		if (count($arr) === 0) {
@@ -161,7 +161,7 @@ class ServerConfigOptionsSoftwareBuildRoleFragment {
 	 *
 	 * @return \stdClass
 	 */
-	public function toStdClass()
+	public function toStdClass(): \stdClass
 	{
 		$arr = $this->toArray(false);
 		if (count($arr) === 0) {

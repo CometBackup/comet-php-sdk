@@ -41,7 +41,7 @@ class AdminJobCancelRequest implements \Comet\NetworkRequest {
 	 * @param string $TargetUser Username
 	 * @param string $JobID Job ID
 	 */
-	public function __construct($TargetUser, $JobID)
+	public function __construct(string $TargetUser, string $JobID)
 	{
 		$this->TargetUser = $TargetUser;
 		$this->JobID = $JobID;
@@ -52,17 +52,17 @@ class AdminJobCancelRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string
 	 */
-	public function Endpoint()
+	public function Endpoint(): string
 	{
 		return '/api/v1/admin/job/cancel';
 	}
 
-	public function Method()
+	public function Method(): string
 	{
 		return 'POST';
 	}
 
-	public function ContentType()
+	public function ContentType(): string
 	{
 		return 'application/x-www-form-urlencoded';
 	}
@@ -72,7 +72,7 @@ class AdminJobCancelRequest implements \Comet\NetworkRequest {
 	 *
 	 * @return string[]
 	 */
-	public function Parameters()
+	public function Parameters(): array
 	{
 		$ret = [];
 		$ret["TargetUser"] = (string)($this->TargetUser);
@@ -89,7 +89,7 @@ class AdminJobCancelRequest implements \Comet\NetworkRequest {
 	 * @return \Comet\APIResponseMessage
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse($responseCode, $body)
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\APIResponseMessage
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {

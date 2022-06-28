@@ -124,7 +124,7 @@ class WindowsCodeSignProperties {
 	 * @param \stdClass $sc Object data as stdClass
 	 * @return WindowsCodeSignProperties
 	 */
-	public static function createFromStdclass(\stdClass $sc)
+	public static function createFromStdclass(\stdClass $sc): \Comet\WindowsCodeSignProperties
 	{
 		$retn = new WindowsCodeSignProperties();
 		$retn->inflateFrom($sc);
@@ -139,7 +139,7 @@ class WindowsCodeSignProperties {
 	 * @param array $arr Object data as PHP array
 	 * @return WindowsCodeSignProperties
 	 */
-	public static function createFromArray(array $arr)
+	public static function createFromArray(array $arr): \Comet\WindowsCodeSignProperties
 	{
 		$stdClass = json_decode(json_encode($arr, JSON_UNESCAPED_SLASHES));
 		if (is_array($stdClass) && count($stdClass) === 0) {
@@ -159,7 +159,7 @@ class WindowsCodeSignProperties {
 	 * @param array $arr Object data as PHP array
 	 * @return WindowsCodeSignProperties
 	 */
-	public static function createFrom(array $arr)
+	public static function createFrom(array $arr): \Comet\WindowsCodeSignProperties
 	{
 		return self::createFromArray($arr);
 	}
@@ -170,7 +170,7 @@ class WindowsCodeSignProperties {
 	 * @param string $JsonString Object data as JSON string
 	 * @return WindowsCodeSignProperties
 	 */
-	public static function createFromJSON($JsonString)
+	public static function createFromJSON(string $JsonString): \Comet\WindowsCodeSignProperties
 	{
 		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
@@ -189,7 +189,7 @@ class WindowsCodeSignProperties {
 	 * @param bool $for_json_encode Represent empty key-value maps as \stdClass instead of plain PHP arrays
 	 * @return array
 	 */
-	public function toArray($for_json_encode = false)
+	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
 		$ret["WindowsCodeSignPKCS12FilePath"] = $this->WindowsCodeSignPKCS12FilePath;
@@ -216,7 +216,7 @@ class WindowsCodeSignProperties {
 	 *
 	 * @return string
 	 */
-	public function toJSON()
+	public function toJSON(): string
 	{
 		$arr = $this->toArray(true);
 		if (count($arr) === 0) {
@@ -232,7 +232,7 @@ class WindowsCodeSignProperties {
 	 *
 	 * @return \stdClass
 	 */
-	public function toStdClass()
+	public function toStdClass(): \stdClass
 	{
 		$arr = $this->toArray(false);
 		if (count($arr) === 0) {

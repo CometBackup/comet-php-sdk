@@ -98,7 +98,7 @@ class StorageFreeSpaceInfo {
 	 * @param \stdClass $sc Object data as stdClass
 	 * @return StorageFreeSpaceInfo
 	 */
-	public static function createFromStdclass(\stdClass $sc)
+	public static function createFromStdclass(\stdClass $sc): \Comet\StorageFreeSpaceInfo
 	{
 		$retn = new StorageFreeSpaceInfo();
 		$retn->inflateFrom($sc);
@@ -113,7 +113,7 @@ class StorageFreeSpaceInfo {
 	 * @param array $arr Object data as PHP array
 	 * @return StorageFreeSpaceInfo
 	 */
-	public static function createFromArray(array $arr)
+	public static function createFromArray(array $arr): \Comet\StorageFreeSpaceInfo
 	{
 		$stdClass = json_decode(json_encode($arr, JSON_UNESCAPED_SLASHES));
 		if (is_array($stdClass) && count($stdClass) === 0) {
@@ -133,7 +133,7 @@ class StorageFreeSpaceInfo {
 	 * @param array $arr Object data as PHP array
 	 * @return StorageFreeSpaceInfo
 	 */
-	public static function createFrom(array $arr)
+	public static function createFrom(array $arr): \Comet\StorageFreeSpaceInfo
 	{
 		return self::createFromArray($arr);
 	}
@@ -144,7 +144,7 @@ class StorageFreeSpaceInfo {
 	 * @param string $JsonString Object data as JSON string
 	 * @return StorageFreeSpaceInfo
 	 */
-	public static function createFromJSON($JsonString)
+	public static function createFromJSON(string $JsonString): \Comet\StorageFreeSpaceInfo
 	{
 		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
@@ -163,7 +163,7 @@ class StorageFreeSpaceInfo {
 	 * @param bool $for_json_encode Represent empty key-value maps as \stdClass instead of plain PHP arrays
 	 * @return array
 	 */
-	public function toArray($for_json_encode = false)
+	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
 		$ret["Unlimited"] = $this->Unlimited;
@@ -194,7 +194,7 @@ class StorageFreeSpaceInfo {
 	 *
 	 * @return string
 	 */
-	public function toJSON()
+	public function toJSON(): string
 	{
 		$arr = $this->toArray(true);
 		if (count($arr) === 0) {
@@ -210,7 +210,7 @@ class StorageFreeSpaceInfo {
 	 *
 	 * @return \stdClass
 	 */
-	public function toStdClass()
+	public function toStdClass(): \stdClass
 	{
 		$arr = $this->toArray(false);
 		if (count($arr) === 0) {
