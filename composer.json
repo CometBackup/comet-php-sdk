@@ -12,7 +12,7 @@
 		}
 	],
 	"require": {
-		"php": ">=5.5",
+		"php": ">=7.0",
 		"ext-json": "*",
 		"ext-curl": "*",
 		"guzzlehttp/guzzle": "^6|^7"

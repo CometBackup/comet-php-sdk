@@ -13,6 +13,7 @@ Comet Licensing Ltd makes this library freely available under the [MIT license](
 - Full coverage of Comet Server API methods, data structures, and constant definitions
 - Easy synchronous API requests via the `\Comet\Server` class
 - PSR-7 support for asynchronous / Promise requests
+- PHP 7.x type hints. For PHP 5.x compatibility, please use [the last v3.x SDK release](https://github.com/CometBackup/comet-php-sdk/releases/tag/v3.25.0).
 
 ## Version compatibility
 
