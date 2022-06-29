@@ -8,7 +8,7 @@
 - **BREAKING:** The `AdminOrganizationDeleteRequest` API's response type has changed to be `APIResponseMessage`, not `OrganizationResponse`. The Comet Server API had only ever filled in the `APIResponseMessage`-compatible fields of the `OrganizationResponse` structure, so the HTTP/JSON response is unchanged, but this may cause issues if your application code checked this type explicitly
 - "Requestable" Storage Vaults have been renamed to "Storage Templates". The API endpoint is unchanged, so this is backward-compatible with older Comet Server instances
 - Document all `ServerConfigOptions` types for the `AdminMetaServerConfigSet` and `AdminMetaServerConfigGet` APIs
- -Add new `FallbackServers` option for LDAP external authentication sources
+- Add new `FallbackServers` option for LDAP external authentication sources
 - Add new `RandomDelaySecs` option for job schedules
 
 ## 2022-06-03 v3.25.0
@@ -22,7 +22,7 @@
 ## 2022-05-25 v3.24.0
 - Based on 22.3.7
 - Add new `REMOTESERVER_S3_GENERIC` `RemoteServerType`
-- add new `S3GenericVirtualStorageRole` support to the `RemoteServerAddress`
+- Add new `S3GenericVirtualStorageRole` support to the `RemoteServerAddress`
 
 ## 2022-05-10 v3.23.0
 - Based on 22.3.5
