@@ -52,6 +52,11 @@ class AuthenticationRoleOptions {
 	public $ReplicateTo = [];
 
 	/**
+	 * @var \Comet\GlobalOverrideOptions
+	 */
+	public $GlobalOverrides = null;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see AuthenticationRoleOptions::RemoveUnknownProperties() Remove all unknown properties
@@ -114,6 +119,14 @@ class AuthenticationRoleOptions {
 			}
 			$this->ReplicateTo = $val_2;
 		}
+		if (property_exists($sc, 'GlobalOverrides') && !is_null($sc->GlobalOverrides)) {
+			if (is_array($sc->GlobalOverrides) && count($sc->GlobalOverrides) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->GlobalOverrides = \Comet\GlobalOverrideOptions::createFromStdclass(new \stdClass());
+			} else {
+				$this->GlobalOverrides = \Comet\GlobalOverrideOptions::createFromStdclass($sc->GlobalOverrides);
+			}
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'RoleEnabled':
@@ -124,6 +137,7 @@ class AuthenticationRoleOptions {
 			case 'PruneLogsAfterDays':
 			case 'RemoteStorage':
 			case 'ReplicateTo':
+			case 'GlobalOverrides':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -219,6 +233,11 @@ class AuthenticationRoleOptions {
 			}
 			$ret["ReplicateTo"] = $c0;
 		}
+		if ( $this->GlobalOverrides === null ) {
+			$ret["GlobalOverrides"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["GlobalOverrides"] = $this->GlobalOverrides->toArray($for_json_encode);
+		}
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
@@ -268,6 +287,9 @@ class AuthenticationRoleOptions {
 	public function RemoveUnknownProperties()
 	{
 		$this->__unknown_properties = [];
+		if ($this->GlobalOverrides !== null) {
+			$this->GlobalOverrides->RemoveUnknownProperties();
+		}
 	}
 
 }

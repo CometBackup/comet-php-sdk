@@ -177,6 +177,11 @@ class UserPolicy {
 	public $DefaultBackupRules = [];
 
 	/**
+	 * @var int
+	 */
+	public $RandomDelaySecs = 0;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see UserPolicy::RemoveUnknownProperties() Remove all unknown properties
@@ -375,6 +380,9 @@ class UserPolicy {
 			}
 			$this->DefaultBackupRules = $val_2;
 		}
+		if (property_exists($sc, 'RandomDelaySecs') && !is_null($sc->RandomDelaySecs)) {
+			$this->RandomDelaySecs = (int)($sc->RandomDelaySecs);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'PreventRequestStorageVault':
@@ -410,6 +418,7 @@ class UserPolicy {
 			case 'DefaultSourcesBackupRules':
 			case 'DefaultSourcesWithOSRestriction':
 			case 'DefaultBackupRules':
+			case 'RandomDelaySecs':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -599,6 +608,7 @@ class UserPolicy {
 				$ret["DefaultBackupRules"] = $c0;
 			}
 		}
+		$ret["RandomDelaySecs"] = $this->RandomDelaySecs;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

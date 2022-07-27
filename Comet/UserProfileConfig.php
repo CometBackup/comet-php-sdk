@@ -168,6 +168,11 @@ class UserProfileConfig {
 	public $CreationGUID = "";
 
 	/**
+	 * @var \Comet\UserServerConfig
+	 */
+	public $ServerConfig = null;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see UserProfileConfig::RemoveUnknownProperties() Remove all unknown properties
@@ -344,6 +349,14 @@ class UserProfileConfig {
 		if (property_exists($sc, 'CreationGUID')) {
 			$this->CreationGUID = (string)($sc->CreationGUID);
 		}
+		if (property_exists($sc, 'ServerConfig') && !is_null($sc->ServerConfig)) {
+			if (is_array($sc->ServerConfig) && count($sc->ServerConfig) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->ServerConfig = \Comet\UserServerConfig::createFromStdclass(new \stdClass());
+			} else {
+				$this->ServerConfig = \Comet\UserServerConfig::createFromStdclass($sc->ServerConfig);
+			}
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Username':
@@ -374,6 +387,7 @@ class UserProfileConfig {
 			case 'RequirePasswordChange':
 			case 'CreateTime':
 			case 'CreationGUID':
+			case 'ServerConfig':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -558,6 +572,11 @@ class UserProfileConfig {
 		$ret["RequirePasswordChange"] = $this->RequirePasswordChange;
 		$ret["CreateTime"] = $this->CreateTime;
 		$ret["CreationGUID"] = $this->CreationGUID;
+		if ( $this->ServerConfig === null ) {
+			$ret["ServerConfig"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["ServerConfig"] = $this->ServerConfig->toArray($for_json_encode);
+		}
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
@@ -609,6 +628,9 @@ class UserProfileConfig {
 		$this->__unknown_properties = [];
 		if ($this->Policy !== null) {
 			$this->Policy->RemoveUnknownProperties();
+		}
+		if ($this->ServerConfig !== null) {
+			$this->ServerConfig->RemoveUnknownProperties();
 		}
 	}
 
