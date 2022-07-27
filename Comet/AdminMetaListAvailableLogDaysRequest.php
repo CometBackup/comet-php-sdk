@@ -88,7 +88,7 @@ class AdminMetaListAvailableLogDaysRequest implements \Comet\NetworkRequest {
 			}
 		}
 
-		// Parse as []int
+		// Parse as []LogDay
 		$val_0 = [];
 		if ($decoded !== null) {
 			for($i_0 = 0; $i_0 < count($decoded); ++$i_0) {

@@ -1773,7 +1773,6 @@ class Def {
 	 */
 	const OFFICE365_REGION_US_DOD = "USGovtGccDoDCloud";
 
-
 	/**
 	 * Retrieve a mapping of language codes supported by Comet Server.
 	 *
