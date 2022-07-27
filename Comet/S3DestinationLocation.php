@@ -42,6 +42,11 @@ class S3DestinationLocation {
 	public $S3Subdir = "";
 
 	/**
+	 * @var string
+	 */
+	public $S3CustomRegion = "";
+
+	/**
 	 * @var boolean
 	 */
 	public $S3UsesV2Signing = false;
@@ -81,6 +86,9 @@ class S3DestinationLocation {
 		if (property_exists($sc, 'S3Subdir')) {
 			$this->S3Subdir = (string)($sc->S3Subdir);
 		}
+		if (property_exists($sc, 'S3CustomRegion')) {
+			$this->S3CustomRegion = (string)($sc->S3CustomRegion);
+		}
 		if (property_exists($sc, 'S3UsesV2Signing')) {
 			$this->S3UsesV2Signing = (bool)($sc->S3UsesV2Signing);
 		}
@@ -92,6 +100,7 @@ class S3DestinationLocation {
 			case 'S3SecretKey':
 			case 'S3BucketName':
 			case 'S3Subdir':
+			case 'S3CustomRegion':
 			case 'S3UsesV2Signing':
 				break;
 			default:
@@ -164,6 +173,7 @@ class S3DestinationLocation {
 		$ret["S3SecretKey"] = $this->S3SecretKey;
 		$ret["S3BucketName"] = $this->S3BucketName;
 		$ret["S3Subdir"] = $this->S3Subdir;
+		$ret["S3CustomRegion"] = $this->S3CustomRegion;
 		$ret["S3UsesV2Signing"] = $this->S3UsesV2Signing;
 
 		// Reinstate unknown properties from future server versions
