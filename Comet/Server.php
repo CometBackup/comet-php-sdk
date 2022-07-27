@@ -1000,12 +1000,13 @@ class Server {
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
 	 *
+	 * @param string $UserNameFilter User name filter string (optional)
 	 * @return \Comet\LiveUserConnection[] An array with string keys. 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherListActive(): array
+	public function AdminDispatcherListActive(string $UserNameFilter = null): array
 	{
-		$nr = new \Comet\AdminDispatcherListActiveRequest();
+		$nr = new \Comet\AdminDispatcherListActiveRequest($UserNameFilter);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminDispatcherListActiveRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}

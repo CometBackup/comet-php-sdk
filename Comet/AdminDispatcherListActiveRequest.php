@@ -19,11 +19,20 @@ namespace Comet;
 class AdminDispatcherListActiveRequest implements \Comet\NetworkRequest {
 
 	/**
+	 * User name filter string (optional)
+	 *
+	 * @var string|null
+	 */
+	protected $UserNameFilter = null;
+
+	/**
 	 * Construct a new AdminDispatcherListActiveRequest instance.
 	 *
+	 * @param string $UserNameFilter User name filter string (optional)
 	 */
-	public function __construct()
+	public function __construct(string $UserNameFilter = null)
 	{
+		$this->UserNameFilter = $UserNameFilter;
 	}
 
 	/**
@@ -54,6 +63,9 @@ class AdminDispatcherListActiveRequest implements \Comet\NetworkRequest {
 	public function Parameters(): array
 	{
 		$ret = [];
+		if ($this->UserNameFilter !== null) {
+			$ret["UserNameFilter"] = (string)($this->UserNameFilter);
+		}
 		return $ret;
 	}
 
