@@ -52,6 +52,11 @@ class Office365MixedVirtualAccount {
 	public $WebURL = "";
 
 	/**
+	 * @var string
+	 */
+	public $UserPrincipalName = "";
+
+	/**
 	 * @var int
 	 */
 	public $EnabledServiceOption = 0;
@@ -117,6 +122,9 @@ class Office365MixedVirtualAccount {
 		if (property_exists($sc, 'WebURL') && !is_null($sc->WebURL)) {
 			$this->WebURL = (string)($sc->WebURL);
 		}
+		if (property_exists($sc, 'UserPrincipalName') && !is_null($sc->UserPrincipalName)) {
+			$this->UserPrincipalName = (string)($sc->UserPrincipalName);
+		}
 		if (property_exists($sc, 'EnabledServiceOption') && !is_null($sc->EnabledServiceOption)) {
 			$this->EnabledServiceOption = (int)($sc->EnabledServiceOption);
 		}
@@ -148,6 +156,7 @@ class Office365MixedVirtualAccount {
 			case 'SiteID':
 			case 'WebID':
 			case 'WebURL':
+			case 'UserPrincipalName':
 			case 'EnabledServiceOption':
 			case 'Members':
 			case 'ServiceOptions':
@@ -226,6 +235,7 @@ class Office365MixedVirtualAccount {
 		$ret["SiteID"] = $this->SiteID;
 		$ret["WebID"] = $this->WebID;
 		$ret["WebURL"] = $this->WebURL;
+		$ret["UserPrincipalName"] = $this->UserPrincipalName;
 		$ret["EnabledServiceOption"] = $this->EnabledServiceOption;
 		{
 			$c0 = [];
