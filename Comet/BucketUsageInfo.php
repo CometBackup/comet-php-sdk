@@ -12,6 +12,11 @@ namespace Comet;
 class BucketUsageInfo {
 
 	/**
+	 * @var string
+	 */
+	public $AccessKey = "";
+
+	/**
 	 * @var int[]
 	 */
 	public $ExistsOnServers = [];
@@ -38,6 +43,9 @@ class BucketUsageInfo {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
+		if (property_exists($sc, 'AccessKey')) {
+			$this->AccessKey = (string)($sc->AccessKey);
+		}
 		if (property_exists($sc, 'ExistsOnServers')) {
 			$val_2 = [];
 			if ($sc->ExistsOnServers !== null) {
@@ -63,6 +71,7 @@ class BucketUsageInfo {
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
+			case 'AccessKey':
 			case 'ExistsOnServers':
 			case 'InUseBy':
 				break;
@@ -130,6 +139,7 @@ class BucketUsageInfo {
 	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
+		$ret["AccessKey"] = $this->AccessKey;
 		{
 			$c0 = [];
 			for($i0 = 0; $i0 < count($this->ExistsOnServers); ++$i0) {

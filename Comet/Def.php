@@ -1567,6 +1567,13 @@ class Def {
 	const REMOTESERVER_AWS = "aws";
 
 	/**
+	 * RemoteServerType:
+	 *
+	 * @type string
+	 */
+	const REMOTESERVER_IDRIVEE2 = "idrivee2";
+
+	/**
 	 * LDAPSecurityMethod:
 	 *
 	 * @type string
