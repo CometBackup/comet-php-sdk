@@ -24,6 +24,11 @@ class RestoreJobAdvancedOptions {
 	/**
 	 * @var boolean
 	 */
+	public $OverwriteIfNewer = false;
+
+	/**
+	 * @var boolean
+	 */
 	public $DestIsOriginalLocation = false;
 
 	/**
@@ -69,6 +74,9 @@ class RestoreJobAdvancedOptions {
 		if (property_exists($sc, 'OverwriteExistingFiles')) {
 			$this->OverwriteExistingFiles = (bool)($sc->OverwriteExistingFiles);
 		}
+		if (property_exists($sc, 'OverwriteIfNewer')) {
+			$this->OverwriteIfNewer = (bool)($sc->OverwriteIfNewer);
+		}
 		if (property_exists($sc, 'DestIsOriginalLocation')) {
 			$this->DestIsOriginalLocation = (bool)($sc->DestIsOriginalLocation);
 		}
@@ -99,6 +107,7 @@ class RestoreJobAdvancedOptions {
 			switch($k) {
 			case 'Type':
 			case 'OverwriteExistingFiles':
+			case 'OverwriteIfNewer':
 			case 'DestIsOriginalLocation':
 			case 'DestPath':
 			case 'ExactDestPaths':
@@ -171,6 +180,7 @@ class RestoreJobAdvancedOptions {
 		$ret = [];
 		$ret["Type"] = $this->Type;
 		$ret["OverwriteExistingFiles"] = $this->OverwriteExistingFiles;
+		$ret["OverwriteIfNewer"] = $this->OverwriteIfNewer;
 		$ret["DestIsOriginalLocation"] = $this->DestIsOriginalLocation;
 		$ret["DestPath"] = $this->DestPath;
 		{
