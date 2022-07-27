@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 2022-07-27 v4.1.0
+- Based on 22.6.7
+  Add support enforcing the `RandomDelaySecs` for both whole-server and in policies
+- Add support for username filter parameter in `AdminDispatcherListActive`
+- Add custom region parameters for S3-compatible storage
+- Add IDrive e2 as a Storage Template provider and in Constellation, including access-key cleanup
+- Add `OverwriteIfNewer` to `RestoreJobAdvancedOptions`
+- Add Office365 User Principal names
+
 ## 2022-06-28 v4.0.0
 - Based on 22.6.2
 - **BREAKING:** Add support for PHP 7 return type declarations and scalar argument types. PHP 7.0 is now the minimum required PHP version
