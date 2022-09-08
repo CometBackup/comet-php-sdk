@@ -72,6 +72,16 @@ class ServerMetaVersionInfo {
 	public $ServerLicenseHash = "";
 
 	/**
+	 * @var boolean
+	 */
+	public $ServerLicenseFeaturesAll = false;
+
+	/**
+	 * @var int
+	 */
+	public $ServerLicenseFeatureSet = 0;
+
+	/**
 	 * @var int
 	 */
 	public $LicenseValidUntil = 0;
@@ -180,6 +190,12 @@ class ServerMetaVersionInfo {
 		if (property_exists($sc, 'ServerLicenseHash')) {
 			$this->ServerLicenseHash = (string)($sc->ServerLicenseHash);
 		}
+		if (property_exists($sc, 'ServerLicenseFeaturesAll')) {
+			$this->ServerLicenseFeaturesAll = (bool)($sc->ServerLicenseFeaturesAll);
+		}
+		if (property_exists($sc, 'ServerLicenseFeatureSet')) {
+			$this->ServerLicenseFeatureSet = (int)($sc->ServerLicenseFeatureSet);
+		}
 		if (property_exists($sc, 'LicenseValidUntil')) {
 			$this->LicenseValidUntil = (int)($sc->LicenseValidUntil);
 		}
@@ -235,6 +251,8 @@ class ServerMetaVersionInfo {
 			case 'ServerStartHash':
 			case 'CurrentTime':
 			case 'ServerLicenseHash':
+			case 'ServerLicenseFeaturesAll':
+			case 'ServerLicenseFeatureSet':
 			case 'LicenseValidUntil':
 			case 'EmailsSentSuccessfully':
 			case 'EmailsSentErrors':
@@ -329,6 +347,8 @@ class ServerMetaVersionInfo {
 		$ret["ServerStartHash"] = $this->ServerStartHash;
 		$ret["CurrentTime"] = $this->CurrentTime;
 		$ret["ServerLicenseHash"] = $this->ServerLicenseHash;
+		$ret["ServerLicenseFeaturesAll"] = $this->ServerLicenseFeaturesAll;
+		$ret["ServerLicenseFeatureSet"] = $this->ServerLicenseFeatureSet;
 		$ret["LicenseValidUntil"] = $this->LicenseValidUntil;
 		$ret["EmailsSentSuccessfully"] = $this->EmailsSentSuccessfully;
 		$ret["EmailsSentErrors"] = $this->EmailsSentErrors;

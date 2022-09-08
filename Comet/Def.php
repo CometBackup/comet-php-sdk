@@ -316,6 +316,11 @@ class Def {
 	/**
 	 * @type int
 	 */
+	const DESTINATIONTYPE_STORJ = 1009;
+
+	/**
+	 * @type int
+	 */
 	const DESTINATIONTYPE_LATEST = 1100;
 
 	/**
@@ -510,6 +515,13 @@ class Def {
 	 * @type int
 	 */
 	const RESTORETYPE_VMDK_FILE_ARCHIVE = 9;
+
+	/**
+	 * RestoreType:
+	 *
+	 * @type int
+	 */
+	const RESTORETYPE_MYSQL = 10;
 
 	/**
 	 * RestoreType: RESTORETYPE_PROCESS_ARCHIVE
@@ -1105,7 +1117,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "22.6.7";
+	const APPLICATION_VERSION = "22.9.0";
 
 	/**
 	 * @type int
@@ -1115,12 +1127,12 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_MINOR = 6;
+	const APPLICATION_VERSION_MINOR = 9;
 
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 7;
+	const APPLICATION_VERSION_REVISION = 0;
 
 	/**
 	 * @type string
@@ -1565,6 +1577,13 @@ class Def {
 	 * @type string
 	 */
 	const REMOTESERVER_AWS = "aws";
+
+	/**
+	 * RemoteServerType:
+	 *
+	 * @type string
+	 */
+	const REMOTESERVER_STORJ = "storj";
 
 	/**
 	 * RemoteServerType:

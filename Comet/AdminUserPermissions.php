@@ -37,6 +37,16 @@ class AdminUserPermissions {
 	public $AllowEditRemoteStorage = false;
 
 	/**
+	 * @var boolean
+	 */
+	public $AllowEditWebhooks = false;
+
+	/**
+	 * @var boolean
+	 */
+	public $DenyConstellationRole = false;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see AdminUserPermissions::RemoveUnknownProperties() Remove all unknown properties
@@ -68,6 +78,12 @@ class AdminUserPermissions {
 		if (property_exists($sc, 'AllowEditRemoteStorage') && !is_null($sc->AllowEditRemoteStorage)) {
 			$this->AllowEditRemoteStorage = (bool)($sc->AllowEditRemoteStorage);
 		}
+		if (property_exists($sc, 'AllowEditWebhooks') && !is_null($sc->AllowEditWebhooks)) {
+			$this->AllowEditWebhooks = (bool)($sc->AllowEditWebhooks);
+		}
+		if (property_exists($sc, 'DenyConstellationRole') && !is_null($sc->DenyConstellationRole)) {
+			$this->DenyConstellationRole = (bool)($sc->DenyConstellationRole);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'PreventEditServerSettings':
@@ -75,6 +91,8 @@ class AdminUserPermissions {
 			case 'PreventChangePassword':
 			case 'AllowEditBranding':
 			case 'AllowEditRemoteStorage':
+			case 'AllowEditWebhooks':
+			case 'DenyConstellationRole':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -145,6 +163,8 @@ class AdminUserPermissions {
 		$ret["PreventChangePassword"] = $this->PreventChangePassword;
 		$ret["AllowEditBranding"] = $this->AllowEditBranding;
 		$ret["AllowEditRemoteStorage"] = $this->AllowEditRemoteStorage;
+		$ret["AllowEditWebhooks"] = $this->AllowEditWebhooks;
+		$ret["DenyConstellationRole"] = $this->DenyConstellationRole;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

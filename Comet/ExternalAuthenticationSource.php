@@ -69,6 +69,11 @@ class ExternalAuthenticationSource {
 	public $AWS = null;
 
 	/**
+	 * @var \Comet\StorjVirtualStorageRoleSetting
+	 */
+	public $Storj = null;
+
+	/**
 	 * @var \Comet\AdminUserPermissions
 	 */
 	public $NewUserPermissions = null;
@@ -153,6 +158,14 @@ class ExternalAuthenticationSource {
 				$this->AWS = \Comet\AmazonAWSVirtualStorageRoleSettings::createFromStdclass($sc->AWS);
 			}
 		}
+		if (property_exists($sc, 'Storj') && !is_null($sc->Storj)) {
+			if (is_array($sc->Storj) && count($sc->Storj) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->Storj = \Comet\StorjVirtualStorageRoleSetting::createFromStdclass(new \stdClass());
+			} else {
+				$this->Storj = \Comet\StorjVirtualStorageRoleSetting::createFromStdclass($sc->Storj);
+			}
+		}
 		if (property_exists($sc, 'NewUserPermissions')) {
 			if (is_array($sc->NewUserPermissions) && count($sc->NewUserPermissions) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
@@ -174,6 +187,7 @@ class ExternalAuthenticationSource {
 			case 'Custom':
 			case 'S3':
 			case 'AWS':
+			case 'Storj':
 			case 'NewUserPermissions':
 				break;
 			default:
@@ -275,6 +289,11 @@ class ExternalAuthenticationSource {
 		} else {
 			$ret["AWS"] = $this->AWS->toArray($for_json_encode);
 		}
+		if ( $this->Storj === null ) {
+			$ret["Storj"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["Storj"] = $this->Storj->toArray($for_json_encode);
+		}
 		if ( $this->NewUserPermissions === null ) {
 			$ret["NewUserPermissions"] = $for_json_encode ? (object)[] : [];
 		} else {
@@ -346,6 +365,9 @@ class ExternalAuthenticationSource {
 		}
 		if ($this->AWS !== null) {
 			$this->AWS->RemoveUnknownProperties();
+		}
+		if ($this->Storj !== null) {
+			$this->Storj->RemoveUnknownProperties();
 		}
 		if ($this->NewUserPermissions !== null) {
 			$this->NewUserPermissions->RemoveUnknownProperties();

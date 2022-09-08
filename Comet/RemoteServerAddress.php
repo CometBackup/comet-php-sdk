@@ -69,6 +69,11 @@ class RemoteServerAddress {
 	public $AWS = null;
 
 	/**
+	 * @var \Comet\StorjVirtualStorageRoleSetting
+	 */
+	public $Storj = null;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see RemoteServerAddress::RemoveUnknownProperties() Remove all unknown properties
@@ -148,6 +153,14 @@ class RemoteServerAddress {
 				$this->AWS = \Comet\AmazonAWSVirtualStorageRoleSettings::createFromStdclass($sc->AWS);
 			}
 		}
+		if (property_exists($sc, 'Storj') && !is_null($sc->Storj)) {
+			if (is_array($sc->Storj) && count($sc->Storj) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->Storj = \Comet\StorjVirtualStorageRoleSetting::createFromStdclass(new \stdClass());
+			} else {
+				$this->Storj = \Comet\StorjVirtualStorageRoleSetting::createFromStdclass($sc->Storj);
+			}
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Type':
@@ -161,6 +174,7 @@ class RemoteServerAddress {
 			case 'Custom':
 			case 'S3':
 			case 'AWS':
+			case 'Storj':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -261,6 +275,11 @@ class RemoteServerAddress {
 		} else {
 			$ret["AWS"] = $this->AWS->toArray($for_json_encode);
 		}
+		if ( $this->Storj === null ) {
+			$ret["Storj"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["Storj"] = $this->Storj->toArray($for_json_encode);
+		}
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
@@ -327,6 +346,9 @@ class RemoteServerAddress {
 		}
 		if ($this->AWS !== null) {
 			$this->AWS->RemoveUnknownProperties();
+		}
+		if ($this->Storj !== null) {
+			$this->Storj->RemoveUnknownProperties();
 		}
 	}
 

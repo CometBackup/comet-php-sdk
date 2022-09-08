@@ -52,6 +52,51 @@ class RestoreJobAdvancedOptions {
 	public $Office365Credential = null;
 
 	/**
+	 * @var string
+	 */
+	public $Username = "";
+
+	/**
+	 * @var string
+	 */
+	public $Password = "";
+
+	/**
+	 * @var string
+	 */
+	public $Host = "";
+
+	/**
+	 * @var string
+	 */
+	public $Port = "";
+
+	/**
+	 * @var boolean
+	 */
+	public $UseSsl = false;
+
+	/**
+	 * @var boolean
+	 */
+	public $SslAllowInvalid = false;
+
+	/**
+	 * @var string
+	 */
+	public $SslCaFile = "";
+
+	/**
+	 * @var string
+	 */
+	public $SslCrtFile = "";
+
+	/**
+	 * @var string
+	 */
+	public $SslKeyFile = "";
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see RestoreJobAdvancedOptions::RemoveUnknownProperties() Remove all unknown properties
@@ -103,6 +148,33 @@ class RestoreJobAdvancedOptions {
 				$this->Office365Credential = \Comet\Office365Credential::createFromStdclass($sc->Office365Credential);
 			}
 		}
+		if (property_exists($sc, 'Username')) {
+			$this->Username = (string)($sc->Username);
+		}
+		if (property_exists($sc, 'Password')) {
+			$this->Password = (string)($sc->Password);
+		}
+		if (property_exists($sc, 'Host')) {
+			$this->Host = (string)($sc->Host);
+		}
+		if (property_exists($sc, 'Port')) {
+			$this->Port = (string)($sc->Port);
+		}
+		if (property_exists($sc, 'UseSsl')) {
+			$this->UseSsl = (bool)($sc->UseSsl);
+		}
+		if (property_exists($sc, 'SslAllowInvalid')) {
+			$this->SslAllowInvalid = (bool)($sc->SslAllowInvalid);
+		}
+		if (property_exists($sc, 'SslCaFile')) {
+			$this->SslCaFile = (string)($sc->SslCaFile);
+		}
+		if (property_exists($sc, 'SslCrtFile')) {
+			$this->SslCrtFile = (string)($sc->SslCrtFile);
+		}
+		if (property_exists($sc, 'SslKeyFile')) {
+			$this->SslKeyFile = (string)($sc->SslKeyFile);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Type':
@@ -113,6 +185,15 @@ class RestoreJobAdvancedOptions {
 			case 'ExactDestPaths':
 			case 'ArchiveFormat':
 			case 'Office365Credential':
+			case 'Username':
+			case 'Password':
+			case 'Host':
+			case 'Port':
+			case 'UseSsl':
+			case 'SslAllowInvalid':
+			case 'SslCaFile':
+			case 'SslCrtFile':
+			case 'SslKeyFile':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -197,6 +278,15 @@ class RestoreJobAdvancedOptions {
 		} else {
 			$ret["Office365Credential"] = $this->Office365Credential->toArray($for_json_encode);
 		}
+		$ret["Username"] = $this->Username;
+		$ret["Password"] = $this->Password;
+		$ret["Host"] = $this->Host;
+		$ret["Port"] = $this->Port;
+		$ret["UseSsl"] = $this->UseSsl;
+		$ret["SslAllowInvalid"] = $this->SslAllowInvalid;
+		$ret["SslCaFile"] = $this->SslCaFile;
+		$ret["SslCrtFile"] = $this->SslCrtFile;
+		$ret["SslKeyFile"] = $this->SslKeyFile;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

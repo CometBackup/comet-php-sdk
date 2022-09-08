@@ -49,9 +49,9 @@ class AdminAccountU2fSubmitChallengeResponseRequest implements \Comet\NetworkReq
 	protected $U2FVersion = null;
 
 	/**
-	 * Optional description of the token
+	 * Description of the token (optional)
 	 *
-	 * @var string
+	 * @var string|null
 	 */
 	protected $Description = null;
 
@@ -62,9 +62,9 @@ class AdminAccountU2fSubmitChallengeResponseRequest implements \Comet\NetworkReq
 	 * @param string $U2FClientData U2F response data supplied by hardware token
 	 * @param string $U2FRegistrationData U2F response data supplied by hardware token
 	 * @param string $U2FVersion U2F response data supplied by hardware token
-	 * @param string $Description Optional description of the token
+	 * @param string $Description Description of the token (optional)
 	 */
-	public function __construct(string $U2FChallengeID, string $U2FClientData, string $U2FRegistrationData, string $U2FVersion, string $Description)
+	public function __construct(string $U2FChallengeID, string $U2FClientData, string $U2FRegistrationData, string $U2FVersion, string $Description = null)
 	{
 		$this->U2FChallengeID = $U2FChallengeID;
 		$this->U2FClientData = $U2FClientData;
@@ -105,7 +105,9 @@ class AdminAccountU2fSubmitChallengeResponseRequest implements \Comet\NetworkReq
 		$ret["U2FClientData"] = (string)($this->U2FClientData);
 		$ret["U2FRegistrationData"] = (string)($this->U2FRegistrationData);
 		$ret["U2FVersion"] = (string)($this->U2FVersion);
-		$ret["Description"] = (string)($this->Description);
+		if ($this->Description !== null) {
+			$ret["Description"] = (string)($this->Description);
+		}
 		return $ret;
 	}
 

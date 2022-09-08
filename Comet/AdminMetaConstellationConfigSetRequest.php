@@ -10,20 +10,29 @@
 namespace Comet;
 
 /**
- * Comet Server AdminConstellationNewReport API
- * Get Constellation bucket usage report (regenerate)
+ * Comet Server AdminMetaConstellationConfigSet API
+ * Set Constellation configuration for the current organization
  *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Constellation Role to be enabled.
  */
-class AdminConstellationNewReportRequest implements \Comet\NetworkRequest {
+class AdminMetaConstellationConfigSetRequest implements \Comet\NetworkRequest {
 
 	/**
-	 * Construct a new AdminConstellationNewReportRequest instance.
+	 * Constellation role options to set
 	 *
+	 * @var \Comet\ConstellationRoleOptions
 	 */
-	public function __construct()
+	protected $ConstellationRoleOptions = null;
+
+	/**
+	 * Construct a new AdminMetaConstellationConfigSetRequest instance.
+	 *
+	 * @param \Comet\ConstellationRoleOptions $ConstellationRoleOptions Constellation role options to set
+	 */
+	public function __construct(\Comet\ConstellationRoleOptions $ConstellationRoleOptions)
 	{
+		$this->ConstellationRoleOptions = $ConstellationRoleOptions;
 	}
 
 	/**
@@ -33,7 +42,7 @@ class AdminConstellationNewReportRequest implements \Comet\NetworkRequest {
 	 */
 	public function Endpoint(): string
 	{
-		return '/api/v1/admin/constellation/new-report';
+		return '/api/v1/admin/meta/constellation/config/set';
 	}
 
 	public function Method(): string
@@ -54,6 +63,7 @@ class AdminConstellationNewReportRequest implements \Comet\NetworkRequest {
 	public function Parameters(): array
 	{
 		$ret = [];
+		$ret["ConstellationRoleOptions"] = $this->ConstellationRoleOptions->toJSON();
 		return $ret;
 	}
 
@@ -63,10 +73,10 @@ class AdminConstellationNewReportRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param int $responseCode HTTP response code
 	 * @param string $body HTTP response body
-	 * @return \Comet\ConstellationCheckReport
+	 * @return \Comet\APIResponseMessage
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse(int $responseCode, string $body): \Comet\ConstellationCheckReport
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\APIResponseMessage
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {
@@ -88,12 +98,12 @@ class AdminConstellationNewReportRequest implements \Comet\NetworkRequest {
 			}
 		}
 
-		// Parse as ConstellationCheckReport
+		// Parse as CometAPIResponseMessage
 		if (is_array($decoded) && count($decoded) === 0) {
 		// Work around edge case in json_decode--json_encode stdClass conversion
-			$ret = \Comet\ConstellationCheckReport::createFromStdclass(new \stdClass());
+			$ret = \Comet\APIResponseMessage::createFromStdclass(new \stdClass());
 		} else {
-			$ret = \Comet\ConstellationCheckReport::createFromStdclass($decoded);
+			$ret = \Comet\APIResponseMessage::createFromStdclass($decoded);
 		}
 
 		return $ret;

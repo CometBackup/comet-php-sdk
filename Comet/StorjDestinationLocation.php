@@ -9,43 +9,43 @@
 
 namespace Comet;
 
-class S3GenericVirtualStorageRole {
+class StorjDestinationLocation {
 
 	/**
 	 * @var string
 	 */
-	public $S3Endpoint = "";
+	public $SatelliteAddress = "";
 
 	/**
 	 * @var string
 	 */
-	public $IAMEndpoint = "";
+	public $APIKey = "";
 
 	/**
 	 * @var string
 	 */
-	public $MasterBucket = "";
+	public $Passphrase = "";
 
 	/**
 	 * @var string
 	 */
-	public $AccessKey = "";
+	public $StorjBucket = "";
 
 	/**
 	 * @var string
 	 */
-	public $SecretKey = "";
+	public $StorjBucketPrefix = "";
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
-	 * @see S3GenericVirtualStorageRole::RemoveUnknownProperties() Remove all unknown properties
+	 * @see StorjDestinationLocation::RemoveUnknownProperties() Remove all unknown properties
 	 * @var array
 	 */
 	private $__unknown_properties = [];
 
 	/**
-	 * Replace the content of this S3GenericVirtualStorageRole object from a PHP \stdClass.
+	 * Replace the content of this StorjDestinationLocation object from a PHP \stdClass.
 	 * The data could be supplied from an API call after json_decode(...); or generated manually.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
@@ -53,28 +53,28 @@ class S3GenericVirtualStorageRole {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
-		if (property_exists($sc, 'S3Endpoint')) {
-			$this->S3Endpoint = (string)($sc->S3Endpoint);
+		if (property_exists($sc, 'SatelliteAddress')) {
+			$this->SatelliteAddress = (string)($sc->SatelliteAddress);
 		}
-		if (property_exists($sc, 'IAMEndpoint')) {
-			$this->IAMEndpoint = (string)($sc->IAMEndpoint);
+		if (property_exists($sc, 'APIKey')) {
+			$this->APIKey = (string)($sc->APIKey);
 		}
-		if (property_exists($sc, 'MasterBucket')) {
-			$this->MasterBucket = (string)($sc->MasterBucket);
+		if (property_exists($sc, 'Passphrase')) {
+			$this->Passphrase = (string)($sc->Passphrase);
 		}
-		if (property_exists($sc, 'AccessKey')) {
-			$this->AccessKey = (string)($sc->AccessKey);
+		if (property_exists($sc, 'StorjBucket')) {
+			$this->StorjBucket = (string)($sc->StorjBucket);
 		}
-		if (property_exists($sc, 'SecretKey')) {
-			$this->SecretKey = (string)($sc->SecretKey);
+		if (property_exists($sc, 'StorjBucketPrefix') && !is_null($sc->StorjBucketPrefix)) {
+			$this->StorjBucketPrefix = (string)($sc->StorjBucketPrefix);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
-			case 'S3Endpoint':
-			case 'IAMEndpoint':
-			case 'MasterBucket':
-			case 'AccessKey':
-			case 'SecretKey':
+			case 'SatelliteAddress':
+			case 'APIKey':
+			case 'Passphrase':
+			case 'StorjBucket':
+			case 'StorjBucketPrefix':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -83,27 +83,27 @@ class S3GenericVirtualStorageRole {
 	}
 
 	/**
-	 * Coerce a stdClass into a new strongly-typed S3GenericVirtualStorageRole object.
+	 * Coerce a stdClass into a new strongly-typed StorjDestinationLocation object.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
-	 * @return S3GenericVirtualStorageRole
+	 * @return StorjDestinationLocation
 	 */
-	public static function createFromStdclass(\stdClass $sc): \Comet\S3GenericVirtualStorageRole
+	public static function createFromStdclass(\stdClass $sc): \Comet\StorjDestinationLocation
 	{
-		$retn = new S3GenericVirtualStorageRole();
+		$retn = new StorjDestinationLocation();
 		$retn->inflateFrom($sc);
 		return $retn;
 	}
 
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed S3GenericVirtualStorageRole object.
+	 * Coerce a plain PHP array into a new strongly-typed StorjDestinationLocation object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
 	 * @param array $arr Object data as PHP array
-	 * @return S3GenericVirtualStorageRole
+	 * @return StorjDestinationLocation
 	 */
-	public static function createFromArray(array $arr): \Comet\S3GenericVirtualStorageRole
+	public static function createFromArray(array $arr): \Comet\StorjDestinationLocation
 	{
 		$stdClass = json_decode(json_encode($arr, JSON_UNESCAPED_SLASHES));
 		if (is_array($stdClass) && count($stdClass) === 0) {
@@ -113,24 +113,24 @@ class S3GenericVirtualStorageRole {
 	}
 
 	/**
-	 * Coerce a JSON string into a new strongly-typed S3GenericVirtualStorageRole object.
+	 * Coerce a JSON string into a new strongly-typed StorjDestinationLocation object.
 	 *
 	 * @param string $JsonString Object data as JSON string
-	 * @return S3GenericVirtualStorageRole
+	 * @return StorjDestinationLocation
 	 */
-	public static function createFromJSON(string $JsonString): \Comet\S3GenericVirtualStorageRole
+	public static function createFromJSON(string $JsonString): \Comet\StorjDestinationLocation
 	{
 		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg());
 		}
-		$retn = new S3GenericVirtualStorageRole();
+		$retn = new StorjDestinationLocation();
 		$retn->inflateFrom($decodedJsonObject);
 		return $retn;
 	}
 
 	/**
-	 * Convert this S3GenericVirtualStorageRole object into a plain PHP array.
+	 * Convert this StorjDestinationLocation object into a plain PHP array.
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
@@ -140,11 +140,11 @@ class S3GenericVirtualStorageRole {
 	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
-		$ret["S3Endpoint"] = $this->S3Endpoint;
-		$ret["IAMEndpoint"] = $this->IAMEndpoint;
-		$ret["MasterBucket"] = $this->MasterBucket;
-		$ret["AccessKey"] = $this->AccessKey;
-		$ret["SecretKey"] = $this->SecretKey;
+		$ret["SatelliteAddress"] = $this->SatelliteAddress;
+		$ret["APIKey"] = $this->APIKey;
+		$ret["Passphrase"] = $this->Passphrase;
+		$ret["StorjBucket"] = $this->StorjBucket;
+		$ret["StorjBucketPrefix"] = $this->StorjBucketPrefix;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

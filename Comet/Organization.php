@@ -37,6 +37,11 @@ class Organization {
 	public $RemoteStorage = [];
 
 	/**
+	 * @var \Comet\ConstellationRoleOptions
+	 */
+	public $ConstellationRole = null;
+
+	/**
 	 * @var \Comet\WebhookOption[] An array with string keys.
 	 */
 	public $WebhookOptions = [];
@@ -110,6 +115,14 @@ class Organization {
 			}
 			$this->RemoteStorage = $val_2;
 		}
+		if (property_exists($sc, 'ConstellationRole')) {
+			if (is_array($sc->ConstellationRole) && count($sc->ConstellationRole) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->ConstellationRole = \Comet\ConstellationRoleOptions::createFromStdclass(new \stdClass());
+			} else {
+				$this->ConstellationRole = \Comet\ConstellationRoleOptions::createFromStdclass($sc->ConstellationRole);
+			}
+		}
 		if (property_exists($sc, 'WebhookOptions')) {
 			$val_2 = [];
 			if ($sc->WebhookOptions !== null) {
@@ -144,6 +157,7 @@ class Organization {
 			case 'SoftwareBuildRole':
 			case 'Branding':
 			case 'RemoteStorage':
+			case 'ConstellationRole':
 			case 'WebhookOptions':
 			case 'Email':
 			case 'IsSuspended':
@@ -243,6 +257,11 @@ class Organization {
 			}
 			$ret["RemoteStorage"] = $c0;
 		}
+		if ( $this->ConstellationRole === null ) {
+			$ret["ConstellationRole"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["ConstellationRole"] = $this->ConstellationRole->toArray($for_json_encode);
+		}
 		{
 			$c0 = [];
 			foreach($this->WebhookOptions as $k0 => $v0) {
@@ -320,6 +339,9 @@ class Organization {
 		}
 		if ($this->Branding !== null) {
 			$this->Branding->RemoveUnknownProperties();
+		}
+		if ($this->ConstellationRole !== null) {
+			$this->ConstellationRole->RemoveUnknownProperties();
 		}
 		if ($this->Email !== null) {
 			$this->Email->RemoveUnknownProperties();

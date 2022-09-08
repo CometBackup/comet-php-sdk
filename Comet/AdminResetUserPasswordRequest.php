@@ -34,9 +34,9 @@ class AdminResetUserPasswordRequest implements \Comet\NetworkRequest {
 	protected $NewPassword = null;
 
 	/**
-	 * Old account password (optional)
+	 * Old account password. Required if no recovery code is present for the user account. (optional)
 	 *
-	 * @var string
+	 * @var string|null
 	 */
 	protected $OldPassword = null;
 
@@ -45,9 +45,9 @@ class AdminResetUserPasswordRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param string $TargetUser Selected account username
 	 * @param string $NewPassword New account password
-	 * @param string $OldPassword Old account password (optional)
+	 * @param string $OldPassword Old account password. Required if no recovery code is present for the user account. (optional)
 	 */
-	public function __construct(string $TargetUser, string $NewPassword, string $OldPassword)
+	public function __construct(string $TargetUser, string $NewPassword, string $OldPassword = null)
 	{
 		$this->TargetUser = $TargetUser;
 		$this->NewPassword = $NewPassword;
@@ -84,7 +84,9 @@ class AdminResetUserPasswordRequest implements \Comet\NetworkRequest {
 		$ret = [];
 		$ret["TargetUser"] = (string)($this->TargetUser);
 		$ret["NewPassword"] = (string)($this->NewPassword);
-		$ret["OldPassword"] = (string)($this->OldPassword);
+		if ($this->OldPassword !== null) {
+			$ret["OldPassword"] = (string)($this->OldPassword);
+		}
 		return $ret;
 	}
 

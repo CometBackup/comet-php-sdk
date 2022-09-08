@@ -248,11 +248,11 @@ class Server {
 	 * @param string $U2FClientData U2F response data supplied by hardware token
 	 * @param string $U2FRegistrationData U2F response data supplied by hardware token
 	 * @param string $U2FVersion U2F response data supplied by hardware token
-	 * @param string $Description Optional description of the token
+	 * @param string $Description Description of the token (optional)
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminAccountU2fSubmitChallengeResponse(string $U2FChallengeID, string $U2FClientData, string $U2FRegistrationData, string $U2FVersion, string $Description): \Comet\APIResponseMessage
+	public function AdminAccountU2fSubmitChallengeResponse(string $U2FChallengeID, string $U2FClientData, string $U2FRegistrationData, string $U2FVersion, string $Description = null): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminAccountU2fSubmitChallengeResponseRequest($U2FChallengeID, $U2FClientData, $U2FRegistrationData, $U2FVersion, $Description);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -716,7 +716,6 @@ class Server {
 	 * Get Constellation bucket usage report (cached)
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
-	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
 	 * This API requires the Constellation Role to be enabled.
 	 *
 	 * @return \Comet\ConstellationCheckReport 
@@ -733,7 +732,6 @@ class Server {
 	 * Get Constellation bucket usage report (regenerate)
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
-	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
 	 * This API requires the Constellation Role to be enabled.
 	 *
 	 * @return \Comet\ConstellationCheckReport 
@@ -767,7 +765,6 @@ class Server {
 	 * Get Constellation status
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
-	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
 	 * This API requires the Constellation Role to be enabled.
 	 *
 	 * @return \Comet\ConstellationStatusAPIResponse 
@@ -1870,6 +1867,39 @@ class Server {
 	}
 
 	/** 
+	 * Get Constellation configuration for the current organization
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Constellation Role to be enabled.
+	 *
+	 * @return \Comet\ConstellationRoleOptions 
+	 * @throws \Exception
+	 */
+	public function AdminMetaConstellationConfigGet(): \Comet\ConstellationRoleOptions
+	{
+		$nr = new \Comet\AdminMetaConstellationConfigGetRequest();
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminMetaConstellationConfigGetRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Set Constellation configuration for the current organization
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Constellation Role to be enabled.
+	 *
+	 * @param \Comet\ConstellationRoleOptions $ConstellationRoleOptions Constellation role options to set
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminMetaConstellationConfigSet(\Comet\ConstellationRoleOptions $ConstellationRoleOptions): \Comet\APIResponseMessage
+	{
+		$nr = new \Comet\AdminMetaConstellationConfigSetRequest($ConstellationRoleOptions);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminMetaConstellationConfigSetRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Get log files
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
@@ -2489,11 +2519,11 @@ class Server {
 	 *
 	 * @param string $TargetUser Selected account username
 	 * @param string $NewPassword New account password
-	 * @param string $OldPassword Old account password (optional)
+	 * @param string $OldPassword Old account password. Required if no recovery code is present for the user account. (optional)
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminResetUserPassword(string $TargetUser, string $NewPassword, string $OldPassword): \Comet\APIResponseMessage
+	public function AdminResetUserPassword(string $TargetUser, string $NewPassword, string $OldPassword = null): \Comet\APIResponseMessage
 	{
 		$nr = new \Comet\AdminResetUserPasswordRequest($TargetUser, $NewPassword, $OldPassword);
 		$response = $this->client->send($this->AsPSR7($nr));

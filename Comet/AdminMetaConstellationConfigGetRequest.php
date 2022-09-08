@@ -10,16 +10,16 @@
 namespace Comet;
 
 /**
- * Comet Server AdminConstellationNewReport API
- * Get Constellation bucket usage report (regenerate)
+ * Comet Server AdminMetaConstellationConfigGet API
+ * Get Constellation configuration for the current organization
  *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Constellation Role to be enabled.
  */
-class AdminConstellationNewReportRequest implements \Comet\NetworkRequest {
+class AdminMetaConstellationConfigGetRequest implements \Comet\NetworkRequest {
 
 	/**
-	 * Construct a new AdminConstellationNewReportRequest instance.
+	 * Construct a new AdminMetaConstellationConfigGetRequest instance.
 	 *
 	 */
 	public function __construct()
@@ -33,7 +33,7 @@ class AdminConstellationNewReportRequest implements \Comet\NetworkRequest {
 	 */
 	public function Endpoint(): string
 	{
-		return '/api/v1/admin/constellation/new-report';
+		return '/api/v1/admin/meta/constellation/config/get';
 	}
 
 	public function Method(): string
@@ -63,10 +63,10 @@ class AdminConstellationNewReportRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param int $responseCode HTTP response code
 	 * @param string $body HTTP response body
-	 * @return \Comet\ConstellationCheckReport
+	 * @return \Comet\ConstellationRoleOptions
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse(int $responseCode, string $body): \Comet\ConstellationCheckReport
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\ConstellationRoleOptions
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {
@@ -88,12 +88,12 @@ class AdminConstellationNewReportRequest implements \Comet\NetworkRequest {
 			}
 		}
 
-		// Parse as ConstellationCheckReport
+		// Parse as ConstellationRoleOptions
 		if (is_array($decoded) && count($decoded) === 0) {
 		// Work around edge case in json_decode--json_encode stdClass conversion
-			$ret = \Comet\ConstellationCheckReport::createFromStdclass(new \stdClass());
+			$ret = \Comet\ConstellationRoleOptions::createFromStdclass(new \stdClass());
 		} else {
-			$ret = \Comet\ConstellationCheckReport::createFromStdclass($decoded);
+			$ret = \Comet\ConstellationRoleOptions::createFromStdclass($decoded);
 		}
 
 		return $ret;

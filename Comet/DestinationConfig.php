@@ -242,6 +242,11 @@ class DestinationConfig {
 	public $B2 = null;
 
 	/**
+	 * @var \Comet\StorjDestinationLocation
+	 */
+	public $Storj = null;
+
+	/**
 	 * @var \Comet\DestinationLocation[]
 	 */
 	public $SpanTargets = [];
@@ -474,6 +479,14 @@ class DestinationConfig {
 				$this->B2 = \Comet\B2DestinationLocation::createFromStdclass($sc->B2);
 			}
 		}
+		if (property_exists($sc, 'Storj')) {
+			if (is_array($sc->Storj) && count($sc->Storj) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->Storj = \Comet\StorjDestinationLocation::createFromStdclass(new \stdClass());
+			} else {
+				$this->Storj = \Comet\StorjDestinationLocation::createFromStdclass($sc->Storj);
+			}
+		}
 		if (property_exists($sc, 'SpanTargets')) {
 			$val_2 = [];
 			if ($sc->SpanTargets !== null) {
@@ -573,6 +586,7 @@ class DestinationConfig {
 			case 'LocalcopyWinSMBPasswordFormat':
 			case 'Swift':
 			case 'B2':
+			case 'Storj':
 			case 'SpanTargets':
 			case 'SpanUseStaticSlots':
 			case 'EncryptionKeyEncryptionMethod':
@@ -723,6 +737,11 @@ class DestinationConfig {
 		} else {
 			$ret["B2"] = $this->B2->toArray($for_json_encode);
 		}
+		if ( $this->Storj === null ) {
+			$ret["Storj"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["Storj"] = $this->Storj->toArray($for_json_encode);
+		}
 		{
 			$c0 = [];
 			for($i0 = 0; $i0 < count($this->SpanTargets); ++$i0) {
@@ -806,6 +825,9 @@ class DestinationConfig {
 		}
 		if ($this->B2 !== null) {
 			$this->B2->RemoveUnknownProperties();
+		}
+		if ($this->Storj !== null) {
+			$this->Storj->RemoveUnknownProperties();
 		}
 		if ($this->Statistics !== null) {
 			$this->Statistics->RemoveUnknownProperties();
