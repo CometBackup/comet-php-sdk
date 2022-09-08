@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 2022-09-08 v4.2.0
+- Based on 22.9.0
+- Add Storj.io support as a Storage Vault Location and Storage Template provider
+- Add Constellation role support for Tenants
+- Add Webhook edit option for Tenant admins
+- Add MySQL direct restore option
+- Improve Office365 credentials handling
+
 ## 2022-07-27 v4.1.0
 - Based on 22.6.7
 - Add support enforcing the `RandomDelaySecs` for both whole-server and in policies
