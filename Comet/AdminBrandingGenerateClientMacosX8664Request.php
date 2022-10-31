@@ -83,7 +83,7 @@ class AdminBrandingGenerateClientMacosX8664Request implements \Comet\NetworkRequ
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {
-			throw new \Exception("Unexpected HTTP " . intval($responseCode) . " response");
+			throw new \Exception("Unexpected HTTP " . intval($responseCode) . " response", $responseCode);
 		}
 
 		return $body;

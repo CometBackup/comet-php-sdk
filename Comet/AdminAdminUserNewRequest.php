@@ -103,13 +103,13 @@ class AdminAdminUserNewRequest implements \Comet\NetworkRequest {
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {
-			throw new \Exception("Unexpected HTTP " . intval($responseCode) . " response");
+			throw new \Exception("Unexpected HTTP " . intval($responseCode) . " response", $responseCode);
 		}
 
 		// Decode JSON
 		$decoded = \json_decode($body); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
-			throw new \Exception("JSON decode failed: " . \json_last_error_msg());
+			throw new \Exception("JSON decode failed: " . \json_last_error_msg(), \json_last_error());
 		}
 
 		// Try to parse as error format
@@ -117,7 +117,7 @@ class AdminAdminUserNewRequest implements \Comet\NetworkRequest {
 		if ($isCARMDerivedType) {
 			$carm = \Comet\APIResponseMessage::createFromStdclass($decoded);
 			if ($carm->Status >= 400) {
-				throw new \Exception("Error " . $carm->Status . ": " . $carm->Message);
+				throw new \Exception("Error " . $carm->Status . ": " . $carm->Message, $carm->Status);
 			}
 		}
 

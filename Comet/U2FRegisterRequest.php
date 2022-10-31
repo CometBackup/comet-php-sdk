@@ -98,7 +98,7 @@ class U2FRegisterRequest {
 	{
 		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
-			throw new \Exception("JSON decode failed: " . \json_last_error_msg());
+			throw new \Exception("JSON decode failed: " . \json_last_error_msg(), \json_last_error());
 		}
 		$retn = new U2FRegisterRequest();
 		$retn->inflateFrom($decodedJsonObject);
