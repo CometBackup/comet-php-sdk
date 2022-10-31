@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## Next (UNRELEASED)
+- Support `getCode()` on exceptions to retrieve internal error code
+
 ## 2022-09-08 v4.2.0
 - Based on 22.9.0
 - Add Storj.io support as a Storage Vault Location and Storage Template provider
