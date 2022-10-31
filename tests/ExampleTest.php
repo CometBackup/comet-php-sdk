@@ -118,6 +118,9 @@ class ExampleTest extends \PHPUnit\Framework\TestCase {
 		// undocumented and may change across versions. The SDK includes blank
 		// stub classes for these, that can be used to modify server settings
 		// by known properties.
+		// As of SDK v4.0.0, the ServerConfigOptions types are fully documented.
+		// However, the old patterns (roundtrip via a stdClass) should continue to
+		// work wherever possible.
 		
 		$current_server_start_time = $this->server->AdminMetaVersion()->ServerStartTime;
 
