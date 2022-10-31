@@ -165,6 +165,7 @@ class ExampleTest extends \PHPUnit\Framework\TestCase {
 			$userpc = $this->server->AdminGetUserProfile($unknown_username);
 			$this->fail("Shouldn't reach this");
 		} catch (\Exception $e) {
+			$this->assertEquals(400, $e->getCode());
 			$this->assertEquals("Error 400: User not found", $e->getMessage());
 		}
 
@@ -174,6 +175,7 @@ class ExampleTest extends \PHPUnit\Framework\TestCase {
 			$userpc = $this->server->AdminGetUserProfile($unknown_username);
 			$this->fail("Shouldn't reach this");
 		} catch (\Exception $e) {
+			$this->assertEquals(400, $e->getCode());
 			$this->assertEquals("Error 400: Usuario no encontrado", $e->getMessage());
 		}
 
