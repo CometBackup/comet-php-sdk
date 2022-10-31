@@ -83,8 +83,11 @@ class ExampleTest extends \PHPUnit\Framework\TestCase {
 		$this->assertTrue($ok);
 	}
 		
-	protected static function sizeWithinRange($size, $low_bound_mb, $high_bound_mb) {
-		return ($size >= ($low_bound_mb * 1024*1024) && $size <= ($high_bound_mb * 1024*1024));
+	protected function assertSizeWithinRange($size, $low_bound_mb, $high_bound_mb, $name='') {
+		$error_desc = "${name}: Got size {$size}, expected in ${low_bound_mb} - ${high_bound_mb} MB range";
+
+		$this->assertGreaterThanOrEqual($low_bound_mb * 1024*1024, $size, $error_desc);
+		$this->assertLessThanOrEqual($high_bound_mb * 1024*1024, $size, $error_desc);
 	}
 
 	public function testDownloadClient() {
@@ -94,20 +97,19 @@ class ExampleTest extends \PHPUnit\Framework\TestCase {
 		// same running server instance should be faster
 
 		$data = $this->server->AdminBrandingGenerateClientLinuxgeneric();
-		$this->assertTrue( self::sizeWithinRange(strlen($data), 19, 25), "Got size ".strlen($data)." for linux-generic, expected 19-25 MB" );
+		$this->assertSizeWithinRange(strlen($data), 25, 40, 'linux-generic');
 
 		$data = $this->server->AdminBrandingGenerateClientMacosX8664();
-		$this->assertTrue( self::sizeWithinRange(strlen($data), 15, 20), "Got size ".strlen($data)." for macos-x86_64, expected 15-20 MB" );
+		$this->assertSizeWithinRange(strlen($data), 15, 30, 'macos-x86_64');
 
 		$data = $this->server->AdminBrandingGenerateClientWindowsAnycpuZip();
-		$this->assertTrue( self::sizeWithinRange(strlen($data), 40, 60), "Got size ".strlen($data)." for windows-anycpu-zip, expected 40-60 MB" );
+		$this->assertSizeWithinRange(strlen($data), 30, 50, 'windows-anycpu-zip');
 
 		$data = $this->server->AdminBrandingGenerateClientWindowsX8632Zip();
-		$this->assertTrue( self::sizeWithinRange(strlen($data), 20, 30), "Got size ".strlen($data)." for windows-x86_32-zip, expected 20-30 MB" );
+		$this->assertSizeWithinRange(strlen($data), 15, 25, 'windows-x86_32-zip');
 
 		$data = $this->server->AdminBrandingGenerateClientWindowsX8664Zip();
-		$this->assertTrue( self::sizeWithinRange(strlen($data), 20, 30), "Got size ".strlen($data)." for windows-x86_64-zip, expected 20-30 MB" );
-
+		$this->assertSizeWithinRange(strlen($data), 15, 25, 'windows-x86_64-zip');
 	}
 
 	public function testModifyServerSettings() {
