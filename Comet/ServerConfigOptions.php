@@ -22,6 +22,11 @@ class ServerConfigOptions {
 	public $WebhookOptions = [];
 
 	/**
+	 * @var \Comet\PSAConfig[]
+	 */
+	public $PSAConfigs = [];
+
+	/**
 	 * @var \Comet\LicenseOptions
 	 */
 	public $License = null;
@@ -142,6 +147,20 @@ class ServerConfigOptions {
 				}
 			}
 			$this->WebhookOptions = $val_2;
+		}
+		if (property_exists($sc, 'PSAConfigs')) {
+			$val_2 = [];
+			if ($sc->PSAConfigs !== null) {
+				for($i_2 = 0; $i_2 < count($sc->PSAConfigs); ++$i_2) {
+					if (is_array($sc->PSAConfigs[$i_2]) && count($sc->PSAConfigs[$i_2]) === 0) {
+					// Work around edge case in json_decode--json_encode stdClass conversion
+						$val_2[] = \Comet\PSAConfig::createFromStdclass(new \stdClass());
+					} else {
+						$val_2[] = \Comet\PSAConfig::createFromStdclass($sc->PSAConfigs[$i_2]);
+					}
+				}
+			}
+			$this->PSAConfigs = $val_2;
 		}
 		if (property_exists($sc, 'License')) {
 			if (is_array($sc->License) && count($sc->License) === 0) {
@@ -298,6 +317,7 @@ class ServerConfigOptions {
 			switch($k) {
 			case 'ExperimentalOptions':
 			case 'WebhookOptions':
+			case 'PSAConfigs':
 			case 'License':
 			case 'Branding':
 			case 'AdminUsers':
@@ -403,6 +423,18 @@ class ServerConfigOptions {
 			} else {
 				$ret["WebhookOptions"] = $c0;
 			}
+		}
+		{
+			$c0 = [];
+			for($i0 = 0; $i0 < count($this->PSAConfigs); ++$i0) {
+				if ( $this->PSAConfigs[$i0] === null ) {
+					$val0 = $for_json_encode ? (object)[] : [];
+				} else {
+					$val0 = $this->PSAConfigs[$i0]->toArray($for_json_encode);
+				}
+				$c0[] = $val0;
+			}
+			$ret["PSAConfigs"] = $c0;
 		}
 		if ( $this->License === null ) {
 			$ret["License"] = $for_json_encode ? (object)[] : [];

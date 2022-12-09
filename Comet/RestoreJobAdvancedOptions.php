@@ -97,6 +97,11 @@ class RestoreJobAdvancedOptions {
 	public $SslKeyFile = "";
 
 	/**
+	 * @var \Comet\MSSQLLoginArgs
+	 */
+	public $MsSqlConnection = null;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see RestoreJobAdvancedOptions::RemoveUnknownProperties() Remove all unknown properties
@@ -175,6 +180,14 @@ class RestoreJobAdvancedOptions {
 		if (property_exists($sc, 'SslKeyFile')) {
 			$this->SslKeyFile = (string)($sc->SslKeyFile);
 		}
+		if (property_exists($sc, 'MsSqlConnection') && !is_null($sc->MsSqlConnection)) {
+			if (is_array($sc->MsSqlConnection) && count($sc->MsSqlConnection) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->MsSqlConnection = \Comet\MSSQLLoginArgs::createFromStdclass(new \stdClass());
+			} else {
+				$this->MsSqlConnection = \Comet\MSSQLLoginArgs::createFromStdclass($sc->MsSqlConnection);
+			}
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Type':
@@ -194,6 +207,7 @@ class RestoreJobAdvancedOptions {
 			case 'SslCaFile':
 			case 'SslCrtFile':
 			case 'SslKeyFile':
+			case 'MsSqlConnection':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -287,6 +301,11 @@ class RestoreJobAdvancedOptions {
 		$ret["SslCaFile"] = $this->SslCaFile;
 		$ret["SslCrtFile"] = $this->SslCrtFile;
 		$ret["SslKeyFile"] = $this->SslKeyFile;
+		if ( $this->MsSqlConnection === null ) {
+			$ret["MsSqlConnection"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["MsSqlConnection"] = $this->MsSqlConnection->toArray($for_json_encode);
+		}
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
@@ -338,6 +357,9 @@ class RestoreJobAdvancedOptions {
 		$this->__unknown_properties = [];
 		if ($this->Office365Credential !== null) {
 			$this->Office365Credential->RemoveUnknownProperties();
+		}
+		if ($this->MsSqlConnection !== null) {
+			$this->MsSqlConnection->RemoveUnknownProperties();
 		}
 	}
 

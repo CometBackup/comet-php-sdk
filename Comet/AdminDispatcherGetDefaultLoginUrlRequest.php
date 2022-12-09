@@ -10,48 +10,30 @@
 namespace Comet;
 
 /**
- * Comet Server AdminDispatcherUpdateLoginUrl API
- * Instruct a live connected device to update its login server URL
- * The device will attempt to connect to the new Auth Role Comet Server using its current username and password. If the test connection succeeds, the device migrates its saved connection settings and live connections to the new server. If the device is not registered on the new URL, or if the credentials are incorrect, the device remains on the current Auth Role server.
+ * Comet Server AdminDispatcherGetDefaultLoginUrl API
+ * Get the default login URL for a tenant
  *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
+ * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
  */
-class AdminDispatcherUpdateLoginUrlRequest implements \Comet\NetworkRequest {
+class AdminDispatcherGetDefaultLoginUrlRequest implements \Comet\NetworkRequest {
 
 	/**
-	 * The live connection GUID
+	 * Target organization
 	 *
 	 * @var string
 	 */
-	protected $TargetID = null;
+	protected $OrganizationID = null;
 
 	/**
-	 * The new external URL of this server
+	 * Construct a new AdminDispatcherGetDefaultLoginUrlRequest instance.
 	 *
-	 * @var string
+	 * @param string $OrganizationID Target organization
 	 */
-	protected $NewURL = null;
-
-	/**
-	 * No checks will be done using previous URL (optional)
-	 *
-	 * @var boolean|null
-	 */
-	protected $Force = null;
-
-	/**
-	 * Construct a new AdminDispatcherUpdateLoginUrlRequest instance.
-	 *
-	 * @param string $TargetID The live connection GUID
-	 * @param string $NewURL The new external URL of this server
-	 * @param boolean $Force No checks will be done using previous URL (optional)
-	 */
-	public function __construct(string $TargetID, string $NewURL, bool $Force = null)
+	public function __construct(string $OrganizationID)
 	{
-		$this->TargetID = $TargetID;
-		$this->NewURL = $NewURL;
-		$this->Force = $Force;
+		$this->OrganizationID = $OrganizationID;
 	}
 
 	/**
@@ -61,7 +43,7 @@ class AdminDispatcherUpdateLoginUrlRequest implements \Comet\NetworkRequest {
 	 */
 	public function Endpoint(): string
 	{
-		return '/api/v1/admin/dispatcher/update-login-url';
+		return '/api/v1/admin/dispatcher/get-default-login-url';
 	}
 
 	public function Method(): string
@@ -82,11 +64,7 @@ class AdminDispatcherUpdateLoginUrlRequest implements \Comet\NetworkRequest {
 	public function Parameters(): array
 	{
 		$ret = [];
-		$ret["TargetID"] = (string)($this->TargetID);
-		$ret["NewURL"] = (string)($this->NewURL);
-		if ($this->Force !== null) {
-			$ret["Force"] = ($this->Force ? '1' : '0');
-		}
+		$ret["OrganizationID"] = (string)($this->OrganizationID);
 		return $ret;
 	}
 
@@ -96,10 +74,10 @@ class AdminDispatcherUpdateLoginUrlRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param int $responseCode HTTP response code
 	 * @param string $body HTTP response body
-	 * @return \Comet\APIResponseMessage
+	 * @return \Comet\OrganizationLoginURLResponse
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse(int $responseCode, string $body): \Comet\APIResponseMessage
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\OrganizationLoginURLResponse
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {
@@ -121,12 +99,12 @@ class AdminDispatcherUpdateLoginUrlRequest implements \Comet\NetworkRequest {
 			}
 		}
 
-		// Parse as CometAPIResponseMessage
+		// Parse as OrganizationLoginURLResponse
 		if (is_array($decoded) && count($decoded) === 0) {
 		// Work around edge case in json_decode--json_encode stdClass conversion
-			$ret = \Comet\APIResponseMessage::createFromStdclass(new \stdClass());
+			$ret = \Comet\OrganizationLoginURLResponse::createFromStdclass(new \stdClass());
 		} else {
-			$ret = \Comet\APIResponseMessage::createFromStdclass($decoded);
+			$ret = \Comet\OrganizationLoginURLResponse::createFromStdclass($decoded);
 		}
 
 		return $ret;

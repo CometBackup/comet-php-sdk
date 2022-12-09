@@ -47,6 +47,11 @@ class Organization {
 	public $WebhookOptions = [];
 
 	/**
+	 * @var \Comet\PSAConfig[]
+	 */
+	public $PSAConfigs = [];
+
+	/**
 	 * @var \Comet\EmailOptions
 	 */
 	public $Email = null;
@@ -55,6 +60,11 @@ class Organization {
 	 * @var boolean
 	 */
 	public $IsSuspended = false;
+
+	/**
+	 * @var string[]
+	 */
+	public $ExperimentalOptions = [];
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
@@ -139,6 +149,20 @@ class Organization {
 			}
 			$this->WebhookOptions = $val_2;
 		}
+		if (property_exists($sc, 'PSAConfigs')) {
+			$val_2 = [];
+			if ($sc->PSAConfigs !== null) {
+				for($i_2 = 0; $i_2 < count($sc->PSAConfigs); ++$i_2) {
+					if (is_array($sc->PSAConfigs[$i_2]) && count($sc->PSAConfigs[$i_2]) === 0) {
+					// Work around edge case in json_decode--json_encode stdClass conversion
+						$val_2[] = \Comet\PSAConfig::createFromStdclass(new \stdClass());
+					} else {
+						$val_2[] = \Comet\PSAConfig::createFromStdclass($sc->PSAConfigs[$i_2]);
+					}
+				}
+			}
+			$this->PSAConfigs = $val_2;
+		}
 		if (property_exists($sc, 'Email')) {
 			if (is_array($sc->Email) && count($sc->Email) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
@@ -150,6 +174,15 @@ class Organization {
 		if (property_exists($sc, 'IsSuspended')) {
 			$this->IsSuspended = (bool)($sc->IsSuspended);
 		}
+		if (property_exists($sc, 'ExperimentalOptions') && !is_null($sc->ExperimentalOptions)) {
+			$val_2 = [];
+			if ($sc->ExperimentalOptions !== null) {
+				for($i_2 = 0; $i_2 < count($sc->ExperimentalOptions); ++$i_2) {
+					$val_2[] = (string)($sc->ExperimentalOptions[$i_2]);
+				}
+			}
+			$this->ExperimentalOptions = $val_2;
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Name':
@@ -159,8 +192,10 @@ class Organization {
 			case 'RemoteStorage':
 			case 'ConstellationRole':
 			case 'WebhookOptions':
+			case 'PSAConfigs':
 			case 'Email':
 			case 'IsSuspended':
+			case 'ExperimentalOptions':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -279,12 +314,32 @@ class Organization {
 				$ret["WebhookOptions"] = $c0;
 			}
 		}
+		{
+			$c0 = [];
+			for($i0 = 0; $i0 < count($this->PSAConfigs); ++$i0) {
+				if ( $this->PSAConfigs[$i0] === null ) {
+					$val0 = $for_json_encode ? (object)[] : [];
+				} else {
+					$val0 = $this->PSAConfigs[$i0]->toArray($for_json_encode);
+				}
+				$c0[] = $val0;
+			}
+			$ret["PSAConfigs"] = $c0;
+		}
 		if ( $this->Email === null ) {
 			$ret["Email"] = $for_json_encode ? (object)[] : [];
 		} else {
 			$ret["Email"] = $this->Email->toArray($for_json_encode);
 		}
 		$ret["IsSuspended"] = $this->IsSuspended;
+		{
+			$c0 = [];
+			for($i0 = 0; $i0 < count($this->ExperimentalOptions); ++$i0) {
+				$val0 = $this->ExperimentalOptions[$i0];
+				$c0[] = $val0;
+			}
+			$ret["ExperimentalOptions"] = $c0;
+		}
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

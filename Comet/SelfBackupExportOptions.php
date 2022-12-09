@@ -9,22 +9,7 @@
 
 namespace Comet;
 
-class SelfBackupTarget {
-
-	/**
-	 * @var \Comet\ScheduleConfig[]
-	 */
-	public $Schedule = [];
-
-	/**
-	 * @var string
-	 */
-	public $ScheduleTimezone = "";
-
-	/**
-	 * @var \Comet\RetentionPolicy
-	 */
-	public $RetentionPolicy = null;
+class SelfBackupExportOptions {
 
 	/**
 	 * @var \Comet\DestinationLocation
@@ -64,13 +49,13 @@ class SelfBackupTarget {
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
-	 * @see SelfBackupTarget::RemoveUnknownProperties() Remove all unknown properties
+	 * @see SelfBackupExportOptions::RemoveUnknownProperties() Remove all unknown properties
 	 * @var array
 	 */
 	private $__unknown_properties = [];
 
 	/**
-	 * Replace the content of this SelfBackupTarget object from a PHP \stdClass.
+	 * Replace the content of this SelfBackupExportOptions object from a PHP \stdClass.
 	 * The data could be supplied from an API call after json_decode(...); or generated manually.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
@@ -78,31 +63,6 @@ class SelfBackupTarget {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
-		if (property_exists($sc, 'Schedule')) {
-			$val_2 = [];
-			if ($sc->Schedule !== null) {
-				for($i_2 = 0; $i_2 < count($sc->Schedule); ++$i_2) {
-					if (is_array($sc->Schedule[$i_2]) && count($sc->Schedule[$i_2]) === 0) {
-					// Work around edge case in json_decode--json_encode stdClass conversion
-						$val_2[] = \Comet\ScheduleConfig::createFromStdclass(new \stdClass());
-					} else {
-						$val_2[] = \Comet\ScheduleConfig::createFromStdclass($sc->Schedule[$i_2]);
-					}
-				}
-			}
-			$this->Schedule = $val_2;
-		}
-		if (property_exists($sc, 'ScheduleTimezone')) {
-			$this->ScheduleTimezone = (string)($sc->ScheduleTimezone);
-		}
-		if (property_exists($sc, 'RetentionPolicy')) {
-			if (is_array($sc->RetentionPolicy) && count($sc->RetentionPolicy) === 0) {
-			// Work around edge case in json_decode--json_encode stdClass conversion
-				$this->RetentionPolicy = \Comet\RetentionPolicy::createFromStdclass(new \stdClass());
-			} else {
-				$this->RetentionPolicy = \Comet\RetentionPolicy::createFromStdclass($sc->RetentionPolicy);
-			}
-		}
 		if (property_exists($sc, 'Location')) {
 			if (is_array($sc->Location) && count($sc->Location) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
@@ -131,9 +91,6 @@ class SelfBackupTarget {
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
-			case 'Schedule':
-			case 'ScheduleTimezone':
-			case 'RetentionPolicy':
 			case 'Location':
 			case 'EncryptionKey':
 			case 'EncryptionKeyFormat':
@@ -149,27 +106,27 @@ class SelfBackupTarget {
 	}
 
 	/**
-	 * Coerce a stdClass into a new strongly-typed SelfBackupTarget object.
+	 * Coerce a stdClass into a new strongly-typed SelfBackupExportOptions object.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
-	 * @return SelfBackupTarget
+	 * @return SelfBackupExportOptions
 	 */
-	public static function createFromStdclass(\stdClass $sc): \Comet\SelfBackupTarget
+	public static function createFromStdclass(\stdClass $sc): \Comet\SelfBackupExportOptions
 	{
-		$retn = new SelfBackupTarget();
+		$retn = new SelfBackupExportOptions();
 		$retn->inflateFrom($sc);
 		return $retn;
 	}
 
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed SelfBackupTarget object.
+	 * Coerce a plain PHP array into a new strongly-typed SelfBackupExportOptions object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
 	 * @param array $arr Object data as PHP array
-	 * @return SelfBackupTarget
+	 * @return SelfBackupExportOptions
 	 */
-	public static function createFromArray(array $arr): \Comet\SelfBackupTarget
+	public static function createFromArray(array $arr): \Comet\SelfBackupExportOptions
 	{
 		$stdClass = json_decode(json_encode($arr, JSON_UNESCAPED_SLASHES));
 		if (is_array($stdClass) && count($stdClass) === 0) {
@@ -179,24 +136,24 @@ class SelfBackupTarget {
 	}
 
 	/**
-	 * Coerce a JSON string into a new strongly-typed SelfBackupTarget object.
+	 * Coerce a JSON string into a new strongly-typed SelfBackupExportOptions object.
 	 *
 	 * @param string $JsonString Object data as JSON string
-	 * @return SelfBackupTarget
+	 * @return SelfBackupExportOptions
 	 */
-	public static function createFromJSON(string $JsonString): \Comet\SelfBackupTarget
+	public static function createFromJSON(string $JsonString): \Comet\SelfBackupExportOptions
 	{
 		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg(), \json_last_error());
 		}
-		$retn = new SelfBackupTarget();
+		$retn = new SelfBackupExportOptions();
 		$retn->inflateFrom($decodedJsonObject);
 		return $retn;
 	}
 
 	/**
-	 * Convert this SelfBackupTarget object into a plain PHP array.
+	 * Convert this SelfBackupExportOptions object into a plain PHP array.
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
@@ -206,24 +163,6 @@ class SelfBackupTarget {
 	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
-		{
-			$c0 = [];
-			for($i0 = 0; $i0 < count($this->Schedule); ++$i0) {
-				if ( $this->Schedule[$i0] === null ) {
-					$val0 = $for_json_encode ? (object)[] : [];
-				} else {
-					$val0 = $this->Schedule[$i0]->toArray($for_json_encode);
-				}
-				$c0[] = $val0;
-			}
-			$ret["Schedule"] = $c0;
-		}
-		$ret["ScheduleTimezone"] = $this->ScheduleTimezone;
-		if ( $this->RetentionPolicy === null ) {
-			$ret["RetentionPolicy"] = $for_json_encode ? (object)[] : [];
-		} else {
-			$ret["RetentionPolicy"] = $this->RetentionPolicy->toArray($for_json_encode);
-		}
 		if ( $this->Location === null ) {
 			$ret["Location"] = $for_json_encode ? (object)[] : [];
 		} else {
@@ -284,9 +223,6 @@ class SelfBackupTarget {
 	public function RemoveUnknownProperties()
 	{
 		$this->__unknown_properties = [];
-		if ($this->RetentionPolicy !== null) {
-			$this->RetentionPolicy->RemoveUnknownProperties();
-		}
 		if ($this->Location !== null) {
 			$this->Location->RemoveUnknownProperties();
 		}

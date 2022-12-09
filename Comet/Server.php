@@ -468,6 +468,28 @@ class Server {
 	}
 
 	/** 
+	 * Download software (macOS arm64 pkg)
+	 * 
+	 * This API requires administrator authentication credentials, unless the server is configured to allow unauthenticated software downloads.
+	 * This API requires the Software Build Role to be enabled.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $SelfAddress The external URL of this server, used to resolve conflicts (optional)
+	 * @return string 
+	 * @throws \Exception
+	 */
+	public function AdminBrandingGenerateClientMacosArm64(string $SelfAddress = null): string
+	{
+		if ($SelfAddress === null) {
+			$SelfAddress = $this->server_url;
+		}
+
+		$nr = new \Comet\AdminBrandingGenerateClientMacosArm64Request($SelfAddress);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminBrandingGenerateClientMacosArm64Request::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Download software (macOS x86_64 pkg)
 	 * 
 	 * This API requires administrator authentication credentials, unless the server is configured to allow unauthenticated software downloads.
@@ -952,6 +974,24 @@ class Server {
 		$nr = new \Comet\AdminDispatcherEmailPreviewRequest($TargetID, $Snapshot, $Destination, $Path);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminDispatcherEmailPreviewRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Get the default login URL for a tenant
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
+	 *
+	 * @param string $OrganizationID Target organization
+	 * @return \Comet\OrganizationLoginURLResponse 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherGetDefaultLoginUrl(string $OrganizationID): \Comet\OrganizationLoginURLResponse
+	{
+		$nr = new \Comet\AdminDispatcherGetDefaultLoginUrlRequest($OrganizationID);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherGetDefaultLoginUrlRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
 
 	/** 
@@ -1510,12 +1550,13 @@ class Server {
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param string $NewURL The new external URL of this server
+	 * @param boolean $Force No checks will be done using previous URL (optional)
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherUpdateLoginUrl(string $TargetID, string $NewURL): \Comet\APIResponseMessage
+	public function AdminDispatcherUpdateLoginUrl(string $TargetID, string $NewURL, bool $Force = null): \Comet\APIResponseMessage
 	{
-		$nr = new \Comet\AdminDispatcherUpdateLoginUrlRequest($TargetID, $NewURL);
+		$nr = new \Comet\AdminDispatcherUpdateLoginUrlRequest($TargetID, $NewURL, $Force);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminDispatcherUpdateLoginUrlRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
@@ -1916,6 +1957,54 @@ class Server {
 	}
 
 	/** 
+	 * Get the server PSA configuration
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 *
+	 * @return \Comet\PSAConfigs[] 
+	 * @throws \Exception
+	 */
+	public function AdminMetaPsaConfigListGet(): array
+	{
+		$nr = new \Comet\AdminMetaPsaConfigListGetRequest();
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminMetaPsaConfigListGetRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Update the server PSA configuration
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 *
+	 * @param \Comet\PSAConfigs[] $PSAConfigList The replacement PSA configuration list
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminMetaPsaConfigListSet(array $PSAConfigList): \Comet\APIResponseMessage
+	{
+		$nr = new \Comet\AdminMetaPsaConfigListSetRequest($PSAConfigList);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminMetaPsaConfigListSetRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Synchronize all PSA services now
+	 * This API applies to the current Organization's PSAConfig's only.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminMetaPsaConfigListSyncNow(): \Comet\APIResponseMessage
+	{
+		$nr = new \Comet\AdminMetaPsaConfigListSyncNowRequest();
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminMetaPsaConfigListSyncNowRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Get a ZIP file of all of the server's log files
 	 * On non-Windows platforms, log content uses LF line endings. On Windows, Comet changed from LF to CRLF line endings in 18.3.2.
 	 * This API does not automatically convert line endings; around the 18.3.2 timeframe, log content may even contain mixed line-endings.
@@ -2288,6 +2377,23 @@ class Server {
 	}
 
 	/** 
+	 * Run self-backup for a specific tenant
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
+	 *
+	 * @param \Comet\SelfBackupExportOptions $Options The export config options
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminOrganizationExport(\Comet\SelfBackupExportOptions $Options): \Comet\APIResponseMessage
+	{
+		$nr = new \Comet\AdminOrganizationExportRequest($Options);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminOrganizationExportRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * List Organizations
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
@@ -2547,6 +2653,22 @@ class Server {
 		$nr = new \Comet\AdminRevokeDeviceRequest($TargetUser, $TargetDevice);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminRevokeDeviceRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Run self-backup on all targets
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
+	 *
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminSelfBackupStart(): \Comet\APIResponseMessage
+	{
+		$nr = new \Comet\AdminSelfBackupStartRequest();
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminSelfBackupStartRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
 
 	/** 

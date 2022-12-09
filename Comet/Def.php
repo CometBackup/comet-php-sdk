@@ -364,11 +364,6 @@ class Def {
 	const FTPS_MODE_EXPLICIT = 2;
 
 	/**
-	 * @type string
-	 */
-	const InstallerMetadataFile = "installer.json";
-
-	/**
 	 * Severity:
 	 *
 	 * @type string
@@ -522,6 +517,13 @@ class Def {
 	 * @type int
 	 */
 	const RESTORETYPE_MYSQL = 10;
+
+	/**
+	 * RestoreType:
+	 *
+	 * @type int
+	 */
+	const RESTORETYPE_MSSQL = 11;
 
 	/**
 	 * RestoreType: RESTORETYPE_PROCESS_ARCHIVE
@@ -865,6 +867,20 @@ class Def {
 	const MSSQL_METHOD_OLEDB_32 = "OLEDB_32";
 
 	/**
+	 * MSSQLRestoreOpt:
+	 *
+	 * @type string
+	 */
+	const MSSQL_RESTORE_RECOVERY = "RECOVERY";
+
+	/**
+	 * MSSQLRestoreOpt:
+	 *
+	 * @type string
+	 */
+	const MSSQL_RESTORE_NORECOVERY = "NO_RECOVERY";
+
+	/**
 	 * StoredObjectType:
 	 *
 	 * @type string
@@ -1117,7 +1133,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "22.9.0";
+	const APPLICATION_VERSION = "22.11.2";
 
 	/**
 	 * @type int
@@ -1127,17 +1143,17 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_MINOR = 9;
+	const APPLICATION_VERSION_MINOR = 11;
 
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 0;
+	const APPLICATION_VERSION_REVISION = 2;
 
 	/**
 	 * @type string
 	 */
-	const RELEASE_CODENAME = "Voyager";
+	const RELEASE_CODENAME = "Ananke";
 
 	/**
 	 * @type int
@@ -1710,6 +1726,20 @@ class Def {
 	 * @type int
 	 */
 	const SEVT__MAX = 4999;
+
+	/**
+	 * PSAType:
+	 *
+	 * @type int
+	 */
+	const PSA_TYPE_GENERIC = 0;
+
+	/**
+	 * PSAType:
+	 *
+	 * @type int
+	 */
+	const PSA_TYPE_GRADIENT = 1;
 
 	/**
 	 * CompressMode:

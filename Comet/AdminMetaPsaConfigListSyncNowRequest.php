@@ -10,48 +10,21 @@
 namespace Comet;
 
 /**
- * Comet Server AdminDispatcherUpdateLoginUrl API
- * Instruct a live connected device to update its login server URL
- * The device will attempt to connect to the new Auth Role Comet Server using its current username and password. If the test connection succeeds, the device migrates its saved connection settings and live connections to the new server. If the device is not registered on the new URL, or if the credentials are incorrect, the device remains on the current Auth Role server.
+ * Comet Server AdminMetaPsaConfigListSyncNow API
+ * Synchronize all PSA services now
+ * This API applies to the current Organization's PSAConfig's only.
  *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
  */
-class AdminDispatcherUpdateLoginUrlRequest implements \Comet\NetworkRequest {
+class AdminMetaPsaConfigListSyncNowRequest implements \Comet\NetworkRequest {
 
 	/**
-	 * The live connection GUID
+	 * Construct a new AdminMetaPsaConfigListSyncNowRequest instance.
 	 *
-	 * @var string
 	 */
-	protected $TargetID = null;
-
-	/**
-	 * The new external URL of this server
-	 *
-	 * @var string
-	 */
-	protected $NewURL = null;
-
-	/**
-	 * No checks will be done using previous URL (optional)
-	 *
-	 * @var boolean|null
-	 */
-	protected $Force = null;
-
-	/**
-	 * Construct a new AdminDispatcherUpdateLoginUrlRequest instance.
-	 *
-	 * @param string $TargetID The live connection GUID
-	 * @param string $NewURL The new external URL of this server
-	 * @param boolean $Force No checks will be done using previous URL (optional)
-	 */
-	public function __construct(string $TargetID, string $NewURL, bool $Force = null)
+	public function __construct()
 	{
-		$this->TargetID = $TargetID;
-		$this->NewURL = $NewURL;
-		$this->Force = $Force;
 	}
 
 	/**
@@ -61,7 +34,7 @@ class AdminDispatcherUpdateLoginUrlRequest implements \Comet\NetworkRequest {
 	 */
 	public function Endpoint(): string
 	{
-		return '/api/v1/admin/dispatcher/update-login-url';
+		return '/api/v1/admin/meta/psa-config-list/sync-now';
 	}
 
 	public function Method(): string
@@ -82,11 +55,6 @@ class AdminDispatcherUpdateLoginUrlRequest implements \Comet\NetworkRequest {
 	public function Parameters(): array
 	{
 		$ret = [];
-		$ret["TargetID"] = (string)($this->TargetID);
-		$ret["NewURL"] = (string)($this->NewURL);
-		if ($this->Force !== null) {
-			$ret["Force"] = ($this->Force ? '1' : '0');
-		}
 		return $ret;
 	}
 
