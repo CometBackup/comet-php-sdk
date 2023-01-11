@@ -9,38 +9,38 @@
 
 namespace Comet;
 
-class WebAuthnAuthenticatorSelection {
+class EmailReportingOption {
+
+	/**
+	 * @var \Comet\EmailReportConfig
+	 */
+	public $EmailReportConfig = null;
 
 	/**
 	 * @var string
 	 */
-	public $AuthenticatorAttachment = "";
-
-	/**
-	 * @var boolean
-	 */
-	public $RequireResidentKey = false;
+	public $LanguageCode = "";
 
 	/**
 	 * @var string
 	 */
-	public $ResidentKey = "";
+	public $LocalTimezone = "";
 
 	/**
-	 * @var string
+	 * @var string[]
 	 */
-	public $UserVerification = "";
+	public $Recipients = [];
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
-	 * @see WebAuthnAuthenticatorSelection::RemoveUnknownProperties() Remove all unknown properties
+	 * @see EmailReportingOption::RemoveUnknownProperties() Remove all unknown properties
 	 * @var array
 	 */
 	private $__unknown_properties = [];
 
 	/**
-	 * Replace the content of this WebAuthnAuthenticatorSelection object from a PHP \stdClass.
+	 * Replace the content of this EmailReportingOption object from a PHP \stdClass.
 	 * The data could be supplied from an API call after json_decode(...); or generated manually.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
@@ -48,24 +48,35 @@ class WebAuthnAuthenticatorSelection {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
-		if (property_exists($sc, 'authenticatorAttachment') && !is_null($sc->authenticatorAttachment)) {
-			$this->AuthenticatorAttachment = (string)($sc->authenticatorAttachment);
+		if (property_exists($sc, 'EmailReportConfig')) {
+			if (is_array($sc->EmailReportConfig) && count($sc->EmailReportConfig) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->EmailReportConfig = \Comet\EmailReportConfig::createFromStdclass(new \stdClass());
+			} else {
+				$this->EmailReportConfig = \Comet\EmailReportConfig::createFromStdclass($sc->EmailReportConfig);
+			}
 		}
-		if (property_exists($sc, 'requireResidentKey') && !is_null($sc->requireResidentKey)) {
-			$this->RequireResidentKey = (bool)($sc->requireResidentKey);
+		if (property_exists($sc, 'LanguageCode')) {
+			$this->LanguageCode = (string)($sc->LanguageCode);
 		}
-		if (property_exists($sc, 'residentKey') && !is_null($sc->residentKey)) {
-			$this->ResidentKey = (string)($sc->residentKey);
+		if (property_exists($sc, 'LocalTimezone')) {
+			$this->LocalTimezone = (string)($sc->LocalTimezone);
 		}
-		if (property_exists($sc, 'userVerification') && !is_null($sc->userVerification)) {
-			$this->UserVerification = (string)($sc->userVerification);
+		if (property_exists($sc, 'Recipients')) {
+			$val_2 = [];
+			if ($sc->Recipients !== null) {
+				for($i_2 = 0; $i_2 < count($sc->Recipients); ++$i_2) {
+					$val_2[] = (string)($sc->Recipients[$i_2]);
+				}
+			}
+			$this->Recipients = $val_2;
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
-			case 'authenticatorAttachment':
-			case 'requireResidentKey':
-			case 'residentKey':
-			case 'userVerification':
+			case 'EmailReportConfig':
+			case 'LanguageCode':
+			case 'LocalTimezone':
+			case 'Recipients':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -74,27 +85,27 @@ class WebAuthnAuthenticatorSelection {
 	}
 
 	/**
-	 * Coerce a stdClass into a new strongly-typed WebAuthnAuthenticatorSelection object.
+	 * Coerce a stdClass into a new strongly-typed EmailReportingOption object.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
-	 * @return WebAuthnAuthenticatorSelection
+	 * @return EmailReportingOption
 	 */
-	public static function createFromStdclass(\stdClass $sc): \Comet\WebAuthnAuthenticatorSelection
+	public static function createFromStdclass(\stdClass $sc): \Comet\EmailReportingOption
 	{
-		$retn = new WebAuthnAuthenticatorSelection();
+		$retn = new EmailReportingOption();
 		$retn->inflateFrom($sc);
 		return $retn;
 	}
 
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed WebAuthnAuthenticatorSelection object.
+	 * Coerce a plain PHP array into a new strongly-typed EmailReportingOption object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
 	 * @param array $arr Object data as PHP array
-	 * @return WebAuthnAuthenticatorSelection
+	 * @return EmailReportingOption
 	 */
-	public static function createFromArray(array $arr): \Comet\WebAuthnAuthenticatorSelection
+	public static function createFromArray(array $arr): \Comet\EmailReportingOption
 	{
 		$stdClass = json_decode(json_encode($arr, JSON_UNESCAPED_SLASHES));
 		if (is_array($stdClass) && count($stdClass) === 0) {
@@ -104,24 +115,24 @@ class WebAuthnAuthenticatorSelection {
 	}
 
 	/**
-	 * Coerce a JSON string into a new strongly-typed WebAuthnAuthenticatorSelection object.
+	 * Coerce a JSON string into a new strongly-typed EmailReportingOption object.
 	 *
 	 * @param string $JsonString Object data as JSON string
-	 * @return WebAuthnAuthenticatorSelection
+	 * @return EmailReportingOption
 	 */
-	public static function createFromJSON(string $JsonString): \Comet\WebAuthnAuthenticatorSelection
+	public static function createFromJSON(string $JsonString): \Comet\EmailReportingOption
 	{
 		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg(), \json_last_error());
 		}
-		$retn = new WebAuthnAuthenticatorSelection();
+		$retn = new EmailReportingOption();
 		$retn->inflateFrom($decodedJsonObject);
 		return $retn;
 	}
 
 	/**
-	 * Convert this WebAuthnAuthenticatorSelection object into a plain PHP array.
+	 * Convert this EmailReportingOption object into a plain PHP array.
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
@@ -131,10 +142,21 @@ class WebAuthnAuthenticatorSelection {
 	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
-		$ret["authenticatorAttachment"] = $this->AuthenticatorAttachment;
-		$ret["requireResidentKey"] = $this->RequireResidentKey;
-		$ret["residentKey"] = $this->ResidentKey;
-		$ret["userVerification"] = $this->UserVerification;
+		if ( $this->EmailReportConfig === null ) {
+			$ret["EmailReportConfig"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["EmailReportConfig"] = $this->EmailReportConfig->toArray($for_json_encode);
+		}
+		$ret["LanguageCode"] = $this->LanguageCode;
+		$ret["LocalTimezone"] = $this->LocalTimezone;
+		{
+			$c0 = [];
+			for($i0 = 0; $i0 < count($this->Recipients); ++$i0) {
+				$val0 = $this->Recipients[$i0];
+				$c0[] = $val0;
+			}
+			$ret["Recipients"] = $c0;
+		}
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
@@ -184,6 +206,9 @@ class WebAuthnAuthenticatorSelection {
 	public function RemoveUnknownProperties()
 	{
 		$this->__unknown_properties = [];
+		if ($this->EmailReportConfig !== null) {
+			$this->EmailReportConfig->RemoveUnknownProperties();
+		}
 	}
 
 }

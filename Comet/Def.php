@@ -1133,7 +1133,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "22.11.2";
+	const APPLICATION_VERSION = "22.12.2";
 
 	/**
 	 * @type int
@@ -1143,7 +1143,7 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_MINOR = 11;
+	const APPLICATION_VERSION_MINOR = 12;
 
 	/**
 	 * @type int
@@ -1153,7 +1153,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const RELEASE_CODENAME = "Ananke";
+	const RELEASE_CODENAME = "Voyager";
 
 	/**
 	 * @type int
@@ -1515,7 +1515,7 @@ class Def {
 	 *
 	 * @type string
 	 */
-	const EMAIL_DELIVERY_NONE = "";
+	const EMAIL_DELIVERY_INHERIT = "";
 
 	/**
 	 * EmailDeliveryType:
@@ -1539,11 +1539,26 @@ class Def {
 	const EMAIL_DELIVERY_SMTP_SSL = "smtp-ssl";
 
 	/**
+	 * EmailDeliveryType:
+	 *
+	 * @type string
+	 */
+	const EMAIL_DELIVERY_DISABLED = "disabled";
+
+	/**
 	 * EmailDeliveryType: Legacy alias
 	 *
 	 * @type string
 	 */
 	const EMAIL_DELIVERY_BUILTIN = self::EMAIL_DELIVERY_MX_DIRECT;
+
+	/**
+	 * EmailDeliveryType: changed for clarity
+	 *
+	 * @type string
+	 * @deprecated 22.12.1 This const has been deprecated since Comet version 22.12.1
+	 */
+	const EMAIL_DELIVERY_NONE = self::EMAIL_DELIVERY_INHERIT;
 
 	/**
 	 * RemoteServerType:
@@ -1843,6 +1858,7 @@ class Def {
 			'he_IL' => 'עברית‬',
 			'th_TH' => 'ภาษาไทย',
 			'zh_TW' => '中文 (繁體)',
+			'pl_PL' => 'Polski',
 		];
 	}
 }

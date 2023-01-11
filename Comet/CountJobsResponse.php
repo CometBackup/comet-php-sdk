@@ -9,38 +9,23 @@
 
 namespace Comet;
 
-class WebAuthnAuthenticatorSelection {
+class CountJobsResponse {
 
 	/**
-	 * @var string
+	 * @var int
 	 */
-	public $AuthenticatorAttachment = "";
-
-	/**
-	 * @var boolean
-	 */
-	public $RequireResidentKey = false;
-
-	/**
-	 * @var string
-	 */
-	public $ResidentKey = "";
-
-	/**
-	 * @var string
-	 */
-	public $UserVerification = "";
+	public $Count = 0;
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
-	 * @see WebAuthnAuthenticatorSelection::RemoveUnknownProperties() Remove all unknown properties
+	 * @see CountJobsResponse::RemoveUnknownProperties() Remove all unknown properties
 	 * @var array
 	 */
 	private $__unknown_properties = [];
 
 	/**
-	 * Replace the content of this WebAuthnAuthenticatorSelection object from a PHP \stdClass.
+	 * Replace the content of this CountJobsResponse object from a PHP \stdClass.
 	 * The data could be supplied from an API call after json_decode(...); or generated manually.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
@@ -48,24 +33,12 @@ class WebAuthnAuthenticatorSelection {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
-		if (property_exists($sc, 'authenticatorAttachment') && !is_null($sc->authenticatorAttachment)) {
-			$this->AuthenticatorAttachment = (string)($sc->authenticatorAttachment);
-		}
-		if (property_exists($sc, 'requireResidentKey') && !is_null($sc->requireResidentKey)) {
-			$this->RequireResidentKey = (bool)($sc->requireResidentKey);
-		}
-		if (property_exists($sc, 'residentKey') && !is_null($sc->residentKey)) {
-			$this->ResidentKey = (string)($sc->residentKey);
-		}
-		if (property_exists($sc, 'userVerification') && !is_null($sc->userVerification)) {
-			$this->UserVerification = (string)($sc->userVerification);
+		if (property_exists($sc, 'Count')) {
+			$this->Count = (int)($sc->Count);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
-			case 'authenticatorAttachment':
-			case 'requireResidentKey':
-			case 'residentKey':
-			case 'userVerification':
+			case 'Count':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -74,27 +47,27 @@ class WebAuthnAuthenticatorSelection {
 	}
 
 	/**
-	 * Coerce a stdClass into a new strongly-typed WebAuthnAuthenticatorSelection object.
+	 * Coerce a stdClass into a new strongly-typed CountJobsResponse object.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
-	 * @return WebAuthnAuthenticatorSelection
+	 * @return CountJobsResponse
 	 */
-	public static function createFromStdclass(\stdClass $sc): \Comet\WebAuthnAuthenticatorSelection
+	public static function createFromStdclass(\stdClass $sc): \Comet\CountJobsResponse
 	{
-		$retn = new WebAuthnAuthenticatorSelection();
+		$retn = new CountJobsResponse();
 		$retn->inflateFrom($sc);
 		return $retn;
 	}
 
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed WebAuthnAuthenticatorSelection object.
+	 * Coerce a plain PHP array into a new strongly-typed CountJobsResponse object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
 	 * @param array $arr Object data as PHP array
-	 * @return WebAuthnAuthenticatorSelection
+	 * @return CountJobsResponse
 	 */
-	public static function createFromArray(array $arr): \Comet\WebAuthnAuthenticatorSelection
+	public static function createFromArray(array $arr): \Comet\CountJobsResponse
 	{
 		$stdClass = json_decode(json_encode($arr, JSON_UNESCAPED_SLASHES));
 		if (is_array($stdClass) && count($stdClass) === 0) {
@@ -104,24 +77,24 @@ class WebAuthnAuthenticatorSelection {
 	}
 
 	/**
-	 * Coerce a JSON string into a new strongly-typed WebAuthnAuthenticatorSelection object.
+	 * Coerce a JSON string into a new strongly-typed CountJobsResponse object.
 	 *
 	 * @param string $JsonString Object data as JSON string
-	 * @return WebAuthnAuthenticatorSelection
+	 * @return CountJobsResponse
 	 */
-	public static function createFromJSON(string $JsonString): \Comet\WebAuthnAuthenticatorSelection
+	public static function createFromJSON(string $JsonString): \Comet\CountJobsResponse
 	{
 		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg(), \json_last_error());
 		}
-		$retn = new WebAuthnAuthenticatorSelection();
+		$retn = new CountJobsResponse();
 		$retn->inflateFrom($decodedJsonObject);
 		return $retn;
 	}
 
 	/**
-	 * Convert this WebAuthnAuthenticatorSelection object into a plain PHP array.
+	 * Convert this CountJobsResponse object into a plain PHP array.
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
@@ -131,10 +104,7 @@ class WebAuthnAuthenticatorSelection {
 	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
-		$ret["authenticatorAttachment"] = $this->AuthenticatorAttachment;
-		$ret["requireResidentKey"] = $this->RequireResidentKey;
-		$ret["residentKey"] = $this->ResidentKey;
-		$ret["userVerification"] = $this->UserVerification;
+		$ret["Count"] = $this->Count;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

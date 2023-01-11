@@ -101,6 +101,11 @@ class UserProfileConfig {
 	public $MaximumDevices = 0;
 
 	/**
+	 * @var int
+	 */
+	public $QuotaOffice365ProtectedAccounts = 0;
+
+	/**
 	 * If the PolicyID field is set to a non-empty string, the Comet Server will enforce the contents of
 	 * the Policy field based on the matching server's policy. Otherwise if the PolicyID field is set to
 	 * an empty string, the administrator may configure any custom values in the Policy field.
@@ -308,6 +313,9 @@ class UserProfileConfig {
 		if (property_exists($sc, 'MaximumDevices')) {
 			$this->MaximumDevices = (int)($sc->MaximumDevices);
 		}
+		if (property_exists($sc, 'QuotaOffice365ProtectedAccounts')) {
+			$this->QuotaOffice365ProtectedAccounts = (int)($sc->QuotaOffice365ProtectedAccounts);
+		}
 		if (property_exists($sc, 'PolicyID')) {
 			$this->PolicyID = (string)($sc->PolicyID);
 		}
@@ -375,6 +383,7 @@ class UserProfileConfig {
 			case 'AllProtectedItemsQuotaEnabled':
 			case 'AllProtectedItemsQuotaBytes':
 			case 'MaximumDevices':
+			case 'QuotaOffice365ProtectedAccounts':
 			case 'PolicyID':
 			case 'Policy':
 			case 'PasswordFormat':
@@ -556,6 +565,7 @@ class UserProfileConfig {
 		$ret["AllProtectedItemsQuotaEnabled"] = $this->AllProtectedItemsQuotaEnabled;
 		$ret["AllProtectedItemsQuotaBytes"] = $this->AllProtectedItemsQuotaBytes;
 		$ret["MaximumDevices"] = $this->MaximumDevices;
+		$ret["QuotaOffice365ProtectedAccounts"] = $this->QuotaOffice365ProtectedAccounts;
 		$ret["PolicyID"] = $this->PolicyID;
 		if ( $this->Policy === null ) {
 			$ret["Policy"] = $for_json_encode ? (object)[] : [];

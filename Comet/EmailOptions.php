@@ -14,17 +14,22 @@ class EmailOptions {
 	/**
 	 * @var string
 	 */
-	public $Mode = "";
-
-	/**
-	 * @var string
-	 */
 	public $FromEmail = "";
 
 	/**
 	 * @var string
 	 */
 	public $FromName = "";
+
+	/**
+	 * @var string
+	 */
+	public $Mode = "";
+
+	/**
+	 * @var \Comet\EmailReportingOption[]
+	 */
+	public $EmailReportingOptions = [];
 
 	/**
 	 * @var string
@@ -73,14 +78,28 @@ class EmailOptions {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
-		if (property_exists($sc, 'Mode')) {
-			$this->Mode = (string)($sc->Mode);
-		}
 		if (property_exists($sc, 'FromEmail')) {
 			$this->FromEmail = (string)($sc->FromEmail);
 		}
 		if (property_exists($sc, 'FromName')) {
 			$this->FromName = (string)($sc->FromName);
+		}
+		if (property_exists($sc, 'Mode')) {
+			$this->Mode = (string)($sc->Mode);
+		}
+		if (property_exists($sc, 'EmailReportingOptions') && !is_null($sc->EmailReportingOptions)) {
+			$val_2 = [];
+			if ($sc->EmailReportingOptions !== null) {
+				for($i_2 = 0; $i_2 < count($sc->EmailReportingOptions); ++$i_2) {
+					if (is_array($sc->EmailReportingOptions[$i_2]) && count($sc->EmailReportingOptions[$i_2]) === 0) {
+					// Work around edge case in json_decode--json_encode stdClass conversion
+						$val_2[] = \Comet\EmailReportingOption::createFromStdclass(new \stdClass());
+					} else {
+						$val_2[] = \Comet\EmailReportingOption::createFromStdclass($sc->EmailReportingOptions[$i_2]);
+					}
+				}
+			}
+			$this->EmailReportingOptions = $val_2;
 		}
 		if (property_exists($sc, 'SMTPHost') && !is_null($sc->SMTPHost)) {
 			$this->SMTPHost = (string)($sc->SMTPHost);
@@ -102,9 +121,10 @@ class EmailOptions {
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
-			case 'Mode':
 			case 'FromEmail':
 			case 'FromName':
+			case 'Mode':
+			case 'EmailReportingOptions':
 			case 'SMTPHost':
 			case 'SMTPPort':
 			case 'SMTPUsername':
@@ -176,9 +196,21 @@ class EmailOptions {
 	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
-		$ret["Mode"] = $this->Mode;
 		$ret["FromEmail"] = $this->FromEmail;
 		$ret["FromName"] = $this->FromName;
+		$ret["Mode"] = $this->Mode;
+		{
+			$c0 = [];
+			for($i0 = 0; $i0 < count($this->EmailReportingOptions); ++$i0) {
+				if ( $this->EmailReportingOptions[$i0] === null ) {
+					$val0 = $for_json_encode ? (object)[] : [];
+				} else {
+					$val0 = $this->EmailReportingOptions[$i0]->toArray($for_json_encode);
+				}
+				$c0[] = $val0;
+			}
+			$ret["EmailReportingOptions"] = $c0;
+		}
 		$ret["SMTPHost"] = $this->SMTPHost;
 		$ret["SMTPPort"] = $this->SMTPPort;
 		$ret["SMTPUsername"] = $this->SMTPUsername;

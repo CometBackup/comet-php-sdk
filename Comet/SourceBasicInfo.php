@@ -19,6 +19,11 @@ class SourceBasicInfo {
 	/**
 	 * @var int
 	 */
+	public $O365AccountCount = 0;
+
+	/**
+	 * @var int
+	 */
 	public $Size = 0;
 
 	/**
@@ -46,6 +51,9 @@ class SourceBasicInfo {
 		if (property_exists($sc, 'Description')) {
 			$this->Description = (string)($sc->Description);
 		}
+		if (property_exists($sc, 'O365AccountCount')) {
+			$this->O365AccountCount = (int)($sc->O365AccountCount);
+		}
 		if (property_exists($sc, 'Size')) {
 			$this->Size = (int)($sc->Size);
 		}
@@ -68,6 +76,7 @@ class SourceBasicInfo {
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Description':
+			case 'O365AccountCount':
 			case 'Size':
 			case 'OverrideDestinationRetention':
 				break;
@@ -136,6 +145,7 @@ class SourceBasicInfo {
 	{
 		$ret = [];
 		$ret["Description"] = $this->Description;
+		$ret["O365AccountCount"] = $this->O365AccountCount;
 		$ret["Size"] = $this->Size;
 		{
 			$c0 = [];

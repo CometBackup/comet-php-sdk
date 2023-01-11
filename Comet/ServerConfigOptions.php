@@ -12,64 +12,9 @@ namespace Comet;
 class ServerConfigOptions {
 
 	/**
-	 * @var string[]
-	 */
-	public $ExperimentalOptions = [];
-
-	/**
-	 * @var \Comet\WebhookOption[] An array with string keys.
-	 */
-	public $WebhookOptions = [];
-
-	/**
-	 * @var \Comet\PSAConfig[]
-	 */
-	public $PSAConfigs = [];
-
-	/**
-	 * @var \Comet\LicenseOptions
-	 */
-	public $License = null;
-
-	/**
-	 * @var \Comet\BrandingOptions
-	 */
-	public $Branding = null;
-
-	/**
 	 * @var \Comet\AllowedAdminUser[]
 	 */
 	public $AdminUsers = [];
-
-	/**
-	 * @var \Comet\Organization[] An array with string keys.
-	 */
-	public $Organizations = [];
-
-	/**
-	 * @var \Comet\ExternalAuthenticationSource[] An array with string keys.
-	 */
-	public $ExternalAdminUserSources = [];
-
-	/**
-	 * @var \Comet\HTTPConnectorOptions[]
-	 */
-	public $ListenAddresses = [];
-
-	/**
-	 * @var boolean
-	 */
-	public $TrustXForwardedFor = false;
-
-	/**
-	 * @var \Comet\RatelimitOptions
-	 */
-	public $IPRateLimit = null;
-
-	/**
-	 * @var \Comet\EmailOptions
-	 */
-	public $Email = null;
 
 	/**
 	 * @var \Comet\AuthenticationRoleOptions
@@ -77,14 +22,9 @@ class ServerConfigOptions {
 	public $AuthenticationRole = null;
 
 	/**
-	 * @var \Comet\StorageRoleOptions
+	 * @var \Comet\BrandingOptions
 	 */
-	public $StorageRole = null;
-
-	/**
-	 * @var \Comet\SoftwareBuildRoleOptions
-	 */
-	public $SoftwareBuildRole = null;
+	public $Branding = null;
 
 	/**
 	 * @var \Comet\ConstellationRoleOptions
@@ -97,6 +37,46 @@ class ServerConfigOptions {
 	public $ConstellationRole_Legacy = null;
 
 	/**
+	 * @var \Comet\EmailOptions
+	 */
+	public $Email = null;
+
+	/**
+	 * @var string[]
+	 */
+	public $ExperimentalOptions = [];
+
+	/**
+	 * @var \Comet\ExternalAuthenticationSource[] An array with string keys.
+	 */
+	public $ExternalAdminUserSources = [];
+
+	/**
+	 * @var \Comet\RatelimitOptions
+	 */
+	public $IPRateLimit = null;
+
+	/**
+	 * @var \Comet\LicenseOptions
+	 */
+	public $License = null;
+
+	/**
+	 * @var \Comet\HTTPConnectorOptions[]
+	 */
+	public $ListenAddresses = [];
+
+	/**
+	 * @var \Comet\Organization[] An array with string keys.
+	 */
+	public $Organizations = [];
+
+	/**
+	 * @var \Comet\PSAConfig[]
+	 */
+	public $PSAConfigs = [];
+
+	/**
 	 * @var \Comet\SelfBackupOptions
 	 */
 	public $SelfBackup = null;
@@ -105,6 +85,26 @@ class ServerConfigOptions {
 	 * @var \Comet\SessionOptions
 	 */
 	public $SessionSettings = null;
+
+	/**
+	 * @var \Comet\SoftwareBuildRoleOptions
+	 */
+	public $SoftwareBuildRole = null;
+
+	/**
+	 * @var \Comet\StorageRoleOptions
+	 */
+	public $StorageRole = null;
+
+	/**
+	 * @var boolean
+	 */
+	public $TrustXForwardedFor = false;
+
+	/**
+	 * @var \Comet\WebhookOption[] An array with string keys.
+	 */
+	public $WebhookOptions = [];
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
@@ -123,61 +123,6 @@ class ServerConfigOptions {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
-		if (property_exists($sc, 'ExperimentalOptions') && !is_null($sc->ExperimentalOptions)) {
-			$val_2 = [];
-			if ($sc->ExperimentalOptions !== null) {
-				for($i_2 = 0; $i_2 < count($sc->ExperimentalOptions); ++$i_2) {
-					$val_2[] = (string)($sc->ExperimentalOptions[$i_2]);
-				}
-			}
-			$this->ExperimentalOptions = $val_2;
-		}
-		if (property_exists($sc, 'WebhookOptions')) {
-			$val_2 = [];
-			if ($sc->WebhookOptions !== null) {
-				foreach($sc->WebhookOptions as $k_2 => $v_2) {
-					$phpk_2 = (string)($k_2);
-					if (is_array($v_2) && count($v_2) === 0) {
-					// Work around edge case in json_decode--json_encode stdClass conversion
-						$phpv_2 = \Comet\WebhookOption::createFromStdclass(new \stdClass());
-					} else {
-						$phpv_2 = \Comet\WebhookOption::createFromStdclass($v_2);
-					}
-					$val_2[$phpk_2] = $phpv_2;
-				}
-			}
-			$this->WebhookOptions = $val_2;
-		}
-		if (property_exists($sc, 'PSAConfigs')) {
-			$val_2 = [];
-			if ($sc->PSAConfigs !== null) {
-				for($i_2 = 0; $i_2 < count($sc->PSAConfigs); ++$i_2) {
-					if (is_array($sc->PSAConfigs[$i_2]) && count($sc->PSAConfigs[$i_2]) === 0) {
-					// Work around edge case in json_decode--json_encode stdClass conversion
-						$val_2[] = \Comet\PSAConfig::createFromStdclass(new \stdClass());
-					} else {
-						$val_2[] = \Comet\PSAConfig::createFromStdclass($sc->PSAConfigs[$i_2]);
-					}
-				}
-			}
-			$this->PSAConfigs = $val_2;
-		}
-		if (property_exists($sc, 'License')) {
-			if (is_array($sc->License) && count($sc->License) === 0) {
-			// Work around edge case in json_decode--json_encode stdClass conversion
-				$this->License = \Comet\LicenseOptions::createFromStdclass(new \stdClass());
-			} else {
-				$this->License = \Comet\LicenseOptions::createFromStdclass($sc->License);
-			}
-		}
-		if (property_exists($sc, 'Branding')) {
-			if (is_array($sc->Branding) && count($sc->Branding) === 0) {
-			// Work around edge case in json_decode--json_encode stdClass conversion
-				$this->Branding = \Comet\BrandingOptions::createFromStdclass(new \stdClass());
-			} else {
-				$this->Branding = \Comet\BrandingOptions::createFromStdclass($sc->Branding);
-			}
-		}
 		if (property_exists($sc, 'AdminUsers')) {
 			$val_2 = [];
 			if ($sc->AdminUsers !== null) {
@@ -192,71 +137,6 @@ class ServerConfigOptions {
 			}
 			$this->AdminUsers = $val_2;
 		}
-		if (property_exists($sc, 'Organizations')) {
-			$val_2 = [];
-			if ($sc->Organizations !== null) {
-				foreach($sc->Organizations as $k_2 => $v_2) {
-					$phpk_2 = (string)($k_2);
-					if (is_array($v_2) && count($v_2) === 0) {
-					// Work around edge case in json_decode--json_encode stdClass conversion
-						$phpv_2 = \Comet\Organization::createFromStdclass(new \stdClass());
-					} else {
-						$phpv_2 = \Comet\Organization::createFromStdclass($v_2);
-					}
-					$val_2[$phpk_2] = $phpv_2;
-				}
-			}
-			$this->Organizations = $val_2;
-		}
-		if (property_exists($sc, 'ExternalAdminUserSources')) {
-			$val_2 = [];
-			if ($sc->ExternalAdminUserSources !== null) {
-				foreach($sc->ExternalAdminUserSources as $k_2 => $v_2) {
-					$phpk_2 = (string)($k_2);
-					if (is_array($v_2) && count($v_2) === 0) {
-					// Work around edge case in json_decode--json_encode stdClass conversion
-						$phpv_2 = \Comet\ExternalAuthenticationSource::createFromStdclass(new \stdClass());
-					} else {
-						$phpv_2 = \Comet\ExternalAuthenticationSource::createFromStdclass($v_2);
-					}
-					$val_2[$phpk_2] = $phpv_2;
-				}
-			}
-			$this->ExternalAdminUserSources = $val_2;
-		}
-		if (property_exists($sc, 'ListenAddresses')) {
-			$val_2 = [];
-			if ($sc->ListenAddresses !== null) {
-				for($i_2 = 0; $i_2 < count($sc->ListenAddresses); ++$i_2) {
-					if (is_array($sc->ListenAddresses[$i_2]) && count($sc->ListenAddresses[$i_2]) === 0) {
-					// Work around edge case in json_decode--json_encode stdClass conversion
-						$val_2[] = \Comet\HTTPConnectorOptions::createFromStdclass(new \stdClass());
-					} else {
-						$val_2[] = \Comet\HTTPConnectorOptions::createFromStdclass($sc->ListenAddresses[$i_2]);
-					}
-				}
-			}
-			$this->ListenAddresses = $val_2;
-		}
-		if (property_exists($sc, 'TrustXForwardedFor')) {
-			$this->TrustXForwardedFor = (bool)($sc->TrustXForwardedFor);
-		}
-		if (property_exists($sc, 'IPRateLimit')) {
-			if (is_array($sc->IPRateLimit) && count($sc->IPRateLimit) === 0) {
-			// Work around edge case in json_decode--json_encode stdClass conversion
-				$this->IPRateLimit = \Comet\RatelimitOptions::createFromStdclass(new \stdClass());
-			} else {
-				$this->IPRateLimit = \Comet\RatelimitOptions::createFromStdclass($sc->IPRateLimit);
-			}
-		}
-		if (property_exists($sc, 'Email')) {
-			if (is_array($sc->Email) && count($sc->Email) === 0) {
-			// Work around edge case in json_decode--json_encode stdClass conversion
-				$this->Email = \Comet\EmailOptions::createFromStdclass(new \stdClass());
-			} else {
-				$this->Email = \Comet\EmailOptions::createFromStdclass($sc->Email);
-			}
-		}
 		if (property_exists($sc, 'AuthenticationRole')) {
 			if (is_array($sc->AuthenticationRole) && count($sc->AuthenticationRole) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
@@ -265,20 +145,12 @@ class ServerConfigOptions {
 				$this->AuthenticationRole = \Comet\AuthenticationRoleOptions::createFromStdclass($sc->AuthenticationRole);
 			}
 		}
-		if (property_exists($sc, 'StorageRole')) {
-			if (is_array($sc->StorageRole) && count($sc->StorageRole) === 0) {
+		if (property_exists($sc, 'Branding')) {
+			if (is_array($sc->Branding) && count($sc->Branding) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
-				$this->StorageRole = \Comet\StorageRoleOptions::createFromStdclass(new \stdClass());
+				$this->Branding = \Comet\BrandingOptions::createFromStdclass(new \stdClass());
 			} else {
-				$this->StorageRole = \Comet\StorageRoleOptions::createFromStdclass($sc->StorageRole);
-			}
-		}
-		if (property_exists($sc, 'SoftwareBuildRole')) {
-			if (is_array($sc->SoftwareBuildRole) && count($sc->SoftwareBuildRole) === 0) {
-			// Work around edge case in json_decode--json_encode stdClass conversion
-				$this->SoftwareBuildRole = \Comet\SoftwareBuildRoleOptions::createFromStdclass(new \stdClass());
-			} else {
-				$this->SoftwareBuildRole = \Comet\SoftwareBuildRoleOptions::createFromStdclass($sc->SoftwareBuildRole);
+				$this->Branding = \Comet\BrandingOptions::createFromStdclass($sc->Branding);
 			}
 		}
 		if (property_exists($sc, 'ConstellationRole')) {
@@ -297,6 +169,99 @@ class ServerConfigOptions {
 				$this->ConstellationRole_Legacy = \Comet\ConstellationRoleOptions::createFromStdclass($sc->OverseerRole);
 			}
 		}
+		if (property_exists($sc, 'Email')) {
+			if (is_array($sc->Email) && count($sc->Email) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->Email = \Comet\EmailOptions::createFromStdclass(new \stdClass());
+			} else {
+				$this->Email = \Comet\EmailOptions::createFromStdclass($sc->Email);
+			}
+		}
+		if (property_exists($sc, 'ExperimentalOptions') && !is_null($sc->ExperimentalOptions)) {
+			$val_2 = [];
+			if ($sc->ExperimentalOptions !== null) {
+				for($i_2 = 0; $i_2 < count($sc->ExperimentalOptions); ++$i_2) {
+					$val_2[] = (string)($sc->ExperimentalOptions[$i_2]);
+				}
+			}
+			$this->ExperimentalOptions = $val_2;
+		}
+		if (property_exists($sc, 'ExternalAdminUserSources')) {
+			$val_2 = [];
+			if ($sc->ExternalAdminUserSources !== null) {
+				foreach($sc->ExternalAdminUserSources as $k_2 => $v_2) {
+					$phpk_2 = (string)($k_2);
+					if (is_array($v_2) && count($v_2) === 0) {
+					// Work around edge case in json_decode--json_encode stdClass conversion
+						$phpv_2 = \Comet\ExternalAuthenticationSource::createFromStdclass(new \stdClass());
+					} else {
+						$phpv_2 = \Comet\ExternalAuthenticationSource::createFromStdclass($v_2);
+					}
+					$val_2[$phpk_2] = $phpv_2;
+				}
+			}
+			$this->ExternalAdminUserSources = $val_2;
+		}
+		if (property_exists($sc, 'IPRateLimit')) {
+			if (is_array($sc->IPRateLimit) && count($sc->IPRateLimit) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->IPRateLimit = \Comet\RatelimitOptions::createFromStdclass(new \stdClass());
+			} else {
+				$this->IPRateLimit = \Comet\RatelimitOptions::createFromStdclass($sc->IPRateLimit);
+			}
+		}
+		if (property_exists($sc, 'License')) {
+			if (is_array($sc->License) && count($sc->License) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->License = \Comet\LicenseOptions::createFromStdclass(new \stdClass());
+			} else {
+				$this->License = \Comet\LicenseOptions::createFromStdclass($sc->License);
+			}
+		}
+		if (property_exists($sc, 'ListenAddresses')) {
+			$val_2 = [];
+			if ($sc->ListenAddresses !== null) {
+				for($i_2 = 0; $i_2 < count($sc->ListenAddresses); ++$i_2) {
+					if (is_array($sc->ListenAddresses[$i_2]) && count($sc->ListenAddresses[$i_2]) === 0) {
+					// Work around edge case in json_decode--json_encode stdClass conversion
+						$val_2[] = \Comet\HTTPConnectorOptions::createFromStdclass(new \stdClass());
+					} else {
+						$val_2[] = \Comet\HTTPConnectorOptions::createFromStdclass($sc->ListenAddresses[$i_2]);
+					}
+				}
+			}
+			$this->ListenAddresses = $val_2;
+		}
+		if (property_exists($sc, 'Organizations')) {
+			$val_2 = [];
+			if ($sc->Organizations !== null) {
+				foreach($sc->Organizations as $k_2 => $v_2) {
+					$phpk_2 = (string)($k_2);
+					if (is_array($v_2) && count($v_2) === 0) {
+					// Work around edge case in json_decode--json_encode stdClass conversion
+						$phpv_2 = \Comet\Organization::createFromStdclass(new \stdClass());
+					} else {
+						$phpv_2 = \Comet\Organization::createFromStdclass($v_2);
+					}
+					$val_2[$phpk_2] = $phpv_2;
+				}
+			}
+			$this->Organizations = $val_2;
+		}
+		if (property_exists($sc, 'PSAConfigs')) {
+			$val_2 = [];
+			if ($sc->PSAConfigs !== null) {
+				for($i_2 = 0; $i_2 < count($sc->PSAConfigs); ++$i_2) {
+					if (is_array($sc->PSAConfigs[$i_2]) && count($sc->PSAConfigs[$i_2]) === 0) {
+					// Work around edge case in json_decode--json_encode stdClass conversion
+						$val_2[] = \Comet\PSAConfig::createFromStdclass(new \stdClass());
+					} else {
+						$val_2[] = \Comet\PSAConfig::createFromStdclass($sc->PSAConfigs[$i_2]);
+					}
+				}
+			}
+			$this->PSAConfigs = $val_2;
+		}
 		if (property_exists($sc, 'SelfBackup')) {
 			if (is_array($sc->SelfBackup) && count($sc->SelfBackup) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
@@ -313,27 +278,62 @@ class ServerConfigOptions {
 				$this->SessionSettings = \Comet\SessionOptions::createFromStdclass($sc->SessionSettings);
 			}
 		}
+		if (property_exists($sc, 'SoftwareBuildRole')) {
+			if (is_array($sc->SoftwareBuildRole) && count($sc->SoftwareBuildRole) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->SoftwareBuildRole = \Comet\SoftwareBuildRoleOptions::createFromStdclass(new \stdClass());
+			} else {
+				$this->SoftwareBuildRole = \Comet\SoftwareBuildRoleOptions::createFromStdclass($sc->SoftwareBuildRole);
+			}
+		}
+		if (property_exists($sc, 'StorageRole')) {
+			if (is_array($sc->StorageRole) && count($sc->StorageRole) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->StorageRole = \Comet\StorageRoleOptions::createFromStdclass(new \stdClass());
+			} else {
+				$this->StorageRole = \Comet\StorageRoleOptions::createFromStdclass($sc->StorageRole);
+			}
+		}
+		if (property_exists($sc, 'TrustXForwardedFor')) {
+			$this->TrustXForwardedFor = (bool)($sc->TrustXForwardedFor);
+		}
+		if (property_exists($sc, 'WebhookOptions')) {
+			$val_2 = [];
+			if ($sc->WebhookOptions !== null) {
+				foreach($sc->WebhookOptions as $k_2 => $v_2) {
+					$phpk_2 = (string)($k_2);
+					if (is_array($v_2) && count($v_2) === 0) {
+					// Work around edge case in json_decode--json_encode stdClass conversion
+						$phpv_2 = \Comet\WebhookOption::createFromStdclass(new \stdClass());
+					} else {
+						$phpv_2 = \Comet\WebhookOption::createFromStdclass($v_2);
+					}
+					$val_2[$phpk_2] = $phpv_2;
+				}
+			}
+			$this->WebhookOptions = $val_2;
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
-			case 'ExperimentalOptions':
-			case 'WebhookOptions':
-			case 'PSAConfigs':
-			case 'License':
-			case 'Branding':
 			case 'AdminUsers':
-			case 'Organizations':
-			case 'ExternalAdminUserSources':
-			case 'ListenAddresses':
-			case 'TrustXForwardedFor':
-			case 'IPRateLimit':
-			case 'Email':
 			case 'AuthenticationRole':
-			case 'StorageRole':
-			case 'SoftwareBuildRole':
+			case 'Branding':
 			case 'ConstellationRole':
 			case 'OverseerRole':
+			case 'Email':
+			case 'ExperimentalOptions':
+			case 'ExternalAdminUserSources':
+			case 'IPRateLimit':
+			case 'License':
+			case 'ListenAddresses':
+			case 'Organizations':
+			case 'PSAConfigs':
 			case 'SelfBackup':
 			case 'SessionSettings':
+			case 'SoftwareBuildRole':
+			case 'StorageRole':
+			case 'TrustXForwardedFor':
+			case 'WebhookOptions':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -401,53 +401,6 @@ class ServerConfigOptions {
 		$ret = [];
 		{
 			$c0 = [];
-			for($i0 = 0; $i0 < count($this->ExperimentalOptions); ++$i0) {
-				$val0 = $this->ExperimentalOptions[$i0];
-				$c0[] = $val0;
-			}
-			$ret["ExperimentalOptions"] = $c0;
-		}
-		{
-			$c0 = [];
-			foreach($this->WebhookOptions as $k0 => $v0) {
-				$ko_0 = $k0;
-				if ( $v0 === null ) {
-					$vo_0 = $for_json_encode ? (object)[] : [];
-				} else {
-					$vo_0 = $v0->toArray($for_json_encode);
-				}
-				$c0[ $ko_0 ] = $vo_0;
-			}
-			if ($for_json_encode && count($c0) == 0) {
-				$ret["WebhookOptions"] = (object)[];
-			} else {
-				$ret["WebhookOptions"] = $c0;
-			}
-		}
-		{
-			$c0 = [];
-			for($i0 = 0; $i0 < count($this->PSAConfigs); ++$i0) {
-				if ( $this->PSAConfigs[$i0] === null ) {
-					$val0 = $for_json_encode ? (object)[] : [];
-				} else {
-					$val0 = $this->PSAConfigs[$i0]->toArray($for_json_encode);
-				}
-				$c0[] = $val0;
-			}
-			$ret["PSAConfigs"] = $c0;
-		}
-		if ( $this->License === null ) {
-			$ret["License"] = $for_json_encode ? (object)[] : [];
-		} else {
-			$ret["License"] = $this->License->toArray($for_json_encode);
-		}
-		if ( $this->Branding === null ) {
-			$ret["Branding"] = $for_json_encode ? (object)[] : [];
-		} else {
-			$ret["Branding"] = $this->Branding->toArray($for_json_encode);
-		}
-		{
-			$c0 = [];
 			for($i0 = 0; $i0 < count($this->AdminUsers); ++$i0) {
 				if ( $this->AdminUsers[$i0] === null ) {
 					$val0 = $for_json_encode ? (object)[] : [];
@@ -457,6 +410,78 @@ class ServerConfigOptions {
 				$c0[] = $val0;
 			}
 			$ret["AdminUsers"] = $c0;
+		}
+		if ( $this->AuthenticationRole === null ) {
+			$ret["AuthenticationRole"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["AuthenticationRole"] = $this->AuthenticationRole->toArray($for_json_encode);
+		}
+		if ( $this->Branding === null ) {
+			$ret["Branding"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["Branding"] = $this->Branding->toArray($for_json_encode);
+		}
+		if ( $this->ConstellationRole === null ) {
+			$ret["ConstellationRole"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["ConstellationRole"] = $this->ConstellationRole->toArray($for_json_encode);
+		}
+		if ( $this->ConstellationRole_Legacy === null ) {
+			$ret["OverseerRole"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["OverseerRole"] = $this->ConstellationRole_Legacy->toArray($for_json_encode);
+		}
+		if ( $this->Email === null ) {
+			$ret["Email"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["Email"] = $this->Email->toArray($for_json_encode);
+		}
+		{
+			$c0 = [];
+			for($i0 = 0; $i0 < count($this->ExperimentalOptions); ++$i0) {
+				$val0 = $this->ExperimentalOptions[$i0];
+				$c0[] = $val0;
+			}
+			$ret["ExperimentalOptions"] = $c0;
+		}
+		{
+			$c0 = [];
+			foreach($this->ExternalAdminUserSources as $k0 => $v0) {
+				$ko_0 = $k0;
+				if ( $v0 === null ) {
+					$vo_0 = $for_json_encode ? (object)[] : [];
+				} else {
+					$vo_0 = $v0->toArray($for_json_encode);
+				}
+				$c0[ $ko_0 ] = $vo_0;
+			}
+			if ($for_json_encode && count($c0) == 0) {
+				$ret["ExternalAdminUserSources"] = (object)[];
+			} else {
+				$ret["ExternalAdminUserSources"] = $c0;
+			}
+		}
+		if ( $this->IPRateLimit === null ) {
+			$ret["IPRateLimit"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["IPRateLimit"] = $this->IPRateLimit->toArray($for_json_encode);
+		}
+		if ( $this->License === null ) {
+			$ret["License"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["License"] = $this->License->toArray($for_json_encode);
+		}
+		{
+			$c0 = [];
+			for($i0 = 0; $i0 < count($this->ListenAddresses); ++$i0) {
+				if ( $this->ListenAddresses[$i0] === null ) {
+					$val0 = $for_json_encode ? (object)[] : [];
+				} else {
+					$val0 = $this->ListenAddresses[$i0]->toArray($for_json_encode);
+				}
+				$c0[] = $val0;
+			}
+			$ret["ListenAddresses"] = $c0;
 		}
 		{
 			$c0 = [];
@@ -477,68 +502,15 @@ class ServerConfigOptions {
 		}
 		{
 			$c0 = [];
-			foreach($this->ExternalAdminUserSources as $k0 => $v0) {
-				$ko_0 = $k0;
-				if ( $v0 === null ) {
-					$vo_0 = $for_json_encode ? (object)[] : [];
-				} else {
-					$vo_0 = $v0->toArray($for_json_encode);
-				}
-				$c0[ $ko_0 ] = $vo_0;
-			}
-			if ($for_json_encode && count($c0) == 0) {
-				$ret["ExternalAdminUserSources"] = (object)[];
-			} else {
-				$ret["ExternalAdminUserSources"] = $c0;
-			}
-		}
-		{
-			$c0 = [];
-			for($i0 = 0; $i0 < count($this->ListenAddresses); ++$i0) {
-				if ( $this->ListenAddresses[$i0] === null ) {
+			for($i0 = 0; $i0 < count($this->PSAConfigs); ++$i0) {
+				if ( $this->PSAConfigs[$i0] === null ) {
 					$val0 = $for_json_encode ? (object)[] : [];
 				} else {
-					$val0 = $this->ListenAddresses[$i0]->toArray($for_json_encode);
+					$val0 = $this->PSAConfigs[$i0]->toArray($for_json_encode);
 				}
 				$c0[] = $val0;
 			}
-			$ret["ListenAddresses"] = $c0;
-		}
-		$ret["TrustXForwardedFor"] = $this->TrustXForwardedFor;
-		if ( $this->IPRateLimit === null ) {
-			$ret["IPRateLimit"] = $for_json_encode ? (object)[] : [];
-		} else {
-			$ret["IPRateLimit"] = $this->IPRateLimit->toArray($for_json_encode);
-		}
-		if ( $this->Email === null ) {
-			$ret["Email"] = $for_json_encode ? (object)[] : [];
-		} else {
-			$ret["Email"] = $this->Email->toArray($for_json_encode);
-		}
-		if ( $this->AuthenticationRole === null ) {
-			$ret["AuthenticationRole"] = $for_json_encode ? (object)[] : [];
-		} else {
-			$ret["AuthenticationRole"] = $this->AuthenticationRole->toArray($for_json_encode);
-		}
-		if ( $this->StorageRole === null ) {
-			$ret["StorageRole"] = $for_json_encode ? (object)[] : [];
-		} else {
-			$ret["StorageRole"] = $this->StorageRole->toArray($for_json_encode);
-		}
-		if ( $this->SoftwareBuildRole === null ) {
-			$ret["SoftwareBuildRole"] = $for_json_encode ? (object)[] : [];
-		} else {
-			$ret["SoftwareBuildRole"] = $this->SoftwareBuildRole->toArray($for_json_encode);
-		}
-		if ( $this->ConstellationRole === null ) {
-			$ret["ConstellationRole"] = $for_json_encode ? (object)[] : [];
-		} else {
-			$ret["ConstellationRole"] = $this->ConstellationRole->toArray($for_json_encode);
-		}
-		if ( $this->ConstellationRole_Legacy === null ) {
-			$ret["OverseerRole"] = $for_json_encode ? (object)[] : [];
-		} else {
-			$ret["OverseerRole"] = $this->ConstellationRole_Legacy->toArray($for_json_encode);
+			$ret["PSAConfigs"] = $c0;
 		}
 		if ( $this->SelfBackup === null ) {
 			$ret["SelfBackup"] = $for_json_encode ? (object)[] : [];
@@ -549,6 +521,34 @@ class ServerConfigOptions {
 			$ret["SessionSettings"] = $for_json_encode ? (object)[] : [];
 		} else {
 			$ret["SessionSettings"] = $this->SessionSettings->toArray($for_json_encode);
+		}
+		if ( $this->SoftwareBuildRole === null ) {
+			$ret["SoftwareBuildRole"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["SoftwareBuildRole"] = $this->SoftwareBuildRole->toArray($for_json_encode);
+		}
+		if ( $this->StorageRole === null ) {
+			$ret["StorageRole"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["StorageRole"] = $this->StorageRole->toArray($for_json_encode);
+		}
+		$ret["TrustXForwardedFor"] = $this->TrustXForwardedFor;
+		{
+			$c0 = [];
+			foreach($this->WebhookOptions as $k0 => $v0) {
+				$ko_0 = $k0;
+				if ( $v0 === null ) {
+					$vo_0 = $for_json_encode ? (object)[] : [];
+				} else {
+					$vo_0 = $v0->toArray($for_json_encode);
+				}
+				$c0[ $ko_0 ] = $vo_0;
+			}
+			if ($for_json_encode && count($c0) == 0) {
+				$ret["WebhookOptions"] = (object)[];
+			} else {
+				$ret["WebhookOptions"] = $c0;
+			}
 		}
 
 		// Reinstate unknown properties from future server versions
@@ -599,26 +599,11 @@ class ServerConfigOptions {
 	public function RemoveUnknownProperties()
 	{
 		$this->__unknown_properties = [];
-		if ($this->License !== null) {
-			$this->License->RemoveUnknownProperties();
-		}
-		if ($this->Branding !== null) {
-			$this->Branding->RemoveUnknownProperties();
-		}
-		if ($this->IPRateLimit !== null) {
-			$this->IPRateLimit->RemoveUnknownProperties();
-		}
-		if ($this->Email !== null) {
-			$this->Email->RemoveUnknownProperties();
-		}
 		if ($this->AuthenticationRole !== null) {
 			$this->AuthenticationRole->RemoveUnknownProperties();
 		}
-		if ($this->StorageRole !== null) {
-			$this->StorageRole->RemoveUnknownProperties();
-		}
-		if ($this->SoftwareBuildRole !== null) {
-			$this->SoftwareBuildRole->RemoveUnknownProperties();
+		if ($this->Branding !== null) {
+			$this->Branding->RemoveUnknownProperties();
 		}
 		if ($this->ConstellationRole !== null) {
 			$this->ConstellationRole->RemoveUnknownProperties();
@@ -626,11 +611,26 @@ class ServerConfigOptions {
 		if ($this->ConstellationRole_Legacy !== null) {
 			$this->ConstellationRole_Legacy->RemoveUnknownProperties();
 		}
+		if ($this->Email !== null) {
+			$this->Email->RemoveUnknownProperties();
+		}
+		if ($this->IPRateLimit !== null) {
+			$this->IPRateLimit->RemoveUnknownProperties();
+		}
+		if ($this->License !== null) {
+			$this->License->RemoveUnknownProperties();
+		}
 		if ($this->SelfBackup !== null) {
 			$this->SelfBackup->RemoveUnknownProperties();
 		}
 		if ($this->SessionSettings !== null) {
 			$this->SessionSettings->RemoveUnknownProperties();
+		}
+		if ($this->SoftwareBuildRole !== null) {
+			$this->SoftwareBuildRole->RemoveUnknownProperties();
+		}
+		if ($this->StorageRole !== null) {
+			$this->StorageRole->RemoveUnknownProperties();
 		}
 	}
 

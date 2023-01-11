@@ -10,19 +10,29 @@
 namespace Comet;
 
 /**
- * Comet Server AdminMetaPsaConfigListGet API
- * Get the server PSA configuration
+ * Comet Server AdminMetaSendTestReport API
+ * Send a test admin email report
+ * This allows a user to send a test email report
  *
  * You must supply administrator authentication credentials to use this API.
  */
-class AdminMetaPsaConfigListGetRequest implements \Comet\NetworkRequest {
+class AdminMetaSendTestReportRequest implements \Comet\NetworkRequest {
 
 	/**
-	 * Construct a new AdminMetaPsaConfigListGetRequest instance.
+	 * Test email reporting option for sending
 	 *
+	 * @var \Comet\EmailReportingOption
 	 */
-	public function __construct()
+	protected $EmailReportingOption = null;
+
+	/**
+	 * Construct a new AdminMetaSendTestReportRequest instance.
+	 *
+	 * @param \Comet\EmailReportingOption $EmailReportingOption Test email reporting option for sending
+	 */
+	public function __construct(\Comet\EmailReportingOption $EmailReportingOption)
 	{
+		$this->EmailReportingOption = $EmailReportingOption;
 	}
 
 	/**
@@ -32,7 +42,7 @@ class AdminMetaPsaConfigListGetRequest implements \Comet\NetworkRequest {
 	 */
 	public function Endpoint(): string
 	{
-		return '/api/v1/admin/meta/psa-config-list/get';
+		return '/api/v1/admin/meta/send-test-report';
 	}
 
 	public function Method(): string
@@ -53,6 +63,7 @@ class AdminMetaPsaConfigListGetRequest implements \Comet\NetworkRequest {
 	public function Parameters(): array
 	{
 		$ret = [];
+		$ret["EmailReportingOption"] = $this->EmailReportingOption->toJSON();
 		return $ret;
 	}
 
@@ -62,10 +73,10 @@ class AdminMetaPsaConfigListGetRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param int $responseCode HTTP response code
 	 * @param string $body HTTP response body
-	 * @return \Comet\PSAConfig[]
+	 * @return \Comet\APIResponseMessage
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse(int $responseCode, string $body): array
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\APIResponseMessage
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {
@@ -87,19 +98,13 @@ class AdminMetaPsaConfigListGetRequest implements \Comet\NetworkRequest {
 			}
 		}
 
-		// Parse as []PSAConfig
-		$val_0 = [];
-		if ($decoded !== null) {
-			for($i_0 = 0; $i_0 < count($decoded); ++$i_0) {
-				if (is_array($decoded[$i_0]) && count($decoded[$i_0]) === 0) {
-				// Work around edge case in json_decode--json_encode stdClass conversion
-					$val_0[] = \Comet\PSAConfig::createFromStdclass(new \stdClass());
-				} else {
-					$val_0[] = \Comet\PSAConfig::createFromStdclass($decoded[$i_0]);
-				}
-			}
+		// Parse as CometAPIResponseMessage
+		if (is_array($decoded) && count($decoded) === 0) {
+		// Work around edge case in json_decode--json_encode stdClass conversion
+			$ret = \Comet\APIResponseMessage::createFromStdclass(new \stdClass());
+		} else {
+			$ret = \Comet\APIResponseMessage::createFromStdclass($decoded);
 		}
-		$ret = $val_0;
 
 		return $ret;
 	}

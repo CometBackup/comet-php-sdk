@@ -10,19 +10,29 @@
 namespace Comet;
 
 /**
- * Comet Server AdminMetaPsaConfigListGet API
- * Get the server PSA configuration
+ * Comet Server AdminCountJobsForCustomSearch API
+ * Count jobs (for custom search)
  *
  * You must supply administrator authentication credentials to use this API.
+ * This API requires the Auth Role to be enabled.
  */
-class AdminMetaPsaConfigListGetRequest implements \Comet\NetworkRequest {
+class AdminCountJobsForCustomSearchRequest implements \Comet\NetworkRequest {
 
 	/**
-	 * Construct a new AdminMetaPsaConfigListGetRequest instance.
+	 * (No description available)
 	 *
+	 * @var \Comet\SearchClause
 	 */
-	public function __construct()
+	protected $Query = null;
+
+	/**
+	 * Construct a new AdminCountJobsForCustomSearchRequest instance.
+	 *
+	 * @param \Comet\SearchClause $Query (No description available)
+	 */
+	public function __construct(\Comet\SearchClause $Query)
 	{
+		$this->Query = $Query;
 	}
 
 	/**
@@ -32,7 +42,7 @@ class AdminMetaPsaConfigListGetRequest implements \Comet\NetworkRequest {
 	 */
 	public function Endpoint(): string
 	{
-		return '/api/v1/admin/meta/psa-config-list/get';
+		return '/api/v1/admin/count-jobs-for-custom-search';
 	}
 
 	public function Method(): string
@@ -53,6 +63,7 @@ class AdminMetaPsaConfigListGetRequest implements \Comet\NetworkRequest {
 	public function Parameters(): array
 	{
 		$ret = [];
+		$ret["Query"] = $this->Query->toJSON();
 		return $ret;
 	}
 
@@ -62,10 +73,10 @@ class AdminMetaPsaConfigListGetRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param int $responseCode HTTP response code
 	 * @param string $body HTTP response body
-	 * @return \Comet\PSAConfig[]
+	 * @return \Comet\CountJobsResponse
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse(int $responseCode, string $body): array
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\CountJobsResponse
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {
@@ -87,19 +98,13 @@ class AdminMetaPsaConfigListGetRequest implements \Comet\NetworkRequest {
 			}
 		}
 
-		// Parse as []PSAConfig
-		$val_0 = [];
-		if ($decoded !== null) {
-			for($i_0 = 0; $i_0 < count($decoded); ++$i_0) {
-				if (is_array($decoded[$i_0]) && count($decoded[$i_0]) === 0) {
-				// Work around edge case in json_decode--json_encode stdClass conversion
-					$val_0[] = \Comet\PSAConfig::createFromStdclass(new \stdClass());
-				} else {
-					$val_0[] = \Comet\PSAConfig::createFromStdclass($decoded[$i_0]);
-				}
-			}
+		// Parse as CountJobsResponse
+		if (is_array($decoded) && count($decoded) === 0) {
+		// Work around edge case in json_decode--json_encode stdClass conversion
+			$ret = \Comet\CountJobsResponse::createFromStdclass(new \stdClass());
+		} else {
+			$ret = \Comet\CountJobsResponse::createFromStdclass($decoded);
 		}
-		$ret = $val_0;
 
 		return $ret;
 	}

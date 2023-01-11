@@ -20,14 +20,14 @@ class AdminMetaPsaConfigListSetRequest implements \Comet\NetworkRequest {
 	/**
 	 * The replacement PSA configuration list
 	 *
-	 * @var \Comet\PSAConfigs[]
+	 * @var \Comet\PSAConfig[]
 	 */
 	protected $PSAConfigList = null;
 
 	/**
 	 * Construct a new AdminMetaPsaConfigListSetRequest instance.
 	 *
-	 * @param \Comet\PSAConfigs[] $PSAConfigList The replacement PSA configuration list
+	 * @param \Comet\PSAConfig[] $PSAConfigList The replacement PSA configuration list
 	 */
 	public function __construct(array $PSAConfigList)
 	{

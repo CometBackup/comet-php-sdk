@@ -800,6 +800,23 @@ class Server {
 	}
 
 	/** 
+	 * Count jobs (for custom search)
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param \Comet\SearchClause $Query (No description available)
+	 * @return \Comet\CountJobsResponse 
+	 * @throws \Exception
+	 */
+	public function AdminCountJobsForCustomSearch(\Comet\SearchClause $Query): \Comet\CountJobsResponse
+	{
+		$nr = new \Comet\AdminCountJobsForCustomSearchRequest($Query);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminCountJobsForCustomSearchRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Create token for silent installation
 	 * Currently only supported for Windows & macOS only
 	 * Provide the installation token to silently install the client on windows `install.exe /TOKEN=<installtoken>`
@@ -1941,6 +1958,37 @@ class Server {
 	}
 
 	/** 
+	 * Get the email options
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 *
+	 * @return \Comet\EmailOptions 
+	 * @throws \Exception
+	 */
+	public function AdminMetaEmailOptionsGet(): \Comet\EmailOptions
+	{
+		$nr = new \Comet\AdminMetaEmailOptionsGetRequest();
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminMetaEmailOptionsGetRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Set the email options
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 *
+	 * @param \Comet\EmailOptions $EmailOptions The replacement email reporting options.
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminMetaEmailOptionsSet(\Comet\EmailOptions $EmailOptions): \Comet\APIResponseMessage
+	{
+		$nr = new \Comet\AdminMetaEmailOptionsSetRequest($EmailOptions);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminMetaEmailOptionsSetRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Get log files
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
@@ -1961,7 +2009,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 *
-	 * @return \Comet\PSAConfigs[] 
+	 * @return \Comet\PSAConfig[] 
 	 * @throws \Exception
 	 */
 	public function AdminMetaPsaConfigListGet(): array
@@ -1976,7 +2024,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 *
-	 * @param \Comet\PSAConfigs[] $PSAConfigList The replacement PSA configuration list
+	 * @param \Comet\PSAConfig[] $PSAConfigList The replacement PSA configuration list
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
@@ -2135,8 +2183,6 @@ class Server {
 	 * This allows the Comet Server web interface to support testing different email credentials during setup.
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
-	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
-	 * Access to this API may be prevented on a per-administrator basis.
 	 *
 	 * @param \Comet\EmailOptions $EmailOptions Updated configuration content
 	 * @param string $Recipient Target email address to send test email
@@ -2148,6 +2194,23 @@ class Server {
 		$nr = new \Comet\AdminMetaSendTestEmailRequest($EmailOptions, $Recipient);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminMetaSendTestEmailRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Send a test admin email report
+	 * This allows a user to send a test email report
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 *
+	 * @param \Comet\EmailReportingOption $EmailReportingOption Test email reporting option for sending
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminMetaSendTestReport(\Comet\EmailReportingOption $EmailReportingOption): \Comet\APIResponseMessage
+	{
+		$nr = new \Comet\AdminMetaSendTestReportRequest($EmailReportingOption);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminMetaSendTestReportRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
 
 	/** 

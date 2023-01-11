@@ -34,6 +34,11 @@ class AdminUserPermissions {
 	/**
 	 * @var boolean
 	 */
+	public $AllowEditEmailOptions = false;
+
+	/**
+	 * @var boolean
+	 */
 	public $AllowEditRemoteStorage = false;
 
 	/**
@@ -75,6 +80,9 @@ class AdminUserPermissions {
 		if (property_exists($sc, 'AllowEditBranding') && !is_null($sc->AllowEditBranding)) {
 			$this->AllowEditBranding = (bool)($sc->AllowEditBranding);
 		}
+		if (property_exists($sc, 'AllowEditEmailOptions') && !is_null($sc->AllowEditEmailOptions)) {
+			$this->AllowEditEmailOptions = (bool)($sc->AllowEditEmailOptions);
+		}
 		if (property_exists($sc, 'AllowEditRemoteStorage') && !is_null($sc->AllowEditRemoteStorage)) {
 			$this->AllowEditRemoteStorage = (bool)($sc->AllowEditRemoteStorage);
 		}
@@ -90,6 +98,7 @@ class AdminUserPermissions {
 			case 'PreventServerShutdown':
 			case 'PreventChangePassword':
 			case 'AllowEditBranding':
+			case 'AllowEditEmailOptions':
 			case 'AllowEditRemoteStorage':
 			case 'AllowEditWebhooks':
 			case 'DenyConstellationRole':
@@ -162,6 +171,7 @@ class AdminUserPermissions {
 		$ret["PreventServerShutdown"] = $this->PreventServerShutdown;
 		$ret["PreventChangePassword"] = $this->PreventChangePassword;
 		$ret["AllowEditBranding"] = $this->AllowEditBranding;
+		$ret["AllowEditEmailOptions"] = $this->AllowEditEmailOptions;
 		$ret["AllowEditRemoteStorage"] = $this->AllowEditRemoteStorage;
 		$ret["AllowEditWebhooks"] = $this->AllowEditWebhooks;
 		$ret["DenyConstellationRole"] = $this->DenyConstellationRole;

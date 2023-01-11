@@ -15,8 +15,6 @@ namespace Comet;
  * This allows the Comet Server web interface to support testing different email credentials during setup.
  *
  * You must supply administrator authentication credentials to use this API.
- * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
- * Access to this API may be prevented on a per-administrator basis.
  */
 class AdminMetaSendTestEmailRequest implements \Comet\NetworkRequest {
 
