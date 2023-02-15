@@ -27,6 +27,11 @@ class VMDKSnapshotViewOptions {
 	public $ListPath = "";
 
 	/**
+	 * @var string
+	 */
+	public $PartitionName = "";
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see VMDKSnapshotViewOptions::RemoveUnknownProperties() Remove all unknown properties
@@ -52,11 +57,15 @@ class VMDKSnapshotViewOptions {
 		if (property_exists($sc, 'ListPath')) {
 			$this->ListPath = (string)($sc->ListPath);
 		}
+		if (property_exists($sc, 'PartitionName')) {
+			$this->PartitionName = (string)($sc->PartitionName);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Enabled':
 			case 'PartitionGUID':
 			case 'ListPath':
+			case 'PartitionName':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -125,6 +134,7 @@ class VMDKSnapshotViewOptions {
 		$ret["Enabled"] = $this->Enabled;
 		$ret["PartitionGUID"] = $this->PartitionGUID;
 		$ret["ListPath"] = $this->ListPath;
+		$ret["PartitionName"] = $this->PartitionName;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

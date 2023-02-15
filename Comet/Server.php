@@ -355,7 +355,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * Access to this API may be prevented on a per-administrator basis.
-	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
+	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
 	 *
 	 * @param string $TargetUser the username of the admin to be deleted
 	 * @return \Comet\APIResponseMessage 
@@ -373,7 +373,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * Access to this API may be prevented on a per-administrator basis.
-	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
+	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
 	 *
 	 * @return \Comet\AllowedAdminUser[] 
 	 * @throws \Exception
@@ -390,7 +390,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * Access to this API may be prevented on a per-administrator basis.
-	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
+	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
 	 *
 	 * @param string $TargetUser the username for this new admin
 	 * @param string $TargetPassword the password for this new admin user
@@ -770,7 +770,7 @@ class Server {
 	 * Prune unused buckets
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
-	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
+	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
 	 * This API requires the Constellation Role to be enabled.
 	 *
 	 * @return \Comet\APIResponseMessage 
@@ -998,7 +998,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
+	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
 	 *
 	 * @param string $OrganizationID Target organization
 	 * @return \Comet\OrganizationLoginURLResponse 
@@ -1875,7 +1875,7 @@ class Server {
 
 	/** 
 	 * Set Branding configuration
-	 * Note that file resources must be provided using a resource URI I.E `"resource://05ba0b90ee66bda433169581188aba8d29faa938f9464cccd651a02fdf2e5b57"`. See AdminMetaResourceNew for the API documentation to create new file resources.
+	 * Note that file resources must be provided using a resource URI, i.e `"resource://05ba0b90ee66bda433169581188aba8d29faa938f9464cccd651a02fdf2e5b57"`. See AdminMetaResourceNew for the API documentation to create new file resources.
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * Access to this API may be prevented on a per-administrator basis.
@@ -1961,6 +1961,7 @@ class Server {
 	 * Get the email options
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
+	 * Access to this API may be prevented on a per-administrator basis.
 	 *
 	 * @return \Comet\EmailOptions 
 	 * @throws \Exception
@@ -1976,6 +1977,7 @@ class Server {
 	 * Set the email options
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
+	 * Access to this API may be prevented on a per-administrator basis.
 	 *
 	 * @param \Comet\EmailOptions $EmailOptions The replacement email reporting options.
 	 * @return \Comet\APIResponseMessage 
@@ -1992,7 +1994,7 @@ class Server {
 	 * Get log files
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
-	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
+	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
 	 *
 	 * @return int[] 
 	 * @throws \Exception
@@ -2058,7 +2060,7 @@ class Server {
 	 * This API does not automatically convert line endings; around the 18.3.2 timeframe, log content may even contain mixed line-endings.
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
-	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
+	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
 	 *
 	 * @return string 
 	 * @throws \Exception
@@ -2076,7 +2078,7 @@ class Server {
 	 * This API does not automatically convert line endings; around the 18.3.2 timeframe, log content may even contain mixed line-endings.
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
-	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
+	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
 	 *
 	 * @param int $Log A log day, selected from the options returned by the Get Log Files API
 	 * @return string 
@@ -2165,7 +2167,7 @@ class Server {
 	 * Prior to 18.9.2, this API terminated the server immediately without returning a response. In 18.9.2 and later, it returns a successful response before shutting down.
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
-	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
+	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
 	 * Access to this API may be prevented on a per-administrator basis.
 	 *
 	 * @return \Comet\APIResponseMessage 
@@ -2183,6 +2185,7 @@ class Server {
 	 * This allows the Comet Server web interface to support testing different email credentials during setup.
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
+	 * Access to this API may be prevented on a per-administrator basis.
 	 *
 	 * @param \Comet\EmailOptions $EmailOptions Updated configuration content
 	 * @param string $Recipient Target email address to send test email
@@ -2201,6 +2204,7 @@ class Server {
 	 * This allows a user to send a test email report
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
+	 * Access to this API may be prevented on a per-administrator basis.
 	 *
 	 * @param \Comet\EmailReportingOption $EmailReportingOption Test email reporting option for sending
 	 * @return \Comet\APIResponseMessage 
@@ -2218,7 +2222,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * Access to this API may be prevented on a per-administrator basis.
-	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
+	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
 	 *
 	 * @return \Comet\ServerConfigOptions 
 	 * @throws \Exception
@@ -2236,7 +2240,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * Access to this API may be prevented on a per-administrator basis.
-	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
+	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
 	 *
 	 * @return string[] 
 	 * @throws \Exception
@@ -2256,7 +2260,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * Access to this API may be prevented on a per-administrator basis.
-	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
+	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
 	 *
 	 * @param \Comet\ServerConfigOptions $Config Updated configuration content
 	 * @return \Comet\APIResponseMessage 
@@ -2276,7 +2280,7 @@ class Server {
 	 * Prior to 18.9.2, this API terminated the server immediately without returning a response. In 18.9.2 and later, it returns a successful response before shutting down.
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
-	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
+	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
 	 * Access to this API may be prevented on a per-administrator basis.
 	 *
 	 * @return \Comet\APIResponseMessage 
@@ -2341,6 +2345,7 @@ class Server {
 	 * Get the server webhook configuration
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
+	 * Access to this API may be prevented on a per-administrator basis.
 	 *
 	 * @return \Comet\WebhookOption[] An array with string keys. 
 	 * @throws \Exception
@@ -2357,6 +2362,7 @@ class Server {
 	 * Calling this endpoint will interrupt any messages currently queued for existing webhook destinations.
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
+	 * Access to this API may be prevented on a per-administrator basis.
 	 *
 	 * @param \Comet\WebhookOption[] An array with string keys. $WebhookOptions The replacement webhook target options.
 	 * @return \Comet\APIResponseMessage 
@@ -2425,7 +2431,7 @@ class Server {
 	 * Prior to Comet 22.6.0, this API was documented as returning the OrganizationResponse type. However, it always has returned only a CometAPIResponseMessage.
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
-	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
+	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
 	 *
 	 * @param string $OrganizationID (No description available) (optional)
 	 * @param \Comet\UninstallConfig $UninstallConfig Uninstall software configuration (optional)
@@ -2443,7 +2449,7 @@ class Server {
 	 * Run self-backup for a specific tenant
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
-	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
+	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
 	 *
 	 * @param \Comet\SelfBackupExportOptions $Options The export config options
 	 * @return \Comet\APIResponseMessage 
@@ -2460,7 +2466,7 @@ class Server {
 	 * List Organizations
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
-	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
+	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
 	 *
 	 * @return \Comet\Organization[] An array with string keys. 
 	 * @throws \Exception
@@ -2478,7 +2484,7 @@ class Server {
 	 * Prior to Comet 22.6.0, the 'ID' and 'Organization' fields were not present in the response.
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
-	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
+	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
 	 *
 	 * @param string $OrganizationID (No description available) (optional)
 	 * @param \Comet\Organization $Organization (No description available) (optional)
@@ -2624,7 +2630,7 @@ class Server {
 	 * Get Replication status
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
-	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
+	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
 	 *
 	 * @return \Comet\ReplicatorStateAPIResponse[] 
 	 * @throws \Exception
@@ -2722,7 +2728,7 @@ class Server {
 	 * Run self-backup on all targets
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
-	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
+	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
 	 *
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
@@ -2816,7 +2822,7 @@ class Server {
 	 * You must supply administrator authentication credentials to use this API.
 	 * Access to this API may be prevented on a per-administrator basis.
 	 * This API requires the Storage Role to be enabled.
-	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
+	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
 	 *
 	 * @param string $BucketID (This parameter is not used) (optional)
 	 * @return \Comet\StorageFreeSpaceInfo 
@@ -2851,7 +2857,7 @@ class Server {
 	 * You must supply administrator authentication credentials to use this API.
 	 * Access to this API may be prevented on a per-administrator basis.
 	 * This API requires the Storage Role to be enabled.
-	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
+	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
 	 *
 	 * @param \Comet\DestinationLocation $ExtraData The destination location settings
 	 * @return \Comet\APIResponseMessage 
@@ -2890,7 +2896,7 @@ class Server {
 	 * Start a new software update campaign
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
-	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
+	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
 	 * This API requires the Software Build Role to be enabled.
 	 * This API requires the Auth Role to be enabled.
 	 *
@@ -2909,7 +2915,7 @@ class Server {
 	 * Get current campaign status
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
-	 * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
+	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
 	 * This API requires the Software Build Role to be enabled.
 	 * This API requires the Auth Role to be enabled.
 	 *
@@ -2924,7 +2930,7 @@ class Server {
 	}
 
 	/** 
-	 * Retreve basic information about this Comet Server
+	 * Retrieve basic information about this Comet Server
 	 *
 	 * @return \Comet\ServerMetaBrandingProperties 
 	 * @throws \Exception

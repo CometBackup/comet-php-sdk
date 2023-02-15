@@ -38,6 +38,7 @@ class MongoDBConnection {
 
 	/**
 	 * @var string
+	 * @deprecated 22.12.3 This member has been deprecated since Comet version 22.12.3
 	 */
 	public $MongoShellPath = "";
 

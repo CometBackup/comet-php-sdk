@@ -14,6 +14,7 @@ namespace Comet;
  * Get the email options
  *
  * You must supply administrator authentication credentials to use this API.
+ * Access to this API may be prevented on a per-administrator basis.
  */
 class AdminMetaEmailOptionsGetRequest implements \Comet\NetworkRequest {
 

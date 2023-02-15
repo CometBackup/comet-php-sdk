@@ -86,6 +86,11 @@ class UserProfileConfig {
 	public $IsSuspended = false;
 
 	/**
+	 * @var int
+	 */
+	public $LastSuspended = 0;
+
+	/**
 	 * @var boolean
 	 */
 	public $AllProtectedItemsQuotaEnabled = false;
@@ -304,6 +309,9 @@ class UserProfileConfig {
 		if (property_exists($sc, 'IsSuspended')) {
 			$this->IsSuspended = (bool)($sc->IsSuspended);
 		}
+		if (property_exists($sc, 'LastSuspended') && !is_null($sc->LastSuspended)) {
+			$this->LastSuspended = (int)($sc->LastSuspended);
+		}
 		if (property_exists($sc, 'AllProtectedItemsQuotaEnabled')) {
 			$this->AllProtectedItemsQuotaEnabled = (bool)($sc->AllProtectedItemsQuotaEnabled);
 		}
@@ -380,6 +388,7 @@ class UserProfileConfig {
 			case 'BackupRules':
 			case 'Devices':
 			case 'IsSuspended':
+			case 'LastSuspended':
 			case 'AllProtectedItemsQuotaEnabled':
 			case 'AllProtectedItemsQuotaBytes':
 			case 'MaximumDevices':
@@ -562,6 +571,7 @@ class UserProfileConfig {
 			}
 		}
 		$ret["IsSuspended"] = $this->IsSuspended;
+		$ret["LastSuspended"] = $this->LastSuspended;
 		$ret["AllProtectedItemsQuotaEnabled"] = $this->AllProtectedItemsQuotaEnabled;
 		$ret["AllProtectedItemsQuotaBytes"] = $this->AllProtectedItemsQuotaBytes;
 		$ret["MaximumDevices"] = $this->MaximumDevices;

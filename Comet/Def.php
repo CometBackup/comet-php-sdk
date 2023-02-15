@@ -343,6 +343,20 @@ class Def {
 	const EMAILREPORTTYPE_SUMMARY = 1;
 
 	/**
+	 * EmailReportType:
+	 *
+	 * @type int
+	 */
+	const EMAILREPORTTYPE_GROUPED_STATUS = 2;
+
+	/**
+	 * EmailReportType:
+	 *
+	 * @type int
+	 */
+	const EMAILREPORTTYPE_RECENT_ACTIVITY = 3;
+
+	/**
 	 * FtpsModeType:
 	 *
 	 * @type int
@@ -1042,6 +1056,27 @@ class Def {
 	const STOREDOBJECTTYPE_VMDK_SYMLINK = "vmdksymlink";
 
 	/**
+	 * StoredObjectType:
+	 *
+	 * @type string
+	 */
+	const STOREDOBJECTTYPE_VIRTUALIMAGE_DISK = "virtualimagedisk";
+
+	/**
+	 * StoredObjectType:
+	 *
+	 * @type string
+	 */
+	const STOREDOBJECTTYPE_VHDX_GPT_PARTITION = "vhdxpartitiongpt";
+
+	/**
+	 * StoredObjectType:
+	 *
+	 * @type string
+	 */
+	const STOREDOBJECTTYPE_VHDX_MBR_PARTITION = "vhdxpartitionmbr";
+
+	/**
 	 * ExtraFileExclusionOSRestriction:
 	 *
 	 * @type int
@@ -1133,7 +1168,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "22.12.2";
+	const APPLICATION_VERSION = "22.12.8";
 
 	/**
 	 * @type int
@@ -1148,7 +1183,7 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 2;
+	const APPLICATION_VERSION_REVISION = 8;
 
 	/**
 	 * @type string
@@ -1179,6 +1214,16 @@ class Def {
 	 * @type string
 	 */
 	const UnsupportVmdkFileSystem = "ERR_UNSUPPORT_VMDK_FILE_SYSTEM";
+
+	/**
+	 * @type string
+	 */
+	const UnsupportVhdxFileSystem = "ERR_UNSUPPORT_VHDX_FILE_SYSTEM";
+
+	/**
+	 * @type string
+	 */
+	const VhdxPartitonReadErrMsg = "ERR_VHDX_PARTITION";
 
 	/**
 	 * @type int

@@ -14,7 +14,7 @@ namespace Comet;
  * Run self-backup for a specific tenant
  *
  * You must supply administrator authentication credentials to use this API.
- * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
+ * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
  */
 class AdminOrganizationExportRequest implements \Comet\NetworkRequest {
 

@@ -17,7 +17,7 @@ namespace Comet;
  * Prior to 18.9.2, this API terminated the server immediately without returning a response. In 18.9.2 and later, it returns a successful response before shutting down.
  *
  * You must supply administrator authentication credentials to use this API.
- * This API is only available for administrator accounts in the top-level Organization, not in any other Organization.
+ * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
  * Access to this API may be prevented on a per-administrator basis.
  */
 class AdminMetaShutdownServiceRequest implements \Comet\NetworkRequest {

@@ -15,6 +15,7 @@ namespace Comet;
  * Calling this endpoint will interrupt any messages currently queued for existing webhook destinations.
  *
  * You must supply administrator authentication credentials to use this API.
+ * Access to this API may be prevented on a per-administrator basis.
  */
 class AdminMetaWebhookOptionsSetRequest implements \Comet\NetworkRequest {
 

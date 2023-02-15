@@ -22,6 +22,11 @@ class EmailReportConfig {
 	public $SummaryFrequency = [];
 
 	/**
+	 * @var \Comet\TimeSpan
+	 */
+	public $TimeSpan = null;
+
+	/**
 	 * @var \Comet\SearchClause
 	 */
 	public $Filter = null;
@@ -60,6 +65,14 @@ class EmailReportConfig {
 			}
 			$this->SummaryFrequency = $val_2;
 		}
+		if (property_exists($sc, 'TimeSpan') && !is_null($sc->TimeSpan)) {
+			if (is_array($sc->TimeSpan) && count($sc->TimeSpan) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->TimeSpan = \Comet\TimeSpan::createFromStdclass(new \stdClass());
+			} else {
+				$this->TimeSpan = \Comet\TimeSpan::createFromStdclass($sc->TimeSpan);
+			}
+		}
 		if (property_exists($sc, 'Filter')) {
 			if (is_array($sc->Filter) && count($sc->Filter) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
@@ -72,6 +85,7 @@ class EmailReportConfig {
 			switch($k) {
 			case 'ReportType':
 			case 'SummaryFrequency':
+			case 'TimeSpan':
 			case 'Filter':
 				break;
 			default:
@@ -151,6 +165,11 @@ class EmailReportConfig {
 			}
 			$ret["SummaryFrequency"] = $c0;
 		}
+		if ( $this->TimeSpan === null ) {
+			$ret["TimeSpan"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["TimeSpan"] = $this->TimeSpan->toArray($for_json_encode);
+		}
 		if ( $this->Filter === null ) {
 			$ret["Filter"] = $for_json_encode ? (object)[] : [];
 		} else {
@@ -205,6 +224,9 @@ class EmailReportConfig {
 	public function RemoveUnknownProperties()
 	{
 		$this->__unknown_properties = [];
+		if ($this->TimeSpan !== null) {
+			$this->TimeSpan->RemoveUnknownProperties();
+		}
 		if ($this->Filter !== null) {
 			$this->Filter->RemoveUnknownProperties();
 		}

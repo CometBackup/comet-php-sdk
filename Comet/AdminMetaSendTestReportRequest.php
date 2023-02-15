@@ -15,6 +15,7 @@ namespace Comet;
  * This allows a user to send a test email report
  *
  * You must supply administrator authentication credentials to use this API.
+ * Access to this API may be prevented on a per-administrator basis.
  */
 class AdminMetaSendTestReportRequest implements \Comet\NetworkRequest {
 

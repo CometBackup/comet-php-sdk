@@ -11,7 +11,7 @@ namespace Comet;
 
 /**
  * Comet Server BrandingProps API
- * Retreve basic information about this Comet Server
+ * Retrieve basic information about this Comet Server
  */
 class BrandingPropsRequest implements \Comet\NetworkRequest {
 

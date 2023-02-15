@@ -12,7 +12,7 @@ namespace Comet;
 /**
  * Comet Server AdminMetaBrandingConfigSet API
  * Set Branding configuration
- * Note that file resources must be provided using a resource URI I.E `"resource://05ba0b90ee66bda433169581188aba8d29faa938f9464cccd651a02fdf2e5b57"`. See AdminMetaResourceNew for the API documentation to create new file resources.
+ * Note that file resources must be provided using a resource URI, i.e `"resource://05ba0b90ee66bda433169581188aba8d29faa938f9464cccd651a02fdf2e5b57"`. See AdminMetaResourceNew for the API documentation to create new file resources.
  *
  * You must supply administrator authentication credentials to use this API.
  * Access to this API may be prevented on a per-administrator basis.

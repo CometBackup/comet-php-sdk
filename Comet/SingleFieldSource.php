@@ -9,43 +9,43 @@
 
 namespace Comet;
 
-class PSAConfig {
+class SingleFieldSource {
+
+	/**
+	 * @var string
+	 */
+	public $FieldName = "";
+
+	/**
+	 * @var string
+	 */
+	public $FieldType = "";
 
 	/**
 	 * @var boolean
 	 */
-	public $AlertsDisabled = false;
-
-	/**
-	 * @var string[] An array with string keys.
-	 */
-	public $CustomHeaders = [];
-
-	/**
-	 * @var string
-	 */
-	public $PartnerKey = "";
+	public $BoolVal = false;
 
 	/**
 	 * @var int
 	 */
-	public $Type = 0;
+	public $IntVal = 0;
 
 	/**
 	 * @var string
 	 */
-	public $URL = "";
+	public $StrVal = "";
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
-	 * @see PSAConfig::RemoveUnknownProperties() Remove all unknown properties
+	 * @see SingleFieldSource::RemoveUnknownProperties() Remove all unknown properties
 	 * @var array
 	 */
 	private $__unknown_properties = [];
 
 	/**
-	 * Replace the content of this PSAConfig object from a PHP \stdClass.
+	 * Replace the content of this SingleFieldSource object from a PHP \stdClass.
 	 * The data could be supplied from an API call after json_decode(...); or generated manually.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
@@ -53,36 +53,28 @@ class PSAConfig {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
-		if (property_exists($sc, 'AlertsDisabled')) {
-			$this->AlertsDisabled = (bool)($sc->AlertsDisabled);
+		if (property_exists($sc, 'FieldName')) {
+			$this->FieldName = (string)($sc->FieldName);
 		}
-		if (property_exists($sc, 'CustomHeaders') && !is_null($sc->CustomHeaders)) {
-			$val_2 = [];
-			if ($sc->CustomHeaders !== null) {
-				foreach($sc->CustomHeaders as $k_2 => $v_2) {
-					$phpk_2 = (string)($k_2);
-					$phpv_2 = (string)($v_2);
-					$val_2[$phpk_2] = $phpv_2;
-				}
-			}
-			$this->CustomHeaders = $val_2;
+		if (property_exists($sc, 'FieldType')) {
+			$this->FieldType = (string)($sc->FieldType);
 		}
-		if (property_exists($sc, 'PartnerKey') && !is_null($sc->PartnerKey)) {
-			$this->PartnerKey = (string)($sc->PartnerKey);
+		if (property_exists($sc, 'BoolVal')) {
+			$this->BoolVal = (bool)($sc->BoolVal);
 		}
-		if (property_exists($sc, 'Type')) {
-			$this->Type = (int)($sc->Type);
+		if (property_exists($sc, 'IntVal')) {
+			$this->IntVal = (int)($sc->IntVal);
 		}
-		if (property_exists($sc, 'URL')) {
-			$this->URL = (string)($sc->URL);
+		if (property_exists($sc, 'StrVal')) {
+			$this->StrVal = (string)($sc->StrVal);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
-			case 'AlertsDisabled':
-			case 'CustomHeaders':
-			case 'PartnerKey':
-			case 'Type':
-			case 'URL':
+			case 'FieldName':
+			case 'FieldType':
+			case 'BoolVal':
+			case 'IntVal':
+			case 'StrVal':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -91,27 +83,27 @@ class PSAConfig {
 	}
 
 	/**
-	 * Coerce a stdClass into a new strongly-typed PSAConfig object.
+	 * Coerce a stdClass into a new strongly-typed SingleFieldSource object.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
-	 * @return PSAConfig
+	 * @return SingleFieldSource
 	 */
-	public static function createFromStdclass(\stdClass $sc): \Comet\PSAConfig
+	public static function createFromStdclass(\stdClass $sc): \Comet\SingleFieldSource
 	{
-		$retn = new PSAConfig();
+		$retn = new SingleFieldSource();
 		$retn->inflateFrom($sc);
 		return $retn;
 	}
 
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed PSAConfig object.
+	 * Coerce a plain PHP array into a new strongly-typed SingleFieldSource object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
 	 * @param array $arr Object data as PHP array
-	 * @return PSAConfig
+	 * @return SingleFieldSource
 	 */
-	public static function createFromArray(array $arr): \Comet\PSAConfig
+	public static function createFromArray(array $arr): \Comet\SingleFieldSource
 	{
 		$stdClass = json_decode(json_encode($arr, JSON_UNESCAPED_SLASHES));
 		if (is_array($stdClass) && count($stdClass) === 0) {
@@ -121,24 +113,24 @@ class PSAConfig {
 	}
 
 	/**
-	 * Coerce a JSON string into a new strongly-typed PSAConfig object.
+	 * Coerce a JSON string into a new strongly-typed SingleFieldSource object.
 	 *
 	 * @param string $JsonString Object data as JSON string
-	 * @return PSAConfig
+	 * @return SingleFieldSource
 	 */
-	public static function createFromJSON(string $JsonString): \Comet\PSAConfig
+	public static function createFromJSON(string $JsonString): \Comet\SingleFieldSource
 	{
 		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg(), \json_last_error());
 		}
-		$retn = new PSAConfig();
+		$retn = new SingleFieldSource();
 		$retn->inflateFrom($decodedJsonObject);
 		return $retn;
 	}
 
 	/**
-	 * Convert this PSAConfig object into a plain PHP array.
+	 * Convert this SingleFieldSource object into a plain PHP array.
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
@@ -148,23 +140,11 @@ class PSAConfig {
 	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
-		$ret["AlertsDisabled"] = $this->AlertsDisabled;
-		{
-			$c0 = [];
-			foreach($this->CustomHeaders as $k0 => $v0) {
-				$ko_0 = $k0;
-				$vo_0 = $v0;
-				$c0[ $ko_0 ] = $vo_0;
-			}
-			if ($for_json_encode && count($c0) == 0) {
-				$ret["CustomHeaders"] = (object)[];
-			} else {
-				$ret["CustomHeaders"] = $c0;
-			}
-		}
-		$ret["PartnerKey"] = $this->PartnerKey;
-		$ret["Type"] = $this->Type;
-		$ret["URL"] = $this->URL;
+		$ret["FieldName"] = $this->FieldName;
+		$ret["FieldType"] = $this->FieldType;
+		$ret["BoolVal"] = $this->BoolVal;
+		$ret["IntVal"] = $this->IntVal;
+		$ret["StrVal"] = $this->StrVal;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

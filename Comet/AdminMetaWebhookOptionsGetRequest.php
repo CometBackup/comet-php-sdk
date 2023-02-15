@@ -14,6 +14,7 @@ namespace Comet;
  * Get the server webhook configuration
  *
  * You must supply administrator authentication credentials to use this API.
+ * Access to this API may be prevented on a per-administrator basis.
  */
 class AdminMetaWebhookOptionsGetRequest implements \Comet\NetworkRequest {
 
