@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 2023-02-15 v4.5.0
+- Based on 22.12.8
+- Add `TimeSpan` option to `EmailReportOptions`
+- Add `AlertsDisabled` (default: false) toggle for `PSAConfig` objects
+- Add `LastSuspended` for tracking `UserProfileConfig` suspensions
+- Improve documentation
+
 ## 2023-01-11 v4.4.0
 - Based on 22.12.2
 - Add new `AdminCountJobsForCustomSearchRequest` API to count total number of jobs for a given search query
