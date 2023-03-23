@@ -12,6 +12,26 @@ namespace Comet;
 class Def {
 
 	/**
+	 * @type string
+	 */
+	const APPLICATION_VERSION = "23.3.1";
+
+	/**
+	 * @type int
+	 */
+	const APPLICATION_VERSION_MAJOR = 23;
+
+	/**
+	 * @type int
+	 */
+	const APPLICATION_VERSION_MINOR = 3;
+
+	/**
+	 * @type int
+	 */
+	const APPLICATION_VERSION_REVISION = 1;
+
+	/**
 	 * AutoRetentionLevel: The system will automatically choose how often to run an automatic Retention Pass after each backup job.
 	 *
 	 * @type int
@@ -38,6 +58,363 @@ class Def {
 	 * @type int
 	 */
 	const BACKUPJOBAUTORETENTION_LESS_OFTEN = 3;
+
+	/**
+	 * ClientBrandingBuildMode: Public-Doc: The software client will be custom-built by this Comet Server, allowing custom branding, default server URL, and codesigning.
+	 *
+	 * @type int
+	 */
+	const CLIENTBRANDINGBUILD_CUSTOM = 0;
+
+	/**
+	 * ClientBrandingBuildMode: Public-Doc: A pre-built software client will be served, with Comet-branding, no server URL, and Comet codesigning.
+	 *
+	 * @type int
+	 */
+	const CLIENTBRANDINGBUILD_PREBUILT = 1;
+
+	/**
+	 * CompressMode:
+	 *
+	 * @type int
+	 */
+	const COMPRESS_INVALID = 0;
+
+	/**
+	 * CompressMode:
+	 *
+	 * @type int
+	 */
+	const COMPRESS_LVL_1 = 1;
+
+	/**
+	 * CompressMode:
+	 *
+	 * @type int
+	 */
+	const COMPRESS_LVL_2 = 2;
+
+	/**
+	 * CompressMode:
+	 *
+	 * @type int
+	 */
+	const COMPRESS_LVL_3 = 3;
+
+	/**
+	 * CompressMode:
+	 *
+	 * @type int
+	 */
+	const COMPRESS_LVL_4 = 4;
+
+	/**
+	 * CompressMode:
+	 *
+	 * @type int
+	 */
+	const COMPRESS_LVL_5 = 5;
+
+	/**
+	 * CompressMode:
+	 *
+	 * @type int
+	 */
+	const COMPRESS_MAX = self::COMPRESS_LVL_5;
+
+	/**
+	 * CompressMode:
+	 *
+	 * @type int
+	 */
+	const COMPRESS_DEFAULT = self::COMPRESS_LVL_4;
+
+	/**
+	 * LanguageCode:
+	 *
+	 * @type string
+	 */
+	const DEFAULT_LANGUAGE = "en_US";
+
+	/**
+	 * @type string
+	 */
+	const DEFAULT_TIMEZONE = "UTC";
+
+	/**
+	 * SftpAuthMode:
+	 *
+	 * @type int
+	 */
+	const DESTINATION_SFTP_AUTHMODE_NATIVE = 0;
+
+	/**
+	 * SftpAuthMode:
+	 *
+	 * @type int
+	 */
+	const DESTINATION_SFTP_AUTHMODE_PASSWORD = 1;
+
+	/**
+	 * SftpAuthMode:
+	 *
+	 * @type int
+	 */
+	const DESTINATION_SFTP_AUTHMODE_PRIVATEKEY = 2;
+
+	/**
+	 * @type int
+	 */
+	const DESTINATIONTYPE___INVALID = 0;
+
+	/**
+	 * @type int
+	 */
+	const DESTINATIONTYPE_S3 = 1000;
+
+	/**
+	 * @type int
+	 */
+	const DESTINATIONTYPE_SFTP = 1001;
+
+	/**
+	 * @type int
+	 */
+	const DESTINATIONTYPE_LOCALCOPY = 1002;
+
+	/**
+	 * @type int
+	 */
+	const DESTINATIONTYPE_COMET = 1003;
+
+	/**
+	 * @type int
+	 */
+	const DESTINATIONTYPE_FTP = 1004;
+
+	/**
+	 * @type int
+	 */
+	const DESTINATIONTYPE_AZUREBLOB = 1005;
+
+	/**
+	 * @type int
+	 */
+	const DESTINATIONTYPE_SPANNED = 1006;
+
+	/**
+	 * @type int
+	 */
+	const DESTINATIONTYPE_SWIFT = 1007;
+
+	/**
+	 * @type int
+	 */
+	const DESTINATIONTYPE_B2 = 1008;
+
+	/**
+	 * @type int
+	 */
+	const DESTINATIONTYPE_STORJ = 1009;
+
+	/**
+	 * @type int
+	 */
+	const DESTINATIONTYPE_LATEST = 1100;
+
+	/**
+	 * @type int
+	 */
+	const DESTINATIONTYPE_ALL = 1101;
+
+	/**
+	 * @type int
+	 */
+	const EMAIL_WORKER_STATE_NOT_STARTED = 0;
+
+	/**
+	 * @type int
+	 */
+	const EMAIL_WORKER_STATE_STARTED = 1;
+
+	/**
+	 * @type int
+	 */
+	const EMAIL_WORKER_STATE_CALCULATING = 2;
+
+	/**
+	 * @type int
+	 */
+	const EMAIL_WORKER_STATE_WAITING = 3;
+
+	/**
+	 * @type int
+	 */
+	const EMAIL_WORKER_STATE_SENDING = 4;
+
+	/**
+	 * EmailDeliveryType:
+	 *
+	 * @type string
+	 */
+	const EMAIL_DELIVERY_INHERIT = "";
+
+	/**
+	 * EmailDeliveryType:
+	 *
+	 * @type string
+	 */
+	const EMAIL_DELIVERY_MX_DIRECT = "builtin";
+
+	/**
+	 * EmailDeliveryType:
+	 *
+	 * @type string
+	 */
+	const EMAIL_DELIVERY_SMTP = "smtp";
+
+	/**
+	 * EmailDeliveryType:
+	 *
+	 * @type string
+	 */
+	const EMAIL_DELIVERY_SMTP_SSL = "smtp-ssl";
+
+	/**
+	 * EmailDeliveryType:
+	 *
+	 * @type string
+	 */
+	const EMAIL_DELIVERY_DISABLED = "disabled";
+
+	/**
+	 * EmailDeliveryType: Legacy alias
+	 *
+	 * @type string
+	 */
+	const EMAIL_DELIVERY_BUILTIN = self::EMAIL_DELIVERY_MX_DIRECT;
+
+	/**
+	 * EmailDeliveryType: changed for clarity
+	 *
+	 * @type string
+	 * @deprecated 22.12.1 This const has been deprecated since Comet version 22.12.1
+	 */
+	const EMAIL_DELIVERY_NONE = self::EMAIL_DELIVERY_INHERIT;
+
+	/**
+	 * EmailReportType:
+	 *
+	 * @type int
+	 */
+	const EMAILREPORTTYPE_IMMEDIATE = 0;
+
+	/**
+	 * EmailReportType:
+	 *
+	 * @type int
+	 */
+	const EMAILREPORTTYPE_SUMMARY = 1;
+
+	/**
+	 * EmailReportType:
+	 *
+	 * @type int
+	 */
+	const EMAILREPORTTYPE_GROUPED_STATUS = 2;
+
+	/**
+	 * EmailReportType:
+	 *
+	 * @type int
+	 */
+	const EMAILREPORTTYPE_RECENT_ACTIVITY = 3;
+
+	/**
+	 * @type int
+	 */
+	const ENCRYPTIONMETHOD_UNCONFIGURED = 0;
+
+	/**
+	 * @type string
+	 */
+	const ENGINE_BUILTIN_FILE = "engine1/file";
+
+	/**
+	 * @type string
+	 */
+	const ENGINE_BUILTIN_STDOUT = "engine1/stdout";
+
+	/**
+	 * @type string
+	 */
+	const ENGINE_BUILTIN_MYSQL = "engine1/mysql";
+
+	/**
+	 * @type string
+	 */
+	const ENGINE_BUILTIN_SYSTEMSTATE = "engine1/systemstate";
+
+	/**
+	 * @type string
+	 */
+	const ENGINE_BUILTIN_MSSQL = "engine1/mssql";
+
+	/**
+	 * @type string
+	 */
+	const ENGINE_BUILTIN_WINDOWSSYSTEM = "engine1/windowssystem";
+
+	/**
+	 * @type string
+	 */
+	const ENGINE_BUILTIN_EXCHANGEEDB = "engine1/exchangeedb";
+
+	/**
+	 * @type string
+	 */
+	const ENGINE_BUILTIN_VSSWRITER = "engine1/vsswriter";
+
+	/**
+	 * @type string
+	 */
+	const ENGINE_BUILTIN_HYPERV = "engine1/hyperv";
+
+	/**
+	 * @type string
+	 */
+	const ENGINE_BUILTIN_WINDISK = "engine1/windisk";
+
+	/**
+	 * @type string
+	 */
+	const ENGINE_BUILTIN_MONGODB = "engine1/mongodb";
+
+	/**
+	 * @type string
+	 */
+	const ENGINE_BUILTIN_MSOFFICE = "engine1/winmsofficemail";
+
+	/**
+	 * FtpsModeType:
+	 *
+	 * @type int
+	 */
+	const FTPS_MODE_PLAINTEXT = 0;
+
+	/**
+	 * FtpsModeType:
+	 *
+	 * @type int
+	 */
+	const FTPS_MODE_IMPLICIT = 1;
+
+	/**
+	 * FtpsModeType:
+	 *
+	 * @type int
+	 */
+	const FTPS_MODE_EXPLICIT = 2;
 
 	/**
 	 * JobClassification:
@@ -264,169 +641,46 @@ class Def {
 	const JOB_STATUS_FAILED__MAX = 7999;
 
 	/**
-	 * @type int
-	 */
-	const DESTINATIONTYPE___INVALID = 0;
-
-	/**
-	 * @type int
-	 */
-	const DESTINATIONTYPE_S3 = 1000;
-
-	/**
-	 * @type int
-	 */
-	const DESTINATIONTYPE_SFTP = 1001;
-
-	/**
-	 * @type int
-	 */
-	const DESTINATIONTYPE_LOCALCOPY = 1002;
-
-	/**
-	 * @type int
-	 */
-	const DESTINATIONTYPE_COMET = 1003;
-
-	/**
-	 * @type int
-	 */
-	const DESTINATIONTYPE_FTP = 1004;
-
-	/**
-	 * @type int
-	 */
-	const DESTINATIONTYPE_AZUREBLOB = 1005;
-
-	/**
-	 * @type int
-	 */
-	const DESTINATIONTYPE_SPANNED = 1006;
-
-	/**
-	 * @type int
-	 */
-	const DESTINATIONTYPE_SWIFT = 1007;
-
-	/**
-	 * @type int
-	 */
-	const DESTINATIONTYPE_B2 = 1008;
-
-	/**
-	 * @type int
-	 */
-	const DESTINATIONTYPE_STORJ = 1009;
-
-	/**
-	 * @type int
-	 */
-	const DESTINATIONTYPE_LATEST = 1100;
-
-	/**
-	 * @type int
-	 */
-	const DESTINATIONTYPE_ALL = 1101;
-
-	/**
-	 * EmailReportType:
-	 *
-	 * @type int
-	 */
-	const EMAILREPORTTYPE_IMMEDIATE = 0;
-
-	/**
-	 * EmailReportType:
-	 *
-	 * @type int
-	 */
-	const EMAILREPORTTYPE_SUMMARY = 1;
-
-	/**
-	 * EmailReportType:
-	 *
-	 * @type int
-	 */
-	const EMAILREPORTTYPE_GROUPED_STATUS = 2;
-
-	/**
-	 * EmailReportType:
-	 *
-	 * @type int
-	 */
-	const EMAILREPORTTYPE_RECENT_ACTIVITY = 3;
-
-	/**
-	 * FtpsModeType:
-	 *
-	 * @type int
-	 */
-	const FTPS_MODE_PLAINTEXT = 0;
-
-	/**
-	 * FtpsModeType:
-	 *
-	 * @type int
-	 */
-	const FTPS_MODE_IMPLICIT = 1;
-
-	/**
-	 * FtpsModeType:
-	 *
-	 * @type int
-	 */
-	const FTPS_MODE_EXPLICIT = 2;
-
-	/**
-	 * Severity:
+	 * LDAPSecurityMethod:
 	 *
 	 * @type string
 	 */
-	const SEVERITY_INFO = "I";
+	const LDAPSECURITYMETHOD_PLAIN = "plain";
 
 	/**
-	 * Severity:
+	 * LDAPSecurityMethod:
 	 *
 	 * @type string
 	 */
-	const SEVERITY_WARNING = "W";
+	const LDAPSECURITYMETHOD_LDAPS = "ldaps";
 
 	/**
-	 * Severity:
+	 * LDAPSecurityMethod:
 	 *
 	 * @type string
 	 */
-	const SEVERITY_ERROR = "E";
+	const LDAPSECURITYMETHOD_STARTTLS = "starttls";
 
 	/**
+	 * MacOSCodesignLevel:
+	 *
 	 * @type int
 	 */
-	const MONGODB_DEFAULT_PORT = 27017;
+	const MACOSCODESIGN_LEVEL_SIGN = 0;
 
 	/**
+	 * MacOSCodesignLevel:
+	 *
 	 * @type int
 	 */
-	const SERVICE_CALENDAR = 1;
+	const MACOSCODESIGN_LEVEL_SIGN_NOTARISE = 1;
 
 	/**
+	 * MacOSCodesignLevel:
+	 *
 	 * @type int
 	 */
-	const SERVICE_CONTACT = 2;
-
-	/**
-	 * @type int
-	 */
-	const SERVICE_MAIL = 4;
-
-	/**
-	 * @type int
-	 */
-	const SERVICE_SHAREPOINT = 8;
-
-	/**
-	 * @type int
-	 */
-	const SERVICE_ONEDRIVE = 16;
+	const MACOSCODESIGN_LEVEL_SIGN_NOTARISE_STAPLE = 2;
 
 	/**
 	 * @type int
@@ -447,6 +701,291 @@ class Def {
 	 * @type int
 	 */
 	const MIXED_VIRTUAL_ACCOUNT_TYPE_SHAREPOINT_ONLY = 4;
+
+	/**
+	 * @type int
+	 */
+	const MONGODB_DEFAULT_PORT = 27017;
+
+	/**
+	 * MSSQLAuthMode:
+	 *
+	 * @type string
+	 */
+	const MSSQL_AUTH_WINDOWS = "windows";
+
+	/**
+	 * MSSQLAuthMode:
+	 *
+	 * @type string
+	 */
+	const MSSQL_AUTH_NATIVE = "native";
+
+	/**
+	 * MSSQLMethod:
+	 *
+	 * @type string
+	 */
+	const MSSQL_METHOD_OLEDB_NATIVE = "OLEDB_NATIVE";
+
+	/**
+	 * MSSQLMethod:
+	 *
+	 * @type string
+	 */
+	const MSSQL_METHOD_OLEDB_32 = "OLEDB_32";
+
+	/**
+	 * MSSQLRestoreOpt:
+	 *
+	 * @type string
+	 */
+	const MSSQL_RESTORE_RECOVERY = "RECOVERY";
+
+	/**
+	 * MSSQLRestoreOpt:
+	 *
+	 * @type string
+	 */
+	const MSSQL_RESTORE_NORECOVERY = "NO_RECOVERY";
+
+	/**
+	 * @type string
+	 */
+	const OFFICE365_REGION_PUBLIC = "GlobalPublicCloud";
+
+	/**
+	 * @type string
+	 */
+	const OFFICE365_REGION_CHINA = "ChinaCloud";
+
+	/**
+	 * @type string
+	 */
+	const OFFICE365_REGION_GERMANY = "GermanCloud";
+
+	/**
+	 * @type string
+	 */
+	const OFFICE365_REGION_US_GOVT = "USGovtGccCloud";
+
+	/**
+	 * @type string
+	 */
+	const OFFICE365_REGION_US_DOD = "USGovtGccDoDCloud";
+
+	/**
+	 * ExtraFileExclusionOSRestriction:
+	 *
+	 * @type int
+	 */
+	const OS_ANY = 0;
+
+	/**
+	 * ExtraFileExclusionOSRestriction:
+	 *
+	 * @type int
+	 */
+	const OS_ONLY_WINDOWS = 1;
+
+	/**
+	 * ExtraFileExclusionOSRestriction:
+	 *
+	 * @type int
+	 */
+	const OS_ONLY_WINDOWS_X8632 = 2;
+
+	/**
+	 * ExtraFileExclusionOSRestriction:
+	 *
+	 * @type int
+	 */
+	const OS_ONLY_WINDOWS_X8664 = 3;
+
+	/**
+	 * ExtraFileExclusionOSRestriction:
+	 *
+	 * @type int
+	 */
+	const OS_ONLY_MACOS = 4;
+
+	/**
+	 * ExtraFileExclusionOSRestriction:
+	 *
+	 * @type int
+	 */
+	const OS_ONLY_LINUX = 5;
+
+	/**
+	 * @type int
+	 */
+	const PASSWORD_FORMAT_PLAINTEXT = 0;
+
+	/**
+	 * PSAType:
+	 *
+	 * @type int
+	 */
+	const PSA_TYPE_GENERIC = 0;
+
+	/**
+	 * PSAType:
+	 *
+	 * @type int
+	 */
+	const PSA_TYPE_GRADIENT = 1;
+
+	/**
+	 * @type string
+	 */
+	const RELEASE_CODENAME = "Voyager";
+
+	/**
+	 * RemoteServerType:
+	 *
+	 * @type string
+	 */
+	const REMOTESERVER_COMET = "comet";
+
+	/**
+	 * RemoteServerType:
+	 *
+	 * @type string
+	 */
+	const REMOTESERVER_LDAP = "ldap";
+
+	/**
+	 * RemoteServerType:
+	 *
+	 * @type string
+	 */
+	const REMOTESERVER_B2 = "b2";
+
+	/**
+	 * RemoteServerType:
+	 *
+	 * @type string
+	 */
+	const REMOTESERVER_WASABI = "wasabi";
+
+	/**
+	 * RemoteServerType:
+	 *
+	 * @type string
+	 */
+	const REMOTESERVER_CUSTOM = "custom";
+
+	/**
+	 * RemoteServerType:
+	 *
+	 * @type string
+	 */
+	const REMOTESERVER_S3_GENERIC = "s3";
+
+	/**
+	 * RemoteServerType:
+	 *
+	 * @type string
+	 */
+	const REMOTESERVER_AWS = "aws";
+
+	/**
+	 * RemoteServerType:
+	 *
+	 * @type string
+	 */
+	const REMOTESERVER_STORJ = "storj";
+
+	/**
+	 * RemoteServerType:
+	 *
+	 * @type string
+	 */
+	const REMOTESERVER_IDRIVEE2 = "idrivee2";
+
+	/**
+	 * ReplicatorState:
+	 *
+	 * @type int
+	 */
+	const REPLICATOR_STATE_NONE = 0;
+
+	/**
+	 * ReplicatorState:
+	 *
+	 * @type int
+	 */
+	const REPLICATOR_STATE_FILE_LIST_WORKER_STARTED = 1;
+
+	/**
+	 * ReplicatorState:
+	 *
+	 * @type int
+	 */
+	const REPLICATOR_STATE_FILE_LIST_SYNC_RUNNING = 2;
+
+	/**
+	 * ReplicatorState:
+	 *
+	 * @type int
+	 */
+	const REPLICATOR_STATE_FILE_LIST_SYNC_FINISHED = 4;
+
+	/**
+	 * ReplicatorState:
+	 *
+	 * @type int
+	 */
+	const REPLICATOR_STATE_WORKERS_STARTED = 8;
+
+	/**
+	 * ReplicatorDisplayClass:
+	 *
+	 * @type int
+	 */
+	const REPLICATOR_DISPLAYCLASS_STORAGE = 100;
+
+	/**
+	 * ReplicatorDisplayClass:
+	 *
+	 * @type int
+	 */
+	const REPLICATOR_DISPLAYCLASS_USER = 101;
+
+	/**
+	 * RestoreArchiveFormat:
+	 *
+	 * @type int
+	 */
+	const RESTOREARCHIVEFORMAT_TAR = 0;
+
+	/**
+	 * RestoreArchiveFormat:
+	 *
+	 * @type int
+	 */
+	const RESTOREARCHIVEFORMAT_TARGZ = 1;
+
+	/**
+	 * RestoreArchiveFormat:
+	 *
+	 * @type int
+	 */
+	const RESTOREARCHIVEFORMAT_ZIP = 2;
+
+	/**
+	 * RestoreArchiveFormat: SquashFS container
+	 *
+	 * @type int
+	 */
+	const RESTOREARCHIVEFORMAT_SQFS = 3;
+
+	/**
+	 * RestoreArchiveFormat:
+	 *
+	 * @type int
+	 */
+	const RESTOREARCHIVEFORMAT_TARZSTD = 4;
 
 	/**
 	 * RestoreType:
@@ -545,41 +1084,6 @@ class Def {
 	 * @type int
 	 */
 	const RESTORETYPE_PROCESS_TARBALL = 3;
-
-	/**
-	 * RestoreArchiveFormat:
-	 *
-	 * @type int
-	 */
-	const RESTOREARCHIVEFORMAT_TAR = 0;
-
-	/**
-	 * RestoreArchiveFormat:
-	 *
-	 * @type int
-	 */
-	const RESTOREARCHIVEFORMAT_TARGZ = 1;
-
-	/**
-	 * RestoreArchiveFormat:
-	 *
-	 * @type int
-	 */
-	const RESTOREARCHIVEFORMAT_ZIP = 2;
-
-	/**
-	 * RestoreArchiveFormat: SquashFS container
-	 *
-	 * @type int
-	 */
-	const RESTOREARCHIVEFORMAT_SQFS = 3;
-
-	/**
-	 * RestoreArchiveFormat:
-	 *
-	 * @type int
-	 */
-	const RESTOREARCHIVEFORMAT_TARZSTD = 4;
 
 	/**
 	 * RetentionMode: If this mode is set in a RetentionPolicy, then RetentionPolicy.Ranges should be ignored.
@@ -685,48 +1189,6 @@ class Def {
 	const RETENTIONRANGE_MAXINT = 1125899906842624;
 
 	/**
-	 * SftpAuthMode:
-	 *
-	 * @type int
-	 */
-	const DESTINATION_SFTP_AUTHMODE_NATIVE = 0;
-
-	/**
-	 * SftpAuthMode:
-	 *
-	 * @type int
-	 */
-	const DESTINATION_SFTP_AUTHMODE_PASSWORD = 1;
-
-	/**
-	 * SftpAuthMode:
-	 *
-	 * @type int
-	 */
-	const DESTINATION_SFTP_AUTHMODE_PRIVATEKEY = 2;
-
-	/**
-	 * SSHAuthMode:
-	 *
-	 * @type int
-	 */
-	const SSHCONNECTION_AUTHMODE__INVALID = 0;
-
-	/**
-	 * SSHAuthMode:
-	 *
-	 * @type int
-	 */
-	const SSHCONNECTION_AUTHMODE_PASSWORD = 1;
-
-	/**
-	 * SSHAuthMode: n.b. change values
-	 *
-	 * @type int
-	 */
-	const SSHCONNECTION_AUTHMODE_PRIVATEKEY = 2;
-
-	/**
 	 * @type int
 	 */
 	const SCHEDULE_FREQUENCY_LOWEST = 8010;
@@ -793,106 +1255,334 @@ class Def {
 	const SCHEDULE_MAXINT = 1125899906842624;
 
 	/**
-	 * @type string
-	 */
-	const ENGINE_BUILTIN_FILE = "engine1/file";
-
-	/**
-	 * @type string
-	 */
-	const ENGINE_BUILTIN_STDOUT = "engine1/stdout";
-
-	/**
-	 * @type string
-	 */
-	const ENGINE_BUILTIN_MYSQL = "engine1/mysql";
-
-	/**
-	 * @type string
-	 */
-	const ENGINE_BUILTIN_SYSTEMSTATE = "engine1/systemstate";
-
-	/**
-	 * @type string
-	 */
-	const ENGINE_BUILTIN_MSSQL = "engine1/mssql";
-
-	/**
-	 * @type string
-	 */
-	const ENGINE_BUILTIN_WINDOWSSYSTEM = "engine1/windowssystem";
-
-	/**
-	 * @type string
-	 */
-	const ENGINE_BUILTIN_EXCHANGEEDB = "engine1/exchangeedb";
-
-	/**
-	 * @type string
-	 */
-	const ENGINE_BUILTIN_VSSWRITER = "engine1/vsswriter";
-
-	/**
-	 * @type string
-	 */
-	const ENGINE_BUILTIN_HYPERV = "engine1/hyperv";
-
-	/**
-	 * @type string
-	 */
-	const ENGINE_BUILTIN_WINDISK = "engine1/windisk";
-
-	/**
-	 * @type string
-	 */
-	const ENGINE_BUILTIN_MONGODB = "engine1/mongodb";
-
-	/**
-	 * @type string
-	 */
-	const ENGINE_BUILTIN_MSOFFICE = "engine1/winmsofficemail";
-
-	/**
-	 * MSSQLAuthMode:
+	 * SearchClauseType:
 	 *
 	 * @type string
 	 */
-	const MSSQL_AUTH_WINDOWS = "windows";
+	const SEARCHCLAUSE_RULE = "";
 
 	/**
-	 * MSSQLAuthMode:
+	 * SearchClauseType:
 	 *
 	 * @type string
 	 */
-	const MSSQL_AUTH_NATIVE = "native";
+	const SEARCHCLAUSE_AND = "and";
 
 	/**
-	 * MSSQLMethod:
+	 * SearchClauseType:
 	 *
 	 * @type string
 	 */
-	const MSSQL_METHOD_OLEDB_NATIVE = "OLEDB_NATIVE";
+	const SEARCHCLAUSE_OR = "or";
 
 	/**
-	 * MSSQLMethod:
+	 * SearchClauseType:
 	 *
 	 * @type string
 	 */
-	const MSSQL_METHOD_OLEDB_32 = "OLEDB_32";
+	const SEARCHCLAUSE_NOT_AND = "not_and";
 
 	/**
-	 * MSSQLRestoreOpt:
+	 * SearchClauseType:
 	 *
 	 * @type string
 	 */
-	const MSSQL_RESTORE_RECOVERY = "RECOVERY";
+	const SEARCHCLAUSE_NOT_OR = "not_or";
 
 	/**
-	 * MSSQLRestoreOpt:
+	 * @type string
+	 */
+	const SEARCHOPERATOR_STRING_EQ = "str_eq";
+
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_STRING_NEQ = "str_neq";
+
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_STRING_CONTAINS = "str_contains";
+
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_STRING_NCONTAINS = "str_ncontains";
+
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_STRING_STARTSWITH = "str_startswith";
+
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_STRING_NSTARTSWITH = "str_nstartswith";
+
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_STRING_ENDSWITH = "str_endswith";
+
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_STRING_NENDSWITH = "str_nendswith";
+
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_STRING_EQ_CI = "str_eq_ci";
+
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_STRING_NEQ_CI = "str_neq_ci";
+
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_STRING_CONTAINS_CI = "str_contains_ci";
+
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_STRING_NCONTAINS_CI = "str_ncontains_ci";
+
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_STRING_STARTSWITH_CI = "str_startswith_ci";
+
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_STRING_NSTARTSWITH_CI = "str_nstartswith_ci";
+
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_STRING_ENDSWITH_CI = "str_endswith_ci";
+
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_STRING_NENDSWITH_CI = "str_nendswith_ci";
+
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_STRING_REGEXMATCH = "str_regexmatch";
+
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_STRING_NREGEXMATCH = "str_nregexmatch";
+
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_INT_EQ = "int_eq";
+
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_INT_NEQ = "int_neq";
+
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_INT_GT = "int_gt";
+
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_INT_GTE = "int_gte";
+
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_INT_LT = "int_lt";
+
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_INT_LTE = "int_lte";
+
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_BOOL_IS = "bool_is";
+
+	/**
+	 * @type string
+	 */
+	const SEARCHOPERATOR_BOOL_NIS = "bool_nis";
+
+	/**
+	 * @type int
+	 */
+	const SERVICE_CALENDAR = 1;
+
+	/**
+	 * @type int
+	 */
+	const SERVICE_CONTACT = 2;
+
+	/**
+	 * @type int
+	 */
+	const SERVICE_MAIL = 4;
+
+	/**
+	 * @type int
+	 */
+	const SERVICE_SHAREPOINT = 8;
+
+	/**
+	 * @type int
+	 */
+	const SERVICE_ONEDRIVE = 16;
+
+	/**
+	 * DefaultSettingMode:
+	 *
+	 * @type int
+	 */
+	const SETTING_SYSTEM_DEFAULT = 0;
+
+	/**
+	 * DefaultSettingMode:
+	 *
+	 * @type int
+	 */
+	const SETTING_OPTIONAL_DEFAULT_ON = 1;
+
+	/**
+	 * DefaultSettingMode:
+	 *
+	 * @type int
+	 */
+	const SETTING_OPTIONAL_DEFAULT_OFF = 2;
+
+	/**
+	 * DefaultSettingMode:
+	 *
+	 * @type int
+	 */
+	const SETTING_ENFORCED_ON = 3;
+
+	/**
+	 * DefaultSettingMode:
+	 *
+	 * @type int
+	 */
+	const SETTING_ENFORCED_OFF = 4;
+
+	/**
+	 * Severity:
 	 *
 	 * @type string
 	 */
-	const MSSQL_RESTORE_NORECOVERY = "NO_RECOVERY";
+	const SEVERITY_INFO = "I";
+
+	/**
+	 * Severity:
+	 *
+	 * @type string
+	 */
+	const SEVERITY_WARNING = "W";
+
+	/**
+	 * Severity:
+	 *
+	 * @type string
+	 */
+	const SEVERITY_ERROR = "E";
+
+	/**
+	 * StreamableEventType:
+	 *
+	 * @type int
+	 */
+	const SEVT__MIN = 4000;
+
+	/**
+	 * StreamableEventType: Event is emitted when the webhook is registered, or when the server starts up. The Data associated is ServerMetaVersionInfo
+	 *
+	 * @type int
+	 */
+	const SEVT_META_HELLO = 4000;
+
+	/**
+	 * StreamableEventType: Data is the profile object
+	 *
+	 * @type int
+	 */
+	const SEVT_ACCOUNT_NEW = 4100;
+
+	/**
+	 * StreamableEventType: Data is the username
+	 *
+	 * @type int
+	 */
+	const SEVT_ACCOUNT_REMOVED = 4101;
+
+	/**
+	 * StreamableEventType: Data is the profile object
+	 *
+	 * @type int
+	 */
+	const SEVT_ACCOUNT_UPDATED = 4102;
+
+	/**
+	 * StreamableEventType:
+	 *
+	 * @type int
+	 */
+	const SEVT_JOB_NEW = 4200;
+
+	/**
+	 * StreamableEventType:
+	 *
+	 * @type int
+	 */
+	const SEVT_JOB_COMPLETED = 4201;
+
+	/**
+	 * StreamableEventType: Data is the string bucket ref
+	 *
+	 * @type int
+	 */
+	const SEVT_BUCKET_NEW = 4300;
+
+	/**
+	 * StreamableEventType:
+	 *
+	 * @type int
+	 */
+	const SEVT__MAX = 4999;
+
+	/**
+	 * SSHAuthMode:
+	 *
+	 * @type int
+	 */
+	const SSHCONNECTION_AUTHMODE__INVALID = 0;
+
+	/**
+	 * SSHAuthMode:
+	 *
+	 * @type int
+	 */
+	const SSHCONNECTION_AUTHMODE_PASSWORD = 1;
+
+	/**
+	 * SSHAuthMode: n.b. change values
+	 *
+	 * @type int
+	 */
+	const SSHCONNECTION_AUTHMODE_PRIVATEKEY = 2;
 
 	/**
 	 * StoredObjectType:
@@ -1077,128 +1767,51 @@ class Def {
 	const STOREDOBJECTTYPE_VHDX_MBR_PARTITION = "vhdxpartitionmbr";
 
 	/**
-	 * ExtraFileExclusionOSRestriction:
-	 *
-	 * @type int
-	 */
-	const OS_ANY = 0;
-
-	/**
-	 * ExtraFileExclusionOSRestriction:
-	 *
-	 * @type int
-	 */
-	const OS_ONLY_WINDOWS = 1;
-
-	/**
-	 * ExtraFileExclusionOSRestriction:
-	 *
-	 * @type int
-	 */
-	const OS_ONLY_WINDOWS_X8632 = 2;
-
-	/**
-	 * ExtraFileExclusionOSRestriction:
-	 *
-	 * @type int
-	 */
-	const OS_ONLY_WINDOWS_X8664 = 3;
-
-	/**
-	 * ExtraFileExclusionOSRestriction:
-	 *
-	 * @type int
-	 */
-	const OS_ONLY_MACOS = 4;
-
-	/**
-	 * ExtraFileExclusionOSRestriction:
-	 *
-	 * @type int
-	 */
-	const OS_ONLY_LINUX = 5;
-
-	/**
-	 * DefaultSettingMode:
-	 *
-	 * @type int
-	 */
-	const SETTING_SYSTEM_DEFAULT = 0;
-
-	/**
-	 * DefaultSettingMode:
-	 *
-	 * @type int
-	 */
-	const SETTING_OPTIONAL_DEFAULT_ON = 1;
-
-	/**
-	 * DefaultSettingMode:
-	 *
-	 * @type int
-	 */
-	const SETTING_OPTIONAL_DEFAULT_OFF = 2;
-
-	/**
-	 * DefaultSettingMode:
-	 *
-	 * @type int
-	 */
-	const SETTING_ENFORCED_ON = 3;
-
-	/**
-	 * DefaultSettingMode:
-	 *
-	 * @type int
-	 */
-	const SETTING_ENFORCED_OFF = 4;
-
-	/**
-	 * LanguageCode:
-	 *
 	 * @type string
 	 */
-	const DEFAULT_LANGUAGE = "en_US";
+	const TOTPRequiredError = "ERR_TOTP_REQUIRED";
 
 	/**
-	 * @type string
-	 */
-	const DEFAULT_TIMEZONE = "UTC";
-
-	/**
-	 * @type string
-	 */
-	const APPLICATION_VERSION = "23.3.1";
-
-	/**
+	 * UpdateStatus:
+	 *
 	 * @type int
 	 */
-	const APPLICATION_VERSION_MAJOR = 23;
+	const UPDATESTATUS_NOT_SEEN = 0;
 
 	/**
+	 * UpdateStatus:
+	 *
 	 * @type int
 	 */
-	const APPLICATION_VERSION_MINOR = 3;
+	const UPDATESTATUS_INELIGIBLE = 1;
 
 	/**
+	 * UpdateStatus:
+	 *
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 1;
+	const UPDATESTATUS_PENDING = 2;
 
 	/**
-	 * @type string
-	 */
-	const RELEASE_CODENAME = "Voyager";
-
-	/**
+	 * UpdateStatus:
+	 *
 	 * @type int
 	 */
-	const ENCRYPTIONMETHOD_UNCONFIGURED = 0;
+	const UPDATESTATUS_REQUEST_MADE = 3;
 
 	/**
+	 * UpdateStatus: Device reconnected with bad version
+	 *
 	 * @type int
 	 */
-	const PASSWORD_FORMAT_PLAINTEXT = 0;
+	const UPDATESTATUS_UPDATE_FAILED = 4;
+
+	/**
+	 * UpdateStatus:
+	 *
+	 * @type int
+	 */
+	const UPDATESTATUS_UPDATE_CONFIRMED = 5;
 
 	/**
 	 * @type string
@@ -1208,7 +1821,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const TOTPRequiredError = "ERR_TOTP_REQUIRED";
+	const UnsupportVhdxFileSystem = "ERR_UNSUPPORT_VHDX_FILE_SYSTEM";
 
 	/**
 	 * @type string
@@ -1218,37 +1831,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const UnsupportVhdxFileSystem = "ERR_UNSUPPORT_VHDX_FILE_SYSTEM";
-
-	/**
-	 * @type string
-	 */
 	const VhdxPartitonReadErrMsg = "ERR_VHDX_PARTITION";
-
-	/**
-	 * @type int
-	 */
-	const EMAIL_WORKER_STATE_NOT_STARTED = 0;
-
-	/**
-	 * @type int
-	 */
-	const EMAIL_WORKER_STATE_STARTED = 1;
-
-	/**
-	 * @type int
-	 */
-	const EMAIL_WORKER_STATE_CALCULATING = 2;
-
-	/**
-	 * @type int
-	 */
-	const EMAIL_WORKER_STATE_WAITING = 3;
-
-	/**
-	 * @type int
-	 */
-	const EMAIL_WORKER_STATE_SENDING = 4;
 
 	/**
 	 * WebAuthnDeviceType:
@@ -1300,396 +1883,6 @@ class Def {
 	const WEBAUTHN_DEVICE_TYPE__TPM_LINUX = 6;
 
 	/**
-	 * UpdateStatus:
-	 *
-	 * @type int
-	 */
-	const UPDATESTATUS_NOT_SEEN = 0;
-
-	/**
-	 * UpdateStatus:
-	 *
-	 * @type int
-	 */
-	const UPDATESTATUS_INELIGIBLE = 1;
-
-	/**
-	 * UpdateStatus:
-	 *
-	 * @type int
-	 */
-	const UPDATESTATUS_PENDING = 2;
-
-	/**
-	 * UpdateStatus:
-	 *
-	 * @type int
-	 */
-	const UPDATESTATUS_REQUEST_MADE = 3;
-
-	/**
-	 * UpdateStatus: Device reconnected with bad version
-	 *
-	 * @type int
-	 */
-	const UPDATESTATUS_UPDATE_FAILED = 4;
-
-	/**
-	 * UpdateStatus:
-	 *
-	 * @type int
-	 */
-	const UPDATESTATUS_UPDATE_CONFIRMED = 5;
-
-	/**
-	 * ReplicatorState:
-	 *
-	 * @type int
-	 */
-	const REPLICATOR_STATE_NONE = 0;
-
-	/**
-	 * ReplicatorState:
-	 *
-	 * @type int
-	 */
-	const REPLICATOR_STATE_FILE_LIST_WORKER_STARTED = 1;
-
-	/**
-	 * ReplicatorState:
-	 *
-	 * @type int
-	 */
-	const REPLICATOR_STATE_FILE_LIST_SYNC_RUNNING = 2;
-
-	/**
-	 * ReplicatorState:
-	 *
-	 * @type int
-	 */
-	const REPLICATOR_STATE_FILE_LIST_SYNC_FINISHED = 4;
-
-	/**
-	 * ReplicatorState:
-	 *
-	 * @type int
-	 */
-	const REPLICATOR_STATE_WORKERS_STARTED = 8;
-
-	/**
-	 * ReplicatorDisplayClass:
-	 *
-	 * @type int
-	 */
-	const REPLICATOR_DISPLAYCLASS_STORAGE = 100;
-
-	/**
-	 * ReplicatorDisplayClass:
-	 *
-	 * @type int
-	 */
-	const REPLICATOR_DISPLAYCLASS_USER = 101;
-
-	/**
-	 * SearchClauseType:
-	 *
-	 * @type string
-	 */
-	const SEARCHCLAUSE_RULE = "";
-
-	/**
-	 * SearchClauseType:
-	 *
-	 * @type string
-	 */
-	const SEARCHCLAUSE_AND = "and";
-
-	/**
-	 * SearchClauseType:
-	 *
-	 * @type string
-	 */
-	const SEARCHCLAUSE_OR = "or";
-
-	/**
-	 * SearchClauseType:
-	 *
-	 * @type string
-	 */
-	const SEARCHCLAUSE_NOT_AND = "not_and";
-
-	/**
-	 * SearchClauseType:
-	 *
-	 * @type string
-	 */
-	const SEARCHCLAUSE_NOT_OR = "not_or";
-
-	/**
-	 * @type string
-	 */
-	const SEARCHOPERATOR_STRING_EQ = "str_eq";
-
-	/**
-	 * @type string
-	 */
-	const SEARCHOPERATOR_STRING_NEQ = "str_neq";
-
-	/**
-	 * @type string
-	 */
-	const SEARCHOPERATOR_STRING_CONTAINS = "str_contains";
-
-	/**
-	 * @type string
-	 */
-	const SEARCHOPERATOR_STRING_NCONTAINS = "str_ncontains";
-
-	/**
-	 * @type string
-	 */
-	const SEARCHOPERATOR_STRING_STARTSWITH = "str_startswith";
-
-	/**
-	 * @type string
-	 */
-	const SEARCHOPERATOR_STRING_NSTARTSWITH = "str_nstartswith";
-
-	/**
-	 * @type string
-	 */
-	const SEARCHOPERATOR_STRING_ENDSWITH = "str_endswith";
-
-	/**
-	 * @type string
-	 */
-	const SEARCHOPERATOR_STRING_NENDSWITH = "str_nendswith";
-
-	/**
-	 * @type string
-	 */
-	const SEARCHOPERATOR_STRING_EQ_CI = "str_eq_ci";
-
-	/**
-	 * @type string
-	 */
-	const SEARCHOPERATOR_STRING_NEQ_CI = "str_neq_ci";
-
-	/**
-	 * @type string
-	 */
-	const SEARCHOPERATOR_STRING_CONTAINS_CI = "str_contains_ci";
-
-	/**
-	 * @type string
-	 */
-	const SEARCHOPERATOR_STRING_NCONTAINS_CI = "str_ncontains_ci";
-
-	/**
-	 * @type string
-	 */
-	const SEARCHOPERATOR_STRING_STARTSWITH_CI = "str_startswith_ci";
-
-	/**
-	 * @type string
-	 */
-	const SEARCHOPERATOR_STRING_NSTARTSWITH_CI = "str_nstartswith_ci";
-
-	/**
-	 * @type string
-	 */
-	const SEARCHOPERATOR_STRING_ENDSWITH_CI = "str_endswith_ci";
-
-	/**
-	 * @type string
-	 */
-	const SEARCHOPERATOR_STRING_NENDSWITH_CI = "str_nendswith_ci";
-
-	/**
-	 * @type string
-	 */
-	const SEARCHOPERATOR_STRING_REGEXMATCH = "str_regexmatch";
-
-	/**
-	 * @type string
-	 */
-	const SEARCHOPERATOR_STRING_NREGEXMATCH = "str_nregexmatch";
-
-	/**
-	 * @type string
-	 */
-	const SEARCHOPERATOR_INT_EQ = "int_eq";
-
-	/**
-	 * @type string
-	 */
-	const SEARCHOPERATOR_INT_NEQ = "int_neq";
-
-	/**
-	 * @type string
-	 */
-	const SEARCHOPERATOR_INT_GT = "int_gt";
-
-	/**
-	 * @type string
-	 */
-	const SEARCHOPERATOR_INT_GTE = "int_gte";
-
-	/**
-	 * @type string
-	 */
-	const SEARCHOPERATOR_INT_LT = "int_lt";
-
-	/**
-	 * @type string
-	 */
-	const SEARCHOPERATOR_INT_LTE = "int_lte";
-
-	/**
-	 * @type string
-	 */
-	const SEARCHOPERATOR_BOOL_IS = "bool_is";
-
-	/**
-	 * @type string
-	 */
-	const SEARCHOPERATOR_BOOL_NIS = "bool_nis";
-
-	/**
-	 * EmailDeliveryType:
-	 *
-	 * @type string
-	 */
-	const EMAIL_DELIVERY_INHERIT = "";
-
-	/**
-	 * EmailDeliveryType:
-	 *
-	 * @type string
-	 */
-	const EMAIL_DELIVERY_MX_DIRECT = "builtin";
-
-	/**
-	 * EmailDeliveryType:
-	 *
-	 * @type string
-	 */
-	const EMAIL_DELIVERY_SMTP = "smtp";
-
-	/**
-	 * EmailDeliveryType:
-	 *
-	 * @type string
-	 */
-	const EMAIL_DELIVERY_SMTP_SSL = "smtp-ssl";
-
-	/**
-	 * EmailDeliveryType:
-	 *
-	 * @type string
-	 */
-	const EMAIL_DELIVERY_DISABLED = "disabled";
-
-	/**
-	 * EmailDeliveryType: Legacy alias
-	 *
-	 * @type string
-	 */
-	const EMAIL_DELIVERY_BUILTIN = self::EMAIL_DELIVERY_MX_DIRECT;
-
-	/**
-	 * EmailDeliveryType: changed for clarity
-	 *
-	 * @type string
-	 * @deprecated 22.12.1 This const has been deprecated since Comet version 22.12.1
-	 */
-	const EMAIL_DELIVERY_NONE = self::EMAIL_DELIVERY_INHERIT;
-
-	/**
-	 * RemoteServerType:
-	 *
-	 * @type string
-	 */
-	const REMOTESERVER_COMET = "comet";
-
-	/**
-	 * RemoteServerType:
-	 *
-	 * @type string
-	 */
-	const REMOTESERVER_LDAP = "ldap";
-
-	/**
-	 * RemoteServerType:
-	 *
-	 * @type string
-	 */
-	const REMOTESERVER_B2 = "b2";
-
-	/**
-	 * RemoteServerType:
-	 *
-	 * @type string
-	 */
-	const REMOTESERVER_WASABI = "wasabi";
-
-	/**
-	 * RemoteServerType:
-	 *
-	 * @type string
-	 */
-	const REMOTESERVER_CUSTOM = "custom";
-
-	/**
-	 * RemoteServerType:
-	 *
-	 * @type string
-	 */
-	const REMOTESERVER_S3_GENERIC = "s3";
-
-	/**
-	 * RemoteServerType:
-	 *
-	 * @type string
-	 */
-	const REMOTESERVER_AWS = "aws";
-
-	/**
-	 * RemoteServerType:
-	 *
-	 * @type string
-	 */
-	const REMOTESERVER_STORJ = "storj";
-
-	/**
-	 * RemoteServerType:
-	 *
-	 * @type string
-	 */
-	const REMOTESERVER_IDRIVEE2 = "idrivee2";
-
-	/**
-	 * LDAPSecurityMethod:
-	 *
-	 * @type string
-	 */
-	const LDAPSECURITYMETHOD_PLAIN = "plain";
-
-	/**
-	 * LDAPSecurityMethod:
-	 *
-	 * @type string
-	 */
-	const LDAPSECURITYMETHOD_LDAPS = "ldaps";
-
-	/**
-	 * LDAPSecurityMethod:
-	 *
-	 * @type string
-	 */
-	const LDAPSECURITYMETHOD_STARTTLS = "starttls";
-
-	/**
 	 * WindowsCodesignMethod: When upgrading from a version of Comet Server prior to 22.12.7, this option will be automatically converted to a more specific type..
 	 *
 	 * @type int
@@ -1724,199 +1917,6 @@ class Def {
 	 * @type int
 	 */
 	const WINDOWSCODESIGN_METHOD_AZUREKEYVAULT = 4;
-
-	/**
-	 * MacOSCodesignLevel:
-	 *
-	 * @type int
-	 */
-	const MACOSCODESIGN_LEVEL_SIGN = 0;
-
-	/**
-	 * MacOSCodesignLevel:
-	 *
-	 * @type int
-	 */
-	const MACOSCODESIGN_LEVEL_SIGN_NOTARISE = 1;
-
-	/**
-	 * MacOSCodesignLevel:
-	 *
-	 * @type int
-	 */
-	const MACOSCODESIGN_LEVEL_SIGN_NOTARISE_STAPLE = 2;
-
-	/**
-	 * ClientBrandingBuildMode: Public-Doc: The software client will be custom-built by this Comet Server, allowing custom branding, default server URL, and codesigning.
-	 *
-	 * @type int
-	 */
-	const CLIENTBRANDINGBUILD_CUSTOM = 0;
-
-	/**
-	 * ClientBrandingBuildMode: Public-Doc: A pre-built software client will be served, with Comet-branding, no server URL, and Comet codesigning.
-	 *
-	 * @type int
-	 */
-	const CLIENTBRANDINGBUILD_PREBUILT = 1;
-
-	/**
-	 * StreamableEventType:
-	 *
-	 * @type int
-	 */
-	const SEVT__MIN = 4000;
-
-	/**
-	 * StreamableEventType: Event is emitted when the webhook is registered, or when the server starts up. The Data associated is ServerMetaVersionInfo
-	 *
-	 * @type int
-	 */
-	const SEVT_META_HELLO = 4000;
-
-	/**
-	 * StreamableEventType: Data is the profile object
-	 *
-	 * @type int
-	 */
-	const SEVT_ACCOUNT_NEW = 4100;
-
-	/**
-	 * StreamableEventType: Data is the username
-	 *
-	 * @type int
-	 */
-	const SEVT_ACCOUNT_REMOVED = 4101;
-
-	/**
-	 * StreamableEventType: Data is the profile object
-	 *
-	 * @type int
-	 */
-	const SEVT_ACCOUNT_UPDATED = 4102;
-
-	/**
-	 * StreamableEventType:
-	 *
-	 * @type int
-	 */
-	const SEVT_JOB_NEW = 4200;
-
-	/**
-	 * StreamableEventType:
-	 *
-	 * @type int
-	 */
-	const SEVT_JOB_COMPLETED = 4201;
-
-	/**
-	 * StreamableEventType: Data is the string bucket ref
-	 *
-	 * @type int
-	 */
-	const SEVT_BUCKET_NEW = 4300;
-
-	/**
-	 * StreamableEventType:
-	 *
-	 * @type int
-	 */
-	const SEVT__MAX = 4999;
-
-	/**
-	 * PSAType:
-	 *
-	 * @type int
-	 */
-	const PSA_TYPE_GENERIC = 0;
-
-	/**
-	 * PSAType:
-	 *
-	 * @type int
-	 */
-	const PSA_TYPE_GRADIENT = 1;
-
-	/**
-	 * CompressMode:
-	 *
-	 * @type int
-	 */
-	const COMPRESS_INVALID = 0;
-
-	/**
-	 * CompressMode:
-	 *
-	 * @type int
-	 */
-	const COMPRESS_LVL_1 = 1;
-
-	/**
-	 * CompressMode:
-	 *
-	 * @type int
-	 */
-	const COMPRESS_LVL_2 = 2;
-
-	/**
-	 * CompressMode:
-	 *
-	 * @type int
-	 */
-	const COMPRESS_LVL_3 = 3;
-
-	/**
-	 * CompressMode:
-	 *
-	 * @type int
-	 */
-	const COMPRESS_LVL_4 = 4;
-
-	/**
-	 * CompressMode:
-	 *
-	 * @type int
-	 */
-	const COMPRESS_LVL_5 = 5;
-
-	/**
-	 * CompressMode:
-	 *
-	 * @type int
-	 */
-	const COMPRESS_MAX = self::COMPRESS_LVL_5;
-
-	/**
-	 * CompressMode:
-	 *
-	 * @type int
-	 */
-	const COMPRESS_DEFAULT = self::COMPRESS_LVL_4;
-
-	/**
-	 * @type string
-	 */
-	const OFFICE365_REGION_PUBLIC = "GlobalPublicCloud";
-
-	/**
-	 * @type string
-	 */
-	const OFFICE365_REGION_CHINA = "ChinaCloud";
-
-	/**
-	 * @type string
-	 */
-	const OFFICE365_REGION_GERMANY = "GermanCloud";
-
-	/**
-	 * @type string
-	 */
-	const OFFICE365_REGION_US_GOVT = "USGovtGccCloud";
-
-	/**
-	 * @type string
-	 */
-	const OFFICE365_REGION_US_DOD = "USGovtGccDoDCloud";
 
 	/**
 	 * Retrieve a mapping of language codes supported by Comet Server.
