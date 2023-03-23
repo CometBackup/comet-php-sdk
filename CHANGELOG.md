@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 2023-03-23 v4.6.0
+
+- Based on Comet 23.3.1
+- Support filter parameters on `AdminGetJobLogEntries`
+- Support S3 Object Lock
+- Support Azure Key Vault codesigning
+
 ## 2023-02-15 v4.5.0
 - Based on 22.12.8
 - Add `TimeSpan` option to `EmailReportOptions`
