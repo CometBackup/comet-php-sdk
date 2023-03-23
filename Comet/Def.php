@@ -1168,22 +1168,22 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "22.12.8";
+	const APPLICATION_VERSION = "23.3.1";
 
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_MAJOR = 22;
+	const APPLICATION_VERSION_MAJOR = 23;
 
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_MINOR = 12;
+	const APPLICATION_VERSION_MINOR = 3;
 
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 8;
+	const APPLICATION_VERSION_REVISION = 1;
 
 	/**
 	 * @type string
