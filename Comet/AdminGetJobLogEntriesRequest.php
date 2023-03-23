@@ -26,13 +26,31 @@ class AdminGetJobLogEntriesRequest implements \Comet\NetworkRequest {
 	protected $JobID = null;
 
 	/**
+	 * Return only job log entries with equal or higher severity (optional)
+	 *
+	 * @var string|null
+	 */
+	protected $MinSeverity = null;
+
+	/**
+	 * Return only job log entries that contain exact string (optional)
+	 *
+	 * @var string|null
+	 */
+	protected $MessageContains = null;
+
+	/**
 	 * Construct a new AdminGetJobLogEntriesRequest instance.
 	 *
 	 * @param string $JobID Selected job ID
+	 * @param string $MinSeverity Return only job log entries with equal or higher severity (optional)
+	 * @param string $MessageContains Return only job log entries that contain exact string (optional)
 	 */
-	public function __construct(string $JobID)
+	public function __construct(string $JobID, string $MinSeverity = null, string $MessageContains = null)
 	{
 		$this->JobID = $JobID;
+		$this->MinSeverity = $MinSeverity;
+		$this->MessageContains = $MessageContains;
 	}
 
 	/**
@@ -64,6 +82,12 @@ class AdminGetJobLogEntriesRequest implements \Comet\NetworkRequest {
 	{
 		$ret = [];
 		$ret["JobID"] = (string)($this->JobID);
+		if ($this->MinSeverity !== null) {
+			$ret["MinSeverity"] = (string)($this->MinSeverity);
+		}
+		if ($this->MessageContains !== null) {
+			$ret["MessageContains"] = (string)($this->MessageContains);
+		}
 		return $ret;
 	}
 

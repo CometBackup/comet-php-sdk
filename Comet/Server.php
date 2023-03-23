@@ -1625,12 +1625,14 @@ class Server {
 	 * This API requires the Auth Role to be enabled.
 	 *
 	 * @param string $JobID Selected job ID
+	 * @param string $MinSeverity Return only job log entries with equal or higher severity (optional)
+	 * @param string $MessageContains Return only job log entries that contain exact string (optional)
 	 * @return \Comet\JobEntry[] 
 	 * @throws \Exception
 	 */
-	public function AdminGetJobLogEntries(string $JobID): array
+	public function AdminGetJobLogEntries(string $JobID, string $MinSeverity = null, string $MessageContains = null): array
 	{
-		$nr = new \Comet\AdminGetJobLogEntriesRequest($JobID);
+		$nr = new \Comet\AdminGetJobLogEntriesRequest($JobID, $MinSeverity, $MessageContains);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminGetJobLogEntriesRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
