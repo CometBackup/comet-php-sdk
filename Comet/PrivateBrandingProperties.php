@@ -57,6 +57,11 @@ class PrivateBrandingProperties {
 	public $PackageIdentifier = "";
 
 	/**
+	 * @var int
+	 */
+	public $WindowsCodeSignMethod = 0;
+
+	/**
 	 * @var string
 	 */
 	public $WindowsCodeSignPKCS12FilePath = "";
@@ -83,6 +88,7 @@ class PrivateBrandingProperties {
 
 	/**
 	 * @var string
+	 * @deprecated 22.12.7 This member has been deprecated since Comet version 22.12.7
 	 */
 	public $WindowsCodeSignPKCS11Certfile = "";
 
@@ -100,6 +106,36 @@ class PrivateBrandingProperties {
 	 * @var string
 	 */
 	public $WindowsCodeSignPKCS11Password = "";
+
+	/**
+	 * @var string
+	 */
+	public $WindowsCodeSignAzureVaultName = "";
+
+	/**
+	 * @var string
+	 */
+	public $WindowsCodeSignAzureCertName = "";
+
+	/**
+	 * @var string
+	 */
+	public $WindowsCodeSignAzureAppID = "";
+
+	/**
+	 * @var int
+	 */
+	public $WindowsCodeSignAzureAppSecretFormat = 0;
+
+	/**
+	 * @var string
+	 */
+	public $WindowsCodeSignAzureAppSecret = "";
+
+	/**
+	 * @var string
+	 */
+	public $WindowsCodeSignAzureTenantID = "";
 
 	/**
 	 * @var \Comet\MacOSCodeSignProperties
@@ -150,6 +186,9 @@ class PrivateBrandingProperties {
 		if (property_exists($sc, 'PackageIdentifier')) {
 			$this->PackageIdentifier = (string)($sc->PackageIdentifier);
 		}
+		if (property_exists($sc, 'WindowsCodeSignMethod')) {
+			$this->WindowsCodeSignMethod = (int)($sc->WindowsCodeSignMethod);
+		}
 		if (property_exists($sc, 'WindowsCodeSignPKCS12FilePath')) {
 			$this->WindowsCodeSignPKCS12FilePath = (string)($sc->WindowsCodeSignPKCS12FilePath);
 		}
@@ -177,6 +216,24 @@ class PrivateBrandingProperties {
 		if (property_exists($sc, 'WindowsCodeSignPKCS11Password')) {
 			$this->WindowsCodeSignPKCS11Password = (string)($sc->WindowsCodeSignPKCS11Password);
 		}
+		if (property_exists($sc, 'WindowsCodeSignAzureVaultName')) {
+			$this->WindowsCodeSignAzureVaultName = (string)($sc->WindowsCodeSignAzureVaultName);
+		}
+		if (property_exists($sc, 'WindowsCodeSignAzureCertName')) {
+			$this->WindowsCodeSignAzureCertName = (string)($sc->WindowsCodeSignAzureCertName);
+		}
+		if (property_exists($sc, 'WindowsCodeSignAzureAppID')) {
+			$this->WindowsCodeSignAzureAppID = (string)($sc->WindowsCodeSignAzureAppID);
+		}
+		if (property_exists($sc, 'WindowsCodeSignAzureAppSecretFormat')) {
+			$this->WindowsCodeSignAzureAppSecretFormat = (int)($sc->WindowsCodeSignAzureAppSecretFormat);
+		}
+		if (property_exists($sc, 'WindowsCodeSignAzureAppSecret')) {
+			$this->WindowsCodeSignAzureAppSecret = (string)($sc->WindowsCodeSignAzureAppSecret);
+		}
+		if (property_exists($sc, 'WindowsCodeSignAzureTenantID')) {
+			$this->WindowsCodeSignAzureTenantID = (string)($sc->WindowsCodeSignAzureTenantID);
+		}
 		if (property_exists($sc, 'MacOSCodeSign')) {
 			if (is_array($sc->MacOSCodeSign) && count($sc->MacOSCodeSign) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
@@ -196,6 +253,7 @@ class PrivateBrandingProperties {
 			case 'PathHeaderImage':
 			case 'PathAppIconImage':
 			case 'PackageIdentifier':
+			case 'WindowsCodeSignMethod':
 			case 'WindowsCodeSignPKCS12FilePath':
 			case 'WindowsCodeSignPKCS12PasswordFormat':
 			case 'WindowsCodeSignPKCS12Password':
@@ -205,6 +263,12 @@ class PrivateBrandingProperties {
 			case 'WindowsCodeSignPKCS11KeyID':
 			case 'WindowsCodeSignPKCS11PasswordFormat':
 			case 'WindowsCodeSignPKCS11Password':
+			case 'WindowsCodeSignAzureVaultName':
+			case 'WindowsCodeSignAzureCertName':
+			case 'WindowsCodeSignAzureAppID':
+			case 'WindowsCodeSignAzureAppSecretFormat':
+			case 'WindowsCodeSignAzureAppSecret':
+			case 'WindowsCodeSignAzureTenantID':
 			case 'MacOSCodeSign':
 				break;
 			default:
@@ -280,6 +344,7 @@ class PrivateBrandingProperties {
 		$ret["PathHeaderImage"] = $this->PathHeaderImage;
 		$ret["PathAppIconImage"] = $this->PathAppIconImage;
 		$ret["PackageIdentifier"] = $this->PackageIdentifier;
+		$ret["WindowsCodeSignMethod"] = $this->WindowsCodeSignMethod;
 		$ret["WindowsCodeSignPKCS12FilePath"] = $this->WindowsCodeSignPKCS12FilePath;
 		$ret["WindowsCodeSignPKCS12PasswordFormat"] = $this->WindowsCodeSignPKCS12PasswordFormat;
 		$ret["WindowsCodeSignPKCS12Password"] = $this->WindowsCodeSignPKCS12Password;
@@ -289,6 +354,12 @@ class PrivateBrandingProperties {
 		$ret["WindowsCodeSignPKCS11KeyID"] = $this->WindowsCodeSignPKCS11KeyID;
 		$ret["WindowsCodeSignPKCS11PasswordFormat"] = $this->WindowsCodeSignPKCS11PasswordFormat;
 		$ret["WindowsCodeSignPKCS11Password"] = $this->WindowsCodeSignPKCS11Password;
+		$ret["WindowsCodeSignAzureVaultName"] = $this->WindowsCodeSignAzureVaultName;
+		$ret["WindowsCodeSignAzureCertName"] = $this->WindowsCodeSignAzureCertName;
+		$ret["WindowsCodeSignAzureAppID"] = $this->WindowsCodeSignAzureAppID;
+		$ret["WindowsCodeSignAzureAppSecretFormat"] = $this->WindowsCodeSignAzureAppSecretFormat;
+		$ret["WindowsCodeSignAzureAppSecret"] = $this->WindowsCodeSignAzureAppSecret;
+		$ret["WindowsCodeSignAzureTenantID"] = $this->WindowsCodeSignAzureTenantID;
 		if ( $this->MacOSCodeSign === null ) {
 			$ret["MacOSCodeSign"] = $for_json_encode ? (object)[] : [];
 		} else {

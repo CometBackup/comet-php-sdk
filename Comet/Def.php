@@ -1690,6 +1690,42 @@ class Def {
 	const LDAPSECURITYMETHOD_STARTTLS = "starttls";
 
 	/**
+	 * WindowsCodesignMethod: When upgrading from a version of Comet Server prior to 22.12.7, this option will be automatically converted to a more specific type..
+	 *
+	 * @type int
+	 * @deprecated 22.12.7 This const has been deprecated since Comet version 22.12.7
+	 */
+	const WINDOWSCODESIGN_METHOD_AUTO = 0;
+
+	/**
+	 * WindowsCodesignMethod:
+	 *
+	 * @type int
+	 */
+	const WINDOWSCODESIGN_METHOD_DISABLED = 1;
+
+	/**
+	 * WindowsCodesignMethod:
+	 *
+	 * @type int
+	 */
+	const WINDOWSCODESIGN_METHOD_PKCS12FILE = 2;
+
+	/**
+	 * WindowsCodesignMethod:
+	 *
+	 * @type int
+	 */
+	const WINDOWSCODESIGN_METHOD_PKCS11HSM = 3;
+
+	/**
+	 * WindowsCodesignMethod:
+	 *
+	 * @type int
+	 */
+	const WINDOWSCODESIGN_METHOD_AZUREKEYVAULT = 4;
+
+	/**
 	 * MacOSCodesignLevel:
 	 *
 	 * @type int
