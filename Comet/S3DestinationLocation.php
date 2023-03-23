@@ -52,6 +52,16 @@ class S3DestinationLocation {
 	public $S3UsesV2Signing = false;
 
 	/**
+	 * @var boolean
+	 */
+	public $S3RemoveDeleted = false;
+
+	/**
+	 * @var int
+	 */
+	public $S3ObjectLockDays = 0;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see S3DestinationLocation::RemoveUnknownProperties() Remove all unknown properties
@@ -92,6 +102,12 @@ class S3DestinationLocation {
 		if (property_exists($sc, 'S3UsesV2Signing')) {
 			$this->S3UsesV2Signing = (bool)($sc->S3UsesV2Signing);
 		}
+		if (property_exists($sc, 'S3RemoveDeleted')) {
+			$this->S3RemoveDeleted = (bool)($sc->S3RemoveDeleted);
+		}
+		if (property_exists($sc, 'S3ObjectLockDays')) {
+			$this->S3ObjectLockDays = (int)($sc->S3ObjectLockDays);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'S3Server':
@@ -102,6 +118,8 @@ class S3DestinationLocation {
 			case 'S3Subdir':
 			case 'S3CustomRegion':
 			case 'S3UsesV2Signing':
+			case 'S3RemoveDeleted':
+			case 'S3ObjectLockDays':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -175,6 +193,8 @@ class S3DestinationLocation {
 		$ret["S3Subdir"] = $this->S3Subdir;
 		$ret["S3CustomRegion"] = $this->S3CustomRegion;
 		$ret["S3UsesV2Signing"] = $this->S3UsesV2Signing;
+		$ret["S3RemoveDeleted"] = $this->S3RemoveDeleted;
+		$ret["S3ObjectLockDays"] = $this->S3ObjectLockDays;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

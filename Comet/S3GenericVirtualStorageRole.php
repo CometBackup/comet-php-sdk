@@ -37,6 +37,21 @@ class S3GenericVirtualStorageRole {
 	public $SecretKey = "";
 
 	/**
+	 * @var boolean
+	 */
+	public $UseObjectLock = false;
+
+	/**
+	 * @var int
+	 */
+	public $ObjectLockDays = 0;
+
+	/**
+	 * @var boolean
+	 */
+	public $RemoveDeleted = false;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see S3GenericVirtualStorageRole::RemoveUnknownProperties() Remove all unknown properties
@@ -68,6 +83,15 @@ class S3GenericVirtualStorageRole {
 		if (property_exists($sc, 'SecretKey')) {
 			$this->SecretKey = (string)($sc->SecretKey);
 		}
+		if (property_exists($sc, 'UseObjectLock')) {
+			$this->UseObjectLock = (bool)($sc->UseObjectLock);
+		}
+		if (property_exists($sc, 'ObjectLockDays')) {
+			$this->ObjectLockDays = (int)($sc->ObjectLockDays);
+		}
+		if (property_exists($sc, 'RemoveDeleted')) {
+			$this->RemoveDeleted = (bool)($sc->RemoveDeleted);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'S3Endpoint':
@@ -75,6 +99,9 @@ class S3GenericVirtualStorageRole {
 			case 'MasterBucket':
 			case 'AccessKey':
 			case 'SecretKey':
+			case 'UseObjectLock':
+			case 'ObjectLockDays':
+			case 'RemoveDeleted':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -145,6 +172,9 @@ class S3GenericVirtualStorageRole {
 		$ret["MasterBucket"] = $this->MasterBucket;
 		$ret["AccessKey"] = $this->AccessKey;
 		$ret["SecretKey"] = $this->SecretKey;
+		$ret["UseObjectLock"] = $this->UseObjectLock;
+		$ret["ObjectLockDays"] = $this->ObjectLockDays;
+		$ret["RemoveDeleted"] = $this->RemoveDeleted;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
