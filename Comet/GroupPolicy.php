@@ -32,6 +32,16 @@ class GroupPolicy {
 	public $DefaultUserPolicy = false;
 
 	/**
+	 * @var int
+	 */
+	public $CreatedDate = 0;
+
+	/**
+	 * @var int
+	 */
+	public $ModifiedDate = 0;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see GroupPolicy::RemoveUnknownProperties() Remove all unknown properties
@@ -65,12 +75,20 @@ class GroupPolicy {
 		if (property_exists($sc, 'DefaultUserPolicy')) {
 			$this->DefaultUserPolicy = (bool)($sc->DefaultUserPolicy);
 		}
+		if (property_exists($sc, 'CreatedDate')) {
+			$this->CreatedDate = (int)($sc->CreatedDate);
+		}
+		if (property_exists($sc, 'ModifiedDate')) {
+			$this->ModifiedDate = (int)($sc->ModifiedDate);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Description':
 			case 'OrganizationID':
 			case 'Policy':
 			case 'DefaultUserPolicy':
+			case 'CreatedDate':
+			case 'ModifiedDate':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -144,6 +162,8 @@ class GroupPolicy {
 			$ret["Policy"] = $this->Policy->toArray($for_json_encode);
 		}
 		$ret["DefaultUserPolicy"] = $this->DefaultUserPolicy;
+		$ret["CreatedDate"] = $this->CreatedDate;
+		$ret["ModifiedDate"] = $this->ModifiedDate;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
