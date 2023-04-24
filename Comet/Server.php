@@ -2147,6 +2147,23 @@ class Server {
 	}
 
 	/** 
+	 * Test the connection to the storage template
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * Access to this API may be prevented on a per-administrator basis.
+	 *
+	 * @param \Comet\RemoteStorageOption $TemplateOptions Storage Template Vault Options
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminMetaRemoteStorageVaultTest(\Comet\RemoteStorageOption $TemplateOptions): \Comet\APIResponseMessage
+	{
+		$nr = new \Comet\AdminMetaRemoteStorageVaultTestRequest($TemplateOptions);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminMetaRemoteStorageVaultTestRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Get a resource file
 	 * Resources are used to upload files within the server configuration.
 	 * 
