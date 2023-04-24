@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 2023-04-24 v4.7.0
+
+- Based on Comet 23.3.5
+- Support new `AdminDispatcherSearchSnapshots` API to remotely search for files in a Storage Vault
+- Support new `AdminMetaRemoteStorageVaultTest` API to test connections for a Storage Template
+- Support new `AccentColor` and `BrandingStyleType` branding options for the Comet Server web interface
+- New Self-Backup option to include server logs
+- Track creation and modification timestamps for `GroupPolicy` objects
+
 ## 2023-03-23 v4.6.0
 
 - Based on Comet 23.3.1
