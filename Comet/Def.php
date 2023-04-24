@@ -60,6 +60,26 @@ class Def {
 	const BACKUPJOBAUTORETENTION_LESS_OFTEN = 3;
 
 	/**
+	 * @type int
+	 */
+	const BRANDINGSTYLETYPE_AUTO_LEGACY = 0;
+
+	/**
+	 * @type int
+	 */
+	const BRANDINGSTYLETYPE_DEFAULT = 1;
+
+	/**
+	 * @type int
+	 */
+	const BRANDINGSTYLETYPE_CUSTOM_TEXT = 2;
+
+	/**
+	 * @type int
+	 */
+	const BRANDINGSTYLETYPE_CUSTOM_LOGO = 3;
+
+	/**
 	 * ClientBrandingBuildMode: Public-Doc: The software client will be custom-built by this Comet Server, allowing custom branding, default server URL, and codesigning.
 	 *
 	 * @type int

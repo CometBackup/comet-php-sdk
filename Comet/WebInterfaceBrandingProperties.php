@@ -12,6 +12,11 @@ namespace Comet;
 class WebInterfaceBrandingProperties {
 
 	/**
+	 * @var int
+	 */
+	public $BrandingStyleType = 0;
+
+	/**
 	 * @var string
 	 */
 	public $BrandName = "";
@@ -25,6 +30,11 @@ class WebInterfaceBrandingProperties {
 	 * @var string
 	 */
 	public $TopColor = "";
+
+	/**
+	 * @var string
+	 */
+	public $AccentColor = "";
 
 	/**
 	 * @var string
@@ -53,6 +63,9 @@ class WebInterfaceBrandingProperties {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
+		if (property_exists($sc, 'BrandingStyleType')) {
+			$this->BrandingStyleType = (int)($sc->BrandingStyleType);
+		}
 		if (property_exists($sc, 'BrandName')) {
 			$this->BrandName = (string)($sc->BrandName);
 		}
@@ -62,6 +75,9 @@ class WebInterfaceBrandingProperties {
 		if (property_exists($sc, 'TopColor')) {
 			$this->TopColor = (string)($sc->TopColor);
 		}
+		if (property_exists($sc, 'AccentColor')) {
+			$this->AccentColor = (string)($sc->AccentColor);
+		}
 		if (property_exists($sc, 'Favicon')) {
 			$this->Favicon = (string)($sc->Favicon);
 		}
@@ -70,9 +86,11 @@ class WebInterfaceBrandingProperties {
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
+			case 'BrandingStyleType':
 			case 'BrandName':
 			case 'LogoImage':
 			case 'TopColor':
+			case 'AccentColor':
 			case 'Favicon':
 			case 'HideNewsArea':
 				break;
@@ -140,9 +158,11 @@ class WebInterfaceBrandingProperties {
 	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
+		$ret["BrandingStyleType"] = $this->BrandingStyleType;
 		$ret["BrandName"] = $this->BrandName;
 		$ret["LogoImage"] = $this->LogoImage;
 		$ret["TopColor"] = $this->TopColor;
+		$ret["AccentColor"] = $this->AccentColor;
 		$ret["Favicon"] = $this->Favicon;
 		$ret["HideNewsArea"] = $this->HideNewsArea;
 

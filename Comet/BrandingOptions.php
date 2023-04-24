@@ -12,6 +12,11 @@ namespace Comet;
 class BrandingOptions {
 
 	/**
+	 * @var int
+	 */
+	public $BrandingStyleType = 0;
+
+	/**
 	 * @var string
 	 */
 	public $BrandName = "";
@@ -25,6 +30,11 @@ class BrandingOptions {
 	 * @var string
 	 */
 	public $TopColor = "";
+
+	/**
+	 * @var string
+	 */
+	public $AccentColor = "";
 
 	/**
 	 * @var string
@@ -224,6 +234,9 @@ class BrandingOptions {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
+		if (property_exists($sc, 'BrandingStyleType')) {
+			$this->BrandingStyleType = (int)($sc->BrandingStyleType);
+		}
 		if (property_exists($sc, 'BrandName')) {
 			$this->BrandName = (string)($sc->BrandName);
 		}
@@ -232,6 +245,9 @@ class BrandingOptions {
 		}
 		if (property_exists($sc, 'TopColor')) {
 			$this->TopColor = (string)($sc->TopColor);
+		}
+		if (property_exists($sc, 'AccentColor')) {
+			$this->AccentColor = (string)($sc->AccentColor);
 		}
 		if (property_exists($sc, 'Favicon')) {
 			$this->Favicon = (string)($sc->Favicon);
@@ -348,9 +364,11 @@ class BrandingOptions {
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
+			case 'BrandingStyleType':
 			case 'BrandName':
 			case 'LogoImage':
 			case 'TopColor':
+			case 'AccentColor':
 			case 'Favicon':
 			case 'HideNewsArea':
 			case 'ProductName':
@@ -452,9 +470,11 @@ class BrandingOptions {
 	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
+		$ret["BrandingStyleType"] = $this->BrandingStyleType;
 		$ret["BrandName"] = $this->BrandName;
 		$ret["LogoImage"] = $this->LogoImage;
 		$ret["TopColor"] = $this->TopColor;
+		$ret["AccentColor"] = $this->AccentColor;
 		$ret["Favicon"] = $this->Favicon;
 		$ret["HideNewsArea"] = $this->HideNewsArea;
 		$ret["ProductName"] = $this->ProductName;

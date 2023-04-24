@@ -37,6 +37,11 @@ class ServerMetaBrandingProperties {
 	public $TopColor = "";
 
 	/**
+	 * @var string
+	 */
+	public $AccentColor = "";
+
+	/**
 	 * @var boolean
 	 */
 	public $HideNewsArea = false;
@@ -93,6 +98,9 @@ class ServerMetaBrandingProperties {
 		if (property_exists($sc, 'TopColor')) {
 			$this->TopColor = (string)($sc->TopColor);
 		}
+		if (property_exists($sc, 'AccentColor')) {
+			$this->AccentColor = (string)($sc->AccentColor);
+		}
 		if (property_exists($sc, 'HideNewsArea')) {
 			$this->HideNewsArea = (bool)($sc->HideNewsArea);
 		}
@@ -115,6 +123,7 @@ class ServerMetaBrandingProperties {
 			case 'HasImage':
 			case 'ImageEtag':
 			case 'TopColor':
+			case 'AccentColor':
 			case 'HideNewsArea':
 			case 'AllowUnauthenticatedDownloads':
 			case 'AllowAuthenticatedDownloads':
@@ -190,6 +199,7 @@ class ServerMetaBrandingProperties {
 		$ret["HasImage"] = $this->HasImage;
 		$ret["ImageEtag"] = $this->ImageEtag;
 		$ret["TopColor"] = $this->TopColor;
+		$ret["AccentColor"] = $this->AccentColor;
 		$ret["HideNewsArea"] = $this->HideNewsArea;
 		$ret["AllowUnauthenticatedDownloads"] = $this->AllowUnauthenticatedDownloads;
 		$ret["AllowAuthenticatedDownloads"] = $this->AllowAuthenticatedDownloads;
