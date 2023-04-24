@@ -1521,6 +1521,26 @@ class Server {
 	}
 
 	/** 
+	 * Search storage vault snapshots
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetID The live connection GUID
+	 * @param string $DestinationID The Storage Vault GUID
+	 * @param string[] $SnapshotIDs Snapshots to search
+	 * @param \Comet\SearchClause $Filter The search filter
+	 * @return \Comet\SearchSnapshotsResponse 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherSearchSnapshots(string $TargetID, string $DestinationID, array $SnapshotIDs, \Comet\SearchClause $Filter): \Comet\SearchSnapshotsResponse
+	{
+		$nr = new \Comet\AdminDispatcherSearchSnapshotsRequest($TargetID, $DestinationID, $SnapshotIDs, $Filter);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherSearchSnapshotsRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Instruct a live connected device to self-uninstall the software
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
