@@ -52,6 +52,11 @@ class SelfBackupTarget {
 	public $ExcludeJobsDB = false;
 
 	/**
+	 * @var boolean
+	 */
+	public $IncludeServerLogs = false;
+
+	/**
 	 * @var string
 	 */
 	public $RestrictToSingleOrgID = "";
@@ -123,6 +128,9 @@ class SelfBackupTarget {
 		if (property_exists($sc, 'ExcludeJobsDB')) {
 			$this->ExcludeJobsDB = (bool)($sc->ExcludeJobsDB);
 		}
+		if (property_exists($sc, 'IncludeServerLogs')) {
+			$this->IncludeServerLogs = (bool)($sc->IncludeServerLogs);
+		}
 		if (property_exists($sc, 'RestrictToSingleOrgID') && !is_null($sc->RestrictToSingleOrgID)) {
 			$this->RestrictToSingleOrgID = (string)($sc->RestrictToSingleOrgID);
 		}
@@ -139,6 +147,7 @@ class SelfBackupTarget {
 			case 'EncryptionKeyFormat':
 			case 'Compression':
 			case 'ExcludeJobsDB':
+			case 'IncludeServerLogs':
 			case 'RestrictToSingleOrgID':
 			case 'Index':
 				break;
@@ -233,6 +242,7 @@ class SelfBackupTarget {
 		$ret["EncryptionKeyFormat"] = $this->EncryptionKeyFormat;
 		$ret["Compression"] = $this->Compression;
 		$ret["ExcludeJobsDB"] = $this->ExcludeJobsDB;
+		$ret["IncludeServerLogs"] = $this->IncludeServerLogs;
 		$ret["RestrictToSingleOrgID"] = $this->RestrictToSingleOrgID;
 		$ret["Index"] = $this->Index;
 
