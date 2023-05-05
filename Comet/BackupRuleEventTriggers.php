@@ -12,11 +12,16 @@ namespace Comet;
 class BackupRuleEventTriggers {
 
 	/**
+	 * The "When PC Starts" option
+	 *
 	 * @var boolean
 	 */
 	public $OnPCBoot = false;
 
 	/**
+	 * The "If the last job was Missed" option. In Comet 23.12.3 and later, this condition is evaluated
+	 * when the PC starts and/or when the live connection is resumed.
+	 *
 	 * @var boolean
 	 */
 	public $OnPCBootIfLastJobMissed = false;

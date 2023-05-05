@@ -22,11 +22,17 @@ class ServerMetaBrandingProperties {
 	public $ProductName = "";
 
 	/**
+	 * If true, this Comet Server has an image configured for its main logo. You can access it from the
+	 * /gen/logo.img endpoint. If false, this Comet Server has text configured for its main logo.
+	 *
 	 * @var boolean
 	 */
 	public $HasImage = false;
 
 	/**
+	 * A value that will change if the branding image (/gen/logo.img) changes. You can use this as a
+	 * cache key.
+	 *
 	 * @var string
 	 */
 	public $ImageEtag = "";

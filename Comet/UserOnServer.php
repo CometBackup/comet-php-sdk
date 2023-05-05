@@ -12,6 +12,9 @@ namespace Comet;
 class UserOnServer {
 
 	/**
+	 * The server where this user was found. The 0-based indexes here correspond to the entries inside
+	 * ConstellationRoleOptions->Servers.
+	 *
 	 * @var int
 	 */
 	public $ServerID = 0;

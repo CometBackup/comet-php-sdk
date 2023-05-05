@@ -14,7 +14,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "23.3.5";
+	const APPLICATION_VERSION = "23.3.7";
 
 	/**
 	 * @type int
@@ -29,7 +29,7 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 5;
+	const APPLICATION_VERSION_REVISION = 7;
 
 	/**
 	 * AutoRetentionLevel: The system will automatically choose how often to run an automatic Retention Pass after each backup job.
@@ -80,77 +80,77 @@ class Def {
 	const BRANDINGSTYLETYPE_CUSTOM_LOGO = 3;
 
 	/**
-	 * ClientBrandingBuildMode: Public-Doc: The software client will be custom-built by this Comet Server, allowing custom branding, default server URL, and codesigning.
+	 * ClientBrandingBuildMode: The software client will be custom-built by this Comet Server, allowing custom branding, default server URL, and codesigning.
 	 *
 	 * @type int
 	 */
 	const CLIENTBRANDINGBUILD_CUSTOM = 0;
 
 	/**
-	 * ClientBrandingBuildMode: Public-Doc: A pre-built software client will be served, with Comet-branding, no server URL, and Comet codesigning.
+	 * ClientBrandingBuildMode: A pre-built software client will be served, with Comet-branding, no server URL, and Comet codesigning.
 	 *
 	 * @type int
 	 */
 	const CLIENTBRANDINGBUILD_PREBUILT = 1;
 
 	/**
-	 * CompressMode:
+	 * CompressMode
 	 *
 	 * @type int
 	 */
 	const COMPRESS_INVALID = 0;
 
 	/**
-	 * CompressMode:
+	 * CompressMode
 	 *
 	 * @type int
 	 */
 	const COMPRESS_LVL_1 = 1;
 
 	/**
-	 * CompressMode:
+	 * CompressMode
 	 *
 	 * @type int
 	 */
 	const COMPRESS_LVL_2 = 2;
 
 	/**
-	 * CompressMode:
+	 * CompressMode
 	 *
 	 * @type int
 	 */
 	const COMPRESS_LVL_3 = 3;
 
 	/**
-	 * CompressMode:
+	 * CompressMode
 	 *
 	 * @type int
 	 */
 	const COMPRESS_LVL_4 = 4;
 
 	/**
-	 * CompressMode:
+	 * CompressMode
 	 *
 	 * @type int
 	 */
 	const COMPRESS_LVL_5 = 5;
 
 	/**
-	 * CompressMode:
+	 * CompressMode
 	 *
 	 * @type int
 	 */
 	const COMPRESS_MAX = self::COMPRESS_LVL_5;
 
 	/**
-	 * CompressMode:
+	 * CompressMode
 	 *
 	 * @type int
 	 */
 	const COMPRESS_DEFAULT = self::COMPRESS_LVL_4;
 
 	/**
-	 * LanguageCode:
+	 * LanguageCode
 	 *
 	 * @type string
 	 */
@@ -162,21 +162,21 @@ class Def {
 	const DEFAULT_TIMEZONE = "UTC";
 
 	/**
-	 * SftpAuthMode:
+	 * SftpAuthMode
 	 *
 	 * @type int
 	 */
 	const DESTINATION_SFTP_AUTHMODE_NATIVE = 0;
 
 	/**
-	 * SftpAuthMode:
+	 * SftpAuthMode
 	 *
 	 * @type int
 	 */
 	const DESTINATION_SFTP_AUTHMODE_PASSWORD = 1;
 
 	/**
-	 * SftpAuthMode:
+	 * SftpAuthMode
 	 *
 	 * @type int
 	 */
@@ -248,74 +248,84 @@ class Def {
 	const DESTINATIONTYPE_ALL = 1101;
 
 	/**
+	 * The Comet Server is still starting up and has not yet checked whether any email reports are due to be sent.
+	 *
 	 * @type int
 	 */
 	const EMAIL_WORKER_STATE_NOT_STARTED = 0;
 
 	/**
+	 * The Comet Server is still starting up and has not yet checked whether any email reports are due to be sent.
+	 *
 	 * @type int
 	 */
 	const EMAIL_WORKER_STATE_STARTED = 1;
 
 	/**
+	 * The Comet Server is currently searching through email report configuration, to determine when the next email report is due to be sent.
+	 *
 	 * @type int
 	 */
 	const EMAIL_WORKER_STATE_CALCULATING = 2;
 
 	/**
+	 * The Comet Server knows when the next scheduled email report is due to be sent, and is waiting until that time.
+	 *
 	 * @type int
 	 */
 	const EMAIL_WORKER_STATE_WAITING = 3;
 
 	/**
+	 * The Comet Server is currently sending a scheduled email report.
+	 *
 	 * @type int
 	 */
 	const EMAIL_WORKER_STATE_SENDING = 4;
 
 	/**
-	 * EmailDeliveryType:
+	 * EmailDeliveryType: If this is for the top-level Organization, email is disabled. If this is for an Organization, use the parent's email settings.
 	 *
 	 * @type string
 	 */
 	const EMAIL_DELIVERY_INHERIT = "";
 
 	/**
-	 * EmailDeliveryType:
+	 * EmailDeliveryType
 	 *
 	 * @type string
 	 */
 	const EMAIL_DELIVERY_MX_DIRECT = "builtin";
 
 	/**
-	 * EmailDeliveryType:
+	 * EmailDeliveryType
 	 *
 	 * @type string
 	 */
 	const EMAIL_DELIVERY_SMTP = "smtp";
 
 	/**
-	 * EmailDeliveryType:
+	 * EmailDeliveryType
 	 *
 	 * @type string
 	 */
 	const EMAIL_DELIVERY_SMTP_SSL = "smtp-ssl";
 
 	/**
-	 * EmailDeliveryType:
+	 * EmailDeliveryType
 	 *
 	 * @type string
 	 */
 	const EMAIL_DELIVERY_DISABLED = "disabled";
 
 	/**
-	 * EmailDeliveryType: Legacy alias
+	 * EmailDeliveryType: Legacy alias for EMAIL_DELIVERY_MX_DIRECT
 	 *
 	 * @type string
 	 */
 	const EMAIL_DELIVERY_BUILTIN = self::EMAIL_DELIVERY_MX_DIRECT;
 
 	/**
-	 * EmailDeliveryType: changed for clarity
+	 * EmailDeliveryType: Legacy alias for EMAIL_DELIVERY_INHERIT
 	 *
 	 * @type string
 	 * @deprecated 22.12.1 This const has been deprecated since Comet version 22.12.1
@@ -323,28 +333,28 @@ class Def {
 	const EMAIL_DELIVERY_NONE = self::EMAIL_DELIVERY_INHERIT;
 
 	/**
-	 * EmailReportType:
+	 * EmailReportType
 	 *
 	 * @type int
 	 */
 	const EMAILREPORTTYPE_IMMEDIATE = 0;
 
 	/**
-	 * EmailReportType:
+	 * EmailReportType
 	 *
 	 * @type int
 	 */
 	const EMAILREPORTTYPE_SUMMARY = 1;
 
 	/**
-	 * EmailReportType:
+	 * EmailReportType
 	 *
 	 * @type int
 	 */
 	const EMAILREPORTTYPE_GROUPED_STATUS = 2;
 
 	/**
-	 * EmailReportType:
+	 * EmailReportType
 	 *
 	 * @type int
 	 */
@@ -356,109 +366,133 @@ class Def {
 	const ENCRYPTIONMETHOD_UNCONFIGURED = 0;
 
 	/**
+	 * Files and Folders
+	 *
 	 * @type string
 	 */
 	const ENGINE_BUILTIN_FILE = "engine1/file";
 
 	/**
+	 * Program Output
+	 *
 	 * @type string
 	 */
 	const ENGINE_BUILTIN_STDOUT = "engine1/stdout";
 
 	/**
+	 * MySQL
+	 *
 	 * @type string
 	 */
 	const ENGINE_BUILTIN_MYSQL = "engine1/mysql";
 
 	/**
+	 * Windows Server System State
+	 *
 	 * @type string
 	 */
 	const ENGINE_BUILTIN_SYSTEMSTATE = "engine1/systemstate";
 
 	/**
+	 * Microsoft SQL Server
+	 *
 	 * @type string
 	 */
 	const ENGINE_BUILTIN_MSSQL = "engine1/mssql";
 
 	/**
+	 * Windows System Backup
+	 *
 	 * @type string
 	 */
 	const ENGINE_BUILTIN_WINDOWSSYSTEM = "engine1/windowssystem";
 
 	/**
+	 * Microsoft Exchange Server
+	 *
 	 * @type string
 	 */
 	const ENGINE_BUILTIN_EXCHANGEEDB = "engine1/exchangeedb";
 
 	/**
+	 * Application-Aware Writer
+	 *
 	 * @type string
 	 */
 	const ENGINE_BUILTIN_VSSWRITER = "engine1/vsswriter";
 
 	/**
+	 * Microsoft Hyper-V
+	 *
 	 * @type string
 	 */
 	const ENGINE_BUILTIN_HYPERV = "engine1/hyperv";
 
 	/**
+	 * Disk Image
+	 *
 	 * @type string
 	 */
 	const ENGINE_BUILTIN_WINDISK = "engine1/windisk";
 
 	/**
+	 * MongoDB
+	 *
 	 * @type string
 	 */
 	const ENGINE_BUILTIN_MONGODB = "engine1/mongodb";
 
 	/**
+	 * Office 365
+	 *
 	 * @type string
 	 */
 	const ENGINE_BUILTIN_MSOFFICE = "engine1/winmsofficemail";
 
 	/**
-	 * FtpsModeType:
+	 * FtpsModeType
 	 *
 	 * @type int
 	 */
 	const FTPS_MODE_PLAINTEXT = 0;
 
 	/**
-	 * FtpsModeType:
+	 * FtpsModeType
 	 *
 	 * @type int
 	 */
 	const FTPS_MODE_IMPLICIT = 1;
 
 	/**
-	 * FtpsModeType:
+	 * FtpsModeType
 	 *
 	 * @type int
 	 */
 	const FTPS_MODE_EXPLICIT = 2;
 
 	/**
-	 * JobClassification:
+	 * JobClassification
 	 *
 	 * @type int
 	 */
 	const JOB_CLASSIFICATION__MIN = 4000;
 
 	/**
-	 * JobClassification:
+	 * JobClassification
 	 *
 	 * @type int
 	 */
 	const JOB_CLASSIFICATION_UNKNOWN = 4000;
 
 	/**
-	 * JobClassification:
+	 * JobClassification
 	 *
 	 * @type int
 	 */
 	const JOB_CLASSIFICATION_BACKUP = 4001;
 
 	/**
-	 * JobClassification:
+	 * JobClassification
 	 *
 	 * @type int
 	 */
@@ -500,7 +534,7 @@ class Def {
 	const JOB_CLASSIFICATION_UPDATE = 4007;
 
 	/**
-	 * JobClassification:
+	 * JobClassification
 	 *
 	 * @type int
 	 */
@@ -514,7 +548,7 @@ class Def {
 	const JOB_CLASSIFICATION_REINDEX = 4009;
 
 	/**
-	 * JobClassification:
+	 * JobClassification
 	 *
 	 * @type int
 	 */
@@ -528,35 +562,35 @@ class Def {
 	const JOB_CLASSIFICATION_UNINSTALL = 4011;
 
 	/**
-	 * JobClassification:
+	 * JobClassification
 	 *
 	 * @type int
 	 */
 	const JOB_CLASSIFICATION__MAX = 4999;
 
 	/**
-	 * JobStatus:
+	 * JobStatus
 	 *
 	 * @type int
 	 */
 	const JOB_STATUS_STOP_SUCCESS__MIN = 5000;
 
 	/**
-	 * JobStatus:
+	 * JobStatus
 	 *
 	 * @type int
 	 */
 	const JOB_STATUS_STOP_SUCCESS = 5000;
 
 	/**
-	 * JobStatus:
+	 * JobStatus
 	 *
 	 * @type int
 	 */
 	const JOB_STATUS_STOP_SUCCESS__MAX = 5999;
 
 	/**
-	 * JobStatus:
+	 * JobStatus
 	 *
 	 * @type int
 	 */
@@ -570,7 +604,7 @@ class Def {
 	const JOB_STATUS_RUNNING_INDETERMINATE = 6000;
 
 	/**
-	 * JobStatus:
+	 * JobStatus
 	 *
 	 * @type int
 	 */
@@ -584,119 +618,119 @@ class Def {
 	const JOB_STATUS_RUNNING_REVIVED = 6002;
 
 	/**
-	 * JobStatus:
+	 * JobStatus
 	 *
 	 * @type int
 	 */
 	const JOB_STATUS_RUNNING__MAX = 6999;
 
 	/**
-	 * JobStatus:
+	 * JobStatus
 	 *
 	 * @type int
 	 */
 	const JOB_STATUS_FAILED__MIN = 7000;
 
 	/**
-	 * JobStatus:
+	 * JobStatus
 	 *
 	 * @type int
 	 */
 	const JOB_STATUS_FAILED_TIMEOUT = 7000;
 
 	/**
-	 * JobStatus:
+	 * JobStatus
 	 *
 	 * @type int
 	 */
 	const JOB_STATUS_FAILED_WARNING = 7001;
 
 	/**
-	 * JobStatus:
+	 * JobStatus
 	 *
 	 * @type int
 	 */
 	const JOB_STATUS_FAILED_ERROR = 7002;
 
 	/**
-	 * JobStatus:
+	 * JobStatus
 	 *
 	 * @type int
 	 */
 	const JOB_STATUS_FAILED_QUOTA = 7003;
 
 	/**
-	 * JobStatus:
+	 * JobStatus
 	 *
 	 * @type int
 	 */
 	const JOB_STATUS_FAILED_SCHEDULEMISSED = 7004;
 
 	/**
-	 * JobStatus:
+	 * JobStatus
 	 *
 	 * @type int
 	 */
 	const JOB_STATUS_FAILED_CANCELLED = 7005;
 
 	/**
-	 * JobStatus:
+	 * JobStatus
 	 *
 	 * @type int
 	 */
 	const JOB_STATUS_FAILED_SKIPALREADYRUNNING = 7006;
 
 	/**
-	 * JobStatus:
+	 * JobStatus
 	 *
 	 * @type int
 	 */
 	const JOB_STATUS_FAILED_ABANDONED = 7007;
 
 	/**
-	 * JobStatus:
+	 * JobStatus
 	 *
 	 * @type int
 	 */
 	const JOB_STATUS_FAILED__MAX = 7999;
 
 	/**
-	 * LDAPSecurityMethod:
+	 * LDAPSecurityMethod
 	 *
 	 * @type string
 	 */
 	const LDAPSECURITYMETHOD_PLAIN = "plain";
 
 	/**
-	 * LDAPSecurityMethod:
+	 * LDAPSecurityMethod
 	 *
 	 * @type string
 	 */
 	const LDAPSECURITYMETHOD_LDAPS = "ldaps";
 
 	/**
-	 * LDAPSecurityMethod:
+	 * LDAPSecurityMethod
 	 *
 	 * @type string
 	 */
 	const LDAPSECURITYMETHOD_STARTTLS = "starttls";
 
 	/**
-	 * MacOSCodesignLevel:
+	 * MacOSCodesignLevel
 	 *
 	 * @type int
 	 */
 	const MACOSCODESIGN_LEVEL_SIGN = 0;
 
 	/**
-	 * MacOSCodesignLevel:
+	 * MacOSCodesignLevel
 	 *
 	 * @type int
 	 */
 	const MACOSCODESIGN_LEVEL_SIGN_NOTARISE = 1;
 
 	/**
-	 * MacOSCodesignLevel:
+	 * MacOSCodesignLevel
 	 *
 	 * @type int
 	 */
@@ -728,42 +762,42 @@ class Def {
 	const MONGODB_DEFAULT_PORT = 27017;
 
 	/**
-	 * MSSQLAuthMode:
+	 * MSSQLAuthMode
 	 *
 	 * @type string
 	 */
 	const MSSQL_AUTH_WINDOWS = "windows";
 
 	/**
-	 * MSSQLAuthMode:
+	 * MSSQLAuthMode
 	 *
 	 * @type string
 	 */
 	const MSSQL_AUTH_NATIVE = "native";
 
 	/**
-	 * MSSQLMethod:
+	 * MSSQLMethod: On Windows x86_64, use the native x86_64 driver.
 	 *
 	 * @type string
 	 */
 	const MSSQL_METHOD_OLEDB_NATIVE = "OLEDB_NATIVE";
 
 	/**
-	 * MSSQLMethod:
+	 * MSSQLMethod: On Windows x86_64, use an x86_32 OLEDB driver.
 	 *
 	 * @type string
 	 */
 	const MSSQL_METHOD_OLEDB_32 = "OLEDB_32";
 
 	/**
-	 * MSSQLRestoreOpt:
+	 * MSSQLRestoreOpt
 	 *
 	 * @type string
 	 */
 	const MSSQL_RESTORE_RECOVERY = "RECOVERY";
 
 	/**
-	 * MSSQLRestoreOpt:
+	 * MSSQLRestoreOpt
 	 *
 	 * @type string
 	 */
@@ -795,61 +829,63 @@ class Def {
 	const OFFICE365_REGION_US_DOD = "USGovtGccDoDCloud";
 
 	/**
-	 * ExtraFileExclusionOSRestriction:
+	 * ExtraFileExclusionOSRestriction: Applies to any device
 	 *
 	 * @type int
 	 */
 	const OS_ANY = 0;
 
 	/**
-	 * ExtraFileExclusionOSRestriction:
+	 * ExtraFileExclusionOSRestriction: Applies to all Windows devices, regardless of CPU type
 	 *
 	 * @type int
 	 */
 	const OS_ONLY_WINDOWS = 1;
 
 	/**
-	 * ExtraFileExclusionOSRestriction:
+	 * ExtraFileExclusionOSRestriction: Applies to Windows devices with x86_32 CPU
 	 *
 	 * @type int
 	 */
 	const OS_ONLY_WINDOWS_X8632 = 2;
 
 	/**
-	 * ExtraFileExclusionOSRestriction:
+	 * ExtraFileExclusionOSRestriction: Applies to Windows devices with x86_64 CPU
 	 *
 	 * @type int
 	 */
 	const OS_ONLY_WINDOWS_X8664 = 3;
 
 	/**
-	 * ExtraFileExclusionOSRestriction:
+	 * ExtraFileExclusionOSRestriction: Applies to macOS devices, regardless of CPU type
 	 *
 	 * @type int
 	 */
 	const OS_ONLY_MACOS = 4;
 
 	/**
-	 * ExtraFileExclusionOSRestriction:
+	 * ExtraFileExclusionOSRestriction: Applies to Linux devices (including Synology DSM), regardless of CPU type
 	 *
 	 * @type int
 	 */
 	const OS_ONLY_LINUX = 5;
 
 	/**
+	 * When resetting a password with the API, set the PasswordFormat to this value. The Comet Server will re-hash the credential automatically.
+	 *
 	 * @type int
 	 */
 	const PASSWORD_FORMAT_PLAINTEXT = 0;
 
 	/**
-	 * PSAType:
+	 * PSAType
 	 *
 	 * @type int
 	 */
 	const PSA_TYPE_GENERIC = 0;
 
 	/**
-	 * PSAType:
+	 * PSAType
 	 *
 	 * @type int
 	 */
@@ -861,133 +897,133 @@ class Def {
 	const RELEASE_CODENAME = "Voyager";
 
 	/**
-	 * RemoteServerType:
+	 * RemoteServerType
 	 *
 	 * @type string
 	 */
 	const REMOTESERVER_COMET = "comet";
 
 	/**
-	 * RemoteServerType:
+	 * RemoteServerType
 	 *
 	 * @type string
 	 */
 	const REMOTESERVER_LDAP = "ldap";
 
 	/**
-	 * RemoteServerType:
+	 * RemoteServerType
 	 *
 	 * @type string
 	 */
 	const REMOTESERVER_B2 = "b2";
 
 	/**
-	 * RemoteServerType:
+	 * RemoteServerType
 	 *
 	 * @type string
 	 */
 	const REMOTESERVER_WASABI = "wasabi";
 
 	/**
-	 * RemoteServerType:
+	 * RemoteServerType
 	 *
 	 * @type string
 	 */
 	const REMOTESERVER_CUSTOM = "custom";
 
 	/**
-	 * RemoteServerType:
+	 * RemoteServerType
 	 *
 	 * @type string
 	 */
 	const REMOTESERVER_S3_GENERIC = "s3";
 
 	/**
-	 * RemoteServerType:
+	 * RemoteServerType
 	 *
 	 * @type string
 	 */
 	const REMOTESERVER_AWS = "aws";
 
 	/**
-	 * RemoteServerType:
+	 * RemoteServerType
 	 *
 	 * @type string
 	 */
 	const REMOTESERVER_STORJ = "storj";
 
 	/**
-	 * RemoteServerType:
+	 * RemoteServerType
 	 *
 	 * @type string
 	 */
 	const REMOTESERVER_IDRIVEE2 = "idrivee2";
 
 	/**
-	 * ReplicatorState:
+	 * ReplicatorState
 	 *
 	 * @type int
 	 */
 	const REPLICATOR_STATE_NONE = 0;
 
 	/**
-	 * ReplicatorState:
+	 * ReplicatorState
 	 *
 	 * @type int
 	 */
 	const REPLICATOR_STATE_FILE_LIST_WORKER_STARTED = 1;
 
 	/**
-	 * ReplicatorState:
+	 * ReplicatorState
 	 *
 	 * @type int
 	 */
 	const REPLICATOR_STATE_FILE_LIST_SYNC_RUNNING = 2;
 
 	/**
-	 * ReplicatorState:
+	 * ReplicatorState
 	 *
 	 * @type int
 	 */
 	const REPLICATOR_STATE_FILE_LIST_SYNC_FINISHED = 4;
 
 	/**
-	 * ReplicatorState:
+	 * ReplicatorState
 	 *
 	 * @type int
 	 */
 	const REPLICATOR_STATE_WORKERS_STARTED = 8;
 
 	/**
-	 * ReplicatorDisplayClass:
+	 * ReplicatorDisplayClass
 	 *
 	 * @type int
 	 */
 	const REPLICATOR_DISPLAYCLASS_STORAGE = 100;
 
 	/**
-	 * ReplicatorDisplayClass:
+	 * ReplicatorDisplayClass
 	 *
 	 * @type int
 	 */
 	const REPLICATOR_DISPLAYCLASS_USER = 101;
 
 	/**
-	 * RestoreArchiveFormat:
+	 * RestoreArchiveFormat
 	 *
 	 * @type int
 	 */
 	const RESTOREARCHIVEFORMAT_TAR = 0;
 
 	/**
-	 * RestoreArchiveFormat:
+	 * RestoreArchiveFormat
 	 *
 	 * @type int
 	 */
 	const RESTOREARCHIVEFORMAT_TARGZ = 1;
 
 	/**
-	 * RestoreArchiveFormat:
+	 * RestoreArchiveFormat
 	 *
 	 * @type int
 	 */
@@ -1001,105 +1037,105 @@ class Def {
 	const RESTOREARCHIVEFORMAT_SQFS = 3;
 
 	/**
-	 * RestoreArchiveFormat:
+	 * RestoreArchiveFormat
 	 *
 	 * @type int
 	 */
 	const RESTOREARCHIVEFORMAT_TARZSTD = 4;
 
 	/**
-	 * RestoreType:
+	 * RestoreType
 	 *
 	 * @type int
 	 */
 	const RESTORETYPE_INVALID = -1;
 
 	/**
-	 * RestoreType:
+	 * RestoreType
 	 *
 	 * @type int
 	 */
 	const RESTORETYPE_FILE = 0;
 
 	/**
-	 * RestoreType:
+	 * RestoreType
 	 *
 	 * @type int
 	 */
 	const RESTORETYPE_NULL = 1;
 
 	/**
-	 * RestoreType:
+	 * RestoreType
 	 *
 	 * @type int
 	 */
 	const RESTORETYPE_PROCESS_PERFILE = 2;
 
 	/**
-	 * RestoreType:
+	 * RestoreType
 	 *
 	 * @type int
 	 */
 	const RESTORETYPE_PROCESS_ARCHIVE = 3;
 
 	/**
-	 * RestoreType:
+	 * RestoreType
 	 *
 	 * @type int
 	 */
 	const RESTORETYPE_WINDISK = 4;
 
 	/**
-	 * RestoreType:
+	 * RestoreType
 	 *
 	 * @type int
 	 */
 	const RESTORETYPE_FILE_ARCHIVE = 5;
 
 	/**
-	 * RestoreType:
+	 * RestoreType
 	 *
 	 * @type int
 	 */
 	const RESTORETYPE_OFFICE365_CLOUD = 6;
 
 	/**
-	 * RestoreType:
+	 * RestoreType
 	 *
 	 * @type int
 	 */
 	const RESTORETYPE_VMDK_FILE = 7;
 
 	/**
-	 * RestoreType:
+	 * RestoreType
 	 *
 	 * @type int
 	 */
 	const RESTORETYPE_VMDK_FILE_NULL = 8;
 
 	/**
-	 * RestoreType:
+	 * RestoreType
 	 *
 	 * @type int
 	 */
 	const RESTORETYPE_VMDK_FILE_ARCHIVE = 9;
 
 	/**
-	 * RestoreType:
+	 * RestoreType
 	 *
 	 * @type int
 	 */
 	const RESTORETYPE_MYSQL = 10;
 
 	/**
-	 * RestoreType:
+	 * RestoreType
 	 *
 	 * @type int
 	 */
 	const RESTORETYPE_MSSQL = 11;
 
 	/**
-	 * RestoreType: RESTORETYPE_PROCESS_ARCHIVE
+	 * RestoreType: Legacy name alias - Prefer to use RESTORETYPE_PROCESS_ARCHIVE since multiple archive file formats are supported within this single RESTORETYPE_
 	 *
 	 * @type int
 	 */
@@ -1120,7 +1156,7 @@ class Def {
 	const RETENTIONMODE_DELETE_EXCEPT = 802;
 
 	/**
-	 * RetentionRangeType:
+	 * RetentionRangeType
 	 *
 	 * @type int
 	 */
@@ -1155,9 +1191,10 @@ class Def {
 	const RETENTIONRANGE_FIRST_JOB_FOR_EACH_LAST_X_DAYS = 903;
 
 	/**
-	 * RetentionRangeType: Removed
+	 * RetentionRangeType
 	 *
 	 * @type int
+	 * @deprecated 17.2.0 This const has been deprecated since Comet version 17.2.0
 	 */
 	const RETENTIONRANGE__RESERVED904 = 904;
 
@@ -1197,7 +1234,7 @@ class Def {
 	const RETENTIONRANGE_LAST_X_BACKUPS_ONE_FOR_EACH_MONTH = 909;
 
 	/**
-	 * RetentionRangeType:
+	 * RetentionRangeType
 	 *
 	 * @type int
 	 */
@@ -1214,42 +1251,42 @@ class Def {
 	const SCHEDULE_FREQUENCY_LOWEST = 8010;
 
 	/**
-	 * epoch time
+	 * SecondsPast should be a Unix timestamp, in seconds
 	 *
 	 * @type int
 	 */
 	const SCHEDULE_FREQUENCY_ONCEONLY = 8010;
 
 	/**
-	 * seconds past 00:00 local time
+	 * SecondsPast is the number of seconds past 00:00, in the device's local timezone.
 	 *
 	 * @type int
 	 */
 	const SCHEDULE_FREQUENCY_DAILY = 8011;
 
 	/**
-	 * seconds past *:00 local time
+	 * SecondsPast is the number of seconds past *:00, in the device's local timezone.
 	 *
 	 * @type int
 	 */
 	const SCHEDULE_FREQUENCY_HOURLY = 8012;
 
 	/**
-	 * seconds past 00:00 Sunday, local time
+	 * SecondsPast is the number of seconds past 00:00 Sunday, in the device's local timezone.
 	 *
 	 * @type int
 	 */
 	const SCHEDULE_FREQUENCY_WEEKLY = 8013;
 
 	/**
-	 * seconds past 00:00 1st, local time
+	 * SecondsPast is the number of seconds past 00:00 1st, in the device's local timezone.
 	 *
 	 * @type int
 	 */
 	const SCHEDULE_FREQUENCY_MONTHLY = 8014;
 
 	/**
-	 * SecondsPast: number of seconds per period. Offset: Shunt seconds after unix epoch
+	 * SecondsPast is the number of seconds per period. Offset: Shunt seconds after unix epoch
 	 *
 	 * @type int
 	 */
@@ -1268,42 +1305,40 @@ class Def {
 	const SCHEDULE_MAX_RANDOM_DELAY_SECS = 18000;
 
 	/**
-	 * 2^50 (1 << 50)
-	 *
 	 * @type int
 	 */
 	const SCHEDULE_MAXINT = 1125899906842624;
 
 	/**
-	 * SearchClauseType:
+	 * SearchClauseType
 	 *
 	 * @type string
 	 */
 	const SEARCHCLAUSE_RULE = "";
 
 	/**
-	 * SearchClauseType:
+	 * SearchClauseType
 	 *
 	 * @type string
 	 */
 	const SEARCHCLAUSE_AND = "and";
 
 	/**
-	 * SearchClauseType:
+	 * SearchClauseType
 	 *
 	 * @type string
 	 */
 	const SEARCHCLAUSE_OR = "or";
 
 	/**
-	 * SearchClauseType:
+	 * SearchClauseType
 	 *
 	 * @type string
 	 */
 	const SEARCHCLAUSE_NOT_AND = "not_and";
 
 	/**
-	 * SearchClauseType:
+	 * SearchClauseType
 	 *
 	 * @type string
 	 */
@@ -1465,70 +1500,70 @@ class Def {
 	const SERVICE_ONEDRIVE = 16;
 
 	/**
-	 * DefaultSettingMode:
+	 * DefaultSettingMode
 	 *
 	 * @type int
 	 */
 	const SETTING_SYSTEM_DEFAULT = 0;
 
 	/**
-	 * DefaultSettingMode:
+	 * DefaultSettingMode
 	 *
 	 * @type int
 	 */
 	const SETTING_OPTIONAL_DEFAULT_ON = 1;
 
 	/**
-	 * DefaultSettingMode:
+	 * DefaultSettingMode
 	 *
 	 * @type int
 	 */
 	const SETTING_OPTIONAL_DEFAULT_OFF = 2;
 
 	/**
-	 * DefaultSettingMode:
+	 * DefaultSettingMode
 	 *
 	 * @type int
 	 */
 	const SETTING_ENFORCED_ON = 3;
 
 	/**
-	 * DefaultSettingMode:
+	 * DefaultSettingMode
 	 *
 	 * @type int
 	 */
 	const SETTING_ENFORCED_OFF = 4;
 
 	/**
-	 * Severity:
+	 * Severity
 	 *
 	 * @type string
 	 */
 	const SEVERITY_INFO = "I";
 
 	/**
-	 * Severity:
+	 * Severity
 	 *
 	 * @type string
 	 */
 	const SEVERITY_WARNING = "W";
 
 	/**
-	 * Severity:
+	 * Severity
 	 *
 	 * @type string
 	 */
 	const SEVERITY_ERROR = "E";
 
 	/**
-	 * StreamableEventType:
+	 * StreamableEventType
 	 *
 	 * @type int
 	 */
 	const SEVT__MIN = 4000;
 
 	/**
-	 * StreamableEventType: Event is emitted when the webhook is registered, or when the server starts up. The Data associated is ServerMetaVersionInfo
+	 * StreamableEventType: This event is emitted when the webhook is registered, or when the server starts up. The Data associated is ServerMetaVersionInfo
 	 *
 	 * @type int
 	 */
@@ -1556,14 +1591,14 @@ class Def {
 	const SEVT_ACCOUNT_UPDATED = 4102;
 
 	/**
-	 * StreamableEventType:
+	 * StreamableEventType
 	 *
 	 * @type int
 	 */
 	const SEVT_JOB_NEW = 4200;
 
 	/**
-	 * StreamableEventType:
+	 * StreamableEventType
 	 *
 	 * @type int
 	 */
@@ -1577,263 +1612,267 @@ class Def {
 	const SEVT_BUCKET_NEW = 4300;
 
 	/**
-	 * StreamableEventType:
+	 * StreamableEventType
 	 *
 	 * @type int
 	 */
 	const SEVT__MAX = 4999;
 
 	/**
-	 * SSHAuthMode:
+	 * SSHAuthMode
 	 *
 	 * @type int
 	 */
 	const SSHCONNECTION_AUTHMODE__INVALID = 0;
 
 	/**
-	 * SSHAuthMode:
+	 * SSHAuthMode
 	 *
 	 * @type int
 	 */
 	const SSHCONNECTION_AUTHMODE_PASSWORD = 1;
 
 	/**
-	 * SSHAuthMode: n.b. change values
+	 * SSHAuthMode
 	 *
 	 * @type int
 	 */
 	const SSHCONNECTION_AUTHMODE_PRIVATEKEY = 2;
 
 	/**
-	 * StoredObjectType:
+	 * StoredObjectType
 	 *
 	 * @type string
 	 */
 	const STOREDOBJECTTYPE_FILE = "file";
 
 	/**
-	 * StoredObjectType:
+	 * StoredObjectType
 	 *
 	 * @type string
 	 */
 	const STOREDOBJECTTYPE_DIRECTORY = "dir";
 
 	/**
-	 * StoredObjectType:
+	 * StoredObjectType
 	 *
 	 * @type string
 	 */
 	const STOREDOBJECTTYPE_SYMLINK = "symlink";
 
 	/**
-	 * StoredObjectType:
+	 * StoredObjectType
 	 *
 	 * @type string
 	 */
 	const STOREDOBJECTTYPE_UNIXBLOCKDEVICE = "dev";
 
 	/**
-	 * StoredObjectType:
+	 * StoredObjectType
 	 *
 	 * @type string
 	 */
 	const STOREDOBJECTTYPE_UNIXCHARDEVICE = "chardev";
 
 	/**
-	 * StoredObjectType:
+	 * StoredObjectType
 	 *
 	 * @type string
 	 */
 	const STOREDOBJECTTYPE_UNIXFIFO = "fifo";
 
 	/**
-	 * StoredObjectType:
+	 * StoredObjectType
 	 *
 	 * @type string
 	 */
 	const STOREDOBJECTTYPE_UNIXSOCKET = "socket";
 
 	/**
-	 * StoredObjectType:
+	 * StoredObjectType
 	 *
 	 * @type string
 	 */
 	const STOREDOBJECTTYPE_WINEFS = "winefs";
 
 	/**
-	 * StoredObjectType: "file"
+	 * StoredObjectType
 	 *
 	 * @type string
 	 */
 	const STOREDOBJECTTYPE_EMAILMESSAGE = "emailmessage";
 
 	/**
-	 * StoredObjectType: "dir"
+	 * StoredObjectType
 	 *
 	 * @type string
 	 */
 	const STOREDOBJECTTYPE_EMAILFOLDER = "mailfolder";
 
 	/**
-	 * StoredObjectType: "file"
+	 * StoredObjectType
 	 *
 	 * @type string
 	 */
 	const STOREDOBJECTTYPE_OFFICECONTACT = "contact";
 
 	/**
-	 * StoredObjectType: "dir"
+	 * StoredObjectType
 	 *
 	 * @type string
 	 */
 	const STOREDOBJECTTYPE_OFFICECONTACTFOLDER = "contactfolder";
 
 	/**
-	 * StoredObjectType: "file"
+	 * StoredObjectType
 	 *
 	 * @type string
 	 */
 	const STOREDOBJECTTYPE_OFFICECALENDAREVENT = "calendarevent";
 
 	/**
-	 * StoredObjectType: "dir"
+	 * StoredObjectType
 	 *
 	 * @type string
 	 */
 	const STOREDOBJECTTYPE_OFFICECALENDAR = "calendar";
 
 	/**
-	 * StoredObjectType:
+	 * StoredObjectType
 	 *
 	 * @type string
 	 */
 	const STOREDOBJECTTYPE_MSSITE = "mssite";
 
 	/**
-	 * StoredObjectType:
+	 * StoredObjectType
 	 *
 	 * @type string
 	 */
 	const STOREDOBJECTTYPE_MSSITE_TEAM = "mssiteteam";
 
 	/**
-	 * StoredObjectType:
+	 * StoredObjectType
 	 *
 	 * @type string
 	 */
 	const STOREDOBJECTTYPE_MSSITELISTENTITY = "mssitelistentity";
 
 	/**
-	 * StoredObjectType:
+	 * StoredObjectType
 	 *
 	 * @type string
 	 */
 	const STOREDOBJECTTYPE_MSSITEITEMENTITY = "mssiteitementity";
 
 	/**
-	 * StoredObjectType:
+	 * StoredObjectType
 	 *
 	 * @type string
 	 */
 	const STOREDOBJECTTYPE_MSSITELISTDRIVEENTITY = "mssitelistdriveentity";
 
 	/**
-	 * StoredObjectType:
+	 * StoredObjectType
 	 *
 	 * @type string
 	 */
 	const STOREDOBJECTTYPE_VMDK_FILE = "vmdkfile";
 
 	/**
-	 * StoredObjectType:
+	 * StoredObjectType
 	 *
 	 * @type string
 	 */
 	const STOREDOBJECTTYPE_VMDK_DIRECTORY = "vmdkdir";
 
 	/**
-	 * StoredObjectType:
+	 * StoredObjectType
 	 *
 	 * @type string
 	 */
 	const STOREDOBJECTTYPE_VMDK_WINEFS = "vmdkwinefs";
 
 	/**
-	 * StoredObjectType:
+	 * StoredObjectType
 	 *
 	 * @type string
 	 */
 	const STOREDOBJECTTYPE_VMDK_SYMLINK = "vmdksymlink";
 
 	/**
-	 * StoredObjectType:
+	 * StoredObjectType
 	 *
 	 * @type string
 	 */
 	const STOREDOBJECTTYPE_VIRTUALIMAGE_DISK = "virtualimagedisk";
 
 	/**
-	 * StoredObjectType:
+	 * StoredObjectType
 	 *
 	 * @type string
 	 */
 	const STOREDOBJECTTYPE_VHDX_GPT_PARTITION = "vhdxpartitiongpt";
 
 	/**
-	 * StoredObjectType:
+	 * StoredObjectType
 	 *
 	 * @type string
 	 */
 	const STOREDOBJECTTYPE_VHDX_MBR_PARTITION = "vhdxpartitionmbr";
 
 	/**
+	 * If an API response returns in failure, but it includes this value in the CometAPIResponseMessage->Message parameter, it indicates that your supplied authentication was insufficient, and you must supply additional two-factor authentication credentials.
+	 *
 	 * @type string
 	 */
 	const TOTPRequiredError = "ERR_TOTP_REQUIRED";
 
 	/**
-	 * UpdateStatus:
+	 * UpdateStatus
 	 *
 	 * @type int
 	 */
 	const UPDATESTATUS_NOT_SEEN = 0;
 
 	/**
-	 * UpdateStatus:
+	 * UpdateStatus: The selected device does not meet the filter criteria from the Bulk Update Campaign's configuration.
 	 *
 	 * @type int
 	 */
 	const UPDATESTATUS_INELIGIBLE = 1;
 
 	/**
-	 * UpdateStatus:
+	 * UpdateStatus
 	 *
 	 * @type int
 	 */
 	const UPDATESTATUS_PENDING = 2;
 
 	/**
-	 * UpdateStatus:
+	 * UpdateStatus: The device has made a live connection and it meets the filter criteria. A live connection message has been sent asking it to perform the software upgrade.
 	 *
 	 * @type int
 	 */
 	const UPDATESTATUS_REQUEST_MADE = 3;
 
 	/**
-	 * UpdateStatus: Device reconnected with bad version
+	 * UpdateStatus: An update signal was sent to the device, but when it reconnected, it did not advertise the target software version. It's likely that the update failed - please check the device's Update log for more information.
 	 *
 	 * @type int
 	 */
 	const UPDATESTATUS_UPDATE_FAILED = 4;
 
 	/**
-	 * UpdateStatus:
+	 * UpdateStatus: The device has successfully updated to the target version.
 	 *
 	 * @type int
 	 */
 	const UPDATESTATUS_UPDATE_CONFIRMED = 5;
 
 	/**
+	 * If an API response returns in failure, but it includes this value in the CometAPIResponseMessage->Message parameter, it indicates that the specified Device ID was invalid or not found.
+	 *
 	 * @type string
 	 */
 	const UnknownDeviceError = "ERR_UNKNOWN_DEVICE";
@@ -1854,49 +1893,49 @@ class Def {
 	const VhdxPartitonReadErrMsg = "ERR_VHDX_PARTITION";
 
 	/**
-	 * WebAuthnDeviceType:
+	 * WebAuthnDeviceType
 	 *
 	 * @type int
 	 */
 	const WEBAUTHN_DEVICE_TYPE__UNKNOWN = 0;
 
 	/**
-	 * WebAuthnDeviceType:
+	 * WebAuthnDeviceType
 	 *
 	 * @type int
 	 */
 	const WEBAUTHN_DEVICE_TYPE__HARDWARE_TOKEN = 1;
 
 	/**
-	 * WebAuthnDeviceType:
+	 * WebAuthnDeviceType
 	 *
 	 * @type int
 	 */
 	const WEBAUTHN_DEVICE_TYPE__ANDROID = 2;
 
 	/**
-	 * WebAuthnDeviceType:
+	 * WebAuthnDeviceType
 	 *
 	 * @type int
 	 */
 	const WEBAUTHN_DEVICE_TYPE__APPLE = 3;
 
 	/**
-	 * WebAuthnDeviceType:
+	 * WebAuthnDeviceType
 	 *
 	 * @type int
 	 */
 	const WEBAUTHN_DEVICE_TYPE__TPM_GENERIC = 4;
 
 	/**
-	 * WebAuthnDeviceType:
+	 * WebAuthnDeviceType
 	 *
 	 * @type int
 	 */
 	const WEBAUTHN_DEVICE_TYPE__TPM_WINDOWS = 5;
 
 	/**
-	 * WebAuthnDeviceType:
+	 * WebAuthnDeviceType
 	 *
 	 * @type int
 	 */
@@ -1911,28 +1950,28 @@ class Def {
 	const WINDOWSCODESIGN_METHOD_AUTO = 0;
 
 	/**
-	 * WindowsCodesignMethod:
+	 * WindowsCodesignMethod: Do not perform Authenticode codesigning
 	 *
 	 * @type int
 	 */
 	const WINDOWSCODESIGN_METHOD_DISABLED = 1;
 
 	/**
-	 * WindowsCodesignMethod:
+	 * WindowsCodesignMethod: Use a configured PKCS#12 key file for Authenticode codesigning
 	 *
 	 * @type int
 	 */
 	const WINDOWSCODESIGN_METHOD_PKCS12FILE = 2;
 
 	/**
-	 * WindowsCodesignMethod:
+	 * WindowsCodesignMethod: Use a configured PKCS#11 hardware security module (HSM) for Authenticode codesigning
 	 *
 	 * @type int
 	 */
 	const WINDOWSCODESIGN_METHOD_PKCS11HSM = 3;
 
 	/**
-	 * WindowsCodesignMethod:
+	 * WindowsCodesignMethod: Use a configured Azure Key Vault for Authenticode codesigning
 	 *
 	 * @type int
 	 */

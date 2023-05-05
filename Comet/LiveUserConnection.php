@@ -22,36 +22,54 @@ class LiveUserConnection {
 	public $DeviceID = "";
 
 	/**
+	 * The Comet Backup software version that this live-connected device reports that it is running. It
+	 * takes the format "MAJOR.MINOR.PATCH", such as "23.2.0". See the APPLICATION_VERSION constant for
+	 * more information.
+	 *
 	 * @var string
 	 */
 	public $ReportedVersion = "";
 
 	/**
+	 * The operating system of the device. It is one of the PLATFORM_ constants; then a forwardslash
+	 * (/); then the device's GOARCH.
+	 *
 	 * @var string
 	 */
 	public $ReportedPlatform = "";
 
 	/**
+	 * The operating system of the device, in extended detail.
+	 *
 	 * @var \Comet\OSInfo
 	 */
 	public $ReportedPlatformVersion = null;
 
 	/**
+	 * The reported timezone of the device, in IANA format.
+	 *
 	 * @var string
 	 */
 	public $DeviceTimeZone = "";
 
 	/**
+	 * The live-connected device's remote IP address, as seen from the Comet Server.
+	 *
 	 * @var string
 	 */
 	public $IPAddress = "";
 
 	/**
+	 * Unix timestamp, in seconds.
+	 *
 	 * @var int
 	 */
 	public $ConnectionTime = 0;
 
 	/**
+	 * The current state of the "Allow administrator to view my files" client-side option. If this
+	 * option is refused, some live-connected actions will be refused by the device.
+	 *
 	 * @var boolean
 	 */
 	public $AllowsFilenames = false;

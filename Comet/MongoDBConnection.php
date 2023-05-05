@@ -37,6 +37,9 @@ class MongoDBConnection {
 	public $AuthenticationDB = "";
 
 	/**
+	 * Prior to Comet 22.12.3, must be a filesystem path to `mongo` (n.b. not `mongosh`). In Comet >=
+	 * 22.12.3, not used.
+	 *
 	 * @var string
 	 * @deprecated 22.12.3 This member has been deprecated since Comet version 22.12.3
 	 */

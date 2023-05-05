@@ -12,11 +12,15 @@ namespace Comet;
 class TimeSpan {
 
 	/**
+	 * SCHEDULE_FREQUENCY_<TYPE>
+	 *
 	 * @var int
 	 */
 	public $FrequencyType = 0;
 
 	/**
+	 * Used for Periodic and Once Only
+	 *
 	 * @var int
 	 */
 	public $Seconds = 0;

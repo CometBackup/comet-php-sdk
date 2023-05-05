@@ -9,14 +9,22 @@
 
 namespace Comet;
 
+/**
+ * UninstallConfig allows configuring whether the target device will be uninstalled or not.
+ */
 class UninstallConfig {
 
 	/**
+	 * If this option is true, the target device will receive a message asking it to uninstall the Comet
+	 * Backup app.
+	 *
 	 * @var boolean
 	 */
 	public $UninstallFlag = false;
 
 	/**
+	 * This controls the "Remove all user settings from this device" option.
+	 *
 	 * @var boolean
 	 */
 	public $RemoveConfigFile = false;

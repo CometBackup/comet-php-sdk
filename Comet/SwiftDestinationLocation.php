@@ -12,11 +12,16 @@ namespace Comet;
 class SwiftDestinationLocation {
 
 	/**
+	 * Username or UserID or Application Credential name or Application Credential ID, or blank for
+	 * token authentication
+	 *
 	 * @var string
 	 */
 	public $Username = "";
 
 	/**
+	 * User Password, or Application Credential Key, or token if the Username field is blank
+	 *
 	 * @var string
 	 */
 	public $APIKey = "";
@@ -27,6 +32,8 @@ class SwiftDestinationLocation {
 	public $Region = "";
 
 	/**
+	 * Mandatory
+	 *
 	 * @var string
 	 */
 	public $AuthURL = "";
@@ -37,11 +44,15 @@ class SwiftDestinationLocation {
 	public $Domain = "";
 
 	/**
+	 * Tenant name (v2) or Project name (v3)
+	 *
 	 * @var string
 	 */
 	public $Tenant = "";
 
 	/**
+	 * Project domain name (v3)
+	 *
 	 * @var string
 	 */
 	public $TenantDomain = "";
@@ -58,6 +69,7 @@ class SwiftDestinationLocation {
 
 	/**
 	 * @var string
+	 * @deprecated 17.8.0 This member has been deprecated since Comet version 17.8.0
 	 */
 	public $AuthToken = "";
 

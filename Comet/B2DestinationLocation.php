@@ -12,11 +12,15 @@ namespace Comet;
 class B2DestinationLocation {
 
 	/**
+	 * Key ID
+	 *
 	 * @var string
 	 */
 	public $AccountID = "";
 
 	/**
+	 * Application Key
+	 *
 	 * @var string
 	 */
 	public $Key = "";
@@ -38,6 +42,10 @@ class B2DestinationLocation {
 	public $MaxConnections = 0;
 
 	/**
+	 * Hide files instead of deleting them. This can be used for ransomware protection if (A) the B2
+	 * credentials have the hideFile permission but not the deleteFile permission, and (B) you use the
+	 * Backblaze B2 server-side lifecycle policies to clean up old hidden files.
+	 *
 	 * @var boolean
 	 */
 	public $HideDeletedFiles = false;

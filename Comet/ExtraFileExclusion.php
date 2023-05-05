@@ -12,16 +12,23 @@ namespace Comet;
 class ExtraFileExclusion {
 
 	/**
+	 * The glob or regular expression to exclude from backup jobs
+	 *
 	 * @var string
 	 */
 	public $Exclude = "";
 
 	/**
+	 * Choose whether the 'Exclude' parameter will be treated as a regular expression (true) or a glob
+	 * (false)
+	 *
 	 * @var boolean
 	 */
 	public $Regex = false;
 
 	/**
+	 * Either OS_ANY or one of the OS_ONLY constants
+	 *
 	 * @var int
 	 */
 	public $RestrictOS = 0;

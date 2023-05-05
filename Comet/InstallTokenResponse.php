@@ -12,6 +12,8 @@ namespace Comet;
 class InstallTokenResponse {
 
 	/**
+	 * If the operation was successful, the status will be in the 200-299 range.
+	 *
 	 * @var int
 	 */
 	public $Status = 0;

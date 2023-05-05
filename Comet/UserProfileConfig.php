@@ -15,21 +15,32 @@ namespace Comet;
 class UserProfileConfig {
 
 	/**
+	 * The name for this account. It uniquely identifies this UserProfileConfig across the entire Comet
+	 * Server. It cannot be changed directly.
+	 *
 	 * @var string
 	 */
 	public $Username = "";
 
 	/**
+	 * A longer descriptive name for this account. It is not necessarily unique to the Comet Server. The
+	 * end-user might be able to change it inside the Comet Backup desktop app.
+	 *
 	 * @var string
 	 */
 	public $AccountName = "";
 
 	/**
+	 * Timezone in IANA format. Individual devices may declare a more specific timezone in the Devices
+	 * field.
+	 *
 	 * @var string
 	 */
 	public $LocalTimezone = "";
 
 	/**
+	 * One of the supported languages, such as en_US (DEFAULT_LANGUAGE).
+	 *
 	 * @var string
 	 */
 	public $LanguageCode = "";
@@ -42,16 +53,24 @@ class UserProfileConfig {
 	public $OrganizationID = "";
 
 	/**
+	 * A list of email addresses to send reports to.
+	 *
 	 * @var string[]
 	 */
 	public $Emails = [];
 
 	/**
+	 * By default, all the email addresses in the Emails field will receieve the policy-default or
+	 * server-wide-default style of email report. Add an override for a specific email address in here
+	 * to allow customizing the email report that will be received.
+	 *
 	 * @var \Comet\UserCustomEmailSettings[] An array with string keys.
 	 */
 	public $OverrideEmailSettings = [];
 
 	/**
+	 * This option can be used to control whether any email reports are sent.
+	 *
 	 * @var boolean
 	 */
 	public $SendEmailReports = false;
@@ -71,11 +90,18 @@ class UserProfileConfig {
 	public $Sources = [];
 
 	/**
+	 * Schedules
+	 *
 	 * @var \Comet\BackupRuleConfig[] An array with string keys.
 	 */
 	public $BackupRules = [];
 
 	/**
+	 * Devices
+	 * To revoke a device, use the AdminRevokeDevice API instead of accessing these fields directly.
+	 * This API can also remove associated Protected Items, uninstall the remote device, and disconnect
+	 * its live connection.
+	 *
 	 * @var \Comet\DeviceConfig[] An array with string keys.
 	 */
 	public $Devices = [];
@@ -86,26 +112,40 @@ class UserProfileConfig {
 	public $IsSuspended = false;
 
 	/**
+	 * Unix timestamp in seconds. Zero if the device is not suspended.
+	 *
 	 * @var int
 	 */
 	public $LastSuspended = 0;
 
 	/**
+	 * A limit on the total Size of all Protected Items in this account. The number of bytes should be
+	 * configured in AllProtectedItemsQuotaBytes.
+	 *
 	 * @var boolean
 	 */
 	public $AllProtectedItemsQuotaEnabled = false;
 
 	/**
+	 * A limit on the total Size of all Protected Items in this account. It is enforced if
+	 * AllProtectedItemsQuotaEnabled is true.
+	 *
 	 * @var int
 	 */
 	public $AllProtectedItemsQuotaBytes = 0;
 
 	/**
+	 * A limit on the total number of devices registered in this account. Set to zero to allow unlimited
+	 * devices.
+	 *
 	 * @var int
 	 */
 	public $MaximumDevices = 0;
 
 	/**
+	 * A limit on the total number of Office 365 Protected Accounts across all Office 365 Protected
+	 * Items in this account. Set to zero to allow unlimited Office 365 Protected Accounts.
+	 *
 	 * @var int
 	 */
 	public $QuotaOffice365ProtectedAccounts = 0;
@@ -120,6 +160,9 @@ class UserProfileConfig {
 	public $PolicyID = "";
 
 	/**
+	 * The Policy field contains a read-only copy of the effective Policy that is applied to this user
+	 * account.
+	 *
 	 * @var \Comet\UserPolicy
 	 */
 	public $Policy = null;
@@ -138,6 +181,10 @@ class UserProfileConfig {
 	public $PasswordHash = "";
 
 	/**
+	 * If this field is empty, the "Allow administrator to reset my password" feature is turned off. If
+	 * this field is filled, it contains a cryptographic root of trust that can decrypt and re-encrypt
+	 * other secrets in this profile.
+	 *
 	 * @var string
 	 */
 	public $PasswordRecovery = "";
@@ -164,20 +211,28 @@ class UserProfileConfig {
 
 	/**
 	 * @var boolean
+	 * This field is available in Comet 20.3.4 and later.
 	 */
 	public $RequirePasswordChange = false;
 
 	/**
+	 * Unix timestamp in seconds
+	 *
 	 * @var int
 	 */
 	public $CreateTime = 0;
 
 	/**
+	 * A random GUID that is allocated when the user profile is created for the first time. You can use
+	 * this to help disambiguate users with the same username across multiple Comet Servers.
+	 *
 	 * @var string
 	 */
 	public $CreationGUID = "";
 
 	/**
+	 * Additional server-wide settings that are enforced for this user profile
+	 *
 	 * @var \Comet\UserServerConfig
 	 */
 	public $ServerConfig = null;

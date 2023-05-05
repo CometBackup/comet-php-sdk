@@ -22,6 +22,8 @@ class BackupJobProgress {
 	public $SentTime = 0;
 
 	/**
+	 * The typo is preserved for backwards-compatibility reasons.
+	 *
 	 * @var int
 	 */
 	public $RecievedTime = 0;

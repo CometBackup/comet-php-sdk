@@ -27,6 +27,8 @@ class AzureDestinationLocation {
 	public $AZBContainer = "";
 
 	/**
+	 * The base URL for the Azure Blob Storage service. Leave blank to use the global default URL.
+	 *
 	 * @var string
 	 */
 	public $AZBRealm = "";

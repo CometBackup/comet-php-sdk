@@ -22,16 +22,23 @@ class DeviceConfig {
 	public $RegistrationTime = 0;
 
 	/**
+	 * The operating system that the device uses.
+	 *
 	 * @var \Comet\OSInfo
 	 */
 	public $PlatformVersion = null;
 
 	/**
+	 * Minimal information about the device's private Protected Items, so that other devices can safely
+	 * run retention passes on a shared Storage Vault.
+	 *
 	 * @var \Comet\SourceBasicInfo[] An array with string keys.
 	 */
 	public $Sources = [];
 
 	/**
+	 * The device's reported timezone in IANA format.
+	 *
 	 * @var string
 	 */
 	public $DeviceTimezone = "";

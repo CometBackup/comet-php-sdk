@@ -37,6 +37,8 @@ class FTPDestinationLocation {
 	public $FTPCustomBaseDirectory = "";
 
 	/**
+	 * One of the FTPS_MODE_ constants.
+	 *
 	 * @var int
 	 */
 	public $FTPSMode = 0;

@@ -15,11 +15,15 @@ namespace Comet;
 class JobEntry {
 
 	/**
+	 * Unix timestamp in seconds
+	 *
 	 * @var int
 	 */
 	public $Time = 0;
 
 	/**
+	 * One of the SEVERITY_ constants.
+	 *
 	 * @var string
 	 */
 	public $Severity = "";

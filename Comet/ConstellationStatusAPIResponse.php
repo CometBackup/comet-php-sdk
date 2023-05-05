@@ -23,6 +23,7 @@ class ConstellationStatusAPIResponse {
 
 	/**
 	 * @var string[]
+	 * This field is available in Comet 18.6.2 and later.
 	 */
 	public $TargetNames = [];
 

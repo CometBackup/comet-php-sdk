@@ -38,6 +38,7 @@ class ServerMetaVersionInfo {
 
 	/**
 	 * @var boolean
+	 * @deprecated 18.2.0 "Overseer Role" was the old name for the Constellation Role. This field is a duplicate of ConstellationRole for backward compatibility with earlier API consumers. This member has been deprecated since Comet version 18.2.0 "Overseer Role" was the old name for the Constellation Role. This field is a duplicate of ConstellationRole for backward compatibility with earlier API consumers.
 	 */
 	public $ConstellationRole_Legacy = false;
 
@@ -52,21 +53,32 @@ class ServerMetaVersionInfo {
 	public $ExperimentalOptions = [];
 
 	/**
+	 * Unix timestamp, in seconds.
+	 *
 	 * @var int
 	 */
 	public $ServerStartTime = 0;
 
 	/**
+	 * A GUID that was randomly generated when this Comet Server started up. You can check this value to
+	 * see if the Comet Server has restarted.
+	 *
 	 * @var string
 	 */
 	public $ServerStartHash = "";
 
 	/**
+	 * The current time on the Comet Server host machine. Unix timestamp, in seconds. You can check this
+	 * value to see if clock drift is occuring.
+	 *
 	 * @var int
 	 */
 	public $CurrentTime = 0;
 
 	/**
+	 * A hash derived from the Comet Server's serial number. You can check this value to see if two
+	 * Comet Server endpoints point to an identical server.
+	 *
 	 * @var string
 	 */
 	public $ServerLicenseHash = "";

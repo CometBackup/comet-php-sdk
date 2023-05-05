@@ -32,21 +32,29 @@ class BackupJobDetail {
 	public $Status = 0;
 
 	/**
+	 * Unix timestamp in seconds
+	 *
 	 * @var int
 	 */
 	public $StartTime = 0;
 
 	/**
+	 * Unix timestamp in seconds. Will be zero if the job is still running.
+	 *
 	 * @var int
 	 */
 	public $EndTime = 0;
 
 	/**
+	 * The Protected Item that this job is for
+	 *
 	 * @var string
 	 */
 	public $SourceGUID = "";
 
 	/**
+	 * The Storage Vault that this job is for
+	 *
 	 * @var string
 	 */
 	public $DestinationGUID = "";
@@ -97,31 +105,43 @@ class BackupJobDetail {
 	public $DownloadSize = 0;
 
 	/**
+	 * For Hyper-V and VMware backup jobs, the total number of virtual machines.
+	 *
 	 * @var int
 	 */
 	public $TotalVmCount = 0;
 
 	/**
+	 * For Office 365 backup jobs, the total number of mailboxes.
+	 *
 	 * @var int
 	 */
 	public $TotalMailsCount = 0;
 
 	/**
+	 * For Office 365 backup jobs, the total number of SharePoint sites.
+	 *
 	 * @var int
 	 */
 	public $TotalSitesCount = 0;
 
 	/**
+	 * For Office 365 backup jobs, the calculated effective number of protected accounts.
+	 *
 	 * @var int
 	 */
 	public $TotalAccountsCount = 0;
 
 	/**
+	 * For Office 365 backup jobs, the number of licensed mailboxes.
+	 *
 	 * @var int
 	 */
 	public $TotalLicensedMailsCount = 0;
 
 	/**
+	 * For Office 365 backup jobs, the number of unlicensed mailboxes.
+	 *
 	 * @var int
 	 */
 	public $TotalUnlicensedMailsCount = 0;
@@ -132,16 +152,23 @@ class BackupJobDetail {
 	public $CancellationID = "";
 
 	/**
+	 * If this backup job is still running, additional partial-progress information may be present in
+	 * this field.
+	 *
 	 * @var \Comet\BackupJobProgress
 	 */
 	public $Progress = null;
 
 	/**
+	 * The size of the Storage Vault, as measured at the start of the job.
+	 *
 	 * @var \Comet\SizeMeasurement
 	 */
 	public $DestinationSizeStart = null;
 
 	/**
+	 * The size of the Storage Vault, as measured at the end of the job.
+	 *
 	 * @var \Comet\SizeMeasurement
 	 */
 	public $DestinationSizeEnd = null;

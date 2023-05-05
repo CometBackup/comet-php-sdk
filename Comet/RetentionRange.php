@@ -42,6 +42,8 @@ class RetentionRange {
 	public $Months = 0;
 
 	/**
+	 * 0: Sunday, 6: Saturday
+	 *
 	 * @var int
 	 */
 	public $WeekOffset = 0;

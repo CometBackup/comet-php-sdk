@@ -22,6 +22,8 @@ class EmailOptions {
 	public $FromName = "";
 
 	/**
+	 * One of the EMAIL_DELIVERY_ constants
+	 *
 	 * @var string
 	 */
 	public $Mode = "";

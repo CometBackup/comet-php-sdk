@@ -22,6 +22,8 @@ class SSHConnection {
 	public $SSHUsername = "";
 
 	/**
+	 * One of the SSHCONNECTION_AUTHMODE_ constants
+	 *
 	 * @var int
 	 */
 	public $SSHAuthMode = 0;

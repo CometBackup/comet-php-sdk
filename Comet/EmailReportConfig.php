@@ -12,16 +12,22 @@ namespace Comet;
 class EmailReportConfig {
 
 	/**
+	 * One of the EMAILREPORTTYPE_ constants
+	 *
 	 * @var int
 	 */
 	public $ReportType = 0;
 
 	/**
+	 * Used as a list of scheduled times to send
+	 *
 	 * @var \Comet\ScheduleConfig[]
 	 */
 	public $SummaryFrequency = [];
 
 	/**
+	 * Used to the determine the time bounds of a report
+	 *
 	 * @var \Comet\TimeSpan
 	 */
 	public $TimeSpan = null;

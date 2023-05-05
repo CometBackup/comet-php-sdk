@@ -17,6 +17,9 @@ class BucketUsageInfo {
 	public $AccessKey = "";
 
 	/**
+	 * The servers where this bucket was found. The 0-based indexes here correspond to the entries
+	 * inside ConstellationRoleOptions->Servers.
+	 *
 	 * @var int[]
 	 */
 	public $ExistsOnServers = [];

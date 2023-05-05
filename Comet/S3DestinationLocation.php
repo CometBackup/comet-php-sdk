@@ -47,6 +47,8 @@ class S3DestinationLocation {
 	public $S3CustomRegion = "";
 
 	/**
+	 * If true, use legacy v2 signing. If false (default), use modern v4 signing
+	 *
 	 * @var boolean
 	 */
 	public $S3UsesV2Signing = false;

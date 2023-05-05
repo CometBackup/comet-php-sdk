@@ -67,6 +67,8 @@ class DestinationLocation {
 	public $S3CustomRegion = "";
 
 	/**
+	 * If true, use legacy v2 signing. If false (default), use modern v4 signing
+	 *
 	 * @var boolean
 	 */
 	public $S3UsesV2Signing = false;
@@ -97,6 +99,8 @@ class DestinationLocation {
 	public $SFTPRemotePath = "";
 
 	/**
+	 * One of the DESTINATION_SFTP_AUTHMODE_ constants
+	 *
 	 * @var int
 	 */
 	public $SFTPAuthMode = 0;
@@ -147,6 +151,8 @@ class DestinationLocation {
 	public $FTPCustomBaseDirectory = "";
 
 	/**
+	 * One of the FTPS_MODE_ constants.
+	 *
 	 * @var int
 	 */
 	public $FTPSMode = 0;
@@ -182,6 +188,8 @@ class DestinationLocation {
 	public $AZBContainer = "";
 
 	/**
+	 * The base URL for the Azure Blob Storage service. Leave blank to use the global default URL.
+	 *
 	 * @var string
 	 */
 	public $AZBRealm = "";

@@ -32,11 +32,17 @@ class UpdateCampaignProperties {
 	public $DowngradeNewer = false;
 
 	/**
+	 * Choose whether this bulk upgrade campaign is allowed to interrupt a running backup job.
+	 *
 	 * @var boolean
 	 */
 	public $ForceUpgradeRunning = false;
 
 	/**
+	 * If true, then the UserFilter will be used to restrict which accounts and devices will be eligible
+	 * for the software update. If false, all users and devices will be eligible for the software
+	 * update.
+	 *
 	 * @var boolean
 	 */
 	public $ApplyDeviceFilter = false;

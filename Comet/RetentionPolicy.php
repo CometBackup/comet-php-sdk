@@ -12,6 +12,8 @@ namespace Comet;
 class RetentionPolicy {
 
 	/**
+	 * One of the RETENTIONMODE_ constants
+	 *
 	 * @var int
 	 */
 	public $Mode = 0;

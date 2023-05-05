@@ -32,6 +32,12 @@ class ServerConfigOptions {
 	public $ConstellationRole = null;
 
 	/**
+	 * This field is defined for compatibility with 17.x.x versions of Comet Server. Do not rely on this
+	 * field. In Comet 23.2.x, if this field is defined, it is imported into the replacement
+	 * 'ConstellationRole' field under the assumption that you are upgrading this Comet Server from a
+	 * 17.x.x version. In Comet 23.3.x and later, this field is ignored and will not be respected during
+	 * the import process.
+	 *
 	 * @var \Comet\ConstellationRoleOptions
 	 */
 	public $ConstellationRole_Legacy = null;

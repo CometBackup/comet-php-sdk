@@ -27,16 +27,22 @@ class DestinationConfig {
 	public $ModifyTime = 0;
 
 	/**
+	 * Custom commands to run before the job
+	 *
 	 * @var string[]
 	 */
 	public $PreExec = [];
 
 	/**
+	 * Custom commands to run after taking a disk snapshot
+	 *
 	 * @var string[]
 	 */
 	public $ThawExec = [];
 
 	/**
+	 * Custom commands to run after the job
+	 *
 	 * @var string[]
 	 */
 	public $PostExec = [];
@@ -97,6 +103,8 @@ class DestinationConfig {
 	public $S3CustomRegion = "";
 
 	/**
+	 * If true, use legacy v2 signing. If false (default), use modern v4 signing
+	 *
 	 * @var boolean
 	 */
 	public $S3UsesV2Signing = false;
@@ -127,6 +135,8 @@ class DestinationConfig {
 	public $SFTPRemotePath = "";
 
 	/**
+	 * One of the DESTINATION_SFTP_AUTHMODE_ constants
+	 *
 	 * @var int
 	 */
 	public $SFTPAuthMode = 0;
@@ -177,6 +187,8 @@ class DestinationConfig {
 	public $FTPCustomBaseDirectory = "";
 
 	/**
+	 * One of the FTPS_MODE_ constants.
+	 *
 	 * @var int
 	 */
 	public $FTPSMode = 0;
@@ -212,6 +224,8 @@ class DestinationConfig {
 	public $AZBContainer = "";
 
 	/**
+	 * The base URL for the Azure Blob Storage service. Leave blank to use the global default URL.
+	 *
 	 * @var string
 	 */
 	public $AZBRealm = "";
@@ -267,6 +281,8 @@ class DestinationConfig {
 	public $SpanUseStaticSlots = false;
 
 	/**
+	 * One of the ENCRYPTIONMETHOD_ constants
+	 *
 	 * @var int
 	 */
 	public $EncryptionKeyEncryptionMethod = 0;
@@ -277,16 +293,23 @@ class DestinationConfig {
 	public $EncryptedEncryptionKey = "";
 
 	/**
+	 * Unix timestamp in seconds. If zero, the Storage Vault has not yet been initialized for the first
+	 * time.
+	 *
 	 * @var int
 	 */
 	public $RepoInitTimestamp = 0;
 
 	/**
+	 * Storage Vault quota
+	 *
 	 * @var boolean
 	 */
 	public $StorageLimitEnabled = false;
 
 	/**
+	 * Storage Vault quota
+	 *
 	 * @var int
 	 */
 	public $StorageLimitBytes = 0;
@@ -302,6 +325,8 @@ class DestinationConfig {
 	public $DefaultRetention = null;
 
 	/**
+	 * The "Prevent users from viewing the actual storage type" option
+	 *
 	 * @var boolean
 	 */
 	public $RebrandStorage = false;

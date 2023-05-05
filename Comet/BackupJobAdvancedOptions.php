@@ -17,31 +17,43 @@ class BackupJobAdvancedOptions {
 	public $SkipAlreadyRunning = false;
 
 	/**
+	 * If Zero: disabled
+	 *
 	 * @var int
 	 */
 	public $StopAfter = 0;
 
 	/**
+	 * If Zero: disabled
+	 *
 	 * @var int
 	 */
 	public $LimitVaultSpeedBps = 0;
 
 	/**
+	 * Default disabled
+	 *
 	 * @var boolean
 	 */
 	public $ReduceDiskConcurrency = false;
 
 	/**
+	 * Default disabled
+	 *
 	 * @var boolean
 	 */
 	public $UseOnDiskIndexes = false;
 
 	/**
+	 * Default disabled
+	 *
 	 * @var boolean
 	 */
 	public $AllowZeroFilesSuccess = false;
 
 	/**
+	 * If Zero: default Automatic (BACKUPJOBAUTORETENTION_AUTOMATIC)
+	 *
 	 * @var int
 	 */
 	public $AutoRetentionLevel = 0;

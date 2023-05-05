@@ -9,6 +9,10 @@
 
 namespace Comet;
 
+/**
+ * A backup rule connects one source Protected Item and one destination Storage Vault, with multiple
+ * time schedules or event triggers
+ */
 class BackupRuleConfig {
 
 	/**
@@ -17,26 +21,36 @@ class BackupRuleConfig {
 	public $Description = "";
 
 	/**
+	 * Unix timestamp in seconds
+	 *
 	 * @var int
 	 */
 	public $CreateTime = 0;
 
 	/**
+	 * Unix timestamp in seconds. The caller is responsible for updating this themselves.
+	 *
 	 * @var int
 	 */
 	public $ModifyTime = 0;
 
 	/**
+	 * Custom commands to run before the job
+	 *
 	 * @var string[]
 	 */
 	public $PreExec = [];
 
 	/**
+	 * Custom commands to run after taking a disk snapshot
+	 *
 	 * @var string[]
 	 */
 	public $ThawExec = [];
 
 	/**
+	 * Custom commands to run after the job
+	 *
 	 * @var string[]
 	 */
 	public $PostExec = [];
@@ -57,31 +71,43 @@ class BackupRuleConfig {
 	public $SkipAlreadyRunning = false;
 
 	/**
+	 * If Zero: disabled
+	 *
 	 * @var int
 	 */
 	public $StopAfter = 0;
 
 	/**
+	 * If Zero: disabled
+	 *
 	 * @var int
 	 */
 	public $LimitVaultSpeedBps = 0;
 
 	/**
+	 * Default disabled
+	 *
 	 * @var boolean
 	 */
 	public $ReduceDiskConcurrency = false;
 
 	/**
+	 * Default disabled
+	 *
 	 * @var boolean
 	 */
 	public $UseOnDiskIndexes = false;
 
 	/**
+	 * Default disabled
+	 *
 	 * @var boolean
 	 */
 	public $AllowZeroFilesSuccess = false;
 
 	/**
+	 * If Zero: default Automatic (BACKUPJOBAUTORETENTION_AUTOMATIC)
+	 *
 	 * @var int
 	 */
 	public $AutoRetentionLevel = 0;

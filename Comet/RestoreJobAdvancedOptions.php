@@ -17,86 +17,121 @@ class RestoreJobAdvancedOptions {
 	public $Type = 0;
 
 	/**
+	 * For RESTORETYPE_FILE
+	 *
 	 * @var boolean
 	 */
 	public $OverwriteExistingFiles = false;
 
 	/**
+	 * For RESTORETYPE_FILE. If set, OverwriteExistingFiles must be true
+	 *
 	 * @var boolean
 	 */
 	public $OverwriteIfNewer = false;
 
 	/**
+	 * For RESTORETYPE_FILE. If set, DestPath must be blank
+	 *
 	 * @var boolean
 	 */
 	public $DestIsOriginalLocation = false;
 
 	/**
+	 * For RESTORETYPE_FILE or RESTORETYPE_PROCESS_xxx
+	 *
 	 * @var string
 	 */
 	public $DestPath = "";
 
 	/**
+	 * For RESTORETYPE_WINDISK only. Must have one entry for each selected restore path
+	 *
 	 * @var string[]
 	 */
 	public $ExactDestPaths = [];
 
 	/**
+	 * For RESTORETYPE_FILE_ARCHIVE or RESTORETYPE_PROCESS_ARCHIVE. Default 0 is *.tar, for backward
+	 * compatibility
+	 *
 	 * @var int
 	 */
 	public $ArchiveFormat = 0;
 
 	/**
+	 * For RESTORETYPE_OFFICE365_CLOUD.
+	 *
 	 * @var \Comet\Office365Credential
 	 */
 	public $Office365Credential = null;
 
 	/**
+	 * For RESTORETYPE_MYSQL
+	 *
 	 * @var string
 	 */
 	public $Username = "";
 
 	/**
+	 * For RESTORETYPE_MYSQL
+	 *
 	 * @var string
 	 */
 	public $Password = "";
 
 	/**
+	 * For RESTORETYPE_MYSQL
+	 *
 	 * @var string
 	 */
 	public $Host = "";
 
 	/**
+	 * For RESTORETYPE_MYSQL
+	 *
 	 * @var string
 	 */
 	public $Port = "";
 
 	/**
+	 * For RESTORETYPE_MYSQL
+	 *
 	 * @var boolean
 	 */
 	public $UseSsl = false;
 
 	/**
+	 * For RESTORETYPE_MYSQL i.e.: Self signed certs
+	 *
 	 * @var boolean
 	 */
 	public $SslAllowInvalid = false;
 
 	/**
+	 * For RESTORETYPE_MYSQL
+	 *
 	 * @var string
 	 */
 	public $SslCaFile = "";
 
 	/**
+	 * For RESTORETYPE_MYSQL
+	 *
 	 * @var string
 	 */
 	public $SslCrtFile = "";
 
 	/**
+	 * For RESTORETYPE_MYSQL
+	 *
 	 * @var string
 	 */
 	public $SslKeyFile = "";
 
 	/**
+	 * For RESTORETYPE_MSSQL.
+	 *
 	 * @var \Comet\MSSQLLoginArgs
 	 */
 	public $MsSqlConnection = null;

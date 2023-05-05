@@ -27,16 +27,23 @@ class GroupPolicy {
 	public $Policy = null;
 
 	/**
+	 * DefaultUserPolicy marks that this UserPolicy should be applied to all new users. The Comet Server
+	 * will ensure that only one policy can be set as default.
+	 *
 	 * @var boolean
 	 */
 	public $DefaultUserPolicy = false;
 
 	/**
+	 * Unix timestamp in seconds. May be zero for Policies created prior to Comet 23.3.3.
+	 *
 	 * @var int
 	 */
 	public $CreatedDate = 0;
 
 	/**
+	 * Unix timestamp in seconds. May be zero for Policies created prior to Comet 23.3.3.
+	 *
 	 * @var int
 	 */
 	public $ModifiedDate = 0;

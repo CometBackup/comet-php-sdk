@@ -12,16 +12,23 @@ namespace Comet;
 class VMDKSnapshotViewOptions {
 
 	/**
+	 * Request a list of stored objects in vmdk file. It should be always true for restoring single
+	 * files from vmdk file
+	 *
 	 * @var boolean
 	 */
 	public $Enabled = false;
 
 	/**
+	 * The vmdk filename inside subdirectory of disk image, should be end with .vmdk
+	 *
 	 * @var string
 	 */
 	public $PartitionGUID = "";
 
 	/**
+	 * Browse objects' paths inside vmdk file
+	 *
 	 * @var string
 	 */
 	public $ListPath = "";

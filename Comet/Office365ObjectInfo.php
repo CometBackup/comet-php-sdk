@@ -27,6 +27,8 @@ class Office365ObjectInfo {
 	public $Type = "";
 
 	/**
+	 * May be an email address or a SharePoint site URL
+	 *
 	 * @var string
 	 */
 	public $Value = "";

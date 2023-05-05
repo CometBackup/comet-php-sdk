@@ -27,6 +27,8 @@ class SFTPDestinationLocation {
 	public $SFTPRemotePath = "";
 
 	/**
+	 * One of the DESTINATION_SFTP_AUTHMODE_ constants
+	 *
 	 * @var int
 	 */
 	public $SFTPAuthMode = 0;
