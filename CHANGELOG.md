@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2023-05-05 v4.8.0
+
+- Based on Comet 23.3.7
+- No functional changes
+- Add significantly many more comments to constants, fields and types
+
 ## 2023-04-24 v4.7.0
 
 - Based on Comet 23.3.5
