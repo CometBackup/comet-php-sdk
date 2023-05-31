@@ -9,6 +9,10 @@
 
 namespace Comet;
 
+/**
+ * B2DestinationLocation allows configuring connection settings for storage locations using the
+ * Backblaze B2 native API (DESTINATIONTYPE_B2).
+ */
 class B2DestinationLocation {
 
 	/**

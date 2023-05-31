@@ -9,19 +9,29 @@
 
 namespace Comet;
 
+/**
+ * SearchResultFileInfo describes a single result entry when searching for files within a Storage
+ * Vault snapshot.
+ */
 class SearchResultFileInfo {
 
 	/**
+	 * Path to the file within the selected snapshot, using forwardslash (/) separators
+	 *
 	 * @var string
 	 */
 	public $Path = "";
 
 	/**
+	 * Filename
+	 *
 	 * @var string
 	 */
 	public $Name = "";
 
 	/**
+	 * One of the STOREDOBJECTTYPE_ constants
+	 *
 	 * @var string
 	 */
 	public $Type = "";
@@ -32,21 +42,32 @@ class SearchResultFileInfo {
 	public $Mode = "";
 
 	/**
+	 * Timestamp in RFC3339 format with subsecond precision and time zone offset. See the Golang
+	 * time.RFC3339Nano for more information.
+	 *
 	 * @var string
 	 */
-	public $Mtime = "";
+	public $ModTime = "";
 
 	/**
+	 * Timestamp in RFC3339 format with subsecond precision and time zone offset. See the Golang
+	 * time.RFC3339Nano for more information.
+	 *
 	 * @var string
 	 */
-	public $Atime = "";
+	public $AccessTime = "";
 
 	/**
+	 * Timestamp in RFC3339 format with subsecond precision and time zone offset. See the Golang
+	 * time.RFC3339Nano for more information.
+	 *
 	 * @var string
 	 */
-	public $Ctime = "";
+	public $ChangeTime = "";
 
 	/**
+	 * Bytes
+	 *
 	 * @var int
 	 */
 	public $Size = 0;
@@ -77,19 +98,19 @@ class SearchResultFileInfo {
 		if (property_exists($sc, 'type')) {
 			$this->Type = (string)($sc->type);
 		}
-		if (property_exists($sc, 'mode')) {
+		if (property_exists($sc, 'mode') && !is_null($sc->mode)) {
 			$this->Mode = (string)($sc->mode);
 		}
-		if (property_exists($sc, 'mtime')) {
-			$this->Mtime = (string)($sc->mtime);
+		if (property_exists($sc, 'mtime') && !is_null($sc->mtime)) {
+			$this->ModTime = (string)($sc->mtime);
 		}
-		if (property_exists($sc, 'atime')) {
-			$this->Atime = (string)($sc->atime);
+		if (property_exists($sc, 'atime') && !is_null($sc->atime)) {
+			$this->AccessTime = (string)($sc->atime);
 		}
-		if (property_exists($sc, 'ctime')) {
-			$this->Ctime = (string)($sc->ctime);
+		if (property_exists($sc, 'ctime') && !is_null($sc->ctime)) {
+			$this->ChangeTime = (string)($sc->ctime);
 		}
-		if (property_exists($sc, 'size')) {
+		if (property_exists($sc, 'size') && !is_null($sc->size)) {
 			$this->Size = (int)($sc->size);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
@@ -171,9 +192,9 @@ class SearchResultFileInfo {
 		$ret["name"] = $this->Name;
 		$ret["type"] = $this->Type;
 		$ret["mode"] = $this->Mode;
-		$ret["mtime"] = $this->Mtime;
-		$ret["atime"] = $this->Atime;
-		$ret["ctime"] = $this->Ctime;
+		$ret["mtime"] = $this->ModTime;
+		$ret["atime"] = $this->AccessTime;
+		$ret["ctime"] = $this->ChangeTime;
 		$ret["size"] = $this->Size;
 
 		// Reinstate unknown properties from future server versions

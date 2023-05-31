@@ -9,6 +9,10 @@
 
 namespace Comet;
 
+/**
+ * AzureDestinationLocation allows configuring connection settings for storage locations using the
+ * Azure Blob Storage API (DESTINATIONTYPE_AZURE).
+ */
 class AzureDestinationLocation {
 
 	/**

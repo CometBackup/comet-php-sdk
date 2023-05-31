@@ -12,7 +12,10 @@ namespace Comet;
 class WebInterfaceBrandingProperties {
 
 	/**
+	 * One of the BRANDINGSTYLETYPE_ constants
+	 *
 	 * @var int
+	 * This field is available in Comet 23.3.3 and later.
 	 */
 	public $BrandingStyleType = 0;
 

@@ -48,6 +48,8 @@ class ServerConfigOptions {
 	public $Email = null;
 
 	/**
+	 * An array of GUIDs that can enable additional early-access functionality
+	 *
 	 * @var string[]
 	 */
 	public $ExperimentalOptions = [];
@@ -68,11 +70,15 @@ class ServerConfigOptions {
 	public $License = null;
 
 	/**
+	 * Configure ip, port, and SSL settings for this self-hosted Comet Server.
+	 *
 	 * @var \Comet\HTTPConnectorOptions[]
 	 */
 	public $ListenAddresses = [];
 
 	/**
+	 * Tenants
+	 *
 	 * @var \Comet\Organization[] An array with string keys.
 	 */
 	public $Organizations = [];
@@ -83,11 +89,15 @@ class ServerConfigOptions {
 	public $PSAConfigs = [];
 
 	/**
+	 * Automatically create backup zip files of this Comet Server's configuration
+	 *
 	 * @var \Comet\SelfBackupOptions
 	 */
 	public $SelfBackup = null;
 
 	/**
+	 * Control how long admin accounts can remain logged in to the Comet Server web interface
+	 *
 	 * @var \Comet\SessionOptions
 	 */
 	public $SessionSettings = null;
@@ -103,6 +113,10 @@ class ServerConfigOptions {
 	public $StorageRole = null;
 
 	/**
+	 * If true, the X-Forwarded-For header will be trusted for the purposes of IP allowlisting. This
+	 * should only be enabled when you explicitly configure Comet Server behind a reverse proxy,
+	 * otherwise it could allow malicious users to bypass the IP allowlist.
+	 *
 	 * @var boolean
 	 */
 	public $TrustXForwardedFor = false;
@@ -111,6 +125,11 @@ class ServerConfigOptions {
 	 * @var \Comet\WebhookOption[] An array with string keys.
 	 */
 	public $WebhookOptions = [];
+
+	/**
+	 * @var \Comet\FileOption[] An array with string keys.
+	 */
+	public $AuditFileOptions = [];
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
@@ -319,6 +338,22 @@ class ServerConfigOptions {
 			}
 			$this->WebhookOptions = $val_2;
 		}
+		if (property_exists($sc, 'AuditFileOptions')) {
+			$val_2 = [];
+			if ($sc->AuditFileOptions !== null) {
+				foreach($sc->AuditFileOptions as $k_2 => $v_2) {
+					$phpk_2 = (string)($k_2);
+					if (is_array($v_2) && count($v_2) === 0) {
+					// Work around edge case in json_decode--json_encode stdClass conversion
+						$phpv_2 = \Comet\FileOption::createFromStdclass(new \stdClass());
+					} else {
+						$phpv_2 = \Comet\FileOption::createFromStdclass($v_2);
+					}
+					$val_2[$phpk_2] = $phpv_2;
+				}
+			}
+			$this->AuditFileOptions = $val_2;
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'AdminUsers':
@@ -340,6 +375,7 @@ class ServerConfigOptions {
 			case 'StorageRole':
 			case 'TrustXForwardedFor':
 			case 'WebhookOptions':
+			case 'AuditFileOptions':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -554,6 +590,23 @@ class ServerConfigOptions {
 				$ret["WebhookOptions"] = (object)[];
 			} else {
 				$ret["WebhookOptions"] = $c0;
+			}
+		}
+		{
+			$c0 = [];
+			foreach($this->AuditFileOptions as $k0 => $v0) {
+				$ko_0 = $k0;
+				if ( $v0 === null ) {
+					$vo_0 = $for_json_encode ? (object)[] : [];
+				} else {
+					$vo_0 = $v0->toArray($for_json_encode);
+				}
+				$c0[ $ko_0 ] = $vo_0;
+			}
+			if ($for_json_encode && count($c0) == 0) {
+				$ret["AuditFileOptions"] = (object)[];
+			} else {
+				$ret["AuditFileOptions"] = $c0;
 			}
 		}
 

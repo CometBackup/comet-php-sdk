@@ -12,17 +12,22 @@ namespace Comet;
 class BackupJobProgress {
 
 	/**
+	 * This field will always increase monotonically, exactly once, for every change to the
+	 * BackupJobProgress for a given backup job.
+	 *
 	 * @var int
 	 */
 	public $Counter = 0;
 
 	/**
+	 * Unix timestamp in seconds
+	 *
 	 * @var int
 	 */
 	public $SentTime = 0;
 
 	/**
-	 * The typo is preserved for backwards-compatibility reasons.
+	 * Unix timestamp in seconds. The typo is preserved for backwards-compatibility reasons.
 	 *
 	 * @var int
 	 */

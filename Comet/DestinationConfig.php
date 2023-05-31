@@ -17,11 +17,15 @@ class DestinationConfig {
 	public $Description = "";
 
 	/**
+	 * Unix timestamp in seconds
+	 *
 	 * @var int
 	 */
 	public $CreateTime = 0;
 
 	/**
+	 * Unix timestamp in seconds
+	 *
 	 * @var int
 	 */
 	public $ModifyTime = 0;
@@ -48,11 +52,15 @@ class DestinationConfig {
 	public $PostExec = [];
 
 	/**
+	 * One of the DESTINATIONTYPE_ constants
+	 *
 	 * @var int
 	 */
 	public $DestinationType = 0;
 
 	/**
+	 * The URL for the target Comet Server Storage Role, including http/https and trailing slash
+	 *
 	 * @var string
 	 */
 	public $CometServer = "";
@@ -130,6 +138,8 @@ class DestinationConfig {
 	public $SFTPUsername = "";
 
 	/**
+	 * The directory on the SFTP server in which data is stored.
+	 *
 	 * @var string
 	 */
 	public $SFTPRemotePath = "";
@@ -142,21 +152,31 @@ class DestinationConfig {
 	public $SFTPAuthMode = 0;
 
 	/**
+	 * For use with DESTINATION_SFTP_AUTHMODE_PASSWORD only: the SSH password to connect with
+	 *
 	 * @var string
 	 */
 	public $SFTPPassword = "";
 
 	/**
+	 * For use with DESTINATION_SFTP_AUTHMODE_PRIVATEKEY only: the SSH private key to connect with, in
+	 * OpenSSH format.
+	 *
 	 * @var string
 	 */
 	public $SFTPPrivateKey = "";
 
 	/**
+	 * If true, then the SFTPCustomAuth_KnownHostsFile will be used to verify the remote SSH server's
+	 * host key, using Trust On First Use (TOFU).
+	 *
 	 * @var boolean
 	 */
 	public $SFTPCustomAuth_UseKnownHostsFile = false;
 
 	/**
+	 * If SFTPCustomAuth_UseKnownHostFile is true, the path to the SSH known_hosts file.
+	 *
 	 * @var string
 	 */
 	public $SFTPCustomAuth_KnownHostsFile = "";
@@ -177,17 +197,22 @@ class DestinationConfig {
 	public $FTPPassword = "";
 
 	/**
+	 * If true, store data in the default home directory given by the FTP server. If false, store data
+	 * in the FTPCustomBaseDirectory path.
+	 *
 	 * @var boolean
 	 */
 	public $FTPBaseUseHomeDirectory = false;
 
 	/**
+	 * If FTPBaseUseHomeDirectory is false, this field controls the path where data is stored.
+	 *
 	 * @var string
 	 */
 	public $FTPCustomBaseDirectory = "";
 
 	/**
-	 * One of the FTPS_MODE_ constants.
+	 * Control whether this is plaintext FTP or secure FTPS by using one of the FTPS_MODE_ constants.
 	 *
 	 * @var int
 	 */
@@ -199,6 +224,8 @@ class DestinationConfig {
 	public $FTPPort = 0;
 
 	/**
+	 * If set to zero, uses a system default value that is not unlimited.
+	 *
 	 * @var int
 	 */
 	public $FTPMaxConnections = 0;
@@ -241,16 +268,24 @@ class DestinationConfig {
 	public $LocalcopyPath = "";
 
 	/**
+	 * If logging in to a Windows network share (SMB/CIFS) is required, enter the username here.
+	 *
 	 * @var string
 	 */
 	public $LocalcopyWinSMBUsername = "";
 
 	/**
+	 * If logging in to a Windows network share (SMB/CIFS) is required, enter the password here. The
+	 * password may be hashed as per the LocalcopyWinSMBPasswordFormat field.
+	 *
 	 * @var string
 	 */
 	public $LocalcopyWinSMBPassword = "";
 
 	/**
+	 * One of the PASSWORD_FORMAT_ constants. It controls the hash format of the LocalcopyWinSMBPassword
+	 * field.
+	 *
 	 * @var int
 	 */
 	public $LocalcopyWinSMBPasswordFormat = 0;
@@ -271,11 +306,24 @@ class DestinationConfig {
 	public $Storj = null;
 
 	/**
+	 * A list of underlying destinations, that will be combined and presented as one.
+	 *
 	 * @var \Comet\DestinationLocation[]
 	 */
 	public $SpanTargets = [];
 
 	/**
+	 * If true, this Spanned destination will use a consistent hashing scheme
+	 * to immediately find specific files on exactly one of the target destinations.
+	 * In the Static Slots mode, the span targets cannot be moved or merged, and
+	 * the files must always remain in their original location.
+	 *
+	 * If false, the Spanned destination system will search all targets to find
+	 * the requested file. This is slightly slower, but allows you to freely merge,
+	 * split, and reorder the underlying destination locations.
+	 *
+	 * The default option is false.
+	 *
 	 * @var boolean
 	 */
 	public $SpanUseStaticSlots = false;
@@ -320,6 +368,10 @@ class DestinationConfig {
 	public $Statistics = null;
 
 	/**
+	 * Configure the retention policy for this Storage Vault. The rules will be applied to any snapshot
+	 * inside this Storage Vault, unless that snapshot belongs to a Protected Item source that has an
+	 * overriding retention policy.
+	 *
 	 * @var \Comet\RetentionPolicy
 	 */
 	public $DefaultRetention = null;

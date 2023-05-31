@@ -29,11 +29,15 @@ class SourceConfig {
 	public $OwnerDevice = "";
 
 	/**
+	 * Unix timestamp in seconds
+	 *
 	 * @var int
 	 */
 	public $CreateTime = 0;
 
 	/**
+	 * Unix timestamp in seconds
+	 *
 	 * @var int
 	 */
 	public $ModifyTime = 0;
@@ -68,10 +72,10 @@ class SourceConfig {
 	 * - Any key starting with INCLUDE: A path that is included
 	 * - Any key starting with EXCLUDE: An exclusion (glob format)
 	 * - Any key starting with REXCLUDE: An exclusion (regular expression format)
- * - Any key starting with PINCLUDE: A JSON string {"TopDirectory": "", "Value": ""}. TopDirectory
-	 * is the path where starts to match the value; Value is an inclusion (glob format)
- * - Any key starting with RINCLUDE: A JSON string {"TopDirectory": "", "Value": ""}. TopDirectory
-	 * is the path where starts to match the value; Value is an inclusion (regular expression format)
+	 * - Any key starting with PINCLUDE: A SourceIncludePattern type encoded in JSON format, describing
+	 * an advanced inclusion in glob format
+	 * - Any key starting with RINCLUDE: A SourceIncludePattern type encoded in JSON format, describing
+	 * an advanced inclusion in regular expression format
 	 * - Any key starting with SMBAUTH: A set of Windows network share credentials in WinSMBAuth JSON
 	 * format
 	 * - USE_WIN_VSS: If present, the 'Take filesystem snapshot' checkbox is checked

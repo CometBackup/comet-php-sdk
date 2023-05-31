@@ -12,6 +12,8 @@ namespace Comet;
 class RestoreJobAdvancedOptions {
 
 	/**
+	 * One of the RESTORETYPE_ constants
+	 *
 	 * @var int
 	 */
 	public $Type = 0;

@@ -9,22 +9,43 @@
 
 namespace Comet;
 
+/**
+ * WebhookOption defines the configuration of a webhook target. The Comet Server will send a live
+ * HTTP POST event to the webhook URL when certain events happen.
+ */
 class WebhookOption {
 
 	/**
+	 * The target URL to POST the event data to
+	 *
 	 * @var string
 	 */
 	public $URL = "";
 
 	/**
-	 * @var int[]
-	 */
-	public $WhiteListedEventTypes = [];
-
-	/**
+	 * CustomHeaders allows specifying custom headers which are added to the outgoing POST request
+	 * from Comet Server. Custom headers are specified as (header name, header value) pairs. If a
+	 * custom header conflicts with a header required by HTTP or the Comet tracing ID header
+	 * (`x-Comet-Tracing-Id`), it will be ignored.
+	 *
 	 * @var string[] An array with string keys.
 	 */
 	public $CustomHeaders = [];
+
+	/**
+	 * One of the STREAM_LEVEL_ constants. This controls how much data is sent in the webhook event.
+	 *
+	 * @var string
+	 */
+	public $Level = "";
+
+	/**
+	 * Configure a subset of allowed event types (see SEVT_ constants). If the array is empty, all
+	 * events will be sent
+	 *
+	 * @var int[]
+	 */
+	public $WhiteListedEventTypes = [];
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
@@ -46,15 +67,6 @@ class WebhookOption {
 		if (property_exists($sc, 'URL')) {
 			$this->URL = (string)($sc->URL);
 		}
-		if (property_exists($sc, 'WhiteListedEventTypes')) {
-			$val_2 = [];
-			if ($sc->WhiteListedEventTypes !== null) {
-				for($i_2 = 0; $i_2 < count($sc->WhiteListedEventTypes); ++$i_2) {
-					$val_2[] = (int)($sc->WhiteListedEventTypes[$i_2]);
-				}
-			}
-			$this->WhiteListedEventTypes = $val_2;
-		}
 		if (property_exists($sc, 'CustomHeaders')) {
 			$val_2 = [];
 			if ($sc->CustomHeaders !== null) {
@@ -66,11 +78,24 @@ class WebhookOption {
 			}
 			$this->CustomHeaders = $val_2;
 		}
+		if (property_exists($sc, 'Level')) {
+			$this->Level = (string)($sc->Level);
+		}
+		if (property_exists($sc, 'WhiteListedEventTypes')) {
+			$val_2 = [];
+			if ($sc->WhiteListedEventTypes !== null) {
+				for($i_2 = 0; $i_2 < count($sc->WhiteListedEventTypes); ++$i_2) {
+					$val_2[] = (int)($sc->WhiteListedEventTypes[$i_2]);
+				}
+			}
+			$this->WhiteListedEventTypes = $val_2;
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'URL':
-			case 'WhiteListedEventTypes':
 			case 'CustomHeaders':
+			case 'Level':
+			case 'WhiteListedEventTypes':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -139,14 +164,6 @@ class WebhookOption {
 		$ret["URL"] = $this->URL;
 		{
 			$c0 = [];
-			for($i0 = 0; $i0 < count($this->WhiteListedEventTypes); ++$i0) {
-				$val0 = $this->WhiteListedEventTypes[$i0];
-				$c0[] = $val0;
-			}
-			$ret["WhiteListedEventTypes"] = $c0;
-		}
-		{
-			$c0 = [];
 			foreach($this->CustomHeaders as $k0 => $v0) {
 				$ko_0 = $k0;
 				$vo_0 = $v0;
@@ -157,6 +174,15 @@ class WebhookOption {
 			} else {
 				$ret["CustomHeaders"] = $c0;
 			}
+		}
+		$ret["Level"] = $this->Level;
+		{
+			$c0 = [];
+			for($i0 = 0; $i0 < count($this->WhiteListedEventTypes); ++$i0) {
+				$val0 = $this->WhiteListedEventTypes[$i0];
+				$c0[] = $val0;
+			}
+			$ret["WhiteListedEventTypes"] = $c0;
 		}
 
 		// Reinstate unknown properties from future server versions

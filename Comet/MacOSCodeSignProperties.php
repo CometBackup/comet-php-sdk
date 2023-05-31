@@ -12,6 +12,8 @@ namespace Comet;
 class MacOSCodeSignProperties {
 
 	/**
+	 * One of the MACOSCODESIGN_LEVEL_ constants
+	 *
 	 * @var int
 	 */
 	public $Level = 0;

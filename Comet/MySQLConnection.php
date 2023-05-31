@@ -22,11 +22,15 @@ class MySQLConnection {
 	public $Port = "";
 
 	/**
+	 * Optional
+	 *
 	 * @var string
 	 */
 	public $Username = "";
 
 	/**
+	 * Optional
+	 *
 	 * @var string
 	 */
 	public $Password = "";

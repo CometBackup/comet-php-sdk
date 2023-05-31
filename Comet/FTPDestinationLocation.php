@@ -27,17 +27,22 @@ class FTPDestinationLocation {
 	public $FTPPassword = "";
 
 	/**
+	 * If true, store data in the default home directory given by the FTP server. If false, store data
+	 * in the FTPCustomBaseDirectory path.
+	 *
 	 * @var boolean
 	 */
 	public $FTPBaseUseHomeDirectory = false;
 
 	/**
+	 * If FTPBaseUseHomeDirectory is false, this field controls the path where data is stored.
+	 *
 	 * @var string
 	 */
 	public $FTPCustomBaseDirectory = "";
 
 	/**
-	 * One of the FTPS_MODE_ constants.
+	 * Control whether this is plaintext FTP or secure FTPS by using one of the FTPS_MODE_ constants.
 	 *
 	 * @var int
 	 */
@@ -49,6 +54,8 @@ class FTPDestinationLocation {
 	public $FTPPort = 0;
 
 	/**
+	 * If set to zero, uses a system default value that is not unlimited.
+	 *
 	 * @var int
 	 */
 	public $FTPMaxConnections = 0;

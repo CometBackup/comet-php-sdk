@@ -9,6 +9,11 @@
 
 namespace Comet;
 
+/**
+ * BackupJobAdvancedOptions control additional advanced options for running a backup job. They can
+ * be specified as part of a schedule in the BackupRuleConfig type, or supplied immediately when
+ * running a job.
+ */
 class BackupJobAdvancedOptions {
 
 	/**

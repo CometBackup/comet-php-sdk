@@ -17,16 +17,24 @@ class LocalDestinationLocation {
 	public $LocalcopyPath = "";
 
 	/**
+	 * If logging in to a Windows network share (SMB/CIFS) is required, enter the username here.
+	 *
 	 * @var string
 	 */
 	public $LocalcopyWinSMBUsername = "";
 
 	/**
+	 * If logging in to a Windows network share (SMB/CIFS) is required, enter the password here. The
+	 * password may be hashed as per the LocalcopyWinSMBPasswordFormat field.
+	 *
 	 * @var string
 	 */
 	public $LocalcopyWinSMBPassword = "";
 
 	/**
+	 * One of the PASSWORD_FORMAT_ constants. It controls the hash format of the LocalcopyWinSMBPassword
+	 * field.
+	 *
 	 * @var int
 	 */
 	public $LocalcopyWinSMBPasswordFormat = 0;

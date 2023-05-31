@@ -12,11 +12,15 @@ namespace Comet;
 class ContentMeasurement {
 
 	/**
+	 * Unix timestamp in seconds
+	 *
 	 * @var int
 	 */
 	public $MeasureStarted = 0;
 
 	/**
+	 * Unix timestamp in seconds
+	 *
 	 * @var int
 	 */
 	public $MeasureCompleted = 0;

@@ -12,11 +12,15 @@ namespace Comet;
 class StoredObject {
 
 	/**
+	 * The name of the stored object. It is unique within this directory tree.
+	 *
 	 * @var string
 	 */
 	public $Name = "";
 
 	/**
+	 * Unix timestamp in seconds
+	 *
 	 * @var int
 	 */
 	public $ModifyTime = 0;
@@ -29,11 +33,16 @@ class StoredObject {
 	public $Type = "";
 
 	/**
+	 * If this StoredObject represents a directory, this value can be used to recursively select the
+	 * directory contents.
+	 *
 	 * @var string
 	 */
 	public $Subtree = "";
 
 	/**
+	 * Bytes
+	 *
 	 * @var int
 	 */
 	public $Size = 0;
@@ -69,11 +78,15 @@ class StoredObject {
 	public $HasAttachments = false;
 
 	/**
+	 * Unix timestamp in seconds
+	 *
 	 * @var int
 	 */
 	public $StartTime = 0;
 
 	/**
+	 * Unix timestamp in seconds
+	 *
 	 * @var int
 	 */
 	public $EndTime = 0;

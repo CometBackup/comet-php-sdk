@@ -9,19 +9,33 @@
 
 namespace Comet;
 
+/**
+ * Office365CustomSettingV2 is used in the EngineProps for an Office 365 Protected Item (see
+ * ENGINE_BUILTIN_MSOFFICE).
+ * This type is available in Comet 21.9.xx and later.
+ */
 class Office365CustomSettingV2 {
 
 	/**
+	 * If true, then backup the entire Office 365 Tenant except the selected members. If false, backup
+	 * the selected members only.
+	 *
 	 * @var boolean
 	 */
 	public $Organization = false;
 
 	/**
+	 * Key can be the ID of user, group or SharePoint
+	 * Value is a bitset of the SERVICE_ constants, to select which services to back up for this member.
+	 *
 	 * @var int[] An array with string keys.
 	 */
 	public $BackupOptions = [];
 
 	/**
+	 * Key must be a group ID
+	 * Value is a bitset of the SERVICE_ constants, to select which services to back up for this member.
+	 *
 	 * @var int[] An array with string keys.
 	 */
 	public $MemberBackupOptions = [];

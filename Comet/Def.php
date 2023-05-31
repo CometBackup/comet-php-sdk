@@ -14,7 +14,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "23.3.7";
+	const APPLICATION_VERSION = "23.5.0";
 
 	/**
 	 * @type int
@@ -24,12 +24,12 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_MINOR = 3;
+	const APPLICATION_VERSION_MINOR = 5;
 
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 7;
+	const APPLICATION_VERSION_REVISION = 0;
 
 	/**
 	 * AutoRetentionLevel: The system will automatically choose how often to run an automatic Retention Pass after each backup job.
@@ -60,21 +60,29 @@ class Def {
 	const BACKUPJOBAUTORETENTION_LESS_OFTEN = 3;
 
 	/**
+	 * If set, will be automatically replaced with one of the other BRANDINGSTYLETYPE_ constants after next server upgrade.
+	 *
 	 * @type int
 	 */
 	const BRANDINGSTYLETYPE_AUTO_LEGACY = 0;
 
 	/**
+	 * Use Comet company branding and colours for all web interface branding
+	 *
 	 * @type int
 	 */
 	const BRANDINGSTYLETYPE_DEFAULT = 1;
 
 	/**
+	 * Use custom branding and colours, with text in the main logo area.
+	 *
 	 * @type int
 	 */
 	const BRANDINGSTYLETYPE_CUSTOM_TEXT = 2;
 
 	/**
+	 * Use custom branding and colours, with a supplied image in the main logo area.
+	 *
 	 * @type int
 	 */
 	const BRANDINGSTYLETYPE_CUSTOM_LOGO = 3;
@@ -188,61 +196,85 @@ class Def {
 	const DESTINATIONTYPE___INVALID = 0;
 
 	/**
+	 * S3-compatible, or a specific S3 service such as AWS S3, Wasabi, or iDrive e2
+	 *
 	 * @type int
 	 */
 	const DESTINATIONTYPE_S3 = 1000;
 
 	/**
+	 * SFTP protocol
+	 *
 	 * @type int
 	 */
 	const DESTINATIONTYPE_SFTP = 1001;
 
 	/**
+	 * Local Path
+	 *
 	 * @type int
 	 */
 	const DESTINATIONTYPE_LOCALCOPY = 1002;
 
 	/**
+	 * The Comet Server Storage Role protocol
+	 *
 	 * @type int
 	 */
 	const DESTINATIONTYPE_COMET = 1003;
 
 	/**
+	 * FTP protocol
+	 *
 	 * @type int
 	 */
 	const DESTINATIONTYPE_FTP = 1004;
 
 	/**
+	 * Azure Blob Storage
+	 *
 	 * @type int
 	 */
 	const DESTINATIONTYPE_AZUREBLOB = 1005;
 
 	/**
+	 * Spanned
+	 *
 	 * @type int
 	 */
 	const DESTINATIONTYPE_SPANNED = 1006;
 
 	/**
+	 * Openstack Swift
+	 *
 	 * @type int
 	 */
 	const DESTINATIONTYPE_SWIFT = 1007;
 
 	/**
+	 * Backblaze B2 (Native API)
+	 *
 	 * @type int
 	 */
 	const DESTINATIONTYPE_B2 = 1008;
 
 	/**
+	 * Storj
+	 *
 	 * @type int
 	 */
 	const DESTINATIONTYPE_STORJ = 1009;
 
 	/**
+	 * When defining a schedule via policy, use this option to dynamically select the Storage Vault that was created most recently.
+	 *
 	 * @type int
 	 */
 	const DESTINATIONTYPE_LATEST = 1100;
 
 	/**
+	 * When defining a schedule via policy, use this option to create a schedule for each Storage Vault in the user's profile.
+	 *
 	 * @type int
 	 */
 	const DESTINATIONTYPE_ALL = 1101;
@@ -450,28 +482,28 @@ class Def {
 	const ENGINE_BUILTIN_MSOFFICE = "engine1/winmsofficemail";
 
 	/**
-	 * FtpsModeType
+	 * FtpsModeType: Use plain FTP, do not use FTPS.
 	 *
 	 * @type int
 	 */
 	const FTPS_MODE_PLAINTEXT = 0;
 
 	/**
-	 * FtpsModeType
+	 * FtpsModeType: Use implicit FTPS, immediately creating a secure SSL/TLS channel before any data is sent. This usually requires a different port on the FTP server. It is generally advised to use explicit mode instead.
 	 *
 	 * @type int
 	 */
 	const FTPS_MODE_IMPLICIT = 1;
 
 	/**
-	 * FtpsModeType
+	 * FtpsModeType: Use explicit FTPS, first creating an insecure connection and then upgrading to SSL/TLS using AUTH TLS (like STARTTLS).
 	 *
 	 * @type int
 	 */
 	const FTPS_MODE_EXPLICIT = 2;
 
 	/**
-	 * JobClassification
+	 * JobClassification: All BackupJobDetail.Classification fields will fall in the 4xxx range.
 	 *
 	 * @type int
 	 */
@@ -485,14 +517,14 @@ class Def {
 	const JOB_CLASSIFICATION_UNKNOWN = 4000;
 
 	/**
-	 * JobClassification
+	 * JobClassification: This is a backup job.
 	 *
 	 * @type int
 	 */
 	const JOB_CLASSIFICATION_BACKUP = 4001;
 
 	/**
-	 * JobClassification
+	 * JobClassification: This is a restore job.
 	 *
 	 * @type int
 	 */
@@ -534,7 +566,7 @@ class Def {
 	const JOB_CLASSIFICATION_UPDATE = 4007;
 
 	/**
-	 * JobClassification
+	 * JobClassification: Importing settings from another installed product
 	 *
 	 * @type int
 	 */
@@ -548,7 +580,7 @@ class Def {
 	const JOB_CLASSIFICATION_REINDEX = 4009;
 
 	/**
-	 * JobClassification
+	 * JobClassification: Deep Verify
 	 *
 	 * @type int
 	 */
@@ -569,7 +601,7 @@ class Def {
 	const JOB_CLASSIFICATION__MAX = 4999;
 
 	/**
-	 * JobStatus
+	 * JobStatus: If the BackupJobDetail.Status field is a 5xxx code, the job has stopped for a successful reason.
 	 *
 	 * @type int
 	 */
@@ -590,7 +622,7 @@ class Def {
 	const JOB_STATUS_STOP_SUCCESS__MAX = 5999;
 
 	/**
-	 * JobStatus
+	 * JobStatus: If the BackupJobDetail.Status field is a 6xxx code, the job is still running.
 	 *
 	 * @type int
 	 */
@@ -625,7 +657,7 @@ class Def {
 	const JOB_STATUS_RUNNING__MAX = 6999;
 
 	/**
-	 * JobStatus
+	 * JobStatus: If the BackupJobDetail.Status field is a 7xxx code, the job has stopped for an unsuccessful reason.
 	 *
 	 * @type int
 	 */
@@ -716,21 +748,21 @@ class Def {
 	const LDAPSECURITYMETHOD_STARTTLS = "starttls";
 
 	/**
-	 * MacOSCodesignLevel
+	 * MacOSCodesignLevel: Sign only
 	 *
 	 * @type int
 	 */
 	const MACOSCODESIGN_LEVEL_SIGN = 0;
 
 	/**
-	 * MacOSCodesignLevel
+	 * MacOSCodesignLevel: Sign and notarize
 	 *
 	 * @type int
 	 */
 	const MACOSCODESIGN_LEVEL_SIGN_NOTARISE = 1;
 
 	/**
-	 * MacOSCodesignLevel
+	 * MacOSCodesignLevel: Sign, notarize, and staple
 	 *
 	 * @type int
 	 */
@@ -894,7 +926,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const RELEASE_CODENAME = "Voyager";
+	const RELEASE_CODENAME = "Thebe";
 
 	/**
 	 * RemoteServerType
@@ -1009,21 +1041,21 @@ class Def {
 	const REPLICATOR_DISPLAYCLASS_USER = 101;
 
 	/**
-	 * RestoreArchiveFormat
+	 * RestoreArchiveFormat: Tar file format
 	 *
 	 * @type int
 	 */
 	const RESTOREARCHIVEFORMAT_TAR = 0;
 
 	/**
-	 * RestoreArchiveFormat
+	 * RestoreArchiveFormat: Compressed Tar.gz (.tgz) file format
 	 *
 	 * @type int
 	 */
 	const RESTOREARCHIVEFORMAT_TARGZ = 1;
 
 	/**
-	 * RestoreArchiveFormat
+	 * RestoreArchiveFormat: Zip file format
 	 *
 	 * @type int
 	 */
@@ -1037,7 +1069,7 @@ class Def {
 	const RESTOREARCHIVEFORMAT_SQFS = 3;
 
 	/**
-	 * RestoreArchiveFormat
+	 * RestoreArchiveFormat: Compressed Tar.zstd (.tzst) file format
 	 *
 	 * @type int
 	 */
@@ -1051,84 +1083,84 @@ class Def {
 	const RESTORETYPE_INVALID = -1;
 
 	/**
-	 * RestoreType
+	 * RestoreType: Restore as files and folders
 	 *
 	 * @type int
 	 */
 	const RESTORETYPE_FILE = 0;
 
 	/**
-	 * RestoreType
+	 * RestoreType: Download and reconstruct files, but do not save them (for test purposes)
 	 *
 	 * @type int
 	 */
 	const RESTORETYPE_NULL = 1;
 
 	/**
-	 * RestoreType
+	 * RestoreType: Stream each restored file into the target command stdin. The target command may be executed multiple times, once for each restored file.
 	 *
 	 * @type int
 	 */
 	const RESTORETYPE_PROCESS_PERFILE = 2;
 
 	/**
-	 * RestoreType
+	 * RestoreType: Stream an archive of each restored file into the target command stdin. The target command will be executed only once.
 	 *
 	 * @type int
 	 */
 	const RESTORETYPE_PROCESS_ARCHIVE = 3;
 
 	/**
-	 * RestoreType
+	 * RestoreType: Restore partitions back to the physical disk
 	 *
 	 * @type int
 	 */
 	const RESTORETYPE_WINDISK = 4;
 
 	/**
-	 * RestoreType
+	 * RestoreType: Restore selected files and folders as a single compressed archive
 	 *
 	 * @type int
 	 */
 	const RESTORETYPE_FILE_ARCHIVE = 5;
 
 	/**
-	 * RestoreType
+	 * RestoreType: Restore selected Office 365 emails, contacts, calendars, and SharePoint/OneDrive data directly to the Office 365 cloud service
 	 *
 	 * @type int
 	 */
 	const RESTORETYPE_OFFICE365_CLOUD = 6;
 
 	/**
-	 * RestoreType
+	 * RestoreType: Granular restore of single files from within a Disk Image or Hyper-V backup
 	 *
 	 * @type int
 	 */
 	const RESTORETYPE_VMDK_FILE = 7;
 
 	/**
-	 * RestoreType
+	 * RestoreType: Granular restore of single files from within a Disk Image or Hyper-V backup, downloading and reconstructing files, but without saving them (for test purposes)
 	 *
 	 * @type int
 	 */
 	const RESTORETYPE_VMDK_FILE_NULL = 8;
 
 	/**
-	 * RestoreType
+	 * RestoreType: Granular restore of single files from within a Disk Image or Hyper-V backup, creating an archive file of all selected files
 	 *
 	 * @type int
 	 */
 	const RESTORETYPE_VMDK_FILE_ARCHIVE = 9;
 
 	/**
-	 * RestoreType
+	 * RestoreType: Stream restore as SQL statements into a target MySQL server
 	 *
 	 * @type int
 	 */
 	const RESTORETYPE_MYSQL = 10;
 
 	/**
-	 * RestoreType
+	 * RestoreType: Stream restore as T-SQL BACKUP output into a target Microsoft SQL Server
 	 *
 	 * @type int
 	 */
@@ -1475,26 +1507,36 @@ class Def {
 	const SEARCHOPERATOR_BOOL_NIS = "bool_nis";
 
 	/**
+	 * 0000 0001. If this value is present in the bitset, then the Calendar service is selected for backup.
+	 *
 	 * @type int
 	 */
 	const SERVICE_CALENDAR = 1;
 
 	/**
+	 * 0000 0010. If this value is present in the bitset, then the Contact service is selected for backup.
+	 *
 	 * @type int
 	 */
 	const SERVICE_CONTACT = 2;
 
 	/**
+	 * 0000 0100. If this value is present in the bitset, then the Mail service is selected for backup.
+	 *
 	 * @type int
 	 */
 	const SERVICE_MAIL = 4;
 
 	/**
+	 * 0000 1000. If this value is present in the bitset, then the SharePoint service is selected for backup.
+	 *
 	 * @type int
 	 */
 	const SERVICE_SHAREPOINT = 8;
 
 	/**
+	 * 0001 0000. If this value is present in the bitset, then the OneDrive service is selected for backup.
+	 *
 	 * @type int
 	 */
 	const SERVICE_ONEDRIVE = 16;
@@ -1563,53 +1605,249 @@ class Def {
 	const SEVT__MIN = 4000;
 
 	/**
-	 * StreamableEventType: This event is emitted when the webhook is registered, or when the server starts up. The Data associated is ServerMetaVersionInfo
+	 * StreamableEventType: New websocket connection. Data is typically ServerMetaVersionInfo
 	 *
 	 * @type int
 	 */
 	const SEVT_META_HELLO = 4000;
 
 	/**
-	 * StreamableEventType: Data is the profile object
+	 * StreamableEventType: User created. Data is the profile object
 	 *
 	 * @type int
 	 */
 	const SEVT_ACCOUNT_NEW = 4100;
 
 	/**
-	 * StreamableEventType: Data is the username
+	 * StreamableEventType: User deleted
 	 *
 	 * @type int
 	 */
 	const SEVT_ACCOUNT_REMOVED = 4101;
 
 	/**
-	 * StreamableEventType: Data is the profile object
+	 * StreamableEventType: User updated. Data is the profile object
 	 *
 	 * @type int
 	 */
 	const SEVT_ACCOUNT_UPDATED = 4102;
 
 	/**
-	 * StreamableEventType
+	 * StreamableEventType: User authentication succeeded. Only emitted for non-session requests. Resource is the requested path
+	 *
+	 * @type int
+	 */
+	const SEVT_ACCOUNT_LOGIN = 4103;
+
+	/**
+	 * StreamableEventType: User authentication failed. Only emitted if the user exists. Resource is the requested path
+	 *
+	 * @type int
+	 */
+	const SEVT_ACCOUNT_LOGIN_FAILED = 4104;
+
+	/**
+	 * StreamableEventType: User session token created. Data is the session object
+	 *
+	 * @type int
+	 */
+	const SEVT_ACCOUNT_SESSION_START = 4105;
+
+	/**
+	 * StreamableEventType: User session token deleted
+	 *
+	 * @type int
+	 */
+	const SEVT_ACCOUNT_SESSION_REVOKE = 4106;
+
+	/**
+	 * StreamableEventType: User session token expired
+	 *
+	 * @type int
+	 */
+	const SEVT_ACCOUNT_SESSION_EXPIRE = 4107;
+
+	/**
+	 * StreamableEventType: Admin created. Data is the profile object
+	 *
+	 * @type int
+	 */
+	const SEVT_ACCOUNT_ADMIN_NEW = 4150;
+
+	/**
+	 * StreamableEventType: Admin deleted
+	 *
+	 * @type int
+	 */
+	const SEVT_ACCOUNT_ADMIN_REMOVED = 4151;
+
+	/**
+	 * StreamableEventType: Admin updated
+	 *
+	 * @type int
+	 */
+	const SEVT_ACCOUNT_ADMIN_UPDATED = 4152;
+
+	/**
+	 * StreamableEventType: Admin authentication suceeded. Only emitted for non-session requests. Resource is the requested path
+	 *
+	 * @type int
+	 */
+	const SEVT_ACCOUNT_ADMIN_LOGIN = 4153;
+
+	/**
+	 * StreamableEventType: Admin authentication failed. Only emitted if the admin exists. Resource is the request path
+	 *
+	 * @type int
+	 */
+	const SEVT_ACCOUNT_ADMIN_LOGIN_FAILED = 4154;
+
+	/**
+	 * StreamableEventType: Admin session token created. Data is the session object
+	 *
+	 * @type int
+	 */
+	const SEVT_ACCOUNT_ADMIN_SESSION_START = 4155;
+
+	/**
+	 * StreamableEventType: Admin session token deleted
+	 *
+	 * @type int
+	 */
+	const SEVT_ACCOUNT_ADMIN_SESSION_REVOKE = 4156;
+
+	/**
+	 * StreamableEventType: Admin session token expired
+	 *
+	 * @type int
+	 */
+	const SEVT_ACCOUNT_ADMIN_SESSION_EXPIRE = 4157;
+
+	/**
+	 * StreamableEventType: New backup job started. Data is the job object
 	 *
 	 * @type int
 	 */
 	const SEVT_JOB_NEW = 4200;
 
 	/**
-	 * StreamableEventType
+	 * StreamableEventType: Backup job completed. Data is the job object
 	 *
 	 * @type int
 	 */
 	const SEVT_JOB_COMPLETED = 4201;
 
 	/**
-	 * StreamableEventType: Data is the string bucket ref
+	 * StreamableEventType: New bucket created
 	 *
 	 * @type int
 	 */
 	const SEVT_BUCKET_NEW = 4300;
+
+	/**
+	 * StreamableEventType: Bucket deleted
+	 *
+	 * @type int
+	 */
+	const SEVT_BUCKET_REMOVED = 4301;
+
+	/**
+	 * StreamableEventType: Server started
+	 *
+	 * @type int
+	 */
+	const SEVT_SERVER_STARTED = 4400;
+
+	/**
+	 * StreamableEventType: Server restarting (pending)
+	 *
+	 * @type int
+	 */
+	const SEVT_SERVER_RESTARTED = 4401;
+
+	/**
+	 * StreamableEventType: Server shutting down (pending)
+	 *
+	 * @type int
+	 */
+	const SEVT_SERVER_SHUTDOWN = 4402;
+
+	/**
+	 * StreamableEventType: Server configuration has been updated. Data is the server config object
+	 *
+	 * @type int
+	 */
+	const SEVT_SERVER_UPDATED = 4403;
+
+	/**
+	 * StreamableEventType: Tenant created. Data is the tenant object
+	 *
+	 * @type int
+	 */
+	const SEVT_TENANT_NEW = 4500;
+
+	/**
+	 * StreamableEventType: Tenant deleted
+	 *
+	 * @type int
+	 */
+	const SEVT_TENANT_REMOVED = 4501;
+
+	/**
+	 * StreamableEventType: Tenant updated. Data is the tenant object
+	 *
+	 * @type int
+	 */
+	const SEVT_TENANT_UPDATED = 4502;
+
+	/**
+	 * StreamableEventType: Policy created. Data is the policy object
+	 *
+	 * @type int
+	 */
+	const SEVT_POLICY_NEW = 4600;
+
+	/**
+	 * StreamableEventType: Policy deleted
+	 *
+	 * @type int
+	 */
+	const SEVT_POLICY_REMOVED = 4601;
+
+	/**
+	 * StreamableEventType: Policy updated. Data is the policy object
+	 *
+	 * @type int
+	 */
+	const SEVT_POLICY_UPDATED = 4602;
+
+	/**
+	 * StreamableEventType: Device created. Data is device object
+	 *
+	 * @type int
+	 */
+	const SEVT_DEVICE_NEW = 4700;
+
+	/**
+	 * StreamableEventType: Device deleted
+	 *
+	 * @type int
+	 */
+	const SEVT_DEVICE_REMOVED = 4701;
+
+	/**
+	 * StreamableEventType: Device live connection started
+	 *
+	 * @type int
+	 */
+	const SEVT_DEVICE_LIVE_CONNECT = 4702;
+
+	/**
+	 * StreamableEventType: Device live connection ended
+	 *
+	 * @type int
+	 */
+	const SEVT_DEVICE_LIVE_DISCONNECT = 4703;
 
 	/**
 	 * StreamableEventType
@@ -1822,6 +2060,48 @@ class Def {
 	const STOREDOBJECTTYPE_VHDX_MBR_PARTITION = "vhdxpartitionmbr";
 
 	/**
+	 * StreamLevel: Event data contains full data types
+	 *
+	 * @type string
+	 */
+	const STREAM_LEVEL_FULL = "full";
+
+	/**
+	 * StreamLevel: Event data contains nothing
+	 *
+	 * @type string
+	 */
+	const STREAM_LEVEL_NONE = "none";
+
+	/**
+	 * StreamerType
+	 *
+	 * @type string
+	 */
+	const STREAMER_TYPE_INTERNAL = "internal";
+
+	/**
+	 * StreamerType
+	 *
+	 * @type string
+	 */
+	const STREAMER_TYPE_WEBHOOK = "webhook";
+
+	/**
+	 * StreamerType
+	 *
+	 * @type string
+	 */
+	const STREAMER_TYPE_WEBSOCKET = "websocket";
+
+	/**
+	 * StreamerType
+	 *
+	 * @type string
+	 */
+	const STREAMER_TYPE_FILE = "file";
+
+	/**
 	 * If an API response returns in failure, but it includes this value in the CometAPIResponseMessage->Message parameter, it indicates that your supplied authentication was insufficient, and you must supply additional two-factor authentication credentials.
 	 *
 	 * @type string
@@ -1942,7 +2222,7 @@ class Def {
 	const WEBAUTHN_DEVICE_TYPE__TPM_LINUX = 6;
 
 	/**
-	 * WindowsCodesignMethod: When upgrading from a version of Comet Server prior to 22.12.7, this option will be automatically converted to a more specific type..
+	 * WindowsCodesignMethod: When upgrading from a version of Comet Server prior to 22.12.7, this option will be automatically converted to a more specific type.
 	 *
 	 * @type int
 	 * @deprecated 22.12.7 This const has been deprecated since Comet version 22.12.7

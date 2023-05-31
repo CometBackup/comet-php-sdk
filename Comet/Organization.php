@@ -12,19 +12,9 @@ namespace Comet;
 class Organization {
 
 	/**
-	 * @var string
+	 * @var \Comet\FileOption[] An array with string keys.
 	 */
-	public $Name = "";
-
-	/**
-	 * @var string[]
-	 */
-	public $Hosts = [];
-
-	/**
-	 * @var \Comet\SoftwareBuildRoleOptions
-	 */
-	public $SoftwareBuildRole = null;
+	public $AuditFileOptions = [];
 
 	/**
 	 * @var \Comet\BrandingOptions
@@ -32,24 +22,9 @@ class Organization {
 	public $Branding = null;
 
 	/**
-	 * @var \Comet\RemoteStorageOption[]
-	 */
-	public $RemoteStorage = [];
-
-	/**
 	 * @var \Comet\ConstellationRoleOptions
 	 */
 	public $ConstellationRole = null;
-
-	/**
-	 * @var \Comet\WebhookOption[] An array with string keys.
-	 */
-	public $WebhookOptions = [];
-
-	/**
-	 * @var \Comet\PSAConfig[]
-	 */
-	public $PSAConfigs = [];
 
 	/**
 	 * @var \Comet\EmailOptions
@@ -57,14 +32,44 @@ class Organization {
 	public $Email = null;
 
 	/**
+	 * @var string[]
+	 */
+	public $ExperimentalOptions = [];
+
+	/**
+	 * @var string[]
+	 */
+	public $Hosts = [];
+
+	/**
+	 * @var string
+	 */
+	public $Name = "";
+
+	/**
 	 * @var boolean
 	 */
 	public $IsSuspended = false;
 
 	/**
-	 * @var string[]
+	 * @var \Comet\PSAConfig[]
 	 */
-	public $ExperimentalOptions = [];
+	public $PSAConfigs = [];
+
+	/**
+	 * @var \Comet\RemoteStorageOption[]
+	 */
+	public $RemoteStorage = [];
+
+	/**
+	 * @var \Comet\SoftwareBuildRoleOptions
+	 */
+	public $SoftwareBuildRole = null;
+
+	/**
+	 * @var \Comet\WebhookOption[] An array with string keys.
+	 */
+	public $WebhookOptions = [];
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
@@ -83,8 +88,54 @@ class Organization {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
-		if (property_exists($sc, 'Name')) {
-			$this->Name = (string)($sc->Name);
+		if (property_exists($sc, 'AuditFileOptions')) {
+			$val_2 = [];
+			if ($sc->AuditFileOptions !== null) {
+				foreach($sc->AuditFileOptions as $k_2 => $v_2) {
+					$phpk_2 = (string)($k_2);
+					if (is_array($v_2) && count($v_2) === 0) {
+					// Work around edge case in json_decode--json_encode stdClass conversion
+						$phpv_2 = \Comet\FileOption::createFromStdclass(new \stdClass());
+					} else {
+						$phpv_2 = \Comet\FileOption::createFromStdclass($v_2);
+					}
+					$val_2[$phpk_2] = $phpv_2;
+				}
+			}
+			$this->AuditFileOptions = $val_2;
+		}
+		if (property_exists($sc, 'Branding')) {
+			if (is_array($sc->Branding) && count($sc->Branding) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->Branding = \Comet\BrandingOptions::createFromStdclass(new \stdClass());
+			} else {
+				$this->Branding = \Comet\BrandingOptions::createFromStdclass($sc->Branding);
+			}
+		}
+		if (property_exists($sc, 'ConstellationRole')) {
+			if (is_array($sc->ConstellationRole) && count($sc->ConstellationRole) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->ConstellationRole = \Comet\ConstellationRoleOptions::createFromStdclass(new \stdClass());
+			} else {
+				$this->ConstellationRole = \Comet\ConstellationRoleOptions::createFromStdclass($sc->ConstellationRole);
+			}
+		}
+		if (property_exists($sc, 'Email')) {
+			if (is_array($sc->Email) && count($sc->Email) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->Email = \Comet\EmailOptions::createFromStdclass(new \stdClass());
+			} else {
+				$this->Email = \Comet\EmailOptions::createFromStdclass($sc->Email);
+			}
+		}
+		if (property_exists($sc, 'ExperimentalOptions') && !is_null($sc->ExperimentalOptions)) {
+			$val_2 = [];
+			if ($sc->ExperimentalOptions !== null) {
+				for($i_2 = 0; $i_2 < count($sc->ExperimentalOptions); ++$i_2) {
+					$val_2[] = (string)($sc->ExperimentalOptions[$i_2]);
+				}
+			}
+			$this->ExperimentalOptions = $val_2;
 		}
 		if (property_exists($sc, 'Hosts')) {
 			$val_2 = [];
@@ -95,21 +146,25 @@ class Organization {
 			}
 			$this->Hosts = $val_2;
 		}
-		if (property_exists($sc, 'SoftwareBuildRole')) {
-			if (is_array($sc->SoftwareBuildRole) && count($sc->SoftwareBuildRole) === 0) {
-			// Work around edge case in json_decode--json_encode stdClass conversion
-				$this->SoftwareBuildRole = \Comet\SoftwareBuildRoleOptions::createFromStdclass(new \stdClass());
-			} else {
-				$this->SoftwareBuildRole = \Comet\SoftwareBuildRoleOptions::createFromStdclass($sc->SoftwareBuildRole);
-			}
+		if (property_exists($sc, 'Name')) {
+			$this->Name = (string)($sc->Name);
 		}
-		if (property_exists($sc, 'Branding')) {
-			if (is_array($sc->Branding) && count($sc->Branding) === 0) {
-			// Work around edge case in json_decode--json_encode stdClass conversion
-				$this->Branding = \Comet\BrandingOptions::createFromStdclass(new \stdClass());
-			} else {
-				$this->Branding = \Comet\BrandingOptions::createFromStdclass($sc->Branding);
+		if (property_exists($sc, 'IsSuspended')) {
+			$this->IsSuspended = (bool)($sc->IsSuspended);
+		}
+		if (property_exists($sc, 'PSAConfigs')) {
+			$val_2 = [];
+			if ($sc->PSAConfigs !== null) {
+				for($i_2 = 0; $i_2 < count($sc->PSAConfigs); ++$i_2) {
+					if (is_array($sc->PSAConfigs[$i_2]) && count($sc->PSAConfigs[$i_2]) === 0) {
+					// Work around edge case in json_decode--json_encode stdClass conversion
+						$val_2[] = \Comet\PSAConfig::createFromStdclass(new \stdClass());
+					} else {
+						$val_2[] = \Comet\PSAConfig::createFromStdclass($sc->PSAConfigs[$i_2]);
+					}
+				}
 			}
+			$this->PSAConfigs = $val_2;
 		}
 		if (property_exists($sc, 'RemoteStorage')) {
 			$val_2 = [];
@@ -125,12 +180,12 @@ class Organization {
 			}
 			$this->RemoteStorage = $val_2;
 		}
-		if (property_exists($sc, 'ConstellationRole')) {
-			if (is_array($sc->ConstellationRole) && count($sc->ConstellationRole) === 0) {
+		if (property_exists($sc, 'SoftwareBuildRole')) {
+			if (is_array($sc->SoftwareBuildRole) && count($sc->SoftwareBuildRole) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
-				$this->ConstellationRole = \Comet\ConstellationRoleOptions::createFromStdclass(new \stdClass());
+				$this->SoftwareBuildRole = \Comet\SoftwareBuildRoleOptions::createFromStdclass(new \stdClass());
 			} else {
-				$this->ConstellationRole = \Comet\ConstellationRoleOptions::createFromStdclass($sc->ConstellationRole);
+				$this->SoftwareBuildRole = \Comet\SoftwareBuildRoleOptions::createFromStdclass($sc->SoftwareBuildRole);
 			}
 		}
 		if (property_exists($sc, 'WebhookOptions')) {
@@ -149,53 +204,20 @@ class Organization {
 			}
 			$this->WebhookOptions = $val_2;
 		}
-		if (property_exists($sc, 'PSAConfigs')) {
-			$val_2 = [];
-			if ($sc->PSAConfigs !== null) {
-				for($i_2 = 0; $i_2 < count($sc->PSAConfigs); ++$i_2) {
-					if (is_array($sc->PSAConfigs[$i_2]) && count($sc->PSAConfigs[$i_2]) === 0) {
-					// Work around edge case in json_decode--json_encode stdClass conversion
-						$val_2[] = \Comet\PSAConfig::createFromStdclass(new \stdClass());
-					} else {
-						$val_2[] = \Comet\PSAConfig::createFromStdclass($sc->PSAConfigs[$i_2]);
-					}
-				}
-			}
-			$this->PSAConfigs = $val_2;
-		}
-		if (property_exists($sc, 'Email')) {
-			if (is_array($sc->Email) && count($sc->Email) === 0) {
-			// Work around edge case in json_decode--json_encode stdClass conversion
-				$this->Email = \Comet\EmailOptions::createFromStdclass(new \stdClass());
-			} else {
-				$this->Email = \Comet\EmailOptions::createFromStdclass($sc->Email);
-			}
-		}
-		if (property_exists($sc, 'IsSuspended')) {
-			$this->IsSuspended = (bool)($sc->IsSuspended);
-		}
-		if (property_exists($sc, 'ExperimentalOptions') && !is_null($sc->ExperimentalOptions)) {
-			$val_2 = [];
-			if ($sc->ExperimentalOptions !== null) {
-				for($i_2 = 0; $i_2 < count($sc->ExperimentalOptions); ++$i_2) {
-					$val_2[] = (string)($sc->ExperimentalOptions[$i_2]);
-				}
-			}
-			$this->ExperimentalOptions = $val_2;
-		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
-			case 'Name':
-			case 'Hosts':
-			case 'SoftwareBuildRole':
+			case 'AuditFileOptions':
 			case 'Branding':
-			case 'RemoteStorage':
 			case 'ConstellationRole':
-			case 'WebhookOptions':
-			case 'PSAConfigs':
 			case 'Email':
-			case 'IsSuspended':
 			case 'ExperimentalOptions':
+			case 'Hosts':
+			case 'Name':
+			case 'IsSuspended':
+			case 'PSAConfigs':
+			case 'RemoteStorage':
+			case 'SoftwareBuildRole':
+			case 'WebhookOptions':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -261,7 +283,46 @@ class Organization {
 	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
-		$ret["Name"] = $this->Name;
+		{
+			$c0 = [];
+			foreach($this->AuditFileOptions as $k0 => $v0) {
+				$ko_0 = $k0;
+				if ( $v0 === null ) {
+					$vo_0 = $for_json_encode ? (object)[] : [];
+				} else {
+					$vo_0 = $v0->toArray($for_json_encode);
+				}
+				$c0[ $ko_0 ] = $vo_0;
+			}
+			if ($for_json_encode && count($c0) == 0) {
+				$ret["AuditFileOptions"] = (object)[];
+			} else {
+				$ret["AuditFileOptions"] = $c0;
+			}
+		}
+		if ( $this->Branding === null ) {
+			$ret["Branding"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["Branding"] = $this->Branding->toArray($for_json_encode);
+		}
+		if ( $this->ConstellationRole === null ) {
+			$ret["ConstellationRole"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["ConstellationRole"] = $this->ConstellationRole->toArray($for_json_encode);
+		}
+		if ( $this->Email === null ) {
+			$ret["Email"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["Email"] = $this->Email->toArray($for_json_encode);
+		}
+		{
+			$c0 = [];
+			for($i0 = 0; $i0 < count($this->ExperimentalOptions); ++$i0) {
+				$val0 = $this->ExperimentalOptions[$i0];
+				$c0[] = $val0;
+			}
+			$ret["ExperimentalOptions"] = $c0;
+		}
 		{
 			$c0 = [];
 			for($i0 = 0; $i0 < count($this->Hosts); ++$i0) {
@@ -270,15 +331,19 @@ class Organization {
 			}
 			$ret["Hosts"] = $c0;
 		}
-		if ( $this->SoftwareBuildRole === null ) {
-			$ret["SoftwareBuildRole"] = $for_json_encode ? (object)[] : [];
-		} else {
-			$ret["SoftwareBuildRole"] = $this->SoftwareBuildRole->toArray($for_json_encode);
-		}
-		if ( $this->Branding === null ) {
-			$ret["Branding"] = $for_json_encode ? (object)[] : [];
-		} else {
-			$ret["Branding"] = $this->Branding->toArray($for_json_encode);
+		$ret["Name"] = $this->Name;
+		$ret["IsSuspended"] = $this->IsSuspended;
+		{
+			$c0 = [];
+			for($i0 = 0; $i0 < count($this->PSAConfigs); ++$i0) {
+				if ( $this->PSAConfigs[$i0] === null ) {
+					$val0 = $for_json_encode ? (object)[] : [];
+				} else {
+					$val0 = $this->PSAConfigs[$i0]->toArray($for_json_encode);
+				}
+				$c0[] = $val0;
+			}
+			$ret["PSAConfigs"] = $c0;
 		}
 		{
 			$c0 = [];
@@ -292,10 +357,10 @@ class Organization {
 			}
 			$ret["RemoteStorage"] = $c0;
 		}
-		if ( $this->ConstellationRole === null ) {
-			$ret["ConstellationRole"] = $for_json_encode ? (object)[] : [];
+		if ( $this->SoftwareBuildRole === null ) {
+			$ret["SoftwareBuildRole"] = $for_json_encode ? (object)[] : [];
 		} else {
-			$ret["ConstellationRole"] = $this->ConstellationRole->toArray($for_json_encode);
+			$ret["SoftwareBuildRole"] = $this->SoftwareBuildRole->toArray($for_json_encode);
 		}
 		{
 			$c0 = [];
@@ -313,32 +378,6 @@ class Organization {
 			} else {
 				$ret["WebhookOptions"] = $c0;
 			}
-		}
-		{
-			$c0 = [];
-			for($i0 = 0; $i0 < count($this->PSAConfigs); ++$i0) {
-				if ( $this->PSAConfigs[$i0] === null ) {
-					$val0 = $for_json_encode ? (object)[] : [];
-				} else {
-					$val0 = $this->PSAConfigs[$i0]->toArray($for_json_encode);
-				}
-				$c0[] = $val0;
-			}
-			$ret["PSAConfigs"] = $c0;
-		}
-		if ( $this->Email === null ) {
-			$ret["Email"] = $for_json_encode ? (object)[] : [];
-		} else {
-			$ret["Email"] = $this->Email->toArray($for_json_encode);
-		}
-		$ret["IsSuspended"] = $this->IsSuspended;
-		{
-			$c0 = [];
-			for($i0 = 0; $i0 < count($this->ExperimentalOptions); ++$i0) {
-				$val0 = $this->ExperimentalOptions[$i0];
-				$c0[] = $val0;
-			}
-			$ret["ExperimentalOptions"] = $c0;
 		}
 
 		// Reinstate unknown properties from future server versions
@@ -389,9 +428,6 @@ class Organization {
 	public function RemoveUnknownProperties()
 	{
 		$this->__unknown_properties = [];
-		if ($this->SoftwareBuildRole !== null) {
-			$this->SoftwareBuildRole->RemoveUnknownProperties();
-		}
 		if ($this->Branding !== null) {
 			$this->Branding->RemoveUnknownProperties();
 		}
@@ -400,6 +436,9 @@ class Organization {
 		}
 		if ($this->Email !== null) {
 			$this->Email->RemoveUnknownProperties();
+		}
+		if ($this->SoftwareBuildRole !== null) {
+			$this->SoftwareBuildRole->RemoveUnknownProperties();
 		}
 	}
 

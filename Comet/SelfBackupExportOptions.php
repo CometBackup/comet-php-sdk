@@ -27,11 +27,16 @@ class SelfBackupExportOptions {
 	public $EncryptionKeyFormat = 0;
 
 	/**
+	 * One of the COMPRESS_LVL_ constants
+	 *
 	 * @var int
 	 */
 	public $Compression = 0;
 
 	/**
+	 * The jobs database is often the largest component of the Server Self-Backup archive. By excluding
+	 * it, you could run the Server Self-Backup more often.
+	 *
 	 * @var boolean
 	 */
 	public $ExcludeJobsDB = false;

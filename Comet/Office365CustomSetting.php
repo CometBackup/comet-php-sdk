@@ -10,6 +10,9 @@
 namespace Comet;
 
 /**
+ * Office365CustomSetting is used in the EngineProps for an Office 365 Protected Item (see
+ * ENGINE_BUILTIN_MSOFFICE).
+ * If present, it will be automatically converted to the replacement Office365CustomSettingV2 type.
  * @deprecated 21.9.xx This type has been deprecated since Comet version 21.9.xx
  */
 class Office365CustomSetting {

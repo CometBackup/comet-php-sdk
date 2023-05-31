@@ -37,6 +37,9 @@ class MSSQLLoginArgs {
 	public $MethodIsOledb32Bit = false;
 
 	/**
+	 * If this MSSQLLoginArgs structure is used for a restore job (RestoreJobAdvancedOptions) using
+	 * RESTORETYPE_MSSQL, then, this field controls the RECOVERY / NO RECOVERY option state.
+	 *
 	 * @var boolean
 	 */
 	public $RestoreNoRecovery = false;

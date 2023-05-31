@@ -77,6 +77,7 @@ class UserProfileConfig {
 
 	/**
 	 * Storage Vaults
+	 * The string keys can be any unique key. Using a GUID is recommended, but optional.
 	 *
 	 * @var \Comet\DestinationConfig[] An array with string keys.
 	 */
@@ -84,6 +85,7 @@ class UserProfileConfig {
 
 	/**
 	 * Protected Items
+	 * The string keys can be any unique key. Using a GUID is recommended, but optional.
 	 *
 	 * @var \Comet\SourceConfig[] An array with string keys.
 	 */
@@ -91,6 +93,7 @@ class UserProfileConfig {
 
 	/**
 	 * Schedules
+	 * The string keys can be any unique key. Using a GUID is recommended, but optional.
 	 *
 	 * @var \Comet\BackupRuleConfig[] An array with string keys.
 	 */
@@ -98,6 +101,8 @@ class UserProfileConfig {
 
 	/**
 	 * Devices
+	 * The string keys are the device's ID. The device ID is generated automatically based on a mix of
+	 * hardware and software identifiers on the installed PC.
 	 * To revoke a device, use the AdminRevokeDevice API instead of accessing these fields directly.
 	 * This API can also remove associated Protected Items, uninstall the remote device, and disconnect
 	 * its live connection.
@@ -168,6 +173,7 @@ class UserProfileConfig {
 	public $Policy = null;
 
 	/**
+	 * One of the PASSWORD_FORMAT_ constants
 	 * To change the user's password, use the AdminResetUserPassword API instead of accessing these
 	 * fields directly. Otherwise, other encrypted fields in the user profile may become corrupted.
 	 *
@@ -195,11 +201,16 @@ class UserProfileConfig {
 	public $AllowPasswordLogin = false;
 
 	/**
+	 * If true, then TOTP is required to open the desktop app or the Comet Server web interface with
+	 * this user's credentials.
+	 *
 	 * @var boolean
 	 */
 	public $AllowPasswordAndTOTPLogin = false;
 
 	/**
+	 * One of the ENCRYPTIONMETHOD_ constants
+	 *
 	 * @var int
 	 */
 	public $TOTPKeyEncryptionFormat = 0;

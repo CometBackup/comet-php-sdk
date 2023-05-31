@@ -14,12 +14,32 @@ class StreamableEvent {
 	/**
 	 * @var string
 	 */
+	public $Actor = "";
+
+	/**
+	 * @var string
+	 */
 	public $OwnerOrganizationID = "";
+
+	/**
+	 * @var string
+	 */
+	public $ResourceID = "";
 
 	/**
 	 * @var int
 	 */
 	public $Type = 0;
+
+	/**
+	 * @var int
+	 */
+	public $Timestamp = 0;
+
+	/**
+	 * @var string
+	 */
+	public $TypeString = "";
 
 	/**
 	 * @var mixed
@@ -43,19 +63,35 @@ class StreamableEvent {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
+		if (property_exists($sc, 'Actor')) {
+			$this->Actor = (string)($sc->Actor);
+		}
 		if (property_exists($sc, 'OwnerOrganizationID')) {
 			$this->OwnerOrganizationID = (string)($sc->OwnerOrganizationID);
 		}
+		if (property_exists($sc, 'ResourceID') && !is_null($sc->ResourceID)) {
+			$this->ResourceID = (string)($sc->ResourceID);
+		}
 		if (property_exists($sc, 'Type')) {
 			$this->Type = (int)($sc->Type);
+		}
+		if (property_exists($sc, 'Timestamp') && !is_null($sc->Timestamp)) {
+			$this->Timestamp = (int)($sc->Timestamp);
+		}
+		if (property_exists($sc, 'TypeString') && !is_null($sc->TypeString)) {
+			$this->TypeString = (string)($sc->TypeString);
 		}
 		if (property_exists($sc, 'Data') && !is_null($sc->Data)) {
 			$this->Data = $sc->Data; // May be any type
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
+			case 'Actor':
 			case 'OwnerOrganizationID':
+			case 'ResourceID':
 			case 'Type':
+			case 'Timestamp':
+			case 'TypeString':
 			case 'Data':
 				break;
 			default:
@@ -122,8 +158,12 @@ class StreamableEvent {
 	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
+		$ret["Actor"] = $this->Actor;
 		$ret["OwnerOrganizationID"] = $this->OwnerOrganizationID;
+		$ret["ResourceID"] = $this->ResourceID;
 		$ret["Type"] = $this->Type;
+		$ret["Timestamp"] = $this->Timestamp;
+		$ret["TypeString"] = $this->TypeString;
 		$ret["Data"] = $this->Data;
 
 		// Reinstate unknown properties from future server versions

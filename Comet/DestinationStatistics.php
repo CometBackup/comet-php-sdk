@@ -27,11 +27,15 @@ class DestinationStatistics {
 	public $LastSuccessfulDeepVerify_GUID = "";
 
 	/**
+	 * Unix timestamp in seconds
+	 *
 	 * @var int
 	 */
 	public $LastSuccessfulDeepVerify_StartTime = 0;
 
 	/**
+	 * Unix timestamp in seconds
+	 *
 	 * @var int
 	 */
 	public $LastSuccessfulDeepVerify_EndTime = 0;

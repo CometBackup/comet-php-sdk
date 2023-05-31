@@ -22,6 +22,8 @@ class SFTPDestinationLocation {
 	public $SFTPUsername = "";
 
 	/**
+	 * The directory on the SFTP server in which data is stored.
+	 *
 	 * @var string
 	 */
 	public $SFTPRemotePath = "";
@@ -34,21 +36,31 @@ class SFTPDestinationLocation {
 	public $SFTPAuthMode = 0;
 
 	/**
+	 * For use with DESTINATION_SFTP_AUTHMODE_PASSWORD only: the SSH password to connect with
+	 *
 	 * @var string
 	 */
 	public $SFTPPassword = "";
 
 	/**
+	 * For use with DESTINATION_SFTP_AUTHMODE_PRIVATEKEY only: the SSH private key to connect with, in
+	 * OpenSSH format.
+	 *
 	 * @var string
 	 */
 	public $SFTPPrivateKey = "";
 
 	/**
+	 * If true, then the SFTPCustomAuth_KnownHostsFile will be used to verify the remote SSH server's
+	 * host key, using Trust On First Use (TOFU).
+	 *
 	 * @var boolean
 	 */
 	public $SFTPCustomAuth_UseKnownHostsFile = false;
 
 	/**
+	 * If SFTPCustomAuth_UseKnownHostFile is true, the path to the SSH known_hosts file.
+	 *
 	 * @var string
 	 */
 	public $SFTPCustomAuth_KnownHostsFile = "";

@@ -12,11 +12,15 @@ namespace Comet;
 class ConstellationCheckReport {
 
 	/**
+	 * Unix timestamp in seconds
+	 *
 	 * @var int
 	 */
 	public $CheckStarted = 0;
 
 	/**
+	 * Unix timestamp in seconds
+	 *
 	 * @var int
 	 */
 	public $CheckCompleted = 0;

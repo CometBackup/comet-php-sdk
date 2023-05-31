@@ -147,6 +147,8 @@ class BackupJobDetail {
 	public $TotalUnlicensedMailsCount = 0;
 
 	/**
+	 * If this field is present, it is possible to request cancellation of this job via the API.
+	 *
 	 * @var string
 	 */
 	public $CancellationID = "";

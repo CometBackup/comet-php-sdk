@@ -29,21 +29,31 @@ class SSHConnection {
 	public $SSHAuthMode = 0;
 
 	/**
+	 * For use with SSHCONNECTION_AUTHMODE_PASSWORD only: the SSH password to connect with
+	 *
 	 * @var string
 	 */
 	public $SSHPassword = "";
 
 	/**
+	 * For use with SSHCONNECTION_AUTHMODE_PRIVATEKEY only: the SSH private key to connect with, in
+	 * OpenSSH format.
+	 *
 	 * @var string
 	 */
 	public $SSHPrivateKey = "";
 
 	/**
+	 * If true, then the SSHCustomAuth_KnownHostsFile will be used to verify the remote SSH server's
+	 * host key, using Trust On First Use (TOFU).
+	 *
 	 * @var boolean
 	 */
 	public $SSHCustomAuth_UseKnownHostsFile = false;
 
 	/**
+	 * If SSHCustomAuth_UseKnownHostsFile is true, the path to the SSH known_hosts file.
+	 *
 	 * @var string
 	 */
 	public $SSHCustomAuth_KnownHostsFile = "";

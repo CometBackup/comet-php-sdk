@@ -12,6 +12,11 @@ namespace Comet;
 class DefaultEmailReportPolicy {
 
 	/**
+	 * If true, the email reports will use the custom configuration that is defined in
+	 * UserCustomEmailSettings / Reports fields.
+	 * If false, the email reports will use configuration from the policy setting if present, or else
+	 * from the built-in system default email report configuration.
+	 *
 	 * @var boolean
 	 */
 	public $ShouldOverrideDefaultReports = false;

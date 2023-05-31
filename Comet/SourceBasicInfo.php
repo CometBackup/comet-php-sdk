@@ -22,6 +22,8 @@ class SourceBasicInfo {
 	public $O365AccountCount = 0;
 
 	/**
+	 * Bytes
+	 *
 	 * @var int
 	 */
 	public $Size = 0;

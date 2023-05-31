@@ -9,14 +9,23 @@
 
 namespace Comet;
 
+/**
+ * SourceIncludePattern is used for pattern inclusions for File and Folder Protected Items
+ * (ENGINE_BUILTIN_FILE).
+ * It should be marshalled as JSON and then stored in the PINCLUDE / RINCLUDE EngineProp keys.
+ */
 class SourceIncludePattern {
 
 	/**
+	 * The filesystem path to search within, for matches
+	 *
 	 * @var string
 	 */
 	public $TopDirectory = "";
 
 	/**
+	 * The pattern (glob or regex format) to match
+	 *
 	 * @var string
 	 */
 	public $Value = "";

@@ -9,6 +9,9 @@
 
 namespace Comet;
 
+/**
+ * @deprecated 23.3.5 This type has been deprecated since Comet version 23.3.5
+ */
 class UserProfileFragment {
 
 	/**

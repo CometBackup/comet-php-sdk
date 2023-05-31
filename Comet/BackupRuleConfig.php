@@ -56,11 +56,15 @@ class BackupRuleConfig {
 	public $PostExec = [];
 
 	/**
+	 * The source Protected Item ID to back up from, during this schedule
+	 *
 	 * @var string
 	 */
 	public $Source = "";
 
 	/**
+	 * The destination Storage Vault ID to back up to, during this schedule
+	 *
 	 * @var string
 	 */
 	public $Destination = "";
@@ -113,11 +117,15 @@ class BackupRuleConfig {
 	public $AutoRetentionLevel = 0;
 
 	/**
+	 * Scheduled start times
+	 *
 	 * @var \Comet\ScheduleConfig[]
 	 */
 	public $Schedules = [];
 
 	/**
+	 * Other events that will cause this scheduled job to start
+	 *
 	 * @var \Comet\BackupRuleEventTriggers
 	 */
 	public $EventTriggers = null;

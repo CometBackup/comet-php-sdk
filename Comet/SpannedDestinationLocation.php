@@ -12,11 +12,24 @@ namespace Comet;
 class SpannedDestinationLocation {
 
 	/**
+	 * A list of underlying destinations, that will be combined and presented as one.
+	 *
 	 * @var \Comet\DestinationLocation[]
 	 */
 	public $SpanTargets = [];
 
 	/**
+	 * If true, this Spanned destination will use a consistent hashing scheme
+	 * to immediately find specific files on exactly one of the target destinations.
+	 * In the Static Slots mode, the span targets cannot be moved or merged, and
+	 * the files must always remain in their original location.
+	 *
+	 * If false, the Spanned destination system will search all targets to find
+	 * the requested file. This is slightly slower, but allows you to freely merge,
+	 * split, and reorder the underlying destination locations.
+	 *
+	 * The default option is false.
+	 *
 	 * @var boolean
 	 */
 	public $SpanUseStaticSlots = false;

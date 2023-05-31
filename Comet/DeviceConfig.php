@@ -17,6 +17,8 @@ class DeviceConfig {
 	public $FriendlyName = "";
 
 	/**
+	 * Unix timestamp in seconds
+	 *
 	 * @var int
 	 */
 	public $RegistrationTime = 0;
