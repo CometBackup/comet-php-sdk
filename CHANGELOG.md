@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## 2023-06-01 v4.9.0
+
+- Based on Comet 23.5.0
+- Add new `StreamableEventType` constants (`SEVT_*`) used for tracking Comet Server config changes
+- Add new `StreamerType` constants (`STREAMER_TYPE_*`)
+- Add new `FileOptions` type for configuring the Comet Server to log live events to a file
+- Add new field `AuditFileOptions` to the `Organization` type for configuring per-tenant audit log options
+- Add `Actor` (authenticated user), `ResourceID`, `Timestamp` and `TypeString` fields to the `StreamableEvent` type
+- Deprecate the `UserProfileFragment` type
+- Add extra comments to many types
+
 ## 2023-05-05 v4.8.0
 
 - Based on Comet 23.3.7
