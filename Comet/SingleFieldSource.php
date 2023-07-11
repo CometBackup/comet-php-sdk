@@ -17,6 +17,8 @@ class SingleFieldSource {
 	public $FieldName = "";
 
 	/**
+	 * One of "bool" / "int" / "string"
+	 *
 	 * @var string
 	 */
 	public $FieldType = "";

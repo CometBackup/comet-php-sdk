@@ -27,6 +27,8 @@ class AllowedAdminUser {
 	public $ExternalAuthenticationSource = "";
 
 	/**
+	 * One of the PASSWORD_FORMAT_ constants
+	 *
 	 * @var int
 	 */
 	public $PasswordFormat = 0;
@@ -69,6 +71,8 @@ class AllowedAdminUser {
 	public $WebAuthnRegistrations = [];
 
 	/**
+	 * One of the ENCRYPTIONMETHOD_ constants
+	 *
 	 * @var int
 	 */
 	public $TOTPKeyEncryptionFormat = 0;
@@ -79,6 +83,9 @@ class AllowedAdminUser {
 	public $TOTPKey = "";
 
 	/**
+	 * A regular expression in Go regex syntax, for which IP addresses are allowed to authenticate as
+	 * this admin account
+	 *
 	 * @var string
 	 */
 	public $IPWhitelist = "";

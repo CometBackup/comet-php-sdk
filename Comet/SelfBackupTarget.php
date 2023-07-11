@@ -39,6 +39,8 @@ class SelfBackupTarget {
 	public $EncryptionKey = "";
 
 	/**
+	 * One of the ENCRYPTIONMETHOD_ constants
+	 *
 	 * @var int
 	 */
 	public $EncryptionKeyFormat = 0;

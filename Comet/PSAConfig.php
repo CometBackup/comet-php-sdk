@@ -12,6 +12,8 @@ namespace Comet;
 class PSAConfig {
 
 	/**
+	 * For PSA_TYPE_GRADIENT. Defaults to enabled
+	 *
 	 * @var boolean
 	 */
 	public $AlertsDisabled = false;
@@ -22,16 +24,22 @@ class PSAConfig {
 	public $CustomHeaders = [];
 
 	/**
+	 * Specified credentials for the target PSA
+	 *
 	 * @var string
 	 */
 	public $PartnerKey = "";
 
 	/**
+	 * One of the PSA_TYPE_ constants
+	 *
 	 * @var int
 	 */
 	public $Type = 0;
 
 	/**
+	 * For PSA_TYPE_GENERIC
+	 *
 	 * @var string
 	 */
 	public $URL = "";

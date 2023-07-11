@@ -38,11 +38,15 @@ class ServerMetaBrandingProperties {
 	public $ImageEtag = "";
 
 	/**
+	 * Colour in RGB hex format (e.g. "#FFFFFF")
+	 *
 	 * @var string
 	 */
 	public $TopColor = "";
 
 	/**
+	 * Colour in RGB hex format (e.g. "#FFFFFF")
+	 *
 	 * @var string
 	 */
 	public $AccentColor = "";

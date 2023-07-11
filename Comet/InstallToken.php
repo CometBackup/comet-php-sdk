@@ -17,26 +17,36 @@ class InstallToken {
 	public $Username = "";
 
 	/**
+	 * The URL of the Comet Server (Auth Role) for the target user to log in to.
+	 *
 	 * @var string
 	 */
 	public $Server = "";
 
 	/**
+	 * The token for use with the "/TOKEN=" silent install flag.
+	 *
 	 * @var string
 	 */
 	public $Token = "";
 
 	/**
+	 * Unix timestamp, in seconds.
+	 *
 	 * @var int
 	 */
 	public $CreateTime = 0;
 
 	/**
+	 * If the token has been used, it cannot be used again.
+	 *
 	 * @var boolean
 	 */
 	public $Used = false;
 
 	/**
+	 * Unix timestamp, in seconds.
+	 *
 	 * @var int
 	 */
 	public $ExpireTime = 0;

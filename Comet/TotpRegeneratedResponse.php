@@ -24,17 +24,21 @@ class TotpRegeneratedResponse {
 	public $Message = "";
 
 	/**
+	 * A data URI of an image of a TOTP code (e.g. "data:image/png;base64,AAA...")
+	 *
 	 * @var string
 	 */
 	public $Image = "";
 
 	/**
 	 * @var string
+	 * This field is available in Comet 18.9.9 and later.
 	 */
 	public $URL = "";
 
 	/**
 	 * @var string
+	 * This field is available in Comet 20.3.2 and later.
 	 */
 	public $ProfileHash = "";
 

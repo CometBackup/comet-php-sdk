@@ -12,6 +12,8 @@ namespace Comet;
 class MSSQLConnection {
 
 	/**
+	 * One of the MSSQL_AUTH_ constants (e.g. "windows" or "native")
+	 *
 	 * @var string
 	 */
 	public $Type = "";
@@ -28,6 +30,7 @@ class MSSQLConnection {
 
 	/**
 	 * @var string
+	 * @deprecated Unused This member has been deprecated since Comet version Unused
 	 */
 	public $Hostname = "";
 
@@ -37,6 +40,8 @@ class MSSQLConnection {
 	public $InstanceName = "";
 
 	/**
+	 * One of the MSSQL_METHOD_ constants, to control using x86_32 or x86_64 OLEDB drivers
+	 *
 	 * @var string
 	 */
 	public $Method = "";

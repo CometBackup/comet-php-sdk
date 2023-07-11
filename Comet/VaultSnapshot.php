@@ -28,6 +28,7 @@ class VaultSnapshot {
 
 	/**
 	 * @var boolean
+	 * This field is available in Comet 20.12.4 and later.
 	 */
 	public $HasOriginalPathInfo = false;
 

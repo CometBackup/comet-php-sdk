@@ -12,6 +12,8 @@ namespace Comet;
 class PrivateBrandingProperties {
 
 	/**
+	 * One of the CLIENTBRANDINGBUILD_ constants
+	 *
 	 * @var int
 	 */
 	public $BuildMode = 0;
@@ -57,6 +59,8 @@ class PrivateBrandingProperties {
 	public $PackageIdentifier = "";
 
 	/**
+	 * One of the WINDOWSCODESIGN_METHOD_ constants
+	 *
 	 * @var int
 	 */
 	public $WindowsCodeSignMethod = 0;
@@ -67,6 +71,8 @@ class PrivateBrandingProperties {
 	public $WindowsCodeSignPKCS12FilePath = "";
 
 	/**
+	 * One of the ENCRYPTIONMETHOD_ constants
+	 *
 	 * @var int
 	 */
 	public $WindowsCodeSignPKCS12PasswordFormat = 0;
@@ -98,6 +104,8 @@ class PrivateBrandingProperties {
 	public $WindowsCodeSignPKCS11KeyID = "";
 
 	/**
+	 * One of the ENCRYPTIONMETHOD_ constants
+	 *
 	 * @var int
 	 */
 	public $WindowsCodeSignPKCS11PasswordFormat = 0;
@@ -123,6 +131,8 @@ class PrivateBrandingProperties {
 	public $WindowsCodeSignAzureAppID = "";
 
 	/**
+	 * One of the ENCRYPTIONMETHOD_ constants
+	 *
 	 * @var int
 	 */
 	public $WindowsCodeSignAzureAppSecretFormat = 0;

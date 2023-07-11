@@ -114,6 +114,23 @@ class SourceConfig {
 	public $EngineProps = [];
 
 	/**
+	 * If set, this SourceConfig was added from a Policy with the specified ID.
+	 *
+	 * @var string
+	 * This field is available in Comet 23.6.0 and later.
+	 */
+	public $PolicySourceID = "";
+
+	/**
+	 * For a Policy-defined SourceConfig, this field controls whether the Protected Item will stay
+	 * linked with the policy.
+	 *
+	 * @var boolean
+	 * This field is available in Comet 23.6.0 and later.
+	 */
+	public $ExistingUserUpdate = false;
+
+	/**
 	 * By default, backup jobs from this Protected Item will be subject
 	 * to the overall retention policy for the Storage Vault. You can override the policy
 	 * for specific Storage Vaults by putting their destination ID as a key here.
@@ -197,6 +214,12 @@ class SourceConfig {
 			}
 			$this->EngineProps = $val_2;
 		}
+		if (property_exists($sc, 'PolicySourceID')) {
+			$this->PolicySourceID = (string)($sc->PolicySourceID);
+		}
+		if (property_exists($sc, 'ExistingUserUpdate')) {
+			$this->ExistingUserUpdate = (bool)($sc->ExistingUserUpdate);
+		}
 		if (property_exists($sc, 'OverrideDestinationRetention') && !is_null($sc->OverrideDestinationRetention)) {
 			$val_2 = [];
 			if ($sc->OverrideDestinationRetention !== null) {
@@ -232,6 +255,8 @@ class SourceConfig {
 			case 'ThawExec':
 			case 'PostExec':
 			case 'EngineProps':
+			case 'PolicySourceID':
+			case 'ExistingUserUpdate':
 			case 'OverrideDestinationRetention':
 			case 'Statistics':
 				break;
@@ -341,6 +366,8 @@ class SourceConfig {
 				$ret["EngineProps"] = $c0;
 			}
 		}
+		$ret["PolicySourceID"] = $this->PolicySourceID;
+		$ret["ExistingUserUpdate"] = $this->ExistingUserUpdate;
 		{
 			$c0 = [];
 			foreach($this->OverrideDestinationRetention as $k0 => $v0) {

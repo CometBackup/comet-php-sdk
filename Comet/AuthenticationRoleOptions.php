@@ -17,6 +17,8 @@ class AuthenticationRoleOptions {
 	public $RoleEnabled = false;
 
 	/**
+	 * One of the INTEGRITYCHECK_ constants
+	 *
 	 * @var int
 	 */
 	public $DatabaseCheckLevel = 0;
@@ -27,6 +29,8 @@ class AuthenticationRoleOptions {
 	public $GenerateMissedBackupEvents = false;
 
 	/**
+	 * Unix timestamp in seconds, before which no Missed jobs are created
+	 *
 	 * @var int
 	 */
 	public $NoMissedBackupEventsBefore = 0;

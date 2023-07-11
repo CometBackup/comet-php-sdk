@@ -17,11 +17,15 @@ class EmailReportingOption {
 	public $EmailReportConfig = null;
 
 	/**
+	 * A supported language code (e.g. "en_US" or the DEFAULT_LANGUAGE constant)
+	 *
 	 * @var string
 	 */
 	public $LanguageCode = "";
 
 	/**
+	 * The timezone in IANA format (e.g. "Pacific/Auckland" or the DEFAULT_TIMEZONE constant)
+	 *
 	 * @var string
 	 */
 	public $LocalTimezone = "";

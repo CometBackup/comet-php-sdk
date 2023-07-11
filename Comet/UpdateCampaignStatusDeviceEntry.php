@@ -22,6 +22,8 @@ class UpdateCampaignStatusDeviceEntry {
 	public $DeviceID = "";
 
 	/**
+	 * One of the UPDATESTATUS_ constants
+	 *
 	 * @var int
 	 */
 	public $Status = 0;

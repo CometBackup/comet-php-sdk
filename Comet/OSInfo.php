@@ -9,22 +9,47 @@
 
 namespace Comet;
 
+/**
+ * OSInfo represents the common set of version information between all operating systems
+ */
 class OSInfo {
 
 	/**
+	 * The primary version number (e.g. on Windows: 1703 / 2009, on Linux: 20.04 / 22.04)
+	 *
 	 * @var string
 	 */
 	public $Version = "";
 
 	/**
+	 * The primary presentation name (e.g. "Windows 10 Pro", "debian", "Synology DSM")
+	 *
 	 * @var string
 	 */
 	public $Distribution = "";
 
 	/**
+	 * The detailed build number (e.g. 19043)
+	 *
 	 * @var string
 	 */
 	public $Build = "";
+
+	/**
+	 * The GOOS value
+	 *
+	 * @var string
+	 * This field is available in Comet 23.6.0 and later.
+	 */
+	public $OS = "";
+
+	/**
+	 * The GOARCH value
+	 *
+	 * @var string
+	 * This field is available in Comet 23.6.0 and later.
+	 */
+	public $Arch = "";
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
@@ -52,11 +77,19 @@ class OSInfo {
 		if (property_exists($sc, 'build') && !is_null($sc->build)) {
 			$this->Build = (string)($sc->build);
 		}
+		if (property_exists($sc, 'os') && !is_null($sc->os)) {
+			$this->OS = (string)($sc->os);
+		}
+		if (property_exists($sc, 'arch') && !is_null($sc->arch)) {
+			$this->Arch = (string)($sc->arch);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'version':
 			case 'distribution':
 			case 'build':
+			case 'os':
+			case 'arch':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -125,6 +158,8 @@ class OSInfo {
 		$ret["version"] = $this->Version;
 		$ret["distribution"] = $this->Distribution;
 		$ret["build"] = $this->Build;
+		$ret["os"] = $this->OS;
+		$ret["arch"] = $this->Arch;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

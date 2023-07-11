@@ -12,21 +12,29 @@ namespace Comet;
 class SoftwareUpdateNewsResponse {
 
 	/**
+	 * The latest "Quarterly" release version of Comet known to the account.cometbackup.com system.
+	 *
 	 * @var string
 	 */
 	public $LatestStable = "";
 
 	/**
+	 * The latest "Voyager" release version of Comet known to the account.cometbackup.com system.
+	 *
 	 * @var string
 	 */
 	public $LatestPrerelease = "";
 
 	/**
+	 * A URL linking to the Comet Server downloads page.
+	 *
 	 * @var string
 	 */
 	public $DownloadsURL = "";
 
 	/**
+	 * An array of recent news items written by Comet Backup staff. Entries are english plaintext.
+	 *
 	 * @var string[]
 	 */
 	public $WhatsNew = [];

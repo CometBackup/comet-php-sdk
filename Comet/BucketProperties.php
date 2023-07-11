@@ -17,11 +17,15 @@ class BucketProperties {
 	public $OrganizationID = "";
 
 	/**
+	 * Unix timestamp, in seconds.
+	 *
 	 * @var int
 	 */
 	public $CreateTime = 0;
 
 	/**
+	 * One of the PASSWORD_FORMAT_ constants
+	 *
 	 * @var int
 	 */
 	public $ReadWriteKeyFormat = 0;

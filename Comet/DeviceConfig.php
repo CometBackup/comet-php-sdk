@@ -46,6 +46,12 @@ class DeviceConfig {
 	public $DeviceTimezone = "";
 
 	/**
+	 * @var string
+	 * This field is available in Comet 23.6.0 and later.
+	 */
+	public $ClientVersion = "";
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see DeviceConfig::RemoveUnknownProperties() Remove all unknown properties
@@ -95,6 +101,9 @@ class DeviceConfig {
 		if (property_exists($sc, 'DeviceTimezone') && !is_null($sc->DeviceTimezone)) {
 			$this->DeviceTimezone = (string)($sc->DeviceTimezone);
 		}
+		if (property_exists($sc, 'ClientVersion') && !is_null($sc->ClientVersion)) {
+			$this->ClientVersion = (string)($sc->ClientVersion);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'FriendlyName':
@@ -102,6 +111,7 @@ class DeviceConfig {
 			case 'PlatformVersion':
 			case 'Sources':
 			case 'DeviceTimezone':
+			case 'ClientVersion':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -192,6 +202,7 @@ class DeviceConfig {
 			}
 		}
 		$ret["DeviceTimezone"] = $this->DeviceTimezone;
+		$ret["ClientVersion"] = $this->ClientVersion;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

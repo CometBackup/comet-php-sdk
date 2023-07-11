@@ -17,6 +17,8 @@ class NewsEntry {
 	public $OrganizationID = "";
 
 	/**
+	 * Unix timestamp, in seconds.
+	 *
 	 * @var int
 	 */
 	public $DateTime = 0;

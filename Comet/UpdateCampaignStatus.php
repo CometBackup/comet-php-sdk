@@ -53,6 +53,8 @@ class UpdateCampaignStatus {
 	public $DeviceFilter = null;
 
 	/**
+	 * Unix timestamp, in seconds
+	 *
 	 * @var int
 	 */
 	public $StartTime = 0;

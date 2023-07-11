@@ -22,6 +22,8 @@ class VSSComponent {
 	public $Name = "";
 
 	/**
+	 * "VSS_CT_DATABASE" or "VSS_CT_FILEGROUP"
+	 *
 	 * @var string
 	 */
 	public $CType = "";

@@ -17,6 +17,8 @@ class Partition {
 	public $DeviceName = "";
 
 	/**
+	 * The name of the filesystem used on this partition (e.g. "NTFS")
+	 *
 	 * @var string
 	 */
 	public $Filesystem = "";
@@ -42,16 +44,23 @@ class Partition {
 	public $MountPoints = [];
 
 	/**
+	 * Bytes. The partition's offset within the DeviceName. It will be zero if this partition has a
+	 * direct DeviceName handle.
+	 *
 	 * @var int
 	 */
 	public $ReadOffset = 0;
 
 	/**
+	 * Bytes
+	 *
 	 * @var int
 	 */
 	public $Size = 0;
 
 	/**
+	 * Bytes. Only present for supported filesystems that are currently mounted by the OS
+	 *
 	 * @var int
 	 */
 	public $UsedSize = 0;

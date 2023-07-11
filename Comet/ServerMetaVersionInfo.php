@@ -94,6 +94,8 @@ class ServerMetaVersionInfo {
 	public $ServerLicenseFeatureSet = 0;
 
 	/**
+	 * Unix timestamp, in seconds.
+	 *
 	 * @var int
 	 */
 	public $LicenseValidUntil = 0;
@@ -140,6 +142,7 @@ class ServerMetaVersionInfo {
 
 	/**
 	 * @var \Comet\SelfBackupStatistics[]
+	 * This field is available in Comet 21.3.2 and later.
 	 */
 	public $SelfBackup = [];
 

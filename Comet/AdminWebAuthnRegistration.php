@@ -17,6 +17,8 @@ class AdminWebAuthnRegistration {
 	public $Description = "";
 
 	/**
+	 * Unix timestamp, in seconds.
+	 *
 	 * @var int
 	 */
 	public $RegisterTime = 0;

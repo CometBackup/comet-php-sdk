@@ -29,11 +29,17 @@ class MacOSCodeSignProperties {
 	public $SSHServer = null;
 
 	/**
+	 * "Developer ID Installer" certificate, either a local filepath or a resource:// URI. Used for
+	 * signing the final flat *.pkg.
+	 *
 	 * @var string
 	 */
 	public $CertificateName = "";
 
 	/**
+	 * "Developer ID Application" certificate, either a local filepath or a resource:// URI. Used for
+	 * signing internal binaries if Notary is enabled
+	 *
 	 * @var string
 	 */
 	public $AppCertificateName = "";
@@ -49,6 +55,8 @@ class MacOSCodeSignProperties {
 	public $AppleIDPass = "";
 
 	/**
+	 * One of the ENCRYPTIONMETHOD_ constants
+	 *
 	 * @var int
 	 */
 	public $AppleIDPassFormat = 0;
@@ -69,6 +77,8 @@ class MacOSCodeSignProperties {
 	public $PfxFilePassword = "";
 
 	/**
+	 * One of the ENCRYPTIONMETHOD_ constants
+	 *
 	 * @var int
 	 */
 	public $PfxFilePasswordFormat = 0;

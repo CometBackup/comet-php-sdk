@@ -52,6 +52,48 @@ class AdminUserPermissions {
 	public $DenyConstellationRole = false;
 
 	/**
+	 * @var boolean
+	 * This field is available in Comet 23.6.0 and later.
+	 */
+	public $DenyViewServerHistory = false;
+
+	/**
+	 * @var boolean
+	 * This field is available in Comet 23.6.0 and later.
+	 */
+	public $DenyViewServerInfo = false;
+
+	/**
+	 * @var boolean
+	 * This field is available in Comet 23.6.0 and later.
+	 */
+	public $PreventRequestStorageVault = false;
+
+	/**
+	 * @var boolean
+	 * This field is available in Comet 23.6.0 and later.
+	 */
+	public $PreventAddCustomStorageVault = false;
+
+	/**
+	 * @var boolean
+	 * This field is available in Comet 23.6.0 and later.
+	 */
+	public $HideCloudStorageBranding = false;
+
+	/**
+	 * @var boolean
+	 * This field is available in Comet 23.6.0 and later.
+	 */
+	public $ShouldRestrictProviderList = false;
+
+	/**
+	 * @var int[]
+	 * This field is available in Comet 23.6.0 and later.
+	 */
+	public $AllowedProvidersWhenRestricted = [];
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see AdminUserPermissions::RemoveUnknownProperties() Remove all unknown properties
@@ -92,6 +134,33 @@ class AdminUserPermissions {
 		if (property_exists($sc, 'DenyConstellationRole') && !is_null($sc->DenyConstellationRole)) {
 			$this->DenyConstellationRole = (bool)($sc->DenyConstellationRole);
 		}
+		if (property_exists($sc, 'DenyViewServerHistory') && !is_null($sc->DenyViewServerHistory)) {
+			$this->DenyViewServerHistory = (bool)($sc->DenyViewServerHistory);
+		}
+		if (property_exists($sc, 'DenyViewServerInfo') && !is_null($sc->DenyViewServerInfo)) {
+			$this->DenyViewServerInfo = (bool)($sc->DenyViewServerInfo);
+		}
+		if (property_exists($sc, 'PreventRequestStorageVault') && !is_null($sc->PreventRequestStorageVault)) {
+			$this->PreventRequestStorageVault = (bool)($sc->PreventRequestStorageVault);
+		}
+		if (property_exists($sc, 'PreventAddCustomStorageVault') && !is_null($sc->PreventAddCustomStorageVault)) {
+			$this->PreventAddCustomStorageVault = (bool)($sc->PreventAddCustomStorageVault);
+		}
+		if (property_exists($sc, 'HideCloudStorageBranding') && !is_null($sc->HideCloudStorageBranding)) {
+			$this->HideCloudStorageBranding = (bool)($sc->HideCloudStorageBranding);
+		}
+		if (property_exists($sc, 'ShouldRestrictProviderList') && !is_null($sc->ShouldRestrictProviderList)) {
+			$this->ShouldRestrictProviderList = (bool)($sc->ShouldRestrictProviderList);
+		}
+		if (property_exists($sc, 'AllowedProvidersWhenRestricted') && !is_null($sc->AllowedProvidersWhenRestricted)) {
+			$val_2 = [];
+			if ($sc->AllowedProvidersWhenRestricted !== null) {
+				for($i_2 = 0; $i_2 < count($sc->AllowedProvidersWhenRestricted); ++$i_2) {
+					$val_2[] = (int)($sc->AllowedProvidersWhenRestricted[$i_2]);
+				}
+			}
+			$this->AllowedProvidersWhenRestricted = $val_2;
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'PreventEditServerSettings':
@@ -102,6 +171,13 @@ class AdminUserPermissions {
 			case 'AllowEditRemoteStorage':
 			case 'AllowEditWebhooks':
 			case 'DenyConstellationRole':
+			case 'DenyViewServerHistory':
+			case 'DenyViewServerInfo':
+			case 'PreventRequestStorageVault':
+			case 'PreventAddCustomStorageVault':
+			case 'HideCloudStorageBranding':
+			case 'ShouldRestrictProviderList':
+			case 'AllowedProvidersWhenRestricted':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -175,6 +251,20 @@ class AdminUserPermissions {
 		$ret["AllowEditRemoteStorage"] = $this->AllowEditRemoteStorage;
 		$ret["AllowEditWebhooks"] = $this->AllowEditWebhooks;
 		$ret["DenyConstellationRole"] = $this->DenyConstellationRole;
+		$ret["DenyViewServerHistory"] = $this->DenyViewServerHistory;
+		$ret["DenyViewServerInfo"] = $this->DenyViewServerInfo;
+		$ret["PreventRequestStorageVault"] = $this->PreventRequestStorageVault;
+		$ret["PreventAddCustomStorageVault"] = $this->PreventAddCustomStorageVault;
+		$ret["HideCloudStorageBranding"] = $this->HideCloudStorageBranding;
+		$ret["ShouldRestrictProviderList"] = $this->ShouldRestrictProviderList;
+		{
+			$c0 = [];
+			for($i0 = 0; $i0 < count($this->AllowedProvidersWhenRestricted); ++$i0) {
+				$val0 = $this->AllowedProvidersWhenRestricted[$i0];
+				$c0[] = $val0;
+			}
+			$ret["AllowedProvidersWhenRestricted"] = $c0;
+		}
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

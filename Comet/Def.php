@@ -14,7 +14,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "23.5.0";
+	const APPLICATION_VERSION = "23.6.5";
 
 	/**
 	 * @type int
@@ -24,12 +24,12 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_MINOR = 5;
+	const APPLICATION_VERSION_MINOR = 6;
 
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 0;
+	const APPLICATION_VERSION_REVISION = 5;
 
 	/**
 	 * AutoRetentionLevel: The system will automatically choose how often to run an automatic Retention Pass after each backup job.
@@ -926,7 +926,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const RELEASE_CODENAME = "Thebe";
+	const RELEASE_CODENAME = "Voyager";
 
 	/**
 	 * RemoteServerType
@@ -1342,21 +1342,21 @@ class Def {
 	const SCHEDULE_MAXINT = 1125899906842624;
 
 	/**
-	 * SearchClauseType
+	 * SearchClauseType: The search clause is an explicit rule
 	 *
 	 * @type string
 	 */
 	const SEARCHCLAUSE_RULE = "";
 
 	/**
-	 * SearchClauseType
+	 * SearchClauseType: All of the ClauseChildren must match
 	 *
 	 * @type string
 	 */
 	const SEARCHCLAUSE_AND = "and";
 
 	/**
-	 * SearchClauseType
+	 * SearchClauseType: At least one of the ClauseChildren must match
 	 *
 	 * @type string
 	 */
@@ -1377,131 +1377,183 @@ class Def {
 	const SEARCHCLAUSE_NOT_OR = "not_or";
 
 	/**
+ * String equals (case sensitive)
+	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_STRING_EQ = "str_eq";
 
 	/**
+ * String does not equal (case sensitive)
+	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_STRING_NEQ = "str_neq";
 
 	/**
+ * String contains anywhere (case sensitive)
+	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_STRING_CONTAINS = "str_contains";
 
 	/**
+ * String does not contain anywhere (case sensitive)
+	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_STRING_NCONTAINS = "str_ncontains";
 
 	/**
+ * String starts with prefix (case sensitive)
+	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_STRING_STARTSWITH = "str_startswith";
 
 	/**
+ * String does not start with prefix (case sensitive)
+	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_STRING_NSTARTSWITH = "str_nstartswith";
 
 	/**
+ * String ends with suffix (case sensitive)
+	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_STRING_ENDSWITH = "str_endswith";
 
 	/**
+ * String does not end with suffix (case sensitive)
+	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_STRING_NENDSWITH = "str_nendswith";
 
 	/**
+ * String equals (case insensitive)
+	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_STRING_EQ_CI = "str_eq_ci";
 
 	/**
+ * String does not equal (case insensitive)
+	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_STRING_NEQ_CI = "str_neq_ci";
 
 	/**
+ * String contains anywhere (case sensitive)
+	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_STRING_CONTAINS_CI = "str_contains_ci";
 
 	/**
+ * String does not contain anywhere (case sensitive)
+	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_STRING_NCONTAINS_CI = "str_ncontains_ci";
 
 	/**
+ * String starts with prefix (case sensitive)
+	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_STRING_STARTSWITH_CI = "str_startswith_ci";
 
 	/**
+ * String does not start with (case sensitive)
+	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_STRING_NSTARTSWITH_CI = "str_nstartswith_ci";
 
 	/**
+ * String ends with suffix (case sensitive)
+	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_STRING_ENDSWITH_CI = "str_endswith_ci";
 
 	/**
+ * String does not end with suffix (case sensitive)
+	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_STRING_NENDSWITH_CI = "str_nendswith_ci";
 
 	/**
+	 * String matches provided regular expression (using Go regex syntax)
+	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_STRING_REGEXMATCH = "str_regexmatch";
 
 	/**
+	 * String does not match provided regular expression (using Go regex syntax)
+	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_STRING_NREGEXMATCH = "str_nregexmatch";
 
 	/**
+	 * Integer field is equal to value
+	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_INT_EQ = "int_eq";
 
 	/**
+	 * Integer field is not equal to value
+	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_INT_NEQ = "int_neq";
 
 	/**
+	 * Integer field is greater than value
+	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_INT_GT = "int_gt";
 
 	/**
+	 * Integer field is greater than or equal to value
+	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_INT_GTE = "int_gte";
 
 	/**
+	 * Integer field is less than value
+	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_INT_LT = "int_lt";
 
 	/**
+	 * Integer field is less than or equal to value
+	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_INT_LTE = "int_lte";
 
 	/**
+	 * Boolean field matches value
+	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_BOOL_IS = "bool_is";
 
 	/**
+	 * Boolean field does not match value
+	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_BOOL_NIS = "bool_nis";

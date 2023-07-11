@@ -23,6 +23,7 @@ class AdminAccountPropertiesResponse {
 
 	/**
 	 * @var \Comet\AdminSecurityOptions
+	 * This field is available in Comet 18.9.9 and later.
 	 */
 	public $Security = null;
 

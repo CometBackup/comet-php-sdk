@@ -22,6 +22,8 @@ class ExternalLDAPAuthenticationSourceSettings {
 	public $Port = 0;
 
 	/**
+	 * One of the LDAPSECURITYMETHOD_ constants (e.g. "plain" / "ldaps" / "starttls")
+	 *
 	 * @var string
 	 */
 	public $SecurityMethod = "";

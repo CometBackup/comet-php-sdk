@@ -62,6 +62,22 @@ class RestoreJobAdvancedOptions {
 	public $ArchiveFormat = 0;
 
 	/**
+	 * Corresponds to the "Allow partial file restores (zero-out unrecoverable data)" option
+	 *
+	 * @var boolean
+	 * This field is available in Comet 23.6.4 and later.
+	 */
+	public $SkipUnreadableChunks = false;
+
+	/**
+	 * Corresponds to the "Prefer temporary files instead of RAM (slower)" option
+	 *
+	 * @var boolean
+	 * This field is available in Comet 23.6.4 and later.
+	 */
+	public $OnDiskIndexesKey = false;
+
+	/**
 	 * For RESTORETYPE_OFFICE365_CLOUD.
 	 *
 	 * @var \Comet\Office365Credential
@@ -182,6 +198,12 @@ class RestoreJobAdvancedOptions {
 		if (property_exists($sc, 'ArchiveFormat')) {
 			$this->ArchiveFormat = (int)($sc->ArchiveFormat);
 		}
+		if (property_exists($sc, 'SkipUnreadableChunks')) {
+			$this->SkipUnreadableChunks = (bool)($sc->SkipUnreadableChunks);
+		}
+		if (property_exists($sc, 'OnDiskIndexesKey')) {
+			$this->OnDiskIndexesKey = (bool)($sc->OnDiskIndexesKey);
+		}
 		if (property_exists($sc, 'Office365Credential') && !is_null($sc->Office365Credential)) {
 			if (is_array($sc->Office365Credential) && count($sc->Office365Credential) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
@@ -234,6 +256,8 @@ class RestoreJobAdvancedOptions {
 			case 'DestPath':
 			case 'ExactDestPaths':
 			case 'ArchiveFormat':
+			case 'SkipUnreadableChunks':
+			case 'OnDiskIndexesKey':
 			case 'Office365Credential':
 			case 'Username':
 			case 'Password':
@@ -324,6 +348,8 @@ class RestoreJobAdvancedOptions {
 			$ret["ExactDestPaths"] = $c0;
 		}
 		$ret["ArchiveFormat"] = $this->ArchiveFormat;
+		$ret["SkipUnreadableChunks"] = $this->SkipUnreadableChunks;
+		$ret["OnDiskIndexesKey"] = $this->OnDiskIndexesKey;
 		if ( $this->Office365Credential === null ) {
 			$ret["Office365Credential"] = $for_json_encode ? (object)[] : [];
 		} else {

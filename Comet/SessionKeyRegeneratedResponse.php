@@ -29,7 +29,10 @@ class SessionKeyRegeneratedResponse {
 	public $SessionKey = "";
 
 	/**
+	 * e.g. "admin" or "user"
+	 *
 	 * @var string
+	 * This field is available in Comet 18.12.3 and later.
 	 */
 	public $SessionType = "";
 

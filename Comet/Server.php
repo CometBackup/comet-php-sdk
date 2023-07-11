@@ -1510,12 +1510,15 @@ class Server {
 	 * @param \Comet\RestoreJobAdvancedOptions $Options Restore targets
 	 * @param string $Snapshot If present, restore a specific snapshot. Otherwise, restore the latest snapshot for the selected Protected Item + Storage Vault pair (optional)
 	 * @param string[] $Paths If present, restore these paths only. Otherwise, restore all data (optional)
+	 * @param int $KnownFileCount The number of files to restore, if known. Supplying this means we don't need to walk the entire tree just to find the file count and will speed up the restoration process. (optional)
+	 * @param int $KnownByteCount The total size in bytes of files to restore, if known. Supplying this means we don't need to walk the entire tree just to find the total file size and will speed up the restoration process. (optional)
+	 * @param int $KnownDirCount The number of directories to restore, if known. Supplying this means we don't need to walk the entire tree just to find the number of directories and will speed up the restoration process. (optional)
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherRunRestoreCustom(string $TargetID, string $Source, string $Destination, \Comet\RestoreJobAdvancedOptions $Options, string $Snapshot = null, array $Paths = null): \Comet\APIResponseMessage
+	public function AdminDispatcherRunRestoreCustom(string $TargetID, string $Source, string $Destination, \Comet\RestoreJobAdvancedOptions $Options, string $Snapshot = null, array $Paths = null, int $KnownFileCount = null, int $KnownByteCount = null, int $KnownDirCount = null): \Comet\APIResponseMessage
 	{
-		$nr = new \Comet\AdminDispatcherRunRestoreCustomRequest($TargetID, $Source, $Destination, $Options, $Snapshot, $Paths);
+		$nr = new \Comet\AdminDispatcherRunRestoreCustomRequest($TargetID, $Source, $Destination, $Options, $Snapshot, $Paths, $KnownFileCount, $KnownByteCount, $KnownDirCount);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminDispatcherRunRestoreCustomRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}

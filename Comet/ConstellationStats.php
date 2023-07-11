@@ -12,16 +12,24 @@ namespace Comet;
 class ConstellationStats {
 
 	/**
+	 * Unix timestamp, in seconds.
+	 *
 	 * @var int
 	 */
 	public $LastCheckStart = 0;
 
 	/**
+	 * The total number of Constellation bucket report scans that have been performed since this Comet
+	 * Server was last restarted
+	 *
 	 * @var int
 	 */
 	public $TotalChecksStarted = 0;
 
 	/**
+	 * The total number of buckets that Constellation has successfully deleted since this Comet Server
+	 * was last restarted
+	 *
 	 * @var int
 	 */
 	public $TotalBucketsDeleted = 0;

@@ -60,6 +60,8 @@ class ServerConfigOptions {
 	public $ExternalAdminUserSources = [];
 
 	/**
+	 * The Comet Server can enforce a bandwidth limit based on the target IP address
+	 *
 	 * @var \Comet\RatelimitOptions
 	 */
 	public $IPRateLimit = null;

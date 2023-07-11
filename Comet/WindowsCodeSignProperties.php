@@ -12,6 +12,8 @@ namespace Comet;
 class WindowsCodeSignProperties {
 
 	/**
+	 * One of the WINDOWSCODESIGN_METHOD_ constants
+	 *
 	 * @var int
 	 */
 	public $WindowsCodeSignMethod = 0;
@@ -22,6 +24,8 @@ class WindowsCodeSignProperties {
 	public $WindowsCodeSignPKCS12FilePath = "";
 
 	/**
+	 * One of the ENCRYPTIONMETHOD_ constants
+	 *
 	 * @var int
 	 */
 	public $WindowsCodeSignPKCS12PasswordFormat = 0;
@@ -53,6 +57,8 @@ class WindowsCodeSignProperties {
 	public $WindowsCodeSignPKCS11KeyID = "";
 
 	/**
+	 * One of the ENCRYPTIONMETHOD_ constants
+	 *
 	 * @var int
 	 */
 	public $WindowsCodeSignPKCS11PasswordFormat = 0;
@@ -78,6 +84,8 @@ class WindowsCodeSignProperties {
 	public $WindowsCodeSignAzureAppID = "";
 
 	/**
+	 * One of the ENCRYPTIONMETHOD_ constants
+	 *
 	 * @var int
 	 */
 	public $WindowsCodeSignAzureAppSecretFormat = 0;

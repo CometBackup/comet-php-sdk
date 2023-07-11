@@ -12,6 +12,8 @@ namespace Comet;
 class UpdateCampaignDeviceStatus {
 
 	/**
+	 * One of the UPDATESTATUS_ constants
+	 *
 	 * @var int
 	 */
 	public $Status = 0;

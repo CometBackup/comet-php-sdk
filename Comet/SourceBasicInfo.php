@@ -9,6 +9,10 @@
 
 namespace Comet;
 
+/**
+ * SourceBasicInfo is the minimal amount of information one device knows about another device's
+ * Protected Items, in order to safely perform retention passes on their behalf.
+ */
 class SourceBasicInfo {
 
 	/**

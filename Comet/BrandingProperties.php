@@ -52,6 +52,8 @@ class BrandingProperties {
 	public $HideBackgroundLogo = false;
 
 	/**
+	 * One of the CLIENTBRANDINGBUILD_ constants
+	 *
 	 * @var int
 	 */
 	public $BuildMode = 0;
@@ -97,6 +99,8 @@ class BrandingProperties {
 	public $PackageIdentifier = "";
 
 	/**
+	 * One of the WINDOWSCODESIGN_METHOD_ constants
+	 *
 	 * @var int
 	 */
 	public $WindowsCodeSignMethod = 0;
@@ -107,6 +111,8 @@ class BrandingProperties {
 	public $WindowsCodeSignPKCS12FilePath = "";
 
 	/**
+	 * One of the ENCRYPTIONMETHOD_ constants
+	 *
 	 * @var int
 	 */
 	public $WindowsCodeSignPKCS12PasswordFormat = 0;
@@ -138,6 +144,8 @@ class BrandingProperties {
 	public $WindowsCodeSignPKCS11KeyID = "";
 
 	/**
+	 * One of the ENCRYPTIONMETHOD_ constants
+	 *
 	 * @var int
 	 */
 	public $WindowsCodeSignPKCS11PasswordFormat = 0;
@@ -163,6 +171,8 @@ class BrandingProperties {
 	public $WindowsCodeSignAzureAppID = "";
 
 	/**
+	 * One of the ENCRYPTIONMETHOD_ constants
+	 *
 	 * @var int
 	 */
 	public $WindowsCodeSignAzureAppSecretFormat = 0;

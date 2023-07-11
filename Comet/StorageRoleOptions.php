@@ -23,6 +23,7 @@ class StorageRoleOptions {
 
 	/**
 	 * @var \Comet\LocalStorageDirectory[]
+	 * @deprecated 17.3.5 This member has been deprecated since Comet version 17.3.5
 	 */
 	public $LocalStorage_Legacy = [];
 
