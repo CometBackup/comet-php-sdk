@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 2023-07-11 v4.10.0
+
+- Based on Comet 23.6.5
+- Support `DeviceConfig->ClientVersion`
+- Support new `OSInfo` and `RestoreJobAdvancedOptions` fields
+- Support new `SourceConfig` fields for tracking policy-enforced Protected Items
+- Support new optional parameters in `AdminDispatcherRunRestoreCustom` API
+- Add many more documentation comments, including behaviour of base64 byte arrays
+
 ## 2023-06-01 v4.9.0
 
 - Based on Comet 23.5.0
