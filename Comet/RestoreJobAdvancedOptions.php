@@ -62,6 +62,8 @@ class RestoreJobAdvancedOptions {
 	public $ArchiveFormat = 0;
 
 	/**
+	 * Default disabled. For RESTORETYPE_FILE and RESTORETYPE_WINDISK. Used to continue the restore job
+	 * when unreadable data chunks are found.
 	 * Corresponds to the "Allow partial file restores (zero-out unrecoverable data)" option
 	 *
 	 * @var boolean
@@ -70,6 +72,7 @@ class RestoreJobAdvancedOptions {
 	public $SkipUnreadableChunks = false;
 
 	/**
+	 * Default disabled. Used to store the index files on disk instead of in memory.
 	 * Corresponds to the "Prefer temporary files instead of RAM (slower)" option
 	 *
 	 * @var boolean
