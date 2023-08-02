@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 2023-08-02 v4.11.0
+
+- Based on Comet 23.6.9
+- Support new API endpoints for managing external admin authentication sources
+- Support Object Lock policy option
+- Update docstrings for various types and fields
+
 ## 2023-07-11 v4.10.0
 
 - Based on Comet 23.6.5
