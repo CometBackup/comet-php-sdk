@@ -157,6 +157,11 @@ class UserPolicy {
 	public $PreventProtectedItemRetention = false;
 
 	/**
+	 * @var boolean
+	 */
+	public $AllowEditObjectLockRetention = false;
+
+	/**
 	 * @var \Comet\SourceConfig[] An array with string keys.
 	 */
 	public $DefaultSources = [];
@@ -316,6 +321,9 @@ class UserPolicy {
 		if (property_exists($sc, 'PreventProtectedItemRetention')) {
 			$this->PreventProtectedItemRetention = (bool)($sc->PreventProtectedItemRetention);
 		}
+		if (property_exists($sc, 'AllowEditObjectLockRetention')) {
+			$this->AllowEditObjectLockRetention = (bool)($sc->AllowEditObjectLockRetention);
+		}
 		if (property_exists($sc, 'DefaultSources')) {
 			$val_2 = [];
 			if ($sc->DefaultSources !== null) {
@@ -414,6 +422,7 @@ class UserPolicy {
 			case 'DefaultStorageVaultRetention':
 			case 'EnforceStorageVaultRetention':
 			case 'PreventProtectedItemRetention':
+			case 'AllowEditObjectLockRetention':
 			case 'DefaultSources':
 			case 'DefaultSourcesBackupRules':
 			case 'DefaultSourcesWithOSRestriction':
@@ -540,6 +549,7 @@ class UserPolicy {
 		}
 		$ret["EnforceStorageVaultRetention"] = $this->EnforceStorageVaultRetention;
 		$ret["PreventProtectedItemRetention"] = $this->PreventProtectedItemRetention;
+		$ret["AllowEditObjectLockRetention"] = $this->AllowEditObjectLockRetention;
 		{
 			$c0 = [];
 			foreach($this->DefaultSources as $k0 => $v0) {
