@@ -14,7 +14,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "23.6.5";
+	const APPLICATION_VERSION = "23.6.9";
 
 	/**
 	 * @type int
@@ -29,7 +29,7 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 5;
+	const APPLICATION_VERSION_REVISION = 9;
 
 	/**
 	 * AutoRetentionLevel: The system will automatically choose how often to run an automatic Retention Pass after each backup job.
