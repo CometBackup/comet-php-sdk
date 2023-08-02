@@ -93,8 +93,9 @@ class PrivateBrandingProperties {
 	public $WindowsCodeSignPKCS11Module = "";
 
 	/**
+	 * This field was deprecated between 23.3.0 and 23.6.x, but is now used again.
+	 *
 	 * @var string
-	 * @deprecated 22.12.7 This member has been deprecated since Comet version 22.12.7
 	 */
 	public $WindowsCodeSignPKCS11Certfile = "";
 

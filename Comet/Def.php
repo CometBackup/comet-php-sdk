@@ -2302,10 +2302,10 @@ class Def {
 	const WEBAUTHN_DEVICE_TYPE__TPM_LINUX = 6;
 
 	/**
-	 * WindowsCodesignMethod: When upgrading from a version of Comet Server prior to 22.12.7, this option will be automatically converted to a more specific type.
+	 * WindowsCodesignMethod: When upgrading from a version of Comet Server prior to 23.3.0, this option will be automatically converted to a more specific type.
 	 *
 	 * @type int
-	 * @deprecated 22.12.7 This const has been deprecated since Comet version 22.12.7
+	 * @deprecated 23.3.0 This const has been deprecated since Comet version 23.3.0
 	 */
 	const WINDOWSCODESIGN_METHOD_AUTO = 0;
 
