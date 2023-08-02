@@ -42,6 +42,11 @@ class ExternalAuthenticationSource {
 	public $LDAP = null;
 
 	/**
+	 * @var \Comet\OidcConfig
+	 */
+	public $OIDC = null;
+
+	/**
 	 * @var \Comet\B2VirtualStorageRoleSettings
 	 */
 	public $B2 = null;
@@ -118,6 +123,14 @@ class ExternalAuthenticationSource {
 				$this->LDAP = \Comet\ExternalLDAPAuthenticationSourceSettings::createFromStdclass($sc->LDAP);
 			}
 		}
+		if (property_exists($sc, 'OIDC') && !is_null($sc->OIDC)) {
+			if (is_array($sc->OIDC) && count($sc->OIDC) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->OIDC = \Comet\OidcConfig::createFromStdclass(new \stdClass());
+			} else {
+				$this->OIDC = \Comet\OidcConfig::createFromStdclass($sc->OIDC);
+			}
+		}
 		if (property_exists($sc, 'B2') && !is_null($sc->B2)) {
 			if (is_array($sc->B2) && count($sc->B2) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
@@ -182,6 +195,7 @@ class ExternalAuthenticationSource {
 			case 'Username':
 			case 'Password':
 			case 'LDAP':
+			case 'OIDC':
 			case 'B2':
 			case 'Wasabi':
 			case 'Custom':
@@ -263,6 +277,11 @@ class ExternalAuthenticationSource {
 			$ret["LDAP"] = $for_json_encode ? (object)[] : [];
 		} else {
 			$ret["LDAP"] = $this->LDAP->toArray($for_json_encode);
+		}
+		if ( $this->OIDC === null ) {
+			$ret["OIDC"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["OIDC"] = $this->OIDC->toArray($for_json_encode);
 		}
 		if ( $this->B2 === null ) {
 			$ret["B2"] = $for_json_encode ? (object)[] : [];
@@ -350,6 +369,9 @@ class ExternalAuthenticationSource {
 		$this->__unknown_properties = [];
 		if ($this->LDAP !== null) {
 			$this->LDAP->RemoveUnknownProperties();
+		}
+		if ($this->OIDC !== null) {
+			$this->OIDC->RemoveUnknownProperties();
 		}
 		if ($this->B2 !== null) {
 			$this->B2->RemoveUnknownProperties();

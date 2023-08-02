@@ -77,6 +77,11 @@ class ServerMetaBrandingProperties {
 	public $ExpiredInSeconds = 0;
 
 	/**
+	 * @var \Comet\ExternalAuthenticationSourceDisplay[]
+	 */
+	public $ExternalAuthenticationSources = [];
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see ServerMetaBrandingProperties::RemoveUnknownProperties() Remove all unknown properties
@@ -126,6 +131,20 @@ class ServerMetaBrandingProperties {
 		if (property_exists($sc, 'ExpiredInSeconds')) {
 			$this->ExpiredInSeconds = (int)($sc->ExpiredInSeconds);
 		}
+		if (property_exists($sc, 'ExternalAuthenticationSources') && !is_null($sc->ExternalAuthenticationSources)) {
+			$val_2 = [];
+			if ($sc->ExternalAuthenticationSources !== null) {
+				for($i_2 = 0; $i_2 < count($sc->ExternalAuthenticationSources); ++$i_2) {
+					if (is_array($sc->ExternalAuthenticationSources[$i_2]) && count($sc->ExternalAuthenticationSources[$i_2]) === 0) {
+					// Work around edge case in json_decode--json_encode stdClass conversion
+						$val_2[] = \Comet\ExternalAuthenticationSourceDisplay::createFromStdclass(new \stdClass());
+					} else {
+						$val_2[] = \Comet\ExternalAuthenticationSourceDisplay::createFromStdclass($sc->ExternalAuthenticationSources[$i_2]);
+					}
+				}
+			}
+			$this->ExternalAuthenticationSources = $val_2;
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'BrandName':
@@ -139,6 +158,7 @@ class ServerMetaBrandingProperties {
 			case 'AllowAuthenticatedDownloads':
 			case 'PruneLogsAfterDays':
 			case 'ExpiredInSeconds':
+			case 'ExternalAuthenticationSources':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -215,6 +235,18 @@ class ServerMetaBrandingProperties {
 		$ret["AllowAuthenticatedDownloads"] = $this->AllowAuthenticatedDownloads;
 		$ret["PruneLogsAfterDays"] = $this->PruneLogsAfterDays;
 		$ret["ExpiredInSeconds"] = $this->ExpiredInSeconds;
+		{
+			$c0 = [];
+			for($i0 = 0; $i0 < count($this->ExternalAuthenticationSources); ++$i0) {
+				if ( $this->ExternalAuthenticationSources[$i0] === null ) {
+					$val0 = $for_json_encode ? (object)[] : [];
+				} else {
+					$val0 = $this->ExternalAuthenticationSources[$i0]->toArray($for_json_encode);
+				}
+				$c0[] = $val0;
+			}
+			$ret["ExternalAuthenticationSources"] = $c0;
+		}
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

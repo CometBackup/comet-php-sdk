@@ -49,6 +49,11 @@ class AdminUserPermissions {
 	/**
 	 * @var boolean
 	 */
+	public $AllowEditExternalAuthSources = false;
+
+	/**
+	 * @var boolean
+	 */
 	public $DenyConstellationRole = false;
 
 	/**
@@ -131,6 +136,9 @@ class AdminUserPermissions {
 		if (property_exists($sc, 'AllowEditWebhooks') && !is_null($sc->AllowEditWebhooks)) {
 			$this->AllowEditWebhooks = (bool)($sc->AllowEditWebhooks);
 		}
+		if (property_exists($sc, 'AllowEditExternalAuthSources') && !is_null($sc->AllowEditExternalAuthSources)) {
+			$this->AllowEditExternalAuthSources = (bool)($sc->AllowEditExternalAuthSources);
+		}
 		if (property_exists($sc, 'DenyConstellationRole') && !is_null($sc->DenyConstellationRole)) {
 			$this->DenyConstellationRole = (bool)($sc->DenyConstellationRole);
 		}
@@ -170,6 +178,7 @@ class AdminUserPermissions {
 			case 'AllowEditEmailOptions':
 			case 'AllowEditRemoteStorage':
 			case 'AllowEditWebhooks':
+			case 'AllowEditExternalAuthSources':
 			case 'DenyConstellationRole':
 			case 'DenyViewServerHistory':
 			case 'DenyViewServerInfo':
@@ -250,6 +259,7 @@ class AdminUserPermissions {
 		$ret["AllowEditEmailOptions"] = $this->AllowEditEmailOptions;
 		$ret["AllowEditRemoteStorage"] = $this->AllowEditRemoteStorage;
 		$ret["AllowEditWebhooks"] = $this->AllowEditWebhooks;
+		$ret["AllowEditExternalAuthSources"] = $this->AllowEditExternalAuthSources;
 		$ret["DenyConstellationRole"] = $this->DenyConstellationRole;
 		$ret["DenyViewServerHistory"] = $this->DenyViewServerHistory;
 		$ret["DenyViewServerInfo"] = $this->DenyViewServerInfo;

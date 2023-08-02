@@ -910,6 +910,27 @@ class Def {
 	const PASSWORD_FORMAT_PLAINTEXT = 0;
 
 	/**
+	 * OidcProvider
+	 *
+	 * @type string
+	 */
+	const PROVIDER_GENERIC = "oidc";
+
+	/**
+	 * OidcProvider
+	 *
+	 * @type string
+	 */
+	const PROVIDER_AZUREADV2 = "azure-ad-v2";
+
+	/**
+	 * OidcProvider
+	 *
+	 * @type string
+	 */
+	const PROVIDER_GOOGLE = "google";
+
+	/**
 	 * PSAType
 	 *
 	 * @type int
@@ -941,6 +962,13 @@ class Def {
 	 * @type string
 	 */
 	const REMOTESERVER_LDAP = "ldap";
+
+	/**
+	 * RemoteServerType
+	 *
+	 * @type string
+	 */
+	const REMOTESERVER_OIDC = "oidc";
 
 	/**
 	 * RemoteServerType

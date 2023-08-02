@@ -199,6 +199,22 @@ class Server {
 	}
 
 	/** 
+	 * Upgrade a session key which is pending an MFA upgrade to a full session key
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 *
+	 * @param string $SessionKey The session key to upgrade
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminAccountSessionUpgrade(string $SessionKey): \Comet\APIResponseMessage
+	{
+		$nr = new \Comet\AdminAccountSessionUpgradeRequest($SessionKey);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminAccountSessionUpgradeRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Update settings for your own admin account
 	 * Updating your account password requires you to supply your current password.
 	 * To set a new plaintext password, use a password format of 0 (PASSWORD_FORMAT_PLAINTEXT).
@@ -1622,6 +1638,71 @@ class Server {
 		$nr = new \Comet\AdminDispatcherUpdateSoftwareRequest($TargetID, $SelfAddress);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminDispatcherUpdateSoftwareRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Delete an external admin authentication source
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 *
+	 * @param string $SourceID (No description available)
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminExternalAuthSourcesDelete(string $SourceID): \Comet\APIResponseMessage
+	{
+		$nr = new \Comet\AdminExternalAuthSourcesDeleteRequest($SourceID);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminExternalAuthSourcesDeleteRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Get a map of all external admin authentication sources
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 *
+	 * @return \Comet\ExternalAuthenticationSource[] An array with string keys. 
+	 * @throws \Exception
+	 */
+	public function AdminExternalAuthSourcesGet(): array
+	{
+		$nr = new \Comet\AdminExternalAuthSourcesGetRequest();
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminExternalAuthSourcesGetRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Create an external admin authentication source
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 *
+	 * @param \Comet\ExternalAuthenticationSource $Source (No description available)
+	 * @param string $SourceID (No description available) (optional)
+	 * @return \Comet\ExternalAuthenticationSourceResponse 
+	 * @throws \Exception
+	 */
+	public function AdminExternalAuthSourcesNew(\Comet\ExternalAuthenticationSource $Source, string $SourceID = null): \Comet\ExternalAuthenticationSourceResponse
+	{
+		$nr = new \Comet\AdminExternalAuthSourcesNewRequest($Source, $SourceID);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminExternalAuthSourcesNewRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Updates the current tenant's external admin authentication sources. This will set all
+	 * sources for the tenant; none will be preserved.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 *
+	 * @param \Comet\ExternalAuthenticationSource[] An array with string keys. $Sources (No description available)
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminExternalAuthSourcesSet(array $Sources): \Comet\APIResponseMessage
+	{
+		$nr = new \Comet\AdminExternalAuthSourcesSetRequest($Sources);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminExternalAuthSourcesSetRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
 
 	/** 
