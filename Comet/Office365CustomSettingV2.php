@@ -28,7 +28,7 @@ class Office365CustomSettingV2 {
 	 * Key can be the ID of user, group or SharePoint
 	 * Value is a bitset of the SERVICE_ constants, to select which services to back up for this member.
 	 *
-	 * @var int[] An array with string keys.
+	 * @var array<string, int>
 	 */
 	public $BackupOptions = [];
 
@@ -36,7 +36,7 @@ class Office365CustomSettingV2 {
 	 * Key must be a group ID
 	 * Value is a bitset of the SERVICE_ constants, to select which services to back up for this member.
 	 *
-	 * @var int[] An array with string keys.
+	 * @var array<string, int>
 	 */
 	public $MemberBackupOptions = [];
 

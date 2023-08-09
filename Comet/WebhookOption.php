@@ -28,7 +28,7 @@ class WebhookOption {
 	 * custom header conflicts with a header required by HTTP or the Comet tracing ID header
 	 * (`x-Comet-Tracing-Id`), it will be ignored.
 	 *
-	 * @var string[] An array with string keys.
+	 * @var array<string, string>
 	 */
 	public $CustomHeaders = [];
 

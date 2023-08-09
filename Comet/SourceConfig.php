@@ -109,7 +109,7 @@ class SourceConfig {
 	 * only)" backup job.
 	 *
 	 *
-	 * @var string[] An array with string keys.
+	 * @var array<string, string>
 	 */
 	public $EngineProps = [];
 
@@ -135,7 +135,7 @@ class SourceConfig {
 	 * to the overall retention policy for the Storage Vault. You can override the policy
 	 * for specific Storage Vaults by putting their destination ID as a key here.
 	 *
-	 * @var \Comet\RetentionPolicy[] An array with string keys.
+	 * @var array<string, \Comet\RetentionPolicy>
 	 */
 	public $OverrideDestinationRetention = [];
 

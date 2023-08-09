@@ -162,22 +162,22 @@ class UserPolicy {
 	public $AllowEditObjectLockRetention = false;
 
 	/**
-	 * @var \Comet\SourceConfig[] An array with string keys.
+	 * @var array<string, \Comet\SourceConfig>
 	 */
 	public $DefaultSources = [];
 
 	/**
-	 * @var \Comet\BackupRuleConfig[] An array with string keys.
+	 * @var array<string, \Comet\BackupRuleConfig>
 	 */
 	public $DefaultSourcesBackupRules = [];
 
 	/**
-	 * @var \Comet\DefaultSourceWithOSRestriction[] An array with string keys.
+	 * @var array<string, \Comet\DefaultSourceWithOSRestriction>
 	 */
 	public $DefaultSourcesWithOSRestriction = [];
 
 	/**
-	 * @var \Comet\BackupRuleConfig[] An array with string keys.
+	 * @var array<string, \Comet\BackupRuleConfig>
 	 */
 	public $DefaultBackupRules = [];
 

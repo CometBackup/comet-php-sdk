@@ -64,7 +64,7 @@ class UserProfileConfig {
 	 * server-wide-default style of email report. Add an override for a specific email address in here
 	 * to allow customizing the email report that will be received.
 	 *
-	 * @var \Comet\UserCustomEmailSettings[] An array with string keys.
+	 * @var array<string, \Comet\UserCustomEmailSettings>
 	 */
 	public $OverrideEmailSettings = [];
 
@@ -79,7 +79,7 @@ class UserProfileConfig {
 	 * Storage Vaults
 	 * The string keys can be any unique key. Using a GUID is recommended, but optional.
 	 *
-	 * @var \Comet\DestinationConfig[] An array with string keys.
+	 * @var array<string, \Comet\DestinationConfig>
 	 */
 	public $Destinations = [];
 
@@ -87,7 +87,7 @@ class UserProfileConfig {
 	 * Protected Items
 	 * The string keys can be any unique key. Using a GUID is recommended, but optional.
 	 *
-	 * @var \Comet\SourceConfig[] An array with string keys.
+	 * @var array<string, \Comet\SourceConfig>
 	 */
 	public $Sources = [];
 
@@ -95,7 +95,7 @@ class UserProfileConfig {
 	 * Schedules
 	 * The string keys can be any unique key. Using a GUID is recommended, but optional.
 	 *
-	 * @var \Comet\BackupRuleConfig[] An array with string keys.
+	 * @var array<string, \Comet\BackupRuleConfig>
 	 */
 	public $BackupRules = [];
 
@@ -107,7 +107,7 @@ class UserProfileConfig {
 	 * This API can also remove associated Protected Items, uninstall the remote device, and disconnect
 	 * its live connection.
 	 *
-	 * @var \Comet\DeviceConfig[] An array with string keys.
+	 * @var array<string, \Comet\DeviceConfig>
 	 */
 	public $Devices = [];
 

@@ -12,7 +12,7 @@ namespace Comet;
 class B2StorageExtraInfo {
 
 	/**
-	 * @var \Comet\B2TransactionTotals[] An array with int keys.
+	 * @var \Comet\B2TransactionTotals[]
 	 */
 	public $TotalTransactionsInTimeInterval = [];
 

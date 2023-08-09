@@ -266,6 +266,12 @@ class DestinationLocation {
 	public $B2 = null;
 
 	/**
+	 * @var \Comet\WebDavDestinationLocation
+	 * This field is available in Comet 23.6.9 and later.
+	 */
+	public $WebDav = null;
+
+	/**
 	 * @var \Comet\StorjDestinationLocation
 	 */
 	public $Storj = null;
@@ -446,6 +452,14 @@ class DestinationLocation {
 				$this->B2 = \Comet\B2DestinationLocation::createFromStdclass($sc->B2);
 			}
 		}
+		if (property_exists($sc, 'WebDav')) {
+			if (is_array($sc->WebDav) && count($sc->WebDav) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->WebDav = \Comet\WebDavDestinationLocation::createFromStdclass(new \stdClass());
+			} else {
+				$this->WebDav = \Comet\WebDavDestinationLocation::createFromStdclass($sc->WebDav);
+			}
+		}
 		if (property_exists($sc, 'Storj')) {
 			if (is_array($sc->Storj) && count($sc->Storj) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
@@ -515,6 +529,7 @@ class DestinationLocation {
 			case 'LocalcopyWinSMBPasswordFormat':
 			case 'Swift':
 			case 'B2':
+			case 'WebDav':
 			case 'Storj':
 			case 'SpanTargets':
 			case 'SpanUseStaticSlots':
@@ -633,6 +648,11 @@ class DestinationLocation {
 		} else {
 			$ret["B2"] = $this->B2->toArray($for_json_encode);
 		}
+		if ( $this->WebDav === null ) {
+			$ret["WebDav"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["WebDav"] = $this->WebDav->toArray($for_json_encode);
+		}
 		if ( $this->Storj === null ) {
 			$ret["Storj"] = $for_json_encode ? (object)[] : [];
 		} else {
@@ -705,6 +725,9 @@ class DestinationLocation {
 		}
 		if ($this->B2 !== null) {
 			$this->B2->RemoveUnknownProperties();
+		}
+		if ($this->WebDav !== null) {
+			$this->WebDav->RemoveUnknownProperties();
 		}
 		if ($this->Storj !== null) {
 			$this->Storj->RemoveUnknownProperties();

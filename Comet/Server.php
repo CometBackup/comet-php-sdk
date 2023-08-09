@@ -428,7 +428,7 @@ class Server {
 	 * This API requires the Software Build Role to be enabled.
 	 * This API requires the Auth Role to be enabled.
 	 *
-	 * @return \Comet\AvailableDownload[] An array with int keys. 
+	 * @return \Comet\AvailableDownload[] 
 	 * @throws \Exception
 	 */
 	public function AdminBrandingAvailablePlatforms(): array
@@ -1071,7 +1071,7 @@ class Server {
 	 * This API requires the Auth Role to be enabled.
 	 *
 	 * @param string $UserNameFilter User name filter string (optional)
-	 * @return \Comet\LiveUserConnection[] An array with string keys. 
+	 * @return array<string, \Comet\LiveUserConnection> 
 	 * @throws \Exception
 	 */
 	public function AdminDispatcherListActive(string $UserNameFilter = null): array
@@ -1661,7 +1661,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 *
-	 * @return \Comet\ExternalAuthenticationSource[] An array with string keys. 
+	 * @return array<string, \Comet\ExternalAuthenticationSource> 
 	 * @throws \Exception
 	 */
 	public function AdminExternalAuthSourcesGet(): array
@@ -1694,7 +1694,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 *
-	 * @param \Comet\ExternalAuthenticationSource[] An array with string keys. $Sources (No description available)
+	 * @param array<string, \Comet\ExternalAuthenticationSource> $Sources (No description available)
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
@@ -1953,7 +1953,7 @@ class Server {
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
 	 *
-	 * @return \Comet\UserProfileConfig[] An array with string keys. 
+	 * @return array<string, \Comet\UserProfileConfig> 
 	 * @throws \Exception
 	 */
 	public function AdminListUsersFull(): array
@@ -2438,7 +2438,7 @@ class Server {
 	 * You must supply administrator authentication credentials to use this API.
 	 *
 	 * @param boolean $Simple Remove redundant statistics
-	 * @return \Comet\StatResult[] An array with int keys. 
+	 * @return \Comet\StatResult[] 
 	 * @throws \Exception
 	 */
 	public function AdminMetaStats(bool $Simple): array
@@ -2470,7 +2470,7 @@ class Server {
 	 * You must supply administrator authentication credentials to use this API.
 	 * Access to this API may be prevented on a per-administrator basis.
 	 *
-	 * @return \Comet\WebhookOption[] An array with string keys. 
+	 * @return array<string, \Comet\WebhookOption> 
 	 * @throws \Exception
 	 */
 	public function AdminMetaWebhookOptionsGet(): array
@@ -2487,7 +2487,7 @@ class Server {
 	 * You must supply administrator authentication credentials to use this API.
 	 * Access to this API may be prevented on a per-administrator basis.
 	 *
-	 * @param \Comet\WebhookOption[] An array with string keys. $WebhookOptions The replacement webhook target options.
+	 * @param array<string, \Comet\WebhookOption> $WebhookOptions The replacement webhook target options.
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
@@ -2504,7 +2504,7 @@ class Server {
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
 	 *
-	 * @return \Comet\NewsEntry[] An array with string keys. 
+	 * @return array<string, \Comet\NewsEntry> 
 	 * @throws \Exception
 	 */
 	public function AdminNewsGetAll(): array
@@ -2591,7 +2591,7 @@ class Server {
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
 	 *
-	 * @return \Comet\Organization[] An array with string keys. 
+	 * @return array<string, \Comet\Organization> 
 	 * @throws \Exception
 	 */
 	public function AdminOrganizationList(): array
@@ -2664,7 +2664,7 @@ class Server {
 	 * This API requires the Auth Role to be enabled.
 	 *
 	 * @param string $TargetOrganization If present, list the policies belonging to another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.3.7) (optional)
-	 * @return string[] An array with string keys. 
+	 * @return array<string, string> 
 	 * @throws \Exception
 	 */
 	public function AdminPoliciesList(string $TargetOrganization = null): array
@@ -2682,7 +2682,7 @@ class Server {
 	 * This API requires the Auth Role to be enabled.
 	 *
 	 * @param string $TargetOrganization If present, list the policies belonging to another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.3.7) (optional)
-	 * @return \Comet\GroupPolicy[] An array with string keys. 
+	 * @return array<string, \Comet\GroupPolicy> 
 	 * @throws \Exception
 	 */
 	public function AdminPoliciesListFull(string $TargetOrganization = null): array
@@ -2798,7 +2798,7 @@ class Server {
 	 * This API requires the Auth Role to be enabled.
 	 *
 	 * @param string $TargetOrganization If present, list the storage template options belonging to another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.3.7) (optional)
-	 * @return string[] An array with string keys. 
+	 * @return array<string, string> 
 	 * @throws \Exception
 	 */
 	public function AdminRequestStorageVaultProviders(string $TargetOrganization = null): array
@@ -2964,7 +2964,7 @@ class Server {
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Storage Role to be enabled.
 	 *
-	 * @return \Comet\BucketProperties[] An array with string keys. 
+	 * @return array<string, \Comet\BucketProperties> 
 	 * @throws \Exception
 	 */
 	public function AdminStorageListBuckets(): array
@@ -2979,7 +2979,6 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * Access to this API may be prevented on a per-administrator basis.
-	 * This API requires the Storage Role to be enabled.
 	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
 	 *
 	 * @param \Comet\DestinationLocation $ExtraData The destination location settings

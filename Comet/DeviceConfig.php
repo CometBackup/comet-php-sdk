@@ -34,7 +34,7 @@ class DeviceConfig {
 	 * Minimal information about the device's private Protected Items, so that other devices can safely
 	 * run retention passes on a shared Storage Vault.
 	 *
-	 * @var \Comet\SourceBasicInfo[] An array with string keys.
+	 * @var array<string, \Comet\SourceBasicInfo>
 	 */
 	public $Sources = [];
 

@@ -266,6 +266,11 @@ class Def {
 	const DESTINATIONTYPE_STORJ = 1009;
 
 	/**
+	 * @type int
+	 */
+	const DESTINATIONTYPE_WEBDAV = 1010;
+
+	/**
 	 * When defining a schedule via policy, use this option to dynamically select the Storage Vault that was created most recently.
 	 *
 	 * @type int

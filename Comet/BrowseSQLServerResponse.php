@@ -24,7 +24,7 @@ class BrowseSQLServerResponse {
 	public $Message = "";
 
 	/**
-	 * @var string[] An array with string keys.
+	 * @var array<string, string>
 	 */
 	public $Objects = [];
 

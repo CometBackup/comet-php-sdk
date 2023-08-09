@@ -63,7 +63,7 @@ class AdminMetaWebhookOptionsGetRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param int $responseCode HTTP response code
 	 * @param string $body HTTP response body
-	 * @return \Comet\WebhookOption[] An array with string keys.
+	 * @return array<string, \Comet\WebhookOption>
 	 * @throws \Exception
 	 */
 	public static function ProcessResponse(int $responseCode, string $body): array

@@ -22,14 +22,14 @@ class AdminMetaWebhookOptionsSetRequest implements \Comet\NetworkRequest {
 	/**
 	 * The replacement webhook target options.
 	 *
-	 * @var \Comet\WebhookOption[] An array with string keys.
+	 * @var array<string, \Comet\WebhookOption>
 	 */
 	protected $WebhookOptions = null;
 
 	/**
 	 * Construct a new AdminMetaWebhookOptionsSetRequest instance.
 	 *
-	 * @param \Comet\WebhookOption[] An array with string keys. $WebhookOptions The replacement webhook target options.
+	 * @param array<string, \Comet\WebhookOption> $WebhookOptions The replacement webhook target options.
 	 */
 	public function __construct(array $WebhookOptions)
 	{

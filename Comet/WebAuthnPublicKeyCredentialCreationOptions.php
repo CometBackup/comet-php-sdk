@@ -47,7 +47,7 @@ class WebAuthnPublicKeyCredentialCreationOptions {
 	public $CredentialExcludeList = [];
 
 	/**
-	 * @var mixed[] An array with string keys.
+	 * @var array<string, mixed>
 	 */
 	public $Extensions = [];
 

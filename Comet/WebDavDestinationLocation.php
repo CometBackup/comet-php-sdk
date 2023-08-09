@@ -9,44 +9,46 @@
 
 namespace Comet;
 
-/**
- * SourceBasicInfo is the minimal amount of information one device knows about another device's
- * Protected Items, in order to safely perform retention passes on their behalf.
- */
-class SourceBasicInfo {
+class WebDavDestinationLocation {
 
 	/**
+	 * The URL of the WebDAV server, including http/https and any custom port
+	 *
 	 * @var string
 	 */
-	public $Description = "";
+	public $DavServer = "";
 
 	/**
-	 * @var int
-	 */
-	public $O365AccountCount = 0;
-
-	/**
-	 * Bytes
+	 * The username for logging in to the WebDAV server
 	 *
-	 * @var int
+	 * @var string
 	 */
-	public $Size = 0;
+	public $UserName = "";
 
 	/**
-	 * @var array<string, \Comet\RetentionPolicy>
+	 * The password for logging in to the WebDAV server
+	 *
+	 * @var string
 	 */
-	public $OverrideDestinationRetention = [];
+	public $AccessKey = "";
+
+	/**
+	 * The target directory path within the WebDAV server
+	 *
+	 * @var string
+	 */
+	public $Path = "";
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
-	 * @see SourceBasicInfo::RemoveUnknownProperties() Remove all unknown properties
+	 * @see WebDavDestinationLocation::RemoveUnknownProperties() Remove all unknown properties
 	 * @var array
 	 */
 	private $__unknown_properties = [];
 
 	/**
-	 * Replace the content of this SourceBasicInfo object from a PHP \stdClass.
+	 * Replace the content of this WebDavDestinationLocation object from a PHP \stdClass.
 	 * The data could be supplied from an API call after json_decode(...); or generated manually.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
@@ -54,37 +56,24 @@ class SourceBasicInfo {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
-		if (property_exists($sc, 'Description')) {
-			$this->Description = (string)($sc->Description);
+		if (property_exists($sc, 'DavServer') && !is_null($sc->DavServer)) {
+			$this->DavServer = (string)($sc->DavServer);
 		}
-		if (property_exists($sc, 'O365AccountCount')) {
-			$this->O365AccountCount = (int)($sc->O365AccountCount);
+		if (property_exists($sc, 'UserName') && !is_null($sc->UserName)) {
+			$this->UserName = (string)($sc->UserName);
 		}
-		if (property_exists($sc, 'Size')) {
-			$this->Size = (int)($sc->Size);
+		if (property_exists($sc, 'AccessKey') && !is_null($sc->AccessKey)) {
+			$this->AccessKey = (string)($sc->AccessKey);
 		}
-		if (property_exists($sc, 'OverrideDestinationRetention') && !is_null($sc->OverrideDestinationRetention)) {
-			$val_2 = [];
-			if ($sc->OverrideDestinationRetention !== null) {
-				foreach($sc->OverrideDestinationRetention as $k_2 => $v_2) {
-					$phpk_2 = (string)($k_2);
-					if (is_array($v_2) && count($v_2) === 0) {
-					// Work around edge case in json_decode--json_encode stdClass conversion
-						$phpv_2 = \Comet\RetentionPolicy::createFromStdclass(new \stdClass());
-					} else {
-						$phpv_2 = \Comet\RetentionPolicy::createFromStdclass($v_2);
-					}
-					$val_2[$phpk_2] = $phpv_2;
-				}
-			}
-			$this->OverrideDestinationRetention = $val_2;
+		if (property_exists($sc, 'Path') && !is_null($sc->Path)) {
+			$this->Path = (string)($sc->Path);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
-			case 'Description':
-			case 'O365AccountCount':
-			case 'Size':
-			case 'OverrideDestinationRetention':
+			case 'DavServer':
+			case 'UserName':
+			case 'AccessKey':
+			case 'Path':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -93,27 +82,27 @@ class SourceBasicInfo {
 	}
 
 	/**
-	 * Coerce a stdClass into a new strongly-typed SourceBasicInfo object.
+	 * Coerce a stdClass into a new strongly-typed WebDavDestinationLocation object.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
-	 * @return SourceBasicInfo
+	 * @return WebDavDestinationLocation
 	 */
-	public static function createFromStdclass(\stdClass $sc): \Comet\SourceBasicInfo
+	public static function createFromStdclass(\stdClass $sc): \Comet\WebDavDestinationLocation
 	{
-		$retn = new SourceBasicInfo();
+		$retn = new WebDavDestinationLocation();
 		$retn->inflateFrom($sc);
 		return $retn;
 	}
 
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed SourceBasicInfo object.
+	 * Coerce a plain PHP array into a new strongly-typed WebDavDestinationLocation object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
 	 * @param array $arr Object data as PHP array
-	 * @return SourceBasicInfo
+	 * @return WebDavDestinationLocation
 	 */
-	public static function createFromArray(array $arr): \Comet\SourceBasicInfo
+	public static function createFromArray(array $arr): \Comet\WebDavDestinationLocation
 	{
 		$stdClass = json_decode(json_encode($arr, JSON_UNESCAPED_SLASHES));
 		if (is_array($stdClass) && count($stdClass) === 0) {
@@ -123,24 +112,24 @@ class SourceBasicInfo {
 	}
 
 	/**
-	 * Coerce a JSON string into a new strongly-typed SourceBasicInfo object.
+	 * Coerce a JSON string into a new strongly-typed WebDavDestinationLocation object.
 	 *
 	 * @param string $JsonString Object data as JSON string
-	 * @return SourceBasicInfo
+	 * @return WebDavDestinationLocation
 	 */
-	public static function createFromJSON(string $JsonString): \Comet\SourceBasicInfo
+	public static function createFromJSON(string $JsonString): \Comet\WebDavDestinationLocation
 	{
 		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg(), \json_last_error());
 		}
-		$retn = new SourceBasicInfo();
+		$retn = new WebDavDestinationLocation();
 		$retn->inflateFrom($decodedJsonObject);
 		return $retn;
 	}
 
 	/**
-	 * Convert this SourceBasicInfo object into a plain PHP array.
+	 * Convert this WebDavDestinationLocation object into a plain PHP array.
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
@@ -150,26 +139,10 @@ class SourceBasicInfo {
 	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
-		$ret["Description"] = $this->Description;
-		$ret["O365AccountCount"] = $this->O365AccountCount;
-		$ret["Size"] = $this->Size;
-		{
-			$c0 = [];
-			foreach($this->OverrideDestinationRetention as $k0 => $v0) {
-				$ko_0 = $k0;
-				if ( $v0 === null ) {
-					$vo_0 = $for_json_encode ? (object)[] : [];
-				} else {
-					$vo_0 = $v0->toArray($for_json_encode);
-				}
-				$c0[ $ko_0 ] = $vo_0;
-			}
-			if ($for_json_encode && count($c0) == 0) {
-				$ret["OverrideDestinationRetention"] = (object)[];
-			} else {
-				$ret["OverrideDestinationRetention"] = $c0;
-			}
-		}
+		$ret["DavServer"] = $this->DavServer;
+		$ret["UserName"] = $this->UserName;
+		$ret["AccessKey"] = $this->AccessKey;
+		$ret["Path"] = $this->Path;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

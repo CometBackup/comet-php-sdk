@@ -24,7 +24,7 @@ class SearchSnapshotsResponse {
 	public $Message = "";
 
 	/**
-	 * @var \Comet\SearchResultFileInfo[][] An array with string keys.
+	 * @var array<string, \Comet\SearchResultFileInfo[]>
 	 */
 	public $SnapshotFiles = [];
 

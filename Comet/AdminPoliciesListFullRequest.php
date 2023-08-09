@@ -76,7 +76,7 @@ class AdminPoliciesListFullRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param int $responseCode HTTP response code
 	 * @param string $body HTTP response body
-	 * @return \Comet\GroupPolicy[] An array with string keys.
+	 * @return array<string, \Comet\GroupPolicy>
 	 * @throws \Exception
 	 */
 	public static function ProcessResponse(int $responseCode, string $body): array

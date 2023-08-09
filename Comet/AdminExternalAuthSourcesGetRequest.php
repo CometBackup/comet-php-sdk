@@ -62,7 +62,7 @@ class AdminExternalAuthSourcesGetRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param int $responseCode HTTP response code
 	 * @param string $body HTTP response body
-	 * @return \Comet\ExternalAuthenticationSource[] An array with string keys.
+	 * @return array<string, \Comet\ExternalAuthenticationSource>
 	 * @throws \Exception
 	 */
 	public static function ProcessResponse(int $responseCode, string $body): array

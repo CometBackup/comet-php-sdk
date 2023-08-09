@@ -55,7 +55,7 @@ class ServerConfigOptions {
 	public $ExperimentalOptions = [];
 
 	/**
-	 * @var \Comet\ExternalAuthenticationSource[] An array with string keys.
+	 * @var array<string, \Comet\ExternalAuthenticationSource>
 	 */
 	public $ExternalAdminUserSources = [];
 
@@ -81,7 +81,7 @@ class ServerConfigOptions {
 	/**
 	 * Tenants
 	 *
-	 * @var \Comet\Organization[] An array with string keys.
+	 * @var array<string, \Comet\Organization>
 	 */
 	public $Organizations = [];
 
@@ -124,12 +124,12 @@ class ServerConfigOptions {
 	public $TrustXForwardedFor = false;
 
 	/**
-	 * @var \Comet\WebhookOption[] An array with string keys.
+	 * @var array<string, \Comet\WebhookOption>
 	 */
 	public $WebhookOptions = [];
 
 	/**
-	 * @var \Comet\FileOption[] An array with string keys.
+	 * @var array<string, \Comet\FileOption>
 	 */
 	public $AuditFileOptions = [];
 

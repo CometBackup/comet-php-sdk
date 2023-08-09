@@ -37,7 +37,7 @@ class WebAuthnPublicKeyCredentialRequestOptions {
 	public $UserVerification = "";
 
 	/**
-	 * @var mixed[] An array with string keys.
+	 * @var array<string, mixed>
 	 */
 	public $Extensions = [];
 

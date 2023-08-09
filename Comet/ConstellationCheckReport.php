@@ -26,7 +26,7 @@ class ConstellationCheckReport {
 	public $CheckCompleted = 0;
 
 	/**
-	 * @var \Comet\BucketUsageInfo[] An array with string keys.
+	 * @var array<string, \Comet\BucketUsageInfo>
 	 */
 	public $Usage = [];
 

@@ -19,7 +19,7 @@ class PSAConfig {
 	public $AlertsDisabled = false;
 
 	/**
-	 * @var string[] An array with string keys.
+	 * @var array<string, string>
 	 */
 	public $CustomHeaders = [];
 

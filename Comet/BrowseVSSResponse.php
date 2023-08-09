@@ -24,7 +24,7 @@ class BrowseVSSResponse {
 	public $Message = "";
 
 	/**
-	 * @var \Comet\VSSWriterInfo[] An array with string keys.
+	 * @var array<string, \Comet\VSSWriterInfo>
 	 */
 	public $VSSWriters = [];
 

@@ -21,14 +21,14 @@ class AdminExternalAuthSourcesSetRequest implements \Comet\NetworkRequest {
 	/**
 	 * (No description available)
 	 *
-	 * @var \Comet\ExternalAuthenticationSource[] An array with string keys.
+	 * @var array<string, \Comet\ExternalAuthenticationSource>
 	 */
 	protected $Sources = null;
 
 	/**
 	 * Construct a new AdminExternalAuthSourcesSetRequest instance.
 	 *
-	 * @param \Comet\ExternalAuthenticationSource[] An array with string keys. $Sources (No description available)
+	 * @param array<string, \Comet\ExternalAuthenticationSource> $Sources (No description available)
 	 */
 	public function __construct(array $Sources)
 	{

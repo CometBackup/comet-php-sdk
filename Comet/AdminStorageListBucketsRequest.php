@@ -63,7 +63,7 @@ class AdminStorageListBucketsRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param int $responseCode HTTP response code
 	 * @param string $body HTTP response body
-	 * @return \Comet\BucketProperties[] An array with string keys.
+	 * @return array<string, \Comet\BucketProperties>
 	 * @throws \Exception
 	 */
 	public static function ProcessResponse(int $responseCode, string $body): array

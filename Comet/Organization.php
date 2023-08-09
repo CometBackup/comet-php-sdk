@@ -12,7 +12,7 @@ namespace Comet;
 class Organization {
 
 	/**
-	 * @var \Comet\FileOption[] An array with string keys.
+	 * @var array<string, \Comet\FileOption>
 	 */
 	public $AuditFileOptions = [];
 
@@ -67,7 +67,7 @@ class Organization {
 	public $SoftwareBuildRole = null;
 
 	/**
-	 * @var \Comet\WebhookOption[] An array with string keys.
+	 * @var array<string, \Comet\WebhookOption>
 	 */
 	public $WebhookOptions = [];
 
