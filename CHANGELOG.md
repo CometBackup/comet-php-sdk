@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2023-08-09 v4.12.0
+
+- Based on Comet 23.6.9
+- Added WebDAV `DestinationLocation`
+- Update PHPDoc types for arrays with non-int keys
+
 ## 2023-08-02 v4.11.0
 
 - Based on Comet 23.6.9
