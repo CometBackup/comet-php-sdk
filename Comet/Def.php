@@ -14,7 +14,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "23.6.9";
+	const APPLICATION_VERSION = "23.8.0";
 
 	/**
 	 * @type int
@@ -24,12 +24,12 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_MINOR = 6;
+	const APPLICATION_VERSION_MINOR = 8;
 
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 9;
+	const APPLICATION_VERSION_REVISION = 0;
 
 	/**
 	 * AutoRetentionLevel: The system will automatically choose how often to run an automatic Retention Pass after each backup job.
@@ -613,7 +613,7 @@ class Def {
 	const JOB_STATUS_STOP_SUCCESS__MIN = 5000;
 
 	/**
-	 * JobStatus
+	 * JobStatus: The job is complete and was successful.
 	 *
 	 * @type int
 	 */
@@ -641,14 +641,14 @@ class Def {
 	const JOB_STATUS_RUNNING_INDETERMINATE = 6000;
 
 	/**
-	 * JobStatus
+	 * JobStatus: The last information the server received from the device is that the job is currently running.
 	 *
 	 * @type int
 	 */
 	const JOB_STATUS_RUNNING_ACTIVE = 6001;
 
 	/**
-	 * JobStatus: A backup job that was marked as stopped or abandoned, but has somehow continued to run
+	 * JobStatus: The job was thought to have been in an Abandoned state but updated the Comet Server with a running status.
 	 *
 	 * @type int
 	 */
@@ -676,49 +676,49 @@ class Def {
 	const JOB_STATUS_FAILED_TIMEOUT = 7000;
 
 	/**
-	 * JobStatus
+	 * JobStatus: The job is complete but there was a problem that may have resulted in issues with the expected result.
 	 *
 	 * @type int
 	 */
 	const JOB_STATUS_FAILED_WARNING = 7001;
 
 	/**
-	 * JobStatus
+	 * JobStatus: There was an error during the job and it did not fully complete.
 	 *
 	 * @type int
 	 */
 	const JOB_STATUS_FAILED_ERROR = 7002;
 
 	/**
-	 * JobStatus
+	 * JobStatus: During a backup job either the "All protected items" quota or "Storage Vault" quota was exceeded.
 	 *
 	 * @type int
 	 */
 	const JOB_STATUS_FAILED_QUOTA = 7003;
 
 	/**
-	 * JobStatus
+	 * JobStatus: The job did not start at its scheduled time.
 	 *
 	 * @type int
 	 */
 	const JOB_STATUS_FAILED_SCHEDULEMISSED = 7004;
 
 	/**
-	 * JobStatus
+	 * JobStatus: The job was cancelled manually, a device shutdown was detected, or the backup time limit was reached.
 	 *
 	 * @type int
 	 */
 	const JOB_STATUS_FAILED_CANCELLED = 7005;
 
 	/**
-	 * JobStatus
+	 * JobStatus: The backup job was skipped as there was already a backup running and the "Skip if already running" option was enabled.
 	 *
 	 * @type int
 	 */
 	const JOB_STATUS_FAILED_SKIPALREADYRUNNING = 7006;
 
 	/**
-	 * JobStatus
+	 * JobStatus: The job has stopped unexpectedly or has been manually marked as abandoned by an admin.
 	 *
 	 * @type int
 	 */
@@ -952,7 +952,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const RELEASE_CODENAME = "Voyager";
+	const RELEASE_CODENAME = "Adrastea";
 
 	/**
 	 * RemoteServerType
