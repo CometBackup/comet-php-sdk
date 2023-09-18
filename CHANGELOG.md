@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## 2023-09-19 v4.14.0
+
+- Based on Comet 23.9.2
+- 'UseObjectLock' for S3 compatible storage settings deprecated. Replaced by 'ObjectLockMode'
+- New Streamable event SEVT_DEVICE_LOBBY_CONNECT and SEVT_DEVICE_LOBBY_DISCONNECT
+- Added 'TOTPCode' to 'InstallCreds' used for device registration.
+- 'GroupedBy' added to 'PSAConfig' for grouping statistics.
+- New APIs
+	- AdminInstallationDispatchDropConnection
+	- AdminInstallationDispatchRegisterDevice
+	- AdminInstallationListActive
+	- AdminJobAbandon
+
 ## 2023-08-29 v4.13.0
 
 - Based on Comet 23.8.0
