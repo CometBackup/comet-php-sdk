@@ -39,7 +39,12 @@ class S3GenericVirtualStorageRole {
 	/**
 	 * @var boolean
 	 */
-	public $UseObjectLock = false;
+	public $UseObjectLock_Legacy_DoNotUse = false;
+
+	/**
+	 * @var int
+	 */
+	public $ObjectLockMode = 0;
 
 	/**
 	 * @var int
@@ -84,7 +89,10 @@ class S3GenericVirtualStorageRole {
 			$this->SecretKey = (string)($sc->SecretKey);
 		}
 		if (property_exists($sc, 'UseObjectLock')) {
-			$this->UseObjectLock = (bool)($sc->UseObjectLock);
+			$this->UseObjectLock_Legacy_DoNotUse = (bool)($sc->UseObjectLock);
+		}
+		if (property_exists($sc, 'ObjectLockMode')) {
+			$this->ObjectLockMode = (int)($sc->ObjectLockMode);
 		}
 		if (property_exists($sc, 'ObjectLockDays')) {
 			$this->ObjectLockDays = (int)($sc->ObjectLockDays);
@@ -100,6 +108,7 @@ class S3GenericVirtualStorageRole {
 			case 'AccessKey':
 			case 'SecretKey':
 			case 'UseObjectLock':
+			case 'ObjectLockMode':
 			case 'ObjectLockDays':
 			case 'RemoveDeleted':
 				break;
@@ -172,7 +181,8 @@ class S3GenericVirtualStorageRole {
 		$ret["MasterBucket"] = $this->MasterBucket;
 		$ret["AccessKey"] = $this->AccessKey;
 		$ret["SecretKey"] = $this->SecretKey;
-		$ret["UseObjectLock"] = $this->UseObjectLock;
+		$ret["UseObjectLock"] = $this->UseObjectLock_Legacy_DoNotUse;
+		$ret["ObjectLockMode"] = $this->ObjectLockMode;
 		$ret["ObjectLockDays"] = $this->ObjectLockDays;
 		$ret["RemoveDeleted"] = $this->RemoveDeleted;
 

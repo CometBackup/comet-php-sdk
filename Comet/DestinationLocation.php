@@ -90,6 +90,11 @@ class DestinationLocation {
 	/**
 	 * @var int
 	 */
+	public $S3ObjectLockMode = 0;
+
+	/**
+	 * @var int
+	 */
 	public $S3ObjectLockDays = 0;
 
 	/**
@@ -355,6 +360,9 @@ class DestinationLocation {
 		if (property_exists($sc, 'S3RemoveDeleted')) {
 			$this->S3RemoveDeleted = (bool)($sc->S3RemoveDeleted);
 		}
+		if (property_exists($sc, 'S3ObjectLockMode')) {
+			$this->S3ObjectLockMode = (int)($sc->S3ObjectLockMode);
+		}
 		if (property_exists($sc, 'S3ObjectLockDays')) {
 			$this->S3ObjectLockDays = (int)($sc->S3ObjectLockDays);
 		}
@@ -500,6 +508,7 @@ class DestinationLocation {
 			case 'S3CustomRegion':
 			case 'S3UsesV2Signing':
 			case 'S3RemoveDeleted':
+			case 'S3ObjectLockMode':
 			case 'S3ObjectLockDays':
 			case 'SFTPServer':
 			case 'SFTPUsername':
@@ -611,6 +620,7 @@ class DestinationLocation {
 		$ret["S3CustomRegion"] = $this->S3CustomRegion;
 		$ret["S3UsesV2Signing"] = $this->S3UsesV2Signing;
 		$ret["S3RemoveDeleted"] = $this->S3RemoveDeleted;
+		$ret["S3ObjectLockMode"] = $this->S3ObjectLockMode;
 		$ret["S3ObjectLockDays"] = $this->S3ObjectLockDays;
 		$ret["SFTPServer"] = $this->SFTPServer;
 		$ret["SFTPUsername"] = $this->SFTPUsername;

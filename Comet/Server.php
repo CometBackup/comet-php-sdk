@@ -1911,6 +1911,80 @@ class Server {
 	}
 
 	/** 
+	 * Instruct a live connected device to disconnect
+	 * The device will terminate its live-connection process and will not reconnect.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $DeviceID The live connection Device GUID
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminInstallationDispatchDropConnection(string $DeviceID): \Comet\APIResponseMessage
+	{
+		$nr = new \Comet\AdminInstallationDispatchDropConnectionRequest($DeviceID);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminInstallationDispatchDropConnectionRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Instruct an unregistered device to authenticate with a given user
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $DeviceID The live connection Device GUID
+	 * @param string $TargetUser Selected account username
+	 * @param string $TargetPassword Selected account password
+	 * @param string $TargetTOTPCode Selected account TOTP code (optional)
+	 * @return string 
+	 * @throws \Exception
+	 */
+	public function AdminInstallationDispatchRegisterDevice(string $DeviceID, string $TargetUser, string $TargetPassword, string $TargetTOTPCode = null): string
+	{
+		$nr = new \Comet\AdminInstallationDispatchRegisterDeviceRequest($DeviceID, $TargetUser, $TargetPassword, $TargetTOTPCode);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminInstallationDispatchRegisterDeviceRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * List live connected devices in lobby mode
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @return array<string, \Comet\RegistrationLobbyConnection> 
+	 * @throws \Exception
+	 */
+	public function AdminInstallationListActive(): array
+	{
+		$nr = new \Comet\AdminInstallationListActiveRequest();
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminInstallationListActiveRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Mark a running job as abandoned
+	 * This will change the status of a running job to abandoned.
+	 * This is intended to be used on jobs which are definitely no longer running but are stuck in the running state; it will not attempt to cancel the job. If the job is detected to still be running after being marked as abandoned, it will be revived.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetUser Username
+	 * @param string $JobID Job ID
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminJobAbandon(string $TargetUser, string $JobID): \Comet\APIResponseMessage
+	{
+		$nr = new \Comet\AdminJobAbandonRequest($TargetUser, $JobID);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminJobAbandonRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Cancel a running job
 	 * A request is sent to the live-connected device, asking it to cancel the operation. This may fail if there is no live-connection.
 	 * Only jobs from Comet 18.3.5 or newer can be cancelled. A job can only be cancelled if it has a non-empty CancellationID field in its properties.

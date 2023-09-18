@@ -9,43 +9,33 @@
 
 namespace Comet;
 
-class InstallCreds {
-
-	/**
-	 * @var string
-	 */
-	public $Username = "";
-
-	/**
-	 * @var string
-	 */
-	public $Password = "";
-
-	/**
-	 * @var string
-	 */
-	public $TOTPCode = "";
-
-	/**
-	 * @var string
-	 */
-	public $Server = "";
+class PSAGroupedBy {
 
 	/**
 	 * @var boolean
 	 */
-	public $AutoLogin = false;
+	public $Users = false;
+
+	/**
+	 * @var boolean
+	 */
+	public $Tenants = false;
+
+	/**
+	 * @var boolean
+	 */
+	public $AccountName = false;
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
-	 * @see InstallCreds::RemoveUnknownProperties() Remove all unknown properties
+	 * @see PSAGroupedBy::RemoveUnknownProperties() Remove all unknown properties
 	 * @var array
 	 */
 	private $__unknown_properties = [];
 
 	/**
-	 * Replace the content of this InstallCreds object from a PHP \stdClass.
+	 * Replace the content of this PSAGroupedBy object from a PHP \stdClass.
 	 * The data could be supplied from an API call after json_decode(...); or generated manually.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
@@ -53,28 +43,20 @@ class InstallCreds {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
-		if (property_exists($sc, 'Username')) {
-			$this->Username = (string)($sc->Username);
+		if (property_exists($sc, 'Users')) {
+			$this->Users = (bool)($sc->Users);
 		}
-		if (property_exists($sc, 'Password')) {
-			$this->Password = (string)($sc->Password);
+		if (property_exists($sc, 'Tenants')) {
+			$this->Tenants = (bool)($sc->Tenants);
 		}
-		if (property_exists($sc, 'TOTPCode')) {
-			$this->TOTPCode = (string)($sc->TOTPCode);
-		}
-		if (property_exists($sc, 'Server')) {
-			$this->Server = (string)($sc->Server);
-		}
-		if (property_exists($sc, 'AutoLogin')) {
-			$this->AutoLogin = (bool)($sc->AutoLogin);
+		if (property_exists($sc, 'AccountName')) {
+			$this->AccountName = (bool)($sc->AccountName);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
-			case 'Username':
-			case 'Password':
-			case 'TOTPCode':
-			case 'Server':
-			case 'AutoLogin':
+			case 'Users':
+			case 'Tenants':
+			case 'AccountName':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -83,27 +65,27 @@ class InstallCreds {
 	}
 
 	/**
-	 * Coerce a stdClass into a new strongly-typed InstallCreds object.
+	 * Coerce a stdClass into a new strongly-typed PSAGroupedBy object.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
-	 * @return InstallCreds
+	 * @return PSAGroupedBy
 	 */
-	public static function createFromStdclass(\stdClass $sc): \Comet\InstallCreds
+	public static function createFromStdclass(\stdClass $sc): \Comet\PSAGroupedBy
 	{
-		$retn = new InstallCreds();
+		$retn = new PSAGroupedBy();
 		$retn->inflateFrom($sc);
 		return $retn;
 	}
 
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed InstallCreds object.
+	 * Coerce a plain PHP array into a new strongly-typed PSAGroupedBy object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
 	 * @param array $arr Object data as PHP array
-	 * @return InstallCreds
+	 * @return PSAGroupedBy
 	 */
-	public static function createFromArray(array $arr): \Comet\InstallCreds
+	public static function createFromArray(array $arr): \Comet\PSAGroupedBy
 	{
 		$stdClass = json_decode(json_encode($arr, JSON_UNESCAPED_SLASHES));
 		if (is_array($stdClass) && count($stdClass) === 0) {
@@ -113,24 +95,24 @@ class InstallCreds {
 	}
 
 	/**
-	 * Coerce a JSON string into a new strongly-typed InstallCreds object.
+	 * Coerce a JSON string into a new strongly-typed PSAGroupedBy object.
 	 *
 	 * @param string $JsonString Object data as JSON string
-	 * @return InstallCreds
+	 * @return PSAGroupedBy
 	 */
-	public static function createFromJSON(string $JsonString): \Comet\InstallCreds
+	public static function createFromJSON(string $JsonString): \Comet\PSAGroupedBy
 	{
 		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg(), \json_last_error());
 		}
-		$retn = new InstallCreds();
+		$retn = new PSAGroupedBy();
 		$retn->inflateFrom($decodedJsonObject);
 		return $retn;
 	}
 
 	/**
-	 * Convert this InstallCreds object into a plain PHP array.
+	 * Convert this PSAGroupedBy object into a plain PHP array.
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
@@ -140,11 +122,9 @@ class InstallCreds {
 	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
-		$ret["Username"] = $this->Username;
-		$ret["Password"] = $this->Password;
-		$ret["TOTPCode"] = $this->TOTPCode;
-		$ret["Server"] = $this->Server;
-		$ret["AutoLogin"] = $this->AutoLogin;
+		$ret["Users"] = $this->Users;
+		$ret["Tenants"] = $this->Tenants;
+		$ret["AccountName"] = $this->AccountName;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

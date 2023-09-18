@@ -45,6 +45,11 @@ class PSAConfig {
 	public $URL = "";
 
 	/**
+	 * @var \Comet\PSAGroupedBy
+	 */
+	public $GroupedBy = null;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see PSAConfig::RemoveUnknownProperties() Remove all unknown properties
@@ -84,6 +89,14 @@ class PSAConfig {
 		if (property_exists($sc, 'URL')) {
 			$this->URL = (string)($sc->URL);
 		}
+		if (property_exists($sc, 'GroupedBy')) {
+			if (is_array($sc->GroupedBy) && count($sc->GroupedBy) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->GroupedBy = \Comet\PSAGroupedBy::createFromStdclass(new \stdClass());
+			} else {
+				$this->GroupedBy = \Comet\PSAGroupedBy::createFromStdclass($sc->GroupedBy);
+			}
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'AlertsDisabled':
@@ -91,6 +104,7 @@ class PSAConfig {
 			case 'PartnerKey':
 			case 'Type':
 			case 'URL':
+			case 'GroupedBy':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -173,6 +187,11 @@ class PSAConfig {
 		$ret["PartnerKey"] = $this->PartnerKey;
 		$ret["Type"] = $this->Type;
 		$ret["URL"] = $this->URL;
+		if ( $this->GroupedBy === null ) {
+			$ret["GroupedBy"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["GroupedBy"] = $this->GroupedBy->toArray($for_json_encode);
+		}
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
@@ -222,6 +241,9 @@ class PSAConfig {
 	public function RemoveUnknownProperties()
 	{
 		$this->__unknown_properties = [];
+		if ($this->GroupedBy !== null) {
+			$this->GroupedBy->RemoveUnknownProperties();
+		}
 	}
 
 }

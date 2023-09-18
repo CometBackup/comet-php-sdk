@@ -14,7 +14,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "23.8.0";
+	const APPLICATION_VERSION = "23.9.2";
 
 	/**
 	 * @type int
@@ -24,12 +24,12 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_MINOR = 8;
+	const APPLICATION_VERSION_MINOR = 9;
 
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 0;
+	const APPLICATION_VERSION_REVISION = 2;
 
 	/**
 	 * AutoRetentionLevel: The system will automatically choose how often to run an automatic Retention Pass after each backup job.
@@ -841,6 +841,21 @@ class Def {
 	const MSSQL_RESTORE_NORECOVERY = "NO_RECOVERY";
 
 	/**
+	 * @type int
+	 */
+	const OBJECT_LOCK_LEGACY = 0;
+
+	/**
+	 * @type int
+	 */
+	const OBJECT_LOCK_ON = 1;
+
+	/**
+	 * @type int
+	 */
+	const OBJECT_LOCK_OFF = 2;
+
+	/**
 	 * @type string
 	 */
 	const OFFICE365_REGION_PUBLIC = "GlobalPublicCloud";
@@ -952,7 +967,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const RELEASE_CODENAME = "Adrastea";
+	const RELEASE_CODENAME = "Voyager";
 
 	/**
 	 * RemoteServerType
@@ -1935,6 +1950,20 @@ class Def {
 	const SEVT_DEVICE_LIVE_DISCONNECT = 4703;
 
 	/**
+	 * StreamableEventType: Device connected to registration lobby
+	 *
+	 * @type int
+	 */
+	const SEVT_DEVICE_LOBBY_CONNECT = 4704;
+
+	/**
+	 * StreamableEventType: Device disconnected from registration lobby
+	 *
+	 * @type int
+	 */
+	const SEVT_DEVICE_LOBBY_DISCONNECT = 4705;
+
+	/**
 	 * StreamableEventType
 	 *
 	 * @type int
@@ -2234,6 +2263,11 @@ class Def {
 	 * @type int
 	 */
 	const UPDATESTATUS_UPDATE_CONFIRMED = 5;
+
+	/**
+	 * @type int
+	 */
+	const USERNAME_MAX_LENGTH = 255;
 
 	/**
 	 * If an API response returns in failure, but it includes this value in the CometAPIResponseMessage->Message parameter, it indicates that the specified Device ID was invalid or not found.
