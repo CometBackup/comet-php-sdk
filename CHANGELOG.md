@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 2023-10-12 v4.15.0
+
+- Based on Comet 23.9.5
+- Add new field `LogLevel` to control job log verbosity
+- Add new `RESTORETYPE_WINDISK_ESXI` for restoring to VMware-compatible
+virtual disks
+
 ## 2023-09-19 v4.14.0
 
 - Based on Comet 23.9.2
