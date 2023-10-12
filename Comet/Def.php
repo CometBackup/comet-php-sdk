@@ -14,7 +14,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "23.9.2";
+	const APPLICATION_VERSION = "23.9.5";
 
 	/**
 	 * @type int
@@ -29,7 +29,7 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 2;
+	const APPLICATION_VERSION_REVISION = 5;
 
 	/**
 	 * AutoRetentionLevel: The system will automatically choose how often to run an automatic Retention Pass after each backup job.
@@ -1215,6 +1215,13 @@ class Def {
 	const RESTORETYPE_MSSQL = 11;
 
 	/**
+	 * RestoreType: Restore disk image backup as VMware-compatible virtual disks
+	 *
+	 * @type int
+	 */
+	const RESTORETYPE_WINDISK_ESXI = 12;
+
+	/**
 	 * RestoreType: Legacy name alias - Prefer to use RESTORETYPE_PROCESS_ARCHIVE since multiple archive file formats are supported within this single RESTORETYPE_
 	 *
 	 * @type int
@@ -1705,7 +1712,7 @@ class Def {
 	const SEVT__MIN = 4000;
 
 	/**
-	 * StreamableEventType: New websocket connection. Data is typically ServerMetaVersionInfo
+	 * StreamableEventType: New event stream connection. Data is typically ServerMetaVersionInfo
 	 *
 	 * @type int
 	 */
@@ -1789,7 +1796,7 @@ class Def {
 	const SEVT_ACCOUNT_ADMIN_UPDATED = 4152;
 
 	/**
-	 * StreamableEventType: Admin authentication suceeded. Only emitted for non-session requests. Resource is the requested path
+	 * StreamableEventType: Admin authentication succeeded. Only emitted for non-session requests. Resource is the requested path
 	 *
 	 * @type int
 	 */

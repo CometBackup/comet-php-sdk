@@ -117,6 +117,11 @@ class BackupRuleConfig {
 	public $AutoRetentionLevel = 0;
 
 	/**
+	 * @var string
+	 */
+	public $LogLevel = "";
+
+	/**
 	 * Scheduled start times
 	 *
 	 * @var \Comet\ScheduleConfig[]
@@ -210,6 +215,9 @@ class BackupRuleConfig {
 		if (property_exists($sc, 'AutoRetentionLevel')) {
 			$this->AutoRetentionLevel = (int)($sc->AutoRetentionLevel);
 		}
+		if (property_exists($sc, 'LogLevel')) {
+			$this->LogLevel = (string)($sc->LogLevel);
+		}
 		if (property_exists($sc, 'Schedules')) {
 			$val_2 = [];
 			if ($sc->Schedules !== null) {
@@ -249,6 +257,7 @@ class BackupRuleConfig {
 			case 'UseOnDiskIndexes':
 			case 'AllowZeroFilesSuccess':
 			case 'AutoRetentionLevel':
+			case 'LogLevel':
 			case 'Schedules':
 			case 'EventTriggers':
 				break;
@@ -352,6 +361,7 @@ class BackupRuleConfig {
 		$ret["UseOnDiskIndexes"] = $this->UseOnDiskIndexes;
 		$ret["AllowZeroFilesSuccess"] = $this->AllowZeroFilesSuccess;
 		$ret["AutoRetentionLevel"] = $this->AutoRetentionLevel;
+		$ret["LogLevel"] = $this->LogLevel;
 		{
 			$c0 = [];
 			for($i0 = 0; $i0 < count($this->Schedules); ++$i0) {

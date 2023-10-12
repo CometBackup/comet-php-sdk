@@ -64,6 +64,11 @@ class BackupJobAdvancedOptions {
 	public $AutoRetentionLevel = 0;
 
 	/**
+	 * @var string
+	 */
+	public $LogLevel = "";
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see BackupJobAdvancedOptions::RemoveUnknownProperties() Remove all unknown properties
@@ -101,6 +106,9 @@ class BackupJobAdvancedOptions {
 		if (property_exists($sc, 'AutoRetentionLevel')) {
 			$this->AutoRetentionLevel = (int)($sc->AutoRetentionLevel);
 		}
+		if (property_exists($sc, 'LogLevel')) {
+			$this->LogLevel = (string)($sc->LogLevel);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'SkipAlreadyRunning':
@@ -110,6 +118,7 @@ class BackupJobAdvancedOptions {
 			case 'UseOnDiskIndexes':
 			case 'AllowZeroFilesSuccess':
 			case 'AutoRetentionLevel':
+			case 'LogLevel':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -182,6 +191,7 @@ class BackupJobAdvancedOptions {
 		$ret["UseOnDiskIndexes"] = $this->UseOnDiskIndexes;
 		$ret["AllowZeroFilesSuccess"] = $this->AllowZeroFilesSuccess;
 		$ret["AutoRetentionLevel"] = $this->AutoRetentionLevel;
+		$ret["LogLevel"] = $this->LogLevel;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
