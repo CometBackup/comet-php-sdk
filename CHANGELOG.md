@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 2023-10-17 v4.16.0
+
+- Based on Comet 23.9.6
+- Added new "Comet Storage" and "Comet Storage (Object Lock)" storage destinations, allowing users to select Comet's new bundled Wasabi storage option for Storage Vaults (including Storage Templates)
+- Fixed an issue with the Comet Server stats processing returning incorrect stats for previous days
+- Fixed an issue in Comet Server web interface where creating or editing a custom Storage Vault can cause invalid Object Lock settings
+
 ## 2023-10-12 v4.15.0
 
 - Based on Comet 23.9.5
