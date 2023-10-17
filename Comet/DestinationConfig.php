@@ -340,6 +340,11 @@ class DestinationConfig {
 	public $SpanUseStaticSlots = false;
 
 	/**
+	 * @var string
+	 */
+	public $Tag = "";
+
+	/**
 	 * One of the ENCRYPTIONMETHOD_ constants
 	 *
 	 * @var int
@@ -619,6 +624,9 @@ class DestinationConfig {
 		if (property_exists($sc, 'SpanUseStaticSlots')) {
 			$this->SpanUseStaticSlots = (bool)($sc->SpanUseStaticSlots);
 		}
+		if (property_exists($sc, 'Tag')) {
+			$this->Tag = (string)($sc->Tag);
+		}
 		if (property_exists($sc, 'EncryptionKeyEncryptionMethod')) {
 			$this->EncryptionKeyEncryptionMethod = (int)($sc->EncryptionKeyEncryptionMethod);
 		}
@@ -708,6 +716,7 @@ class DestinationConfig {
 			case 'Storj':
 			case 'SpanTargets':
 			case 'SpanUseStaticSlots':
+			case 'Tag':
 			case 'EncryptionKeyEncryptionMethod':
 			case 'EncryptedEncryptionKey':
 			case 'RepoInitTimestamp':
@@ -882,6 +891,7 @@ class DestinationConfig {
 			$ret["SpanTargets"] = $c0;
 		}
 		$ret["SpanUseStaticSlots"] = $this->SpanUseStaticSlots;
+		$ret["Tag"] = $this->Tag;
 		$ret["EncryptionKeyEncryptionMethod"] = $this->EncryptionKeyEncryptionMethod;
 		$ret["EncryptedEncryptionKey"] = $this->EncryptedEncryptionKey;
 		$ret["RepoInitTimestamp"] = $this->RepoInitTimestamp;

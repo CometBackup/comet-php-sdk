@@ -14,7 +14,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "23.9.5";
+	const APPLICATION_VERSION = "23.9.6";
 
 	/**
 	 * @type int
@@ -29,7 +29,7 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 5;
+	const APPLICATION_VERSION_REVISION = 6;
 
 	/**
 	 * AutoRetentionLevel: The system will automatically choose how often to run an automatic Retention Pass after each backup job.
@@ -975,6 +975,13 @@ class Def {
 	 * @type string
 	 */
 	const REMOTESERVER_COMET = "comet";
+
+	/**
+	 * RemoteServerType
+	 *
+	 * @type string
+	 */
+	const REMOTESERVER_COMET_STORAGE = "cometstorage";
 
 	/**
 	 * RemoteServerType
