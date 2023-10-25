@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2023-10-17 v4.17.0
+
+- (This git tag is identical to the v4.16.0 release version.)
+
 ## 2023-10-17 v4.16.0
 
 - Based on Comet 23.9.6
