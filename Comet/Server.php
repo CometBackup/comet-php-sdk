@@ -1302,6 +1302,25 @@ class Server {
 	}
 
 	/** 
+	 * Request a list of VMware vSphere virtual machines
+	 * The remote device must have given consent for an MSP to browse their files.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetID The live connection GUID
+	 * @param \Comet\VMwareConnection $Credentials The VMware vSphere connection settings
+	 * @return \Comet\BrowseVMwareResponse 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherRequestBrowseVmware(string $TargetID, \Comet\VMwareConnection $Credentials): \Comet\BrowseVMwareResponse
+	{
+		$nr = new \Comet\AdminDispatcherRequestBrowseVmwareRequest($TargetID, $Credentials);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherRequestBrowseVmwareRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Request a list of installed VSS Writers (Application-Aware Writers) from a live connected device
 	 * 
 	 * You must supply administrator authentication credentials to use this API.

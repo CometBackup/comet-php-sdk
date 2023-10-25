@@ -14,7 +14,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "23.9.6";
+	const APPLICATION_VERSION = "23.9.7";
 
 	/**
 	 * @type int
@@ -29,7 +29,7 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 6;
+	const APPLICATION_VERSION_REVISION = 7;
 
 	/**
 	 * AutoRetentionLevel: The system will automatically choose how often to run an automatic Retention Pass after each backup job.
@@ -487,6 +487,13 @@ class Def {
 	const ENGINE_BUILTIN_MSOFFICE = "engine1/winmsofficemail";
 
 	/**
+	 * VMware
+	 *
+	 * @type string
+	 */
+	const ENGINE_BUILTIN_VMWARE = "engine1/vmware";
+
+	/**
 	 * FtpsModeType: Use plain FTP, do not use FTPS.
 	 *
 	 * @type int
@@ -506,6 +513,29 @@ class Def {
 	 * @type int
 	 */
 	const FTPS_MODE_EXPLICIT = 2;
+
+	/**
+	 * Back up Hyper-V virtual machines using VSS mode. This includes all previous snapshots.
+	 *
+	 * @type string
+	 */
+	const HYPERV_METHOD_VSS = "vss";
+
+	/**
+	 * Back up Hyper-V virtual machines using WMI mode. This includes the latest snapshot data only.
+	 *
+	 * @type string
+	 * This const is available in Comet 23.9.8 and later.
+	 */
+	const HYPERV_METHOD_WMI_COPY = "copy";
+
+	/**
+	 * Back up Hyper-V virtual machines using WMI mode with RCT acceleration. This includes the latest snapshot data only.
+	 *
+	 * @type string
+	 * This const is available in Comet 23.9.8 and later.
+	 */
+	const HYPERV_METHOD_WMI_CBT = "wmi";
 
 	/**
 	 * JobClassification: All BackupJobDetail.Classification fields will fall in the 4xxx range.
@@ -2299,6 +2329,62 @@ class Def {
 	 * @type string
 	 */
 	const UnsupportVmdkFileSystem = "ERR_UNSUPPORT_VMDK_FILE_SYSTEM";
+
+	/**
+	 * VMwareConnectionType
+	 *
+	 * @type string
+	 */
+	const VMWARE_CONNECTION_SSH = "ssh";
+
+	/**
+	 * VMwareConnectionType
+	 *
+	 * @type string
+	 */
+	const VMWARE_CONNECTION_VSPHERE = "vsphere";
+
+	/**
+	 * VmwareSnapshotType
+	 *
+	 * @type string
+	 */
+	const VMWARE_SNAPSHOT_FAST = "";
+
+	/**
+	 * VmwareSnapshotType
+	 *
+	 * @type string
+	 */
+	const VMWARE_SNAPSHOT_QUIESCE = "quiesce";
+
+	/**
+	 * VmwareSnapshotType
+	 *
+	 * @type string
+	 */
+	const VMWARE_SNAPSHOT_MEMORY = "memory";
+
+	/**
+	 * VmwareBackupType
+	 *
+	 * @type string
+	 */
+	const VMWARE_BACKUP_FULL = "full";
+
+	/**
+	 * VmwareBackupType
+	 *
+	 * @type string
+	 */
+	const VMWARE_BACKUP_CBT = "cbt";
+
+	/**
+	 * VmwareBackupType
+	 *
+	 * @type string
+	 */
+	const VMWARE_BACKUP_COPY = "copy";
 
 	/**
 	 * @type string
