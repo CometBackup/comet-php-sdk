@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 2023-10-25 v4.18.0
+
+- Based on Comet 23.9.7
+- Add VMware support
+
 ## 2023-10-17 v4.17.0
 
 - (This git tag is identical to the v4.16.0 release version.)
