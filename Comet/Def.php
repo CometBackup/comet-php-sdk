@@ -14,7 +14,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "23.9.8";
+	const APPLICATION_VERSION = "23.9.9";
 
 	/**
 	 * @type int
@@ -29,7 +29,7 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 8;
+	const APPLICATION_VERSION_REVISION = 9;
 
 	/**
 	 * AutoRetentionLevel: The system will automatically choose how often to run an automatic Retention Pass after each backup job.
@@ -993,6 +993,13 @@ class Def {
 	 * @type int
 	 */
 	const PSA_TYPE_GRADIENT = 1;
+
+	/**
+	 * PSAType
+	 *
+	 * @type int
+	 */
+	const PSA_TYPE_SYNCRO = 2;
 
 	/**
 	 * @type string

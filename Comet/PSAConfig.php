@@ -19,12 +19,14 @@ class PSAConfig {
 	public $AlertsDisabled = false;
 
 	/**
+	 * Custom headers to send with each PSA request
+	 *
 	 * @var array<string, string>
 	 */
 	public $CustomHeaders = [];
 
 	/**
-	 * Specified credentials for the target PSA
+	 * Specified API key for the target PSA
 	 *
 	 * @var string
 	 */
@@ -38,7 +40,7 @@ class PSAConfig {
 	public $Type = 0;
 
 	/**
-	 * For PSA_TYPE_GENERIC
+	 * The URL or subdomain for outbound PSA requests
 	 *
 	 * @var string
 	 */

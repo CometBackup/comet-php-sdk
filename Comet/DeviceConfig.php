@@ -52,6 +52,12 @@ class DeviceConfig {
 	public $ClientVersion = "";
 
 	/**
+	 * @var string
+	 * This field is available in Comet 23.9.8 and later.
+	 */
+	public $SyncroUUID = "";
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see DeviceConfig::RemoveUnknownProperties() Remove all unknown properties
@@ -104,6 +110,9 @@ class DeviceConfig {
 		if (property_exists($sc, 'ClientVersion') && !is_null($sc->ClientVersion)) {
 			$this->ClientVersion = (string)($sc->ClientVersion);
 		}
+		if (property_exists($sc, 'SyncroUUID') && !is_null($sc->SyncroUUID)) {
+			$this->SyncroUUID = (string)($sc->SyncroUUID);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'FriendlyName':
@@ -112,6 +121,7 @@ class DeviceConfig {
 			case 'Sources':
 			case 'DeviceTimezone':
 			case 'ClientVersion':
+			case 'SyncroUUID':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -203,6 +213,7 @@ class DeviceConfig {
 		}
 		$ret["DeviceTimezone"] = $this->DeviceTimezone;
 		$ret["ClientVersion"] = $this->ClientVersion;
+		$ret["SyncroUUID"] = $this->SyncroUUID;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
