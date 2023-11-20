@@ -99,6 +99,12 @@ class AdminUserPermissions {
 	public $AllowedProvidersWhenRestricted = [];
 
 	/**
+	 * @var string[]
+	 * This field is available in Comet 23.9.11 and later.
+	 */
+	public $AllowedUserPolicies = [];
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see AdminUserPermissions::RemoveUnknownProperties() Remove all unknown properties
@@ -169,6 +175,15 @@ class AdminUserPermissions {
 			}
 			$this->AllowedProvidersWhenRestricted = $val_2;
 		}
+		if (property_exists($sc, 'AllowedUserPolicies') && !is_null($sc->AllowedUserPolicies)) {
+			$val_2 = [];
+			if ($sc->AllowedUserPolicies !== null) {
+				for($i_2 = 0; $i_2 < count($sc->AllowedUserPolicies); ++$i_2) {
+					$val_2[] = (string)($sc->AllowedUserPolicies[$i_2]);
+				}
+			}
+			$this->AllowedUserPolicies = $val_2;
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'PreventEditServerSettings':
@@ -187,6 +202,7 @@ class AdminUserPermissions {
 			case 'HideCloudStorageBranding':
 			case 'ShouldRestrictProviderList':
 			case 'AllowedProvidersWhenRestricted':
+			case 'AllowedUserPolicies':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -274,6 +290,14 @@ class AdminUserPermissions {
 				$c0[] = $val0;
 			}
 			$ret["AllowedProvidersWhenRestricted"] = $c0;
+		}
+		{
+			$c0 = [];
+			for($i0 = 0; $i0 < count($this->AllowedUserPolicies); ++$i0) {
+				$val0 = $this->AllowedUserPolicies[$i0];
+				$c0[] = $val0;
+			}
+			$ret["AllowedUserPolicies"] = $c0;
 		}
 
 		// Reinstate unknown properties from future server versions

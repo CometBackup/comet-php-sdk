@@ -20,6 +20,7 @@ class VMwareConnection {
 
 	/**
 	 * @var \Comet\SSHConnection
+	 * @deprecated 23.9.11 This member has been deprecated since Comet version 23.9.11
 	 */
 	public $SSH = null;
 

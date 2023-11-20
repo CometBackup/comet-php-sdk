@@ -14,7 +14,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "23.9.9";
+	const APPLICATION_VERSION = "23.9.11";
 
 	/**
 	 * @type int
@@ -29,7 +29,7 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 9;
+	const APPLICATION_VERSION_REVISION = 11;
 
 	/**
 	 * AutoRetentionLevel: The system will automatically choose how often to run an automatic Retention Pass after each backup job.
@@ -979,6 +979,13 @@ class Def {
 	 * @type string
 	 */
 	const PROVIDER_GOOGLE = "google";
+
+	/**
+	 * OidcProvider
+	 *
+	 * @type string
+	 */
+	const PROVIDER_DASHBOARD = "dashboard";
 
 	/**
 	 * PSAType
@@ -2341,6 +2348,7 @@ class Def {
 	 * VMwareConnectionType
 	 *
 	 * @type string
+	 * @deprecated 23.9.11 This const has been deprecated since Comet version 23.9.11
 	 */
 	const VMWARE_CONNECTION_SSH = "ssh";
 
@@ -2390,6 +2398,7 @@ class Def {
 	 * VmwareBackupType
 	 *
 	 * @type string
+	 * @deprecated 23.9.11 This const has been deprecated since Comet version 23.9.11
 	 */
 	const VMWARE_BACKUP_COPY = "copy";
 
