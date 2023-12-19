@@ -14,7 +14,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "23.9.11";
+	const APPLICATION_VERSION = "23.11.2";
 
 	/**
 	 * @type int
@@ -24,12 +24,12 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_MINOR = 9;
+	const APPLICATION_VERSION_MINOR = 11;
 
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 11;
+	const APPLICATION_VERSION_REVISION = 2;
 
 	/**
 	 * AutoRetentionLevel: The system will automatically choose how often to run an automatic Retention Pass after each backup job.
@@ -1011,7 +1011,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const RELEASE_CODENAME = "Voyager";
+	const RELEASE_CODENAME = "Saturn";
 
 	/**
 	 * RemoteServerType
