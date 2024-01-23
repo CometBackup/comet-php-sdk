@@ -462,6 +462,28 @@ class Server {
 	}
 
 	/** 
+	 * Download software (Linux Debian Package)
+	 * 
+	 * This API requires administrator authentication credentials, unless the server is configured to allow unauthenticated software downloads.
+	 * This API requires the Software Build Role to be enabled.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $SelfAddress The external URL of this server, used to resolve conflicts (optional)
+	 * @return string 
+	 * @throws \Exception
+	 */
+	public function AdminBrandingGenerateClientLinuxDeb(string $SelfAddress = null): string
+	{
+		if ($SelfAddress === null) {
+			$SelfAddress = $this->server_url;
+		}
+
+		$nr = new \Comet\AdminBrandingGenerateClientLinuxDebRequest($SelfAddress);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminBrandingGenerateClientLinuxDebRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Download software (Linux Server .run)
 	 * 
 	 * This API requires administrator authentication credentials, unless the server is configured to allow unauthenticated software downloads.
