@@ -22,16 +22,22 @@ class ExternalAuthenticationSource {
 	public $Description = "";
 
 	/**
+	 * For use with Comet Server (Storage Role / Auth Role)
+	 *
 	 * @var string
 	 */
 	public $RemoteAddress = "";
 
 	/**
+	 * For use with Comet Server (Storage Role / Auth Role)
+	 *
 	 * @var string
 	 */
 	public $Username = "";
 
 	/**
+	 * For use with Comet Server (Storage Role / Auth Role)
+	 *
 	 * @var string
 	 */
 	public $Password = "";
@@ -47,36 +53,60 @@ class ExternalAuthenticationSource {
 	public $OIDC = null;
 
 	/**
+	 * Backblaze B2 (Storage Template / Constellation)
+	 *
 	 * @var \Comet\B2VirtualStorageRoleSettings
 	 */
 	public $B2 = null;
 
 	/**
+	 * Wasabi, or Comet Storage powered by Wasabi (Storage Template / Constellation)
+	 *
 	 * @var \Comet\WasabiVirtualStorageRoleSettings
 	 */
 	public $Wasabi = null;
 
 	/**
+	 * Custom Remote Bucket HTTP protocol (Storage Template)
+	 *
 	 * @var \Comet\CustomRemoteBucketSettings
 	 */
 	public $Custom = null;
 
 	/**
+	 * IDrive e2, or Custom IAM-compatible (Storage Template / Constellation)
+	 *
 	 * @var \Comet\S3GenericVirtualStorageRole
 	 */
 	public $S3 = null;
 
 	/**
-	 * Amazon AWS - Virtual Storage Role
+	 * Amazon AWS (Storage Template / Constellation)
 	 *
 	 * @var \Comet\AmazonAWSVirtualStorageRoleSettings
 	 */
 	public $AWS = null;
 
 	/**
+	 * Storj (Storage Template / Constellation)
+	 *
 	 * @var \Comet\StorjVirtualStorageRoleSetting
 	 */
 	public $Storj = null;
+
+	/**
+	 * Impossible Cloud Partner API (Storage Template / Constellation)
+	 *
+	 * @var \Comet\ImpossibleCloudPartnerTemplateSettings
+	 */
+	public $ImpPartner = null;
+
+	/**
+	 * Impossible Cloud IAM API (Storage Template / Constellation)
+	 *
+	 * @var \Comet\ImpossibleCloudIAMTemplateSettings
+	 */
+	public $ImpUser = null;
 
 	/**
 	 * @var \Comet\AdminUserPermissions
@@ -179,6 +209,22 @@ class ExternalAuthenticationSource {
 				$this->Storj = \Comet\StorjVirtualStorageRoleSetting::createFromStdclass($sc->Storj);
 			}
 		}
+		if (property_exists($sc, 'ImpPartner') && !is_null($sc->ImpPartner)) {
+			if (is_array($sc->ImpPartner) && count($sc->ImpPartner) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->ImpPartner = \Comet\ImpossibleCloudPartnerTemplateSettings::createFromStdclass(new \stdClass());
+			} else {
+				$this->ImpPartner = \Comet\ImpossibleCloudPartnerTemplateSettings::createFromStdclass($sc->ImpPartner);
+			}
+		}
+		if (property_exists($sc, 'ImpUser') && !is_null($sc->ImpUser)) {
+			if (is_array($sc->ImpUser) && count($sc->ImpUser) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->ImpUser = \Comet\ImpossibleCloudIAMTemplateSettings::createFromStdclass(new \stdClass());
+			} else {
+				$this->ImpUser = \Comet\ImpossibleCloudIAMTemplateSettings::createFromStdclass($sc->ImpUser);
+			}
+		}
 		if (property_exists($sc, 'NewUserPermissions')) {
 			if (is_array($sc->NewUserPermissions) && count($sc->NewUserPermissions) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
@@ -202,6 +248,8 @@ class ExternalAuthenticationSource {
 			case 'S3':
 			case 'AWS':
 			case 'Storj':
+			case 'ImpPartner':
+			case 'ImpUser':
 			case 'NewUserPermissions':
 				break;
 			default:
@@ -313,6 +361,16 @@ class ExternalAuthenticationSource {
 		} else {
 			$ret["Storj"] = $this->Storj->toArray($for_json_encode);
 		}
+		if ( $this->ImpPartner === null ) {
+			$ret["ImpPartner"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["ImpPartner"] = $this->ImpPartner->toArray($for_json_encode);
+		}
+		if ( $this->ImpUser === null ) {
+			$ret["ImpUser"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["ImpUser"] = $this->ImpUser->toArray($for_json_encode);
+		}
 		if ( $this->NewUserPermissions === null ) {
 			$ret["NewUserPermissions"] = $for_json_encode ? (object)[] : [];
 		} else {
@@ -390,6 +448,12 @@ class ExternalAuthenticationSource {
 		}
 		if ($this->Storj !== null) {
 			$this->Storj->RemoveUnknownProperties();
+		}
+		if ($this->ImpPartner !== null) {
+			$this->ImpPartner->RemoveUnknownProperties();
+		}
+		if ($this->ImpUser !== null) {
+			$this->ImpUser->RemoveUnknownProperties();
 		}
 		if ($this->NewUserPermissions !== null) {
 			$this->NewUserPermissions->RemoveUnknownProperties();

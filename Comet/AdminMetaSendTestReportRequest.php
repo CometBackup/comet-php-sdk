@@ -27,13 +27,22 @@ class AdminMetaSendTestReportRequest implements \Comet\NetworkRequest {
 	protected $EmailReportingOption = null;
 
 	/**
+	 * If present, Testing email with a target organization. Only allowed for top-level admins. (>= 24.3.0) (optional)
+	 *
+	 * @var string|null
+	 */
+	protected $TargetOrganization = null;
+
+	/**
 	 * Construct a new AdminMetaSendTestReportRequest instance.
 	 *
 	 * @param \Comet\EmailReportingOption $EmailReportingOption Test email reporting option for sending
+	 * @param string $TargetOrganization If present, Testing email with a target organization. Only allowed for top-level admins. (>= 24.3.0) (optional)
 	 */
-	public function __construct(\Comet\EmailReportingOption $EmailReportingOption)
+	public function __construct(\Comet\EmailReportingOption $EmailReportingOption, string $TargetOrganization = null)
 	{
 		$this->EmailReportingOption = $EmailReportingOption;
+		$this->TargetOrganization = $TargetOrganization;
 	}
 
 	/**
@@ -65,6 +74,9 @@ class AdminMetaSendTestReportRequest implements \Comet\NetworkRequest {
 	{
 		$ret = [];
 		$ret["EmailReportingOption"] = $this->EmailReportingOption->toJSON();
+		if ($this->TargetOrganization !== null) {
+			$ret["TargetOrganization"] = (string)($this->TargetOrganization);
+		}
 		return $ret;
 	}
 

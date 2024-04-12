@@ -81,6 +81,8 @@ class SourceConfig {
 	 * - USE_WIN_VSS: If present, the 'Take filesystem snapshot' checkbox is checked
 	 * - CONFIRM_EFS: If present, the 'Dismiss EFS warning' checkbox is checked
 	 * - RESCAN_UNCHANGED: If present, the 'Rescan unchanged files' checkbox is checked
+	 * - EXTRA_ATTRIBUTES: If present, the 'Back up extra system permissions and attributes' checkbox is
+	 * checked
 	 *
 	 * For engine1/mssql, Comet understands the following EngineProp keys:
 	 *

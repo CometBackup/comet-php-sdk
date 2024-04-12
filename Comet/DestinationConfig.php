@@ -317,6 +317,11 @@ class DestinationConfig {
 	public $Storj = null;
 
 	/**
+	 * @var \Comet\SMBDestinationLocation
+	 */
+	public $SMB = null;
+
+	/**
 	 * A list of underlying destinations, that will be combined and presented as one.
 	 *
 	 * @var \Comet\DestinationLocation[]
@@ -398,6 +403,13 @@ class DestinationConfig {
 	 * @var boolean
 	 */
 	public $RebrandStorage = false;
+
+	/**
+	 * If not empty, an error occured during a retention pass. Describes the error.
+	 *
+	 * @var string
+	 */
+	public $RetentionError = "";
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
@@ -607,6 +619,14 @@ class DestinationConfig {
 				$this->Storj = \Comet\StorjDestinationLocation::createFromStdclass($sc->Storj);
 			}
 		}
+		if (property_exists($sc, 'SMB')) {
+			if (is_array($sc->SMB) && count($sc->SMB) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->SMB = \Comet\SMBDestinationLocation::createFromStdclass(new \stdClass());
+			} else {
+				$this->SMB = \Comet\SMBDestinationLocation::createFromStdclass($sc->SMB);
+			}
+		}
 		if (property_exists($sc, 'SpanTargets')) {
 			$val_2 = [];
 			if ($sc->SpanTargets !== null) {
@@ -661,6 +681,9 @@ class DestinationConfig {
 		if (property_exists($sc, 'RebrandStorage')) {
 			$this->RebrandStorage = (bool)($sc->RebrandStorage);
 		}
+		if (property_exists($sc, 'RetentionError')) {
+			$this->RetentionError = (string)($sc->RetentionError);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Description':
@@ -714,6 +737,7 @@ class DestinationConfig {
 			case 'B2':
 			case 'WebDav':
 			case 'Storj':
+			case 'SMB':
 			case 'SpanTargets':
 			case 'SpanUseStaticSlots':
 			case 'Tag':
@@ -725,6 +749,7 @@ class DestinationConfig {
 			case 'Statistics':
 			case 'DefaultRetention':
 			case 'RebrandStorage':
+			case 'RetentionError':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -878,6 +903,11 @@ class DestinationConfig {
 		} else {
 			$ret["Storj"] = $this->Storj->toArray($for_json_encode);
 		}
+		if ( $this->SMB === null ) {
+			$ret["SMB"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["SMB"] = $this->SMB->toArray($for_json_encode);
+		}
 		{
 			$c0 = [];
 			for($i0 = 0; $i0 < count($this->SpanTargets); ++$i0) {
@@ -908,6 +938,7 @@ class DestinationConfig {
 			$ret["DefaultRetention"] = $this->DefaultRetention->toArray($for_json_encode);
 		}
 		$ret["RebrandStorage"] = $this->RebrandStorage;
+		$ret["RetentionError"] = $this->RetentionError;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
@@ -968,6 +999,9 @@ class DestinationConfig {
 		}
 		if ($this->Storj !== null) {
 			$this->Storj->RemoveUnknownProperties();
+		}
+		if ($this->SMB !== null) {
+			$this->SMB->RemoveUnknownProperties();
 		}
 		if ($this->Statistics !== null) {
 			$this->Statistics->RemoveUnknownProperties();

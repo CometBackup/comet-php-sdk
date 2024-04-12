@@ -9,44 +9,7 @@
 
 namespace Comet;
 
-class S3GenericVirtualStorageRole {
-
-	/**
-	 * The URL for S3 API calls (e.g. "s3.amazonaws.com")
-	 *
-	 * @var string
-	 */
-	public $S3Endpoint = "";
-
-	/**
-	 * The URL for IAM API calls (e.g. "iam.amazonaws.com")
-	 *
-	 * @var string
-	 */
-	public $IAMEndpoint = "";
-
-	/**
-	 * If set, the Storage Template will generate Storage Vaults pointing to a subdirectory within this
-	 * bucket. A single dynamic IAM policy will cover all created Storage Vaults.
-	 * This is preferable for platforms that have limits on the total number of IAM policies. However,
-	 * it requires a high level of IAM compatibility.
-	 * If left blank, the Storage Template will generate Storage Vaults pointing to new, separate S3
-	 * buckets each time. An additional IAM policy is created for each new Storage Vault.
-	 * This is preferable for platforms that have a lower level of IAM compatibility.
-	 *
-	 * @var string
-	 */
-	public $MasterBucket = "";
-
-	/**
-	 * @var string
-	 */
-	public $AccessKey = "";
-
-	/**
-	 * @var string
-	 */
-	public $SecretKey = "";
+class ObjectLockStorageTemplateSettings {
 
 	/**
 	 * @var boolean
@@ -78,24 +41,15 @@ class S3GenericVirtualStorageRole {
 	public $RemoveDeleted = false;
 
 	/**
-	 * Optional. The region to be used for new buckets. If blank, uses the default region for the
-	 * S3-compatible provider (e.g. us-east-1).
-	 *
-	 * @var string
-	 * This field is available in Comet 24.3.1 and later.
-	 */
-	public $Region = "";
-
-	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
-	 * @see S3GenericVirtualStorageRole::RemoveUnknownProperties() Remove all unknown properties
+	 * @see ObjectLockStorageTemplateSettings::RemoveUnknownProperties() Remove all unknown properties
 	 * @var array
 	 */
 	private $__unknown_properties = [];
 
 	/**
-	 * Replace the content of this S3GenericVirtualStorageRole object from a PHP \stdClass.
+	 * Replace the content of this ObjectLockStorageTemplateSettings object from a PHP \stdClass.
 	 * The data could be supplied from an API call after json_decode(...); or generated manually.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
@@ -103,21 +57,6 @@ class S3GenericVirtualStorageRole {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
-		if (property_exists($sc, 'S3Endpoint')) {
-			$this->S3Endpoint = (string)($sc->S3Endpoint);
-		}
-		if (property_exists($sc, 'IAMEndpoint')) {
-			$this->IAMEndpoint = (string)($sc->IAMEndpoint);
-		}
-		if (property_exists($sc, 'MasterBucket')) {
-			$this->MasterBucket = (string)($sc->MasterBucket);
-		}
-		if (property_exists($sc, 'AccessKey')) {
-			$this->AccessKey = (string)($sc->AccessKey);
-		}
-		if (property_exists($sc, 'SecretKey')) {
-			$this->SecretKey = (string)($sc->SecretKey);
-		}
 		if (property_exists($sc, 'UseObjectLock')) {
 			$this->UseObjectLock_Legacy_DoNotUse = (bool)($sc->UseObjectLock);
 		}
@@ -130,21 +69,12 @@ class S3GenericVirtualStorageRole {
 		if (property_exists($sc, 'RemoveDeleted')) {
 			$this->RemoveDeleted = (bool)($sc->RemoveDeleted);
 		}
-		if (property_exists($sc, 'Region')) {
-			$this->Region = (string)($sc->Region);
-		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
-			case 'S3Endpoint':
-			case 'IAMEndpoint':
-			case 'MasterBucket':
-			case 'AccessKey':
-			case 'SecretKey':
 			case 'UseObjectLock':
 			case 'ObjectLockMode':
 			case 'ObjectLockDays':
 			case 'RemoveDeleted':
-			case 'Region':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -153,27 +83,27 @@ class S3GenericVirtualStorageRole {
 	}
 
 	/**
-	 * Coerce a stdClass into a new strongly-typed S3GenericVirtualStorageRole object.
+	 * Coerce a stdClass into a new strongly-typed ObjectLockStorageTemplateSettings object.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
-	 * @return S3GenericVirtualStorageRole
+	 * @return ObjectLockStorageTemplateSettings
 	 */
-	public static function createFromStdclass(\stdClass $sc): \Comet\S3GenericVirtualStorageRole
+	public static function createFromStdclass(\stdClass $sc): \Comet\ObjectLockStorageTemplateSettings
 	{
-		$retn = new S3GenericVirtualStorageRole();
+		$retn = new ObjectLockStorageTemplateSettings();
 		$retn->inflateFrom($sc);
 		return $retn;
 	}
 
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed S3GenericVirtualStorageRole object.
+	 * Coerce a plain PHP array into a new strongly-typed ObjectLockStorageTemplateSettings object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
 	 * @param array $arr Object data as PHP array
-	 * @return S3GenericVirtualStorageRole
+	 * @return ObjectLockStorageTemplateSettings
 	 */
-	public static function createFromArray(array $arr): \Comet\S3GenericVirtualStorageRole
+	public static function createFromArray(array $arr): \Comet\ObjectLockStorageTemplateSettings
 	{
 		$stdClass = json_decode(json_encode($arr, JSON_UNESCAPED_SLASHES));
 		if (is_array($stdClass) && count($stdClass) === 0) {
@@ -183,24 +113,24 @@ class S3GenericVirtualStorageRole {
 	}
 
 	/**
-	 * Coerce a JSON string into a new strongly-typed S3GenericVirtualStorageRole object.
+	 * Coerce a JSON string into a new strongly-typed ObjectLockStorageTemplateSettings object.
 	 *
 	 * @param string $JsonString Object data as JSON string
-	 * @return S3GenericVirtualStorageRole
+	 * @return ObjectLockStorageTemplateSettings
 	 */
-	public static function createFromJSON(string $JsonString): \Comet\S3GenericVirtualStorageRole
+	public static function createFromJSON(string $JsonString): \Comet\ObjectLockStorageTemplateSettings
 	{
 		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg(), \json_last_error());
 		}
-		$retn = new S3GenericVirtualStorageRole();
+		$retn = new ObjectLockStorageTemplateSettings();
 		$retn->inflateFrom($decodedJsonObject);
 		return $retn;
 	}
 
 	/**
-	 * Convert this S3GenericVirtualStorageRole object into a plain PHP array.
+	 * Convert this ObjectLockStorageTemplateSettings object into a plain PHP array.
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
@@ -210,16 +140,10 @@ class S3GenericVirtualStorageRole {
 	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
-		$ret["S3Endpoint"] = $this->S3Endpoint;
-		$ret["IAMEndpoint"] = $this->IAMEndpoint;
-		$ret["MasterBucket"] = $this->MasterBucket;
-		$ret["AccessKey"] = $this->AccessKey;
-		$ret["SecretKey"] = $this->SecretKey;
 		$ret["UseObjectLock"] = $this->UseObjectLock_Legacy_DoNotUse;
 		$ret["ObjectLockMode"] = $this->ObjectLockMode;
 		$ret["ObjectLockDays"] = $this->ObjectLockDays;
 		$ret["RemoveDeleted"] = $this->RemoveDeleted;
-		$ret["Region"] = $this->Region;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

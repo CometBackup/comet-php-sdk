@@ -22,16 +22,22 @@ class RemoteServerAddress {
 	public $Description = "";
 
 	/**
+	 * For use with Comet Server (Storage Role / Auth Role)
+	 *
 	 * @var string
 	 */
 	public $RemoteAddress = "";
 
 	/**
+	 * For use with Comet Server (Storage Role / Auth Role)
+	 *
 	 * @var string
 	 */
 	public $Username = "";
 
 	/**
+	 * For use with Comet Server (Storage Role / Auth Role)
+	 *
 	 * @var string
 	 */
 	public $Password = "";
@@ -47,36 +53,60 @@ class RemoteServerAddress {
 	public $OIDC = null;
 
 	/**
+	 * Backblaze B2 (Storage Template / Constellation)
+	 *
 	 * @var \Comet\B2VirtualStorageRoleSettings
 	 */
 	public $B2 = null;
 
 	/**
+	 * Wasabi, or Comet Storage powered by Wasabi (Storage Template / Constellation)
+	 *
 	 * @var \Comet\WasabiVirtualStorageRoleSettings
 	 */
 	public $Wasabi = null;
 
 	/**
+	 * Custom Remote Bucket HTTP protocol (Storage Template)
+	 *
 	 * @var \Comet\CustomRemoteBucketSettings
 	 */
 	public $Custom = null;
 
 	/**
+	 * IDrive e2, or Custom IAM-compatible (Storage Template / Constellation)
+	 *
 	 * @var \Comet\S3GenericVirtualStorageRole
 	 */
 	public $S3 = null;
 
 	/**
-	 * Amazon AWS - Virtual Storage Role
+	 * Amazon AWS (Storage Template / Constellation)
 	 *
 	 * @var \Comet\AmazonAWSVirtualStorageRoleSettings
 	 */
 	public $AWS = null;
 
 	/**
+	 * Storj (Storage Template / Constellation)
+	 *
 	 * @var \Comet\StorjVirtualStorageRoleSetting
 	 */
 	public $Storj = null;
+
+	/**
+	 * Impossible Cloud Partner API (Storage Template / Constellation)
+	 *
+	 * @var \Comet\ImpossibleCloudPartnerTemplateSettings
+	 */
+	public $ImpPartner = null;
+
+	/**
+	 * Impossible Cloud IAM API (Storage Template / Constellation)
+	 *
+	 * @var \Comet\ImpossibleCloudIAMTemplateSettings
+	 */
+	public $ImpUser = null;
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
@@ -174,6 +204,22 @@ class RemoteServerAddress {
 				$this->Storj = \Comet\StorjVirtualStorageRoleSetting::createFromStdclass($sc->Storj);
 			}
 		}
+		if (property_exists($sc, 'ImpPartner') && !is_null($sc->ImpPartner)) {
+			if (is_array($sc->ImpPartner) && count($sc->ImpPartner) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->ImpPartner = \Comet\ImpossibleCloudPartnerTemplateSettings::createFromStdclass(new \stdClass());
+			} else {
+				$this->ImpPartner = \Comet\ImpossibleCloudPartnerTemplateSettings::createFromStdclass($sc->ImpPartner);
+			}
+		}
+		if (property_exists($sc, 'ImpUser') && !is_null($sc->ImpUser)) {
+			if (is_array($sc->ImpUser) && count($sc->ImpUser) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->ImpUser = \Comet\ImpossibleCloudIAMTemplateSettings::createFromStdclass(new \stdClass());
+			} else {
+				$this->ImpUser = \Comet\ImpossibleCloudIAMTemplateSettings::createFromStdclass($sc->ImpUser);
+			}
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Type':
@@ -189,6 +235,8 @@ class RemoteServerAddress {
 			case 'S3':
 			case 'AWS':
 			case 'Storj':
+			case 'ImpPartner':
+			case 'ImpUser':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -299,6 +347,16 @@ class RemoteServerAddress {
 		} else {
 			$ret["Storj"] = $this->Storj->toArray($for_json_encode);
 		}
+		if ( $this->ImpPartner === null ) {
+			$ret["ImpPartner"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["ImpPartner"] = $this->ImpPartner->toArray($for_json_encode);
+		}
+		if ( $this->ImpUser === null ) {
+			$ret["ImpUser"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["ImpUser"] = $this->ImpUser->toArray($for_json_encode);
+		}
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
@@ -371,6 +429,12 @@ class RemoteServerAddress {
 		}
 		if ($this->Storj !== null) {
 			$this->Storj->RemoveUnknownProperties();
+		}
+		if ($this->ImpPartner !== null) {
+			$this->ImpPartner->RemoveUnknownProperties();
+		}
+		if ($this->ImpUser !== null) {
+			$this->ImpUser->RemoveUnknownProperties();
 		}
 	}
 

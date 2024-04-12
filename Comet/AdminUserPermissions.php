@@ -70,6 +70,12 @@ class AdminUserPermissions {
 
 	/**
 	 * @var boolean
+	 * This field is available in Comet 24.3.2 and later.
+	 */
+	public $PreventDeleteStorageVault = false;
+
+	/**
+	 * @var boolean
 	 * This field is available in Comet 23.6.0 and later.
 	 */
 	public $PreventRequestStorageVault = false;
@@ -154,6 +160,9 @@ class AdminUserPermissions {
 		if (property_exists($sc, 'DenyViewServerInfo') && !is_null($sc->DenyViewServerInfo)) {
 			$this->DenyViewServerInfo = (bool)($sc->DenyViewServerInfo);
 		}
+		if (property_exists($sc, 'PreventDeleteStorageVault') && !is_null($sc->PreventDeleteStorageVault)) {
+			$this->PreventDeleteStorageVault = (bool)($sc->PreventDeleteStorageVault);
+		}
 		if (property_exists($sc, 'PreventRequestStorageVault') && !is_null($sc->PreventRequestStorageVault)) {
 			$this->PreventRequestStorageVault = (bool)($sc->PreventRequestStorageVault);
 		}
@@ -197,6 +206,7 @@ class AdminUserPermissions {
 			case 'DenyConstellationRole':
 			case 'DenyViewServerHistory':
 			case 'DenyViewServerInfo':
+			case 'PreventDeleteStorageVault':
 			case 'PreventRequestStorageVault':
 			case 'PreventAddCustomStorageVault':
 			case 'HideCloudStorageBranding':
@@ -279,6 +289,7 @@ class AdminUserPermissions {
 		$ret["DenyConstellationRole"] = $this->DenyConstellationRole;
 		$ret["DenyViewServerHistory"] = $this->DenyViewServerHistory;
 		$ret["DenyViewServerInfo"] = $this->DenyViewServerInfo;
+		$ret["PreventDeleteStorageVault"] = $this->PreventDeleteStorageVault;
 		$ret["PreventRequestStorageVault"] = $this->PreventRequestStorageVault;
 		$ret["PreventAddCustomStorageVault"] = $this->PreventAddCustomStorageVault;
 		$ret["HideCloudStorageBranding"] = $this->HideCloudStorageBranding;

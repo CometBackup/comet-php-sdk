@@ -2313,6 +2313,25 @@ class Server {
 	}
 
 	/** 
+	 * Get logs file content
+	 * On non-Windows platforms, log content uses LF line endings. On Windows, Comet changed from LF to CRLF line endings in 18.3.2.
+	 * This API does not automatically convert line endings; around the 18.3.2 timeframe, log content may even contain mixed line-endings.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
+	 *
+	 * @param int[] $Logs An array of log days, selected from the options returned by the Get Log Files API
+	 * @return string 
+	 * @throws \Exception
+	 */
+	public function AdminMetaReadSelectLogs(array $Logs): string
+	{
+		$nr = new \Comet\AdminMetaReadSelectLogsRequest($Logs);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminMetaReadSelectLogsRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Get Requesting Remote Storage Vault Config
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
@@ -2445,12 +2464,13 @@ class Server {
 	 * Access to this API may be prevented on a per-administrator basis.
 	 *
 	 * @param \Comet\EmailReportingOption $EmailReportingOption Test email reporting option for sending
+	 * @param string $TargetOrganization If present, Testing email with a target organization. Only allowed for top-level admins. (>= 24.3.0) (optional)
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminMetaSendTestReport(\Comet\EmailReportingOption $EmailReportingOption): \Comet\APIResponseMessage
+	public function AdminMetaSendTestReport(\Comet\EmailReportingOption $EmailReportingOption, string $TargetOrganization = null): \Comet\APIResponseMessage
 	{
-		$nr = new \Comet\AdminMetaSendTestReportRequest($EmailReportingOption);
+		$nr = new \Comet\AdminMetaSendTestReportRequest($EmailReportingOption, $TargetOrganization);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminMetaSendTestReportRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}

@@ -282,6 +282,11 @@ class DestinationLocation {
 	public $Storj = null;
 
 	/**
+	 * @var \Comet\SMBDestinationLocation
+	 */
+	public $SMB = null;
+
+	/**
 	 * A list of underlying destinations, that will be combined and presented as one.
 	 *
 	 * @var \Comet\DestinationLocation[]
@@ -481,6 +486,14 @@ class DestinationLocation {
 				$this->Storj = \Comet\StorjDestinationLocation::createFromStdclass($sc->Storj);
 			}
 		}
+		if (property_exists($sc, 'SMB')) {
+			if (is_array($sc->SMB) && count($sc->SMB) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->SMB = \Comet\SMBDestinationLocation::createFromStdclass(new \stdClass());
+			} else {
+				$this->SMB = \Comet\SMBDestinationLocation::createFromStdclass($sc->SMB);
+			}
+		}
 		if (property_exists($sc, 'SpanTargets')) {
 			$val_2 = [];
 			if ($sc->SpanTargets !== null) {
@@ -548,6 +561,7 @@ class DestinationLocation {
 			case 'B2':
 			case 'WebDav':
 			case 'Storj':
+			case 'SMB':
 			case 'SpanTargets':
 			case 'SpanUseStaticSlots':
 			case 'Tag':
@@ -677,6 +691,11 @@ class DestinationLocation {
 		} else {
 			$ret["Storj"] = $this->Storj->toArray($for_json_encode);
 		}
+		if ( $this->SMB === null ) {
+			$ret["SMB"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["SMB"] = $this->SMB->toArray($for_json_encode);
+		}
 		{
 			$c0 = [];
 			for($i0 = 0; $i0 < count($this->SpanTargets); ++$i0) {
@@ -751,6 +770,9 @@ class DestinationLocation {
 		}
 		if ($this->Storj !== null) {
 			$this->Storj->RemoveUnknownProperties();
+		}
+		if ($this->SMB !== null) {
+			$this->SMB->RemoveUnknownProperties();
 		}
 	}
 
