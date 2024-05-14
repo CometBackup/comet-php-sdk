@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 2024-05-14 v4.28.0
+
+- Based on Comet 24.3.7
+- Added support for configuring concurrency in Microsoft 365 Protected Items
+
 ## 2024-05-02 v4.27.0
 
 - Based on Comet 24.3.6
