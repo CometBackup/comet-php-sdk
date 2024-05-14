@@ -12,9 +12,9 @@ namespace Comet;
 class Office365Connection {
 
 	/**
-	 * @var string
+	 * @var int
 	 */
-	public $FeatureFlag = "";
+	public $Concurrency = 0;
 
 	/**
 	 * @var \Comet\Office365Credential
@@ -27,6 +27,21 @@ class Office365Connection {
 	public $CustomSetting = null;
 
 	/**
+	 * @var \Comet\Office365CustomSettingV2
+	 */
+	public $CustomSettingV2 = null;
+
+	/**
+	 * @var string
+	 */
+	public $FeatureFlag = "";
+
+	/**
+	 * @var string
+	 */
+	public $LogLevel = "";
+
+	/**
 	 * @var string[]
 	 */
 	public $MailboxUniqueMembers = [];
@@ -35,11 +50,6 @@ class Office365Connection {
 	 * @var string[]
 	 */
 	public $SiteUniqueMembers = [];
-
-	/**
-	 * @var \Comet\Office365CustomSettingV2
-	 */
-	public $CustomSettingV2 = null;
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
@@ -58,8 +68,8 @@ class Office365Connection {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
-		if (property_exists($sc, 'FeatureFlag')) {
-			$this->FeatureFlag = (string)($sc->FeatureFlag);
+		if (property_exists($sc, 'Concurrency')) {
+			$this->Concurrency = (int)($sc->Concurrency);
 		}
 		if (property_exists($sc, 'Credential')) {
 			if (is_array($sc->Credential) && count($sc->Credential) === 0) {
@@ -76,6 +86,20 @@ class Office365Connection {
 			} else {
 				$this->CustomSetting = \Comet\Office365CustomSetting::createFromStdclass($sc->CustomSetting);
 			}
+		}
+		if (property_exists($sc, 'CustomSettingV2')) {
+			if (is_array($sc->CustomSettingV2) && count($sc->CustomSettingV2) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->CustomSettingV2 = \Comet\Office365CustomSettingV2::createFromStdclass(new \stdClass());
+			} else {
+				$this->CustomSettingV2 = \Comet\Office365CustomSettingV2::createFromStdclass($sc->CustomSettingV2);
+			}
+		}
+		if (property_exists($sc, 'FeatureFlag')) {
+			$this->FeatureFlag = (string)($sc->FeatureFlag);
+		}
+		if (property_exists($sc, 'LogLevel')) {
+			$this->LogLevel = (string)($sc->LogLevel);
 		}
 		if (property_exists($sc, 'MailboxUniqueMembers')) {
 			$val_2 = [];
@@ -95,22 +119,16 @@ class Office365Connection {
 			}
 			$this->SiteUniqueMembers = $val_2;
 		}
-		if (property_exists($sc, 'CustomSettingV2')) {
-			if (is_array($sc->CustomSettingV2) && count($sc->CustomSettingV2) === 0) {
-			// Work around edge case in json_decode--json_encode stdClass conversion
-				$this->CustomSettingV2 = \Comet\Office365CustomSettingV2::createFromStdclass(new \stdClass());
-			} else {
-				$this->CustomSettingV2 = \Comet\Office365CustomSettingV2::createFromStdclass($sc->CustomSettingV2);
-			}
-		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
-			case 'FeatureFlag':
+			case 'Concurrency':
 			case 'Credential':
 			case 'CustomSetting':
+			case 'CustomSettingV2':
+			case 'FeatureFlag':
+			case 'LogLevel':
 			case 'MailboxUniqueMembers':
 			case 'SiteUniqueMembers':
-			case 'CustomSettingV2':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -176,7 +194,7 @@ class Office365Connection {
 	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
-		$ret["FeatureFlag"] = $this->FeatureFlag;
+		$ret["Concurrency"] = $this->Concurrency;
 		if ( $this->Credential === null ) {
 			$ret["Credential"] = $for_json_encode ? (object)[] : [];
 		} else {
@@ -187,6 +205,13 @@ class Office365Connection {
 		} else {
 			$ret["CustomSetting"] = $this->CustomSetting->toArray($for_json_encode);
 		}
+		if ( $this->CustomSettingV2 === null ) {
+			$ret["CustomSettingV2"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["CustomSettingV2"] = $this->CustomSettingV2->toArray($for_json_encode);
+		}
+		$ret["FeatureFlag"] = $this->FeatureFlag;
+		$ret["LogLevel"] = $this->LogLevel;
 		{
 			$c0 = [];
 			for($i0 = 0; $i0 < count($this->MailboxUniqueMembers); ++$i0) {
@@ -202,11 +227,6 @@ class Office365Connection {
 				$c0[] = $val0;
 			}
 			$ret["SiteUniqueMembers"] = $c0;
-		}
-		if ( $this->CustomSettingV2 === null ) {
-			$ret["CustomSettingV2"] = $for_json_encode ? (object)[] : [];
-		} else {
-			$ret["CustomSettingV2"] = $this->CustomSettingV2->toArray($for_json_encode);
 		}
 
 		// Reinstate unknown properties from future server versions

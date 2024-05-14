@@ -117,6 +117,15 @@ class BackupRuleConfig {
 	public $AutoRetentionLevel = 0;
 
 	/**
+	 * Desired concurrency count. If Zero, uses mode defaults
+	 *
+	 * @var int
+	 */
+	public $ConcurrencyCount = 0;
+
+	/**
+	 * Log verbosity level. LOG_DEBUG has the greatest verbosity
+	 *
 	 * @var string
 	 */
 	public $LogLevel = "";
@@ -215,6 +224,9 @@ class BackupRuleConfig {
 		if (property_exists($sc, 'AutoRetentionLevel')) {
 			$this->AutoRetentionLevel = (int)($sc->AutoRetentionLevel);
 		}
+		if (property_exists($sc, 'ConcurrencyCount')) {
+			$this->ConcurrencyCount = (int)($sc->ConcurrencyCount);
+		}
 		if (property_exists($sc, 'LogLevel')) {
 			$this->LogLevel = (string)($sc->LogLevel);
 		}
@@ -257,6 +269,7 @@ class BackupRuleConfig {
 			case 'UseOnDiskIndexes':
 			case 'AllowZeroFilesSuccess':
 			case 'AutoRetentionLevel':
+			case 'ConcurrencyCount':
 			case 'LogLevel':
 			case 'Schedules':
 			case 'EventTriggers':
@@ -361,6 +374,7 @@ class BackupRuleConfig {
 		$ret["UseOnDiskIndexes"] = $this->UseOnDiskIndexes;
 		$ret["AllowZeroFilesSuccess"] = $this->AllowZeroFilesSuccess;
 		$ret["AutoRetentionLevel"] = $this->AutoRetentionLevel;
+		$ret["ConcurrencyCount"] = $this->ConcurrencyCount;
 		$ret["LogLevel"] = $this->LogLevel;
 		{
 			$c0 = [];
