@@ -12,6 +12,11 @@ namespace Comet;
 class SourceStatistics {
 
 	/**
+	 * @var int
+	 */
+	public $LastStartTime = 0;
+
+	/**
 	 * @var \Comet\BackupJobDetail
 	 */
 	public $LastBackupJob = null;
@@ -38,6 +43,9 @@ class SourceStatistics {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
+		if (property_exists($sc, 'LastStartTime')) {
+			$this->LastStartTime = (int)($sc->LastStartTime);
+		}
 		if (property_exists($sc, 'LastBackupJob')) {
 			if (is_array($sc->LastBackupJob) && count($sc->LastBackupJob) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
@@ -56,6 +64,7 @@ class SourceStatistics {
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
+			case 'LastStartTime':
 			case 'LastBackupJob':
 			case 'LastSuccessfulBackupJob':
 				break;
@@ -123,6 +132,7 @@ class SourceStatistics {
 	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
+		$ret["LastStartTime"] = $this->LastStartTime;
 		if ( $this->LastBackupJob === null ) {
 			$ret["LastBackupJob"] = $for_json_encode ? (object)[] : [];
 		} else {

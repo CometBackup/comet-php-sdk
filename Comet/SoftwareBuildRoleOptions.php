@@ -22,6 +22,14 @@ class SoftwareBuildRoleOptions {
 	public $AllowUnauthenticatedDownloads = false;
 
 	/**
+	 * 0 will default to CPU core count - 2
+	 *
+	 * @var int
+	 * This field is available in Comet 24.3.8 and later.
+	 */
+	public $MaxBuilders = 0;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see SoftwareBuildRoleOptions::RemoveUnknownProperties() Remove all unknown properties
@@ -44,10 +52,14 @@ class SoftwareBuildRoleOptions {
 		if (property_exists($sc, 'AllowUnauthenticatedDownloads')) {
 			$this->AllowUnauthenticatedDownloads = (bool)($sc->AllowUnauthenticatedDownloads);
 		}
+		if (property_exists($sc, 'MaxBuilders')) {
+			$this->MaxBuilders = (int)($sc->MaxBuilders);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'RoleEnabled':
 			case 'AllowUnauthenticatedDownloads':
+			case 'MaxBuilders':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -115,6 +127,7 @@ class SoftwareBuildRoleOptions {
 		$ret = [];
 		$ret["RoleEnabled"] = $this->RoleEnabled;
 		$ret["AllowUnauthenticatedDownloads"] = $this->AllowUnauthenticatedDownloads;
+		$ret["MaxBuilders"] = $this->MaxBuilders;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
