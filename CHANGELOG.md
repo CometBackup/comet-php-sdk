@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2024-05-24 v4.30.0
+
+- Based on Comet 24.3.9
+
 ## 2024-05-17 v4.29.0
 
 - Based on Comet 24.3.8
