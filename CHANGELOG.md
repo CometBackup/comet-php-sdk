@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 2024-05-31 v4.31.0
+
+- Based on Comet 24.5.0
+- Added support for matching Microsoft Office 365 users and groups by Drive ID
+- Added support for configuring Object Lock on a Impossible Cloud Partner API Storage Template
+- Added support for Custom Body Date when using a Custom Remote Bucket Storage Template
+
 ## 2024-05-24 v4.30.0
 
 - Based on Comet 24.3.9
