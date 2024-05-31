@@ -23,6 +23,17 @@ class CustomRemoteBucketSettings {
 	public $CustomHeaders = [];
 
 	/**
+	 * @var string
+	 * This field is available in Comet 24.5.0 and later.
+	 */
+	public $CustomBody = "";
+
+	/**
+	 * @var string
+	 */
+	public $CustomBodyType = "";
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see CustomRemoteBucketSettings::RemoveUnknownProperties() Remove all unknown properties
@@ -53,10 +64,18 @@ class CustomRemoteBucketSettings {
 			}
 			$this->CustomHeaders = $val_2;
 		}
+		if (property_exists($sc, 'CustomBody')) {
+			$this->CustomBody = (string)($sc->CustomBody);
+		}
+		if (property_exists($sc, 'CustomBodyType')) {
+			$this->CustomBodyType = (string)($sc->CustomBodyType);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'URL':
 			case 'CustomHeaders':
+			case 'CustomBody':
+			case 'CustomBodyType':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -136,6 +155,8 @@ class CustomRemoteBucketSettings {
 				$ret["CustomHeaders"] = $c0;
 			}
 		}
+		$ret["CustomBody"] = $this->CustomBody;
+		$ret["CustomBodyType"] = $this->CustomBodyType;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

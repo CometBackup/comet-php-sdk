@@ -14,12 +14,7 @@ class Office365MixedVirtualAccount {
 	/**
 	 * @var string
 	 */
-	public $ID = "";
-
-	/**
-	 * @var int
-	 */
-	public $Type = 0;
+	public $DefaultDriveID = "";
 
 	/**
 	 * @var string
@@ -27,9 +22,14 @@ class Office365MixedVirtualAccount {
 	public $DisplayName = "";
 
 	/**
+	 * @var int
+	 */
+	public $EnabledServiceOption = 0;
+
+	/**
 	 * @var string
 	 */
-	public $Mail = "";
+	public $ID = "";
 
 	/**
 	 * @var string
@@ -39,7 +39,22 @@ class Office365MixedVirtualAccount {
 	/**
 	 * @var string
 	 */
+	public $Mail = "";
+
+	/**
+	 * @var string
+	 */
 	public $SiteID = "";
+
+	/**
+	 * @var int
+	 */
+	public $Type = 0;
+
+	/**
+	 * @var string
+	 */
+	public $UserPrincipalName = "";
 
 	/**
 	 * @var string
@@ -50,16 +65,6 @@ class Office365MixedVirtualAccount {
 	 * @var string
 	 */
 	public $WebURL = "";
-
-	/**
-	 * @var string
-	 */
-	public $UserPrincipalName = "";
-
-	/**
-	 * @var int
-	 */
-	public $EnabledServiceOption = 0;
 
 	/**
 	 * @var string[]
@@ -98,35 +103,38 @@ class Office365MixedVirtualAccount {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
-		if (property_exists($sc, 'id')) {
-			$this->ID = (string)($sc->id);
-		}
-		if (property_exists($sc, 'Type') && !is_null($sc->Type)) {
-			$this->Type = (int)($sc->Type);
+		if (property_exists($sc, 'DefaultDriveID') && !is_null($sc->DefaultDriveID)) {
+			$this->DefaultDriveID = (string)($sc->DefaultDriveID);
 		}
 		if (property_exists($sc, 'DisplayName') && !is_null($sc->DisplayName)) {
 			$this->DisplayName = (string)($sc->DisplayName);
 		}
-		if (property_exists($sc, 'Mail') && !is_null($sc->Mail)) {
-			$this->Mail = (string)($sc->Mail);
+		if (property_exists($sc, 'EnabledServiceOption') && !is_null($sc->EnabledServiceOption)) {
+			$this->EnabledServiceOption = (int)($sc->EnabledServiceOption);
+		}
+		if (property_exists($sc, 'id')) {
+			$this->ID = (string)($sc->id);
 		}
 		if (property_exists($sc, 'JobTitle') && !is_null($sc->JobTitle)) {
 			$this->JobTitle = (string)($sc->JobTitle);
 		}
+		if (property_exists($sc, 'Mail') && !is_null($sc->Mail)) {
+			$this->Mail = (string)($sc->Mail);
+		}
 		if (property_exists($sc, 'SiteID') && !is_null($sc->SiteID)) {
 			$this->SiteID = (string)($sc->SiteID);
+		}
+		if (property_exists($sc, 'Type') && !is_null($sc->Type)) {
+			$this->Type = (int)($sc->Type);
+		}
+		if (property_exists($sc, 'UserPrincipalName') && !is_null($sc->UserPrincipalName)) {
+			$this->UserPrincipalName = (string)($sc->UserPrincipalName);
 		}
 		if (property_exists($sc, 'WebID') && !is_null($sc->WebID)) {
 			$this->WebID = (string)($sc->WebID);
 		}
 		if (property_exists($sc, 'WebURL') && !is_null($sc->WebURL)) {
 			$this->WebURL = (string)($sc->WebURL);
-		}
-		if (property_exists($sc, 'UserPrincipalName') && !is_null($sc->UserPrincipalName)) {
-			$this->UserPrincipalName = (string)($sc->UserPrincipalName);
-		}
-		if (property_exists($sc, 'EnabledServiceOption') && !is_null($sc->EnabledServiceOption)) {
-			$this->EnabledServiceOption = (int)($sc->EnabledServiceOption);
 		}
 		if (property_exists($sc, 'Members') && !is_null($sc->Members)) {
 			$val_2 = [];
@@ -148,16 +156,17 @@ class Office365MixedVirtualAccount {
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
-			case 'id':
-			case 'Type':
+			case 'DefaultDriveID':
 			case 'DisplayName':
-			case 'Mail':
+			case 'EnabledServiceOption':
+			case 'id':
 			case 'JobTitle':
+			case 'Mail':
 			case 'SiteID':
+			case 'Type':
+			case 'UserPrincipalName':
 			case 'WebID':
 			case 'WebURL':
-			case 'UserPrincipalName':
-			case 'EnabledServiceOption':
 			case 'Members':
 			case 'ServiceOptions':
 			case 'MemberServiceOptions':
@@ -227,16 +236,17 @@ class Office365MixedVirtualAccount {
 	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
-		$ret["id"] = $this->ID;
-		$ret["Type"] = $this->Type;
+		$ret["DefaultDriveID"] = $this->DefaultDriveID;
 		$ret["DisplayName"] = $this->DisplayName;
-		$ret["Mail"] = $this->Mail;
+		$ret["EnabledServiceOption"] = $this->EnabledServiceOption;
+		$ret["id"] = $this->ID;
 		$ret["JobTitle"] = $this->JobTitle;
+		$ret["Mail"] = $this->Mail;
 		$ret["SiteID"] = $this->SiteID;
+		$ret["Type"] = $this->Type;
+		$ret["UserPrincipalName"] = $this->UserPrincipalName;
 		$ret["WebID"] = $this->WebID;
 		$ret["WebURL"] = $this->WebURL;
-		$ret["UserPrincipalName"] = $this->UserPrincipalName;
-		$ret["EnabledServiceOption"] = $this->EnabledServiceOption;
 		{
 			$c0 = [];
 			for($i0 = 0; $i0 < count($this->Members); ++$i0) {

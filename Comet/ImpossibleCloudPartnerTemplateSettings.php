@@ -25,6 +25,35 @@ class ImpossibleCloudPartnerTemplateSettings {
 	public $AccessKey = "";
 
 	/**
+	 * @var boolean
+	 * @deprecated 23.x.x This member has been deprecated since Comet version 23.x.x
+	 */
+	public $UseObjectLock_Legacy_DoNotUse = false;
+
+	/**
+	 * Control whether the resulting Storage Vaults are configured for Object Lock. One of the
+	 * OBJECT_LOCK_ constants
+	 *
+	 * @var int
+	 */
+	public $ObjectLockMode = 0;
+
+	/**
+	 * @var int
+	 */
+	public $ObjectLockDays = 0;
+
+	/**
+	 * Control whether the "Allow removal of deleted files" checkbox is enabled for Storage Vaults
+	 * generated from this Storage Template.
+	 * When configuring a Storage Template from the Comet Server web interface, this field is set
+	 * automatically for Storage Templates using Object Lock.
+	 *
+	 * @var boolean
+	 */
+	public $RemoveDeleted = false;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see ImpossibleCloudPartnerTemplateSettings::RemoveUnknownProperties() Remove all unknown properties
@@ -47,10 +76,26 @@ class ImpossibleCloudPartnerTemplateSettings {
 		if (property_exists($sc, 'AccessKey')) {
 			$this->AccessKey = (string)($sc->AccessKey);
 		}
+		if (property_exists($sc, 'UseObjectLock')) {
+			$this->UseObjectLock_Legacy_DoNotUse = (bool)($sc->UseObjectLock);
+		}
+		if (property_exists($sc, 'ObjectLockMode')) {
+			$this->ObjectLockMode = (int)($sc->ObjectLockMode);
+		}
+		if (property_exists($sc, 'ObjectLockDays')) {
+			$this->ObjectLockDays = (int)($sc->ObjectLockDays);
+		}
+		if (property_exists($sc, 'RemoveDeleted')) {
+			$this->RemoveDeleted = (bool)($sc->RemoveDeleted);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Region':
 			case 'AccessKey':
+			case 'UseObjectLock':
+			case 'ObjectLockMode':
+			case 'ObjectLockDays':
+			case 'RemoveDeleted':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -118,6 +163,10 @@ class ImpossibleCloudPartnerTemplateSettings {
 		$ret = [];
 		$ret["Region"] = $this->Region;
 		$ret["AccessKey"] = $this->AccessKey;
+		$ret["UseObjectLock"] = $this->UseObjectLock_Legacy_DoNotUse;
+		$ret["ObjectLockMode"] = $this->ObjectLockMode;
+		$ret["ObjectLockDays"] = $this->ObjectLockDays;
+		$ret["RemoveDeleted"] = $this->RemoveDeleted;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

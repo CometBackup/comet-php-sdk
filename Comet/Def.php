@@ -14,7 +14,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "24.3.9";
+	const APPLICATION_VERSION = "24.5.0";
 
 	/**
 	 * @type int
@@ -24,12 +24,12 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_MINOR = 3;
+	const APPLICATION_VERSION_MINOR = 5;
 
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 9;
+	const APPLICATION_VERSION_REVISION = 0;
 
 	/**
 	 * AutoRetentionLevel: The system will automatically choose how often to run an automatic Retention Pass after each backup job.
@@ -156,6 +156,34 @@ class Def {
 	 * @type int
 	 */
 	const COMPRESS_DEFAULT = self::COMPRESS_LVL_4;
+
+	/**
+	 * CustomRemoteBucketCustomBodyType
+	 *
+	 * @type string
+	 */
+	const CUSTOMREMOTEBUCKET_CUSTOMBODY_NONE = "none";
+
+	/**
+	 * CustomRemoteBucketCustomBodyType
+	 *
+	 * @type string
+	 */
+	const CUSTOMREMOTEBUCKET_CUSTOMBODY_JSON = "json";
+
+	/**
+	 * CustomRemoteBucketCustomBodyType
+	 *
+	 * @type string
+	 */
+	const CUSTOMREMOTEBUCKET_CUSTOMBODY_URLENC = "urlencoded";
+
+	/**
+	 * CustomRemoteBucketCustomBodyType
+	 *
+	 * @type string
+	 */
+	const CUSTOMREMOTEBUCKET_CUSTOMBODY_FORM = "form";
 
 	/**
 	 * LanguageCode
@@ -1022,7 +1050,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const RELEASE_CODENAME = "Voyager";
+	const RELEASE_CODENAME = "Enceladus";
 
 	/**
 	 * RemoteServerType: Comet Server
