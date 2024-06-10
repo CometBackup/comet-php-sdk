@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 2024-06-11 v4.32.0
+
+- Based on Comet 24.6.0
+- Added custom HELO/EHLO STMP support
+- Added support to set if disabled Office 365 accounts should be backed up
+- Added EngineType as a property of VaultSnapshots
+
 ## 2024-05-31 v4.31.0
 
 - Based on Comet 24.5.0
