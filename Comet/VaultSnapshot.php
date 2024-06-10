@@ -18,6 +18,12 @@ class VaultSnapshot {
 
 	/**
 	 * @var string
+	 * This field is available in Comet 24.3.x and later.
+	 */
+	public $EngineType = "";
+
+	/**
+	 * @var string
 	 */
 	public $Source = "";
 
@@ -52,6 +58,9 @@ class VaultSnapshot {
 		if (property_exists($sc, 'Snapshot')) {
 			$this->Snapshot = (string)($sc->Snapshot);
 		}
+		if (property_exists($sc, 'EngineType')) {
+			$this->EngineType = (string)($sc->EngineType);
+		}
 		if (property_exists($sc, 'Source')) {
 			$this->Source = (string)($sc->Source);
 		}
@@ -64,6 +73,7 @@ class VaultSnapshot {
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Snapshot':
+			case 'EngineType':
 			case 'Source':
 			case 'CreateTime':
 			case 'HasOriginalPathInfo':
@@ -133,6 +143,7 @@ class VaultSnapshot {
 	{
 		$ret = [];
 		$ret["Snapshot"] = $this->Snapshot;
+		$ret["EngineType"] = $this->EngineType;
 		$ret["Source"] = $this->Source;
 		$ret["CreateTime"] = $this->CreateTime;
 		$ret["HasOriginalPathInfo"] = $this->HasOriginalPathInfo;

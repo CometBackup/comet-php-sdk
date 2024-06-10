@@ -17,6 +17,11 @@ class Office365MixedVirtualAccount {
 	public $DefaultDriveID = "";
 
 	/**
+	 * @var boolean
+	 */
+	public $Disabled = false;
+
+	/**
 	 * @var string
 	 */
 	public $DisplayName = "";
@@ -106,6 +111,9 @@ class Office365MixedVirtualAccount {
 		if (property_exists($sc, 'DefaultDriveID') && !is_null($sc->DefaultDriveID)) {
 			$this->DefaultDriveID = (string)($sc->DefaultDriveID);
 		}
+		if (property_exists($sc, 'Disabled') && !is_null($sc->Disabled)) {
+			$this->Disabled = (bool)($sc->Disabled);
+		}
 		if (property_exists($sc, 'DisplayName') && !is_null($sc->DisplayName)) {
 			$this->DisplayName = (string)($sc->DisplayName);
 		}
@@ -157,6 +165,7 @@ class Office365MixedVirtualAccount {
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'DefaultDriveID':
+			case 'Disabled':
 			case 'DisplayName':
 			case 'EnabledServiceOption':
 			case 'id':
@@ -237,6 +246,7 @@ class Office365MixedVirtualAccount {
 	{
 		$ret = [];
 		$ret["DefaultDriveID"] = $this->DefaultDriveID;
+		$ret["Disabled"] = $this->Disabled;
 		$ret["DisplayName"] = $this->DisplayName;
 		$ret["EnabledServiceOption"] = $this->EnabledServiceOption;
 		$ret["id"] = $this->ID;

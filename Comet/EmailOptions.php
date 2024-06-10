@@ -64,6 +64,14 @@ class EmailOptions {
 	public $SMTPAllowUnencrypted = false;
 
 	/**
+	 * Override the HELO/EHLO hostname for SMTP or MX Direct modes. If blank, uses system default
+	 * HELO/EHLO hostname.
+	 *
+	 * @var string
+	 */
+	public $SMTPCustomEhlo = "";
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see EmailOptions::RemoveUnknownProperties() Remove all unknown properties
@@ -121,6 +129,9 @@ class EmailOptions {
 		if (property_exists($sc, 'SMTPAllowUnencrypted') && !is_null($sc->SMTPAllowUnencrypted)) {
 			$this->SMTPAllowUnencrypted = (bool)($sc->SMTPAllowUnencrypted);
 		}
+		if (property_exists($sc, 'SMTPCustomEhlo') && !is_null($sc->SMTPCustomEhlo)) {
+			$this->SMTPCustomEhlo = (string)($sc->SMTPCustomEhlo);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'FromEmail':
@@ -133,6 +144,7 @@ class EmailOptions {
 			case 'SMTPPassword':
 			case 'SMTPAllowInvalidCertificate':
 			case 'SMTPAllowUnencrypted':
+			case 'SMTPCustomEhlo':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -219,6 +231,7 @@ class EmailOptions {
 		$ret["SMTPPassword"] = $this->SMTPPassword;
 		$ret["SMTPAllowInvalidCertificate"] = $this->SMTPAllowInvalidCertificate;
 		$ret["SMTPAllowUnencrypted"] = $this->SMTPAllowUnencrypted;
+		$ret["SMTPCustomEhlo"] = $this->SMTPCustomEhlo;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

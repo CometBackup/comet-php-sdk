@@ -14,7 +14,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "24.5.0";
+	const APPLICATION_VERSION = "24.6.0";
 
 	/**
 	 * @type int
@@ -24,7 +24,7 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_MINOR = 5;
+	const APPLICATION_VERSION_MINOR = 6;
 
 	/**
 	 * @type int
@@ -1050,7 +1050,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const RELEASE_CODENAME = "Enceladus";
+	const RELEASE_CODENAME = "Voyager";
 
 	/**
 	 * RemoteServerType: Comet Server
