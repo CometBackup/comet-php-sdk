@@ -201,4 +201,26 @@ class ExampleTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals($resource_content, $result);
 	}
 	
+	public function testNumericObjectKeys() {
+	
+		$object = \Comet\Organization::createFromJSON('
+		{
+			"WebhookOptions": {
+				"0": {},
+				"1": {}
+			}
+		}');
+
+		$json = $object->toJSON();
+		$this->assertStringNotContainsString('"WebhookOptions":[', $json);
+		$this->assertStringContainsString('"WebhookOptions":{', $json);
+
+        $arr = $object->toArray(false);
+        $this->assertIsNotObject($arr['WebhookOptions']);
+        $this->assertIsArray($arr['WebhookOptions']);
+
+        $arr = $object->toArray(true);
+        $this->assertIsNotArray($arr['WebhookOptions']);
+        $this->assertIsObject($arr['WebhookOptions']);
+	}
 }
