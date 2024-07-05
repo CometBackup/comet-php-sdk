@@ -111,6 +111,12 @@ class AdminUserPermissions {
 	public $AllowedUserPolicies = [];
 
 	/**
+	 * @var boolean
+	 * This field is available in Comet 24.6.1 and later.
+	 */
+	public $DenySoftwareBuildRole = false;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see AdminUserPermissions::RemoveUnknownProperties() Remove all unknown properties
@@ -193,6 +199,9 @@ class AdminUserPermissions {
 			}
 			$this->AllowedUserPolicies = $val_2;
 		}
+		if (property_exists($sc, 'DenySoftwareBuildRole') && !is_null($sc->DenySoftwareBuildRole)) {
+			$this->DenySoftwareBuildRole = (bool)($sc->DenySoftwareBuildRole);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'PreventEditServerSettings':
@@ -213,6 +222,7 @@ class AdminUserPermissions {
 			case 'ShouldRestrictProviderList':
 			case 'AllowedProvidersWhenRestricted':
 			case 'AllowedUserPolicies':
+			case 'DenySoftwareBuildRole':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -310,6 +320,7 @@ class AdminUserPermissions {
 			}
 			$ret["AllowedUserPolicies"] = $c0;
 		}
+		$ret["DenySoftwareBuildRole"] = $this->DenySoftwareBuildRole;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
