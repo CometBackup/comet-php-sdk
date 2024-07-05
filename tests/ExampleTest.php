@@ -164,27 +164,40 @@ class ExampleTest extends \PHPUnit\Framework\TestCase {
 		// TODO
 	}
 
-	public function testOtherLanguage() {
-		$unknown_username = "comet-test-unknown-user-".time();
+	public function test400UserNotFound() {
+		$unknown_user_id = "comet-test-unknown-user-".time();
 
 		$this->server->setLanguage('en_US');
-
+		
 		try {
-			$userpc = $this->server->AdminGetUserProfile($unknown_username);
+			$userpc = $this->server->AdminGetUserProfile($unknown_user_id);
 			$this->fail("Shouldn't reach this");
 		} catch (\Exception $e) {
-			$this->assertEquals(400, $e->getCode(), "getCode for en_US");
-			$this->assertEquals("Error 400: User not found", $e->getMessage());
+			$this->assertEquals(400, $e->getCode(), "getCode");
+		}
+	}
+
+	public function testOtherLanguage() {
+		$unknown_liveconn_id = "comet-test-unknown-liveconn-".time();
+
+		$this->server->setLanguage('en_US');
+		
+		try {
+			$userpc = $this->server->AdminDispatcherRefetchProfile($unknown_liveconn_id);
+			$this->fail("Shouldn't reach this");
+		} catch (\Exception $e) {
+			$this->assertEquals(403, $e->getCode(), "getCode for en_US");
+			$this->assertEquals("Error 403: Unauthorised", $e->getMessage(), "Should be in en_US language");
 		}
 
 		$this->server->setLanguage('es_ES');
 		
 		try {
-			$userpc = $this->server->AdminGetUserProfile($unknown_username);
+			$userpc = $this->server->AdminDispatcherRefetchProfile($unknown_liveconn_id);
 			$this->fail("Shouldn't reach this");
 		} catch (\Exception $e) {
-			$this->assertEquals(400, $e->getCode(), "getCode for es_ES");
-			$this->assertEquals("Error 400: Usuario no encontrado", $e->getMessage());
+			$this->assertEquals(403, $e->getCode(), "getCode for es_ES");
+			$this->assertEquals("Error 403: No autorizado", $e->getMessage(), "Should be in es_ES language");
 		}
 
 		// Revert back
