@@ -155,7 +155,7 @@ class WebhookOption {
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
-	 * @param bool $for_json_encode Represent empty key-value maps as \stdClass instead of plain PHP arrays
+	 * @param bool $for_json_encode Represent key-value maps as \stdClass instead of plain PHP arrays
 	 * @return array
 	 */
 	public function toArray(bool $for_json_encode = false): array
@@ -163,17 +163,17 @@ class WebhookOption {
 		$ret = [];
 		$ret["URL"] = $this->URL;
 		{
-			$c0 = [];
+			$c0 = $for_json_encode ? (object)[] : [];
 			foreach($this->CustomHeaders as $k0 => $v0) {
 				$ko_0 = $k0;
 				$vo_0 = $v0;
-				$c0[ $ko_0 ] = $vo_0;
+				if ($for_json_encode) {
+				$c0->{ $ko_0 } = $vo_0;
+				} else {
+					$c0[ $ko_0 ] = $vo_0;
+				}
 			}
-			if ($for_json_encode && count($c0) == 0) {
-				$ret["CustomHeaders"] = (object)[];
-			} else {
-				$ret["CustomHeaders"] = $c0;
-			}
+			$ret["CustomHeaders"] = $c0;
 		}
 		$ret["Level"] = $this->Level;
 		{

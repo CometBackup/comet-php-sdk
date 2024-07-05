@@ -183,7 +183,7 @@ class ExternalLDAPAuthenticationSourceSettings {
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
-	 * @param bool $for_json_encode Represent empty key-value maps as \stdClass instead of plain PHP arrays
+	 * @param bool $for_json_encode Represent key-value maps as \stdClass instead of plain PHP arrays
 	 * @return array
 	 */
 	public function toArray(bool $for_json_encode = false): array

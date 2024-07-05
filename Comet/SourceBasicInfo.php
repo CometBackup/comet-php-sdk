@@ -144,7 +144,7 @@ class SourceBasicInfo {
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
-	 * @param bool $for_json_encode Represent empty key-value maps as \stdClass instead of plain PHP arrays
+	 * @param bool $for_json_encode Represent key-value maps as \stdClass instead of plain PHP arrays
 	 * @return array
 	 */
 	public function toArray(bool $for_json_encode = false): array
@@ -154,7 +154,7 @@ class SourceBasicInfo {
 		$ret["O365AccountCount"] = $this->O365AccountCount;
 		$ret["Size"] = $this->Size;
 		{
-			$c0 = [];
+			$c0 = $for_json_encode ? (object)[] : [];
 			foreach($this->OverrideDestinationRetention as $k0 => $v0) {
 				$ko_0 = $k0;
 				if ( $v0 === null ) {
@@ -162,13 +162,13 @@ class SourceBasicInfo {
 				} else {
 					$vo_0 = $v0->toArray($for_json_encode);
 				}
-				$c0[ $ko_0 ] = $vo_0;
+				if ($for_json_encode) {
+				$c0->{ $ko_0 } = $vo_0;
+				} else {
+					$c0[ $ko_0 ] = $vo_0;
+				}
 			}
-			if ($for_json_encode && count($c0) == 0) {
-				$ret["OverrideDestinationRetention"] = (object)[];
-			} else {
-				$ret["OverrideDestinationRetention"] = $c0;
-			}
+			$ret["OverrideDestinationRetention"] = $c0;
 		}
 
 		// Reinstate unknown properties from future server versions

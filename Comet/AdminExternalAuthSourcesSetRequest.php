@@ -73,7 +73,7 @@ class AdminExternalAuthSourcesSetRequest implements \Comet\NetworkRequest {
 				$c0[ $ko_0 ] = $vo_0;
 			}
 			if (count($c0) == 0) {
-				$ret["Sources"] = '[]';
+				$ret["Sources"] = '{}';
 			} else {
 				$ret["Sources"] = json_encode($c0);
 			}

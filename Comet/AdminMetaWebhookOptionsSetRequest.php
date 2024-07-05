@@ -74,7 +74,7 @@ class AdminMetaWebhookOptionsSetRequest implements \Comet\NetworkRequest {
 				$c0[ $ko_0 ] = $vo_0;
 			}
 			if (count($c0) == 0) {
-				$ret["WebhookOptions"] = '[]';
+				$ret["WebhookOptions"] = '{}';
 			} else {
 				$ret["WebhookOptions"] = json_encode($c0);
 			}

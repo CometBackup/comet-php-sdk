@@ -146,7 +146,7 @@ class Office365CustomSettingV2 {
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
-	 * @param bool $for_json_encode Represent empty key-value maps as \stdClass instead of plain PHP arrays
+	 * @param bool $for_json_encode Represent key-value maps as \stdClass instead of plain PHP arrays
 	 * @return array
 	 */
 	public function toArray(bool $for_json_encode = false): array
@@ -154,30 +154,30 @@ class Office365CustomSettingV2 {
 		$ret = [];
 		$ret["Organization"] = $this->Organization;
 		{
-			$c0 = [];
+			$c0 = $for_json_encode ? (object)[] : [];
 			foreach($this->BackupOptions as $k0 => $v0) {
 				$ko_0 = $k0;
 				$vo_0 = $v0;
-				$c0[ $ko_0 ] = $vo_0;
+				if ($for_json_encode) {
+				$c0->{ $ko_0 } = $vo_0;
+				} else {
+					$c0[ $ko_0 ] = $vo_0;
+				}
 			}
-			if ($for_json_encode && count($c0) == 0) {
-				$ret["BackupOptions"] = (object)[];
-			} else {
-				$ret["BackupOptions"] = $c0;
-			}
+			$ret["BackupOptions"] = $c0;
 		}
 		{
-			$c0 = [];
+			$c0 = $for_json_encode ? (object)[] : [];
 			foreach($this->MemberBackupOptions as $k0 => $v0) {
 				$ko_0 = $k0;
 				$vo_0 = $v0;
-				$c0[ $ko_0 ] = $vo_0;
+				if ($for_json_encode) {
+				$c0->{ $ko_0 } = $vo_0;
+				} else {
+					$c0[ $ko_0 ] = $vo_0;
+				}
 			}
-			if ($for_json_encode && count($c0) == 0) {
-				$ret["MemberBackupOptions"] = (object)[];
-			} else {
-				$ret["MemberBackupOptions"] = $c0;
-			}
+			$ret["MemberBackupOptions"] = $c0;
 		}
 
 		// Reinstate unknown properties from future server versions
