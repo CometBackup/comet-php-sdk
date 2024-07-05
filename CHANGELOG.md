@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 2024-07-05 v4.33.0
+
+- Based on Comet 24.6.2
+- Fixed an issue with the PHP SDK converting objects to arrays, during JSON encoding, when the keys are numeric
+
 ## 2024-06-11 v4.32.0
 
 - Based on Comet 24.6.0
