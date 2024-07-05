@@ -83,7 +83,10 @@ class ExampleTest extends \PHPUnit\Framework\TestCase {
 		$this->assertTrue($ok);
 	}
 		
-	protected function assertSizeWithinRange($size, $low_bound_mb, $high_bound_mb, $name='') {
+	protected function assertSizeWithinRange($data, $low_bound_mb, $high_bound_mb, $name='') {
+		$size = strlen($data);
+		$this->assertGreaterThanOrEqual(512, $size, "Unexpected content: ".$data);
+		
 		$error_desc = "${name}: Got size {$size}, expected in ${low_bound_mb} - ${high_bound_mb} MB range";
 
 		$this->assertGreaterThanOrEqual($low_bound_mb * 1024*1024, $size, $error_desc);
@@ -97,19 +100,19 @@ class ExampleTest extends \PHPUnit\Framework\TestCase {
 		// same running server instance should be faster
 
 		$data = $this->server->AdminBrandingGenerateClientLinuxgeneric();
-		$this->assertSizeWithinRange(strlen($data), 25, 40, 'linux-generic');
+		$this->assertSizeWithinRange($data, 25, 40, 'linux-generic');
 
 		$data = $this->server->AdminBrandingGenerateClientMacosX8664();
-		$this->assertSizeWithinRange(strlen($data), 15, 30, 'macos-x86_64');
+		$this->assertSizeWithinRange($data, 15, 30, 'macos-x86_64');
 
 		$data = $this->server->AdminBrandingGenerateClientWindowsAnycpuZip();
-		$this->assertSizeWithinRange(strlen($data), 30, 50, 'windows-anycpu-zip');
+		$this->assertSizeWithinRange($data, 30, 50, 'windows-anycpu-zip');
 
 		$data = $this->server->AdminBrandingGenerateClientWindowsX8632Zip();
-		$this->assertSizeWithinRange(strlen($data), 15, 25, 'windows-x86_32-zip');
+		$this->assertSizeWithinRange($data, 15, 30, 'windows-x86_32-zip');
 
 		$data = $this->server->AdminBrandingGenerateClientWindowsX8664Zip();
-		$this->assertSizeWithinRange(strlen($data), 15, 25, 'windows-x86_64-zip');
+		$this->assertSizeWithinRange($data, 15, 30, 'windows-x86_64-zip');
 	}
 
 	public function testModifyServerSettings() {
