@@ -223,4 +223,10 @@ class ExampleTest extends \PHPUnit\Framework\TestCase {
         $this->assertIsNotArray($arr['WebhookOptions']);
         $this->assertIsObject($arr['WebhookOptions']);
 	}
+	
+    public function testEmptyObjectParameters() {
+        $req = new \Comet\AdminMetaWebhookOptionsSetRequest([]);
+
+        $this->assertEquals(['WebhookOptions' => '{}'], $req->Parameters());
+    }
 }
