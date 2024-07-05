@@ -94,6 +94,30 @@ class ServerMetaVersionInfo {
 	public $ServerLicenseFeatureSet = 0;
 
 	/**
+	 * If non-zero, the maximum numbers of devices and Protected Item types that this server is allowed.
+	 *
+	 * @var \Comet\LicenseLimits
+	 * This field is available in Comet 24.6.3 and later.
+	 */
+	public $ServerLicenseLimit = null;
+
+	/**
+	 * A count of the devices registered on the server that have a configured Protected Item.
+	 *
+	 * @var int
+	 * This field is available in Comet 24.6.3 and later.
+	 */
+	public $ConfiguredDevices = 0;
+
+	/**
+	 * The current number of Protected Item types configured on the server.
+	 *
+	 * @var array<string, int>
+	 * This field is available in Comet 24.6.3 and later.
+	 */
+	public $BoosterLimit = [];
+
+	/**
 	 * Unix timestamp, in seconds.
 	 *
 	 * @var int
@@ -211,6 +235,28 @@ class ServerMetaVersionInfo {
 		if (property_exists($sc, 'ServerLicenseFeatureSet')) {
 			$this->ServerLicenseFeatureSet = (int)($sc->ServerLicenseFeatureSet);
 		}
+		if (property_exists($sc, 'ServerLicenseLimit')) {
+			if (is_array($sc->ServerLicenseLimit) && count($sc->ServerLicenseLimit) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->ServerLicenseLimit = \Comet\LicenseLimits::createFromStdclass(new \stdClass());
+			} else {
+				$this->ServerLicenseLimit = \Comet\LicenseLimits::createFromStdclass($sc->ServerLicenseLimit);
+			}
+		}
+		if (property_exists($sc, 'ConfiguredDevices')) {
+			$this->ConfiguredDevices = (int)($sc->ConfiguredDevices);
+		}
+		if (property_exists($sc, 'BoosterLimit')) {
+			$val_2 = [];
+			if ($sc->BoosterLimit !== null) {
+				foreach($sc->BoosterLimit as $k_2 => $v_2) {
+					$phpk_2 = (string)($k_2);
+					$phpv_2 = (int)($v_2);
+					$val_2[$phpk_2] = $phpv_2;
+				}
+			}
+			$this->BoosterLimit = $val_2;
+		}
 		if (property_exists($sc, 'LicenseValidUntil')) {
 			$this->LicenseValidUntil = (int)($sc->LicenseValidUntil);
 		}
@@ -268,6 +314,9 @@ class ServerMetaVersionInfo {
 			case 'ServerLicenseHash':
 			case 'ServerLicenseFeaturesAll':
 			case 'ServerLicenseFeatureSet':
+			case 'ServerLicenseLimit':
+			case 'ConfiguredDevices':
+			case 'BoosterLimit':
 			case 'LicenseValidUntil':
 			case 'EmailsSentSuccessfully':
 			case 'EmailsSentErrors':
@@ -364,6 +413,25 @@ class ServerMetaVersionInfo {
 		$ret["ServerLicenseHash"] = $this->ServerLicenseHash;
 		$ret["ServerLicenseFeaturesAll"] = $this->ServerLicenseFeaturesAll;
 		$ret["ServerLicenseFeatureSet"] = $this->ServerLicenseFeatureSet;
+		if ( $this->ServerLicenseLimit === null ) {
+			$ret["ServerLicenseLimit"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["ServerLicenseLimit"] = $this->ServerLicenseLimit->toArray($for_json_encode);
+		}
+		$ret["ConfiguredDevices"] = $this->ConfiguredDevices;
+		{
+			$c0 = $for_json_encode ? (object)[] : [];
+			foreach($this->BoosterLimit as $k0 => $v0) {
+				$ko_0 = $k0;
+				$vo_0 = $v0;
+				if ($for_json_encode) {
+				$c0->{ $ko_0 } = $vo_0;
+				} else {
+					$c0[ $ko_0 ] = $vo_0;
+				}
+			}
+			$ret["BoosterLimit"] = $c0;
+		}
 		$ret["LicenseValidUntil"] = $this->LicenseValidUntil;
 		$ret["EmailsSentSuccessfully"] = $this->EmailsSentSuccessfully;
 		$ret["EmailsSentErrors"] = $this->EmailsSentErrors;
@@ -434,6 +502,9 @@ class ServerMetaVersionInfo {
 	public function RemoveUnknownProperties()
 	{
 		$this->__unknown_properties = [];
+		if ($this->ServerLicenseLimit !== null) {
+			$this->ServerLicenseLimit->RemoveUnknownProperties();
+		}
 	}
 
 }
