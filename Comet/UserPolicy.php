@@ -74,6 +74,21 @@ class UserPolicy {
 	/**
 	 * @var int
 	 */
+	public $ModeScheduleLastJobFailDoRetry = 0;
+
+	/**
+	 * @var int
+	 */
+	public $ModeLastJobFailDoRetryTime = 0;
+
+	/**
+	 * @var int
+	 */
+	public $ModeLastJobFailDoRetryCount = 0;
+
+	/**
+	 * @var int
+	 */
 	public $ModeAdminResetPassword = 0;
 
 	/**
@@ -260,6 +275,15 @@ class UserPolicy {
 		if (property_exists($sc, 'ModeScheduleSkipAlreadyRunning') && !is_null($sc->ModeScheduleSkipAlreadyRunning)) {
 			$this->ModeScheduleSkipAlreadyRunning = (int)($sc->ModeScheduleSkipAlreadyRunning);
 		}
+		if (property_exists($sc, 'ModeScheduleLastJobFailDoRetry') && !is_null($sc->ModeScheduleLastJobFailDoRetry)) {
+			$this->ModeScheduleLastJobFailDoRetry = (int)($sc->ModeScheduleLastJobFailDoRetry);
+		}
+		if (property_exists($sc, 'ModeLastJobFailDoRetryTime') && !is_null($sc->ModeLastJobFailDoRetryTime)) {
+			$this->ModeLastJobFailDoRetryTime = (int)($sc->ModeLastJobFailDoRetryTime);
+		}
+		if (property_exists($sc, 'ModeLastJobFailDoRetryCount') && !is_null($sc->ModeLastJobFailDoRetryCount)) {
+			$this->ModeLastJobFailDoRetryCount = (int)($sc->ModeLastJobFailDoRetryCount);
+		}
 		if (property_exists($sc, 'ModeAdminResetPassword') && !is_null($sc->ModeAdminResetPassword)) {
 			$this->ModeAdminResetPassword = (int)($sc->ModeAdminResetPassword);
 		}
@@ -405,6 +429,9 @@ class UserPolicy {
 			case 'ProtectedItemEngineTypes':
 			case 'FileAndFolderMandatoryExclusions':
 			case 'ModeScheduleSkipAlreadyRunning':
+			case 'ModeScheduleLastJobFailDoRetry':
+			case 'ModeLastJobFailDoRetryTime':
+			case 'ModeLastJobFailDoRetryCount':
 			case 'ModeAdminResetPassword':
 			case 'ModeAdminViewFilenames':
 			case 'ModeRequireUserResetPassword':
@@ -524,6 +551,9 @@ class UserPolicy {
 			$ret["FileAndFolderMandatoryExclusions"] = $c0;
 		}
 		$ret["ModeScheduleSkipAlreadyRunning"] = $this->ModeScheduleSkipAlreadyRunning;
+		$ret["ModeScheduleLastJobFailDoRetry"] = $this->ModeScheduleLastJobFailDoRetry;
+		$ret["ModeLastJobFailDoRetryTime"] = $this->ModeLastJobFailDoRetryTime;
+		$ret["ModeLastJobFailDoRetryCount"] = $this->ModeLastJobFailDoRetryCount;
 		$ret["ModeAdminResetPassword"] = $this->ModeAdminResetPassword;
 		$ret["ModeAdminViewFilenames"] = $this->ModeAdminViewFilenames;
 		$ret["ModeRequireUserResetPassword"] = $this->ModeRequireUserResetPassword;

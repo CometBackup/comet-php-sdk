@@ -27,6 +27,30 @@ class BackupRuleEventTriggers {
 	public $OnPCBootIfLastJobMissed = false;
 
 	/**
+	 * The option to enable retrying when a backup job failed.
+	 *
+	 * @var boolean
+	 * This field is available in Comet 24.6.6 and later.
+	 */
+	public $OnLastJobFailDoRetry = false;
+
+	/**
+	 * The number of retries when the backup job fails.
+	 *
+	 * @var int
+	 * This field is available in Comet 24.6.6 and later.
+	 */
+	public $LastJobFailDoRetryCount = 0;
+
+	/**
+	 * The number of minutes before retrying when the backup job fails.
+	 *
+	 * @var int
+	 * This field is available in Comet 24.6.6 and later.
+	 */
+	public $LastJobFailDoRetryTime = 0;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see BackupRuleEventTriggers::RemoveUnknownProperties() Remove all unknown properties
@@ -49,10 +73,22 @@ class BackupRuleEventTriggers {
 		if (property_exists($sc, 'OnPCBootIfLastJobMissed') && !is_null($sc->OnPCBootIfLastJobMissed)) {
 			$this->OnPCBootIfLastJobMissed = (bool)($sc->OnPCBootIfLastJobMissed);
 		}
+		if (property_exists($sc, 'OnLastJobFailDoRetry') && !is_null($sc->OnLastJobFailDoRetry)) {
+			$this->OnLastJobFailDoRetry = (bool)($sc->OnLastJobFailDoRetry);
+		}
+		if (property_exists($sc, 'LastJobFailDoRetryCount') && !is_null($sc->LastJobFailDoRetryCount)) {
+			$this->LastJobFailDoRetryCount = (int)($sc->LastJobFailDoRetryCount);
+		}
+		if (property_exists($sc, 'LastJobFailDoRetryTime') && !is_null($sc->LastJobFailDoRetryTime)) {
+			$this->LastJobFailDoRetryTime = (int)($sc->LastJobFailDoRetryTime);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'OnPCBoot':
 			case 'OnPCBootIfLastJobMissed':
+			case 'OnLastJobFailDoRetry':
+			case 'LastJobFailDoRetryCount':
+			case 'LastJobFailDoRetryTime':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -120,6 +156,9 @@ class BackupRuleEventTriggers {
 		$ret = [];
 		$ret["OnPCBoot"] = $this->OnPCBoot;
 		$ret["OnPCBootIfLastJobMissed"] = $this->OnPCBootIfLastJobMissed;
+		$ret["OnLastJobFailDoRetry"] = $this->OnLastJobFailDoRetry;
+		$ret["LastJobFailDoRetryCount"] = $this->LastJobFailDoRetryCount;
+		$ret["LastJobFailDoRetryTime"] = $this->LastJobFailDoRetryTime;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

@@ -14,7 +14,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "24.6.4";
+	const APPLICATION_VERSION = "24.6.6";
 
 	/**
 	 * @type int
@@ -29,7 +29,7 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 4;
+	const APPLICATION_VERSION_REVISION = 6;
 
 	/**
 	 * AutoRetentionLevel: The system will automatically choose how often to run an automatic Retention Pass after each backup job.
@@ -184,6 +184,22 @@ class Def {
 	 * @type string
 	 */
 	const CUSTOMREMOTEBUCKET_CUSTOMBODY_FORM = "form";
+
+	/**
+	 * The number of retry attempts a backup job can do
+	 *
+	 * @type int
+	 * This const is available in Comet 24.6.6 and later.
+	 */
+	const DEFAULT_RETRY_COUNT = 1;
+
+	/**
+	 * The number of minutes between backup job retry attempts
+	 *
+	 * @type int
+	 * This const is available in Comet 24.6.6 and later.
+	 */
+	const DEFAULT_RETRY_TIME = 30;
 
 	/**
 	 * LanguageCode
@@ -720,6 +736,13 @@ class Def {
 	const JOB_STATUS_RUNNING_REVIVED = 6002;
 
 	/**
+	 * JobStatus: The job has encountered an error and will wait to retry.
+	 *
+	 * @type int
+	 */
+	const JOB_STATUS_RUNNING_TRYAGAIN = 6003;
+
+	/**
 	 * JobStatus
 	 *
 	 * @type int
@@ -837,6 +860,16 @@ class Def {
 	 * @type int
 	 */
 	const MACOSCODESIGN_LEVEL_SIGN_NOTARISE_STAPLE = 2;
+
+	/**
+	 * @type int
+	 */
+	const MIN_BUILD_NUMBER_WIN_SERVER_2016 = 14393;
+
+	/**
+	 * @type int
+	 */
+	const MIN_BUILD_NUMBER_WIN_10 = 10240;
 
 	/**
 	 * @type int

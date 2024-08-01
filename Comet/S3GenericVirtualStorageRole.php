@@ -87,6 +87,14 @@ class S3GenericVirtualStorageRole {
 	public $Region = "";
 
 	/**
+	 * Optional. Prefix to use for bucket paths.
+	 *
+	 * @var string
+	 * This field is available in Comet 24.6.3 and later.
+	 */
+	public $Prefix = "";
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see S3GenericVirtualStorageRole::RemoveUnknownProperties() Remove all unknown properties
@@ -133,6 +141,9 @@ class S3GenericVirtualStorageRole {
 		if (property_exists($sc, 'Region')) {
 			$this->Region = (string)($sc->Region);
 		}
+		if (property_exists($sc, 'Prefix')) {
+			$this->Prefix = (string)($sc->Prefix);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'S3Endpoint':
@@ -145,6 +156,7 @@ class S3GenericVirtualStorageRole {
 			case 'ObjectLockDays':
 			case 'RemoveDeleted':
 			case 'Region':
+			case 'Prefix':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -220,6 +232,7 @@ class S3GenericVirtualStorageRole {
 		$ret["ObjectLockDays"] = $this->ObjectLockDays;
 		$ret["RemoveDeleted"] = $this->RemoveDeleted;
 		$ret["Region"] = $this->Region;
+		$ret["Prefix"] = $this->Prefix;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

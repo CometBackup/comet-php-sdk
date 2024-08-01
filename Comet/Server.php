@@ -838,6 +838,23 @@ class Server {
 	}
 
 	/** 
+	 * Convert IAM Storage Role vault to its underlying S3 type
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 *
+	 * @param string $TargetUser The user to receive the new Storage Vault
+	 * @param string $DestinationId The id of the old storage role destination to convert
+	 * @return \Comet\RequestStorageVaultResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminConvertStorageRole(string $TargetUser, string $DestinationId): \Comet\RequestStorageVaultResponseMessage
+	{
+		$nr = new \Comet\AdminConvertStorageRoleRequest($TargetUser, $DestinationId);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminConvertStorageRoleRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Count jobs (for custom search)
 	 * 
 	 * You must supply administrator authentication credentials to use this API.

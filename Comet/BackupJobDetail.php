@@ -46,6 +46,11 @@ class BackupJobDetail {
 	public $EndTime = 0;
 
 	/**
+	 * @var int
+	 */
+	public $RetryCount = 0;
+
+	/**
 	 * The Protected Item that this job is for
 	 *
 	 * @var string
@@ -68,6 +73,14 @@ class BackupJobDetail {
 	 * @var string
 	 */
 	public $SnapshotID = "";
+
+	/**
+	 * The ID of the backup rule that contains the schedule that triggered this job
+	 *
+	 * @var string
+	 * This field is available in Comet 24.6.6 and later.
+	 */
+	public $BackupRuleGUID = "";
 
 	/**
 	 * @var string
@@ -210,6 +223,9 @@ class BackupJobDetail {
 		if (property_exists($sc, 'EndTime')) {
 			$this->EndTime = (int)($sc->EndTime);
 		}
+		if (property_exists($sc, 'RetryCount')) {
+			$this->RetryCount = (int)($sc->RetryCount);
+		}
 		if (property_exists($sc, 'SourceGUID')) {
 			$this->SourceGUID = (string)($sc->SourceGUID);
 		}
@@ -221,6 +237,9 @@ class BackupJobDetail {
 		}
 		if (property_exists($sc, 'SnapshotID') && !is_null($sc->SnapshotID)) {
 			$this->SnapshotID = (string)($sc->SnapshotID);
+		}
+		if (property_exists($sc, 'BackupRuleGUID') && !is_null($sc->BackupRuleGUID)) {
+			$this->BackupRuleGUID = (string)($sc->BackupRuleGUID);
 		}
 		if (property_exists($sc, 'ClientVersion')) {
 			$this->ClientVersion = (string)($sc->ClientVersion);
@@ -296,10 +315,12 @@ class BackupJobDetail {
 			case 'Status':
 			case 'StartTime':
 			case 'EndTime':
+			case 'RetryCount':
 			case 'SourceGUID':
 			case 'DestinationGUID':
 			case 'DeviceID':
 			case 'SnapshotID':
+			case 'BackupRuleGUID':
 			case 'ClientVersion':
 			case 'TotalDirectories':
 			case 'TotalFiles':
@@ -388,10 +409,12 @@ class BackupJobDetail {
 		$ret["Status"] = $this->Status;
 		$ret["StartTime"] = $this->StartTime;
 		$ret["EndTime"] = $this->EndTime;
+		$ret["RetryCount"] = $this->RetryCount;
 		$ret["SourceGUID"] = $this->SourceGUID;
 		$ret["DestinationGUID"] = $this->DestinationGUID;
 		$ret["DeviceID"] = $this->DeviceID;
 		$ret["SnapshotID"] = $this->SnapshotID;
+		$ret["BackupRuleGUID"] = $this->BackupRuleGUID;
 		$ret["ClientVersion"] = $this->ClientVersion;
 		$ret["TotalDirectories"] = $this->TotalDirectories;
 		$ret["TotalFiles"] = $this->TotalFiles;
