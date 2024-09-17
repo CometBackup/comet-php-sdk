@@ -156,6 +156,22 @@ class UserProfileConfig {
 	public $QuotaOffice365ProtectedAccounts = 0;
 
 	/**
+	 * A limit on the total number of Hyper-V guests across all Hyper-V Protected Items in this account.
+	 * Set to zero to allow unlimited Office 365 Protected Accounts.
+	 *
+	 * @var int
+	 */
+	public $QuotaHyperVGuests = 0;
+
+	/**
+	 * A limit on the total number of VMware guests across all VMware Protected Items in this account.
+	 * Set to zero to allow unlimited Office 365 Protected Accounts.
+	 *
+	 * @var int
+	 */
+	public $QuotaVMwareGuests = 0;
+
+	/**
 	 * If the PolicyID field is set to a non-empty string, the Comet Server will enforce the contents of
 	 * the Policy field based on the matching server's policy. Otherwise if the PolicyID field is set to
 	 * an empty string, the administrator may configure any custom values in the Policy field.
@@ -390,6 +406,12 @@ class UserProfileConfig {
 		if (property_exists($sc, 'QuotaOffice365ProtectedAccounts')) {
 			$this->QuotaOffice365ProtectedAccounts = (int)($sc->QuotaOffice365ProtectedAccounts);
 		}
+		if (property_exists($sc, 'QuotaHyperVGuests')) {
+			$this->QuotaHyperVGuests = (int)($sc->QuotaHyperVGuests);
+		}
+		if (property_exists($sc, 'QuotaVMwareGuests')) {
+			$this->QuotaVMwareGuests = (int)($sc->QuotaVMwareGuests);
+		}
 		if (property_exists($sc, 'PolicyID')) {
 			$this->PolicyID = (string)($sc->PolicyID);
 		}
@@ -459,6 +481,8 @@ class UserProfileConfig {
 			case 'AllProtectedItemsQuotaBytes':
 			case 'MaximumDevices':
 			case 'QuotaOffice365ProtectedAccounts':
+			case 'QuotaHyperVGuests':
+			case 'QuotaVMwareGuests':
 			case 'PolicyID':
 			case 'Policy':
 			case 'PasswordFormat':
@@ -642,6 +666,8 @@ class UserProfileConfig {
 		$ret["AllProtectedItemsQuotaBytes"] = $this->AllProtectedItemsQuotaBytes;
 		$ret["MaximumDevices"] = $this->MaximumDevices;
 		$ret["QuotaOffice365ProtectedAccounts"] = $this->QuotaOffice365ProtectedAccounts;
+		$ret["QuotaHyperVGuests"] = $this->QuotaHyperVGuests;
+		$ret["QuotaVMwareGuests"] = $this->QuotaVMwareGuests;
 		$ret["PolicyID"] = $this->PolicyID;
 		if ( $this->Policy === null ) {
 			$ret["Policy"] = $for_json_encode ? (object)[] : [];

@@ -18,12 +18,22 @@ class SourceBasicInfo {
 	/**
 	 * @var string
 	 */
+	public $Engine = "";
+
+	/**
+	 * @var string
+	 */
 	public $Description = "";
 
 	/**
 	 * @var int
 	 */
 	public $O365AccountCount = 0;
+
+	/**
+	 * @var int
+	 */
+	public $TotalVmCount = 0;
 
 	/**
 	 * Bytes
@@ -54,11 +64,17 @@ class SourceBasicInfo {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
+		if (property_exists($sc, 'Engine')) {
+			$this->Engine = (string)($sc->Engine);
+		}
 		if (property_exists($sc, 'Description')) {
 			$this->Description = (string)($sc->Description);
 		}
 		if (property_exists($sc, 'O365AccountCount')) {
 			$this->O365AccountCount = (int)($sc->O365AccountCount);
+		}
+		if (property_exists($sc, 'TotalVmCount')) {
+			$this->TotalVmCount = (int)($sc->TotalVmCount);
 		}
 		if (property_exists($sc, 'Size')) {
 			$this->Size = (int)($sc->Size);
@@ -81,8 +97,10 @@ class SourceBasicInfo {
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
+			case 'Engine':
 			case 'Description':
 			case 'O365AccountCount':
+			case 'TotalVmCount':
 			case 'Size':
 			case 'OverrideDestinationRetention':
 				break;
@@ -150,8 +168,10 @@ class SourceBasicInfo {
 	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
+		$ret["Engine"] = $this->Engine;
 		$ret["Description"] = $this->Description;
 		$ret["O365AccountCount"] = $this->O365AccountCount;
+		$ret["TotalVmCount"] = $this->TotalVmCount;
 		$ret["Size"] = $this->Size;
 		{
 			$c0 = $for_json_encode ? (object)[] : [];
