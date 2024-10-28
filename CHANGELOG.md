@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 2024-10-29 v4.37.0
+
+- Based on Comet 24.9.6
+- New API AdminDispatcherTestSmbAuth to instruct a device to test Windows SMB credentials
+- New RESTORETYPE_WINDISK_VHDX to restore Disk Image backup as Hyper-V VHDX format
+- BackupJobDetail supports ConflictingJobID field to indicate conflicting job if a lock error occurred
+- BackupJobProgress can report the total number of items for progress visualization
+- DiskDrive adds information about parent disks on Linux
+
 ## 2024-09-17 v4.36.0
 
 - Based on Comet 24.9.1
