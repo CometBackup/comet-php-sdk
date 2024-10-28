@@ -44,6 +44,11 @@ class BackupJobProgress {
 	public $ItemsDone = 0;
 
 	/**
+	 * @var int
+	 */
+	public $ItemsTotal = 0;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see BackupJobProgress::RemoveUnknownProperties() Remove all unknown properties
@@ -75,6 +80,9 @@ class BackupJobProgress {
 		if (property_exists($sc, 'ItemsDone')) {
 			$this->ItemsDone = (int)($sc->ItemsDone);
 		}
+		if (property_exists($sc, 'ItemsTotal')) {
+			$this->ItemsTotal = (int)($sc->ItemsTotal);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Counter':
@@ -82,6 +90,7 @@ class BackupJobProgress {
 			case 'RecievedTime':
 			case 'BytesDone':
 			case 'ItemsDone':
+			case 'ItemsTotal':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -152,6 +161,7 @@ class BackupJobProgress {
 		$ret["RecievedTime"] = $this->RecievedTime;
 		$ret["BytesDone"] = $this->BytesDone;
 		$ret["ItemsDone"] = $this->ItemsDone;
+		$ret["ItemsTotal"] = $this->ItemsTotal;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

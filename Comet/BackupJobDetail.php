@@ -160,6 +160,15 @@ class BackupJobDetail {
 	public $TotalUnlicensedMailsCount = 0;
 
 	/**
+	 * If this field is present, this job did not perform some work because the Storage Vault is
+	 * currently busy.
+	 *
+	 * @var string
+	 * This field is available in Comet 24.9.2 and later.
+	 */
+	public $ConflictingJobID = "";
+
+	/**
 	 * If this field is present, it is possible to request cancellation of this job via the API.
 	 *
 	 * @var string
@@ -280,6 +289,9 @@ class BackupJobDetail {
 		if (property_exists($sc, 'TotalUnlicensedMailsCount') && !is_null($sc->TotalUnlicensedMailsCount)) {
 			$this->TotalUnlicensedMailsCount = (int)($sc->TotalUnlicensedMailsCount);
 		}
+		if (property_exists($sc, 'ConflictingJobID') && !is_null($sc->ConflictingJobID)) {
+			$this->ConflictingJobID = (string)($sc->ConflictingJobID);
+		}
 		if (property_exists($sc, 'CancellationID') && !is_null($sc->CancellationID)) {
 			$this->CancellationID = (string)($sc->CancellationID);
 		}
@@ -334,6 +346,7 @@ class BackupJobDetail {
 			case 'TotalAccountsCount':
 			case 'TotalLicensedMailsCount':
 			case 'TotalUnlicensedMailsCount':
+			case 'ConflictingJobID':
 			case 'CancellationID':
 			case 'Progress':
 			case 'DestinationSizeStart':
@@ -428,6 +441,7 @@ class BackupJobDetail {
 		$ret["TotalAccountsCount"] = $this->TotalAccountsCount;
 		$ret["TotalLicensedMailsCount"] = $this->TotalLicensedMailsCount;
 		$ret["TotalUnlicensedMailsCount"] = $this->TotalUnlicensedMailsCount;
+		$ret["ConflictingJobID"] = $this->ConflictingJobID;
 		$ret["CancellationID"] = $this->CancellationID;
 		if ( $this->Progress === null ) {
 			$ret["Progress"] = $for_json_encode ? (object)[] : [];

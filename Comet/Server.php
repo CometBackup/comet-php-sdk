@@ -1618,6 +1618,24 @@ class Server {
 	}
 
 	/** 
+	 * Test a set of Windows SMB credentials
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetID The live connection GUID
+	 * @param \Comet\WinSMBAuth $Wsa The target credentials to test
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherTestSmbAuth(string $TargetID, \Comet\WinSMBAuth $Wsa): \Comet\APIResponseMessage
+	{
+		$nr = new \Comet\AdminDispatcherTestSmbAuthRequest($TargetID, $Wsa);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherTestSmbAuthRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Instruct a live connected device to self-uninstall the software
 	 * 
 	 * You must supply administrator authentication credentials to use this API.

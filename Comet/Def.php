@@ -14,7 +14,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "24.9.1";
+	const APPLICATION_VERSION = "24.9.6";
 
 	/**
 	 * @type int
@@ -29,7 +29,7 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 1;
+	const APPLICATION_VERSION_REVISION = 6;
 
 	/**
 	 * AutoRetentionLevel: The system will automatically choose how often to run an automatic Retention Pass after each backup job.
@@ -1357,6 +1357,13 @@ class Def {
 	 * @type int
 	 */
 	const RESTORETYPE_WINDISK_ESXI = 12;
+
+	/**
+	 * RestoreType: Restore disk image backup as Hyper-V-compatible virtual disks (.vhdx format)
+	 *
+	 * @type int
+	 */
+	const RESTORETYPE_WINDISK_VHDX = 13;
 
 	/**
 	 * RestoreType: Legacy name alias - Prefer to use RESTORETYPE_PROCESS_ARCHIVE since multiple archive file formats are supported within this single RESTORETYPE_

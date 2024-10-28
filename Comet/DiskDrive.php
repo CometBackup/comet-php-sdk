@@ -37,6 +37,8 @@ class DiskDrive {
 	public $SerialNumber = "";
 
 	/**
+	 * Bytes
+	 *
 	 * @var int
 	 */
 	public $Size = 0;
@@ -47,22 +49,36 @@ class DiskDrive {
 	public $Partitions = [];
 
 	/**
+	 * For physical disks, this array will be empty. For virtual disks, RAID devices or Linux DM
+	 * devices, this array may contain the DeviceName of the parent device.
+	 *
+	 * @var string[]
+	 * This field is available in Comet 24.6.x and later.
+	 */
+	public $DeviceParents = [];
+
+	/**
+	 * See WINDISKFLAG_ constants
+	 *
 	 * @var int
 	 */
 	public $Flags = 0;
 
 	/**
 	 * @var int
+	 * @deprecated 24.6.x This value is reported from the disk driver if available. Otherwise emulates a value based on modern LBA addressing. The field value is not used. This member has been deprecated since Comet version 24.6.x This value is reported from the disk driver if available. Otherwise emulates a value based on modern LBA addressing. The field value is not used.
 	 */
 	public $Cylinders = 0;
 
 	/**
 	 * @var int
+	 * @deprecated 24.6.x This value is reported from the disk driver if available. Otherwise emulates a value based on modern LBA addressing. The field value is not used. This member has been deprecated since Comet version 24.6.x This value is reported from the disk driver if available. Otherwise emulates a value based on modern LBA addressing. The field value is not used.
 	 */
 	public $Heads = 0;
 
 	/**
 	 * @var int
+	 * @deprecated 24.6.x This value is reported from the disk driver if available. Otherwise emulates a value based on modern LBA addressing. The field value is not used. This member has been deprecated since Comet version 24.6.x This value is reported from the disk driver if available. Otherwise emulates a value based on modern LBA addressing. The field value is not used.
 	 */
 	public $Sectors = 0;
 
@@ -120,6 +136,15 @@ class DiskDrive {
 			}
 			$this->Partitions = $val_2;
 		}
+		if (property_exists($sc, 'DeviceParents')) {
+			$val_2 = [];
+			if ($sc->DeviceParents !== null) {
+				for($i_2 = 0; $i_2 < count($sc->DeviceParents); ++$i_2) {
+					$val_2[] = (string)($sc->DeviceParents[$i_2]);
+				}
+			}
+			$this->DeviceParents = $val_2;
+		}
 		if (property_exists($sc, 'Flags')) {
 			$this->Flags = (int)($sc->Flags);
 		}
@@ -144,6 +169,7 @@ class DiskDrive {
 			case 'SerialNumber':
 			case 'Size':
 			case 'Partitions':
+			case 'DeviceParents':
 			case 'Flags':
 			case 'Cylinders':
 			case 'Heads':
@@ -231,6 +257,14 @@ class DiskDrive {
 				$c0[] = $val0;
 			}
 			$ret["Partitions"] = $c0;
+		}
+		{
+			$c0 = [];
+			for($i0 = 0; $i0 < count($this->DeviceParents); ++$i0) {
+				$val0 = $this->DeviceParents[$i0];
+				$c0[] = $val0;
+			}
+			$ret["DeviceParents"] = $c0;
 		}
 		$ret["Flags"] = $this->Flags;
 		$ret["Cylinders"] = $this->Cylinders;
