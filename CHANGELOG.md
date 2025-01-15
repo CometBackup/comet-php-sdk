@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 2025-01-15 v4.38.0
+
+- Based on Comet 24.12.2
+- Support new Login Protection feature
+- Support requiring password changes for admin accounts
+- Support new user grouping functionality
+- Support creating a first admin account on empty servers
+- Support vault-device associations and automatic vault creation
+
 ## 2024-10-29 v4.37.0
 
 - Based on Comet 24.9.6
