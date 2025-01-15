@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2024 Comet Licensing Ltd.
+ * Copyright (c) 2018-2025 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -43,17 +43,26 @@ class AdminRequestStorageVaultRequest implements \Comet\NetworkRequest {
 	protected $SelfAddress = null;
 
 	/**
+	 * The ID of the device to be added as a associated device of the Storage Vault (optional)
+	 *
+	 * @var string|null
+	 */
+	protected $DeviceID = null;
+
+	/**
 	 * Construct a new AdminRequestStorageVaultRequest instance.
 	 *
 	 * @param string $TargetUser The user to receive the new Storage Vault
 	 * @param string $StorageProvider ID for the storage template destination
 	 * @param string $SelfAddress The external URL for this server. Used to resolve conflicts (optional)
+	 * @param string $DeviceID The ID of the device to be added as a associated device of the Storage Vault (optional)
 	 */
-	public function __construct(string $TargetUser, string $StorageProvider, string $SelfAddress = null)
+	public function __construct(string $TargetUser, string $StorageProvider, string $SelfAddress = null, string $DeviceID = null)
 	{
 		$this->TargetUser = $TargetUser;
 		$this->StorageProvider = $StorageProvider;
 		$this->SelfAddress = $SelfAddress;
+		$this->DeviceID = $DeviceID;
 	}
 
 	/**
@@ -88,6 +97,9 @@ class AdminRequestStorageVaultRequest implements \Comet\NetworkRequest {
 		$ret["StorageProvider"] = (string)($this->StorageProvider);
 		if ($this->SelfAddress !== null) {
 			$ret["SelfAddress"] = (string)($this->SelfAddress);
+		}
+		if ($this->DeviceID !== null) {
+			$ret["DeviceID"] = (string)($this->DeviceID);
 		}
 		return $ret;
 	}

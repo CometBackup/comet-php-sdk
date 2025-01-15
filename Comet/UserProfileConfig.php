@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2024 Comet Licensing Ltd.
+ * Copyright (c) 2018-2025 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -53,6 +53,11 @@ class UserProfileConfig {
 	public $OrganizationID = "";
 
 	/**
+	 * @var string
+	 */
+	public $GroupID = "";
+
+	/**
 	 * A list of email addresses to send reports to.
 	 *
 	 * @var string[]
@@ -60,7 +65,7 @@ class UserProfileConfig {
 	public $Emails = [];
 
 	/**
-	 * By default, all the email addresses in the Emails field will receieve the policy-default or
+	 * By default, all the email addresses in the Emails field will receive the policy-default or
 	 * server-wide-default style of email report. Add an override for a specific email address in here
 	 * to allow customizing the email report that will be received.
 	 *
@@ -82,6 +87,13 @@ class UserProfileConfig {
 	 * @var array<string, \Comet\DestinationConfig>
 	 */
 	public $Destinations = [];
+
+	/**
+	 * Leave as true
+	 *
+	 * @var boolean
+	 */
+	public $SupportsDeviceAssociations = false;
 
 	/**
 	 * Protected Items
@@ -212,6 +224,9 @@ class UserProfileConfig {
 	public $PasswordRecovery = "";
 
 	/**
+	 * Allow login using the password alone. Set this to false if the password alone should not be
+	 * sufficient.
+	 *
 	 * @var boolean
 	 */
 	public $AllowPasswordLogin = false;
@@ -265,6 +280,11 @@ class UserProfileConfig {
 	public $ServerConfig = null;
 
 	/**
+	 * @var string
+	 */
+	public $AutoStorageTemplateGUID = "";
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see UserProfileConfig::RemoveUnknownProperties() Remove all unknown properties
@@ -295,6 +315,9 @@ class UserProfileConfig {
 		}
 		if (property_exists($sc, 'OrganizationID') && !is_null($sc->OrganizationID)) {
 			$this->OrganizationID = (string)($sc->OrganizationID);
+		}
+		if (property_exists($sc, 'GroupID')) {
+			$this->GroupID = (string)($sc->GroupID);
 		}
 		if (property_exists($sc, 'Emails')) {
 			$val_2 = [];
@@ -339,6 +362,9 @@ class UserProfileConfig {
 				}
 			}
 			$this->Destinations = $val_2;
+		}
+		if (property_exists($sc, 'SupportsDeviceAssociations')) {
+			$this->SupportsDeviceAssociations = (bool)($sc->SupportsDeviceAssociations);
 		}
 		if (property_exists($sc, 'Sources')) {
 			$val_2 = [];
@@ -461,6 +487,9 @@ class UserProfileConfig {
 				$this->ServerConfig = \Comet\UserServerConfig::createFromStdclass($sc->ServerConfig);
 			}
 		}
+		if (property_exists($sc, 'AutoStorageTemplateGUID')) {
+			$this->AutoStorageTemplateGUID = (string)($sc->AutoStorageTemplateGUID);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Username':
@@ -468,10 +497,12 @@ class UserProfileConfig {
 			case 'LocalTimezone':
 			case 'LanguageCode':
 			case 'OrganizationID':
+			case 'GroupID':
 			case 'Emails':
 			case 'OverrideEmailSettings':
 			case 'SendEmailReports':
 			case 'Destinations':
+			case 'SupportsDeviceAssociations':
 			case 'Sources':
 			case 'BackupRules':
 			case 'Devices':
@@ -496,6 +527,7 @@ class UserProfileConfig {
 			case 'CreateTime':
 			case 'CreationGUID':
 			case 'ServerConfig':
+			case 'AutoStorageTemplateGUID':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -566,6 +598,7 @@ class UserProfileConfig {
 		$ret["LocalTimezone"] = $this->LocalTimezone;
 		$ret["LanguageCode"] = $this->LanguageCode;
 		$ret["OrganizationID"] = $this->OrganizationID;
+		$ret["GroupID"] = $this->GroupID;
 		{
 			$c0 = [];
 			for($i0 = 0; $i0 < count($this->Emails); ++$i0) {
@@ -609,6 +642,7 @@ class UserProfileConfig {
 			}
 			$ret["Destinations"] = $c0;
 		}
+		$ret["SupportsDeviceAssociations"] = $this->SupportsDeviceAssociations;
 		{
 			$c0 = $for_json_encode ? (object)[] : [];
 			foreach($this->Sources as $k0 => $v0) {
@@ -689,6 +723,7 @@ class UserProfileConfig {
 		} else {
 			$ret["ServerConfig"] = $this->ServerConfig->toArray($for_json_encode);
 		}
+		$ret["AutoStorageTemplateGUID"] = $this->AutoStorageTemplateGUID;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

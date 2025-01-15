@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2024 Comet Licensing Ltd.
+ * Copyright (c) 2018-2025 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -412,6 +412,11 @@ class DestinationConfig {
 	public $RetentionError = "";
 
 	/**
+	 * @var string[]
+	 */
+	public $AssociatedDevices = [];
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see DestinationConfig::RemoveUnknownProperties() Remove all unknown properties
@@ -684,6 +689,15 @@ class DestinationConfig {
 		if (property_exists($sc, 'RetentionError')) {
 			$this->RetentionError = (string)($sc->RetentionError);
 		}
+		if (property_exists($sc, 'AssociatedDevices')) {
+			$val_2 = [];
+			if ($sc->AssociatedDevices !== null) {
+				for($i_2 = 0; $i_2 < count($sc->AssociatedDevices); ++$i_2) {
+					$val_2[] = (string)($sc->AssociatedDevices[$i_2]);
+				}
+			}
+			$this->AssociatedDevices = $val_2;
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Description':
@@ -750,6 +764,7 @@ class DestinationConfig {
 			case 'DefaultRetention':
 			case 'RebrandStorage':
 			case 'RetentionError':
+			case 'AssociatedDevices':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -939,6 +954,14 @@ class DestinationConfig {
 		}
 		$ret["RebrandStorage"] = $this->RebrandStorage;
 		$ret["RetentionError"] = $this->RetentionError;
+		{
+			$c0 = [];
+			for($i0 = 0; $i0 < count($this->AssociatedDevices); ++$i0) {
+				$val0 = $this->AssociatedDevices[$i0];
+				$c0[] = $val0;
+			}
+			$ret["AssociatedDevices"] = $c0;
+		}
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

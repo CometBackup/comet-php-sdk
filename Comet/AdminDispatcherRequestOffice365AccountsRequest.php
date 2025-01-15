@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2024 Comet Licensing Ltd.
+ * Copyright (c) 2018-2025 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -13,6 +13,7 @@ namespace Comet;
  * Comet Server AdminDispatcherRequestOffice365Accounts API
  * Request a list of Office365 mailbox accounts
  * The remote device must have given consent for an MSP to browse their files.
+ * This is primarily used for testing the connection to Graph API, not for actual listing
  *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.

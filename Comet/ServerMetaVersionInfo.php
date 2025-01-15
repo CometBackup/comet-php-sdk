@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2024 Comet Licensing Ltd.
+ * Copyright (c) 2018-2025 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -85,10 +85,13 @@ class ServerMetaVersionInfo {
 
 	/**
 	 * @var boolean
+	 * @deprecated 24.9.x This member has been deprecated since Comet version 24.9.x
 	 */
 	public $ServerLicenseFeaturesAll = false;
 
 	/**
+	 * A bitset of feature flags representing functionality available in this Comet Server's plan
+	 *
 	 * @var int
 	 */
 	public $ServerLicenseFeatureSet = 0;

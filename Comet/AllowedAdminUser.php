@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2024 Comet Licensing Ltd.
+ * Copyright (c) 2018-2025 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -69,6 +69,12 @@ class AllowedAdminUser {
 	 * @var \Comet\AdminWebAuthnRegistration[]
 	 */
 	public $WebAuthnRegistrations = [];
+
+	/**
+	 * @var boolean
+	 * This field is available in Comet 24.12.0 and later.
+	 */
+	public $RequirePasswordChange = false;
 
 	/**
 	 * One of the ENCRYPTIONMETHOD_ constants
@@ -167,6 +173,9 @@ class AllowedAdminUser {
 			}
 			$this->WebAuthnRegistrations = $val_2;
 		}
+		if (property_exists($sc, 'RequirePasswordChange')) {
+			$this->RequirePasswordChange = (bool)($sc->RequirePasswordChange);
+		}
 		if (property_exists($sc, 'TOTPKeyEncryptionFormat') && !is_null($sc->TOTPKeyEncryptionFormat)) {
 			$this->TOTPKeyEncryptionFormat = (int)($sc->TOTPKeyEncryptionFormat);
 		}
@@ -197,6 +206,7 @@ class AllowedAdminUser {
 			case 'AllowPasswordAndWebAuthnLogin':
 			case 'U2FRegistrations':
 			case 'WebAuthnRegistrations':
+			case 'RequirePasswordChange':
 			case 'TOTPKeyEncryptionFormat':
 			case 'TOTPKey':
 			case 'IPWhitelist':
@@ -299,6 +309,7 @@ class AllowedAdminUser {
 			}
 			$ret["WebAuthnRegistrations"] = $c0;
 		}
+		$ret["RequirePasswordChange"] = $this->RequirePasswordChange;
 		$ret["TOTPKeyEncryptionFormat"] = $this->TOTPKeyEncryptionFormat;
 		$ret["TOTPKey"] = $this->TOTPKey;
 		$ret["IPWhitelist"] = $this->IPWhitelist;

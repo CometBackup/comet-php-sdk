@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2024 Comet Licensing Ltd.
+ * Copyright (c) 2018-2025 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -40,6 +40,11 @@ class UserPolicy {
 	 * @var \Comet\StorageVaultProviderPolicy
 	 */
 	public $StorageVaultProviders = null;
+
+	/**
+	 * @var string
+	 */
+	public $DefaultNewStorageVault = "";
 
 	/**
 	 * @var boolean
@@ -241,6 +246,9 @@ class UserPolicy {
 				$this->StorageVaultProviders = \Comet\StorageVaultProviderPolicy::createFromStdclass($sc->StorageVaultProviders);
 			}
 		}
+		if (property_exists($sc, 'DefaultNewStorageVault')) {
+			$this->DefaultNewStorageVault = (string)($sc->DefaultNewStorageVault);
+		}
 		if (property_exists($sc, 'PreventNewProtectedItem')) {
 			$this->PreventNewProtectedItem = (bool)($sc->PreventNewProtectedItem);
 		}
@@ -423,6 +431,7 @@ class UserPolicy {
 			case 'HideCloudStorageBranding':
 			case 'PreventDeleteStorageVault':
 			case 'StorageVaultProviders':
+			case 'DefaultNewStorageVault':
 			case 'PreventNewProtectedItem':
 			case 'PreventEditProtectedItem':
 			case 'PreventDeleteProtectedItem':
@@ -530,6 +539,7 @@ class UserPolicy {
 		} else {
 			$ret["StorageVaultProviders"] = $this->StorageVaultProviders->toArray($for_json_encode);
 		}
+		$ret["DefaultNewStorageVault"] = $this->DefaultNewStorageVault;
 		$ret["PreventNewProtectedItem"] = $this->PreventNewProtectedItem;
 		$ret["PreventEditProtectedItem"] = $this->PreventEditProtectedItem;
 		$ret["PreventDeleteProtectedItem"] = $this->PreventDeleteProtectedItem;

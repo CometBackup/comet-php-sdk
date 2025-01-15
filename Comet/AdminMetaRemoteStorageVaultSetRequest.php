@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2024 Comet Licensing Ltd.
+ * Copyright (c) 2018-2025 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -26,13 +26,22 @@ class AdminMetaRemoteStorageVaultSetRequest implements \Comet\NetworkRequest {
 	protected $RemoteStorageOptions = null;
 
 	/**
+	 * Replacement Storage Template ID for auto Storage Vault configurations that use deleted Storage Templates (optional)
+	 *
+	 * @var string|null
+	 */
+	protected $ReplacementAutoVaultID = null;
+
+	/**
 	 * Construct a new AdminMetaRemoteStorageVaultSetRequest instance.
 	 *
 	 * @param \Comet\RemoteStorageOption[] $RemoteStorageOptions Updated configuration content
+	 * @param string $ReplacementAutoVaultID Replacement Storage Template ID for auto Storage Vault configurations that use deleted Storage Templates (optional)
 	 */
-	public function __construct(array $RemoteStorageOptions)
+	public function __construct(array $RemoteStorageOptions, string $ReplacementAutoVaultID = null)
 	{
 		$this->RemoteStorageOptions = $RemoteStorageOptions;
+		$this->ReplacementAutoVaultID = $ReplacementAutoVaultID;
 	}
 
 	/**
@@ -73,6 +82,9 @@ class AdminMetaRemoteStorageVaultSetRequest implements \Comet\NetworkRequest {
 			$ret["RemoteStorageOptions"] = json_encode($c0);
 		}
 
+		if ($this->ReplacementAutoVaultID !== null) {
+			$ret["ReplacementAutoVaultID"] = (string)($this->ReplacementAutoVaultID);
+		}
 		return $ret;
 	}
 

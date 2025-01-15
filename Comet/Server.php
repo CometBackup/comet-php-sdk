@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2024 Comet Licensing Ltd.
+ * Copyright (c) 2018-2025 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  * 
  * SPDX-License-Identifier: MIT
@@ -323,6 +323,21 @@ class Server {
 		$nr = new \Comet\AdminAccountWebauthnSubmitChallengeResponseRequest($SelfAddress, $ChallengeID, $Credential);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminAccountWebauthnSubmitChallengeResponseRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Add first admin user account on new server
+	 *
+	 * @param string $TargetUser the username for this new admin
+	 * @param string $TargetPassword the password for this new admin user
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminAddFirstAdminUser(string $TargetUser, string $TargetPassword): \Comet\APIResponseMessage
+	{
+		$nr = new \Comet\AdminAddFirstAdminUserRequest($TargetUser, $TargetPassword);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminAddFirstAdminUserRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
 
 	/** 
@@ -1415,6 +1430,7 @@ class Server {
 	/** 
 	 * Request a list of Office365 mailbox accounts
 	 * The remote device must have given consent for an MSP to browse their files.
+	 * This is primarily used for testing the connection to Graph API, not for actual listing
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
@@ -2389,12 +2405,13 @@ class Server {
 	 * Access to this API may be prevented on a per-administrator basis.
 	 *
 	 * @param \Comet\RemoteStorageOption[] $RemoteStorageOptions Updated configuration content
+	 * @param string $ReplacementAutoVaultID Replacement Storage Template ID for auto Storage Vault configurations that use deleted Storage Templates (optional)
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminMetaRemoteStorageVaultSet(array $RemoteStorageOptions): \Comet\APIResponseMessage
+	public function AdminMetaRemoteStorageVaultSet(array $RemoteStorageOptions, string $ReplacementAutoVaultID = null): \Comet\APIResponseMessage
 	{
-		$nr = new \Comet\AdminMetaRemoteStorageVaultSetRequest($RemoteStorageOptions);
+		$nr = new \Comet\AdminMetaRemoteStorageVaultSetRequest($RemoteStorageOptions, $ReplacementAutoVaultID);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminMetaRemoteStorageVaultSetRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
@@ -2947,16 +2964,17 @@ class Server {
 	 * @param string $TargetUser The user to receive the new Storage Vault
 	 * @param string $StorageProvider ID for the storage template destination
 	 * @param string $SelfAddress The external URL for this server. Used to resolve conflicts (optional)
+	 * @param string $DeviceID The ID of the device to be added as a associated device of the Storage Vault (optional)
 	 * @return \Comet\RequestStorageVaultResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminRequestStorageVault(string $TargetUser, string $StorageProvider, string $SelfAddress = null): \Comet\RequestStorageVaultResponseMessage
+	public function AdminRequestStorageVault(string $TargetUser, string $StorageProvider, string $SelfAddress = null, string $DeviceID = null): \Comet\RequestStorageVaultResponseMessage
 	{
 		if ($SelfAddress === null) {
 			$SelfAddress = $this->server_url;
 		}
 
-		$nr = new \Comet\AdminRequestStorageVaultRequest($TargetUser, $StorageProvider, $SelfAddress);
+		$nr = new \Comet\AdminRequestStorageVaultRequest($TargetUser, $StorageProvider, $SelfAddress, $DeviceID);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminRequestStorageVaultRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
@@ -3219,6 +3237,133 @@ class Server {
 		$nr = new \Comet\AdminUpdateCampaignStatusRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminUpdateCampaignStatusRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Delete an existing user group object
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $GroupID The user group ID to delete
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminUserGroupsDelete(string $GroupID): \Comet\APIResponseMessage
+	{
+		$nr = new \Comet\AdminUserGroupsDeleteRequest($GroupID);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminUserGroupsDeleteRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Retrieve a single user group object
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $GroupID The user group ID to retrieve
+	 * @param boolean $IncludeUsers If present, includes the users array in the response. (optional)
+	 * @return \Comet\GetUserGroupWithUsersResponse 
+	 * @throws \Exception
+	 */
+	public function AdminUserGroupsGet(string $GroupID, bool $IncludeUsers = null): \Comet\GetUserGroupWithUsersResponse
+	{
+		$nr = new \Comet\AdminUserGroupsGetRequest($GroupID, $IncludeUsers);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminUserGroupsGetRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * List all user group names
+	 * For the top-level organization, the API result includes all user groups for all organizations, unless the TargetOrganization parameter is present.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetOrganization If present, list the user groups belonging to another organization. Only allowed for administrator accounts in the top-level organization. (optional)
+	 * @return array<string, string> 
+	 * @throws \Exception
+	 */
+	public function AdminUserGroupsList(string $TargetOrganization = null): array
+	{
+		$nr = new \Comet\AdminUserGroupsListRequest($TargetOrganization);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminUserGroupsListRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Get all user group objects
+	 * For the top-level organization, the API result includes all user groups for all organizations, unless the TargetOrganization parameter is present.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetOrganization If present, list the user groups belonging to the specified organization. Only allowed for administrator accounts in the top-level organization. (optional)
+	 * @return array<string, \Comet\UserGroup> 
+	 * @throws \Exception
+	 */
+	public function AdminUserGroupsListFull(string $TargetOrganization = null): array
+	{
+		$nr = new \Comet\AdminUserGroupsListFullRequest($TargetOrganization);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminUserGroupsListFullRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Create a new user group object
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $Name this is the name of the group.
+	 * @param string $TargetOrganization If present, list the policies belonging to another organization. Only allowed for administrator accounts in the top-level organization. (optional)
+	 * @return \Comet\CreateUserGroupResponse 
+	 * @throws \Exception
+	 */
+	public function AdminUserGroupsNew(string $Name, string $TargetOrganization = null): \Comet\CreateUserGroupResponse
+	{
+		$nr = new \Comet\AdminUserGroupsNewRequest($Name, $TargetOrganization);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminUserGroupsNewRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Update an existing user group or create a new user group
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $GroupID The user group ID to update or create
+	 * @param \Comet\UserGroup $Group The user group data
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminUserGroupsSet(string $GroupID, \Comet\UserGroup $Group): \Comet\APIResponseMessage
+	{
+		$nr = new \Comet\AdminUserGroupsSetRequest($GroupID, $Group);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminUserGroupsSetRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Update the users in the specified group
+	 * The provided list of users will be moved into the specified group, and any users
+	 * already in the group who are not in the list of usernames will be removed.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $GroupID The user group ID to update
+	 * @param string[] $Users An array of usernames.
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminUserGroupsSetUsersForGroup(string $GroupID, array $Users): \Comet\APIResponseMessage
+	{
+		$nr = new \Comet\AdminUserGroupsSetUsersForGroupRequest($GroupID, $Users);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminUserGroupsSetUsersForGroupRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
 
 	/** 

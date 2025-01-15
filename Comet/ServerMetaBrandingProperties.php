@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2024 Comet Licensing Ltd.
+ * Copyright (c) 2018-2025 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -82,6 +82,13 @@ class ServerMetaBrandingProperties {
 	public $ExternalAuthenticationSources = [];
 
 	/**
+	 * If true, this Comet Server currently has no admins or users.
+	 *
+	 * @var boolean
+	 */
+	public $ServerIsEmpty = false;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see ServerMetaBrandingProperties::RemoveUnknownProperties() Remove all unknown properties
@@ -145,6 +152,9 @@ class ServerMetaBrandingProperties {
 			}
 			$this->ExternalAuthenticationSources = $val_2;
 		}
+		if (property_exists($sc, 'ServerIsEmpty')) {
+			$this->ServerIsEmpty = (bool)($sc->ServerIsEmpty);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'BrandName':
@@ -159,6 +169,7 @@ class ServerMetaBrandingProperties {
 			case 'PruneLogsAfterDays':
 			case 'ExpiredInSeconds':
 			case 'ExternalAuthenticationSources':
+			case 'ServerIsEmpty':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -247,6 +258,7 @@ class ServerMetaBrandingProperties {
 			}
 			$ret["ExternalAuthenticationSources"] = $c0;
 		}
+		$ret["ServerIsEmpty"] = $this->ServerIsEmpty;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

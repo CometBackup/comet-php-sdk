@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2024 Comet Licensing Ltd.
+ * Copyright (c) 2018-2025 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -124,6 +124,16 @@ class RemoteStorageOption {
 	public $RebrandStorage = false;
 
 	/**
+	 * @var string
+	 */
+	public $ID = "";
+
+	/**
+	 * @var boolean
+	 */
+	public $Default = false;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see RemoteStorageOption::RemoveUnknownProperties() Remove all unknown properties
@@ -244,6 +254,12 @@ class RemoteStorageOption {
 		if (property_exists($sc, 'RebrandStorage')) {
 			$this->RebrandStorage = (bool)($sc->RebrandStorage);
 		}
+		if (property_exists($sc, 'ID')) {
+			$this->ID = (string)($sc->ID);
+		}
+		if (property_exists($sc, 'Default')) {
+			$this->Default = (bool)($sc->Default);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Type':
@@ -264,6 +280,8 @@ class RemoteStorageOption {
 			case 'StorageLimitEnabled':
 			case 'StorageLimitBytes':
 			case 'RebrandStorage':
+			case 'ID':
+			case 'Default':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -387,6 +405,8 @@ class RemoteStorageOption {
 		$ret["StorageLimitEnabled"] = $this->StorageLimitEnabled;
 		$ret["StorageLimitBytes"] = $this->StorageLimitBytes;
 		$ret["RebrandStorage"] = $this->RebrandStorage;
+		$ret["ID"] = $this->ID;
+		$ret["Default"] = $this->Default;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

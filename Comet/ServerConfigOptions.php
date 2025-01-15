@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2024 Comet Licensing Ltd.
+ * Copyright (c) 2018-2025 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -65,6 +65,12 @@ class ServerConfigOptions {
 	 * @var \Comet\RatelimitOptions
 	 */
 	public $IPRateLimit = null;
+
+	/**
+	 * @var \Comet\LoginProtectionOptions
+	 * This field is available in Comet 24.9.x and later.
+	 */
+	public $LoginProtection = null;
 
 	/**
 	 * @var \Comet\LicenseOptions
@@ -237,6 +243,14 @@ class ServerConfigOptions {
 				$this->IPRateLimit = \Comet\RatelimitOptions::createFromStdclass($sc->IPRateLimit);
 			}
 		}
+		if (property_exists($sc, 'LoginProtection')) {
+			if (is_array($sc->LoginProtection) && count($sc->LoginProtection) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->LoginProtection = \Comet\LoginProtectionOptions::createFromStdclass(new \stdClass());
+			} else {
+				$this->LoginProtection = \Comet\LoginProtectionOptions::createFromStdclass($sc->LoginProtection);
+			}
+		}
 		if (property_exists($sc, 'License')) {
 			if (is_array($sc->License) && count($sc->License) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
@@ -367,6 +381,7 @@ class ServerConfigOptions {
 			case 'ExperimentalOptions':
 			case 'ExternalAdminUserSources':
 			case 'IPRateLimit':
+			case 'LoginProtection':
 			case 'License':
 			case 'ListenAddresses':
 			case 'Organizations':
@@ -509,6 +524,11 @@ class ServerConfigOptions {
 			$ret["IPRateLimit"] = $for_json_encode ? (object)[] : [];
 		} else {
 			$ret["IPRateLimit"] = $this->IPRateLimit->toArray($for_json_encode);
+		}
+		if ( $this->LoginProtection === null ) {
+			$ret["LoginProtection"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["LoginProtection"] = $this->LoginProtection->toArray($for_json_encode);
 		}
 		if ( $this->License === null ) {
 			$ret["License"] = $for_json_encode ? (object)[] : [];
@@ -677,6 +697,9 @@ class ServerConfigOptions {
 		}
 		if ($this->IPRateLimit !== null) {
 			$this->IPRateLimit->RemoveUnknownProperties();
+		}
+		if ($this->LoginProtection !== null) {
+			$this->LoginProtection->RemoveUnknownProperties();
 		}
 		if ($this->License !== null) {
 			$this->License->RemoveUnknownProperties();
