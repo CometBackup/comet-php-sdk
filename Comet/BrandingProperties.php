@@ -52,6 +52,21 @@ class BrandingProperties {
 	public $HideBackgroundLogo = false;
 
 	/**
+	 * @var string
+	 */
+	public $CloudStorageName = "";
+
+	/**
+	 * @var boolean
+	 */
+	public $AdminHidePreBuiltClientOption = false;
+
+	/**
+	 * @var boolean
+	 */
+	public $AdminHideBrandedCloudStorage = false;
+
+	/**
 	 * One of the CLIENTBRANDINGBUILD_ constants
 	 *
 	 * @var int
@@ -234,6 +249,15 @@ class BrandingProperties {
 		if (property_exists($sc, 'HideBackgroundLogo')) {
 			$this->HideBackgroundLogo = (bool)($sc->HideBackgroundLogo);
 		}
+		if (property_exists($sc, 'CloudStorageName')) {
+			$this->CloudStorageName = (string)($sc->CloudStorageName);
+		}
+		if (property_exists($sc, 'AdminHidePreBuiltClientOption')) {
+			$this->AdminHidePreBuiltClientOption = (bool)($sc->AdminHidePreBuiltClientOption);
+		}
+		if (property_exists($sc, 'AdminHideBrandedCloudStorage')) {
+			$this->AdminHideBrandedCloudStorage = (bool)($sc->AdminHideBrandedCloudStorage);
+		}
 		if (property_exists($sc, 'BuildMode')) {
 			$this->BuildMode = (int)($sc->BuildMode);
 		}
@@ -327,6 +351,9 @@ class BrandingProperties {
 			case 'TileBackgroundColor':
 			case 'AccountRegisterURL':
 			case 'HideBackgroundLogo':
+			case 'CloudStorageName':
+			case 'AdminHidePreBuiltClientOption':
+			case 'AdminHideBrandedCloudStorage':
 			case 'BuildMode':
 			case 'PathIcoFile':
 			case 'PathIcnsFile':
@@ -426,6 +453,9 @@ class BrandingProperties {
 		$ret["TileBackgroundColor"] = $this->TileBackgroundColor;
 		$ret["AccountRegisterURL"] = $this->AccountRegisterURL;
 		$ret["HideBackgroundLogo"] = $this->HideBackgroundLogo;
+		$ret["CloudStorageName"] = $this->CloudStorageName;
+		$ret["AdminHidePreBuiltClientOption"] = $this->AdminHidePreBuiltClientOption;
+		$ret["AdminHideBrandedCloudStorage"] = $this->AdminHideBrandedCloudStorage;
 		$ret["BuildMode"] = $this->BuildMode;
 		$ret["PathIcoFile"] = $this->PathIcoFile;
 		$ret["PathIcnsFile"] = $this->PathIcnsFile;

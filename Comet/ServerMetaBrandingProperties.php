@@ -89,6 +89,27 @@ class ServerMetaBrandingProperties {
 	public $ServerIsEmpty = false;
 
 	/**
+	 * @var string
+	 */
+	public $CloudStorageName = "";
+
+	/**
+	 * Will hide the "Pre-built software client" option from the server settings. Only properly enforced
+	 * when custom branding is enforced via the license.
+	 *
+	 * @var boolean
+	 */
+	public $AdminHidePreBuiltClientOption = false;
+
+	/**
+	 * Will hide Comet Storage from everywhere, including the admin view. Only properly enforced when
+	 * custom branding is enforced via the license.
+	 *
+	 * @var boolean
+	 */
+	public $AdminHideBrandedCloudStorage = false;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see ServerMetaBrandingProperties::RemoveUnknownProperties() Remove all unknown properties
@@ -155,6 +176,15 @@ class ServerMetaBrandingProperties {
 		if (property_exists($sc, 'ServerIsEmpty')) {
 			$this->ServerIsEmpty = (bool)($sc->ServerIsEmpty);
 		}
+		if (property_exists($sc, 'CloudStorageName')) {
+			$this->CloudStorageName = (string)($sc->CloudStorageName);
+		}
+		if (property_exists($sc, 'AdminHidePreBuiltClientOption')) {
+			$this->AdminHidePreBuiltClientOption = (bool)($sc->AdminHidePreBuiltClientOption);
+		}
+		if (property_exists($sc, 'AdminHideBrandedCloudStorage')) {
+			$this->AdminHideBrandedCloudStorage = (bool)($sc->AdminHideBrandedCloudStorage);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'BrandName':
@@ -170,6 +200,9 @@ class ServerMetaBrandingProperties {
 			case 'ExpiredInSeconds':
 			case 'ExternalAuthenticationSources':
 			case 'ServerIsEmpty':
+			case 'CloudStorageName':
+			case 'AdminHidePreBuiltClientOption':
+			case 'AdminHideBrandedCloudStorage':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -259,6 +292,9 @@ class ServerMetaBrandingProperties {
 			$ret["ExternalAuthenticationSources"] = $c0;
 		}
 		$ret["ServerIsEmpty"] = $this->ServerIsEmpty;
+		$ret["CloudStorageName"] = $this->CloudStorageName;
+		$ret["AdminHidePreBuiltClientOption"] = $this->AdminHidePreBuiltClientOption;
+		$ret["AdminHideBrandedCloudStorage"] = $this->AdminHideBrandedCloudStorage;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

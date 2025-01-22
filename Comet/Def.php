@@ -14,7 +14,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "24.12.2";
+	const APPLICATION_VERSION = "24.12.3";
 
 	/**
 	 * @type int
@@ -29,7 +29,7 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 2;
+	const APPLICATION_VERSION_REVISION = 3;
 
 	/**
 	 * AutoRetentionLevel: The system will automatically choose how often to run an automatic Retention Pass after each backup job.
@@ -566,14 +566,14 @@ class Def {
 	const FTPS_MODE_EXPLICIT = 2;
 
 	/**
-	 * Back up Hyper-V virtual machines using VSS mode. This includes all previous snapshots.
+	 * HypervMethod: Back up Hyper-V virtual machines using VSS mode. This includes all previous snapshots.
 	 *
 	 * @type string
 	 */
 	const HYPERV_METHOD_VSS = "vss";
 
 	/**
-	 * Back up Hyper-V virtual machines using WMI mode. This includes the latest snapshot data only.
+	 * HypervMethod: Back up Hyper-V virtual machines using WMI mode. This includes the latest snapshot data only.
 	 *
 	 * @type string
 	 * This const is available in Comet 23.9.8 and later.
@@ -581,7 +581,7 @@ class Def {
 	const HYPERV_METHOD_WMI_COPY = "copy";
 
 	/**
-	 * Back up Hyper-V virtual machines using WMI mode with RCT acceleration. This includes the latest snapshot data only.
+	 * HypervMethod: Back up Hyper-V virtual machines using WMI mode with RCT acceleration. This includes the latest snapshot data only.
 	 *
 	 * @type string
 	 * This const is available in Comet 23.9.8 and later.

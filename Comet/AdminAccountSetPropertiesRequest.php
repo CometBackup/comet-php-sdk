@@ -14,7 +14,8 @@ namespace Comet;
  * Update settings for your own admin account
  * Updating your account password requires you to supply your current password.
  * To set a new plaintext password, use a password format of 0 (PASSWORD_FORMAT_PLAINTEXT).
- * This API does not currently allow you to modify your TOTP secret or IP whitelist.
+ * This API does not currently allow you to modify your TOTP secret.
+ * In Comet 24.12.2 and later, this API can change the IPWhitelist field. Prior to this, changes to the IPWhitelist field were ignored.
  *
  * You must supply administrator authentication credentials to use this API.
  */
