@@ -173,6 +173,22 @@ class RestoreJobAdvancedOptions {
 	public $MsSqlConnection = null;
 
 	/**
+	 * For RESTORETYPE_VMHOST
+	 *
+	 * @var \Comet\VMwareRestoreTargetOptions
+	 * This field is available in Comet 24.12.x and later.
+	 */
+	public $VMwareConnection = null;
+
+	/**
+	 * For RESTORETYPE_VMHOST
+	 *
+	 * @var \Comet\HyperVRestoreTargetOptions
+	 * This field is available in Comet 24.12.x and later.
+	 */
+	public $HyperVConnection = null;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see RestoreJobAdvancedOptions::RemoveUnknownProperties() Remove all unknown properties
@@ -271,6 +287,22 @@ class RestoreJobAdvancedOptions {
 				$this->MsSqlConnection = \Comet\MSSQLLoginArgs::createFromStdclass($sc->MsSqlConnection);
 			}
 		}
+		if (property_exists($sc, 'VMwareConnection') && !is_null($sc->VMwareConnection)) {
+			if (is_array($sc->VMwareConnection) && count($sc->VMwareConnection) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->VMwareConnection = \Comet\VMwareRestoreTargetOptions::createFromStdclass(new \stdClass());
+			} else {
+				$this->VMwareConnection = \Comet\VMwareRestoreTargetOptions::createFromStdclass($sc->VMwareConnection);
+			}
+		}
+		if (property_exists($sc, 'HyperVConnection') && !is_null($sc->HyperVConnection)) {
+			if (is_array($sc->HyperVConnection) && count($sc->HyperVConnection) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->HyperVConnection = \Comet\HyperVRestoreTargetOptions::createFromStdclass(new \stdClass());
+			} else {
+				$this->HyperVConnection = \Comet\HyperVRestoreTargetOptions::createFromStdclass($sc->HyperVConnection);
+			}
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Type':
@@ -295,6 +327,8 @@ class RestoreJobAdvancedOptions {
 			case 'SslCrtFile':
 			case 'SslKeyFile':
 			case 'MsSqlConnection':
+			case 'VMwareConnection':
+			case 'HyperVConnection':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -397,6 +431,16 @@ class RestoreJobAdvancedOptions {
 		} else {
 			$ret["MsSqlConnection"] = $this->MsSqlConnection->toArray($for_json_encode);
 		}
+		if ( $this->VMwareConnection === null ) {
+			$ret["VMwareConnection"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["VMwareConnection"] = $this->VMwareConnection->toArray($for_json_encode);
+		}
+		if ( $this->HyperVConnection === null ) {
+			$ret["HyperVConnection"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["HyperVConnection"] = $this->HyperVConnection->toArray($for_json_encode);
+		}
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
@@ -451,6 +495,12 @@ class RestoreJobAdvancedOptions {
 		}
 		if ($this->MsSqlConnection !== null) {
 			$this->MsSqlConnection->RemoveUnknownProperties();
+		}
+		if ($this->VMwareConnection !== null) {
+			$this->VMwareConnection->RemoveUnknownProperties();
+		}
+		if ($this->HyperVConnection !== null) {
+			$this->HyperVConnection->RemoveUnknownProperties();
 		}
 	}
 

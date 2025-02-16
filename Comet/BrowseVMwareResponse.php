@@ -9,6 +9,10 @@
 
 namespace Comet;
 
+/**
+ * BrowseVMwareResponse contains a list of Virtual Machines when remotely browsing a VMware vSphere
+ * connection.
+ */
 class BrowseVMwareResponse {
 
 	/**

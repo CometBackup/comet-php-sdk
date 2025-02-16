@@ -42,17 +42,26 @@ class AdminSetUserProfileHashRequest implements \Comet\NetworkRequest {
 	protected $RequireHash = null;
 
 	/**
+	 * Instructions for modifying user profile (optional)
+	 *
+	 * @var \Comet\AdminOptions|null
+	 */
+	protected $AdminOptions = null;
+
+	/**
 	 * Construct a new AdminSetUserProfileHashRequest instance.
 	 *
 	 * @param string $TargetUser Selected account username
 	 * @param \Comet\UserProfileConfig $ProfileData Modified user profile
 	 * @param string $RequireHash Previous hash parameter
+	 * @param \Comet\AdminOptions $AdminOptions Instructions for modifying user profile (optional)
 	 */
-	public function __construct(string $TargetUser, \Comet\UserProfileConfig $ProfileData, string $RequireHash)
+	public function __construct(string $TargetUser, \Comet\UserProfileConfig $ProfileData, string $RequireHash, \Comet\AdminOptions $AdminOptions = null)
 	{
 		$this->TargetUser = $TargetUser;
 		$this->ProfileData = $ProfileData;
 		$this->RequireHash = $RequireHash;
+		$this->AdminOptions = $AdminOptions;
 	}
 
 	/**
@@ -86,6 +95,9 @@ class AdminSetUserProfileHashRequest implements \Comet\NetworkRequest {
 		$ret["TargetUser"] = (string)($this->TargetUser);
 		$ret["ProfileData"] = $this->ProfileData->toJSON();
 		$ret["RequireHash"] = (string)($this->RequireHash);
+		if ($this->AdminOptions !== null) {
+			$ret["AdminOptions"] = $this->AdminOptions->toJSON();
+		}
 		return $ret;
 	}
 

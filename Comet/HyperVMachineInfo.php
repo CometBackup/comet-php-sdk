@@ -22,6 +22,36 @@ class HyperVMachineInfo {
 	public $DisplayName = "";
 
 	/**
+	 * @var int
+	 * This field is available in Comet 24.12.x and later.
+	 */
+	public $MemoryLimitMB = 0;
+
+	/**
+	 * @var int
+	 * This field is available in Comet 24.12.x and later.
+	 */
+	public $CPUCores = 0;
+
+	/**
+	 * @var string[]
+	 * This field is available in Comet 24.12.x and later.
+	 */
+	public $HardDrives = [];
+
+	/**
+	 * @var int
+	 * This field is available in Comet 24.12.x and later.
+	 */
+	public $Generation = 0;
+
+	/**
+	 * @var string
+	 * This field is available in Comet 24.12.x and later.
+	 */
+	public $ConfigFilePath = "";
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see HyperVMachineInfo::RemoveUnknownProperties() Remove all unknown properties
@@ -44,10 +74,36 @@ class HyperVMachineInfo {
 		if (property_exists($sc, 'Name')) {
 			$this->DisplayName = (string)($sc->Name);
 		}
+		if (property_exists($sc, 'MemoryLimitMB')) {
+			$this->MemoryLimitMB = (int)($sc->MemoryLimitMB);
+		}
+		if (property_exists($sc, 'CPUCores')) {
+			$this->CPUCores = (int)($sc->CPUCores);
+		}
+		if (property_exists($sc, 'HardDrives')) {
+			$val_2 = [];
+			if ($sc->HardDrives !== null) {
+				for($i_2 = 0; $i_2 < count($sc->HardDrives); ++$i_2) {
+					$val_2[] = (string)($sc->HardDrives[$i_2]);
+				}
+			}
+			$this->HardDrives = $val_2;
+		}
+		if (property_exists($sc, 'Generation')) {
+			$this->Generation = (int)($sc->Generation);
+		}
+		if (property_exists($sc, 'ConfigFilePath')) {
+			$this->ConfigFilePath = (string)($sc->ConfigFilePath);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'ID':
 			case 'Name':
+			case 'MemoryLimitMB':
+			case 'CPUCores':
+			case 'HardDrives':
+			case 'Generation':
+			case 'ConfigFilePath':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -115,6 +171,18 @@ class HyperVMachineInfo {
 		$ret = [];
 		$ret["ID"] = $this->ID;
 		$ret["Name"] = $this->DisplayName;
+		$ret["MemoryLimitMB"] = $this->MemoryLimitMB;
+		$ret["CPUCores"] = $this->CPUCores;
+		{
+			$c0 = [];
+			for($i0 = 0; $i0 < count($this->HardDrives); ++$i0) {
+				$val0 = $this->HardDrives[$i0];
+				$c0[] = $val0;
+			}
+			$ret["HardDrives"] = $c0;
+		}
+		$ret["Generation"] = $this->Generation;
+		$ret["ConfigFilePath"] = $this->ConfigFilePath;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

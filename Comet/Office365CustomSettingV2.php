@@ -17,28 +17,51 @@ namespace Comet;
 class Office365CustomSettingV2 {
 
 	/**
-	 * If true, then backup the entire Office 365 Tenant except the selected members. If false, backup
-	 * the selected members only.
+	 * If true, then backup everything except the selected users (group members are still included)
 	 *
 	 * @var boolean
+	 * @deprecated 24.12.2 This member has been deprecated since Comet version 24.12.2
 	 */
 	public $Organization = false;
 
 	/**
-	 * Key can be the ID of user, group or SharePoint
-	 * Value is a bitset of the SERVICE_ constants, to select which services to back up for this member.
+	 * If true, exclude all filtered IDs and Members. Backup everything else
+	 *
+	 * @var boolean
+	 */
+	public $FilterMode = false;
+
+	/**
+	 * Key is the ID of User, Group, or Site
+	 * Value is a bitset of the SERVICE_ constants, to select which services to back up for members
 	 *
 	 * @var array<string, int>
 	 */
 	public $BackupOptions = [];
 
 	/**
-	 * Key must be a group ID
-	 * Value is a bitset of the SERVICE_ constants, to select which services to back up for this member.
+	 * Key is the ID of a Group or Team Site
+	 * Value is a bitset of the SERVICE_ constants, to select which services to back up for members
 	 *
 	 * @var array<string, int>
 	 */
 	public $MemberBackupOptions = [];
+
+	/**
+	 * Key is the ID of a User, Group, or Site
+	 * Value is a bitset of the SERVICE_ constants, to select which services to back up for members
+	 *
+	 * @var array<string, int>
+	 */
+	public $FilterOptions = [];
+
+	/**
+	 * Key is the ID of a Group or Team Site
+	 * Value is a bitset of the SERVICE_ constants, to select which services to back up for members
+	 *
+	 * @var array<string, int>
+	 */
+	public $FilterMemberOptions = [];
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
@@ -59,6 +82,9 @@ class Office365CustomSettingV2 {
 	{
 		if (property_exists($sc, 'Organization')) {
 			$this->Organization = (bool)($sc->Organization);
+		}
+		if (property_exists($sc, 'FilterMode')) {
+			$this->FilterMode = (bool)($sc->FilterMode);
 		}
 		if (property_exists($sc, 'BackupOptions') && !is_null($sc->BackupOptions)) {
 			$val_2 = [];
@@ -82,11 +108,36 @@ class Office365CustomSettingV2 {
 			}
 			$this->MemberBackupOptions = $val_2;
 		}
+		if (property_exists($sc, 'FilterOptions') && !is_null($sc->FilterOptions)) {
+			$val_2 = [];
+			if ($sc->FilterOptions !== null) {
+				foreach($sc->FilterOptions as $k_2 => $v_2) {
+					$phpk_2 = (string)($k_2);
+					$phpv_2 = (int)($v_2);
+					$val_2[$phpk_2] = $phpv_2;
+				}
+			}
+			$this->FilterOptions = $val_2;
+		}
+		if (property_exists($sc, 'FilterMemberOptions') && !is_null($sc->FilterMemberOptions)) {
+			$val_2 = [];
+			if ($sc->FilterMemberOptions !== null) {
+				foreach($sc->FilterMemberOptions as $k_2 => $v_2) {
+					$phpk_2 = (string)($k_2);
+					$phpv_2 = (int)($v_2);
+					$val_2[$phpk_2] = $phpv_2;
+				}
+			}
+			$this->FilterMemberOptions = $val_2;
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Organization':
+			case 'FilterMode':
 			case 'BackupOptions':
 			case 'MemberBackupOptions':
+			case 'FilterOptions':
+			case 'FilterMemberOptions':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -153,6 +204,7 @@ class Office365CustomSettingV2 {
 	{
 		$ret = [];
 		$ret["Organization"] = $this->Organization;
+		$ret["FilterMode"] = $this->FilterMode;
 		{
 			$c0 = $for_json_encode ? (object)[] : [];
 			foreach($this->BackupOptions as $k0 => $v0) {
@@ -178,6 +230,32 @@ class Office365CustomSettingV2 {
 				}
 			}
 			$ret["MemberBackupOptions"] = $c0;
+		}
+		{
+			$c0 = $for_json_encode ? (object)[] : [];
+			foreach($this->FilterOptions as $k0 => $v0) {
+				$ko_0 = $k0;
+				$vo_0 = $v0;
+				if ($for_json_encode) {
+				$c0->{ $ko_0 } = $vo_0;
+				} else {
+					$c0[ $ko_0 ] = $vo_0;
+				}
+			}
+			$ret["FilterOptions"] = $c0;
+		}
+		{
+			$c0 = $for_json_encode ? (object)[] : [];
+			foreach($this->FilterMemberOptions as $k0 => $v0) {
+				$ko_0 = $k0;
+				$vo_0 = $v0;
+				if ($for_json_encode) {
+				$c0->{ $ko_0 } = $vo_0;
+				} else {
+					$c0[ $ko_0 ] = $vo_0;
+				}
+			}
+			$ret["FilterMemberOptions"] = $c0;
 		}
 
 		// Reinstate unknown properties from future server versions

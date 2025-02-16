@@ -10,9 +10,9 @@
 namespace Comet;
 
 /**
- * VMwareMachineInfo describes a single VMware virtual machine.
+ * VMwareNetworkInfo describes a single VMware network within a VMware datacenter.
  */
-class VMwareMachineInfo {
+class VMwareNetworkInfo {
 
 	/**
 	 * @var string
@@ -22,13 +22,13 @@ class VMwareMachineInfo {
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
-	 * @see VMwareMachineInfo::RemoveUnknownProperties() Remove all unknown properties
+	 * @see VMwareNetworkInfo::RemoveUnknownProperties() Remove all unknown properties
 	 * @var array
 	 */
 	private $__unknown_properties = [];
 
 	/**
-	 * Replace the content of this VMwareMachineInfo object from a PHP \stdClass.
+	 * Replace the content of this VMwareNetworkInfo object from a PHP \stdClass.
 	 * The data could be supplied from an API call after json_decode(...); or generated manually.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
@@ -50,27 +50,27 @@ class VMwareMachineInfo {
 	}
 
 	/**
-	 * Coerce a stdClass into a new strongly-typed VMwareMachineInfo object.
+	 * Coerce a stdClass into a new strongly-typed VMwareNetworkInfo object.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
-	 * @return VMwareMachineInfo
+	 * @return VMwareNetworkInfo
 	 */
-	public static function createFromStdclass(\stdClass $sc): \Comet\VMwareMachineInfo
+	public static function createFromStdclass(\stdClass $sc): \Comet\VMwareNetworkInfo
 	{
-		$retn = new VMwareMachineInfo();
+		$retn = new VMwareNetworkInfo();
 		$retn->inflateFrom($sc);
 		return $retn;
 	}
 
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed VMwareMachineInfo object.
+	 * Coerce a plain PHP array into a new strongly-typed VMwareNetworkInfo object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
 	 * @param array $arr Object data as PHP array
-	 * @return VMwareMachineInfo
+	 * @return VMwareNetworkInfo
 	 */
-	public static function createFromArray(array $arr): \Comet\VMwareMachineInfo
+	public static function createFromArray(array $arr): \Comet\VMwareNetworkInfo
 	{
 		$stdClass = json_decode(json_encode($arr, JSON_UNESCAPED_SLASHES));
 		if (is_array($stdClass) && count($stdClass) === 0) {
@@ -80,24 +80,24 @@ class VMwareMachineInfo {
 	}
 
 	/**
-	 * Coerce a JSON string into a new strongly-typed VMwareMachineInfo object.
+	 * Coerce a JSON string into a new strongly-typed VMwareNetworkInfo object.
 	 *
 	 * @param string $JsonString Object data as JSON string
-	 * @return VMwareMachineInfo
+	 * @return VMwareNetworkInfo
 	 */
-	public static function createFromJSON(string $JsonString): \Comet\VMwareMachineInfo
+	public static function createFromJSON(string $JsonString): \Comet\VMwareNetworkInfo
 	{
 		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg(), \json_last_error());
 		}
-		$retn = new VMwareMachineInfo();
+		$retn = new VMwareNetworkInfo();
 		$retn->inflateFrom($decodedJsonObject);
 		return $retn;
 	}
 
 	/**
-	 * Convert this VMwareMachineInfo object into a plain PHP array.
+	 * Convert this VMwareNetworkInfo object into a plain PHP array.
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *

@@ -968,6 +968,25 @@ class Server {
 	}
 
 	/** 
+	 * Browse virtual machines in target snapshot
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetID The live connection GUID
+	 * @param string $DestinationID The Storage Vault GUID
+	 * @param string $SnapshotID Snapshot to search
+	 * @return \Comet\DispatcherListSnapshotVirtualMachinesResponse 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherBrowseVirtualMachines(string $TargetID, string $DestinationID, string $SnapshotID): \Comet\DispatcherListSnapshotVirtualMachinesResponse
+	{
+		$nr = new \Comet\AdminDispatcherBrowseVirtualMachinesRequest($TargetID, $DestinationID, $SnapshotID);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherBrowseVirtualMachinesRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Instruct a live connected device to deeply verify Storage Vault content
 	 * This command is understood by Comet Backup 18.8.2 and newer.
 	 * 
@@ -1373,6 +1392,85 @@ class Server {
 		$nr = new \Comet\AdminDispatcherRequestBrowseVmwareRequest($TargetID, $Credentials);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminDispatcherRequestBrowseVmwareRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Request a list of VMware vSphere Datacenters on a VMware vSphere connection
+	 * The remote device must have given consent for an MSP to browse their files.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetID The live connection GUID
+	 * @param \Comet\VMwareConnection $Credentials The VMware vSphere connection settings
+	 * @return \Comet\BrowseVMwareDatacentersResponse 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherRequestBrowseVmwareDatacenters(string $TargetID, \Comet\VMwareConnection $Credentials): \Comet\BrowseVMwareDatacentersResponse
+	{
+		$nr = new \Comet\AdminDispatcherRequestBrowseVmwareDatacentersRequest($TargetID, $Credentials);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherRequestBrowseVmwareDatacentersRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Request a list of VMware vSphere Datastores on a VMware vSphere connection, for a specified VMware Datacenter
+	 * The remote device must have given consent for an MSP to browse their files.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetID The live connection GUID
+	 * @param \Comet\VMwareConnection $Credentials The VMware vSphere connection settings
+	 * @param string $Filter The name of the target VMware Datacenter
+	 * @return \Comet\BrowseVMwareDatastoresResponse 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherRequestBrowseVmwareDatastores(string $TargetID, \Comet\VMwareConnection $Credentials, string $Filter): \Comet\BrowseVMwareDatastoresResponse
+	{
+		$nr = new \Comet\AdminDispatcherRequestBrowseVmwareDatastoresRequest($TargetID, $Credentials, $Filter);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherRequestBrowseVmwareDatastoresRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Request a list of VMware vSphere Hosts on a VMware vSphere connection, for a specified VMware Datacenter
+	 * The remote device must have given consent for an MSP to browse their files.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetID The live connection GUID
+	 * @param \Comet\VMwareConnection $Credentials The VMware vSphere connection settings
+	 * @param string $Filter The name of the target VMware Datacenter
+	 * @return \Comet\BrowseVMwareHostsResponse 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherRequestBrowseVmwareHosts(string $TargetID, \Comet\VMwareConnection $Credentials, string $Filter): \Comet\BrowseVMwareHostsResponse
+	{
+		$nr = new \Comet\AdminDispatcherRequestBrowseVmwareHostsRequest($TargetID, $Credentials, $Filter);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherRequestBrowseVmwareHostsRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Request a list of VMware vSphere Networks on a VMware vSphere connection, for a specified VMware Datacenter
+	 * The remote device must have given consent for an MSP to browse their files.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetID The live connection GUID
+	 * @param \Comet\VMwareConnection $Credentials The VMware vSphere connection settings
+	 * @param string $Filter The name of the target VMware Datacenter
+	 * @return \Comet\BrowseVMwareNetworksResponse 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherRequestBrowseVmwareNetworks(string $TargetID, \Comet\VMwareConnection $Credentials, string $Filter): \Comet\BrowseVMwareNetworksResponse
+	{
+		$nr = new \Comet\AdminDispatcherRequestBrowseVmwareNetworksRequest($TargetID, $Credentials, $Filter);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherRequestBrowseVmwareNetworksRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
 
 	/** 
@@ -2908,12 +3006,13 @@ class Server {
 	 * @param string $PolicyID The policy ID to update or create
 	 * @param \Comet\GroupPolicy $Policy The policy data
 	 * @param string $CheckPolicyHash An atomic verification hash as supplied by the AdminPoliciesGet API (optional)
+	 * @param \Comet\PolicyOptions $Options An array of PolicySourceID that will be explicitly deleted. (optional)
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminPoliciesSet(string $PolicyID, \Comet\GroupPolicy $Policy, string $CheckPolicyHash = null): \Comet\APIResponseMessage
+	public function AdminPoliciesSet(string $PolicyID, \Comet\GroupPolicy $Policy, string $CheckPolicyHash = null, \Comet\PolicyOptions $Options = null): \Comet\APIResponseMessage
 	{
-		$nr = new \Comet\AdminPoliciesSetRequest($PolicyID, $Policy, $CheckPolicyHash);
+		$nr = new \Comet\AdminPoliciesSetRequest($PolicyID, $Policy, $CheckPolicyHash, $Options);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminPoliciesSetRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
@@ -3081,12 +3180,13 @@ class Server {
 	 * @param string $TargetUser Selected account username
 	 * @param \Comet\UserProfileConfig $ProfileData Modified user profile
 	 * @param string $RequireHash Previous hash parameter
+	 * @param \Comet\AdminOptions $AdminOptions Instructions for modifying user profile (optional)
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminSetUserProfileHash(string $TargetUser, \Comet\UserProfileConfig $ProfileData, string $RequireHash): \Comet\APIResponseMessage
+	public function AdminSetUserProfileHash(string $TargetUser, \Comet\UserProfileConfig $ProfileData, string $RequireHash, \Comet\AdminOptions $AdminOptions = null): \Comet\APIResponseMessage
 	{
-		$nr = new \Comet\AdminSetUserProfileHashRequest($TargetUser, $ProfileData, $RequireHash);
+		$nr = new \Comet\AdminSetUserProfileHashRequest($TargetUser, $ProfileData, $RequireHash, $AdminOptions);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminSetUserProfileHashRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}

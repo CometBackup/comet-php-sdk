@@ -42,17 +42,26 @@ class AdminPoliciesSetRequest implements \Comet\NetworkRequest {
 	protected $CheckPolicyHash = null;
 
 	/**
+	 * An array of PolicySourceID that will be explicitly deleted. (optional)
+	 *
+	 * @var \Comet\PolicyOptions|null
+	 */
+	protected $Options = null;
+
+	/**
 	 * Construct a new AdminPoliciesSetRequest instance.
 	 *
 	 * @param string $PolicyID The policy ID to update or create
 	 * @param \Comet\GroupPolicy $Policy The policy data
 	 * @param string $CheckPolicyHash An atomic verification hash as supplied by the AdminPoliciesGet API (optional)
+	 * @param \Comet\PolicyOptions $Options An array of PolicySourceID that will be explicitly deleted. (optional)
 	 */
-	public function __construct(string $PolicyID, \Comet\GroupPolicy $Policy, string $CheckPolicyHash = null)
+	public function __construct(string $PolicyID, \Comet\GroupPolicy $Policy, string $CheckPolicyHash = null, \Comet\PolicyOptions $Options = null)
 	{
 		$this->PolicyID = $PolicyID;
 		$this->Policy = $Policy;
 		$this->CheckPolicyHash = $CheckPolicyHash;
+		$this->Options = $Options;
 	}
 
 	/**
@@ -87,6 +96,9 @@ class AdminPoliciesSetRequest implements \Comet\NetworkRequest {
 		$ret["Policy"] = $this->Policy->toJSON();
 		if ($this->CheckPolicyHash !== null) {
 			$ret["CheckPolicyHash"] = (string)($this->CheckPolicyHash);
+		}
+		if ($this->Options !== null) {
+			$ret["Options"] = $this->Options->toJSON();
 		}
 		return $ret;
 	}

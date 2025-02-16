@@ -14,7 +14,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "24.12.4";
+	const APPLICATION_VERSION = "24.12.5";
 
 	/**
 	 * @type int
@@ -29,7 +29,7 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 4;
+	const APPLICATION_VERSION_REVISION = 5;
 
 	/**
 	 * AutoRetentionLevel: The system will automatically choose how often to run an automatic Retention Pass after each backup job.
@@ -1385,6 +1385,14 @@ class Def {
 	 * @type int
 	 */
 	const RESTORETYPE_WINDISK_VHDX = 13;
+
+	/**
+	 * RestoreType: Restore virtual machines directly to hypervisor
+	 *
+	 * @type int
+	 * This const is available in Comet 24.12.x and later.
+	 */
+	const RESTORETYPE_VMHOST = 14;
 
 	/**
 	 * RestoreType: Legacy name alias - Prefer to use RESTORETYPE_PROCESS_ARCHIVE since multiple archive file formats are supported within this single RESTORETYPE_

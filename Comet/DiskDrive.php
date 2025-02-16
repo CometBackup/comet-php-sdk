@@ -88,6 +88,13 @@ class DiskDrive {
 	public $SectorSize = 0;
 
 	/**
+	 * Used to indicate the partition conflicts on the disk.
+	 *
+	 * @var \Comet\PartitionConflict[]
+	 */
+	public $PartitionConflicts = [];
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see DiskDrive::RemoveUnknownProperties() Remove all unknown properties
@@ -160,6 +167,20 @@ class DiskDrive {
 		if (property_exists($sc, 'SectorSize')) {
 			$this->SectorSize = (int)($sc->SectorSize);
 		}
+		if (property_exists($sc, 'PartitionConflicts')) {
+			$val_2 = [];
+			if ($sc->PartitionConflicts !== null) {
+				for($i_2 = 0; $i_2 < count($sc->PartitionConflicts); ++$i_2) {
+					if (is_array($sc->PartitionConflicts[$i_2]) && count($sc->PartitionConflicts[$i_2]) === 0) {
+					// Work around edge case in json_decode--json_encode stdClass conversion
+						$val_2[] = \Comet\PartitionConflict::createFromStdclass(new \stdClass());
+					} else {
+						$val_2[] = \Comet\PartitionConflict::createFromStdclass($sc->PartitionConflicts[$i_2]);
+					}
+				}
+			}
+			$this->PartitionConflicts = $val_2;
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'ID':
@@ -175,6 +196,7 @@ class DiskDrive {
 			case 'Heads':
 			case 'Sectors':
 			case 'SectorSize':
+			case 'PartitionConflicts':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -271,6 +293,18 @@ class DiskDrive {
 		$ret["Heads"] = $this->Heads;
 		$ret["Sectors"] = $this->Sectors;
 		$ret["SectorSize"] = $this->SectorSize;
+		{
+			$c0 = [];
+			for($i0 = 0; $i0 < count($this->PartitionConflicts); ++$i0) {
+				if ( $this->PartitionConflicts[$i0] === null ) {
+					$val0 = $for_json_encode ? (object)[] : [];
+				} else {
+					$val0 = $this->PartitionConflicts[$i0]->toArray($for_json_encode);
+				}
+				$c0[] = $val0;
+			}
+			$ret["PartitionConflicts"] = $c0;
+		}
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

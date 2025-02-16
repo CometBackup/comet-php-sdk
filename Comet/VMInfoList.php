@@ -9,26 +9,23 @@
 
 namespace Comet;
 
-/**
- * VMwareMachineInfo describes a single VMware virtual machine.
- */
-class VMwareMachineInfo {
+class VMInfoList {
 
 	/**
-	 * @var string
+	 * @var \Comet\VMInfo[]
 	 */
-	public $Name = "";
+	public $VMs = [];
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
-	 * @see VMwareMachineInfo::RemoveUnknownProperties() Remove all unknown properties
+	 * @see VMInfoList::RemoveUnknownProperties() Remove all unknown properties
 	 * @var array
 	 */
 	private $__unknown_properties = [];
 
 	/**
-	 * Replace the content of this VMwareMachineInfo object from a PHP \stdClass.
+	 * Replace the content of this VMInfoList object from a PHP \stdClass.
 	 * The data could be supplied from an API call after json_decode(...); or generated manually.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
@@ -36,12 +33,23 @@ class VMwareMachineInfo {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
-		if (property_exists($sc, 'Name')) {
-			$this->Name = (string)($sc->Name);
+		if (property_exists($sc, 'VMs')) {
+			$val_2 = [];
+			if ($sc->VMs !== null) {
+				for($i_2 = 0; $i_2 < count($sc->VMs); ++$i_2) {
+					if (is_array($sc->VMs[$i_2]) && count($sc->VMs[$i_2]) === 0) {
+					// Work around edge case in json_decode--json_encode stdClass conversion
+						$val_2[] = \Comet\VMInfo::createFromStdclass(new \stdClass());
+					} else {
+						$val_2[] = \Comet\VMInfo::createFromStdclass($sc->VMs[$i_2]);
+					}
+				}
+			}
+			$this->VMs = $val_2;
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
-			case 'Name':
+			case 'VMs':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -50,27 +58,27 @@ class VMwareMachineInfo {
 	}
 
 	/**
-	 * Coerce a stdClass into a new strongly-typed VMwareMachineInfo object.
+	 * Coerce a stdClass into a new strongly-typed VMInfoList object.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
-	 * @return VMwareMachineInfo
+	 * @return VMInfoList
 	 */
-	public static function createFromStdclass(\stdClass $sc): \Comet\VMwareMachineInfo
+	public static function createFromStdclass(\stdClass $sc): \Comet\VMInfoList
 	{
-		$retn = new VMwareMachineInfo();
+		$retn = new VMInfoList();
 		$retn->inflateFrom($sc);
 		return $retn;
 	}
 
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed VMwareMachineInfo object.
+	 * Coerce a plain PHP array into a new strongly-typed VMInfoList object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
 	 * @param array $arr Object data as PHP array
-	 * @return VMwareMachineInfo
+	 * @return VMInfoList
 	 */
-	public static function createFromArray(array $arr): \Comet\VMwareMachineInfo
+	public static function createFromArray(array $arr): \Comet\VMInfoList
 	{
 		$stdClass = json_decode(json_encode($arr, JSON_UNESCAPED_SLASHES));
 		if (is_array($stdClass) && count($stdClass) === 0) {
@@ -80,24 +88,24 @@ class VMwareMachineInfo {
 	}
 
 	/**
-	 * Coerce a JSON string into a new strongly-typed VMwareMachineInfo object.
+	 * Coerce a JSON string into a new strongly-typed VMInfoList object.
 	 *
 	 * @param string $JsonString Object data as JSON string
-	 * @return VMwareMachineInfo
+	 * @return VMInfoList
 	 */
-	public static function createFromJSON(string $JsonString): \Comet\VMwareMachineInfo
+	public static function createFromJSON(string $JsonString): \Comet\VMInfoList
 	{
 		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg(), \json_last_error());
 		}
-		$retn = new VMwareMachineInfo();
+		$retn = new VMInfoList();
 		$retn->inflateFrom($decodedJsonObject);
 		return $retn;
 	}
 
 	/**
-	 * Convert this VMwareMachineInfo object into a plain PHP array.
+	 * Convert this VMInfoList object into a plain PHP array.
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
@@ -107,7 +115,18 @@ class VMwareMachineInfo {
 	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
-		$ret["Name"] = $this->Name;
+		{
+			$c0 = [];
+			for($i0 = 0; $i0 < count($this->VMs); ++$i0) {
+				if ( $this->VMs[$i0] === null ) {
+					$val0 = $for_json_encode ? (object)[] : [];
+				} else {
+					$val0 = $this->VMs[$i0]->toArray($for_json_encode);
+				}
+				$c0[] = $val0;
+			}
+			$ret["VMs"] = $c0;
+		}
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
