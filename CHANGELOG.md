@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 2025-03-20 v4.43.0
+
+- Based on Comet 25.3.1
+- Support yearly retention rules
+- Support yearly schedule rules
+- Support storage vault key rotation
+- Support restoring deduplicated files from NTFS disk images
+
 ## 2025-02-17 v4.42.0
 Update to 24.12.5
 
