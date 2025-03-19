@@ -1778,12 +1778,13 @@ class Server {
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param string $Destination The Storage Vault GUID
+	 * @param boolean $AllowUnsafe Allow legacy Storage Vault unlocking, which is unsafe in some cases. (optional)
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherUnlock(string $TargetID, string $Destination): \Comet\APIResponseMessage
+	public function AdminDispatcherUnlock(string $TargetID, string $Destination, bool $AllowUnsafe = null): \Comet\APIResponseMessage
 	{
-		$nr = new \Comet\AdminDispatcherUnlockRequest($TargetID, $Destination);
+		$nr = new \Comet\AdminDispatcherUnlockRequest($TargetID, $Destination, $AllowUnsafe);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminDispatcherUnlockRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}

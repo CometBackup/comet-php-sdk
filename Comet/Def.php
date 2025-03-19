@@ -14,22 +14,22 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "24.12.5";
+	const APPLICATION_VERSION = "25.3.1";
 
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_MAJOR = 24;
+	const APPLICATION_VERSION_MAJOR = 25;
 
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_MINOR = 12;
+	const APPLICATION_VERSION_MINOR = 3;
 
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 5;
+	const APPLICATION_VERSION_REVISION = 1;
 
 	/**
 	 * AutoRetentionLevel: The system will automatically choose how often to run an automatic Retention Pass after each backup job.
@@ -1437,7 +1437,7 @@ class Def {
 	const RETENTIONRANGE_NEWER_THAN_X = 901;
 
 	/**
-	 * RetentionRangeType: Uses Days, Weeks, Months
+	 * RetentionRangeType: Uses Days, Weeks, Months, Years
 	 *
 	 * @type int
 	 */
@@ -1494,16 +1494,35 @@ class Def {
 	const RETENTIONRANGE_LAST_X_BACKUPS_ONE_FOR_EACH_MONTH = 909;
 
 	/**
+	 * RetentionRangeType: Uses Jobs
+	 *
+	 * @type int
+	 */
+	const RETENTIONRANGE_LAST_X_BACKUPS_ONE_FOR_EACH_YEAR = 910;
+
+	/**
+	 * RetentionRangeType: Uses Years, YearOffset
+	 *
+	 * @type int
+	 */
+	const RETENTIONRANGE_FIRST_JOB_FOR_LAST_X_YEARS = 911;
+
+	/**
 	 * RetentionRangeType
 	 *
 	 * @type int
 	 */
-	const RETENTIONRANGE__HIGHEST = 909;
+	const RETENTIONRANGE__HIGHEST = 911;
 
 	/**
 	 * @type int
 	 */
 	const RETENTIONRANGE_MAXINT = 1125899906842624;
+
+	/**
+	 * @type int
+	 */
+	const ROTATE_STORAGE_VAULT_KEYS_DEFAULT = 48;
 
 	/**
 	 * @type int
@@ -1553,9 +1572,16 @@ class Def {
 	const SCHEDULE_FREQUENCY_PERIODIC = 8015;
 
 	/**
+	 * SecondsPast is the number of seconds past 00:00 1st, in the device's local timezone.
+	 *
 	 * @type int
 	 */
-	const SCHEDULE_FREQUENCY_HIGHEST = 8015;
+	const SCHEDULE_FREQUENCY_YEARLY = 8016;
+
+	/**
+	 * @type int
+	 */
+	const SCHEDULE_FREQUENCY_HIGHEST = 8016;
 
 	/**
 	 * Maximum random delay (5 hours)
@@ -2373,6 +2399,13 @@ class Def {
 	 * @type string
 	 */
 	const STOREDOBJECTTYPE_VMDK_SYMLINK = "vmdksymlink";
+
+	/**
+	 * StoredObjectType
+	 *
+	 * @type string
+	 */
+	const STOREDOBJECTTYPE_VMDK_WINDEDUP = "vmdkwindedup";
 
 	/**
 	 * StoredObjectType

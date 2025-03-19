@@ -36,8 +36,8 @@ class SelfBackupExportOptions {
 	public $Compression = 0;
 
 	/**
-	 * The jobs database is often the largest component of the Server Self-Backup archive. By excluding
-	 * it, you could run the Server Self-Backup more often.
+	 * The jobs database is often the largest component of the System Self-Backup archive. By excluding
+	 * it, you could run the System Self-Backup more often.
 	 *
 	 * @var boolean
 	 */

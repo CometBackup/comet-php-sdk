@@ -50,6 +50,11 @@ class RetentionRange {
 	public $Months = 0;
 
 	/**
+	 * @var int
+	 */
+	public $Years = 0;
+
+	/**
 	 * 0: Sunday, 6: Saturday
 	 *
 	 * @var int
@@ -65,6 +70,11 @@ class RetentionRange {
 	 * @var int
 	 */
 	public $MonthOffset = 0;
+
+	/**
+	 * @var int
+	 */
+	public $YearOffset = 0;
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
@@ -101,11 +111,17 @@ class RetentionRange {
 		if (property_exists($sc, 'Months')) {
 			$this->Months = (int)($sc->Months);
 		}
+		if (property_exists($sc, 'Years')) {
+			$this->Years = (int)($sc->Years);
+		}
 		if (property_exists($sc, 'WeekOffset')) {
 			$this->WeekOffset = (int)($sc->WeekOffset);
 		}
 		if (property_exists($sc, 'MonthOffset')) {
 			$this->MonthOffset = (int)($sc->MonthOffset);
+		}
+		if (property_exists($sc, 'YearOffset')) {
+			$this->YearOffset = (int)($sc->YearOffset);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
@@ -115,8 +131,10 @@ class RetentionRange {
 			case 'Days':
 			case 'Weeks':
 			case 'Months':
+			case 'Years':
 			case 'WeekOffset':
 			case 'MonthOffset':
+			case 'YearOffset':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -188,8 +206,10 @@ class RetentionRange {
 		$ret["Days"] = $this->Days;
 		$ret["Weeks"] = $this->Weeks;
 		$ret["Months"] = $this->Months;
+		$ret["Years"] = $this->Years;
 		$ret["WeekOffset"] = $this->WeekOffset;
 		$ret["MonthOffset"] = $this->MonthOffset;
+		$ret["YearOffset"] = $this->YearOffset;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

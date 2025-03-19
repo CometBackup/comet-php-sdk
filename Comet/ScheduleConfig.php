@@ -57,6 +57,16 @@ class ScheduleConfig {
 	public $RandomDelaySecs = 0;
 
 	/**
+	 * @var int
+	 */
+	public $SelectedMonth = 0;
+
+	/**
+	 * @var int
+	 */
+	public $SelectedDay = 0;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see ScheduleConfig::RemoveUnknownProperties() Remove all unknown properties
@@ -115,6 +125,12 @@ class ScheduleConfig {
 		if (property_exists($sc, 'RandomDelaySecs') && !is_null($sc->RandomDelaySecs)) {
 			$this->RandomDelaySecs = (int)($sc->RandomDelaySecs);
 		}
+		if (property_exists($sc, 'SelectedMonth')) {
+			$this->SelectedMonth = (int)($sc->SelectedMonth);
+		}
+		if (property_exists($sc, 'SelectedDay')) {
+			$this->SelectedDay = (int)($sc->SelectedDay);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'FrequencyType':
@@ -126,6 +142,8 @@ class ScheduleConfig {
 			case 'RestrictDays':
 			case 'DaysSelect':
 			case 'RandomDelaySecs':
+			case 'SelectedMonth':
+			case 'SelectedDay':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -212,6 +230,8 @@ class ScheduleConfig {
 			$ret["DaysSelect"] = $this->DaysSelect->toArray($for_json_encode);
 		}
 		$ret["RandomDelaySecs"] = $this->RandomDelaySecs;
+		$ret["SelectedMonth"] = $this->SelectedMonth;
+		$ret["SelectedDay"] = $this->SelectedDay;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

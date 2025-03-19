@@ -35,15 +35,24 @@ class AdminDispatcherUnlockRequest implements \Comet\NetworkRequest {
 	protected $Destination = null;
 
 	/**
+	 * Allow legacy Storage Vault unlocking, which is unsafe in some cases. (optional)
+	 *
+	 * @var boolean|null
+	 */
+	protected $AllowUnsafe = null;
+
+	/**
 	 * Construct a new AdminDispatcherUnlockRequest instance.
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param string $Destination The Storage Vault GUID
+	 * @param boolean $AllowUnsafe Allow legacy Storage Vault unlocking, which is unsafe in some cases. (optional)
 	 */
-	public function __construct(string $TargetID, string $Destination)
+	public function __construct(string $TargetID, string $Destination, bool $AllowUnsafe = null)
 	{
 		$this->TargetID = $TargetID;
 		$this->Destination = $Destination;
+		$this->AllowUnsafe = $AllowUnsafe;
 	}
 
 	/**
@@ -76,6 +85,9 @@ class AdminDispatcherUnlockRequest implements \Comet\NetworkRequest {
 		$ret = [];
 		$ret["TargetID"] = (string)($this->TargetID);
 		$ret["Destination"] = (string)($this->Destination);
+		if ($this->AllowUnsafe !== null) {
+			$ret["AllowUnsafe"] = ($this->AllowUnsafe ? '1' : '0');
+		}
 		return $ret;
 	}
 

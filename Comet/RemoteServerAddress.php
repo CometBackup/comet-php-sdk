@@ -22,21 +22,21 @@ class RemoteServerAddress {
 	public $Description = "";
 
 	/**
-	 * For use with Comet Server (Storage Role / Auth Role)
+	 * For use with Comet Server (Storage Gateway / Management Console)
 	 *
 	 * @var string
 	 */
 	public $RemoteAddress = "";
 
 	/**
-	 * For use with Comet Server (Storage Role / Auth Role)
+	 * For use with Comet Server (Storage Gateway / Management Console)
 	 *
 	 * @var string
 	 */
 	public $Username = "";
 
 	/**
-	 * For use with Comet Server (Storage Role / Auth Role)
+	 * For use with Comet Server (Storage Gateway / Management Console)
 	 *
 	 * @var string
 	 */

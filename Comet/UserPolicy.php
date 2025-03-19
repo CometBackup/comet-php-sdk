@@ -207,6 +207,14 @@ class UserPolicy {
 	public $RandomDelaySecs = 0;
 
 	/**
+	 * Rotate access keys of a conflicting jobs Storage Vault, if no update from the conflicting job for
+	 * X hours. If value is 0, ROTATE_STORAGE_VAULT_KEYS_DEFAULT is used.
+	 *
+	 * @var int
+	 */
+	public $RotateStorageVaultKeysHours = 0;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see UserPolicy::RemoveUnknownProperties() Remove all unknown properties
@@ -423,6 +431,9 @@ class UserPolicy {
 		if (property_exists($sc, 'RandomDelaySecs') && !is_null($sc->RandomDelaySecs)) {
 			$this->RandomDelaySecs = (int)($sc->RandomDelaySecs);
 		}
+		if (property_exists($sc, 'RotateStorageVaultKeysHours')) {
+			$this->RotateStorageVaultKeysHours = (int)($sc->RotateStorageVaultKeysHours);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'PreventRequestStorageVault':
@@ -464,6 +475,7 @@ class UserPolicy {
 			case 'DefaultSourcesWithOSRestriction':
 			case 'DefaultBackupRules':
 			case 'RandomDelaySecs':
+			case 'RotateStorageVaultKeysHours':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -659,6 +671,7 @@ class UserPolicy {
 			$ret["DefaultBackupRules"] = $c0;
 		}
 		$ret["RandomDelaySecs"] = $this->RandomDelaySecs;
+		$ret["RotateStorageVaultKeysHours"] = $this->RotateStorageVaultKeysHours;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
