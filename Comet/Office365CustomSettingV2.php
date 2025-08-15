@@ -32,8 +32,15 @@ class Office365CustomSettingV2 {
 	public $FilterMode = false;
 
 	/**
+	 * If true, backup everything, ignoring selection and filter options
+	 *
+	 * @var boolean
+	 */
+	public $WholeOrg = false;
+
+	/**
 	 * Key is the ID of User, Group, or Site
-	 * Value is a bitset of the SERVICE_ constants, to select which services to back up for members
+	 * Value is a bitset of the SERVICE_ constants, to select which services to backup for accounts
 	 *
 	 * @var array<string, int>
 	 */
@@ -41,7 +48,7 @@ class Office365CustomSettingV2 {
 
 	/**
 	 * Key is the ID of a Group or Team Site
-	 * Value is a bitset of the SERVICE_ constants, to select which services to back up for members
+	 * Value is a bitset of the SERVICE_ constants, to select which services to backup for members
 	 *
 	 * @var array<string, int>
 	 */
@@ -49,7 +56,7 @@ class Office365CustomSettingV2 {
 
 	/**
 	 * Key is the ID of a User, Group, or Site
-	 * Value is a bitset of the SERVICE_ constants, to select which services to back up for members
+	 * Value is a bitset of the SERVICE_ constants, to select which services to not backup for accounts
 	 *
 	 * @var array<string, int>
 	 */
@@ -57,7 +64,7 @@ class Office365CustomSettingV2 {
 
 	/**
 	 * Key is the ID of a Group or Team Site
-	 * Value is a bitset of the SERVICE_ constants, to select which services to back up for members
+	 * Value is a bitset of the SERVICE_ constants, to select which services to not backup for members
 	 *
 	 * @var array<string, int>
 	 */
@@ -83,8 +90,11 @@ class Office365CustomSettingV2 {
 		if (property_exists($sc, 'Organization')) {
 			$this->Organization = (bool)($sc->Organization);
 		}
-		if (property_exists($sc, 'FilterMode')) {
+		if (property_exists($sc, 'FilterMode') && !is_null($sc->FilterMode)) {
 			$this->FilterMode = (bool)($sc->FilterMode);
+		}
+		if (property_exists($sc, 'WholeOrg') && !is_null($sc->WholeOrg)) {
+			$this->WholeOrg = (bool)($sc->WholeOrg);
 		}
 		if (property_exists($sc, 'BackupOptions') && !is_null($sc->BackupOptions)) {
 			$val_2 = [];
@@ -134,6 +144,7 @@ class Office365CustomSettingV2 {
 			switch($k) {
 			case 'Organization':
 			case 'FilterMode':
+			case 'WholeOrg':
 			case 'BackupOptions':
 			case 'MemberBackupOptions':
 			case 'FilterOptions':
@@ -205,6 +216,7 @@ class Office365CustomSettingV2 {
 		$ret = [];
 		$ret["Organization"] = $this->Organization;
 		$ret["FilterMode"] = $this->FilterMode;
+		$ret["WholeOrg"] = $this->WholeOrg;
 		{
 			$c0 = $for_json_encode ? (object)[] : [];
 			foreach($this->BackupOptions as $k0 => $v0) {

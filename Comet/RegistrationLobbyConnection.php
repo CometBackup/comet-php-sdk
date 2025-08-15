@@ -52,6 +52,11 @@ class RegistrationLobbyConnection {
 	public $IPAddress = "";
 
 	/**
+	 * @var string
+	 */
+	public $Host = "";
+
+	/**
 	 * @var int
 	 */
 	public $ConnectionTime = 0;
@@ -102,6 +107,9 @@ class RegistrationLobbyConnection {
 		if (property_exists($sc, 'IPAddress') && !is_null($sc->IPAddress)) {
 			$this->IPAddress = (string)($sc->IPAddress);
 		}
+		if (property_exists($sc, 'Host') && !is_null($sc->Host)) {
+			$this->Host = (string)($sc->Host);
+		}
 		if (property_exists($sc, 'ConnectionTime')) {
 			$this->ConnectionTime = (int)($sc->ConnectionTime);
 		}
@@ -115,6 +123,7 @@ class RegistrationLobbyConnection {
 			case 'ReportedPlatformVersion':
 			case 'DeviceTimeZone':
 			case 'IPAddress':
+			case 'Host':
 			case 'ConnectionTime':
 				break;
 			default:
@@ -193,6 +202,7 @@ class RegistrationLobbyConnection {
 		}
 		$ret["DeviceTimeZone"] = $this->DeviceTimeZone;
 		$ret["IPAddress"] = $this->IPAddress;
+		$ret["Host"] = $this->Host;
 		$ret["ConnectionTime"] = $this->ConnectionTime;
 
 		// Reinstate unknown properties from future server versions

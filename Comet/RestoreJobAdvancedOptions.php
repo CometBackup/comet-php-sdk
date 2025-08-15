@@ -189,6 +189,13 @@ class RestoreJobAdvancedOptions {
 	public $HyperVConnection = null;
 
 	/**
+	 * For RESTORETYPE_VMHOST
+	 *
+	 * @var \Comet\ProxmoxRestoreTargetOptions
+	 */
+	public $ProxmoxConnection = null;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see RestoreJobAdvancedOptions::RemoveUnknownProperties() Remove all unknown properties
@@ -303,6 +310,14 @@ class RestoreJobAdvancedOptions {
 				$this->HyperVConnection = \Comet\HyperVRestoreTargetOptions::createFromStdclass($sc->HyperVConnection);
 			}
 		}
+		if (property_exists($sc, 'ProxmoxConnection') && !is_null($sc->ProxmoxConnection)) {
+			if (is_array($sc->ProxmoxConnection) && count($sc->ProxmoxConnection) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->ProxmoxConnection = \Comet\ProxmoxRestoreTargetOptions::createFromStdclass(new \stdClass());
+			} else {
+				$this->ProxmoxConnection = \Comet\ProxmoxRestoreTargetOptions::createFromStdclass($sc->ProxmoxConnection);
+			}
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Type':
@@ -329,6 +344,7 @@ class RestoreJobAdvancedOptions {
 			case 'MsSqlConnection':
 			case 'VMwareConnection':
 			case 'HyperVConnection':
+			case 'ProxmoxConnection':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -441,6 +457,11 @@ class RestoreJobAdvancedOptions {
 		} else {
 			$ret["HyperVConnection"] = $this->HyperVConnection->toArray($for_json_encode);
 		}
+		if ( $this->ProxmoxConnection === null ) {
+			$ret["ProxmoxConnection"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["ProxmoxConnection"] = $this->ProxmoxConnection->toArray($for_json_encode);
+		}
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
@@ -501,6 +522,9 @@ class RestoreJobAdvancedOptions {
 		}
 		if ($this->HyperVConnection !== null) {
 			$this->HyperVConnection->RemoveUnknownProperties();
+		}
+		if ($this->ProxmoxConnection !== null) {
+			$this->ProxmoxConnection->RemoveUnknownProperties();
 		}
 	}
 

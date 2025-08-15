@@ -50,19 +50,28 @@ class AdminRequestStorageVaultRequest implements \Comet\NetworkRequest {
 	protected $DeviceID = null;
 
 	/**
+	 * The profile hash of the user profile (optional)
+	 *
+	 * @var string|null
+	 */
+	protected $ProfileHash = null;
+
+	/**
 	 * Construct a new AdminRequestStorageVaultRequest instance.
 	 *
 	 * @param string $TargetUser The user to receive the new Storage Vault
 	 * @param string $StorageProvider ID for the storage template destination
 	 * @param string $SelfAddress The external URL for this server. Used to resolve conflicts (optional)
 	 * @param string $DeviceID The ID of the device to be added as a associated device of the Storage Vault (optional)
+	 * @param string $ProfileHash The profile hash of the user profile (optional)
 	 */
-	public function __construct(string $TargetUser, string $StorageProvider, string $SelfAddress = null, string $DeviceID = null)
+	public function __construct(string $TargetUser, string $StorageProvider, string $SelfAddress = null, string $DeviceID = null, string $ProfileHash = null)
 	{
 		$this->TargetUser = $TargetUser;
 		$this->StorageProvider = $StorageProvider;
 		$this->SelfAddress = $SelfAddress;
 		$this->DeviceID = $DeviceID;
+		$this->ProfileHash = $ProfileHash;
 	}
 
 	/**
@@ -100,6 +109,9 @@ class AdminRequestStorageVaultRequest implements \Comet\NetworkRequest {
 		}
 		if ($this->DeviceID !== null) {
 			$ret["DeviceID"] = (string)($this->DeviceID);
+		}
+		if ($this->ProfileHash !== null) {
+			$ret["ProfileHash"] = (string)($this->ProfileHash);
 		}
 		return $ret;
 	}

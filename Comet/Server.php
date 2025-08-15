@@ -1376,6 +1376,60 @@ class Server {
 	}
 
 	/** 
+	 * Request a list of Proxmox virtual machines and containers
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetID The live connection GUID
+	 * @param \Comet\ProxmoxConnection $Credentials The Proxmox connection settings
+	 * @return \Comet\BrowseProxmoxResponse 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherRequestBrowseProxmox(string $TargetID, \Comet\ProxmoxConnection $Credentials): \Comet\BrowseProxmoxResponse
+	{
+		$nr = new \Comet\AdminDispatcherRequestBrowseProxmoxRequest($TargetID, $Credentials);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherRequestBrowseProxmoxRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Request a list of Proxmox nodes
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetID The live connection GUID
+	 * @param \Comet\SSHConnection $Credentials The SSH connection settings
+	 * @return \Comet\BrowseProxmoxNodesResponse 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherRequestBrowseProxmoxNodes(string $TargetID, \Comet\SSHConnection $Credentials): \Comet\BrowseProxmoxNodesResponse
+	{
+		$nr = new \Comet\AdminDispatcherRequestBrowseProxmoxNodesRequest($TargetID, $Credentials);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherRequestBrowseProxmoxNodesRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Request a list of configured Proxmox storage
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetID The live connection GUID
+	 * @param \Comet\SSHConnection $Credentials The SSH connection settings
+	 * @return \Comet\BrowseProxmoxStorageResponse 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherRequestBrowseProxmoxStorage(string $TargetID, \Comet\SSHConnection $Credentials): \Comet\BrowseProxmoxStorageResponse
+	{
+		$nr = new \Comet\AdminDispatcherRequestBrowseProxmoxStorageRequest($TargetID, $Credentials);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherRequestBrowseProxmoxStorageRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Request a list of VMware vSphere virtual machines
 	 * The remote device must have given consent for an MSP to browse their files.
 	 * 
@@ -3066,16 +3120,17 @@ class Server {
 	 * @param string $StorageProvider ID for the storage template destination
 	 * @param string $SelfAddress The external URL for this server. Used to resolve conflicts (optional)
 	 * @param string $DeviceID The ID of the device to be added as a associated device of the Storage Vault (optional)
+	 * @param string $ProfileHash The profile hash of the user profile (optional)
 	 * @return \Comet\RequestStorageVaultResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminRequestStorageVault(string $TargetUser, string $StorageProvider, string $SelfAddress = null, string $DeviceID = null): \Comet\RequestStorageVaultResponseMessage
+	public function AdminRequestStorageVault(string $TargetUser, string $StorageProvider, string $SelfAddress = null, string $DeviceID = null, string $ProfileHash = null): \Comet\RequestStorageVaultResponseMessage
 	{
 		if ($SelfAddress === null) {
 			$SelfAddress = $this->server_url;
 		}
 
-		$nr = new \Comet\AdminRequestStorageVaultRequest($TargetUser, $StorageProvider, $SelfAddress, $DeviceID);
+		$nr = new \Comet\AdminRequestStorageVaultRequest($TargetUser, $StorageProvider, $SelfAddress, $DeviceID, $ProfileHash);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminRequestStorageVaultRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
@@ -3182,10 +3237,10 @@ class Server {
 	 * @param \Comet\UserProfileConfig $ProfileData Modified user profile
 	 * @param string $RequireHash Previous hash parameter
 	 * @param \Comet\AdminOptions $AdminOptions Instructions for modifying user profile (optional)
-	 * @return \Comet\APIResponseMessage 
+	 * @return \Comet\GetProfileAndHashResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminSetUserProfileHash(string $TargetUser, \Comet\UserProfileConfig $ProfileData, string $RequireHash, \Comet\AdminOptions $AdminOptions = null): \Comet\APIResponseMessage
+	public function AdminSetUserProfileHash(string $TargetUser, \Comet\UserProfileConfig $ProfileData, string $RequireHash, \Comet\AdminOptions $AdminOptions = null): \Comet\GetProfileAndHashResponseMessage
 	{
 		$nr = new \Comet\AdminSetUserProfileHashRequest($TargetUser, $ProfileData, $RequireHash, $AdminOptions);
 		$response = $this->client->send($this->AsPSR7($nr));

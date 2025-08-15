@@ -160,6 +160,13 @@ class BackupJobDetail {
 	public $TotalUnlicensedMailsCount = 0;
 
 	/**
+	 * The CRC32 of the billing data for this job.
+	 *
+	 * @var int
+	 */
+	public $BillingCrc32 = 0;
+
+	/**
 	 * If this field is present, this job did not perform some work because the Storage Vault is
 	 * currently busy.
 	 *
@@ -289,6 +296,9 @@ class BackupJobDetail {
 		if (property_exists($sc, 'TotalUnlicensedMailsCount') && !is_null($sc->TotalUnlicensedMailsCount)) {
 			$this->TotalUnlicensedMailsCount = (int)($sc->TotalUnlicensedMailsCount);
 		}
+		if (property_exists($sc, 'BillingCrc32') && !is_null($sc->BillingCrc32)) {
+			$this->BillingCrc32 = (int)($sc->BillingCrc32);
+		}
 		if (property_exists($sc, 'ConflictingJobID') && !is_null($sc->ConflictingJobID)) {
 			$this->ConflictingJobID = (string)($sc->ConflictingJobID);
 		}
@@ -346,6 +356,7 @@ class BackupJobDetail {
 			case 'TotalAccountsCount':
 			case 'TotalLicensedMailsCount':
 			case 'TotalUnlicensedMailsCount':
+			case 'BillingCrc32':
 			case 'ConflictingJobID':
 			case 'CancellationID':
 			case 'Progress':
@@ -441,6 +452,7 @@ class BackupJobDetail {
 		$ret["TotalAccountsCount"] = $this->TotalAccountsCount;
 		$ret["TotalLicensedMailsCount"] = $this->TotalLicensedMailsCount;
 		$ret["TotalUnlicensedMailsCount"] = $this->TotalUnlicensedMailsCount;
+		$ret["BillingCrc32"] = $this->BillingCrc32;
 		$ret["ConflictingJobID"] = $this->ConflictingJobID;
 		$ret["CancellationID"] = $this->CancellationID;
 		if ( $this->Progress === null ) {

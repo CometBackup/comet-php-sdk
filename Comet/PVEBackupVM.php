@@ -9,45 +9,43 @@
 
 namespace Comet;
 
-class RequestStorageVaultResponseMessage {
+class PVEBackupVM {
 
 	/**
-	 * If the operation was successful, the status will be in the 200-299 range.
-	 *
-	 * @var int
+	 * @var \Comet\PVEBackupDisk[]
 	 */
-	public $Status = 0;
-
-	/**
-	 * @var string
-	 */
-	public $Message = "";
+	public $IncludedDisks = [];
 
 	/**
 	 * @var string
 	 */
-	public $DestinationID = "";
+	public $Name = "";
+
+	/**
+	 * @var boolean
+	 */
+	public $Selected = false;
 
 	/**
 	 * @var string
 	 */
-	public $ProfileHash = "";
+	public $Type = "";
 
 	/**
-	 * @var \Comet\UserProfileConfig
+	 * @var string
 	 */
-	public $Profile = null;
+	public $VMID = "";
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
-	 * @see RequestStorageVaultResponseMessage::RemoveUnknownProperties() Remove all unknown properties
+	 * @see PVEBackupVM::RemoveUnknownProperties() Remove all unknown properties
 	 * @var array
 	 */
 	private $__unknown_properties = [];
 
 	/**
-	 * Replace the content of this RequestStorageVaultResponseMessage object from a PHP \stdClass.
+	 * Replace the content of this PVEBackupVM object from a PHP \stdClass.
 	 * The data could be supplied from an API call after json_decode(...); or generated manually.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
@@ -55,33 +53,39 @@ class RequestStorageVaultResponseMessage {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
-		if (property_exists($sc, 'Status')) {
-			$this->Status = (int)($sc->Status);
-		}
-		if (property_exists($sc, 'Message')) {
-			$this->Message = (string)($sc->Message);
-		}
-		if (property_exists($sc, 'DestinationID')) {
-			$this->DestinationID = (string)($sc->DestinationID);
-		}
-		if (property_exists($sc, 'ProfileHash')) {
-			$this->ProfileHash = (string)($sc->ProfileHash);
-		}
-		if (property_exists($sc, 'Profile')) {
-			if (is_array($sc->Profile) && count($sc->Profile) === 0) {
-			// Work around edge case in json_decode--json_encode stdClass conversion
-				$this->Profile = \Comet\UserProfileConfig::createFromStdclass(new \stdClass());
-			} else {
-				$this->Profile = \Comet\UserProfileConfig::createFromStdclass($sc->Profile);
+		if (property_exists($sc, 'IncludedDisks') && !is_null($sc->IncludedDisks)) {
+			$val_2 = [];
+			if ($sc->IncludedDisks !== null) {
+				for($i_2 = 0; $i_2 < count($sc->IncludedDisks); ++$i_2) {
+					if (is_array($sc->IncludedDisks[$i_2]) && count($sc->IncludedDisks[$i_2]) === 0) {
+					// Work around edge case in json_decode--json_encode stdClass conversion
+						$val_2[] = \Comet\PVEBackupDisk::createFromStdclass(new \stdClass());
+					} else {
+						$val_2[] = \Comet\PVEBackupDisk::createFromStdclass($sc->IncludedDisks[$i_2]);
+					}
+				}
 			}
+			$this->IncludedDisks = $val_2;
+		}
+		if (property_exists($sc, 'Name') && !is_null($sc->Name)) {
+			$this->Name = (string)($sc->Name);
+		}
+		if (property_exists($sc, 'Selected') && !is_null($sc->Selected)) {
+			$this->Selected = (bool)($sc->Selected);
+		}
+		if (property_exists($sc, 'Type') && !is_null($sc->Type)) {
+			$this->Type = (string)($sc->Type);
+		}
+		if (property_exists($sc, 'VMID') && !is_null($sc->VMID)) {
+			$this->VMID = (string)($sc->VMID);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
-			case 'Status':
-			case 'Message':
-			case 'DestinationID':
-			case 'ProfileHash':
-			case 'Profile':
+			case 'IncludedDisks':
+			case 'Name':
+			case 'Selected':
+			case 'Type':
+			case 'VMID':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -90,27 +94,27 @@ class RequestStorageVaultResponseMessage {
 	}
 
 	/**
-	 * Coerce a stdClass into a new strongly-typed RequestStorageVaultResponseMessage object.
+	 * Coerce a stdClass into a new strongly-typed PVEBackupVM object.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
-	 * @return RequestStorageVaultResponseMessage
+	 * @return PVEBackupVM
 	 */
-	public static function createFromStdclass(\stdClass $sc): \Comet\RequestStorageVaultResponseMessage
+	public static function createFromStdclass(\stdClass $sc): \Comet\PVEBackupVM
 	{
-		$retn = new RequestStorageVaultResponseMessage();
+		$retn = new PVEBackupVM();
 		$retn->inflateFrom($sc);
 		return $retn;
 	}
 
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed RequestStorageVaultResponseMessage object.
+	 * Coerce a plain PHP array into a new strongly-typed PVEBackupVM object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
 	 * @param array $arr Object data as PHP array
-	 * @return RequestStorageVaultResponseMessage
+	 * @return PVEBackupVM
 	 */
-	public static function createFromArray(array $arr): \Comet\RequestStorageVaultResponseMessage
+	public static function createFromArray(array $arr): \Comet\PVEBackupVM
 	{
 		$stdClass = json_decode(json_encode($arr, JSON_UNESCAPED_SLASHES));
 		if (is_array($stdClass) && count($stdClass) === 0) {
@@ -120,24 +124,24 @@ class RequestStorageVaultResponseMessage {
 	}
 
 	/**
-	 * Coerce a JSON string into a new strongly-typed RequestStorageVaultResponseMessage object.
+	 * Coerce a JSON string into a new strongly-typed PVEBackupVM object.
 	 *
 	 * @param string $JsonString Object data as JSON string
-	 * @return RequestStorageVaultResponseMessage
+	 * @return PVEBackupVM
 	 */
-	public static function createFromJSON(string $JsonString): \Comet\RequestStorageVaultResponseMessage
+	public static function createFromJSON(string $JsonString): \Comet\PVEBackupVM
 	{
 		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg(), \json_last_error());
 		}
-		$retn = new RequestStorageVaultResponseMessage();
+		$retn = new PVEBackupVM();
 		$retn->inflateFrom($decodedJsonObject);
 		return $retn;
 	}
 
 	/**
-	 * Convert this RequestStorageVaultResponseMessage object into a plain PHP array.
+	 * Convert this PVEBackupVM object into a plain PHP array.
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
@@ -147,15 +151,22 @@ class RequestStorageVaultResponseMessage {
 	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
-		$ret["Status"] = $this->Status;
-		$ret["Message"] = $this->Message;
-		$ret["DestinationID"] = $this->DestinationID;
-		$ret["ProfileHash"] = $this->ProfileHash;
-		if ( $this->Profile === null ) {
-			$ret["Profile"] = $for_json_encode ? (object)[] : [];
-		} else {
-			$ret["Profile"] = $this->Profile->toArray($for_json_encode);
+		{
+			$c0 = [];
+			for($i0 = 0; $i0 < count($this->IncludedDisks); ++$i0) {
+				if ( $this->IncludedDisks[$i0] === null ) {
+					$val0 = $for_json_encode ? (object)[] : [];
+				} else {
+					$val0 = $this->IncludedDisks[$i0]->toArray($for_json_encode);
+				}
+				$c0[] = $val0;
+			}
+			$ret["IncludedDisks"] = $c0;
 		}
+		$ret["Name"] = $this->Name;
+		$ret["Selected"] = $this->Selected;
+		$ret["Type"] = $this->Type;
+		$ret["VMID"] = $this->VMID;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
@@ -205,9 +216,6 @@ class RequestStorageVaultResponseMessage {
 	public function RemoveUnknownProperties()
 	{
 		$this->__unknown_properties = [];
-		if ($this->Profile !== null) {
-			$this->Profile->RemoveUnknownProperties();
-		}
 	}
 
 }

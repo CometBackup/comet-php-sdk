@@ -14,7 +14,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "25.3.1";
+	const APPLICATION_VERSION = "25.6.8";
 
 	/**
 	 * @type int
@@ -24,12 +24,12 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_MINOR = 3;
+	const APPLICATION_VERSION_MINOR = 6;
 
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 1;
+	const APPLICATION_VERSION_REVISION = 8;
 
 	/**
 	 * AutoRetentionLevel: The system will automatically choose how often to run an automatic Retention Pass after each backup job.
@@ -238,6 +238,13 @@ class Def {
 	 * @type int
 	 */
 	const DESTINATIONTYPE___INVALID = 0;
+
+	/**
+	 * Storage type that is applied when Storage Gateway fails to launch correctly
+	 *
+	 * @type int
+	 */
+	const DESTINATIONTYPE_ERROR = 1;
 
 	/**
 	 * S3-compatible, or a specific S3 service such as AWS S3, Wasabi, or iDrive e2
@@ -543,6 +550,13 @@ class Def {
 	 * @type string
 	 */
 	const ENGINE_BUILTIN_VMWARE = "engine1/vmware";
+
+	/**
+	 * Proxmox (PVE)
+	 *
+	 * @type string
+	 */
+	const ENGINE_BUILTIN_PROXMOX = "engine1/proxmox";
 
 	/**
 	 * FtpsModeType: Use plain FTP, do not use FTPS.
@@ -1004,6 +1018,11 @@ class Def {
 	const OFFICE365_REGION_US_DOD = "USGovtGccDoDCloud";
 
 	/**
+	 * @type string
+	 */
+	const OFFICE365_REGION_PUBLIC_TEST = "GlobalPublicCloudTest";
+
+	/**
 	 * ExtraFileExclusionOSRestriction: Applies to any device
 	 *
 	 * @type int
@@ -1081,6 +1100,16 @@ class Def {
 	const PROVIDER_DASHBOARD = "dashboard";
 
 	/**
+	 * @type string
+	 */
+	const PROXMOX_TYPE_VM = "qemu";
+
+	/**
+	 * @type string
+	 */
+	const PROXMOX_TYPE_CONTAINER = "lxc";
+
+	/**
 	 * PSAType
 	 *
 	 * @type int
@@ -1100,6 +1129,26 @@ class Def {
 	 * @type int
 	 */
 	const PSA_TYPE_SYNCRO = 2;
+
+	/**
+	 * @type string
+	 */
+	const PVE_BACKUP_METHOD_STOP = "stop";
+
+	/**
+	 * @type string
+	 */
+	const PVE_BACKUP_METHOD_SUSPEND = "suspend";
+
+	/**
+	 * @type string
+	 */
+	const PVE_BACKUP_METHOD_SNAPSHOT = "snapshot";
+
+	/**
+	 * @type string
+	 */
+	const PVE_BACKUP_METHOD_DEFAULT = self::PVE_BACKUP_METHOD_SNAPSHOT;
 
 	/**
 	 * @type string

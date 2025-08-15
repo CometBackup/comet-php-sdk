@@ -9,45 +9,23 @@
 
 namespace Comet;
 
-class RequestStorageVaultResponseMessage {
+class ProxmoxConnection {
 
 	/**
-	 * If the operation was successful, the status will be in the 200-299 range.
-	 *
-	 * @var int
+	 * @var \Comet\SSHConnection
 	 */
-	public $Status = 0;
-
-	/**
-	 * @var string
-	 */
-	public $Message = "";
-
-	/**
-	 * @var string
-	 */
-	public $DestinationID = "";
-
-	/**
-	 * @var string
-	 */
-	public $ProfileHash = "";
-
-	/**
-	 * @var \Comet\UserProfileConfig
-	 */
-	public $Profile = null;
+	public $SSH = null;
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
-	 * @see RequestStorageVaultResponseMessage::RemoveUnknownProperties() Remove all unknown properties
+	 * @see ProxmoxConnection::RemoveUnknownProperties() Remove all unknown properties
 	 * @var array
 	 */
 	private $__unknown_properties = [];
 
 	/**
-	 * Replace the content of this RequestStorageVaultResponseMessage object from a PHP \stdClass.
+	 * Replace the content of this ProxmoxConnection object from a PHP \stdClass.
 	 * The data could be supplied from an API call after json_decode(...); or generated manually.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
@@ -55,33 +33,17 @@ class RequestStorageVaultResponseMessage {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
-		if (property_exists($sc, 'Status')) {
-			$this->Status = (int)($sc->Status);
-		}
-		if (property_exists($sc, 'Message')) {
-			$this->Message = (string)($sc->Message);
-		}
-		if (property_exists($sc, 'DestinationID')) {
-			$this->DestinationID = (string)($sc->DestinationID);
-		}
-		if (property_exists($sc, 'ProfileHash')) {
-			$this->ProfileHash = (string)($sc->ProfileHash);
-		}
-		if (property_exists($sc, 'Profile')) {
-			if (is_array($sc->Profile) && count($sc->Profile) === 0) {
+		if (property_exists($sc, 'SSH')) {
+			if (is_array($sc->SSH) && count($sc->SSH) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
-				$this->Profile = \Comet\UserProfileConfig::createFromStdclass(new \stdClass());
+				$this->SSH = \Comet\SSHConnection::createFromStdclass(new \stdClass());
 			} else {
-				$this->Profile = \Comet\UserProfileConfig::createFromStdclass($sc->Profile);
+				$this->SSH = \Comet\SSHConnection::createFromStdclass($sc->SSH);
 			}
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
-			case 'Status':
-			case 'Message':
-			case 'DestinationID':
-			case 'ProfileHash':
-			case 'Profile':
+			case 'SSH':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -90,27 +52,27 @@ class RequestStorageVaultResponseMessage {
 	}
 
 	/**
-	 * Coerce a stdClass into a new strongly-typed RequestStorageVaultResponseMessage object.
+	 * Coerce a stdClass into a new strongly-typed ProxmoxConnection object.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
-	 * @return RequestStorageVaultResponseMessage
+	 * @return ProxmoxConnection
 	 */
-	public static function createFromStdclass(\stdClass $sc): \Comet\RequestStorageVaultResponseMessage
+	public static function createFromStdclass(\stdClass $sc): \Comet\ProxmoxConnection
 	{
-		$retn = new RequestStorageVaultResponseMessage();
+		$retn = new ProxmoxConnection();
 		$retn->inflateFrom($sc);
 		return $retn;
 	}
 
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed RequestStorageVaultResponseMessage object.
+	 * Coerce a plain PHP array into a new strongly-typed ProxmoxConnection object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
 	 * @param array $arr Object data as PHP array
-	 * @return RequestStorageVaultResponseMessage
+	 * @return ProxmoxConnection
 	 */
-	public static function createFromArray(array $arr): \Comet\RequestStorageVaultResponseMessage
+	public static function createFromArray(array $arr): \Comet\ProxmoxConnection
 	{
 		$stdClass = json_decode(json_encode($arr, JSON_UNESCAPED_SLASHES));
 		if (is_array($stdClass) && count($stdClass) === 0) {
@@ -120,24 +82,24 @@ class RequestStorageVaultResponseMessage {
 	}
 
 	/**
-	 * Coerce a JSON string into a new strongly-typed RequestStorageVaultResponseMessage object.
+	 * Coerce a JSON string into a new strongly-typed ProxmoxConnection object.
 	 *
 	 * @param string $JsonString Object data as JSON string
-	 * @return RequestStorageVaultResponseMessage
+	 * @return ProxmoxConnection
 	 */
-	public static function createFromJSON(string $JsonString): \Comet\RequestStorageVaultResponseMessage
+	public static function createFromJSON(string $JsonString): \Comet\ProxmoxConnection
 	{
 		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg(), \json_last_error());
 		}
-		$retn = new RequestStorageVaultResponseMessage();
+		$retn = new ProxmoxConnection();
 		$retn->inflateFrom($decodedJsonObject);
 		return $retn;
 	}
 
 	/**
-	 * Convert this RequestStorageVaultResponseMessage object into a plain PHP array.
+	 * Convert this ProxmoxConnection object into a plain PHP array.
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
@@ -147,14 +109,10 @@ class RequestStorageVaultResponseMessage {
 	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
-		$ret["Status"] = $this->Status;
-		$ret["Message"] = $this->Message;
-		$ret["DestinationID"] = $this->DestinationID;
-		$ret["ProfileHash"] = $this->ProfileHash;
-		if ( $this->Profile === null ) {
-			$ret["Profile"] = $for_json_encode ? (object)[] : [];
+		if ( $this->SSH === null ) {
+			$ret["SSH"] = $for_json_encode ? (object)[] : [];
 		} else {
-			$ret["Profile"] = $this->Profile->toArray($for_json_encode);
+			$ret["SSH"] = $this->SSH->toArray($for_json_encode);
 		}
 
 		// Reinstate unknown properties from future server versions
@@ -205,8 +163,8 @@ class RequestStorageVaultResponseMessage {
 	public function RemoveUnknownProperties()
 	{
 		$this->__unknown_properties = [];
-		if ($this->Profile !== null) {
-			$this->Profile->RemoveUnknownProperties();
+		if ($this->SSH !== null) {
+			$this->SSH->RemoveUnknownProperties();
 		}
 	}
 

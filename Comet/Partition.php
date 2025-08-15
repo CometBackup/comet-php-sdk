@@ -17,6 +17,20 @@ class Partition {
 	public $DeviceName = "";
 
 	/**
+	 * The partition's MBR or GPT id, if any
+	 *
+	 * @var string
+	 */
+	public $PartitionGuid = "";
+
+	/**
+	 * The partition's offset within the physical disk
+	 *
+	 * @var int
+	 */
+	public $PartitionOffset = 0;
+
+	/**
 	 * The name of the filesystem used on this partition (e.g. "NTFS")
 	 *
 	 * @var string
@@ -95,6 +109,12 @@ class Partition {
 		if (property_exists($sc, 'DeviceName')) {
 			$this->DeviceName = (string)($sc->DeviceName);
 		}
+		if (property_exists($sc, 'PartitionGuid')) {
+			$this->PartitionGuid = (string)($sc->PartitionGuid);
+		}
+		if (property_exists($sc, 'PartitionOffset')) {
+			$this->PartitionOffset = (int)($sc->PartitionOffset);
+		}
 		if (property_exists($sc, 'Filesystem')) {
 			$this->Filesystem = (string)($sc->Filesystem);
 		}
@@ -134,6 +154,8 @@ class Partition {
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'DeviceName':
+			case 'PartitionGuid':
+			case 'PartitionOffset':
 			case 'Filesystem':
 			case 'VolumeName':
 			case 'VolumeGuid':
@@ -210,6 +232,8 @@ class Partition {
 	{
 		$ret = [];
 		$ret["DeviceName"] = $this->DeviceName;
+		$ret["PartitionGuid"] = $this->PartitionGuid;
+		$ret["PartitionOffset"] = $this->PartitionOffset;
 		$ret["Filesystem"] = $this->Filesystem;
 		$ret["VolumeName"] = $this->VolumeName;
 		$ret["VolumeGuid"] = $this->VolumeGuid;
