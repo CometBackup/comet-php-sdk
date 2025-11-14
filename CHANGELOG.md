@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## 2025-11-14 v4.45.0
+
+- Based on Comet 25.9.6
+- Add new API methods for getting, setting, and deleting Protected Items and
+their associated schedules
+- Add new API methods for live connection credential/session management
+- Add JobID field to API response when starting jobs via the dispatcher on
+devices running Comet 25.9.6 or newer
+- Add support for custom tags on backup jobs to allow grouping of
+snapshots/jobs
+- Add support SAS Relic codesigning
+- Improve documentation for Proxmox API types
+
 ## 2025-08-15 v4.44.0
 
 - Based on Comet 25.6.8
