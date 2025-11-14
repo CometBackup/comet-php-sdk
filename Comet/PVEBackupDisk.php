@@ -9,14 +9,24 @@
 
 namespace Comet;
 
+/**
+ * This type is used in the EngineProps for an "engine1/proxmox" Protected Item. It represents the
+ * selection state for a single disk attached to a single Proxmox VM or LXC Container. It is
+ * expected to be user-configurable.
+ * This type is available in Comet 25.8.0 and later.
+ */
 class PVEBackupDisk {
 
 	/**
+	 * For a disk "scsi0", this field should contain: "scsi"
+	 *
 	 * @var string
 	 */
 	public $Device = "";
 
 	/**
+	 * For a disk "scsi0", this field should contain: 0
+	 *
 	 * @var int
 	 */
 	public $DeviceNum = 0;

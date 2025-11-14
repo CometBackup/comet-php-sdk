@@ -285,6 +285,14 @@ class UserProfileConfig {
 	public $AutoStorageTemplateGUID = "";
 
 	/**
+	 * If enabled, Linux devices in this user account will sandbox all read/write operations to paths
+	 * inside user home directories
+	 *
+	 * @var boolean
+	 */
+	public $LinuxHomedirSandbox = false;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see UserProfileConfig::RemoveUnknownProperties() Remove all unknown properties
@@ -490,6 +498,9 @@ class UserProfileConfig {
 		if (property_exists($sc, 'AutoStorageTemplateGUID')) {
 			$this->AutoStorageTemplateGUID = (string)($sc->AutoStorageTemplateGUID);
 		}
+		if (property_exists($sc, 'LinuxHomedirSandbox')) {
+			$this->LinuxHomedirSandbox = (bool)($sc->LinuxHomedirSandbox);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Username':
@@ -528,6 +539,7 @@ class UserProfileConfig {
 			case 'CreationGUID':
 			case 'ServerConfig':
 			case 'AutoStorageTemplateGUID':
+			case 'LinuxHomedirSandbox':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -724,6 +736,7 @@ class UserProfileConfig {
 			$ret["ServerConfig"] = $this->ServerConfig->toArray($for_json_encode);
 		}
 		$ret["AutoStorageTemplateGUID"] = $this->AutoStorageTemplateGUID;
+		$ret["LinuxHomedirSandbox"] = $this->LinuxHomedirSandbox;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

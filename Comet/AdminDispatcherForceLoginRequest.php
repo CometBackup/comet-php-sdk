@@ -10,13 +10,14 @@
 namespace Comet;
 
 /**
- * Comet Server AdminDispatcherRunBackup API
- * Instruct a live connected device to run a scheduled backup
+ * Comet Server AdminDispatcherForceLogin API
+ * Instruct a live connected device to re-enter login credentials
+ * The device will terminate its live-connection process and will not reconnect.
  *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
  */
-class AdminDispatcherRunBackupRequest implements \Comet\NetworkRequest {
+class AdminDispatcherForceLoginRequest implements \Comet\NetworkRequest {
 
 	/**
 	 * The live connection GUID
@@ -26,22 +27,13 @@ class AdminDispatcherRunBackupRequest implements \Comet\NetworkRequest {
 	protected $TargetID = null;
 
 	/**
-	 * The schedule GUID
-	 *
-	 * @var string
-	 */
-	protected $BackupRule = null;
-
-	/**
-	 * Construct a new AdminDispatcherRunBackupRequest instance.
+	 * Construct a new AdminDispatcherForceLoginRequest instance.
 	 *
 	 * @param string $TargetID The live connection GUID
-	 * @param string $BackupRule The schedule GUID
 	 */
-	public function __construct(string $TargetID, string $BackupRule)
+	public function __construct(string $TargetID)
 	{
 		$this->TargetID = $TargetID;
-		$this->BackupRule = $BackupRule;
 	}
 
 	/**
@@ -51,7 +43,7 @@ class AdminDispatcherRunBackupRequest implements \Comet\NetworkRequest {
 	 */
 	public function Endpoint(): string
 	{
-		return '/api/v1/admin/dispatcher/run-backup';
+		return '/api/v1/admin/dispatcher/force-login';
 	}
 
 	public function Method(): string
@@ -73,7 +65,6 @@ class AdminDispatcherRunBackupRequest implements \Comet\NetworkRequest {
 	{
 		$ret = [];
 		$ret["TargetID"] = (string)($this->TargetID);
-		$ret["BackupRule"] = (string)($this->BackupRule);
 		return $ret;
 	}
 
@@ -83,10 +74,10 @@ class AdminDispatcherRunBackupRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param int $responseCode HTTP response code
 	 * @param string $body HTTP response body
-	 * @return \Comet\DispatchWithJobIDResponse
+	 * @return \Comet\APIResponseMessage
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse(int $responseCode, string $body): \Comet\DispatchWithJobIDResponse
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\APIResponseMessage
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {
@@ -108,12 +99,12 @@ class AdminDispatcherRunBackupRequest implements \Comet\NetworkRequest {
 			}
 		}
 
-		// Parse as DispatchWithJobIDResponse
+		// Parse as CometAPIResponseMessage
 		if (is_array($decoded) && count($decoded) === 0) {
 		// Work around edge case in json_decode--json_encode stdClass conversion
-			$ret = \Comet\DispatchWithJobIDResponse::createFromStdclass(new \stdClass());
+			$ret = \Comet\APIResponseMessage::createFromStdclass(new \stdClass());
 		} else {
-			$ret = \Comet\DispatchWithJobIDResponse::createFromStdclass($decoded);
+			$ret = \Comet\APIResponseMessage::createFromStdclass($decoded);
 		}
 
 		return $ret;

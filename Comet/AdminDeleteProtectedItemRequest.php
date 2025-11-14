@@ -10,38 +10,38 @@
 namespace Comet;
 
 /**
- * Comet Server AdminDispatcherRunBackup API
- * Instruct a live connected device to run a scheduled backup
+ * Comet Server AdminDeleteProtectedItem API
+ * Delete a Protected Item
  *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
  */
-class AdminDispatcherRunBackupRequest implements \Comet\NetworkRequest {
+class AdminDeleteProtectedItemRequest implements \Comet\NetworkRequest {
 
 	/**
-	 * The live connection GUID
+	 * Selected account username
 	 *
 	 * @var string
 	 */
-	protected $TargetID = null;
+	protected $TargetUser = null;
 
 	/**
-	 * The schedule GUID
+	 * Selected Protected Item GUID
 	 *
 	 * @var string
 	 */
-	protected $BackupRule = null;
+	protected $SourceID = null;
 
 	/**
-	 * Construct a new AdminDispatcherRunBackupRequest instance.
+	 * Construct a new AdminDeleteProtectedItemRequest instance.
 	 *
-	 * @param string $TargetID The live connection GUID
-	 * @param string $BackupRule The schedule GUID
+	 * @param string $TargetUser Selected account username
+	 * @param string $SourceID Selected Protected Item GUID
 	 */
-	public function __construct(string $TargetID, string $BackupRule)
+	public function __construct(string $TargetUser, string $SourceID)
 	{
-		$this->TargetID = $TargetID;
-		$this->BackupRule = $BackupRule;
+		$this->TargetUser = $TargetUser;
+		$this->SourceID = $SourceID;
 	}
 
 	/**
@@ -51,7 +51,7 @@ class AdminDispatcherRunBackupRequest implements \Comet\NetworkRequest {
 	 */
 	public function Endpoint(): string
 	{
-		return '/api/v1/admin/dispatcher/run-backup';
+		return '/api/v1/admin/delete-protected-item';
 	}
 
 	public function Method(): string
@@ -72,8 +72,8 @@ class AdminDispatcherRunBackupRequest implements \Comet\NetworkRequest {
 	public function Parameters(): array
 	{
 		$ret = [];
-		$ret["TargetID"] = (string)($this->TargetID);
-		$ret["BackupRule"] = (string)($this->BackupRule);
+		$ret["TargetUser"] = (string)($this->TargetUser);
+		$ret["SourceID"] = (string)($this->SourceID);
 		return $ret;
 	}
 
@@ -83,10 +83,10 @@ class AdminDispatcherRunBackupRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param int $responseCode HTTP response code
 	 * @param string $body HTTP response body
-	 * @return \Comet\DispatchWithJobIDResponse
+	 * @return \Comet\APIResponseMessage
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse(int $responseCode, string $body): \Comet\DispatchWithJobIDResponse
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\APIResponseMessage
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {
@@ -108,12 +108,12 @@ class AdminDispatcherRunBackupRequest implements \Comet\NetworkRequest {
 			}
 		}
 
-		// Parse as DispatchWithJobIDResponse
+		// Parse as CometAPIResponseMessage
 		if (is_array($decoded) && count($decoded) === 0) {
 		// Work around edge case in json_decode--json_encode stdClass conversion
-			$ret = \Comet\DispatchWithJobIDResponse::createFromStdclass(new \stdClass());
+			$ret = \Comet\APIResponseMessage::createFromStdclass(new \stdClass());
 		} else {
-			$ret = \Comet\DispatchWithJobIDResponse::createFromStdclass($decoded);
+			$ret = \Comet\APIResponseMessage::createFromStdclass($decoded);
 		}
 
 		return $ret;

@@ -9,33 +9,35 @@
 
 namespace Comet;
 
-class PVERestoreSelection {
+class DispatchWithJobIDResponse {
+
+	/**
+	 * If the operation was successful, the status will be in the 200-299 range.
+	 *
+	 * @var int
+	 */
+	public $Status = 0;
 
 	/**
 	 * @var string
 	 */
-	public $ID = "";
+	public $Message = "";
 
 	/**
 	 * @var string
 	 */
-	public $Name = "";
-
-	/**
-	 * @var \Comet\PVEVM
-	 */
-	public $TargetVM = null;
+	public $JobID = "";
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
-	 * @see PVERestoreSelection::RemoveUnknownProperties() Remove all unknown properties
+	 * @see DispatchWithJobIDResponse::RemoveUnknownProperties() Remove all unknown properties
 	 * @var array
 	 */
 	private $__unknown_properties = [];
 
 	/**
-	 * Replace the content of this PVERestoreSelection object from a PHP \stdClass.
+	 * Replace the content of this DispatchWithJobIDResponse object from a PHP \stdClass.
 	 * The data could be supplied from an API call after json_decode(...); or generated manually.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
@@ -43,25 +45,20 @@ class PVERestoreSelection {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
-		if (property_exists($sc, 'ID') && !is_null($sc->ID)) {
-			$this->ID = (string)($sc->ID);
+		if (property_exists($sc, 'Status')) {
+			$this->Status = (int)($sc->Status);
 		}
-		if (property_exists($sc, 'Name') && !is_null($sc->Name)) {
-			$this->Name = (string)($sc->Name);
+		if (property_exists($sc, 'Message')) {
+			$this->Message = (string)($sc->Message);
 		}
-		if (property_exists($sc, 'TargetVM')) {
-			if (is_array($sc->TargetVM) && count($sc->TargetVM) === 0) {
-			// Work around edge case in json_decode--json_encode stdClass conversion
-				$this->TargetVM = \Comet\PVEVM::createFromStdclass(new \stdClass());
-			} else {
-				$this->TargetVM = \Comet\PVEVM::createFromStdclass($sc->TargetVM);
-			}
+		if (property_exists($sc, 'JobID') && !is_null($sc->JobID)) {
+			$this->JobID = (string)($sc->JobID);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
-			case 'ID':
-			case 'Name':
-			case 'TargetVM':
+			case 'Status':
+			case 'Message':
+			case 'JobID':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -70,27 +67,27 @@ class PVERestoreSelection {
 	}
 
 	/**
-	 * Coerce a stdClass into a new strongly-typed PVERestoreSelection object.
+	 * Coerce a stdClass into a new strongly-typed DispatchWithJobIDResponse object.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
-	 * @return PVERestoreSelection
+	 * @return DispatchWithJobIDResponse
 	 */
-	public static function createFromStdclass(\stdClass $sc): \Comet\PVERestoreSelection
+	public static function createFromStdclass(\stdClass $sc): \Comet\DispatchWithJobIDResponse
 	{
-		$retn = new PVERestoreSelection();
+		$retn = new DispatchWithJobIDResponse();
 		$retn->inflateFrom($sc);
 		return $retn;
 	}
 
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed PVERestoreSelection object.
+	 * Coerce a plain PHP array into a new strongly-typed DispatchWithJobIDResponse object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
 	 * @param array $arr Object data as PHP array
-	 * @return PVERestoreSelection
+	 * @return DispatchWithJobIDResponse
 	 */
-	public static function createFromArray(array $arr): \Comet\PVERestoreSelection
+	public static function createFromArray(array $arr): \Comet\DispatchWithJobIDResponse
 	{
 		$stdClass = json_decode(json_encode($arr, JSON_UNESCAPED_SLASHES));
 		if (is_array($stdClass) && count($stdClass) === 0) {
@@ -100,24 +97,24 @@ class PVERestoreSelection {
 	}
 
 	/**
-	 * Coerce a JSON string into a new strongly-typed PVERestoreSelection object.
+	 * Coerce a JSON string into a new strongly-typed DispatchWithJobIDResponse object.
 	 *
 	 * @param string $JsonString Object data as JSON string
-	 * @return PVERestoreSelection
+	 * @return DispatchWithJobIDResponse
 	 */
-	public static function createFromJSON(string $JsonString): \Comet\PVERestoreSelection
+	public static function createFromJSON(string $JsonString): \Comet\DispatchWithJobIDResponse
 	{
 		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg(), \json_last_error());
 		}
-		$retn = new PVERestoreSelection();
+		$retn = new DispatchWithJobIDResponse();
 		$retn->inflateFrom($decodedJsonObject);
 		return $retn;
 	}
 
 	/**
-	 * Convert this PVERestoreSelection object into a plain PHP array.
+	 * Convert this DispatchWithJobIDResponse object into a plain PHP array.
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
@@ -127,13 +124,9 @@ class PVERestoreSelection {
 	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
-		$ret["ID"] = $this->ID;
-		$ret["Name"] = $this->Name;
-		if ( $this->TargetVM === null ) {
-			$ret["TargetVM"] = $for_json_encode ? (object)[] : [];
-		} else {
-			$ret["TargetVM"] = $this->TargetVM->toArray($for_json_encode);
-		}
+		$ret["Status"] = $this->Status;
+		$ret["Message"] = $this->Message;
+		$ret["JobID"] = $this->JobID;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
@@ -183,9 +176,6 @@ class PVERestoreSelection {
 	public function RemoveUnknownProperties()
 	{
 		$this->__unknown_properties = [];
-		if ($this->TargetVM !== null) {
-			$this->TargetVM->RemoveUnknownProperties();
-		}
 	}
 
 }

@@ -102,6 +102,27 @@ class WindowsCodeSignProperties {
 	public $WindowsCodeSignAzureTenantID = "";
 
 	/**
+	 * URL of the SAS Relic server, with protocol (https://) and trailing slash
+	 *
+	 * @var string
+	 */
+	public $WindowsCodeSignRelicServerURL = "";
+
+	/**
+	 * The SAS Relic client keypair in PEM format
+	 *
+	 * @var string
+	 */
+	public $WindowsCodeSignRelicKeypairFile = "";
+
+	/**
+	 * The name of the key to select on the remote SAS Relic server
+	 *
+	 * @var string
+	 */
+	public $WindowsCodeSignRelicKeyName = "";
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see WindowsCodeSignProperties::RemoveUnknownProperties() Remove all unknown properties
@@ -166,6 +187,15 @@ class WindowsCodeSignProperties {
 		if (property_exists($sc, 'WindowsCodeSignAzureTenantID')) {
 			$this->WindowsCodeSignAzureTenantID = (string)($sc->WindowsCodeSignAzureTenantID);
 		}
+		if (property_exists($sc, 'WindowsCodeSignRelicServerURL')) {
+			$this->WindowsCodeSignRelicServerURL = (string)($sc->WindowsCodeSignRelicServerURL);
+		}
+		if (property_exists($sc, 'WindowsCodeSignRelicKeypairFile')) {
+			$this->WindowsCodeSignRelicKeypairFile = (string)($sc->WindowsCodeSignRelicKeypairFile);
+		}
+		if (property_exists($sc, 'WindowsCodeSignRelicKeyName')) {
+			$this->WindowsCodeSignRelicKeyName = (string)($sc->WindowsCodeSignRelicKeyName);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'WindowsCodeSignMethod':
@@ -184,6 +214,9 @@ class WindowsCodeSignProperties {
 			case 'WindowsCodeSignAzureAppSecretFormat':
 			case 'WindowsCodeSignAzureAppSecret':
 			case 'WindowsCodeSignAzureTenantID':
+			case 'WindowsCodeSignRelicServerURL':
+			case 'WindowsCodeSignRelicKeypairFile':
+			case 'WindowsCodeSignRelicKeyName':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -265,6 +298,9 @@ class WindowsCodeSignProperties {
 		$ret["WindowsCodeSignAzureAppSecretFormat"] = $this->WindowsCodeSignAzureAppSecretFormat;
 		$ret["WindowsCodeSignAzureAppSecret"] = $this->WindowsCodeSignAzureAppSecret;
 		$ret["WindowsCodeSignAzureTenantID"] = $this->WindowsCodeSignAzureTenantID;
+		$ret["WindowsCodeSignRelicServerURL"] = $this->WindowsCodeSignRelicServerURL;
+		$ret["WindowsCodeSignRelicKeypairFile"] = $this->WindowsCodeSignRelicKeypairFile;
+		$ret["WindowsCodeSignRelicKeyName"] = $this->WindowsCodeSignRelicKeyName;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

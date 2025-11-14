@@ -32,9 +32,11 @@ class PVEDisk {
 	public $Volume = "";
 
 	/**
-	 * @var string
+	 * Bytes
+	 *
+	 * @var int
 	 */
-	public $Size = "";
+	public $Size = 0;
 
 	/**
 	 * @var string
@@ -76,7 +78,7 @@ class PVEDisk {
 			$this->Volume = (string)($sc->Volume);
 		}
 		if (property_exists($sc, 'Size') && !is_null($sc->Size)) {
-			$this->Size = (string)($sc->Size);
+			$this->Size = (int)($sc->Size);
 		}
 		if (property_exists($sc, 'Format') && !is_null($sc->Format)) {
 			$this->Format = (string)($sc->Format);

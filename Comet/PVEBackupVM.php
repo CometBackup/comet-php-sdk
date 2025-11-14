@@ -9,6 +9,11 @@
 
 namespace Comet;
 
+/**
+ * This type is used in the EngineProps for an "engine1/proxmox" Protected Item. It represents the
+ * selection state for a single Proxmox VM or LXC Container. It is expected to be user-configurable.
+ * This type is available in Comet 25.8.0 and later.
+ */
 class PVEBackupVM {
 
 	/**
@@ -17,6 +22,9 @@ class PVEBackupVM {
 	public $IncludedDisks = [];
 
 	/**
+	 * Used as a cache if the device is offline when editing the Protected Item; not considered as part
+	 * of the selection
+	 *
 	 * @var string
 	 */
 	public $Name = "";
@@ -27,6 +35,8 @@ class PVEBackupVM {
 	public $Selected = false;
 
 	/**
+	 * One of the PROXMOX_TYPE_ constants
+	 *
 	 * @var string
 	 */
 	public $Type = "";

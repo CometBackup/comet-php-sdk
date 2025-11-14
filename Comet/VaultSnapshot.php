@@ -39,6 +39,12 @@ class VaultSnapshot {
 	public $HasOriginalPathInfo = false;
 
 	/**
+	 * @var string[]
+	 * This field is available in Comet 25.9.4 and later.
+	 */
+	public $Tags = [];
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see VaultSnapshot::RemoveUnknownProperties() Remove all unknown properties
@@ -70,6 +76,15 @@ class VaultSnapshot {
 		if (property_exists($sc, 'HasOriginalPathInfo')) {
 			$this->HasOriginalPathInfo = (bool)($sc->HasOriginalPathInfo);
 		}
+		if (property_exists($sc, 'Tags') && !is_null($sc->Tags)) {
+			$val_2 = [];
+			if ($sc->Tags !== null) {
+				for($i_2 = 0; $i_2 < count($sc->Tags); ++$i_2) {
+					$val_2[] = (string)($sc->Tags[$i_2]);
+				}
+			}
+			$this->Tags = $val_2;
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Snapshot':
@@ -77,6 +92,7 @@ class VaultSnapshot {
 			case 'Source':
 			case 'CreateTime':
 			case 'HasOriginalPathInfo':
+			case 'Tags':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -147,6 +163,14 @@ class VaultSnapshot {
 		$ret["Source"] = $this->Source;
 		$ret["CreateTime"] = $this->CreateTime;
 		$ret["HasOriginalPathInfo"] = $this->HasOriginalPathInfo;
+		{
+			$c0 = [];
+			for($i0 = 0; $i0 < count($this->Tags); ++$i0) {
+				$val0 = $this->Tags[$i0];
+				$c0[] = $val0;
+			}
+			$ret["Tags"] = $c0;
+		}
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

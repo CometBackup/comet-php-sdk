@@ -9,6 +9,11 @@
 
 namespace Comet;
 
+/**
+ * This type is used in the EngineProps for an "engine1/proxmox" Protected Item. It represents the
+ * entire Protected Item configuration. It is expected to be user-configurable.
+ * This type is available in Comet 25.8.0 and later.
+ */
 class PVEParams {
 
 	/**
@@ -22,16 +27,15 @@ class PVEParams {
 	public $Exclusions = [];
 
 	/**
+	 * One of the PVE_BACKUP_METHOD constants
+	 *
 	 * @var string
 	 */
 	public $Method = "";
 
 	/**
-	 * @var int
-	 */
-	public $Quota = 0;
-
-	/**
+	 * Primary node URL + SSH credentials
+	 *
 	 * @var \Comet\SSHConnection
 	 */
 	public $SSHConnection = null;
@@ -40,6 +44,11 @@ class PVEParams {
 	 * @var \Comet\PVEBackupNode[]
 	 */
 	public $Selections = [];
+
+	/**
+	 * @var boolean
+	 */
+	public $UseCBT = false;
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
@@ -78,9 +87,6 @@ class PVEParams {
 		if (property_exists($sc, 'Method') && !is_null($sc->Method)) {
 			$this->Method = (string)($sc->Method);
 		}
-		if (property_exists($sc, 'Quota') && !is_null($sc->Quota)) {
-			$this->Quota = (int)($sc->Quota);
-		}
 		if (property_exists($sc, 'SSHConnection') && !is_null($sc->SSHConnection)) {
 			if (is_array($sc->SSHConnection) && count($sc->SSHConnection) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
@@ -103,14 +109,17 @@ class PVEParams {
 			}
 			$this->Selections = $val_2;
 		}
+		if (property_exists($sc, 'UseCBT') && !is_null($sc->UseCBT)) {
+			$this->UseCBT = (bool)($sc->UseCBT);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Everything':
 			case 'Exclusions':
 			case 'Method':
-			case 'Quota':
 			case 'SSHConnection':
 			case 'Selections':
+			case 'UseCBT':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -190,7 +199,6 @@ class PVEParams {
 			$ret["Exclusions"] = $c0;
 		}
 		$ret["Method"] = $this->Method;
-		$ret["Quota"] = $this->Quota;
 		if ( $this->SSHConnection === null ) {
 			$ret["SSHConnection"] = $for_json_encode ? (object)[] : [];
 		} else {
@@ -208,6 +216,7 @@ class PVEParams {
 			}
 			$ret["Selections"] = $c0;
 		}
+		$ret["UseCBT"] = $this->UseCBT;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

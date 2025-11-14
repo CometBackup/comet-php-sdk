@@ -910,6 +910,24 @@ class Server {
 	}
 
 	/** 
+	 * Delete a Protected Item
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetUser Selected account username
+	 * @param string $SourceID Selected Protected Item GUID
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminDeleteProtectedItem(string $TargetUser, string $SourceID): \Comet\APIResponseMessage
+	{
+		$nr = new \Comet\AdminDeleteProtectedItemRequest($TargetUser, $SourceID);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDeleteProtectedItemRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Delete user account
 	 * This does not remove any storage buckets. Unused storage buckets will be cleaned up by the Constellation Role.
 	 * Any stored data can not be decrypted without the user profile. Misuse can cause data loss!
@@ -1081,6 +1099,24 @@ class Server {
 		$nr = new \Comet\AdminDispatcherEmailPreviewRequest($TargetID, $Snapshot, $Destination, $Path);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminDispatcherEmailPreviewRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Instruct a live connected device to re-enter login credentials
+	 * The device will terminate its live-connection process and will not reconnect.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetID The live connection GUID
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherForceLogin(string $TargetID): \Comet\APIResponseMessage
+	{
+		$nr = new \Comet\AdminDispatcherForceLoginRequest($TargetID);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherForceLoginRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
 
 	/** 
@@ -1687,10 +1723,10 @@ class Server {
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param string $BackupRule The schedule GUID
-	 * @return \Comet\APIResponseMessage 
+	 * @return \Comet\DispatchWithJobIDResponse 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherRunBackup(string $TargetID, string $BackupRule): \Comet\APIResponseMessage
+	public function AdminDispatcherRunBackup(string $TargetID, string $BackupRule): \Comet\DispatchWithJobIDResponse
 	{
 		$nr = new \Comet\AdminDispatcherRunBackupRequest($TargetID, $BackupRule);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1707,10 +1743,10 @@ class Server {
 	 * @param string $Source The Protected Item GUID
 	 * @param string $Destination The Storage Vault GUID
 	 * @param \Comet\BackupJobAdvancedOptions $Options Extra job parameters (>= 19.3.6) (optional)
-	 * @return \Comet\APIResponseMessage 
+	 * @return \Comet\DispatchWithJobIDResponse 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherRunBackupCustom(string $TargetID, string $Source, string $Destination, \Comet\BackupJobAdvancedOptions $Options = null): \Comet\APIResponseMessage
+	public function AdminDispatcherRunBackupCustom(string $TargetID, string $Source, string $Destination, \Comet\BackupJobAdvancedOptions $Options = null): \Comet\DispatchWithJobIDResponse
 	{
 		$nr = new \Comet\AdminDispatcherRunBackupCustomRequest($TargetID, $Source, $Destination, $Options);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1730,10 +1766,10 @@ class Server {
 	 * @param string $Destination The Storage Vault ID
 	 * @param string $Snapshot If present, restore a specific snapshot. Otherwise, restore the latest snapshot for the selected Protected Item + Storage Vault pair (optional)
 	 * @param string[] $Paths If present, restore these paths only. Otherwise, restore all data (>= 19.3.0) (optional)
-	 * @return \Comet\APIResponseMessage 
+	 * @return \Comet\DispatchWithJobIDResponse 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherRunRestore(string $TargetID, string $Path, string $Source, string $Destination, string $Snapshot = null, array $Paths = null): \Comet\APIResponseMessage
+	public function AdminDispatcherRunRestore(string $TargetID, string $Path, string $Source, string $Destination, string $Snapshot = null, array $Paths = null): \Comet\DispatchWithJobIDResponse
 	{
 		$nr = new \Comet\AdminDispatcherRunRestoreRequest($TargetID, $Path, $Source, $Destination, $Snapshot, $Paths);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1756,10 +1792,10 @@ class Server {
 	 * @param int $KnownFileCount The number of files to restore, if known. Supplying this means we don't need to walk the entire tree just to find the file count and will speed up the restoration process. (optional)
 	 * @param int $KnownByteCount The total size in bytes of files to restore, if known. Supplying this means we don't need to walk the entire tree just to find the total file size and will speed up the restoration process. (optional)
 	 * @param int $KnownDirCount The number of directories to restore, if known. Supplying this means we don't need to walk the entire tree just to find the number of directories and will speed up the restoration process. (optional)
-	 * @return \Comet\APIResponseMessage 
+	 * @return \Comet\DispatchWithJobIDResponse 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherRunRestoreCustom(string $TargetID, string $Source, string $Destination, \Comet\RestoreJobAdvancedOptions $Options, string $Snapshot = null, array $Paths = null, int $KnownFileCount = null, int $KnownByteCount = null, int $KnownDirCount = null): \Comet\APIResponseMessage
+	public function AdminDispatcherRunRestoreCustom(string $TargetID, string $Source, string $Destination, \Comet\RestoreJobAdvancedOptions $Options, string $Snapshot = null, array $Paths = null, int $KnownFileCount = null, int $KnownByteCount = null, int $KnownDirCount = null): \Comet\DispatchWithJobIDResponse
 	{
 		$nr = new \Comet\AdminDispatcherRunRestoreCustomRequest($TargetID, $Source, $Destination, $Options, $Snapshot, $Paths, $KnownFileCount, $KnownByteCount, $KnownDirCount);
 		$response = $this->client->send($this->AsPSR7($nr));
@@ -1841,6 +1877,24 @@ class Server {
 		$nr = new \Comet\AdminDispatcherUnlockRequest($TargetID, $Destination, $AllowUnsafe);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminDispatcherUnlockRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Instruct a live connected device to update its login password
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetID The live connection GUID
+	 * @param string $NewPassword The new password of this user
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherUpdateLoginPassword(string $TargetID, string $NewPassword): \Comet\APIResponseMessage
+	{
+		$nr = new \Comet\AdminDispatcherUpdateLoginPasswordRequest($TargetID, $NewPassword);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherUpdateLoginPasswordRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
 
 	/** 
@@ -2099,6 +2153,24 @@ class Server {
 		$nr = new \Comet\AdminGetJobsRecentRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminGetJobsRecentRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Get a Protected Item with its backup rules
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetUser Selected account username
+	 * @param string $SourceID Selected Protected Item GUID
+	 * @return \Comet\ProtectedItemWithBackupRulesResponse 
+	 * @throws \Exception
+	 */
+	public function AdminGetProtectedItemWithBackupRules(string $TargetUser, string $SourceID): \Comet\ProtectedItemWithBackupRulesResponse
+	{
+		$nr = new \Comet\AdminGetProtectedItemWithBackupRulesRequest($TargetUser, $SourceID);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminGetProtectedItemWithBackupRulesRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
 
 	/** 
@@ -3205,6 +3277,27 @@ class Server {
 		$nr = new \Comet\AdminSelfBackupStartRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminSelfBackupStartRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Add or update a Protected Item with its backup rules
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $TargetUser Selected account username
+	 * @param string $SourceID Selected Protected Item GUID
+	 * @param string $RequireHash Previous account profile hash (optional)
+	 * @param \Comet\SourceConfig $Source Optional Protected Item to create or update (optional)
+	 * @param array<string, \Comet\BackupRuleConfig> $BackupRules Optional backup rules for the Protected Item (optional)
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminSetProtectedItemWithBackupRules(string $TargetUser, string $SourceID, string $RequireHash = null, \Comet\SourceConfig $Source = null, array $BackupRules = null): \Comet\APIResponseMessage
+	{
+		$nr = new \Comet\AdminSetProtectedItemWithBackupRulesRequest($TargetUser, $SourceID, $RequireHash, $Source, $BackupRules);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminSetProtectedItemWithBackupRulesRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
 
 	/** 

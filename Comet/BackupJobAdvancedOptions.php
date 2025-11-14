@@ -78,6 +78,13 @@ class BackupJobAdvancedOptions {
 	public $LogLevel = "";
 
 	/**
+	 * Default disabled
+	 *
+	 * @var string
+	 */
+	public $Tags = "";
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see BackupJobAdvancedOptions::RemoveUnknownProperties() Remove all unknown properties
@@ -121,6 +128,9 @@ class BackupJobAdvancedOptions {
 		if (property_exists($sc, 'LogLevel')) {
 			$this->LogLevel = (string)($sc->LogLevel);
 		}
+		if (property_exists($sc, 'Tags')) {
+			$this->Tags = (string)($sc->Tags);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'SkipAlreadyRunning':
@@ -132,6 +142,7 @@ class BackupJobAdvancedOptions {
 			case 'AutoRetentionLevel':
 			case 'ConcurrencyCount':
 			case 'LogLevel':
+			case 'Tags':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -206,6 +217,7 @@ class BackupJobAdvancedOptions {
 		$ret["AutoRetentionLevel"] = $this->AutoRetentionLevel;
 		$ret["ConcurrencyCount"] = $this->ConcurrencyCount;
 		$ret["LogLevel"] = $this->LogLevel;
+		$ret["Tags"] = $this->Tags;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

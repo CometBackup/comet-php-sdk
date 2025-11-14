@@ -204,6 +204,27 @@ class BrandingProperties {
 	public $WindowsCodeSignAzureTenantID = "";
 
 	/**
+	 * URL of the SAS Relic server, with protocol (https://) and trailing slash
+	 *
+	 * @var string
+	 */
+	public $WindowsCodeSignRelicServerURL = "";
+
+	/**
+	 * The SAS Relic client keypair in PEM format
+	 *
+	 * @var string
+	 */
+	public $WindowsCodeSignRelicKeypairFile = "";
+
+	/**
+	 * The name of the key to select on the remote SAS Relic server
+	 *
+	 * @var string
+	 */
+	public $WindowsCodeSignRelicKeyName = "";
+
+	/**
 	 * @var \Comet\MacOSCodeSignProperties
 	 */
 	public $MacOSCodeSign = null;
@@ -333,6 +354,15 @@ class BrandingProperties {
 		if (property_exists($sc, 'WindowsCodeSignAzureTenantID')) {
 			$this->WindowsCodeSignAzureTenantID = (string)($sc->WindowsCodeSignAzureTenantID);
 		}
+		if (property_exists($sc, 'WindowsCodeSignRelicServerURL')) {
+			$this->WindowsCodeSignRelicServerURL = (string)($sc->WindowsCodeSignRelicServerURL);
+		}
+		if (property_exists($sc, 'WindowsCodeSignRelicKeypairFile')) {
+			$this->WindowsCodeSignRelicKeypairFile = (string)($sc->WindowsCodeSignRelicKeypairFile);
+		}
+		if (property_exists($sc, 'WindowsCodeSignRelicKeyName')) {
+			$this->WindowsCodeSignRelicKeyName = (string)($sc->WindowsCodeSignRelicKeyName);
+		}
 		if (property_exists($sc, 'MacOSCodeSign')) {
 			if (is_array($sc->MacOSCodeSign) && count($sc->MacOSCodeSign) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
@@ -379,6 +409,9 @@ class BrandingProperties {
 			case 'WindowsCodeSignAzureAppSecretFormat':
 			case 'WindowsCodeSignAzureAppSecret':
 			case 'WindowsCodeSignAzureTenantID':
+			case 'WindowsCodeSignRelicServerURL':
+			case 'WindowsCodeSignRelicKeypairFile':
+			case 'WindowsCodeSignRelicKeyName':
 			case 'MacOSCodeSign':
 				break;
 			default:
@@ -481,6 +514,9 @@ class BrandingProperties {
 		$ret["WindowsCodeSignAzureAppSecretFormat"] = $this->WindowsCodeSignAzureAppSecretFormat;
 		$ret["WindowsCodeSignAzureAppSecret"] = $this->WindowsCodeSignAzureAppSecret;
 		$ret["WindowsCodeSignAzureTenantID"] = $this->WindowsCodeSignAzureTenantID;
+		$ret["WindowsCodeSignRelicServerURL"] = $this->WindowsCodeSignRelicServerURL;
+		$ret["WindowsCodeSignRelicKeypairFile"] = $this->WindowsCodeSignRelicKeypairFile;
+		$ret["WindowsCodeSignRelicKeyName"] = $this->WindowsCodeSignRelicKeyName;
 		if ( $this->MacOSCodeSign === null ) {
 			$ret["MacOSCodeSign"] = $for_json_encode ? (object)[] : [];
 		} else {

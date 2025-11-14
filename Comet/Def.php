@@ -14,7 +14,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "25.6.8";
+	const APPLICATION_VERSION = "25.9.6";
 
 	/**
 	 * @type int
@@ -24,12 +24,12 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_MINOR = 6;
+	const APPLICATION_VERSION_MINOR = 9;
 
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 8;
+	const APPLICATION_VERSION_REVISION = 6;
 
 	/**
 	 * AutoRetentionLevel: The system will automatically choose how often to run an automatic Retention Pass after each backup job.
@@ -757,6 +757,13 @@ class Def {
 	const JOB_STATUS_RUNNING_TRYAGAIN = 6003;
 
 	/**
+	 * JobStatus: The job has been created by the server but has not yet been initialized by the client.
+	 *
+	 * @type int
+	 */
+	const JOB_STATUS_NOT_YET_STARTED = 6004;
+
+	/**
 	 * JobStatus
 	 *
 	 * @type int
@@ -1131,21 +1138,29 @@ class Def {
 	const PSA_TYPE_SYNCRO = 2;
 
 	/**
+	 * PveBackupMethod
+	 *
 	 * @type string
 	 */
 	const PVE_BACKUP_METHOD_STOP = "stop";
 
 	/**
+	 * PveBackupMethod
+	 *
 	 * @type string
 	 */
 	const PVE_BACKUP_METHOD_SUSPEND = "suspend";
 
 	/**
+	 * PveBackupMethod
+	 *
 	 * @type string
 	 */
 	const PVE_BACKUP_METHOD_SNAPSHOT = "snapshot";
 
 	/**
+	 * PveBackupMethod
+	 *
 	 * @type string
 	 */
 	const PVE_BACKUP_METHOD_DEFAULT = self::PVE_BACKUP_METHOD_SNAPSHOT;
@@ -2739,6 +2754,13 @@ class Def {
 	const WINDOWSCODESIGN_METHOD_AZUREKEYVAULT = 4;
 
 	/**
+	 * WindowsCodesignMethod: Use a configured SAS Relic server for Authenticode codesigning
+	 *
+	 * @type int
+	 */
+	const WINDOWSCODESIGN_METHOD_RELICSERVER = 5;
+
+	/**
 	 * Retrieve a mapping of language codes supported by Comet Server.
 	 *
 	 * @return array
@@ -2760,6 +2782,7 @@ class Def {
 			'th_TH' => 'ภาษาไทย',
 			'zh_TW' => '中文 (繁體)',
 			'pl_PL' => 'Polski',
+			'uk_UA' => 'Українська мова',
 		];
 	}
 }

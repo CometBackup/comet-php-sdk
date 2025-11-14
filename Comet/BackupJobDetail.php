@@ -160,13 +160,6 @@ class BackupJobDetail {
 	public $TotalUnlicensedMailsCount = 0;
 
 	/**
-	 * The CRC32 of the billing data for this job.
-	 *
-	 * @var int
-	 */
-	public $BillingCrc32 = 0;
-
-	/**
 	 * If this field is present, this job did not perform some work because the Storage Vault is
 	 * currently busy.
 	 *
@@ -203,6 +196,13 @@ class BackupJobDetail {
 	 * @var \Comet\SizeMeasurement
 	 */
 	public $DestinationSizeEnd = null;
+
+	/**
+	 * The tags sent as BackupJobOptions, Useful for Groupings
+	 *
+	 * @var string
+	 */
+	public $Tags = "";
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
@@ -296,9 +296,6 @@ class BackupJobDetail {
 		if (property_exists($sc, 'TotalUnlicensedMailsCount') && !is_null($sc->TotalUnlicensedMailsCount)) {
 			$this->TotalUnlicensedMailsCount = (int)($sc->TotalUnlicensedMailsCount);
 		}
-		if (property_exists($sc, 'BillingCrc32') && !is_null($sc->BillingCrc32)) {
-			$this->BillingCrc32 = (int)($sc->BillingCrc32);
-		}
 		if (property_exists($sc, 'ConflictingJobID') && !is_null($sc->ConflictingJobID)) {
 			$this->ConflictingJobID = (string)($sc->ConflictingJobID);
 		}
@@ -329,6 +326,9 @@ class BackupJobDetail {
 				$this->DestinationSizeEnd = \Comet\SizeMeasurement::createFromStdclass($sc->DestinationSizeEnd);
 			}
 		}
+		if (property_exists($sc, 'Tags') && !is_null($sc->Tags)) {
+			$this->Tags = (string)($sc->Tags);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'GUID':
@@ -356,12 +356,12 @@ class BackupJobDetail {
 			case 'TotalAccountsCount':
 			case 'TotalLicensedMailsCount':
 			case 'TotalUnlicensedMailsCount':
-			case 'BillingCrc32':
 			case 'ConflictingJobID':
 			case 'CancellationID':
 			case 'Progress':
 			case 'DestinationSizeStart':
 			case 'DestinationSizeEnd':
+			case 'Tags':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -452,7 +452,6 @@ class BackupJobDetail {
 		$ret["TotalAccountsCount"] = $this->TotalAccountsCount;
 		$ret["TotalLicensedMailsCount"] = $this->TotalLicensedMailsCount;
 		$ret["TotalUnlicensedMailsCount"] = $this->TotalUnlicensedMailsCount;
-		$ret["BillingCrc32"] = $this->BillingCrc32;
 		$ret["ConflictingJobID"] = $this->ConflictingJobID;
 		$ret["CancellationID"] = $this->CancellationID;
 		if ( $this->Progress === null ) {
@@ -470,6 +469,7 @@ class BackupJobDetail {
 		} else {
 			$ret["DestinationSizeEnd"] = $this->DestinationSizeEnd->toArray($for_json_encode);
 		}
+		$ret["Tags"] = $this->Tags;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

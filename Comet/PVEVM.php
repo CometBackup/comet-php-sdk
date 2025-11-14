@@ -9,6 +9,9 @@
 
 namespace Comet;
 
+/**
+ * PVEVM describes a single Proxmox virtual machine or container.
+ */
 class PVEVM {
 
 	/**
@@ -52,6 +55,8 @@ class PVEVM {
 	public $Type = "";
 
 	/**
+	 * String type, but always contains an integer value
+	 *
 	 * @var string
 	 */
 	public $VMID = "";

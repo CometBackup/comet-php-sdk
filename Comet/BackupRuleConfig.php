@@ -131,6 +131,13 @@ class BackupRuleConfig {
 	public $LogLevel = "";
 
 	/**
+	 * Default disabled
+	 *
+	 * @var string
+	 */
+	public $Tags = "";
+
+	/**
 	 * Scheduled start times
 	 *
 	 * @var \Comet\ScheduleConfig[]
@@ -230,6 +237,9 @@ class BackupRuleConfig {
 		if (property_exists($sc, 'LogLevel')) {
 			$this->LogLevel = (string)($sc->LogLevel);
 		}
+		if (property_exists($sc, 'Tags')) {
+			$this->Tags = (string)($sc->Tags);
+		}
 		if (property_exists($sc, 'Schedules')) {
 			$val_2 = [];
 			if ($sc->Schedules !== null) {
@@ -271,6 +281,7 @@ class BackupRuleConfig {
 			case 'AutoRetentionLevel':
 			case 'ConcurrencyCount':
 			case 'LogLevel':
+			case 'Tags':
 			case 'Schedules':
 			case 'EventTriggers':
 				break;
@@ -376,6 +387,7 @@ class BackupRuleConfig {
 		$ret["AutoRetentionLevel"] = $this->AutoRetentionLevel;
 		$ret["ConcurrencyCount"] = $this->ConcurrencyCount;
 		$ret["LogLevel"] = $this->LogLevel;
+		$ret["Tags"] = $this->Tags;
 		{
 			$c0 = [];
 			for($i0 = 0; $i0 < count($this->Schedules); ++$i0) {
