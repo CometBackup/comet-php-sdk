@@ -1455,12 +1455,13 @@ class Server {
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param \Comet\SSHConnection $Credentials The SSH connection settings
+	 * @param string $Node The target node
 	 * @return \Comet\BrowseProxmoxStorageResponse 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherRequestBrowseProxmoxStorage(string $TargetID, \Comet\SSHConnection $Credentials): \Comet\BrowseProxmoxStorageResponse
+	public function AdminDispatcherRequestBrowseProxmoxStorage(string $TargetID, \Comet\SSHConnection $Credentials, string $Node): \Comet\BrowseProxmoxStorageResponse
 	{
-		$nr = new \Comet\AdminDispatcherRequestBrowseProxmoxStorageRequest($TargetID, $Credentials);
+		$nr = new \Comet\AdminDispatcherRequestBrowseProxmoxStorageRequest($TargetID, $Credentials, $Node);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminDispatcherRequestBrowseProxmoxStorageRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
@@ -3338,6 +3339,75 @@ class Server {
 		$nr = new \Comet\AdminSetUserProfileHashRequest($TargetUser, $ProfileData, $RequireHash, $AdminOptions);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminSetUserProfileHashRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Delete a shared storage quota and detach all users
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $SharedStorageQuotaID (No description available)
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminSquotaDelete(string $SharedStorageQuotaID): \Comet\APIResponseMessage
+	{
+		$nr = new \Comet\AdminSquotaDeleteRequest($SharedStorageQuotaID);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminSquotaDeleteRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Get properties for a shared storage quota
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $SharedStorageQuotaID (No description available)
+	 * @return \Comet\GetSharedStorageQuotaResponse 
+	 * @throws \Exception
+	 */
+	public function AdminSquotaGetWithHash(string $SharedStorageQuotaID): \Comet\GetSharedStorageQuotaResponse
+	{
+		$nr = new \Comet\AdminSquotaGetWithHashRequest($SharedStorageQuotaID);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminSquotaGetWithHashRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * List available shared storage quota objects
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @return \Comet\ListSharedStorageQuotaResponse 
+	 * @throws \Exception
+	 */
+	public function AdminSquotaListAll(): \Comet\ListSharedStorageQuotaResponse
+	{
+		$nr = new \Comet\AdminSquotaListAllRequest();
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminSquotaListAllRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Create or update a shared storage quota
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $SharedStorageQuotaID (No description available)
+	 * @param \Comet\SharedStorageQuota $SharedStorageQuota (No description available)
+	 * @param string $CheckHash If supplied, validate the change against this hash. Omit to forcibly apply changes. (optional)
+	 * @return \Comet\SetSharedStorageQuotaResponse 
+	 * @throws \Exception
+	 */
+	public function AdminSquotaSetWithHash(string $SharedStorageQuotaID, \Comet\SharedStorageQuota $SharedStorageQuota, string $CheckHash = null): \Comet\SetSharedStorageQuotaResponse
+	{
+		$nr = new \Comet\AdminSquotaSetWithHashRequest($SharedStorageQuotaID, $SharedStorageQuota, $CheckHash);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminSquotaSetWithHashRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
 
 	/** 

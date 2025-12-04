@@ -10,47 +10,29 @@
 namespace Comet;
 
 /**
- * Comet Server AdminDispatcherRequestBrowseProxmoxStorage API
- * Request a list of configured Proxmox storage
+ * Comet Server AdminSquotaGetWithHash API
+ * Get properties for a shared storage quota
  *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
  */
-class AdminDispatcherRequestBrowseProxmoxStorageRequest implements \Comet\NetworkRequest {
+class AdminSquotaGetWithHashRequest implements \Comet\NetworkRequest {
 
 	/**
-	 * The live connection GUID
+	 * (No description available)
 	 *
 	 * @var string
 	 */
-	protected $TargetID = null;
+	protected $SharedStorageQuotaID = null;
 
 	/**
-	 * The SSH connection settings
+	 * Construct a new AdminSquotaGetWithHashRequest instance.
 	 *
-	 * @var \Comet\SSHConnection
+	 * @param string $SharedStorageQuotaID (No description available)
 	 */
-	protected $Credentials = null;
-
-	/**
-	 * The target node
-	 *
-	 * @var string
-	 */
-	protected $Node = null;
-
-	/**
-	 * Construct a new AdminDispatcherRequestBrowseProxmoxStorageRequest instance.
-	 *
-	 * @param string $TargetID The live connection GUID
-	 * @param \Comet\SSHConnection $Credentials The SSH connection settings
-	 * @param string $Node The target node
-	 */
-	public function __construct(string $TargetID, \Comet\SSHConnection $Credentials, string $Node)
+	public function __construct(string $SharedStorageQuotaID)
 	{
-		$this->TargetID = $TargetID;
-		$this->Credentials = $Credentials;
-		$this->Node = $Node;
+		$this->SharedStorageQuotaID = $SharedStorageQuotaID;
 	}
 
 	/**
@@ -60,7 +42,7 @@ class AdminDispatcherRequestBrowseProxmoxStorageRequest implements \Comet\Networ
 	 */
 	public function Endpoint(): string
 	{
-		return '/api/v1/admin/dispatcher/request-browse-proxmox/storage';
+		return '/api/v1/admin/squota/get-with-hash';
 	}
 
 	public function Method(): string
@@ -81,9 +63,7 @@ class AdminDispatcherRequestBrowseProxmoxStorageRequest implements \Comet\Networ
 	public function Parameters(): array
 	{
 		$ret = [];
-		$ret["TargetID"] = (string)($this->TargetID);
-		$ret["Credentials"] = $this->Credentials->toJSON();
-		$ret["Node"] = (string)($this->Node);
+		$ret["SharedStorageQuotaID"] = (string)($this->SharedStorageQuotaID);
 		return $ret;
 	}
 
@@ -93,10 +73,10 @@ class AdminDispatcherRequestBrowseProxmoxStorageRequest implements \Comet\Networ
 	 *
 	 * @param int $responseCode HTTP response code
 	 * @param string $body HTTP response body
-	 * @return \Comet\BrowseProxmoxStorageResponse
+	 * @return \Comet\GetSharedStorageQuotaResponse
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse(int $responseCode, string $body): \Comet\BrowseProxmoxStorageResponse
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\GetSharedStorageQuotaResponse
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {
@@ -118,12 +98,12 @@ class AdminDispatcherRequestBrowseProxmoxStorageRequest implements \Comet\Networ
 			}
 		}
 
-		// Parse as BrowseProxmoxStorageResponse
+		// Parse as GetSharedStorageQuotaResponse
 		if (is_array($decoded) && count($decoded) === 0) {
 		// Work around edge case in json_decode--json_encode stdClass conversion
-			$ret = \Comet\BrowseProxmoxStorageResponse::createFromStdclass(new \stdClass());
+			$ret = \Comet\GetSharedStorageQuotaResponse::createFromStdclass(new \stdClass());
 		} else {
-			$ret = \Comet\BrowseProxmoxStorageResponse::createFromStdclass($decoded);
+			$ret = \Comet\GetSharedStorageQuotaResponse::createFromStdclass($decoded);
 		}
 
 		return $ret;

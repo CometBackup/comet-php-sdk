@@ -10,35 +10,38 @@
 namespace Comet;
 
 /**
- * PVEStorageName contains the name and type of storage configured on a Proxmox Cluster
+ * A SharedStorageQuota can be applied to multiple Storage Vaults in the
+ * 'DestinationConfig.StorageLimitID' field.
  */
-class PVEStorageName {
+class SharedStorageQuota {
 
 	/**
 	 * @var string
 	 */
-	public $Name = "";
+	public $Description = "";
 
 	/**
 	 * @var string
 	 */
-	public $Type = "";
+	public $OrganizationID = "";
 
 	/**
-	 * @var string[]
+	 * Bytes
+	 *
+	 * @var int
 	 */
-	public $Content = [];
+	public $LimitBytes = 0;
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
-	 * @see PVEStorageName::RemoveUnknownProperties() Remove all unknown properties
+	 * @see SharedStorageQuota::RemoveUnknownProperties() Remove all unknown properties
 	 * @var array
 	 */
 	private $__unknown_properties = [];
 
 	/**
-	 * Replace the content of this PVEStorageName object from a PHP \stdClass.
+	 * Replace the content of this SharedStorageQuota object from a PHP \stdClass.
 	 * The data could be supplied from an API call after json_decode(...); or generated manually.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
@@ -46,26 +49,20 @@ class PVEStorageName {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
-		if (property_exists($sc, 'Name')) {
-			$this->Name = (string)($sc->Name);
+		if (property_exists($sc, 'Description')) {
+			$this->Description = (string)($sc->Description);
 		}
-		if (property_exists($sc, 'Type')) {
-			$this->Type = (string)($sc->Type);
+		if (property_exists($sc, 'OrganizationID')) {
+			$this->OrganizationID = (string)($sc->OrganizationID);
 		}
-		if (property_exists($sc, 'Content')) {
-			$val_2 = [];
-			if ($sc->Content !== null) {
-				for($i_2 = 0; $i_2 < count($sc->Content); ++$i_2) {
-					$val_2[] = (string)($sc->Content[$i_2]);
-				}
-			}
-			$this->Content = $val_2;
+		if (property_exists($sc, 'LimitBytes')) {
+			$this->LimitBytes = (int)($sc->LimitBytes);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
-			case 'Name':
-			case 'Type':
-			case 'Content':
+			case 'Description':
+			case 'OrganizationID':
+			case 'LimitBytes':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -74,27 +71,27 @@ class PVEStorageName {
 	}
 
 	/**
-	 * Coerce a stdClass into a new strongly-typed PVEStorageName object.
+	 * Coerce a stdClass into a new strongly-typed SharedStorageQuota object.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
-	 * @return PVEStorageName
+	 * @return SharedStorageQuota
 	 */
-	public static function createFromStdclass(\stdClass $sc): \Comet\PVEStorageName
+	public static function createFromStdclass(\stdClass $sc): \Comet\SharedStorageQuota
 	{
-		$retn = new PVEStorageName();
+		$retn = new SharedStorageQuota();
 		$retn->inflateFrom($sc);
 		return $retn;
 	}
 
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed PVEStorageName object.
+	 * Coerce a plain PHP array into a new strongly-typed SharedStorageQuota object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
 	 * @param array $arr Object data as PHP array
-	 * @return PVEStorageName
+	 * @return SharedStorageQuota
 	 */
-	public static function createFromArray(array $arr): \Comet\PVEStorageName
+	public static function createFromArray(array $arr): \Comet\SharedStorageQuota
 	{
 		$stdClass = json_decode(json_encode($arr, JSON_UNESCAPED_SLASHES));
 		if (is_array($stdClass) && count($stdClass) === 0) {
@@ -104,24 +101,24 @@ class PVEStorageName {
 	}
 
 	/**
-	 * Coerce a JSON string into a new strongly-typed PVEStorageName object.
+	 * Coerce a JSON string into a new strongly-typed SharedStorageQuota object.
 	 *
 	 * @param string $JsonString Object data as JSON string
-	 * @return PVEStorageName
+	 * @return SharedStorageQuota
 	 */
-	public static function createFromJSON(string $JsonString): \Comet\PVEStorageName
+	public static function createFromJSON(string $JsonString): \Comet\SharedStorageQuota
 	{
 		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg(), \json_last_error());
 		}
-		$retn = new PVEStorageName();
+		$retn = new SharedStorageQuota();
 		$retn->inflateFrom($decodedJsonObject);
 		return $retn;
 	}
 
 	/**
-	 * Convert this PVEStorageName object into a plain PHP array.
+	 * Convert this SharedStorageQuota object into a plain PHP array.
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
@@ -131,16 +128,9 @@ class PVEStorageName {
 	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
-		$ret["Name"] = $this->Name;
-		$ret["Type"] = $this->Type;
-		{
-			$c0 = [];
-			for($i0 = 0; $i0 < count($this->Content); ++$i0) {
-				$val0 = $this->Content[$i0];
-				$c0[] = $val0;
-			}
-			$ret["Content"] = $c0;
-		}
+		$ret["Description"] = $this->Description;
+		$ret["OrganizationID"] = $this->OrganizationID;
+		$ret["LimitBytes"] = $this->LimitBytes;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

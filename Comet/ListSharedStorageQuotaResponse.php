@@ -9,36 +9,35 @@
 
 namespace Comet;
 
-/**
- * PVEStorageName contains the name and type of storage configured on a Proxmox Cluster
- */
-class PVEStorageName {
+class ListSharedStorageQuotaResponse {
+
+	/**
+	 * If the operation was successful, the status will be in the 200-299 range.
+	 *
+	 * @var int
+	 */
+	public $Status = 0;
 
 	/**
 	 * @var string
 	 */
-	public $Name = "";
+	public $Message = "";
 
 	/**
-	 * @var string
+	 * @var array<string, \Comet\SharedStorageQuota>
 	 */
-	public $Type = "";
-
-	/**
-	 * @var string[]
-	 */
-	public $Content = [];
+	public $Entries = [];
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
-	 * @see PVEStorageName::RemoveUnknownProperties() Remove all unknown properties
+	 * @see ListSharedStorageQuotaResponse::RemoveUnknownProperties() Remove all unknown properties
 	 * @var array
 	 */
 	private $__unknown_properties = [];
 
 	/**
-	 * Replace the content of this PVEStorageName object from a PHP \stdClass.
+	 * Replace the content of this ListSharedStorageQuotaResponse object from a PHP \stdClass.
 	 * The data could be supplied from an API call after json_decode(...); or generated manually.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
@@ -46,26 +45,33 @@ class PVEStorageName {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
-		if (property_exists($sc, 'Name')) {
-			$this->Name = (string)($sc->Name);
+		if (property_exists($sc, 'Status')) {
+			$this->Status = (int)($sc->Status);
 		}
-		if (property_exists($sc, 'Type')) {
-			$this->Type = (string)($sc->Type);
+		if (property_exists($sc, 'Message')) {
+			$this->Message = (string)($sc->Message);
 		}
-		if (property_exists($sc, 'Content')) {
+		if (property_exists($sc, 'Entries')) {
 			$val_2 = [];
-			if ($sc->Content !== null) {
-				for($i_2 = 0; $i_2 < count($sc->Content); ++$i_2) {
-					$val_2[] = (string)($sc->Content[$i_2]);
+			if ($sc->Entries !== null) {
+				foreach($sc->Entries as $k_2 => $v_2) {
+					$phpk_2 = (string)($k_2);
+					if (is_array($v_2) && count($v_2) === 0) {
+					// Work around edge case in json_decode--json_encode stdClass conversion
+						$phpv_2 = \Comet\SharedStorageQuota::createFromStdclass(new \stdClass());
+					} else {
+						$phpv_2 = \Comet\SharedStorageQuota::createFromStdclass($v_2);
+					}
+					$val_2[$phpk_2] = $phpv_2;
 				}
 			}
-			$this->Content = $val_2;
+			$this->Entries = $val_2;
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
-			case 'Name':
-			case 'Type':
-			case 'Content':
+			case 'Status':
+			case 'Message':
+			case 'Entries':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -74,27 +80,27 @@ class PVEStorageName {
 	}
 
 	/**
-	 * Coerce a stdClass into a new strongly-typed PVEStorageName object.
+	 * Coerce a stdClass into a new strongly-typed ListSharedStorageQuotaResponse object.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
-	 * @return PVEStorageName
+	 * @return ListSharedStorageQuotaResponse
 	 */
-	public static function createFromStdclass(\stdClass $sc): \Comet\PVEStorageName
+	public static function createFromStdclass(\stdClass $sc): \Comet\ListSharedStorageQuotaResponse
 	{
-		$retn = new PVEStorageName();
+		$retn = new ListSharedStorageQuotaResponse();
 		$retn->inflateFrom($sc);
 		return $retn;
 	}
 
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed PVEStorageName object.
+	 * Coerce a plain PHP array into a new strongly-typed ListSharedStorageQuotaResponse object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
 	 * @param array $arr Object data as PHP array
-	 * @return PVEStorageName
+	 * @return ListSharedStorageQuotaResponse
 	 */
-	public static function createFromArray(array $arr): \Comet\PVEStorageName
+	public static function createFromArray(array $arr): \Comet\ListSharedStorageQuotaResponse
 	{
 		$stdClass = json_decode(json_encode($arr, JSON_UNESCAPED_SLASHES));
 		if (is_array($stdClass) && count($stdClass) === 0) {
@@ -104,24 +110,24 @@ class PVEStorageName {
 	}
 
 	/**
-	 * Coerce a JSON string into a new strongly-typed PVEStorageName object.
+	 * Coerce a JSON string into a new strongly-typed ListSharedStorageQuotaResponse object.
 	 *
 	 * @param string $JsonString Object data as JSON string
-	 * @return PVEStorageName
+	 * @return ListSharedStorageQuotaResponse
 	 */
-	public static function createFromJSON(string $JsonString): \Comet\PVEStorageName
+	public static function createFromJSON(string $JsonString): \Comet\ListSharedStorageQuotaResponse
 	{
 		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg(), \json_last_error());
 		}
-		$retn = new PVEStorageName();
+		$retn = new ListSharedStorageQuotaResponse();
 		$retn->inflateFrom($decodedJsonObject);
 		return $retn;
 	}
 
 	/**
-	 * Convert this PVEStorageName object into a plain PHP array.
+	 * Convert this ListSharedStorageQuotaResponse object into a plain PHP array.
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
@@ -131,15 +137,24 @@ class PVEStorageName {
 	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
-		$ret["Name"] = $this->Name;
-		$ret["Type"] = $this->Type;
+		$ret["Status"] = $this->Status;
+		$ret["Message"] = $this->Message;
 		{
-			$c0 = [];
-			for($i0 = 0; $i0 < count($this->Content); ++$i0) {
-				$val0 = $this->Content[$i0];
-				$c0[] = $val0;
+			$c0 = $for_json_encode ? (object)[] : [];
+			foreach($this->Entries as $k0 => $v0) {
+				$ko_0 = $k0;
+				if ( $v0 === null ) {
+					$vo_0 = $for_json_encode ? (object)[] : [];
+				} else {
+					$vo_0 = $v0->toArray($for_json_encode);
+				}
+				if ($for_json_encode) {
+				$c0->{ $ko_0 } = $vo_0;
+				} else {
+					$c0[ $ko_0 ] = $vo_0;
+				}
 			}
-			$ret["Content"] = $c0;
+			$ret["Entries"] = $c0;
 		}
 
 		// Reinstate unknown properties from future server versions

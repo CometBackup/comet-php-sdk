@@ -10,47 +10,47 @@
 namespace Comet;
 
 /**
- * Comet Server AdminDispatcherRequestBrowseProxmoxStorage API
- * Request a list of configured Proxmox storage
+ * Comet Server AdminSquotaSetWithHash API
+ * Create or update a shared storage quota
  *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
  */
-class AdminDispatcherRequestBrowseProxmoxStorageRequest implements \Comet\NetworkRequest {
+class AdminSquotaSetWithHashRequest implements \Comet\NetworkRequest {
 
 	/**
-	 * The live connection GUID
+	 * (No description available)
 	 *
 	 * @var string
 	 */
-	protected $TargetID = null;
+	protected $SharedStorageQuotaID = null;
 
 	/**
-	 * The SSH connection settings
+	 * (No description available)
 	 *
-	 * @var \Comet\SSHConnection
+	 * @var \Comet\SharedStorageQuota
 	 */
-	protected $Credentials = null;
+	protected $SharedStorageQuota = null;
 
 	/**
-	 * The target node
+	 * If supplied, validate the change against this hash. Omit to forcibly apply changes. (optional)
 	 *
-	 * @var string
+	 * @var string|null
 	 */
-	protected $Node = null;
+	protected $CheckHash = null;
 
 	/**
-	 * Construct a new AdminDispatcherRequestBrowseProxmoxStorageRequest instance.
+	 * Construct a new AdminSquotaSetWithHashRequest instance.
 	 *
-	 * @param string $TargetID The live connection GUID
-	 * @param \Comet\SSHConnection $Credentials The SSH connection settings
-	 * @param string $Node The target node
+	 * @param string $SharedStorageQuotaID (No description available)
+	 * @param \Comet\SharedStorageQuota $SharedStorageQuota (No description available)
+	 * @param string $CheckHash If supplied, validate the change against this hash. Omit to forcibly apply changes. (optional)
 	 */
-	public function __construct(string $TargetID, \Comet\SSHConnection $Credentials, string $Node)
+	public function __construct(string $SharedStorageQuotaID, \Comet\SharedStorageQuota $SharedStorageQuota, string $CheckHash = null)
 	{
-		$this->TargetID = $TargetID;
-		$this->Credentials = $Credentials;
-		$this->Node = $Node;
+		$this->SharedStorageQuotaID = $SharedStorageQuotaID;
+		$this->SharedStorageQuota = $SharedStorageQuota;
+		$this->CheckHash = $CheckHash;
 	}
 
 	/**
@@ -60,7 +60,7 @@ class AdminDispatcherRequestBrowseProxmoxStorageRequest implements \Comet\Networ
 	 */
 	public function Endpoint(): string
 	{
-		return '/api/v1/admin/dispatcher/request-browse-proxmox/storage';
+		return '/api/v1/admin/squota/set-with-hash';
 	}
 
 	public function Method(): string
@@ -81,9 +81,11 @@ class AdminDispatcherRequestBrowseProxmoxStorageRequest implements \Comet\Networ
 	public function Parameters(): array
 	{
 		$ret = [];
-		$ret["TargetID"] = (string)($this->TargetID);
-		$ret["Credentials"] = $this->Credentials->toJSON();
-		$ret["Node"] = (string)($this->Node);
+		$ret["SharedStorageQuotaID"] = (string)($this->SharedStorageQuotaID);
+		$ret["SharedStorageQuota"] = $this->SharedStorageQuota->toJSON();
+		if ($this->CheckHash !== null) {
+			$ret["CheckHash"] = (string)($this->CheckHash);
+		}
 		return $ret;
 	}
 
@@ -93,10 +95,10 @@ class AdminDispatcherRequestBrowseProxmoxStorageRequest implements \Comet\Networ
 	 *
 	 * @param int $responseCode HTTP response code
 	 * @param string $body HTTP response body
-	 * @return \Comet\BrowseProxmoxStorageResponse
+	 * @return \Comet\SetSharedStorageQuotaResponse
 	 * @throws \Exception
 	 */
-	public static function ProcessResponse(int $responseCode, string $body): \Comet\BrowseProxmoxStorageResponse
+	public static function ProcessResponse(int $responseCode, string $body): \Comet\SetSharedStorageQuotaResponse
 	{
 		// Require expected HTTP 200 response
 		if ($responseCode !== 200) {
@@ -118,12 +120,12 @@ class AdminDispatcherRequestBrowseProxmoxStorageRequest implements \Comet\Networ
 			}
 		}
 
-		// Parse as BrowseProxmoxStorageResponse
+		// Parse as SetSharedStorageQuotaResponse
 		if (is_array($decoded) && count($decoded) === 0) {
 		// Work around edge case in json_decode--json_encode stdClass conversion
-			$ret = \Comet\BrowseProxmoxStorageResponse::createFromStdclass(new \stdClass());
+			$ret = \Comet\SetSharedStorageQuotaResponse::createFromStdclass(new \stdClass());
 		} else {
-			$ret = \Comet\BrowseProxmoxStorageResponse::createFromStdclass($decoded);
+			$ret = \Comet\SetSharedStorageQuotaResponse::createFromStdclass($decoded);
 		}
 
 		return $ret;

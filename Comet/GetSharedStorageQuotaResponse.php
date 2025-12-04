@@ -9,36 +9,47 @@
 
 namespace Comet;
 
-/**
- * PVEStorageName contains the name and type of storage configured on a Proxmox Cluster
- */
-class PVEStorageName {
+class GetSharedStorageQuotaResponse {
+
+	/**
+	 * If the operation was successful, the status will be in the 200-299 range.
+	 *
+	 * @var int
+	 */
+	public $Status = 0;
 
 	/**
 	 * @var string
 	 */
-	public $Name = "";
+	public $Message = "";
+
+	/**
+	 * @var \Comet\SharedStorageQuota
+	 */
+	public $SharedStorageQuota = null;
 
 	/**
 	 * @var string
 	 */
-	public $Type = "";
+	public $SharedStorageQuotaHash = "";
 
 	/**
-	 * @var string[]
+	 * Bytes
+	 *
+	 * @var int
 	 */
-	public $Content = [];
+	public $CurrentUsage = 0;
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
-	 * @see PVEStorageName::RemoveUnknownProperties() Remove all unknown properties
+	 * @see GetSharedStorageQuotaResponse::RemoveUnknownProperties() Remove all unknown properties
 	 * @var array
 	 */
 	private $__unknown_properties = [];
 
 	/**
-	 * Replace the content of this PVEStorageName object from a PHP \stdClass.
+	 * Replace the content of this GetSharedStorageQuotaResponse object from a PHP \stdClass.
 	 * The data could be supplied from an API call after json_decode(...); or generated manually.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
@@ -46,26 +57,33 @@ class PVEStorageName {
 	 */
 	protected function inflateFrom(\stdClass $sc)
 	{
-		if (property_exists($sc, 'Name')) {
-			$this->Name = (string)($sc->Name);
+		if (property_exists($sc, 'Status')) {
+			$this->Status = (int)($sc->Status);
 		}
-		if (property_exists($sc, 'Type')) {
-			$this->Type = (string)($sc->Type);
+		if (property_exists($sc, 'Message')) {
+			$this->Message = (string)($sc->Message);
 		}
-		if (property_exists($sc, 'Content')) {
-			$val_2 = [];
-			if ($sc->Content !== null) {
-				for($i_2 = 0; $i_2 < count($sc->Content); ++$i_2) {
-					$val_2[] = (string)($sc->Content[$i_2]);
-				}
+		if (property_exists($sc, 'SharedStorageQuota')) {
+			if (is_array($sc->SharedStorageQuota) && count($sc->SharedStorageQuota) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->SharedStorageQuota = \Comet\SharedStorageQuota::createFromStdclass(new \stdClass());
+			} else {
+				$this->SharedStorageQuota = \Comet\SharedStorageQuota::createFromStdclass($sc->SharedStorageQuota);
 			}
-			$this->Content = $val_2;
+		}
+		if (property_exists($sc, 'SharedStorageQuotaHash')) {
+			$this->SharedStorageQuotaHash = (string)($sc->SharedStorageQuotaHash);
+		}
+		if (property_exists($sc, 'CurrentUsage')) {
+			$this->CurrentUsage = (int)($sc->CurrentUsage);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
-			case 'Name':
-			case 'Type':
-			case 'Content':
+			case 'Status':
+			case 'Message':
+			case 'SharedStorageQuota':
+			case 'SharedStorageQuotaHash':
+			case 'CurrentUsage':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -74,27 +92,27 @@ class PVEStorageName {
 	}
 
 	/**
-	 * Coerce a stdClass into a new strongly-typed PVEStorageName object.
+	 * Coerce a stdClass into a new strongly-typed GetSharedStorageQuotaResponse object.
 	 *
 	 * @param \stdClass $sc Object data as stdClass
-	 * @return PVEStorageName
+	 * @return GetSharedStorageQuotaResponse
 	 */
-	public static function createFromStdclass(\stdClass $sc): \Comet\PVEStorageName
+	public static function createFromStdclass(\stdClass $sc): \Comet\GetSharedStorageQuotaResponse
 	{
-		$retn = new PVEStorageName();
+		$retn = new GetSharedStorageQuotaResponse();
 		$retn->inflateFrom($sc);
 		return $retn;
 	}
 
 	/**
-	 * Coerce a plain PHP array into a new strongly-typed PVEStorageName object.
+	 * Coerce a plain PHP array into a new strongly-typed GetSharedStorageQuotaResponse object.
 	 * Because the Comet Server requires strict distinction between empty objects ({}) and arrays ([]),
 	 * the result of this method may not be safe to re-submit to the Comet Server.
 	 *
 	 * @param array $arr Object data as PHP array
-	 * @return PVEStorageName
+	 * @return GetSharedStorageQuotaResponse
 	 */
-	public static function createFromArray(array $arr): \Comet\PVEStorageName
+	public static function createFromArray(array $arr): \Comet\GetSharedStorageQuotaResponse
 	{
 		$stdClass = json_decode(json_encode($arr, JSON_UNESCAPED_SLASHES));
 		if (is_array($stdClass) && count($stdClass) === 0) {
@@ -104,24 +122,24 @@ class PVEStorageName {
 	}
 
 	/**
-	 * Coerce a JSON string into a new strongly-typed PVEStorageName object.
+	 * Coerce a JSON string into a new strongly-typed GetSharedStorageQuotaResponse object.
 	 *
 	 * @param string $JsonString Object data as JSON string
-	 * @return PVEStorageName
+	 * @return GetSharedStorageQuotaResponse
 	 */
-	public static function createFromJSON(string $JsonString): \Comet\PVEStorageName
+	public static function createFromJSON(string $JsonString): \Comet\GetSharedStorageQuotaResponse
 	{
 		$decodedJsonObject = json_decode($JsonString); // as stdClass
 		if (\json_last_error() != \JSON_ERROR_NONE) {
 			throw new \Exception("JSON decode failed: " . \json_last_error_msg(), \json_last_error());
 		}
-		$retn = new PVEStorageName();
+		$retn = new GetSharedStorageQuotaResponse();
 		$retn->inflateFrom($decodedJsonObject);
 		return $retn;
 	}
 
 	/**
-	 * Convert this PVEStorageName object into a plain PHP array.
+	 * Convert this GetSharedStorageQuotaResponse object into a plain PHP array.
 	 *
 	 * Unknown properties may still be represented as \stdClass objects.
 	 *
@@ -131,16 +149,15 @@ class PVEStorageName {
 	public function toArray(bool $for_json_encode = false): array
 	{
 		$ret = [];
-		$ret["Name"] = $this->Name;
-		$ret["Type"] = $this->Type;
-		{
-			$c0 = [];
-			for($i0 = 0; $i0 < count($this->Content); ++$i0) {
-				$val0 = $this->Content[$i0];
-				$c0[] = $val0;
-			}
-			$ret["Content"] = $c0;
+		$ret["Status"] = $this->Status;
+		$ret["Message"] = $this->Message;
+		if ( $this->SharedStorageQuota === null ) {
+			$ret["SharedStorageQuota"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["SharedStorageQuota"] = $this->SharedStorageQuota->toArray($for_json_encode);
 		}
+		$ret["SharedStorageQuotaHash"] = $this->SharedStorageQuotaHash;
+		$ret["CurrentUsage"] = $this->CurrentUsage;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
@@ -190,6 +207,9 @@ class PVEStorageName {
 	public function RemoveUnknownProperties()
 	{
 		$this->__unknown_properties = [];
+		if ($this->SharedStorageQuota !== null) {
+			$this->SharedStorageQuota->RemoveUnknownProperties();
+		}
 	}
 
 }

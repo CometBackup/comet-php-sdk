@@ -384,6 +384,14 @@ class DestinationConfig {
 	public $StorageLimitBytes = 0;
 
 	/**
+	 * If set, use a shared Storage Vault quota from the Comet Management Console. The direct value of
+	 * StorageLimitBytes is ignored.
+	 *
+	 * @var string
+	 */
+	public $StorageLimitID = "";
+
+	/**
 	 * @var \Comet\DestinationStatistics
 	 */
 	public $Statistics = null;
@@ -667,6 +675,9 @@ class DestinationConfig {
 		if (property_exists($sc, 'StorageLimitBytes')) {
 			$this->StorageLimitBytes = (int)($sc->StorageLimitBytes);
 		}
+		if (property_exists($sc, 'StorageLimitID')) {
+			$this->StorageLimitID = (string)($sc->StorageLimitID);
+		}
 		if (property_exists($sc, 'Statistics') && !is_null($sc->Statistics)) {
 			if (is_array($sc->Statistics) && count($sc->Statistics) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
@@ -760,6 +771,7 @@ class DestinationConfig {
 			case 'RepoInitTimestamp':
 			case 'StorageLimitEnabled':
 			case 'StorageLimitBytes':
+			case 'StorageLimitID':
 			case 'Statistics':
 			case 'DefaultRetention':
 			case 'RebrandStorage':
@@ -942,6 +954,7 @@ class DestinationConfig {
 		$ret["RepoInitTimestamp"] = $this->RepoInitTimestamp;
 		$ret["StorageLimitEnabled"] = $this->StorageLimitEnabled;
 		$ret["StorageLimitBytes"] = $this->StorageLimitBytes;
+		$ret["StorageLimitID"] = $this->StorageLimitID;
 		if ( $this->Statistics === null ) {
 			$ret["Statistics"] = $for_json_encode ? (object)[] : [];
 		} else {

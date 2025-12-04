@@ -14,7 +14,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "25.9.6";
+	const APPLICATION_VERSION = "25.9.8";
 
 	/**
 	 * @type int
@@ -29,7 +29,7 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 6;
+	const APPLICATION_VERSION_REVISION = 8;
 
 	/**
 	 * AutoRetentionLevel: The system will automatically choose how often to run an automatic Retention Pass after each backup job.
@@ -2260,6 +2260,27 @@ class Def {
 	 * @type int
 	 */
 	const SEVT_USERGROUP_UPDATED = 4802;
+
+	/**
+	 * StreamableEventType
+	 *
+	 * @type int
+	 */
+	const SEVT_SQUOTA_NEW = 4803;
+
+	/**
+	 * StreamableEventType
+	 *
+	 * @type int
+	 */
+	const SEVT_SQUOTA_REMOVED = 4804;
+
+	/**
+	 * StreamableEventType
+	 *
+	 * @type int
+	 */
+	const SEVT_SQUOTA_UPDATED = 4805;
 
 	/**
 	 * StreamableEventType
