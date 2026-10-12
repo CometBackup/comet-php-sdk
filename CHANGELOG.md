@@ -3,6 +3,22 @@
 ## 2026-10-12 v4.47.0
 
 - Based on Comet 26.8.8
+- Add APIs for creating, listing and revoking admin personal API tokens
+- Add APIs for testing the connection to a Proxmox cluster node
+- Add NinjaOne PSA integration APIs, and PSA configuration types for ConnectWise and NinjaOne
+- Add Office 365 APIs for evaluating selection rules and converting a legacy selection into rules
+- Add custom branding options for adding CSS and JavaScript to the web interface
+- Add Linux RPM code signing properties, and a PKCS#11 driver allowlist for code signing
+- Add an optional time window for Storage Vault speed limits
+- Add Slack as a webhook payload format
+- Add DNS cache options
+- Add restore types for restoring to cloud storage
+- The user web dispatcher APIs for running backups and restores now return the job ID
+- The set-user-profile API now accepts the optional AdminOptions parameter
+- Breaking: /api/v1/admin/account/session-upgrade now exchanges an SSO one-time token and no
+longer takes a session key
+- Breaking: /api/v1/admin/installation/dispatch/register-device no longer takes a TOTP code
+- Breaking: remove the OFFICE365_REGION_GERMANY constant
 
 ## 2025-12-04 v4.46.0
 
