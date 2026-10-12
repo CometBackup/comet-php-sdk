@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -13,8 +13,10 @@ namespace Comet;
  * Comet Server AdminAccountProperties API
  * Retrieve properties about the current admin account
  * Some key parameters are obscured, but the obscured values are safely recognised by the corresponding AdminAccountSetProperties API.
+ * In Comet 26.8.4 and later, when authenticating with an admin API token, the account's password hash is additionally obscured.
  *
  * You must supply administrator authentication credentials to use this API.
+ * This API accepts admin personal API token authentication (AuthType=Token).
  */
 class AdminAccountPropertiesRequest implements \Comet\NetworkRequest {
 

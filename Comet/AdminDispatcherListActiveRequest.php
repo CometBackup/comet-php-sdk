@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -15,11 +15,12 @@ namespace Comet;
  *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
+ * This API accepts admin personal API token authentication (AuthType=Token).
  */
 class AdminDispatcherListActiveRequest implements \Comet\NetworkRequest {
 
 	/**
-	 * User name filter string (optional)
+	 * User name filter string (>= 22.6.5) (optional)
 	 *
 	 * @var string|null
 	 */
@@ -28,7 +29,7 @@ class AdminDispatcherListActiveRequest implements \Comet\NetworkRequest {
 	/**
 	 * Construct a new AdminDispatcherListActiveRequest instance.
 	 *
-	 * @param string $UserNameFilter User name filter string (optional)
+	 * @param string $UserNameFilter User name filter string (>= 22.6.5) (optional)
 	 */
 	public function __construct(string $UserNameFilter = null)
 	{

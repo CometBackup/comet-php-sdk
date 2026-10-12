@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -196,6 +196,16 @@ class RestoreJobAdvancedOptions {
 	public $ProxmoxConnection = null;
 
 	/**
+	 * For RESTORETYPE_CLOUD_STORAGE. Describes the target cloud/remote storage
+	 * location. The destination path (subdir/prefix) is taken from the fields
+	 * inside this DestinationLocation - no separate DestPath is used.
+	 *
+	 * @var \Comet\DestinationLocation
+	 * This field is available in Comet 26.8.1 and later.
+	 */
+	public $DestinationLocation = null;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see RestoreJobAdvancedOptions::RemoveUnknownProperties() Remove all unknown properties
@@ -318,6 +328,14 @@ class RestoreJobAdvancedOptions {
 				$this->ProxmoxConnection = \Comet\ProxmoxRestoreTargetOptions::createFromStdclass($sc->ProxmoxConnection);
 			}
 		}
+		if (property_exists($sc, 'DestinationLocation') && !is_null($sc->DestinationLocation)) {
+			if (is_array($sc->DestinationLocation) && count($sc->DestinationLocation) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->DestinationLocation = \Comet\DestinationLocation::createFromStdclass(new \stdClass());
+			} else {
+				$this->DestinationLocation = \Comet\DestinationLocation::createFromStdclass($sc->DestinationLocation);
+			}
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Type':
@@ -345,6 +363,7 @@ class RestoreJobAdvancedOptions {
 			case 'VMwareConnection':
 			case 'HyperVConnection':
 			case 'ProxmoxConnection':
+			case 'DestinationLocation':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -462,6 +481,11 @@ class RestoreJobAdvancedOptions {
 		} else {
 			$ret["ProxmoxConnection"] = $this->ProxmoxConnection->toArray($for_json_encode);
 		}
+		if ( $this->DestinationLocation === null ) {
+			$ret["DestinationLocation"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["DestinationLocation"] = $this->DestinationLocation->toArray($for_json_encode);
+		}
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
@@ -525,6 +549,9 @@ class RestoreJobAdvancedOptions {
 		}
 		if ($this->ProxmoxConnection !== null) {
 			$this->ProxmoxConnection->RemoveUnknownProperties();
+		}
+		if ($this->DestinationLocation !== null) {
+			$this->DestinationLocation->RemoveUnknownProperties();
 		}
 	}
 

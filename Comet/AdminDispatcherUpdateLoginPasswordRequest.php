@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -12,9 +12,11 @@ namespace Comet;
 /**
  * Comet Server AdminDispatcherUpdateLoginPassword API
  * Instruct a live connected device to update its login password
+ * This does not change the user profile password, it only tells the device to use an updated password.
  *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
+ * This API accepts admin personal API token authentication (AuthType=Token).
  */
 class AdminDispatcherUpdateLoginPasswordRequest implements \Comet\NetworkRequest {
 

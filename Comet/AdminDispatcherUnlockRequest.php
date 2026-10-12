@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -17,6 +17,7 @@ namespace Comet;
  *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
+ * This API accepts admin personal API token authentication (AuthType=Token).
  */
 class AdminDispatcherUnlockRequest implements \Comet\NetworkRequest {
 
@@ -35,7 +36,7 @@ class AdminDispatcherUnlockRequest implements \Comet\NetworkRequest {
 	protected $Destination = null;
 
 	/**
-	 * Allow legacy Storage Vault unlocking, which is unsafe in some cases. (optional)
+	 * Allow legacy Storage Vault unlocking, which is unsafe in some cases. (>= 25.3.0) (optional)
 	 *
 	 * @var boolean|null
 	 */
@@ -46,7 +47,7 @@ class AdminDispatcherUnlockRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param string $Destination The Storage Vault GUID
-	 * @param boolean $AllowUnsafe Allow legacy Storage Vault unlocking, which is unsafe in some cases. (optional)
+	 * @param boolean $AllowUnsafe Allow legacy Storage Vault unlocking, which is unsafe in some cases. (>= 25.3.0) (optional)
 	 */
 	public function __construct(string $TargetID, string $Destination, bool $AllowUnsafe = null)
 	{

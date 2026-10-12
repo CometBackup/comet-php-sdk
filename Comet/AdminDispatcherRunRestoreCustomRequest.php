@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -12,10 +12,11 @@ namespace Comet;
 /**
  * Comet Server AdminDispatcherRunRestoreCustom API
  * Instruct a live connected device to perform a local restore
- * This command is understood by Comet Backup 18.6.0 and newer.
+ * This command is understood by Comet Backup 19.6.0 and newer.
  *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
+ * This API accepts admin personal API token authentication (AuthType=Token).
  */
 class AdminDispatcherRunRestoreCustomRequest implements \Comet\NetworkRequest {
 
@@ -62,21 +63,21 @@ class AdminDispatcherRunRestoreCustomRequest implements \Comet\NetworkRequest {
 	protected $Paths = null;
 
 	/**
-	 * The number of files to restore, if known. Supplying this means we don't need to walk the entire tree just to find the file count and will speed up the restoration process. (optional)
+	 * The number of files to restore, if known. Supplying this means we don't need to walk the entire tree just to find the file count and will speed up the restoration process. (>= 23.6.0) (optional)
 	 *
 	 * @var int|null
 	 */
 	protected $KnownFileCount = null;
 
 	/**
-	 * The total size in bytes of files to restore, if known. Supplying this means we don't need to walk the entire tree just to find the total file size and will speed up the restoration process. (optional)
+	 * The total size in bytes of files to restore, if known. Supplying this means we don't need to walk the entire tree just to find the total file size and will speed up the restoration process. (>= 23.6.0) (optional)
 	 *
 	 * @var int|null
 	 */
 	protected $KnownByteCount = null;
 
 	/**
-	 * The number of directories to restore, if known. Supplying this means we don't need to walk the entire tree just to find the number of directories and will speed up the restoration process. (optional)
+	 * The number of directories to restore, if known. Supplying this means we don't need to walk the entire tree just to find the number of directories and will speed up the restoration process. (>= 23.6.0) (optional)
 	 *
 	 * @var int|null
 	 */
@@ -91,9 +92,9 @@ class AdminDispatcherRunRestoreCustomRequest implements \Comet\NetworkRequest {
 	 * @param \Comet\RestoreJobAdvancedOptions $Options Restore targets
 	 * @param string $Snapshot If present, restore a specific snapshot. Otherwise, restore the latest snapshot for the selected Protected Item + Storage Vault pair (optional)
 	 * @param string[] $Paths If present, restore these paths only. Otherwise, restore all data (optional)
-	 * @param int $KnownFileCount The number of files to restore, if known. Supplying this means we don't need to walk the entire tree just to find the file count and will speed up the restoration process. (optional)
-	 * @param int $KnownByteCount The total size in bytes of files to restore, if known. Supplying this means we don't need to walk the entire tree just to find the total file size and will speed up the restoration process. (optional)
-	 * @param int $KnownDirCount The number of directories to restore, if known. Supplying this means we don't need to walk the entire tree just to find the number of directories and will speed up the restoration process. (optional)
+	 * @param int $KnownFileCount The number of files to restore, if known. Supplying this means we don't need to walk the entire tree just to find the file count and will speed up the restoration process. (>= 23.6.0) (optional)
+	 * @param int $KnownByteCount The total size in bytes of files to restore, if known. Supplying this means we don't need to walk the entire tree just to find the total file size and will speed up the restoration process. (>= 23.6.0) (optional)
+	 * @param int $KnownDirCount The number of directories to restore, if known. Supplying this means we don't need to walk the entire tree just to find the number of directories and will speed up the restoration process. (>= 23.6.0) (optional)
 	 */
 	public function __construct(string $TargetID, string $Source, string $Destination, \Comet\RestoreJobAdvancedOptions $Options, string $Snapshot = null, array $Paths = null, int $KnownFileCount = null, int $KnownByteCount = null, int $KnownDirCount = null)
 	{

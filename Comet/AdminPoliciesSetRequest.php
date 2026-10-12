@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -17,6 +17,7 @@ namespace Comet;
  *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
+ * This API accepts admin personal API token authentication (AuthType=Token).
  */
 class AdminPoliciesSetRequest implements \Comet\NetworkRequest {
 
@@ -42,7 +43,7 @@ class AdminPoliciesSetRequest implements \Comet\NetworkRequest {
 	protected $CheckPolicyHash = null;
 
 	/**
-	 * An array of PolicySourceID that will be explicitly deleted. (optional)
+	 * An array of PolicySourceID that will be explicitly deleted. (>= 24.12.5) (optional)
 	 *
 	 * @var \Comet\PolicyOptions|null
 	 */
@@ -54,7 +55,7 @@ class AdminPoliciesSetRequest implements \Comet\NetworkRequest {
 	 * @param string $PolicyID The policy ID to update or create
 	 * @param \Comet\GroupPolicy $Policy The policy data
 	 * @param string $CheckPolicyHash An atomic verification hash as supplied by the AdminPoliciesGet API (optional)
-	 * @param \Comet\PolicyOptions $Options An array of PolicySourceID that will be explicitly deleted. (optional)
+	 * @param \Comet\PolicyOptions $Options An array of PolicySourceID that will be explicitly deleted. (>= 24.12.5) (optional)
 	 */
 	public function __construct(string $PolicyID, \Comet\GroupPolicy $Policy, string $CheckPolicyHash = null, \Comet\PolicyOptions $Options = null)
 	{

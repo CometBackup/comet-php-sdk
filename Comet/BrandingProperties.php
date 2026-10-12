@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -230,6 +230,11 @@ class BrandingProperties {
 	public $MacOSCodeSign = null;
 
 	/**
+	 * @var \Comet\LinuxRpmCodeSignProperties
+	 */
+	public $LinuxRpmCodeSign = null;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see BrandingProperties::RemoveUnknownProperties() Remove all unknown properties
@@ -371,6 +376,14 @@ class BrandingProperties {
 				$this->MacOSCodeSign = \Comet\MacOSCodeSignProperties::createFromStdclass($sc->MacOSCodeSign);
 			}
 		}
+		if (property_exists($sc, 'LinuxRpmCodeSign')) {
+			if (is_array($sc->LinuxRpmCodeSign) && count($sc->LinuxRpmCodeSign) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->LinuxRpmCodeSign = \Comet\LinuxRpmCodeSignProperties::createFromStdclass(new \stdClass());
+			} else {
+				$this->LinuxRpmCodeSign = \Comet\LinuxRpmCodeSignProperties::createFromStdclass($sc->LinuxRpmCodeSign);
+			}
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'ProductName':
@@ -413,6 +426,7 @@ class BrandingProperties {
 			case 'WindowsCodeSignRelicKeypairFile':
 			case 'WindowsCodeSignRelicKeyName':
 			case 'MacOSCodeSign':
+			case 'LinuxRpmCodeSign':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -522,6 +536,11 @@ class BrandingProperties {
 		} else {
 			$ret["MacOSCodeSign"] = $this->MacOSCodeSign->toArray($for_json_encode);
 		}
+		if ( $this->LinuxRpmCodeSign === null ) {
+			$ret["LinuxRpmCodeSign"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["LinuxRpmCodeSign"] = $this->LinuxRpmCodeSign->toArray($for_json_encode);
+		}
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
@@ -573,6 +592,9 @@ class BrandingProperties {
 		$this->__unknown_properties = [];
 		if ($this->MacOSCodeSign !== null) {
 			$this->MacOSCodeSign->RemoveUnknownProperties();
+		}
+		if ($this->LinuxRpmCodeSign !== null) {
+			$this->LinuxRpmCodeSign->RemoveUnknownProperties();
 		}
 	}
 

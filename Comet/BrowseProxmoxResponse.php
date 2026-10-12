@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -27,6 +27,11 @@ class BrowseProxmoxResponse {
 	 * @var \Comet\PVEVM[]
 	 */
 	public $VMs = [];
+
+	/**
+	 * @var \Comet\Node[]
+	 */
+	public $Nodes = [];
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
@@ -65,11 +70,26 @@ class BrowseProxmoxResponse {
 			}
 			$this->VMs = $val_2;
 		}
+		if (property_exists($sc, 'Nodes')) {
+			$val_2 = [];
+			if ($sc->Nodes !== null) {
+				for($i_2 = 0; $i_2 < count($sc->Nodes); ++$i_2) {
+					if (is_array($sc->Nodes[$i_2]) && count($sc->Nodes[$i_2]) === 0) {
+					// Work around edge case in json_decode--json_encode stdClass conversion
+						$val_2[] = \Comet\Node::createFromStdclass(new \stdClass());
+					} else {
+						$val_2[] = \Comet\Node::createFromStdclass($sc->Nodes[$i_2]);
+					}
+				}
+			}
+			$this->Nodes = $val_2;
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Status':
 			case 'Message':
 			case 'VMs':
+			case 'Nodes':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -148,6 +168,18 @@ class BrowseProxmoxResponse {
 				$c0[] = $val0;
 			}
 			$ret["VMs"] = $c0;
+		}
+		{
+			$c0 = [];
+			for($i0 = 0; $i0 < count($this->Nodes); ++$i0) {
+				if ( $this->Nodes[$i0] === null ) {
+					$val0 = $for_json_encode ? (object)[] : [];
+				} else {
+					$val0 = $this->Nodes[$i0]->toArray($for_json_encode);
+				}
+				$c0[] = $val0;
+			}
+			$ret["Nodes"] = $c0;
 		}
 
 		// Reinstate unknown properties from future server versions

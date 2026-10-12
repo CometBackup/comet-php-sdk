@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -19,6 +19,7 @@ namespace Comet;
  * You must supply administrator authentication credentials to use this API.
  * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
  * Access to this API may be prevented on a per-administrator basis.
+ * This API accepts admin personal API token authentication (AuthType=Token).
  */
 class AdminMetaRestartServiceRequest implements \Comet\NetworkRequest {
 

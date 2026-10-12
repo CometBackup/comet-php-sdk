@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -15,6 +15,7 @@ namespace Comet;
  *
  * You must supply administrator authentication credentials to use this API.
  * Access to this API may be prevented on a per-administrator basis.
+ * This API accepts admin personal API token authentication (AuthType=Token).
  */
 class AdminMetaRemoteStorageVaultSetRequest implements \Comet\NetworkRequest {
 
@@ -26,7 +27,7 @@ class AdminMetaRemoteStorageVaultSetRequest implements \Comet\NetworkRequest {
 	protected $RemoteStorageOptions = null;
 
 	/**
-	 * Replacement Storage Template ID for auto Storage Vault configurations that use deleted Storage Templates (optional)
+	 * Replacement Storage Template ID for auto Storage Vault configurations that use deleted Storage Templates (>= 24.12.0) (optional)
 	 *
 	 * @var string|null
 	 */
@@ -36,7 +37,7 @@ class AdminMetaRemoteStorageVaultSetRequest implements \Comet\NetworkRequest {
 	 * Construct a new AdminMetaRemoteStorageVaultSetRequest instance.
 	 *
 	 * @param \Comet\RemoteStorageOption[] $RemoteStorageOptions Updated configuration content
-	 * @param string $ReplacementAutoVaultID Replacement Storage Template ID for auto Storage Vault configurations that use deleted Storage Templates (optional)
+	 * @param string $ReplacementAutoVaultID Replacement Storage Template ID for auto Storage Vault configurations that use deleted Storage Templates (>= 24.12.0) (optional)
 	 */
 	public function __construct(array $RemoteStorageOptions, string $ReplacementAutoVaultID = null)
 	{

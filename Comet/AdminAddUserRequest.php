@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -15,18 +15,19 @@ namespace Comet;
  *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
+ * This API accepts admin personal API token authentication (AuthType=Token).
  */
 class AdminAddUserRequest implements \Comet\NetworkRequest {
 
 	/**
-	 * New account username
+	 * New account username (>= 17.2.0)
 	 *
 	 * @var string
 	 */
 	protected $TargetUser = null;
 
 	/**
-	 * New account password
+	 * New account password (>= 17.2.0)
 	 *
 	 * @var string
 	 */
@@ -47,7 +48,7 @@ class AdminAddUserRequest implements \Comet\NetworkRequest {
 	protected $RequirePasswordChange = null;
 
 	/**
-	 * If present, create the user account on behalf of another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.3.7) (optional)
+	 * If present, create the user account on behalf of another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.5.0) (optional)
 	 *
 	 * @var string|null
 	 */
@@ -56,11 +57,11 @@ class AdminAddUserRequest implements \Comet\NetworkRequest {
 	/**
 	 * Construct a new AdminAddUserRequest instance.
 	 *
-	 * @param string $TargetUser New account username
-	 * @param string $TargetPassword New account password
+	 * @param string $TargetUser New account username (>= 17.2.0)
+	 * @param string $TargetPassword New account password (>= 17.2.0)
 	 * @param int $StoreRecoveryCode If set to 1, store and keep a password recovery code for the generated user (>= 18.3.9) (optional)
 	 * @param int $RequirePasswordChange If set to 1, require to reset password at the first login for the generated user (>= 20.3.4) (optional)
-	 * @param string $TargetOrganization If present, create the user account on behalf of another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.3.7) (optional)
+	 * @param string $TargetOrganization If present, create the user account on behalf of another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.5.0) (optional)
 	 */
 	public function __construct(string $TargetUser, string $TargetPassword, int $StoreRecoveryCode = null, int $RequirePasswordChange = null, string $TargetOrganization = null)
 	{

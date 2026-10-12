@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -85,6 +85,16 @@ class BackupJobAdvancedOptions {
 	public $Tags = "";
 
 	/**
+	 * Optionally restricts LimitVaultSpeedBps to a specific time of day and days of the week. When
+	 * absent, or when its RestrictTimes is false, LimitVaultSpeedBps applies at all times. Has no
+	 * effect unless LimitVaultSpeedBps is set.
+	 *
+	 * @var \Comet\SpeedLimitTimeWindow
+	 * This field is available in Comet 26.8.5 and later.
+	 */
+	public $LimitVaultSpeedTimeWindow = null;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see BackupJobAdvancedOptions::RemoveUnknownProperties() Remove all unknown properties
@@ -131,6 +141,14 @@ class BackupJobAdvancedOptions {
 		if (property_exists($sc, 'Tags')) {
 			$this->Tags = (string)($sc->Tags);
 		}
+		if (property_exists($sc, 'LimitVaultSpeedTimeWindow') && !is_null($sc->LimitVaultSpeedTimeWindow)) {
+			if (is_array($sc->LimitVaultSpeedTimeWindow) && count($sc->LimitVaultSpeedTimeWindow) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->LimitVaultSpeedTimeWindow = \Comet\SpeedLimitTimeWindow::createFromStdclass(new \stdClass());
+			} else {
+				$this->LimitVaultSpeedTimeWindow = \Comet\SpeedLimitTimeWindow::createFromStdclass($sc->LimitVaultSpeedTimeWindow);
+			}
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'SkipAlreadyRunning':
@@ -143,6 +161,7 @@ class BackupJobAdvancedOptions {
 			case 'ConcurrencyCount':
 			case 'LogLevel':
 			case 'Tags':
+			case 'LimitVaultSpeedTimeWindow':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -218,6 +237,11 @@ class BackupJobAdvancedOptions {
 		$ret["ConcurrencyCount"] = $this->ConcurrencyCount;
 		$ret["LogLevel"] = $this->LogLevel;
 		$ret["Tags"] = $this->Tags;
+		if ( $this->LimitVaultSpeedTimeWindow === null ) {
+			$ret["LimitVaultSpeedTimeWindow"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["LimitVaultSpeedTimeWindow"] = $this->LimitVaultSpeedTimeWindow->toArray($for_json_encode);
+		}
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
@@ -267,6 +291,9 @@ class BackupJobAdvancedOptions {
 	public function RemoveUnknownProperties()
 	{
 		$this->__unknown_properties = [];
+		if ($this->LimitVaultSpeedTimeWindow !== null) {
+			$this->LimitVaultSpeedTimeWindow->RemoveUnknownProperties();
+		}
 	}
 
 }

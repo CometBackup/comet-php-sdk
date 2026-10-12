@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -15,6 +15,7 @@ namespace Comet;
  *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
+ * This API accepts admin personal API token authentication (AuthType=Token).
  */
 class AdminDispatcherRequestBrowseProxmoxStorageRequest implements \Comet\NetworkRequest {
 
@@ -33,7 +34,7 @@ class AdminDispatcherRequestBrowseProxmoxStorageRequest implements \Comet\Networ
 	protected $Credentials = null;
 
 	/**
-	 * The target node
+	 * The target node (>= 25.9.7)
 	 *
 	 * @var string
 	 */
@@ -44,7 +45,7 @@ class AdminDispatcherRequestBrowseProxmoxStorageRequest implements \Comet\Networ
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param \Comet\SSHConnection $Credentials The SSH connection settings
-	 * @param string $Node The target node
+	 * @param string $Node The target node (>= 25.9.7)
 	 */
 	public function __construct(string $TargetID, \Comet\SSHConnection $Credentials, string $Node)
 	{

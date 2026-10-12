@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -38,18 +38,18 @@ class InstallToken {
 	public $CreateTime = 0;
 
 	/**
-	 * If the token has been used, it cannot be used again.
-	 *
-	 * @var boolean
-	 */
-	public $Used = false;
-
-	/**
 	 * Unix timestamp, in seconds.
 	 *
 	 * @var int
 	 */
 	public $ExpireTime = 0;
+
+	/**
+	 * If the token has been used, it cannot be used again.
+	 *
+	 * @var boolean
+	 */
+	public $Used = false;
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
@@ -80,11 +80,11 @@ class InstallToken {
 		if (property_exists($sc, 'CreateTime')) {
 			$this->CreateTime = (int)($sc->CreateTime);
 		}
-		if (property_exists($sc, 'Used')) {
-			$this->Used = (bool)($sc->Used);
-		}
 		if (property_exists($sc, 'ExpireTime')) {
 			$this->ExpireTime = (int)($sc->ExpireTime);
+		}
+		if (property_exists($sc, 'Used')) {
+			$this->Used = (bool)($sc->Used);
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
@@ -92,8 +92,8 @@ class InstallToken {
 			case 'Server':
 			case 'Token':
 			case 'CreateTime':
-			case 'Used':
 			case 'ExpireTime':
+			case 'Used':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -163,8 +163,8 @@ class InstallToken {
 		$ret["Server"] = $this->Server;
 		$ret["Token"] = $this->Token;
 		$ret["CreateTime"] = $this->CreateTime;
-		$ret["Used"] = $this->Used;
 		$ret["ExpireTime"] = $this->ExpireTime;
+		$ret["Used"] = $this->Used;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

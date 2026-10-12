@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -67,10 +67,19 @@ class ServerConfigOptions {
 	public $IPRateLimit = null;
 
 	/**
+	 * Enable these options to block repeated failed login attempts to the Comet Server.
+	 *
 	 * @var \Comet\LoginProtectionOptions
 	 * This field is available in Comet 24.9.x and later.
 	 */
 	public $LoginProtection = null;
+
+	/**
+	 * Configure the in-process DNS cache used for outbound HTTP requests.
+	 *
+	 * @var \Comet\DNSCacheOptions
+	 */
+	public $DNSCache = null;
 
 	/**
 	 * @var \Comet\LicenseOptions
@@ -121,6 +130,15 @@ class ServerConfigOptions {
 	public $StorageRole = null;
 
 	/**
+	 * Defense-in-depth allowlist of permitted PKCS#11 driver module paths during Authenticode
+	 * codesigning. Top-level only - not read from per-tenant configuration.
+	 *
+	 * @var \Comet\Pkcs11AllowlistOptions
+	 * This field is available in Comet 26.8.1 and later.
+	 */
+	public $Pkcs11Allowlist = null;
+
+	/**
 	 * If true, the X-Forwarded-For header will be trusted for the purposes of IP allowlisting. This
 	 * should only be enabled when you explicitly configure Comet Server behind a reverse proxy,
 	 * otherwise it could allow malicious users to bypass the IP allowlist.
@@ -128,6 +146,20 @@ class ServerConfigOptions {
 	 * @var boolean
 	 */
 	public $TrustXForwardedFor = false;
+
+	/**
+	 * If true, this Comet Server may send email through SMTP servers on loopback, RFC1918, or other
+	 * private/link-local IP addresses. Enable this only if you intentionally run an SMTP relay on the
+	 * LAN. Otherwise a tenant admin who controls SMTP host or recipient settings could direct outbound
+	 * SMTP traffic at internal network services. If unset (null), Comet Server picks a value at startup
+	 * by DNS-resolving the currently configured SMTP servers: enabled if any resolve to a private
+	 * address (preserves the behavior of servers upgrading from a version without this setting),
+	 * disabled otherwise.
+	 *
+	 * @var boolean
+	 * This field is available in Comet 26.9.x and later.
+	 */
+	public $AllowEmailDeliveryToPrivateAddresses = false;
 
 	/**
 	 * @var array<string, \Comet\WebhookOption>
@@ -138,6 +170,40 @@ class ServerConfigOptions {
 	 * @var array<string, \Comet\FileOption>
 	 */
 	public $AuditFileOptions = [];
+
+	/**
+	 * Start a new Bulk Upgrade Campaign at each server start using the saved campaign options
+	 *
+	 * @var boolean
+	 * This field is available in Comet 26.5.5 and later.
+	 */
+	public $AutoStartUpgradeCampaign = false;
+
+	/**
+	 * Saved campaign options reused at startup
+	 *
+	 * @var \Comet\UpdateCampaignOptions
+	 * This field is available in Comet 26.5.5 and later.
+	 */
+	public $AutoStartUpgradeCampaignOptions = null;
+
+	/**
+	 * Custom JavaScript / CSS injected into the web interface of the top-level organization and all
+	 * tenants. Can only be configured by a top-level admin
+	 *
+	 * @var \Comet\CustomBrandingOptions
+	 * This field is available in Comet 26.8.2 and later.
+	 */
+	public $CustomBranding = null;
+
+	/**
+	 * If true, admin accounts may create personal API tokens and authenticate using them. Defaults to
+	 * true on new installations, and false when upgrading from a version without this feature.
+	 *
+	 * @var boolean
+	 * This field is available in Comet 26.8.4 and later.
+	 */
+	public $AllowAdminAPITokens = false;
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
@@ -251,6 +317,14 @@ class ServerConfigOptions {
 				$this->LoginProtection = \Comet\LoginProtectionOptions::createFromStdclass($sc->LoginProtection);
 			}
 		}
+		if (property_exists($sc, 'DNSCache')) {
+			if (is_array($sc->DNSCache) && count($sc->DNSCache) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->DNSCache = \Comet\DNSCacheOptions::createFromStdclass(new \stdClass());
+			} else {
+				$this->DNSCache = \Comet\DNSCacheOptions::createFromStdclass($sc->DNSCache);
+			}
+		}
 		if (property_exists($sc, 'License')) {
 			if (is_array($sc->License) && count($sc->License) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
@@ -335,8 +409,19 @@ class ServerConfigOptions {
 				$this->StorageRole = \Comet\StorageRoleOptions::createFromStdclass($sc->StorageRole);
 			}
 		}
+		if (property_exists($sc, 'Pkcs11Allowlist')) {
+			if (is_array($sc->Pkcs11Allowlist) && count($sc->Pkcs11Allowlist) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->Pkcs11Allowlist = \Comet\Pkcs11AllowlistOptions::createFromStdclass(new \stdClass());
+			} else {
+				$this->Pkcs11Allowlist = \Comet\Pkcs11AllowlistOptions::createFromStdclass($sc->Pkcs11Allowlist);
+			}
+		}
 		if (property_exists($sc, 'TrustXForwardedFor')) {
 			$this->TrustXForwardedFor = (bool)($sc->TrustXForwardedFor);
+		}
+		if (property_exists($sc, 'AllowEmailDeliveryToPrivateAddresses') && !is_null($sc->AllowEmailDeliveryToPrivateAddresses)) {
+			$this->AllowEmailDeliveryToPrivateAddresses = (bool)($sc->AllowEmailDeliveryToPrivateAddresses);
 		}
 		if (property_exists($sc, 'WebhookOptions')) {
 			$val_2 = [];
@@ -370,6 +455,28 @@ class ServerConfigOptions {
 			}
 			$this->AuditFileOptions = $val_2;
 		}
+		if (property_exists($sc, 'AutoStartUpgradeCampaign')) {
+			$this->AutoStartUpgradeCampaign = (bool)($sc->AutoStartUpgradeCampaign);
+		}
+		if (property_exists($sc, 'AutoStartUpgradeCampaignOptions')) {
+			if (is_array($sc->AutoStartUpgradeCampaignOptions) && count($sc->AutoStartUpgradeCampaignOptions) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->AutoStartUpgradeCampaignOptions = \Comet\UpdateCampaignOptions::createFromStdclass(new \stdClass());
+			} else {
+				$this->AutoStartUpgradeCampaignOptions = \Comet\UpdateCampaignOptions::createFromStdclass($sc->AutoStartUpgradeCampaignOptions);
+			}
+		}
+		if (property_exists($sc, 'CustomBranding')) {
+			if (is_array($sc->CustomBranding) && count($sc->CustomBranding) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->CustomBranding = \Comet\CustomBrandingOptions::createFromStdclass(new \stdClass());
+			} else {
+				$this->CustomBranding = \Comet\CustomBrandingOptions::createFromStdclass($sc->CustomBranding);
+			}
+		}
+		if (property_exists($sc, 'AllowAdminAPITokens')) {
+			$this->AllowAdminAPITokens = (bool)($sc->AllowAdminAPITokens);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'AdminUsers':
@@ -382,6 +489,7 @@ class ServerConfigOptions {
 			case 'ExternalAdminUserSources':
 			case 'IPRateLimit':
 			case 'LoginProtection':
+			case 'DNSCache':
 			case 'License':
 			case 'ListenAddresses':
 			case 'Organizations':
@@ -390,9 +498,15 @@ class ServerConfigOptions {
 			case 'SessionSettings':
 			case 'SoftwareBuildRole':
 			case 'StorageRole':
+			case 'Pkcs11Allowlist':
 			case 'TrustXForwardedFor':
+			case 'AllowEmailDeliveryToPrivateAddresses':
 			case 'WebhookOptions':
 			case 'AuditFileOptions':
+			case 'AutoStartUpgradeCampaign':
+			case 'AutoStartUpgradeCampaignOptions':
+			case 'CustomBranding':
+			case 'AllowAdminAPITokens':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -530,6 +644,11 @@ class ServerConfigOptions {
 		} else {
 			$ret["LoginProtection"] = $this->LoginProtection->toArray($for_json_encode);
 		}
+		if ( $this->DNSCache === null ) {
+			$ret["DNSCache"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["DNSCache"] = $this->DNSCache->toArray($for_json_encode);
+		}
 		if ( $this->License === null ) {
 			$ret["License"] = $for_json_encode ? (object)[] : [];
 		} else {
@@ -596,7 +715,13 @@ class ServerConfigOptions {
 		} else {
 			$ret["StorageRole"] = $this->StorageRole->toArray($for_json_encode);
 		}
+		if ( $this->Pkcs11Allowlist === null ) {
+			$ret["Pkcs11Allowlist"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["Pkcs11Allowlist"] = $this->Pkcs11Allowlist->toArray($for_json_encode);
+		}
 		$ret["TrustXForwardedFor"] = $this->TrustXForwardedFor;
+		$ret["AllowEmailDeliveryToPrivateAddresses"] = $this->AllowEmailDeliveryToPrivateAddresses;
 		{
 			$c0 = $for_json_encode ? (object)[] : [];
 			foreach($this->WebhookOptions as $k0 => $v0) {
@@ -631,6 +756,18 @@ class ServerConfigOptions {
 			}
 			$ret["AuditFileOptions"] = $c0;
 		}
+		$ret["AutoStartUpgradeCampaign"] = $this->AutoStartUpgradeCampaign;
+		if ( $this->AutoStartUpgradeCampaignOptions === null ) {
+			$ret["AutoStartUpgradeCampaignOptions"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["AutoStartUpgradeCampaignOptions"] = $this->AutoStartUpgradeCampaignOptions->toArray($for_json_encode);
+		}
+		if ( $this->CustomBranding === null ) {
+			$ret["CustomBranding"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["CustomBranding"] = $this->CustomBranding->toArray($for_json_encode);
+		}
+		$ret["AllowAdminAPITokens"] = $this->AllowAdminAPITokens;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
@@ -701,6 +838,9 @@ class ServerConfigOptions {
 		if ($this->LoginProtection !== null) {
 			$this->LoginProtection->RemoveUnknownProperties();
 		}
+		if ($this->DNSCache !== null) {
+			$this->DNSCache->RemoveUnknownProperties();
+		}
 		if ($this->License !== null) {
 			$this->License->RemoveUnknownProperties();
 		}
@@ -715,6 +855,15 @@ class ServerConfigOptions {
 		}
 		if ($this->StorageRole !== null) {
 			$this->StorageRole->RemoveUnknownProperties();
+		}
+		if ($this->Pkcs11Allowlist !== null) {
+			$this->Pkcs11Allowlist->RemoveUnknownProperties();
+		}
+		if ($this->AutoStartUpgradeCampaignOptions !== null) {
+			$this->AutoStartUpgradeCampaignOptions->RemoveUnknownProperties();
+		}
+		if ($this->CustomBranding !== null) {
+			$this->CustomBranding->RemoveUnknownProperties();
 		}
 	}
 

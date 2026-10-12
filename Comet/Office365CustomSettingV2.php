@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -69,6 +69,17 @@ class Office365CustomSettingV2 {
 	 * @var array<string, int>
 	 */
 	public $FilterMemberOptions = [];
+
+	/**
+	 * An ordered list of include/exclude rules. If this field is non-empty, it is the
+	 * sole source of truth for account and service selection, and the Organization, FilterMode,
+	 * WholeOrg, BackupOptions, MemberBackupOptions, FilterOptions and FilterMemberOptions fields are
+	 * all ignored. If empty or omitted, behavior is identical to prior Comet versions.
+	 *
+	 * @var \Comet\Office365SelectionRule[]
+	 * This field is available in Comet 26.8.1 and later.
+	 */
+	public $Rules = [];
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
@@ -140,6 +151,20 @@ class Office365CustomSettingV2 {
 			}
 			$this->FilterMemberOptions = $val_2;
 		}
+		if (property_exists($sc, 'Rules') && !is_null($sc->Rules)) {
+			$val_2 = [];
+			if ($sc->Rules !== null) {
+				for($i_2 = 0; $i_2 < count($sc->Rules); ++$i_2) {
+					if (is_array($sc->Rules[$i_2]) && count($sc->Rules[$i_2]) === 0) {
+					// Work around edge case in json_decode--json_encode stdClass conversion
+						$val_2[] = \Comet\Office365SelectionRule::createFromStdclass(new \stdClass());
+					} else {
+						$val_2[] = \Comet\Office365SelectionRule::createFromStdclass($sc->Rules[$i_2]);
+					}
+				}
+			}
+			$this->Rules = $val_2;
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Organization':
@@ -149,6 +174,7 @@ class Office365CustomSettingV2 {
 			case 'MemberBackupOptions':
 			case 'FilterOptions':
 			case 'FilterMemberOptions':
+			case 'Rules':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -268,6 +294,18 @@ class Office365CustomSettingV2 {
 				}
 			}
 			$ret["FilterMemberOptions"] = $c0;
+		}
+		{
+			$c0 = [];
+			for($i0 = 0; $i0 < count($this->Rules); ++$i0) {
+				if ( $this->Rules[$i0] === null ) {
+					$val0 = $for_json_encode ? (object)[] : [];
+				} else {
+					$val0 = $this->Rules[$i0]->toArray($for_json_encode);
+				}
+				$c0[] = $val0;
+			}
+			$ret["Rules"] = $c0;
 		}
 
 		// Reinstate unknown properties from future server versions

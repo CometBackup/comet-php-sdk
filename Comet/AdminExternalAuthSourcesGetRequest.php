@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -14,6 +14,7 @@ namespace Comet;
  * Get a map of all external admin authentication sources
  *
  * You must supply administrator authentication credentials to use this API.
+ * This API does not accept admin personal API token authentication (AuthType=Token).
  */
 class AdminExternalAuthSourcesGetRequest implements \Comet\NetworkRequest {
 

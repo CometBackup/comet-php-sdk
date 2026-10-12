@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -16,6 +16,7 @@ namespace Comet;
  *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
+ * This API accepts admin personal API token authentication (AuthType=Token).
  */
 class AdminResetUserPasswordRequest implements \Comet\NetworkRequest {
 
@@ -34,7 +35,7 @@ class AdminResetUserPasswordRequest implements \Comet\NetworkRequest {
 	protected $NewPassword = null;
 
 	/**
-	 * Old account password. Required if no recovery code is present for the user account. (optional)
+	 * Old account password. Required if no recovery code is present for the user account. (>= 20.3.2) (optional)
 	 *
 	 * @var string|null
 	 */
@@ -45,7 +46,7 @@ class AdminResetUserPasswordRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param string $TargetUser Selected account username
 	 * @param string $NewPassword New account password
-	 * @param string $OldPassword Old account password. Required if no recovery code is present for the user account. (optional)
+	 * @param string $OldPassword Old account password. Required if no recovery code is present for the user account. (>= 20.3.2) (optional)
 	 */
 	public function __construct(string $TargetUser, string $NewPassword, string $OldPassword = null)
 	{

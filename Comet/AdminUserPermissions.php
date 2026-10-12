@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -117,6 +117,20 @@ class AdminUserPermissions {
 	public $DenySoftwareBuildRole = false;
 
 	/**
+	 * @var boolean
+	 * This field is available in Comet 26.8.2 and later.
+	 */
+	public $PreventWriteActions = false;
+
+	/**
+	 * If true, this admin cannot create personal API tokens or authenticate using existing ones
+	 *
+	 * @var boolean
+	 * This field is available in Comet 26.8.4 and later.
+	 */
+	public $PreventAPITokens = false;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see AdminUserPermissions::RemoveUnknownProperties() Remove all unknown properties
@@ -202,6 +216,12 @@ class AdminUserPermissions {
 		if (property_exists($sc, 'DenySoftwareBuildRole') && !is_null($sc->DenySoftwareBuildRole)) {
 			$this->DenySoftwareBuildRole = (bool)($sc->DenySoftwareBuildRole);
 		}
+		if (property_exists($sc, 'PreventWriteActions') && !is_null($sc->PreventWriteActions)) {
+			$this->PreventWriteActions = (bool)($sc->PreventWriteActions);
+		}
+		if (property_exists($sc, 'PreventAPITokens') && !is_null($sc->PreventAPITokens)) {
+			$this->PreventAPITokens = (bool)($sc->PreventAPITokens);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'PreventEditServerSettings':
@@ -223,6 +243,8 @@ class AdminUserPermissions {
 			case 'AllowedProvidersWhenRestricted':
 			case 'AllowedUserPolicies':
 			case 'DenySoftwareBuildRole':
+			case 'PreventWriteActions':
+			case 'PreventAPITokens':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -321,6 +343,8 @@ class AdminUserPermissions {
 			$ret["AllowedUserPolicies"] = $c0;
 		}
 		$ret["DenySoftwareBuildRole"] = $this->DenySoftwareBuildRole;
+		$ret["PreventWriteActions"] = $this->PreventWriteActions;
+		$ret["PreventAPITokens"] = $this->PreventAPITokens;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

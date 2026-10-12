@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -15,11 +15,12 @@ namespace Comet;
  * The returned key-value map is not necessarily ordered. Client-side code should sort the result before display.
  *
  * You must supply administrator authentication credentials to use this API.
+ * This API accepts admin personal API token authentication (AuthType=Token).
  */
 class AdminMetaStatsRequest implements \Comet\NetworkRequest {
 
 	/**
-	 * Remove redundant statistics
+	 * Remove redundant statistics (>= 18.9.1)
 	 *
 	 * @var boolean
 	 */
@@ -28,7 +29,7 @@ class AdminMetaStatsRequest implements \Comet\NetworkRequest {
 	/**
 	 * Construct a new AdminMetaStatsRequest instance.
 	 *
-	 * @param boolean $Simple Remove redundant statistics
+	 * @param boolean $Simple Remove redundant statistics (>= 18.9.1)
 	 */
 	public function __construct(bool $Simple)
 	{

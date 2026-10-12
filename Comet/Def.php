@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -14,17 +14,17 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "25.9.8";
+	const APPLICATION_VERSION = "26.8.8";
 
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_MAJOR = 25;
+	const APPLICATION_VERSION_MAJOR = 26;
 
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_MINOR = 9;
+	const APPLICATION_VERSION_MINOR = 8;
 
 	/**
 	 * @type int
@@ -60,28 +60,28 @@ class Def {
 	const BACKUPJOBAUTORETENTION_LESS_OFTEN = 3;
 
 	/**
-	 * If set, will be automatically replaced with one of the other BRANDINGSTYLETYPE_ constants after next server upgrade.
+	 * BrandingStyleType: If set, will be automatically replaced with one of the other BRANDINGSTYLETYPE_ constants after next server upgrade.
 	 *
 	 * @type int
 	 */
 	const BRANDINGSTYLETYPE_AUTO_LEGACY = 0;
 
 	/**
-	 * Use Comet company branding and colours for all web interface branding
+	 * BrandingStyleType: Use Comet company branding and colours for all web interface branding
 	 *
 	 * @type int
 	 */
 	const BRANDINGSTYLETYPE_DEFAULT = 1;
 
 	/**
-	 * Use custom branding and colours, with text in the main logo area.
+	 * BrandingStyleType: Use custom branding and colours, with text in the main logo area.
 	 *
 	 * @type int
 	 */
 	const BRANDINGSTYLETYPE_CUSTOM_TEXT = 2;
 
 	/**
-	 * Use custom branding and colours, with a supplied image in the main logo area.
+	 * BrandingStyleType: Use custom branding and colours, with a supplied image in the main logo area.
 	 *
 	 * @type int
 	 */
@@ -156,6 +156,48 @@ class Def {
 	 * @type int
 	 */
 	const COMPRESS_DEFAULT = self::COMPRESS_LVL_4;
+
+	/**
+	 * CustomBrandingContentType: The item is JavaScript code
+	 *
+	 * @type string
+	 */
+	const CUSTOMBRANDING_CONTENT_JAVASCRIPT = "javascript";
+
+	/**
+	 * CustomBrandingContentType: The item is CSS stylesheet code
+	 *
+	 * @type string
+	 */
+	const CUSTOMBRANDING_CONTENT_CSS = "css";
+
+	/**
+	 * CustomBrandingSourceType: The item content is supplied inline in the Content field
+	 *
+	 * @type string
+	 */
+	const CUSTOMBRANDING_SOURCE_INLINE = "inline";
+
+	/**
+	 * CustomBrandingSourceType: The item is loaded from the external URL in the URL field
+	 *
+	 * @type string
+	 */
+	const CUSTOMBRANDING_SOURCE_URL = "url";
+
+	/**
+	 * CustomBrandingPlacementType: Insert the item at the end of the document head. This is the default, and matches the installation instructions of most analytics vendors
+	 *
+	 * @type string
+	 */
+	const CUSTOMBRANDING_PLACEMENT_HEAD = "head";
+
+	/**
+	 * CustomBrandingPlacementType: Insert the item at the end of the document body, after the web application markup
+	 *
+	 * @type string
+	 */
+	const CUSTOMBRANDING_PLACEMENT_BODY_END = "body-end";
 
 	/**
 	 * CustomRemoteBucketCustomBodyType
@@ -235,143 +277,154 @@ class Def {
 	const DESTINATION_SFTP_AUTHMODE_PRIVATEKEY = 2;
 
 	/**
+	 * DestinationType
+	 *
 	 * @type int
 	 */
 	const DESTINATIONTYPE___INVALID = 0;
 
 	/**
-	 * Storage type that is applied when Storage Gateway fails to launch correctly
+	 * DestinationType: Storage type that is applied when Storage Gateway fails to launch correctly
 	 *
 	 * @type int
 	 */
 	const DESTINATIONTYPE_ERROR = 1;
 
 	/**
-	 * S3-compatible, or a specific S3 service such as AWS S3, Wasabi, or iDrive e2
+	 * DestinationType: S3-compatible, or a specific S3 service such as AWS S3, Wasabi, or iDrive e2
 	 *
 	 * @type int
 	 */
 	const DESTINATIONTYPE_S3 = 1000;
 
 	/**
-	 * SFTP protocol
+	 * DestinationType: SFTP protocol
 	 *
 	 * @type int
 	 */
 	const DESTINATIONTYPE_SFTP = 1001;
 
 	/**
-	 * Local Path
+	 * DestinationType: Local Path
 	 *
 	 * @type int
 	 */
 	const DESTINATIONTYPE_LOCALCOPY = 1002;
 
 	/**
-	 * The Comet Server Storage Role protocol
+	 * DestinationType: The Comet Server Storage Role protocol
 	 *
 	 * @type int
 	 */
 	const DESTINATIONTYPE_COMET = 1003;
 
 	/**
-	 * FTP protocol
+	 * DestinationType: FTP protocol
 	 *
 	 * @type int
 	 */
 	const DESTINATIONTYPE_FTP = 1004;
 
 	/**
-	 * Azure Blob Storage
+	 * DestinationType: Azure Blob Storage
 	 *
 	 * @type int
 	 */
 	const DESTINATIONTYPE_AZUREBLOB = 1005;
 
 	/**
-	 * Spanned
+	 * DestinationType: Spanned
 	 *
 	 * @type int
 	 */
 	const DESTINATIONTYPE_SPANNED = 1006;
 
 	/**
-	 * Openstack Swift
+	 * DestinationType: Openstack Swift
 	 *
 	 * @type int
 	 */
 	const DESTINATIONTYPE_SWIFT = 1007;
 
 	/**
-	 * Backblaze B2 (Native API)
+	 * DestinationType: Backblaze B2 (Native API)
 	 *
 	 * @type int
 	 */
 	const DESTINATIONTYPE_B2 = 1008;
 
 	/**
-	 * Storj
+	 * DestinationType: Storj
 	 *
 	 * @type int
 	 */
 	const DESTINATIONTYPE_STORJ = 1009;
 
 	/**
+	 * DestinationType
+	 *
 	 * @type int
 	 */
 	const DESTINATIONTYPE_WEBDAV = 1010;
 
 	/**
-	 * SMB Path
+	 * DestinationType: SMB Path
 	 *
 	 * @type int
 	 */
 	const DESTINATIONTYPE_SMB = 1011;
 
 	/**
-	 * When defining a schedule via policy, use this option to dynamically select the Storage Vault that was created most recently.
+	 * DestinationType
+	 *
+	 * @type int
+	 */
+	const DESTINATIONTYPE_NFS = 1012;
+
+	/**
+	 * DestinationType: When defining a schedule via policy, use this option to dynamically select the Storage Vault that was created most recently.
 	 *
 	 * @type int
 	 */
 	const DESTINATIONTYPE_LATEST = 1100;
 
 	/**
-	 * When defining a schedule via policy, use this option to create a schedule for each Storage Vault in the user's profile.
+	 * DestinationType: When defining a schedule via policy, use this option to create a schedule for each Storage Vault in the user's profile.
 	 *
 	 * @type int
 	 */
 	const DESTINATIONTYPE_ALL = 1101;
 
 	/**
-	 * The Comet Server is still starting up and has not yet checked whether any email reports are due to be sent.
+	 * EmailWorkerState: The Comet Server is still starting up and has not yet checked whether any email reports are due to be sent.
 	 *
 	 * @type int
 	 */
 	const EMAIL_WORKER_STATE_NOT_STARTED = 0;
 
 	/**
-	 * The Comet Server is still starting up and has not yet checked whether any email reports are due to be sent.
+	 * EmailWorkerState: The Comet Server is still starting up and has not yet checked whether any email reports are due to be sent.
 	 *
 	 * @type int
 	 */
 	const EMAIL_WORKER_STATE_STARTED = 1;
 
 	/**
-	 * The Comet Server is currently searching through email report configuration, to determine when the next email report is due to be sent.
+	 * EmailWorkerState: The Comet Server is currently searching through email report configuration, to determine when the next email report is due to be sent.
 	 *
 	 * @type int
 	 */
 	const EMAIL_WORKER_STATE_CALCULATING = 2;
 
 	/**
-	 * The Comet Server knows when the next scheduled email report is due to be sent, and is waiting until that time.
+	 * EmailWorkerState: The Comet Server knows when the next scheduled email report is due to be sent, and is waiting until that time.
 	 *
 	 * @type int
 	 */
 	const EMAIL_WORKER_STATE_WAITING = 3;
 
 	/**
-	 * The Comet Server is currently sending a scheduled email report.
+	 * EmailWorkerState: The Comet Server is currently sending a scheduled email report.
 	 *
 	 * @type int
 	 */
@@ -456,103 +509,105 @@ class Def {
 	const EMAILREPORTTYPE_RECENT_ACTIVITY = 3;
 
 	/**
+	 * EncryptionMethodType
+	 *
 	 * @type int
 	 */
 	const ENCRYPTIONMETHOD_UNCONFIGURED = 0;
 
 	/**
-	 * Files and Folders
+	 * EngineType: Files and Folders
 	 *
 	 * @type string
 	 */
 	const ENGINE_BUILTIN_FILE = "engine1/file";
 
 	/**
-	 * Program Output
+	 * EngineType: Program Output
 	 *
 	 * @type string
 	 */
 	const ENGINE_BUILTIN_STDOUT = "engine1/stdout";
 
 	/**
-	 * MySQL
+	 * EngineType: MySQL
 	 *
 	 * @type string
 	 */
 	const ENGINE_BUILTIN_MYSQL = "engine1/mysql";
 
 	/**
-	 * Windows Server System State
+	 * EngineType: Windows Server System State
 	 *
 	 * @type string
 	 */
 	const ENGINE_BUILTIN_SYSTEMSTATE = "engine1/systemstate";
 
 	/**
-	 * Microsoft SQL Server
+	 * EngineType: Microsoft SQL Server
 	 *
 	 * @type string
 	 */
 	const ENGINE_BUILTIN_MSSQL = "engine1/mssql";
 
 	/**
-	 * Windows System Backup, deprecated from version 24.12.2
+	 * EngineType: Windows System Backup, deprecated from version 24.12.2
 	 *
 	 * @type string
 	 */
 	const ENGINE_BUILTIN_WINDOWSSYSTEM = "engine1/windowssystem";
 
 	/**
-	 * Microsoft Exchange Server
+	 * EngineType: Microsoft Exchange Server
 	 *
 	 * @type string
 	 */
 	const ENGINE_BUILTIN_EXCHANGEEDB = "engine1/exchangeedb";
 
 	/**
-	 * Application-Aware Writer
+	 * EngineType: Application-Aware Writer
 	 *
 	 * @type string
 	 */
 	const ENGINE_BUILTIN_VSSWRITER = "engine1/vsswriter";
 
 	/**
-	 * Microsoft Hyper-V
+	 * EngineType: Microsoft Hyper-V
 	 *
 	 * @type string
 	 */
 	const ENGINE_BUILTIN_HYPERV = "engine1/hyperv";
 
 	/**
-	 * Disk Image
+	 * EngineType: Disk Image
 	 *
 	 * @type string
 	 */
 	const ENGINE_BUILTIN_WINDISK = "engine1/windisk";
 
 	/**
-	 * MongoDB
+	 * EngineType: MongoDB
 	 *
 	 * @type string
 	 */
 	const ENGINE_BUILTIN_MONGODB = "engine1/mongodb";
 
 	/**
-	 * Office 365
+	 * EngineType: Office 365
 	 *
 	 * @type string
 	 */
 	const ENGINE_BUILTIN_MSOFFICE = "engine1/winmsofficemail";
 
 	/**
-	 * VMware
+	 * EngineType: VMware
 	 *
 	 * @type string
 	 */
 	const ENGINE_BUILTIN_VMWARE = "engine1/vmware";
 
 	/**
-	 * Proxmox (PVE)
+	 * EngineType: Proxmox (PVE)
 	 *
 	 * @type string
 	 */
@@ -862,6 +917,20 @@ class Def {
 	const LDAPSECURITYMETHOD_STARTTLS = "starttls";
 
 	/**
+	 * LinuxRpmCodesignMethod: Do not sign the client backup-tool RPM
+	 *
+	 * @type int
+	 */
+	const LINUXRPMCODESIGN_METHOD_DISABLED = 0;
+
+	/**
+	 * LinuxRpmCodesignMethod: Sign the RPM with a GPG private key stored locally on the Comet Server host
+	 *
+	 * @type int
+	 */
+	const LINUXRPMCODESIGN_METHOD_LOCALGPG = 1;
+
+	/**
 	 * MacOSCodesignLevel: Sign only
 	 *
 	 * @type int
@@ -960,28 +1029,38 @@ class Def {
 	const MSSQL_RESTORE_NORECOVERY = "NO_RECOVERY";
 
 	/**
-	 * Used in policy to define that the automatic Storage Vaults for new devices is not enforced by the policy
+	 * @type string
+	 */
+	const MYSQL_METADATA_STREAM_NAME = ".metadata";
+
+	/**
+	 * @type string
+	 */
+	const MYSQL_USERS_GRANTS_STREAM_NAME = ".users-grants.sql";
+
+	/**
+	 * NewStorageVaultMode: Used in policy to define that the automatic Storage Vaults for new devices is not enforced by the policy
 	 *
 	 * @type string
 	 */
 	const NEW_STORAGE_VAULT_MODE_USER = "user_controlled";
 
 	/**
-	 * No Storage Vault will be created when a new device is added
+	 * NewStorageVaultMode: No Storage Vault will be created when a new device is added
 	 *
 	 * @type string
 	 */
 	const NEW_STORAGE_VAULT_MODE_NONE = "none";
 
 	/**
-	 * When a new device is added, a Storage Vault will be created using the servers default Storage Template
+	 * NewStorageVaultMode: When a new device is added, a Storage Vault will be created using the servers default Storage Template
 	 *
 	 * @type string
 	 */
 	const NEW_STORAGE_VAULT_MODE_SERVER = "server_controlled";
 
 	/**
-	 * Enable Object Lock capability if the corresponding Days field is greater than zero.
+	 * ObjectLockMode: Enable Object Lock capability if the corresponding Days field is greater than zero.
 	New code should explicitly use OBJECT_LOCK_ON / OBJECT_LOCK_OFF instead.
 	 *
 	 * @type int
@@ -990,41 +1069,50 @@ class Def {
 	const OBJECT_LOCK_LEGACY = 0;
 
 	/**
+	 * ObjectLockMode
+	 *
 	 * @type int
 	 */
 	const OBJECT_LOCK_ON = 1;
 
 	/**
+	 * ObjectLockMode
+	 *
 	 * @type int
 	 */
 	const OBJECT_LOCK_OFF = 2;
 
 	/**
+	 * Office365RegionType
+	 *
 	 * @type string
 	 */
 	const OFFICE365_REGION_PUBLIC = "GlobalPublicCloud";
 
 	/**
+	 * Office365RegionType
+	 *
 	 * @type string
 	 */
 	const OFFICE365_REGION_CHINA = "ChinaCloud";
 
 	/**
-	 * @type string
-	 */
-	const OFFICE365_REGION_GERMANY = "GermanCloud";
-
-	/**
+	 * Office365RegionType
+	 *
 	 * @type string
 	 */
 	const OFFICE365_REGION_US_GOVT = "USGovtGccCloud";
 
 	/**
+	 * Office365RegionType
+	 *
 	 * @type string
 	 */
 	const OFFICE365_REGION_US_DOD = "USGovtGccDoDCloud";
 
 	/**
+	 * Office365RegionType
+	 *
 	 * @type string
 	 */
 	const OFFICE365_REGION_PUBLIC_TEST = "GlobalPublicCloudTest";
@@ -1072,7 +1160,7 @@ class Def {
 	const OS_ONLY_LINUX = 5;
 
 	/**
-	 * When resetting a password with the API, set the PasswordFormat to this value. The Comet Server will re-hash the credential automatically.
+	 * PasswordFormatType: When resetting a password with the API, set the PasswordFormat to this value. The Comet Server will re-hash the credential automatically.
 	 *
 	 * @type int
 	 */
@@ -1107,11 +1195,15 @@ class Def {
 	const PROVIDER_DASHBOARD = "dashboard";
 
 	/**
+	 * ProxmoxVMType
+	 *
 	 * @type string
 	 */
 	const PROXMOX_TYPE_VM = "qemu";
 
 	/**
+	 * ProxmoxVMType
+	 *
 	 * @type string
 	 */
 	const PROXMOX_TYPE_CONTAINER = "lxc";
@@ -1127,6 +1219,7 @@ class Def {
 	 * PSAType
 	 *
 	 * @type int
+	 * @deprecated 26.5.2 This const has been deprecated since Comet version 26.5.2
 	 */
 	const PSA_TYPE_GRADIENT = 1;
 
@@ -1136,6 +1229,21 @@ class Def {
 	 * @type int
 	 */
 	const PSA_TYPE_SYNCRO = 2;
+
+	/**
+	 * PSAType
+	 *
+	 * @type int
+	 */
+	const PSA_TYPE_NINJAONE = 3;
+
+	/**
+	 * PSAType
+	 *
+	 * @type int
+	 * This const is available in Comet 26.8.1 and later.
+	 */
+	const PSA_TYPE_CONNECTWISE = 4;
 
 	/**
 	 * PveBackupMethod
@@ -1398,6 +1506,7 @@ class Def {
 	 * RestoreType: Restore selected Office 365 emails, contacts, calendars, and SharePoint/OneDrive data directly to the Office 365 cloud service
 	 *
 	 * @type int
+	 * This const is available in Comet 21.6.5 and later.
 	 */
 	const RESTORETYPE_OFFICE365_CLOUD = 6;
 
@@ -1426,6 +1535,7 @@ class Def {
 	 * RestoreType: Stream restore as SQL statements into a target MySQL server
 	 *
 	 * @type int
+	 * This const is available in Comet 22.9.0 and later.
 	 */
 	const RESTORETYPE_MYSQL = 10;
 
@@ -1433,6 +1543,7 @@ class Def {
 	 * RestoreType: Stream restore as T-SQL BACKUP output into a target Microsoft SQL Server
 	 *
 	 * @type int
+	 * This const is available in Comet 22.9.2 and later.
 	 */
 	const RESTORETYPE_MSSQL = 11;
 
@@ -1440,6 +1551,7 @@ class Def {
 	 * RestoreType: Restore disk image backup as VMware-compatible virtual disks
 	 *
 	 * @type int
+	 * This const is available in Comet 23.9.5 and later.
 	 */
 	const RESTORETYPE_WINDISK_ESXI = 12;
 
@@ -1447,6 +1559,7 @@ class Def {
 	 * RestoreType: Restore disk image backup as Hyper-V-compatible virtual disks (.vhdx format)
 	 *
 	 * @type int
+	 * This const is available in Comet 24.9.2 and later.
 	 */
 	const RESTORETYPE_WINDISK_VHDX = 13;
 
@@ -1457,6 +1570,22 @@ class Def {
 	 * This const is available in Comet 24.12.x and later.
 	 */
 	const RESTORETYPE_VMHOST = 14;
+
+	/**
+	 * RestoreType: Restore selected files and folders to a cloud storage location described by a DestinationLocation
+	 *
+	 * @type int
+	 * This const is available in Comet 26.8.1 and later.
+	 */
+	const RESTORETYPE_CLOUD_STORAGE = 15;
+
+	/**
+	 * RestoreType: Granular restore of single files from within a Disk Image or Hyper-V backup, into a cloud storage location described by a DestinationLocation
+	 *
+	 * @type int
+	 * This const is available in Comet 26.8.1 and later.
+	 */
+	const RESTORETYPE_VMDK_FILE_CLOUD_STORAGE = 16;
 
 	/**
 	 * RestoreType: Legacy name alias - Prefer to use RESTORETYPE_PROCESS_ARCHIVE since multiple archive file formats are supported within this single RESTORETYPE_
@@ -1589,60 +1718,64 @@ class Def {
 	const ROTATE_STORAGE_VAULT_KEYS_DEFAULT = 48;
 
 	/**
+	 * ScheduleFrequencyType
+	 *
 	 * @type int
 	 */
 	const SCHEDULE_FREQUENCY_LOWEST = 8010;
 
 	/**
-	 * SecondsPast should be a Unix timestamp, in seconds
+	 * ScheduleFrequencyType: SecondsPast should be a Unix timestamp, in seconds
 	 *
 	 * @type int
 	 */
 	const SCHEDULE_FREQUENCY_ONCEONLY = 8010;
 
 	/**
-	 * SecondsPast is the number of seconds past 00:00, in the device's local timezone.
+	 * ScheduleFrequencyType: SecondsPast is the number of seconds past 00:00, in the device's local timezone.
 	 *
 	 * @type int
 	 */
 	const SCHEDULE_FREQUENCY_DAILY = 8011;
 
 	/**
-	 * SecondsPast is the number of seconds past *:00, in the device's local timezone.
+	 * ScheduleFrequencyType: SecondsPast is the number of seconds past *:00, in the device's local timezone.
 	 *
 	 * @type int
 	 */
 	const SCHEDULE_FREQUENCY_HOURLY = 8012;
 
 	/**
-	 * SecondsPast is the number of seconds past 00:00 Sunday, in the device's local timezone.
+	 * ScheduleFrequencyType: SecondsPast is the number of seconds past 00:00 Sunday, in the device's local timezone.
 	 *
 	 * @type int
 	 */
 	const SCHEDULE_FREQUENCY_WEEKLY = 8013;
 
 	/**
-	 * SecondsPast is the number of seconds past 00:00 1st, in the device's local timezone.
+	 * ScheduleFrequencyType: SecondsPast is the number of seconds past 00:00 1st, in the device's local timezone.
 	 *
 	 * @type int
 	 */
 	const SCHEDULE_FREQUENCY_MONTHLY = 8014;
 
 	/**
-	 * SecondsPast is the number of seconds per period. Offset: Shunt seconds after unix epoch
+	 * ScheduleFrequencyType: SecondsPast is the number of seconds per period. Offset: Shunt seconds after unix epoch
 	 *
 	 * @type int
 	 */
 	const SCHEDULE_FREQUENCY_PERIODIC = 8015;
 
 	/**
-	 * SecondsPast is the number of seconds past 00:00 1st, in the device's local timezone.
+	 * ScheduleFrequencyType: SecondsPast is the number of seconds past 00:00 1st, in the device's local timezone.
 	 *
 	 * @type int
 	 */
 	const SCHEDULE_FREQUENCY_YEARLY = 8016;
 
 	/**
+	 * ScheduleFrequencyType
+	 *
 	 * @type int
 	 */
 	const SCHEDULE_FREQUENCY_HIGHEST = 8016;
@@ -1695,182 +1828,182 @@ class Def {
 	const SEARCHCLAUSE_NOT_OR = "not_or";
 
 	/**
- * String equals (case sensitive)
+ * SearchOperatorType: String equals (case sensitive)
 	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_STRING_EQ = "str_eq";
 
 	/**
- * String does not equal (case sensitive)
+ * SearchOperatorType: String does not equal (case sensitive)
 	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_STRING_NEQ = "str_neq";
 
 	/**
- * String contains anywhere (case sensitive)
+ * SearchOperatorType: String contains anywhere (case sensitive)
 	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_STRING_CONTAINS = "str_contains";
 
 	/**
- * String does not contain anywhere (case sensitive)
+ * SearchOperatorType: String does not contain anywhere (case sensitive)
 	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_STRING_NCONTAINS = "str_ncontains";
 
 	/**
- * String starts with prefix (case sensitive)
+ * SearchOperatorType: String starts with prefix (case sensitive)
 	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_STRING_STARTSWITH = "str_startswith";
 
 	/**
- * String does not start with prefix (case sensitive)
+ * SearchOperatorType: String does not start with prefix (case sensitive)
 	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_STRING_NSTARTSWITH = "str_nstartswith";
 
 	/**
- * String ends with suffix (case sensitive)
+ * SearchOperatorType: String ends with suffix (case sensitive)
 	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_STRING_ENDSWITH = "str_endswith";
 
 	/**
- * String does not end with suffix (case sensitive)
+ * SearchOperatorType: String does not end with suffix (case sensitive)
 	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_STRING_NENDSWITH = "str_nendswith";
 
 	/**
- * String equals (case insensitive)
+ * SearchOperatorType: String equals (case insensitive)
 	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_STRING_EQ_CI = "str_eq_ci";
 
 	/**
- * String does not equal (case insensitive)
+ * SearchOperatorType: String does not equal (case insensitive)
 	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_STRING_NEQ_CI = "str_neq_ci";
 
 	/**
- * String contains anywhere (case sensitive)
+ * SearchOperatorType: String contains anywhere (case sensitive)
 	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_STRING_CONTAINS_CI = "str_contains_ci";
 
 	/**
- * String does not contain anywhere (case sensitive)
+ * SearchOperatorType: String does not contain anywhere (case sensitive)
 	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_STRING_NCONTAINS_CI = "str_ncontains_ci";
 
 	/**
- * String starts with prefix (case sensitive)
+ * SearchOperatorType: String starts with prefix (case sensitive)
 	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_STRING_STARTSWITH_CI = "str_startswith_ci";
 
 	/**
- * String does not start with (case sensitive)
+ * SearchOperatorType: String does not start with (case sensitive)
 	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_STRING_NSTARTSWITH_CI = "str_nstartswith_ci";
 
 	/**
- * String ends with suffix (case sensitive)
+ * SearchOperatorType: String ends with suffix (case sensitive)
 	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_STRING_ENDSWITH_CI = "str_endswith_ci";
 
 	/**
- * String does not end with suffix (case sensitive)
+ * SearchOperatorType: String does not end with suffix (case sensitive)
 	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_STRING_NENDSWITH_CI = "str_nendswith_ci";
 
 	/**
-	 * String matches provided regular expression (using Go regex syntax)
+	 * SearchOperatorType: String matches provided regular expression (using Go regex syntax)
 	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_STRING_REGEXMATCH = "str_regexmatch";
 
 	/**
-	 * String does not match provided regular expression (using Go regex syntax)
+	 * SearchOperatorType: String does not match provided regular expression (using Go regex syntax)
 	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_STRING_NREGEXMATCH = "str_nregexmatch";
 
 	/**
-	 * Integer field is equal to value
+	 * SearchOperatorType: Integer field is equal to value
 	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_INT_EQ = "int_eq";
 
 	/**
-	 * Integer field is not equal to value
+	 * SearchOperatorType: Integer field is not equal to value
 	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_INT_NEQ = "int_neq";
 
 	/**
-	 * Integer field is greater than value
+	 * SearchOperatorType: Integer field is greater than value
 	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_INT_GT = "int_gt";
 
 	/**
-	 * Integer field is greater than or equal to value
+	 * SearchOperatorType: Integer field is greater than or equal to value
 	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_INT_GTE = "int_gte";
 
 	/**
-	 * Integer field is less than value
+	 * SearchOperatorType: Integer field is less than value
 	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_INT_LT = "int_lt";
 
 	/**
-	 * Integer field is less than or equal to value
+	 * SearchOperatorType: Integer field is less than or equal to value
 	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_INT_LTE = "int_lte";
 
 	/**
-	 * Boolean field matches value
+	 * SearchOperatorType: Boolean field matches value
 	 *
 	 * @type string
 	 */
 	const SEARCHOPERATOR_BOOL_IS = "bool_is";
 
 	/**
-	 * Boolean field does not match value
+	 * SearchOperatorType: Boolean field does not match value
 	 *
 	 * @type string
 	 */
@@ -2101,6 +2234,30 @@ class Def {
 	const SEVT_ACCOUNT_ADMIN_SESSION_EXPIRE = 4157;
 
 	/**
+	 * StreamableEventType: Admin personal API token created. Data is the redacted token metadata
+	 *
+	 * @type int
+	 * This const is available in Comet 26.8.4 and later.
+	 */
+	const SEVT_ACCOUNT_ADMIN_TOKEN_NEW = 4158;
+
+	/**
+	 * StreamableEventType: Admin personal API token revoked. Data is the redacted token metadata
+	 *
+	 * @type int
+	 * This const is available in Comet 26.8.4 and later.
+	 */
+	const SEVT_ACCOUNT_ADMIN_TOKEN_REMOVED = 4159;
+
+	/**
+	 * StreamableEventType: Admin personal API token authentication succeeded. Emitted for every authenticated request, in place of SEVT_ACCOUNT_ADMIN_LOGIN. Resource is the token ID
+	 *
+	 * @type int
+	 * This const is available in Comet 26.8.4 and later.
+	 */
+	const SEVT_ACCOUNT_ADMIN_TOKEN_USED = 4160;
+
+	/**
 	 * StreamableEventType: New backup job started. Data is the job object
 	 *
 	 * @type int
@@ -2288,6 +2445,27 @@ class Def {
 	 * @type int
 	 */
 	const SEVT__MAX = 4999;
+
+	/**
+	 * SourceFieldType
+	 *
+	 * @type string
+	 */
+	const SOURCEFIELD_BOOL = "bool";
+
+	/**
+	 * SourceFieldType
+	 *
+	 * @type string
+	 */
+	const SOURCEFIELD_INT = "int";
+
+	/**
+	 * SourceFieldType
+	 *
+	 * @type string
+	 */
+	const SOURCEFIELD_STRING = "string";
 
 	/**
 	 * SSHAuthMode
@@ -2605,6 +2783,14 @@ class Def {
 	const UPDATESTATUS_UPDATE_CONFIRMED = 5;
 
 	/**
+	 * UpdateStatus: The device's reported operating system version is below the minimum supported version for the target build
+	 *
+	 * @type int
+	 * This const is available in Comet 26.5.2 and later.
+	 */
+	const UPDATESTATUS_INCOMPATIBLE_OS = 6;
+
+	/**
 	 * @type int
 	 */
 	const USERNAME_MAX_LENGTH = 255;
@@ -2739,6 +2925,22 @@ class Def {
 	const WEBAUTHN_DEVICE_TYPE__TPM_LINUX = 6;
 
 	/**
+	 * WebhookFormat: The default. The event is delivered as the raw StreamableEvent JSON object.
+	 *
+	 * @type string
+	 */
+	const WEBHOOK_FORMAT_RAW = "";
+
+	/**
+	 * WebhookFormat: The event is reformatted as a Slack-compatible message, suitable for posting
+	directly to a Slack Incoming Webhook URL.
+	 *
+	 * @type string
+	 * This const is available in Comet 26.5.2 and later.
+	 */
+	const WEBHOOK_FORMAT_SLACK = "slack";
+
+	/**
 	 * WindowsCodesignMethod: When upgrading from a version of Comet Server prior to 23.3.0, this option will be automatically converted to a more specific type.
 	 *
 	 * @type int
@@ -2782,6 +2984,16 @@ class Def {
 	const WINDOWSCODESIGN_METHOD_RELICSERVER = 5;
 
 	/**
+	 * @type int
+	 */
+	const customBrandingMaxInlineItemSize = 262144;
+
+	/**
+	 * @type int
+	 */
+	const customBrandingMaxTotalSize = 1048576;
+
+	/**
 	 * Retrieve a mapping of language codes supported by Comet Server.
 	 *
 	 * @return array
@@ -2789,6 +3001,7 @@ class Def {
 	function LanguageCodes() {
 		return [
 			'en_US' => 'English',
+			'cs_CZ' => 'Čeština',
 			'da_DK' => 'Dansk',
 			'de_DE' => 'Deutsch',
 			'es_ES' => 'Español',

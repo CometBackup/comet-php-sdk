@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -56,6 +56,12 @@ class DeviceConfig {
 	 * This field is available in Comet 23.9.8 and later.
 	 */
 	public $SyncroUUID = "";
+
+	/**
+	 * @var int
+	 * This field is available in Comet 26.2.4 and later.
+	 */
+	public $NinjaOneNodeId = 0;
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
@@ -113,6 +119,9 @@ class DeviceConfig {
 		if (property_exists($sc, 'SyncroUUID') && !is_null($sc->SyncroUUID)) {
 			$this->SyncroUUID = (string)($sc->SyncroUUID);
 		}
+		if (property_exists($sc, 'NinjaOneNodeId') && !is_null($sc->NinjaOneNodeId)) {
+			$this->NinjaOneNodeId = (int)($sc->NinjaOneNodeId);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'FriendlyName':
@@ -122,6 +131,7 @@ class DeviceConfig {
 			case 'DeviceTimezone':
 			case 'ClientVersion':
 			case 'SyncroUUID':
+			case 'NinjaOneNodeId':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -214,6 +224,7 @@ class DeviceConfig {
 		$ret["DeviceTimezone"] = $this->DeviceTimezone;
 		$ret["ClientVersion"] = $this->ClientVersion;
 		$ret["SyncroUUID"] = $this->SyncroUUID;
+		$ret["NinjaOneNodeId"] = $this->NinjaOneNodeId;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

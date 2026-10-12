@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -32,8 +32,8 @@ class LocalDestinationLocation {
 	public $LocalcopyWinSMBPassword = "";
 
 	/**
-	 * One of the PASSWORD_FORMAT_ constants. It controls the hash format of the LocalcopyWinSMBPassword
-	 * field.
+	 * One of the ENCRYPTIONMETHOD_ constants. It controls the hash format of the
+	 * LocalcopyWinSMBPassword field.
 	 *
 	 * @var int
 	 */

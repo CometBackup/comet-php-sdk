@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -15,6 +15,7 @@ namespace Comet;
  *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
+ * This API accepts admin personal API token authentication (AuthType=Token).
  */
 class AdminGetJobLogEntriesRequest implements \Comet\NetworkRequest {
 
@@ -26,14 +27,14 @@ class AdminGetJobLogEntriesRequest implements \Comet\NetworkRequest {
 	protected $JobID = null;
 
 	/**
-	 * Return only job log entries with equal or higher severity (optional)
+	 * Return only job log entries with equal or higher severity (>= 23.3.1) (optional)
 	 *
 	 * @var string|null
 	 */
 	protected $MinSeverity = null;
 
 	/**
-	 * Return only job log entries that contain exact string (optional)
+	 * Return only job log entries that contain exact string (>= 23.3.1) (optional)
 	 *
 	 * @var string|null
 	 */
@@ -43,8 +44,8 @@ class AdminGetJobLogEntriesRequest implements \Comet\NetworkRequest {
 	 * Construct a new AdminGetJobLogEntriesRequest instance.
 	 *
 	 * @param string $JobID Selected job ID
-	 * @param string $MinSeverity Return only job log entries with equal or higher severity (optional)
-	 * @param string $MessageContains Return only job log entries that contain exact string (optional)
+	 * @param string $MinSeverity Return only job log entries with equal or higher severity (>= 23.3.1) (optional)
+	 * @param string $MessageContains Return only job log entries that contain exact string (>= 23.3.1) (optional)
 	 */
 	public function __construct(string $JobID, string $MinSeverity = null, string $MessageContains = null)
 	{

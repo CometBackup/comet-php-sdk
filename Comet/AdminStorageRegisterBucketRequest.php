@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -17,25 +17,26 @@ namespace Comet;
  *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Storage Role to be enabled.
+ * This API accepts admin personal API token authentication (AuthType=Token).
  */
 class AdminStorageRegisterBucketRequest implements \Comet\NetworkRequest {
 
 	/**
-	 * Bucket ID (optional)
+	 * Bucket ID (>= 17.2.0) (optional)
 	 *
 	 * @var string|null
 	 */
 	protected $SetBucketValue = null;
 
 	/**
-	 * Bucket key hashing format (optional)
+	 * Bucket key hashing format (>= 17.2.0) (optional)
 	 *
 	 * @var string|null
 	 */
 	protected $SetKeyHashFormat = null;
 
 	/**
-	 * Bucket key hash (optional)
+	 * Bucket key hash (>= 17.2.0) (optional)
 	 *
 	 * @var string|null
 	 */
@@ -51,9 +52,9 @@ class AdminStorageRegisterBucketRequest implements \Comet\NetworkRequest {
 	/**
 	 * Construct a new AdminStorageRegisterBucketRequest instance.
 	 *
-	 * @param string $SetBucketValue Bucket ID (optional)
-	 * @param string $SetKeyHashFormat Bucket key hashing format (optional)
-	 * @param string $SetKeyHashValue Bucket key hash (optional)
+	 * @param string $SetBucketValue Bucket ID (>= 17.2.0) (optional)
+	 * @param string $SetKeyHashFormat Bucket key hashing format (>= 17.2.0) (optional)
+	 * @param string $SetKeyHashValue Bucket key hash (>= 17.2.0) (optional)
 	 * @param string $SetOrganizationID Target organization ID (>= 20.9.0) (optional)
 	 */
 	public function __construct(string $SetBucketValue = null, string $SetKeyHashFormat = null, string $SetKeyHashValue = null, string $SetOrganizationID = null)

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -15,33 +15,43 @@ namespace Comet;
  *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
+ * This API accepts admin personal API token authentication (AuthType=Token).
  */
 class AdminSetUserProfileRequest implements \Comet\NetworkRequest {
 
 	/**
-	 * Selected account username
+	 * Selected account username (>= 17.2.0)
 	 *
 	 * @var string
 	 */
 	protected $TargetUser = null;
 
 	/**
-	 * Modified user profile
+	 * Modified user profile (>= 17.2.0)
 	 *
 	 * @var \Comet\UserProfileConfig
 	 */
 	protected $ProfileData = null;
 
 	/**
+	 * Instructions for modifying user profile (>= 24.12.5) (optional)
+	 *
+	 * @var \Comet\AdminOptions|null
+	 */
+	protected $AdminOptions = null;
+
+	/**
 	 * Construct a new AdminSetUserProfileRequest instance.
 	 *
-	 * @param string $TargetUser Selected account username
-	 * @param \Comet\UserProfileConfig $ProfileData Modified user profile
+	 * @param string $TargetUser Selected account username (>= 17.2.0)
+	 * @param \Comet\UserProfileConfig $ProfileData Modified user profile (>= 17.2.0)
+	 * @param \Comet\AdminOptions $AdminOptions Instructions for modifying user profile (>= 24.12.5) (optional)
 	 */
-	public function __construct(string $TargetUser, \Comet\UserProfileConfig $ProfileData)
+	public function __construct(string $TargetUser, \Comet\UserProfileConfig $ProfileData, \Comet\AdminOptions $AdminOptions = null)
 	{
 		$this->TargetUser = $TargetUser;
 		$this->ProfileData = $ProfileData;
+		$this->AdminOptions = $AdminOptions;
 	}
 
 	/**
@@ -74,6 +84,9 @@ class AdminSetUserProfileRequest implements \Comet\NetworkRequest {
 		$ret = [];
 		$ret["TargetUser"] = (string)($this->TargetUser);
 		$ret["ProfileData"] = $this->ProfileData->toJSON();
+		if ($this->AdminOptions !== null) {
+			$ret["AdminOptions"] = $this->AdminOptions->toJSON();
+		}
 		return $ret;
 	}
 

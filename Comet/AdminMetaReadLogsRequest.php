@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -17,11 +17,12 @@ namespace Comet;
  *
  * You must supply administrator authentication credentials to use this API.
  * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
+ * This API accepts admin personal API token authentication (AuthType=Token).
  */
 class AdminMetaReadLogsRequest implements \Comet\NetworkRequest {
 
 	/**
-	 * A log day, selected from the options returned by the Get Log Files API
+	 * A log day, selected from the options returned by the Get Log Files API (>= 17.2.0)
 	 *
 	 * @var int
 	 */
@@ -30,7 +31,7 @@ class AdminMetaReadLogsRequest implements \Comet\NetworkRequest {
 	/**
 	 * Construct a new AdminMetaReadLogsRequest instance.
 	 *
-	 * @param int $Log A log day, selected from the options returned by the Get Log Files API
+	 * @param int $Log A log day, selected from the options returned by the Get Log Files API (>= 17.2.0)
 	 */
 	public function __construct(int $Log)
 	{

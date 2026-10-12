@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -17,6 +17,7 @@ namespace Comet;
  *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
+ * This API accepts admin personal API token authentication (AuthType=Token).
  */
 class AdminDispatcherRequestStoredObjectsRequest implements \Comet\NetworkRequest {
 
@@ -49,7 +50,7 @@ class AdminDispatcherRequestStoredObjectsRequest implements \Comet\NetworkReques
 	protected $TreeID = null;
 
 	/**
-	 * Request a list of stored objects in vmdk file (optional)
+	 * Request a list of stored objects in vmdk file (>= 21.12.5) (optional)
 	 *
 	 * @var \Comet\VMDKSnapshotViewOptions|null
 	 */
@@ -62,7 +63,7 @@ class AdminDispatcherRequestStoredObjectsRequest implements \Comet\NetworkReques
 	 * @param string $Destination The Storage Vault ID
 	 * @param string $SnapshotID The selected backup job snapshot
 	 * @param string $TreeID Browse objects inside subdirectory of backup snapshot. If it is for VMDK single file restore, it should be the disk image's subtree ID. (optional)
-	 * @param \Comet\VMDKSnapshotViewOptions $Options Request a list of stored objects in vmdk file (optional)
+	 * @param \Comet\VMDKSnapshotViewOptions $Options Request a list of stored objects in vmdk file (>= 21.12.5) (optional)
 	 */
 	public function __construct(string $TargetID, string $Destination, string $SnapshotID, string $TreeID = null, \Comet\VMDKSnapshotViewOptions $Options = null)
 	{

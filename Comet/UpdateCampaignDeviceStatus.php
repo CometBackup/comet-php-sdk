@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -17,6 +17,11 @@ class UpdateCampaignDeviceStatus {
 	 * @var int
 	 */
 	public $Status = 0;
+
+	/**
+	 * @var \Comet\UpdateCampaignSkipDetail
+	 */
+	public $SkipDetail = null;
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
@@ -38,9 +43,18 @@ class UpdateCampaignDeviceStatus {
 		if (property_exists($sc, 'Status')) {
 			$this->Status = (int)($sc->Status);
 		}
+		if (property_exists($sc, 'SkipDetail')) {
+			if (is_array($sc->SkipDetail) && count($sc->SkipDetail) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->SkipDetail = \Comet\UpdateCampaignSkipDetail::createFromStdclass(new \stdClass());
+			} else {
+				$this->SkipDetail = \Comet\UpdateCampaignSkipDetail::createFromStdclass($sc->SkipDetail);
+			}
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Status':
+			case 'SkipDetail':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -107,6 +121,11 @@ class UpdateCampaignDeviceStatus {
 	{
 		$ret = [];
 		$ret["Status"] = $this->Status;
+		if ( $this->SkipDetail === null ) {
+			$ret["SkipDetail"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["SkipDetail"] = $this->SkipDetail->toArray($for_json_encode);
+		}
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
@@ -156,6 +175,9 @@ class UpdateCampaignDeviceStatus {
 	public function RemoveUnknownProperties()
 	{
 		$this->__unknown_properties = [];
+		if ($this->SkipDetail !== null) {
+			$this->SkipDetail->RemoveUnknownProperties();
+		}
 	}
 
 }

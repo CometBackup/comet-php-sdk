@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -18,12 +18,13 @@ namespace Comet;
  *
  * You must supply administrator authentication credentials to use this API.
  * Access to this API may be prevented on a per-administrator basis.
+ * This API does not accept admin personal API token authentication (AuthType=Token).
  * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
  */
 class AdminMetaServerConfigSetRequest implements \Comet\NetworkRequest {
 
 	/**
-	 * Updated configuration content
+	 * Updated configuration content (>= 17.3.8)
 	 *
 	 * @var \Comet\ServerConfigOptions
 	 */
@@ -32,7 +33,7 @@ class AdminMetaServerConfigSetRequest implements \Comet\NetworkRequest {
 	/**
 	 * Construct a new AdminMetaServerConfigSetRequest instance.
 	 *
-	 * @param \Comet\ServerConfigOptions $Config Updated configuration content
+	 * @param \Comet\ServerConfigOptions $Config Updated configuration content (>= 17.3.8)
 	 */
 	public function __construct(\Comet\ServerConfigOptions $Config)
 	{

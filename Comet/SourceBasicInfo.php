@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -34,6 +34,11 @@ class SourceBasicInfo {
 	 * @var int
 	 */
 	public $TotalVmCount = 0;
+
+	/**
+	 * @var int
+	 */
+	public $TotalLxcCount = 0;
 
 	/**
 	 * Bytes
@@ -76,6 +81,9 @@ class SourceBasicInfo {
 		if (property_exists($sc, 'TotalVmCount')) {
 			$this->TotalVmCount = (int)($sc->TotalVmCount);
 		}
+		if (property_exists($sc, 'TotalLxcCount')) {
+			$this->TotalLxcCount = (int)($sc->TotalLxcCount);
+		}
 		if (property_exists($sc, 'Size')) {
 			$this->Size = (int)($sc->Size);
 		}
@@ -101,6 +109,7 @@ class SourceBasicInfo {
 			case 'Description':
 			case 'O365AccountCount':
 			case 'TotalVmCount':
+			case 'TotalLxcCount':
 			case 'Size':
 			case 'OverrideDestinationRetention':
 				break;
@@ -172,6 +181,7 @@ class SourceBasicInfo {
 		$ret["Description"] = $this->Description;
 		$ret["O365AccountCount"] = $this->O365AccountCount;
 		$ret["TotalVmCount"] = $this->TotalVmCount;
+		$ret["TotalLxcCount"] = $this->TotalLxcCount;
 		$ret["Size"] = $this->Size;
 		{
 			$c0 = $for_json_encode ? (object)[] : [];

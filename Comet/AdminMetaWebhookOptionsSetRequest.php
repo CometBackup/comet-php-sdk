@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -16,11 +16,12 @@ namespace Comet;
  *
  * You must supply administrator authentication credentials to use this API.
  * Access to this API may be prevented on a per-administrator basis.
+ * This API does not accept admin personal API token authentication (AuthType=Token).
  */
 class AdminMetaWebhookOptionsSetRequest implements \Comet\NetworkRequest {
 
 	/**
-	 * The replacement webhook target options.
+	 * The replacement webhook target options. (>= 20.6.8)
 	 *
 	 * @var array<string, \Comet\WebhookOption>
 	 */
@@ -29,7 +30,7 @@ class AdminMetaWebhookOptionsSetRequest implements \Comet\NetworkRequest {
 	/**
 	 * Construct a new AdminMetaWebhookOptionsSetRequest instance.
 	 *
-	 * @param array<string, \Comet\WebhookOption> $WebhookOptions The replacement webhook target options.
+	 * @param array<string, \Comet\WebhookOption> $WebhookOptions The replacement webhook target options. (>= 20.6.8)
 	 */
 	public function __construct(array $WebhookOptions)
 	{

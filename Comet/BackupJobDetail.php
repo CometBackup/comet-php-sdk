@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -118,11 +118,18 @@ class BackupJobDetail {
 	public $DownloadSize = 0;
 
 	/**
-	 * For Hyper-V and VMware backup jobs, the total number of virtual machines.
+	 * For Hyper-V, VMware and Proxmox backup jobs, the total number of virtual machines.
 	 *
 	 * @var int
 	 */
 	public $TotalVmCount = 0;
+
+	/**
+	 * For Proxmox backup jobs, the total number of LXC containers.
+	 *
+	 * @var int
+	 */
+	public $TotalLxcCount = 0;
 
 	/**
 	 * For Office 365 backup jobs, the total number of mailboxes.
@@ -281,6 +288,9 @@ class BackupJobDetail {
 		if (property_exists($sc, 'TotalVmCount') && !is_null($sc->TotalVmCount)) {
 			$this->TotalVmCount = (int)($sc->TotalVmCount);
 		}
+		if (property_exists($sc, 'TotalLxcCount') && !is_null($sc->TotalLxcCount)) {
+			$this->TotalLxcCount = (int)($sc->TotalLxcCount);
+		}
 		if (property_exists($sc, 'TotalMailsCount') && !is_null($sc->TotalMailsCount)) {
 			$this->TotalMailsCount = (int)($sc->TotalMailsCount);
 		}
@@ -351,6 +361,7 @@ class BackupJobDetail {
 			case 'UploadSize':
 			case 'DownloadSize':
 			case 'TotalVmCount':
+			case 'TotalLxcCount':
 			case 'TotalMailsCount':
 			case 'TotalSitesCount':
 			case 'TotalAccountsCount':
@@ -447,6 +458,7 @@ class BackupJobDetail {
 		$ret["UploadSize"] = $this->UploadSize;
 		$ret["DownloadSize"] = $this->DownloadSize;
 		$ret["TotalVmCount"] = $this->TotalVmCount;
+		$ret["TotalLxcCount"] = $this->TotalLxcCount;
 		$ret["TotalMailsCount"] = $this->TotalMailsCount;
 		$ret["TotalSitesCount"] = $this->TotalSitesCount;
 		$ret["TotalAccountsCount"] = $this->TotalAccountsCount;

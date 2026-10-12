@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -27,14 +27,14 @@ class WinSMBAuth {
 
 	/**
 	 * The password might be hashed. To set this in cleartext, set PasswordFormat to 0
-	 * (PASSWORD_FORMAT_PLAINTEXT).
+	 * (ENCRYPTIONMETHOD_PLAINTEXT).
 	 *
 	 * @var string
 	 */
 	public $Password = "";
 
 	/**
-	 * The hash algorithm that is used for the Password field. It is one of the PASSWORD_FORMAT_
+	 * The encryption method that is used for the Password field. It is one of the ENCRYPTIONMETHOD_
 	 * constants.
 	 *
 	 * @var int

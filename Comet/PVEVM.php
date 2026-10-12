@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -25,6 +25,8 @@ class PVEVM {
 	public $Disks = [];
 
 	/**
+	 * Memory is a human-formatted string of the VM's memory. It might be rounded.
+	 *
 	 * @var string
 	 */
 	public $Memory = "";
@@ -53,6 +55,11 @@ class PVEVM {
 	 * @var string
 	 */
 	public $Type = "";
+
+	/**
+	 * @var boolean
+	 */
+	public $Template = false;
 
 	/**
 	 * String type, but always contains an integer value
@@ -113,6 +120,9 @@ class PVEVM {
 		if (property_exists($sc, 'Type')) {
 			$this->Type = (string)($sc->Type);
 		}
+		if (property_exists($sc, 'Template')) {
+			$this->Template = (bool)($sc->Template);
+		}
 		if (property_exists($sc, 'VMID')) {
 			$this->VMID = (string)($sc->VMID);
 		}
@@ -126,6 +136,7 @@ class PVEVM {
 			case 'OSType':
 			case 'Running':
 			case 'Type':
+			case 'Template':
 			case 'VMID':
 				break;
 			default:
@@ -211,6 +222,7 @@ class PVEVM {
 		$ret["OSType"] = $this->OSType;
 		$ret["Running"] = $this->Running;
 		$ret["Type"] = $this->Type;
+		$ret["Template"] = $this->Template;
 		$ret["VMID"] = $this->VMID;
 
 		// Reinstate unknown properties from future server versions

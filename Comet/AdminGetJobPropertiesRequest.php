@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -15,11 +15,12 @@ namespace Comet;
  *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
+ * This API accepts admin personal API token authentication (AuthType=Token).
  */
 class AdminGetJobPropertiesRequest implements \Comet\NetworkRequest {
 
 	/**
-	 * Selected job ID
+	 * Selected job ID (>= 17.2.0)
 	 *
 	 * @var string
 	 */
@@ -28,7 +29,7 @@ class AdminGetJobPropertiesRequest implements \Comet\NetworkRequest {
 	/**
 	 * Construct a new AdminGetJobPropertiesRequest instance.
 	 *
-	 * @param string $JobID Selected job ID
+	 * @param string $JobID Selected job ID (>= 17.2.0)
 	 */
 	public function __construct(string $JobID)
 	{

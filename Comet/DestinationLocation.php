@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -253,8 +253,8 @@ class DestinationLocation {
 	public $LocalcopyWinSMBPassword = "";
 
 	/**
-	 * One of the PASSWORD_FORMAT_ constants. It controls the hash format of the LocalcopyWinSMBPassword
-	 * field.
+	 * One of the ENCRYPTIONMETHOD_ constants. It controls the hash format of the
+	 * LocalcopyWinSMBPassword field.
 	 *
 	 * @var int
 	 */
@@ -285,6 +285,12 @@ class DestinationLocation {
 	 * @var \Comet\SMBDestinationLocation
 	 */
 	public $SMB = null;
+
+	/**
+	 * @var \Comet\NFSDestinationLocation
+	 * This field is available in Comet 26.9.x and later.
+	 */
+	public $NFS = null;
 
 	/**
 	 * A list of underlying destinations, that will be combined and presented as one.
@@ -494,6 +500,14 @@ class DestinationLocation {
 				$this->SMB = \Comet\SMBDestinationLocation::createFromStdclass($sc->SMB);
 			}
 		}
+		if (property_exists($sc, 'NFS')) {
+			if (is_array($sc->NFS) && count($sc->NFS) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->NFS = \Comet\NFSDestinationLocation::createFromStdclass(new \stdClass());
+			} else {
+				$this->NFS = \Comet\NFSDestinationLocation::createFromStdclass($sc->NFS);
+			}
+		}
 		if (property_exists($sc, 'SpanTargets')) {
 			$val_2 = [];
 			if ($sc->SpanTargets !== null) {
@@ -562,6 +576,7 @@ class DestinationLocation {
 			case 'WebDav':
 			case 'Storj':
 			case 'SMB':
+			case 'NFS':
 			case 'SpanTargets':
 			case 'SpanUseStaticSlots':
 			case 'Tag':
@@ -696,6 +711,11 @@ class DestinationLocation {
 		} else {
 			$ret["SMB"] = $this->SMB->toArray($for_json_encode);
 		}
+		if ( $this->NFS === null ) {
+			$ret["NFS"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["NFS"] = $this->NFS->toArray($for_json_encode);
+		}
 		{
 			$c0 = [];
 			for($i0 = 0; $i0 < count($this->SpanTargets); ++$i0) {
@@ -773,6 +793,9 @@ class DestinationLocation {
 		}
 		if ($this->SMB !== null) {
 			$this->SMB->RemoveUnknownProperties();
+		}
+		if ($this->NFS !== null) {
+			$this->NFS->RemoveUnknownProperties();
 		}
 	}
 

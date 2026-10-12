@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -12,15 +12,16 @@ namespace Comet;
 /**
  * Comet Server AdminDispatcherRefetchProfile API
  * Instruct a live connected device to refresh their profile
- * This command is understood by Comet Backup 17.12.0 and newer.
+ * This command is understood by Comet Backup 17.2.0 and newer.
  *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
+ * This API accepts admin personal API token authentication (AuthType=Token).
  */
 class AdminDispatcherRefetchProfileRequest implements \Comet\NetworkRequest {
 
 	/**
-	 * The live connection GUID
+	 * The live connection GUID (>= 17.2.0)
 	 *
 	 * @var string
 	 */
@@ -29,7 +30,7 @@ class AdminDispatcherRefetchProfileRequest implements \Comet\NetworkRequest {
 	/**
 	 * Construct a new AdminDispatcherRefetchProfileRequest instance.
 	 *
-	 * @param string $TargetID The live connection GUID
+	 * @param string $TargetID The live connection GUID (>= 17.2.0)
 	 */
 	public function __construct(string $TargetID)
 	{

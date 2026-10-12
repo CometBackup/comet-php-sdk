@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -15,6 +15,7 @@ namespace Comet;
  *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
+ * This API accepts admin personal API token authentication (AuthType=Token).
  */
 class AdminInstallationDispatchRegisterDeviceRequest implements \Comet\NetworkRequest {
 
@@ -40,26 +41,17 @@ class AdminInstallationDispatchRegisterDeviceRequest implements \Comet\NetworkRe
 	protected $TargetPassword = null;
 
 	/**
-	 * Selected account TOTP code (optional)
-	 *
-	 * @var string|null
-	 */
-	protected $TargetTOTPCode = null;
-
-	/**
 	 * Construct a new AdminInstallationDispatchRegisterDeviceRequest instance.
 	 *
 	 * @param string $DeviceID The live connection Device GUID
 	 * @param string $TargetUser Selected account username
 	 * @param string $TargetPassword Selected account password
-	 * @param string $TargetTOTPCode Selected account TOTP code (optional)
 	 */
-	public function __construct(string $DeviceID, string $TargetUser, string $TargetPassword, string $TargetTOTPCode = null)
+	public function __construct(string $DeviceID, string $TargetUser, string $TargetPassword)
 	{
 		$this->DeviceID = $DeviceID;
 		$this->TargetUser = $TargetUser;
 		$this->TargetPassword = $TargetPassword;
-		$this->TargetTOTPCode = $TargetTOTPCode;
 	}
 
 	/**
@@ -93,9 +85,6 @@ class AdminInstallationDispatchRegisterDeviceRequest implements \Comet\NetworkRe
 		$ret["DeviceID"] = (string)($this->DeviceID);
 		$ret["TargetUser"] = (string)($this->TargetUser);
 		$ret["TargetPassword"] = (string)($this->TargetPassword);
-		if ($this->TargetTOTPCode !== null) {
-			$ret["TargetTOTPCode"] = (string)($this->TargetTOTPCode);
-		}
 		return $ret;
 	}
 

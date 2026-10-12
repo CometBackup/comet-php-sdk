@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -122,6 +122,15 @@ class RemoteStorageOption {
 	 * @var boolean
 	 */
 	public $RebrandStorage = false;
+
+	/**
+	 * If true, Storage Vaults provisioned from this Storage Template are marked so that the end-user
+	 * account cannot modify them. This takes priority over the account policy's PreventEditStorageVault
+	 * setting.
+	 *
+	 * @var boolean
+	 */
+	public $PreventUserEdit = false;
 
 	/**
 	 * @var string
@@ -254,6 +263,9 @@ class RemoteStorageOption {
 		if (property_exists($sc, 'RebrandStorage')) {
 			$this->RebrandStorage = (bool)($sc->RebrandStorage);
 		}
+		if (property_exists($sc, 'PreventUserEdit')) {
+			$this->PreventUserEdit = (bool)($sc->PreventUserEdit);
+		}
 		if (property_exists($sc, 'ID')) {
 			$this->ID = (string)($sc->ID);
 		}
@@ -280,6 +292,7 @@ class RemoteStorageOption {
 			case 'StorageLimitEnabled':
 			case 'StorageLimitBytes':
 			case 'RebrandStorage':
+			case 'PreventUserEdit':
 			case 'ID':
 			case 'Default':
 				break;
@@ -405,6 +418,7 @@ class RemoteStorageOption {
 		$ret["StorageLimitEnabled"] = $this->StorageLimitEnabled;
 		$ret["StorageLimitBytes"] = $this->StorageLimitBytes;
 		$ret["RebrandStorage"] = $this->RebrandStorage;
+		$ret["PreventUserEdit"] = $this->PreventUserEdit;
 		$ret["ID"] = $this->ID;
 		$ret["Default"] = $this->Default;
 

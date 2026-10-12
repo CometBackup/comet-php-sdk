@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -16,11 +16,12 @@ namespace Comet;
  *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
+ * This API accepts admin personal API token authentication (AuthType=Token).
  */
 class AdminPoliciesListRequest implements \Comet\NetworkRequest {
 
 	/**
-	 * If present, list the policies belonging to another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.3.7) (optional)
+	 * If present, list the policies belonging to another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.5.0) (optional)
 	 *
 	 * @var string|null
 	 */
@@ -29,7 +30,7 @@ class AdminPoliciesListRequest implements \Comet\NetworkRequest {
 	/**
 	 * Construct a new AdminPoliciesListRequest instance.
 	 *
-	 * @param string $TargetOrganization If present, list the policies belonging to another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.3.7) (optional)
+	 * @param string $TargetOrganization If present, list the policies belonging to another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.5.0) (optional)
 	 */
 	public function __construct(string $TargetOrganization = null)
 	{

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -48,6 +48,17 @@ class WebhookOption {
 	public $WhiteListedEventTypes = [];
 
 	/**
+	 * One of the WEBHOOK_FORMAT_ constants. This controls how the event payload is encoded in the
+	 * outgoing POST request. If empty (WEBHOOK_FORMAT_RAW), the raw StreamableEvent JSON object is
+	 * sent. When set to WEBHOOK_FORMAT_SLACK ("slack"), the event is reformatted as a Slack
+	 * Incoming Webhook message so it renders natively in a Slack channel.
+	 *
+	 * @var string
+	 * This field is available in Comet 26.5.2 and later.
+	 */
+	public $PayloadFormat = "";
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see WebhookOption::RemoveUnknownProperties() Remove all unknown properties
@@ -90,12 +101,16 @@ class WebhookOption {
 			}
 			$this->WhiteListedEventTypes = $val_2;
 		}
+		if (property_exists($sc, 'PayloadFormat') && !is_null($sc->PayloadFormat)) {
+			$this->PayloadFormat = (string)($sc->PayloadFormat);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'URL':
 			case 'CustomHeaders':
 			case 'Level':
 			case 'WhiteListedEventTypes':
+			case 'PayloadFormat':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -184,6 +199,7 @@ class WebhookOption {
 			}
 			$ret["WhiteListedEventTypes"] = $c0;
 		}
+		$ret["PayloadFormat"] = $this->PayloadFormat;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

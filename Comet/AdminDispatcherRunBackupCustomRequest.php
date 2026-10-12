@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -15,25 +15,26 @@ namespace Comet;
  *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
+ * This API accepts admin personal API token authentication (AuthType=Token).
  */
 class AdminDispatcherRunBackupCustomRequest implements \Comet\NetworkRequest {
 
 	/**
-	 * The live connection GUID
+	 * The live connection GUID (>= 17.2.0)
 	 *
 	 * @var string
 	 */
 	protected $TargetID = null;
 
 	/**
-	 * The Protected Item GUID
+	 * The Protected Item GUID (>= 17.2.0)
 	 *
 	 * @var string
 	 */
 	protected $Source = null;
 
 	/**
-	 * The Storage Vault GUID
+	 * The Storage Vault GUID (>= 17.2.0)
 	 *
 	 * @var string
 	 */
@@ -49,9 +50,9 @@ class AdminDispatcherRunBackupCustomRequest implements \Comet\NetworkRequest {
 	/**
 	 * Construct a new AdminDispatcherRunBackupCustomRequest instance.
 	 *
-	 * @param string $TargetID The live connection GUID
-	 * @param string $Source The Protected Item GUID
-	 * @param string $Destination The Storage Vault GUID
+	 * @param string $TargetID The live connection GUID (>= 17.2.0)
+	 * @param string $Source The Protected Item GUID (>= 17.2.0)
+	 * @param string $Destination The Storage Vault GUID (>= 17.2.0)
 	 * @param \Comet\BackupJobAdvancedOptions $Options Extra job parameters (>= 19.3.6) (optional)
 	 */
 	public function __construct(string $TargetID, string $Source, string $Destination, \Comet\BackupJobAdvancedOptions $Options = null)

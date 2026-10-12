@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -16,11 +16,12 @@ namespace Comet;
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
  * This API requires the Software Build Role to be enabled.
+ * This API accepts admin personal API token authentication (AuthType=Token).
  */
 class AdminDispatcherUpdateSoftwareRequest implements \Comet\NetworkRequest {
 
 	/**
-	 * The live connection GUID
+	 * The live connection GUID (>= 17.2.0)
 	 *
 	 * @var string
 	 */
@@ -36,7 +37,7 @@ class AdminDispatcherUpdateSoftwareRequest implements \Comet\NetworkRequest {
 	/**
 	 * Construct a new AdminDispatcherUpdateSoftwareRequest instance.
 	 *
-	 * @param string $TargetID The live connection GUID
+	 * @param string $TargetID The live connection GUID (>= 17.2.0)
 	 * @param string $SelfAddress The external URL of this server, used to resolve conflicts (>= 19.3.11) (optional)
 	 */
 	public function __construct(string $TargetID, string $SelfAddress = null)

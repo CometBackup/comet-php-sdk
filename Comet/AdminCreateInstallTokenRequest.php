@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -18,6 +18,7 @@ namespace Comet;
  *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
+ * This API accepts admin personal API token authentication (AuthType=Token).
  */
 class AdminCreateInstallTokenRequest implements \Comet\NetworkRequest {
 
@@ -29,7 +30,7 @@ class AdminCreateInstallTokenRequest implements \Comet\NetworkRequest {
 	protected $TargetUser = null;
 
 	/**
-	 * Selected account password
+	 * Selected account password (>= 20.9.1)
 	 *
 	 * @var string
 	 */
@@ -46,7 +47,7 @@ class AdminCreateInstallTokenRequest implements \Comet\NetworkRequest {
 	 * Construct a new AdminCreateInstallTokenRequest instance.
 	 *
 	 * @param string $TargetUser Selected account username
-	 * @param string $TargetPassword Selected account password
+	 * @param string $TargetPassword Selected account password (>= 20.9.1)
 	 * @param string $Server External URL of the authentication server that is different from the current server (optional)
 	 */
 	public function __construct(string $TargetUser, string $TargetPassword, string $Server = null)

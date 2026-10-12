@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -36,6 +36,15 @@ class EmailReportConfig {
 	 * @var \Comet\SearchClause
 	 */
 	public $Filter = null;
+
+	/**
+	 * A custom name for this email report, used to distinguish it from other reports of the same type.
+	 * If blank, the report is labelled by its type.
+	 *
+	 * @var string
+	 * This field is available in Comet 26.6.0 and later.
+	 */
+	public $Title = "";
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
@@ -87,12 +96,16 @@ class EmailReportConfig {
 				$this->Filter = \Comet\SearchClause::createFromStdclass($sc->Filter);
 			}
 		}
+		if (property_exists($sc, 'Title') && !is_null($sc->Title)) {
+			$this->Title = (string)($sc->Title);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'ReportType':
 			case 'SummaryFrequency':
 			case 'TimeSpan':
 			case 'Filter':
+			case 'Title':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -181,6 +194,7 @@ class EmailReportConfig {
 		} else {
 			$ret["Filter"] = $this->Filter->toArray($for_json_encode);
 		}
+		$ret["Title"] = $this->Title;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -46,7 +46,11 @@ class MongoDBConnection {
 	public $MongoShellPath = "";
 
 	/**
+	 * External mongodump path. This is deprecated in Comet 25.9.11, Comet now includes MongoDB dump
+	 * functionality.
+	 *
 	 * @var string
+	 * @deprecated 25.9.11 This member has been deprecated since Comet version 25.9.11
 	 */
 	public $MongodumpPath = "";
 

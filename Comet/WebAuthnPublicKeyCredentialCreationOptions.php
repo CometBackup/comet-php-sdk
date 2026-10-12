@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -106,7 +106,7 @@ class WebAuthnPublicKeyCredentialCreationOptions {
 			}
 			$this->Parameters = $val_2;
 		}
-		if (property_exists($sc, 'authenticatorSelection') && !is_null($sc->authenticatorSelection)) {
+		if (property_exists($sc, 'authenticatorSelection')) {
 			if (is_array($sc->authenticatorSelection) && count($sc->authenticatorSelection) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
 				$this->AuthenticatorSelection = \Comet\WebAuthnAuthenticatorSelection::createFromStdclass(new \stdClass());

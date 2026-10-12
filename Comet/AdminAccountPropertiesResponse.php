@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -26,6 +26,24 @@ class AdminAccountPropertiesResponse {
 	 * This field is available in Comet 18.9.9 and later.
 	 */
 	public $Security = null;
+
+	/**
+	 * True if this server and this admin account permit creating personal API tokens
+	 *
+	 * @var boolean
+	 * This field is available in Comet 26.8.4 and later.
+	 */
+	public $AllowAPITokens = false;
+
+	/**
+	 * True if AdminAccountAPITokenCreate requires the account's current password to be re-supplied.
+ * This is the case whenever the caller is not already authenticating with a password, unless the
+	 * account is managed by an external authentication source and so has no local password to confirm.
+	 *
+	 * @var boolean
+	 * This field is available in Comet 26.8.4 and later.
+	 */
+	public $APITokenCreateRequiresPassword = false;
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
@@ -63,11 +81,19 @@ class AdminAccountPropertiesResponse {
 				$this->Security = \Comet\AdminSecurityOptions::createFromStdclass($sc->Security);
 			}
 		}
+		if (property_exists($sc, 'AllowAPITokens')) {
+			$this->AllowAPITokens = (bool)($sc->AllowAPITokens);
+		}
+		if (property_exists($sc, 'APITokenCreateRequiresPassword')) {
+			$this->APITokenCreateRequiresPassword = (bool)($sc->APITokenCreateRequiresPassword);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'OrganizationID':
 			case 'Permissions':
 			case 'Security':
+			case 'AllowAPITokens':
+			case 'APITokenCreateRequiresPassword':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -144,6 +170,8 @@ class AdminAccountPropertiesResponse {
 		} else {
 			$ret["Security"] = $this->Security->toArray($for_json_encode);
 		}
+		$ret["AllowAPITokens"] = $this->AllowAPITokens;
+		$ret["APITokenCreateRequiresPassword"] = $this->APITokenCreateRequiresPassword;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

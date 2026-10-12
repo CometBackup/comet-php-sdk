@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -87,7 +87,7 @@ class PVEParams {
 		if (property_exists($sc, 'Method') && !is_null($sc->Method)) {
 			$this->Method = (string)($sc->Method);
 		}
-		if (property_exists($sc, 'SSHConnection') && !is_null($sc->SSHConnection)) {
+		if (property_exists($sc, 'SSHConnection')) {
 			if (is_array($sc->SSHConnection) && count($sc->SSHConnection) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
 				$this->SSHConnection = \Comet\SSHConnection::createFromStdclass(new \stdClass());

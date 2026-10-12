@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -169,7 +169,7 @@ class UserProfileConfig {
 
 	/**
 	 * A limit on the total number of Hyper-V guests across all Hyper-V Protected Items in this account.
-	 * Set to zero to allow unlimited Office 365 Protected Accounts.
+	 * Set to zero to allow unlimited Hyper-V guests.
 	 *
 	 * @var int
 	 */
@@ -177,11 +177,27 @@ class UserProfileConfig {
 
 	/**
 	 * A limit on the total number of VMware guests across all VMware Protected Items in this account.
-	 * Set to zero to allow unlimited Office 365 Protected Accounts.
+	 * Set to zero to allow unlimited VMware guests.
 	 *
 	 * @var int
 	 */
 	public $QuotaVMwareGuests = 0;
+
+	/**
+	 * A limit on the total number of Proxmox guest VMs across all Proxmox Protected Items in this
+	 * account. Set to zero to allow unlimited Proxmox guest VMs.
+	 *
+	 * @var int
+	 */
+	public $QuotaProxmoxGuestVMs = 0;
+
+	/**
+	 * A limit on the total number of Proxmox guest LXCs across all Proxmox Protected Items in this
+	 * account. Set to zero to allow unlimited Proxmox guest LXCs.
+	 *
+	 * @var int
+	 */
+	public $QuotaProxmoxGuestLXCs = 0;
 
 	/**
 	 * If the PolicyID field is set to a non-empty string, the Comet Server will enforce the contents of
@@ -285,12 +301,30 @@ class UserProfileConfig {
 	public $AutoStorageTemplateGUID = "";
 
 	/**
-	 * If enabled, Linux devices in this user account will sandbox all read/write operations to paths
-	 * inside user home directories
-	 *
 	 * @var boolean
+	 * @deprecated 26.2.4 Linux home-directory sandboxing is always enabled; this field is ignored. This member has been deprecated since Comet version 26.2.4 Linux home-directory sandboxing is always enabled; this field is ignored.
 	 */
 	public $LinuxHomedirSandbox = false;
+
+	/**
+	 * A freeform key-value map that can be used for any custom metadata. The Comet Server does not use
+	 * this field for any purpose, but it is stored and replicated along with the rest of the user
+	 * profile.
+	 *
+	 * @var array<string, string>
+	 * This field is available in Comet 26.2.1 and later.
+	 */
+	public $UserExtra = [];
+
+	/**
+	 * A freeform key-value map that can be used for any custom metadata that should only be visible to
+	 * administrators. The Comet Server does not use this field for any purpose, but it is stored and
+	 * replicated along with the rest of the user profile.
+	 *
+	 * @var array<string, string>
+	 * This field is available in Comet 26.2.1 and later.
+	 */
+	public $AdminExtra = [];
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
@@ -446,6 +480,12 @@ class UserProfileConfig {
 		if (property_exists($sc, 'QuotaVMwareGuests')) {
 			$this->QuotaVMwareGuests = (int)($sc->QuotaVMwareGuests);
 		}
+		if (property_exists($sc, 'QuotaProxmoxGuestVMs')) {
+			$this->QuotaProxmoxGuestVMs = (int)($sc->QuotaProxmoxGuestVMs);
+		}
+		if (property_exists($sc, 'QuotaProxmoxGuestLXCs')) {
+			$this->QuotaProxmoxGuestLXCs = (int)($sc->QuotaProxmoxGuestLXCs);
+		}
 		if (property_exists($sc, 'PolicyID')) {
 			$this->PolicyID = (string)($sc->PolicyID);
 		}
@@ -487,7 +527,7 @@ class UserProfileConfig {
 		if (property_exists($sc, 'CreationGUID')) {
 			$this->CreationGUID = (string)($sc->CreationGUID);
 		}
-		if (property_exists($sc, 'ServerConfig') && !is_null($sc->ServerConfig)) {
+		if (property_exists($sc, 'ServerConfig')) {
 			if (is_array($sc->ServerConfig) && count($sc->ServerConfig) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
 				$this->ServerConfig = \Comet\UserServerConfig::createFromStdclass(new \stdClass());
@@ -500,6 +540,28 @@ class UserProfileConfig {
 		}
 		if (property_exists($sc, 'LinuxHomedirSandbox')) {
 			$this->LinuxHomedirSandbox = (bool)($sc->LinuxHomedirSandbox);
+		}
+		if (property_exists($sc, 'UserExtra')) {
+			$val_2 = [];
+			if ($sc->UserExtra !== null) {
+				foreach($sc->UserExtra as $k_2 => $v_2) {
+					$phpk_2 = (string)($k_2);
+					$phpv_2 = (string)($v_2);
+					$val_2[$phpk_2] = $phpv_2;
+				}
+			}
+			$this->UserExtra = $val_2;
+		}
+		if (property_exists($sc, 'AdminExtra')) {
+			$val_2 = [];
+			if ($sc->AdminExtra !== null) {
+				foreach($sc->AdminExtra as $k_2 => $v_2) {
+					$phpk_2 = (string)($k_2);
+					$phpv_2 = (string)($v_2);
+					$val_2[$phpk_2] = $phpv_2;
+				}
+			}
+			$this->AdminExtra = $val_2;
 		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
@@ -525,6 +587,8 @@ class UserProfileConfig {
 			case 'QuotaOffice365ProtectedAccounts':
 			case 'QuotaHyperVGuests':
 			case 'QuotaVMwareGuests':
+			case 'QuotaProxmoxGuestVMs':
+			case 'QuotaProxmoxGuestLXCs':
 			case 'PolicyID':
 			case 'Policy':
 			case 'PasswordFormat':
@@ -540,6 +604,8 @@ class UserProfileConfig {
 			case 'ServerConfig':
 			case 'AutoStorageTemplateGUID':
 			case 'LinuxHomedirSandbox':
+			case 'UserExtra':
+			case 'AdminExtra':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -714,6 +780,8 @@ class UserProfileConfig {
 		$ret["QuotaOffice365ProtectedAccounts"] = $this->QuotaOffice365ProtectedAccounts;
 		$ret["QuotaHyperVGuests"] = $this->QuotaHyperVGuests;
 		$ret["QuotaVMwareGuests"] = $this->QuotaVMwareGuests;
+		$ret["QuotaProxmoxGuestVMs"] = $this->QuotaProxmoxGuestVMs;
+		$ret["QuotaProxmoxGuestLXCs"] = $this->QuotaProxmoxGuestLXCs;
 		$ret["PolicyID"] = $this->PolicyID;
 		if ( $this->Policy === null ) {
 			$ret["Policy"] = $for_json_encode ? (object)[] : [];
@@ -737,6 +805,32 @@ class UserProfileConfig {
 		}
 		$ret["AutoStorageTemplateGUID"] = $this->AutoStorageTemplateGUID;
 		$ret["LinuxHomedirSandbox"] = $this->LinuxHomedirSandbox;
+		{
+			$c0 = $for_json_encode ? (object)[] : [];
+			foreach($this->UserExtra as $k0 => $v0) {
+				$ko_0 = $k0;
+				$vo_0 = $v0;
+				if ($for_json_encode) {
+				$c0->{ $ko_0 } = $vo_0;
+				} else {
+					$c0[ $ko_0 ] = $vo_0;
+				}
+			}
+			$ret["UserExtra"] = $c0;
+		}
+		{
+			$c0 = $for_json_encode ? (object)[] : [];
+			foreach($this->AdminExtra as $k0 => $v0) {
+				$ko_0 = $k0;
+				$vo_0 = $v0;
+				if ($for_json_encode) {
+				$c0->{ $ko_0 } = $vo_0;
+				} else {
+					$c0[ $ko_0 ] = $vo_0;
+				}
+			}
+			$ret["AdminExtra"] = $c0;
+		}
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

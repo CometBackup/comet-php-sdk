@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -15,18 +15,19 @@ namespace Comet;
  *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
+ * This API accepts admin personal API token authentication (AuthType=Token).
  */
 class AdminBulletinSubmitRequest implements \Comet\NetworkRequest {
 
 	/**
-	 * Bulletin subject line
+	 * Bulletin subject line (>= 17.3.5)
 	 *
 	 * @var string
 	 */
 	protected $Subject = null;
 
 	/**
-	 * Bulletin message content
+	 * Bulletin message content (>= 17.3.5)
 	 *
 	 * @var string
 	 */
@@ -35,8 +36,8 @@ class AdminBulletinSubmitRequest implements \Comet\NetworkRequest {
 	/**
 	 * Construct a new AdminBulletinSubmitRequest instance.
 	 *
-	 * @param string $Subject Bulletin subject line
-	 * @param string $Content Bulletin message content
+	 * @param string $Subject Bulletin subject line (>= 17.3.5)
+	 * @param string $Content Bulletin message content (>= 17.3.5)
 	 */
 	public function __construct(string $Subject, string $Content)
 	{

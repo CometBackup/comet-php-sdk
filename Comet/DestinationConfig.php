@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -29,6 +29,13 @@ class DestinationConfig {
 	 * @var int
 	 */
 	public $ModifyTime = 0;
+
+	/**
+	 * Unix timestamp in seconds. A 0 value indicates unsuspended
+	 *
+	 * @var int
+	 */
+	public $SuspendedTime = 0;
 
 	/**
 	 * Custom commands to run before the job
@@ -288,8 +295,8 @@ class DestinationConfig {
 	public $LocalcopyWinSMBPassword = "";
 
 	/**
-	 * One of the PASSWORD_FORMAT_ constants. It controls the hash format of the LocalcopyWinSMBPassword
-	 * field.
+	 * One of the ENCRYPTIONMETHOD_ constants. It controls the hash format of the
+	 * LocalcopyWinSMBPassword field.
 	 *
 	 * @var int
 	 */
@@ -320,6 +327,12 @@ class DestinationConfig {
 	 * @var \Comet\SMBDestinationLocation
 	 */
 	public $SMB = null;
+
+	/**
+	 * @var \Comet\NFSDestinationLocation
+	 * This field is available in Comet 26.9.x and later.
+	 */
+	public $NFS = null;
 
 	/**
 	 * A list of underlying destinations, that will be combined and presented as one.
@@ -413,6 +426,16 @@ class DestinationConfig {
 	public $RebrandStorage = false;
 
 	/**
+	 * If true, the end-user account is prevented from modifying this Storage Vault (e.g. its quota,
+	 * retention rules, or storage location), regardless of the account policy's PreventEditStorageVault
+	 * setting - it takes priority over that policy. Typically set by the Storage Template that
+	 * provisioned this Storage Vault.
+	 *
+	 * @var boolean
+	 */
+	public $PreventUserEdit = false;
+
+	/**
 	 * If not empty, an error occured during a retention pass. Describes the error.
 	 *
 	 * @var string
@@ -449,6 +472,9 @@ class DestinationConfig {
 		}
 		if (property_exists($sc, 'ModifyTime')) {
 			$this->ModifyTime = (int)($sc->ModifyTime);
+		}
+		if (property_exists($sc, 'SuspendedTime')) {
+			$this->SuspendedTime = (int)($sc->SuspendedTime);
 		}
 		if (property_exists($sc, 'PreExec')) {
 			$val_2 = [];
@@ -640,6 +666,14 @@ class DestinationConfig {
 				$this->SMB = \Comet\SMBDestinationLocation::createFromStdclass($sc->SMB);
 			}
 		}
+		if (property_exists($sc, 'NFS')) {
+			if (is_array($sc->NFS) && count($sc->NFS) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->NFS = \Comet\NFSDestinationLocation::createFromStdclass(new \stdClass());
+			} else {
+				$this->NFS = \Comet\NFSDestinationLocation::createFromStdclass($sc->NFS);
+			}
+		}
 		if (property_exists($sc, 'SpanTargets')) {
 			$val_2 = [];
 			if ($sc->SpanTargets !== null) {
@@ -678,7 +712,7 @@ class DestinationConfig {
 		if (property_exists($sc, 'StorageLimitID')) {
 			$this->StorageLimitID = (string)($sc->StorageLimitID);
 		}
-		if (property_exists($sc, 'Statistics') && !is_null($sc->Statistics)) {
+		if (property_exists($sc, 'Statistics')) {
 			if (is_array($sc->Statistics) && count($sc->Statistics) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
 				$this->Statistics = \Comet\DestinationStatistics::createFromStdclass(new \stdClass());
@@ -697,6 +731,9 @@ class DestinationConfig {
 		if (property_exists($sc, 'RebrandStorage')) {
 			$this->RebrandStorage = (bool)($sc->RebrandStorage);
 		}
+		if (property_exists($sc, 'PreventUserEdit')) {
+			$this->PreventUserEdit = (bool)($sc->PreventUserEdit);
+		}
 		if (property_exists($sc, 'RetentionError')) {
 			$this->RetentionError = (string)($sc->RetentionError);
 		}
@@ -714,6 +751,7 @@ class DestinationConfig {
 			case 'Description':
 			case 'CreateTime':
 			case 'ModifyTime':
+			case 'SuspendedTime':
 			case 'PreExec':
 			case 'ThawExec':
 			case 'PostExec':
@@ -763,6 +801,7 @@ class DestinationConfig {
 			case 'WebDav':
 			case 'Storj':
 			case 'SMB':
+			case 'NFS':
 			case 'SpanTargets':
 			case 'SpanUseStaticSlots':
 			case 'Tag':
@@ -775,6 +814,7 @@ class DestinationConfig {
 			case 'Statistics':
 			case 'DefaultRetention':
 			case 'RebrandStorage':
+			case 'PreventUserEdit':
 			case 'RetentionError':
 			case 'AssociatedDevices':
 				break;
@@ -845,6 +885,7 @@ class DestinationConfig {
 		$ret["Description"] = $this->Description;
 		$ret["CreateTime"] = $this->CreateTime;
 		$ret["ModifyTime"] = $this->ModifyTime;
+		$ret["SuspendedTime"] = $this->SuspendedTime;
 		{
 			$c0 = [];
 			for($i0 = 0; $i0 < count($this->PreExec); ++$i0) {
@@ -935,6 +976,11 @@ class DestinationConfig {
 		} else {
 			$ret["SMB"] = $this->SMB->toArray($for_json_encode);
 		}
+		if ( $this->NFS === null ) {
+			$ret["NFS"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["NFS"] = $this->NFS->toArray($for_json_encode);
+		}
 		{
 			$c0 = [];
 			for($i0 = 0; $i0 < count($this->SpanTargets); ++$i0) {
@@ -966,6 +1012,7 @@ class DestinationConfig {
 			$ret["DefaultRetention"] = $this->DefaultRetention->toArray($for_json_encode);
 		}
 		$ret["RebrandStorage"] = $this->RebrandStorage;
+		$ret["PreventUserEdit"] = $this->PreventUserEdit;
 		$ret["RetentionError"] = $this->RetentionError;
 		{
 			$c0 = [];
@@ -1038,6 +1085,9 @@ class DestinationConfig {
 		}
 		if ($this->SMB !== null) {
 			$this->SMB->RemoveUnknownProperties();
+		}
+		if ($this->NFS !== null) {
+			$this->NFS->RemoveUnknownProperties();
 		}
 		if ($this->Statistics !== null) {
 			$this->Statistics->RemoveUnknownProperties();

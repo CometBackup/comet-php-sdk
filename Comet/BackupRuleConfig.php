@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -138,6 +138,35 @@ class BackupRuleConfig {
 	public $Tags = "";
 
 	/**
+	 * Optionally restricts LimitVaultSpeedBps to a specific time of day and days of the week. When
+	 * absent, or when its RestrictTimes is false, LimitVaultSpeedBps applies at all times. Has no
+	 * effect unless LimitVaultSpeedBps is set.
+	 *
+	 * @var \Comet\SpeedLimitTimeWindow
+	 * This field is available in Comet 26.8.5 and later.
+	 */
+	public $LimitVaultSpeedTimeWindow = null;
+
+	/**
+	 * If set, the ID of the Policy default backup rule this rule was generated from.
+	 * Used to keep a "latest vault" schedule on its assigned Storage Vault across policy
+	 * re-enforcement.
+	 *
+	 * @var string
+	 * This field is available in Comet 26.5.2 and later.
+	 */
+	public $PolicyBackupRuleID = "";
+
+	/**
+	 * If set, the originating Policy default backup rule's destination selector, snapshotted
+	 * before it was resolved to a concrete Storage Vault. Identifies "latest vault" schedules.
+	 *
+	 * @var string
+	 * This field is available in Comet 26.5.2 and later.
+	 */
+	public $PolicyBackupRuleSelector = "";
+
+	/**
 	 * Scheduled start times
 	 *
 	 * @var \Comet\ScheduleConfig[]
@@ -240,6 +269,20 @@ class BackupRuleConfig {
 		if (property_exists($sc, 'Tags')) {
 			$this->Tags = (string)($sc->Tags);
 		}
+		if (property_exists($sc, 'LimitVaultSpeedTimeWindow') && !is_null($sc->LimitVaultSpeedTimeWindow)) {
+			if (is_array($sc->LimitVaultSpeedTimeWindow) && count($sc->LimitVaultSpeedTimeWindow) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->LimitVaultSpeedTimeWindow = \Comet\SpeedLimitTimeWindow::createFromStdclass(new \stdClass());
+			} else {
+				$this->LimitVaultSpeedTimeWindow = \Comet\SpeedLimitTimeWindow::createFromStdclass($sc->LimitVaultSpeedTimeWindow);
+			}
+		}
+		if (property_exists($sc, 'PolicyBackupRuleID') && !is_null($sc->PolicyBackupRuleID)) {
+			$this->PolicyBackupRuleID = (string)($sc->PolicyBackupRuleID);
+		}
+		if (property_exists($sc, 'PolicyBackupRuleSelector') && !is_null($sc->PolicyBackupRuleSelector)) {
+			$this->PolicyBackupRuleSelector = (string)($sc->PolicyBackupRuleSelector);
+		}
 		if (property_exists($sc, 'Schedules')) {
 			$val_2 = [];
 			if ($sc->Schedules !== null) {
@@ -282,6 +325,9 @@ class BackupRuleConfig {
 			case 'ConcurrencyCount':
 			case 'LogLevel':
 			case 'Tags':
+			case 'LimitVaultSpeedTimeWindow':
+			case 'PolicyBackupRuleID':
+			case 'PolicyBackupRuleSelector':
 			case 'Schedules':
 			case 'EventTriggers':
 				break;
@@ -388,6 +434,13 @@ class BackupRuleConfig {
 		$ret["ConcurrencyCount"] = $this->ConcurrencyCount;
 		$ret["LogLevel"] = $this->LogLevel;
 		$ret["Tags"] = $this->Tags;
+		if ( $this->LimitVaultSpeedTimeWindow === null ) {
+			$ret["LimitVaultSpeedTimeWindow"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["LimitVaultSpeedTimeWindow"] = $this->LimitVaultSpeedTimeWindow->toArray($for_json_encode);
+		}
+		$ret["PolicyBackupRuleID"] = $this->PolicyBackupRuleID;
+		$ret["PolicyBackupRuleSelector"] = $this->PolicyBackupRuleSelector;
 		{
 			$c0 = [];
 			for($i0 = 0; $i0 < count($this->Schedules); ++$i0) {
@@ -454,6 +507,9 @@ class BackupRuleConfig {
 	public function RemoveUnknownProperties()
 	{
 		$this->__unknown_properties = [];
+		if ($this->LimitVaultSpeedTimeWindow !== null) {
+			$this->LimitVaultSpeedTimeWindow->RemoveUnknownProperties();
+		}
 		if ($this->EventTriggers !== null) {
 			$this->EventTriggers->RemoveUnknownProperties();
 		}

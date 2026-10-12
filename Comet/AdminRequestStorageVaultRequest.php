@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -18,6 +18,7 @@ namespace Comet;
  *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
+ * This API accepts admin personal API token authentication (AuthType=Token).
  */
 class AdminRequestStorageVaultRequest implements \Comet\NetworkRequest {
 
@@ -43,14 +44,14 @@ class AdminRequestStorageVaultRequest implements \Comet\NetworkRequest {
 	protected $SelfAddress = null;
 
 	/**
-	 * The ID of the device to be added as a associated device of the Storage Vault (optional)
+	 * The ID of the device to be added as a associated device of the Storage Vault (>= 24.12.0) (optional)
 	 *
 	 * @var string|null
 	 */
 	protected $DeviceID = null;
 
 	/**
-	 * The profile hash of the user profile (optional)
+	 * The profile hash of the user profile (>= 25.3.2) (optional)
 	 *
 	 * @var string|null
 	 */
@@ -62,8 +63,8 @@ class AdminRequestStorageVaultRequest implements \Comet\NetworkRequest {
 	 * @param string $TargetUser The user to receive the new Storage Vault
 	 * @param string $StorageProvider ID for the storage template destination
 	 * @param string $SelfAddress The external URL for this server. Used to resolve conflicts (optional)
-	 * @param string $DeviceID The ID of the device to be added as a associated device of the Storage Vault (optional)
-	 * @param string $ProfileHash The profile hash of the user profile (optional)
+	 * @param string $DeviceID The ID of the device to be added as a associated device of the Storage Vault (>= 24.12.0) (optional)
+	 * @param string $ProfileHash The profile hash of the user profile (>= 25.3.2) (optional)
 	 */
 	public function __construct(string $TargetUser, string $StorageProvider, string $SelfAddress = null, string $DeviceID = null, string $ProfileHash = null)
 	{

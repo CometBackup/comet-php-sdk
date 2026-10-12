@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -16,6 +16,7 @@ namespace Comet;
  *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
+ * This API accepts admin personal API token authentication (AuthType=Token).
  */
 class AdminDispatcherUpdateLoginUrlRequest implements \Comet\NetworkRequest {
 
@@ -34,7 +35,7 @@ class AdminDispatcherUpdateLoginUrlRequest implements \Comet\NetworkRequest {
 	protected $NewURL = null;
 
 	/**
-	 * No checks will be done using previous URL (optional)
+	 * No checks will be done using previous URL (>= 22.9.3) (optional)
 	 *
 	 * @var boolean|null
 	 */
@@ -45,7 +46,7 @@ class AdminDispatcherUpdateLoginUrlRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param string $NewURL The new external URL of this server
-	 * @param boolean $Force No checks will be done using previous URL (optional)
+	 * @param boolean $Force No checks will be done using previous URL (>= 22.9.3) (optional)
 	 */
 	public function __construct(string $TargetID, string $NewURL, bool $Force = null)
 	{

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -15,6 +15,7 @@ class PSAConfig {
 	 * For PSA_TYPE_GRADIENT. Defaults to enabled
 	 *
 	 * @var boolean
+	 * @deprecated 26.5.2 This member has been deprecated since Comet version 26.5.2
 	 */
 	public $AlertsDisabled = false;
 
@@ -24,6 +25,13 @@ class PSAConfig {
 	 * @var array<string, string>
 	 */
 	public $CustomHeaders = [];
+
+	/**
+	 * NinjaOne-specific PSA configuration
+	 *
+	 * @var \Comet\NinjaOneConfig
+	 */
+	public $NinjaOne = null;
 
 	/**
 	 * Specified API key for the target PSA
@@ -48,8 +56,17 @@ class PSAConfig {
 
 	/**
 	 * @var \Comet\PSAGroupedBy
+	 * @deprecated 26.5.2 This member has been deprecated since Comet version 26.5.2
 	 */
 	public $GroupedBy = null;
+
+	/**
+	 * For PSA_TYPE_CONNECTWISE. The additional connection parameters for ConnectWise Manage
+	 *
+	 * @var \Comet\PSAConfigConnectWise
+	 * This field is available in Comet 26.8.1 and later.
+	 */
+	public $ConnectWise = null;
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
@@ -82,6 +99,14 @@ class PSAConfig {
 			}
 			$this->CustomHeaders = $val_2;
 		}
+		if (property_exists($sc, 'NinjaOne') && !is_null($sc->NinjaOne)) {
+			if (is_array($sc->NinjaOne) && count($sc->NinjaOne) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->NinjaOne = \Comet\NinjaOneConfig::createFromStdclass(new \stdClass());
+			} else {
+				$this->NinjaOne = \Comet\NinjaOneConfig::createFromStdclass($sc->NinjaOne);
+			}
+		}
 		if (property_exists($sc, 'PartnerKey') && !is_null($sc->PartnerKey)) {
 			$this->PartnerKey = (string)($sc->PartnerKey);
 		}
@@ -99,14 +124,24 @@ class PSAConfig {
 				$this->GroupedBy = \Comet\PSAGroupedBy::createFromStdclass($sc->GroupedBy);
 			}
 		}
+		if (property_exists($sc, 'ConnectWise') && !is_null($sc->ConnectWise)) {
+			if (is_array($sc->ConnectWise) && count($sc->ConnectWise) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->ConnectWise = \Comet\PSAConfigConnectWise::createFromStdclass(new \stdClass());
+			} else {
+				$this->ConnectWise = \Comet\PSAConfigConnectWise::createFromStdclass($sc->ConnectWise);
+			}
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'AlertsDisabled':
 			case 'CustomHeaders':
+			case 'NinjaOne':
 			case 'PartnerKey':
 			case 'Type':
 			case 'URL':
 			case 'GroupedBy':
+			case 'ConnectWise':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -186,6 +221,11 @@ class PSAConfig {
 			}
 			$ret["CustomHeaders"] = $c0;
 		}
+		if ( $this->NinjaOne === null ) {
+			$ret["NinjaOne"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["NinjaOne"] = $this->NinjaOne->toArray($for_json_encode);
+		}
 		$ret["PartnerKey"] = $this->PartnerKey;
 		$ret["Type"] = $this->Type;
 		$ret["URL"] = $this->URL;
@@ -193,6 +233,11 @@ class PSAConfig {
 			$ret["GroupedBy"] = $for_json_encode ? (object)[] : [];
 		} else {
 			$ret["GroupedBy"] = $this->GroupedBy->toArray($for_json_encode);
+		}
+		if ( $this->ConnectWise === null ) {
+			$ret["ConnectWise"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["ConnectWise"] = $this->ConnectWise->toArray($for_json_encode);
 		}
 
 		// Reinstate unknown properties from future server versions
@@ -243,8 +288,14 @@ class PSAConfig {
 	public function RemoveUnknownProperties()
 	{
 		$this->__unknown_properties = [];
+		if ($this->NinjaOne !== null) {
+			$this->NinjaOne->RemoveUnknownProperties();
+		}
 		if ($this->GroupedBy !== null) {
 			$this->GroupedBy->RemoveUnknownProperties();
+		}
+		if ($this->ConnectWise !== null) {
+			$this->ConnectWise->RemoveUnknownProperties();
 		}
 	}
 

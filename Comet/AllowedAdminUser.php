@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -102,6 +102,12 @@ class AllowedAdminUser {
 	public $Permissions = null;
 
 	/**
+	 * @var \Comet\AdminAPIToken[]
+	 * This field is available in Comet 26.8.4 and later.
+	 */
+	public $APITokens = [];
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see AllowedAdminUser::RemoveUnknownProperties() Remove all unknown properties
@@ -193,6 +199,20 @@ class AllowedAdminUser {
 				$this->Permissions = \Comet\AdminUserPermissions::createFromStdclass($sc->Permissions);
 			}
 		}
+		if (property_exists($sc, 'APITokens') && !is_null($sc->APITokens)) {
+			$val_2 = [];
+			if ($sc->APITokens !== null) {
+				for($i_2 = 0; $i_2 < count($sc->APITokens); ++$i_2) {
+					if (is_array($sc->APITokens[$i_2]) && count($sc->APITokens[$i_2]) === 0) {
+					// Work around edge case in json_decode--json_encode stdClass conversion
+						$val_2[] = \Comet\AdminAPIToken::createFromStdclass(new \stdClass());
+					} else {
+						$val_2[] = \Comet\AdminAPIToken::createFromStdclass($sc->APITokens[$i_2]);
+					}
+				}
+			}
+			$this->APITokens = $val_2;
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'Username':
@@ -211,6 +231,7 @@ class AllowedAdminUser {
 			case 'TOTPKey':
 			case 'IPWhitelist':
 			case 'Permissions':
+			case 'APITokens':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -317,6 +338,18 @@ class AllowedAdminUser {
 			$ret["Permissions"] = $for_json_encode ? (object)[] : [];
 		} else {
 			$ret["Permissions"] = $this->Permissions->toArray($for_json_encode);
+		}
+		{
+			$c0 = [];
+			for($i0 = 0; $i0 < count($this->APITokens); ++$i0) {
+				if ( $this->APITokens[$i0] === null ) {
+					$val0 = $for_json_encode ? (object)[] : [];
+				} else {
+					$val0 = $this->APITokens[$i0]->toArray($for_json_encode);
+				}
+				$c0[] = $val0;
+			}
+			$ret["APITokens"] = $c0;
 		}
 
 		// Reinstate unknown properties from future server versions

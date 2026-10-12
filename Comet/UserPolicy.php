@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2025 Comet Licensing Ltd.
+ * Copyright (c) 2018-2026 Comet Licensing Ltd.
  * Please see the LICENSE file for usage information.
  *
  * SPDX-License-Identifier: MIT
@@ -45,6 +45,11 @@ class UserPolicy {
 	 * @var string
 	 */
 	public $DefaultNewStorageVault = "";
+
+	/**
+	 * @var boolean
+	 */
+	public $SVSelectionRuleIncludeUnassociated = false;
 
 	/**
 	 * @var boolean
@@ -257,6 +262,9 @@ class UserPolicy {
 		if (property_exists($sc, 'DefaultNewStorageVault')) {
 			$this->DefaultNewStorageVault = (string)($sc->DefaultNewStorageVault);
 		}
+		if (property_exists($sc, 'SVSelectionRuleIncludeUnassociated')) {
+			$this->SVSelectionRuleIncludeUnassociated = (bool)($sc->SVSelectionRuleIncludeUnassociated);
+		}
 		if (property_exists($sc, 'PreventNewProtectedItem')) {
 			$this->PreventNewProtectedItem = (bool)($sc->PreventNewProtectedItem);
 		}
@@ -443,6 +451,7 @@ class UserPolicy {
 			case 'PreventDeleteStorageVault':
 			case 'StorageVaultProviders':
 			case 'DefaultNewStorageVault':
+			case 'SVSelectionRuleIncludeUnassociated':
 			case 'PreventNewProtectedItem':
 			case 'PreventEditProtectedItem':
 			case 'PreventDeleteProtectedItem':
@@ -552,6 +561,7 @@ class UserPolicy {
 			$ret["StorageVaultProviders"] = $this->StorageVaultProviders->toArray($for_json_encode);
 		}
 		$ret["DefaultNewStorageVault"] = $this->DefaultNewStorageVault;
+		$ret["SVSelectionRuleIncludeUnassociated"] = $this->SVSelectionRuleIncludeUnassociated;
 		$ret["PreventNewProtectedItem"] = $this->PreventNewProtectedItem;
 		$ret["PreventEditProtectedItem"] = $this->PreventEditProtectedItem;
 		$ret["PreventDeleteProtectedItem"] = $this->PreventDeleteProtectedItem;
