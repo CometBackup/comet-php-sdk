@@ -72,6 +72,15 @@ class EmailOptions {
 	public $SMTPCustomEhlo = "";
 
 	/**
+	 * If set, authenticate to the SMTP server with OAuth 2.0 (SASL XOAUTH2) as SMTPUsername instead of
+	 * using SMTPPassword.
+	 *
+	 * @var \Comet\SMTPOAuthOptions
+	 * This field is available in Comet 26.11.0 and later.
+	 */
+	public $SMTPOAuth = null;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see EmailOptions::RemoveUnknownProperties() Remove all unknown properties
@@ -132,6 +141,14 @@ class EmailOptions {
 		if (property_exists($sc, 'SMTPCustomEhlo') && !is_null($sc->SMTPCustomEhlo)) {
 			$this->SMTPCustomEhlo = (string)($sc->SMTPCustomEhlo);
 		}
+		if (property_exists($sc, 'SMTPOAuth') && !is_null($sc->SMTPOAuth)) {
+			if (is_array($sc->SMTPOAuth) && count($sc->SMTPOAuth) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->SMTPOAuth = \Comet\SMTPOAuthOptions::createFromStdclass(new \stdClass());
+			} else {
+				$this->SMTPOAuth = \Comet\SMTPOAuthOptions::createFromStdclass($sc->SMTPOAuth);
+			}
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'FromEmail':
@@ -145,6 +162,7 @@ class EmailOptions {
 			case 'SMTPAllowInvalidCertificate':
 			case 'SMTPAllowUnencrypted':
 			case 'SMTPCustomEhlo':
+			case 'SMTPOAuth':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -232,6 +250,11 @@ class EmailOptions {
 		$ret["SMTPAllowInvalidCertificate"] = $this->SMTPAllowInvalidCertificate;
 		$ret["SMTPAllowUnencrypted"] = $this->SMTPAllowUnencrypted;
 		$ret["SMTPCustomEhlo"] = $this->SMTPCustomEhlo;
+		if ( $this->SMTPOAuth === null ) {
+			$ret["SMTPOAuth"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["SMTPOAuth"] = $this->SMTPOAuth->toArray($for_json_encode);
+		}
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
@@ -281,6 +304,9 @@ class EmailOptions {
 	public function RemoveUnknownProperties()
 	{
 		$this->__unknown_properties = [];
+		if ($this->SMTPOAuth !== null) {
+			$this->SMTPOAuth->RemoveUnknownProperties();
+		}
 	}
 
 }

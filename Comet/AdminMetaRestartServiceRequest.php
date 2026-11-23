@@ -19,7 +19,7 @@ namespace Comet;
  * You must supply administrator authentication credentials to use this API.
  * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
  * Access to this API may be prevented on a per-administrator basis.
- * This API accepts admin personal API token authentication (AuthType=Token).
+ * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
  */
 class AdminMetaRestartServiceRequest implements \Comet\NetworkRequest {
 

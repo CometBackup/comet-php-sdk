@@ -14,7 +14,7 @@ namespace Comet;
  * Get a map of all external admin authentication sources
  *
  * You must supply administrator authentication credentials to use this API.
- * This API does not accept admin personal API token authentication (AuthType=Token).
+ * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
  */
 class AdminExternalAuthSourcesGetRequest implements \Comet\NetworkRequest {
 

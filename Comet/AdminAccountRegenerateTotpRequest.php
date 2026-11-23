@@ -15,7 +15,7 @@ namespace Comet;
  * The secret is returned as a `data-uri` image of a QR code. The new secret is immediately applied to the current admin account.
  *
  * You must supply administrator authentication credentials to use this API.
- * This API does not accept admin personal API token authentication (AuthType=Token).
+ * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
  */
 class AdminAccountRegenerateTotpRequest implements \Comet\NetworkRequest {
 

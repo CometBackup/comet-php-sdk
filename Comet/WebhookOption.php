@@ -16,7 +16,8 @@ namespace Comet;
 class WebhookOption {
 
 	/**
-	 * The target URL to POST the event data to
+	 * The target URL to POST the event data to. If PayloadFormat is WEBHOOK_FORMAT_EMAIL, this is
+	 * instead the recipient email address.
 	 *
 	 * @var string
 	 */
@@ -51,12 +52,34 @@ class WebhookOption {
 	 * One of the WEBHOOK_FORMAT_ constants. This controls how the event payload is encoded in the
 	 * outgoing POST request. If empty (WEBHOOK_FORMAT_RAW), the raw StreamableEvent JSON object is
 	 * sent. When set to WEBHOOK_FORMAT_SLACK ("slack"), the event is reformatted as a Slack
-	 * Incoming Webhook message so it renders natively in a Slack channel.
+	 * Incoming Webhook message so it renders natively in a Slack channel. When set to
+	 * WEBHOOK_FORMAT_EMAIL ("email"), the event is sent as an email instead of an HTTP request, and
+	 * CustomHeaders is ignored.
 	 *
 	 * @var string
 	 * This field is available in Comet 26.5.2 and later.
 	 */
 	public $PayloadFormat = "";
+
+	/**
+	 * If set, SEVT_JOB_NEW and SEVT_JOB_COMPLETED events are only sent for jobs that match this
+	 * filter, using the same fields as the job search and email report filters. Other event types
+	 * are unaffected. If the filter cannot be evaluated, the job event is not sent. If unset (null),
+	 * all job events are sent.
+	 *
+	 * @var \Comet\SearchClause
+	 * This field is available in Comet 26.11.1 and later.
+	 */
+	public $JobFilter = null;
+
+	/**
+	 * Credentials for the WEBHOOK_FORMAT_AWS_ formats. Required for those formats, and ignored
+	 * otherwise.
+	 *
+	 * @var \Comet\WebhookAWSOptions
+	 * This field is available in Comet 26.11.1 and later.
+	 */
+	public $AWS = null;
 
 	/**
 	 * Preserve unknown properties when dealing with future server versions.
@@ -104,6 +127,22 @@ class WebhookOption {
 		if (property_exists($sc, 'PayloadFormat') && !is_null($sc->PayloadFormat)) {
 			$this->PayloadFormat = (string)($sc->PayloadFormat);
 		}
+		if (property_exists($sc, 'JobFilter') && !is_null($sc->JobFilter)) {
+			if (is_array($sc->JobFilter) && count($sc->JobFilter) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->JobFilter = \Comet\SearchClause::createFromStdclass(new \stdClass());
+			} else {
+				$this->JobFilter = \Comet\SearchClause::createFromStdclass($sc->JobFilter);
+			}
+		}
+		if (property_exists($sc, 'AWS') && !is_null($sc->AWS)) {
+			if (is_array($sc->AWS) && count($sc->AWS) === 0) {
+			// Work around edge case in json_decode--json_encode stdClass conversion
+				$this->AWS = \Comet\WebhookAWSOptions::createFromStdclass(new \stdClass());
+			} else {
+				$this->AWS = \Comet\WebhookAWSOptions::createFromStdclass($sc->AWS);
+			}
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'URL':
@@ -111,6 +150,8 @@ class WebhookOption {
 			case 'Level':
 			case 'WhiteListedEventTypes':
 			case 'PayloadFormat':
+			case 'JobFilter':
+			case 'AWS':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -200,6 +241,16 @@ class WebhookOption {
 			$ret["WhiteListedEventTypes"] = $c0;
 		}
 		$ret["PayloadFormat"] = $this->PayloadFormat;
+		if ( $this->JobFilter === null ) {
+			$ret["JobFilter"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["JobFilter"] = $this->JobFilter->toArray($for_json_encode);
+		}
+		if ( $this->AWS === null ) {
+			$ret["AWS"] = $for_json_encode ? (object)[] : [];
+		} else {
+			$ret["AWS"] = $this->AWS->toArray($for_json_encode);
+		}
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {
@@ -249,6 +300,12 @@ class WebhookOption {
 	public function RemoveUnknownProperties()
 	{
 		$this->__unknown_properties = [];
+		if ($this->JobFilter !== null) {
+			$this->JobFilter->RemoveUnknownProperties();
+		}
+		if ($this->AWS !== null) {
+			$this->AWS->RemoveUnknownProperties();
+		}
 	}
 
 }

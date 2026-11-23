@@ -96,6 +96,20 @@ class RestoreJobAdvancedOptions {
 	public $OnDiskIndexesKey = false;
 
 	/**
+	 * Default disabled. For RESTORETYPE_FILE. If set, restored files are always written in full.
+	 * Otherwise, large
+	 * zero-filled regions may be restored as sparse regions or extended without writing, which is
+	 * faster and can use
+	 * less disk space, but some files (e.g. swap files, preallocated database files) require full
+	 * allocation.
+	 * Corresponds to the "Fully allocate restored files (disable sparse files)" option
+	 *
+	 * @var boolean
+	 * This field is available in Comet 26.11.x and later.
+	 */
+	public $PreventAutoSparsify = false;
+
+	/**
 	 * For RESTORETYPE_OFFICE365_CLOUD.
 	 *
 	 * @var \Comet\Office365Credential
@@ -103,67 +117,86 @@ class RestoreJobAdvancedOptions {
 	public $Office365Credential = null;
 
 	/**
-	 * For RESTORETYPE_MYSQL
+	 * Default disabled. For RESTORETYPE_OFFICE365_CLOUD. If set, items already present at the
+	 * destination are skipped instead of being restored again.
+	 * Corresponds to the "Skip items that are already present at the destination" option
+	 *
+	 * @var boolean
+	 * This field is available in Comet 26.9.x and later.
+	 */
+	public $Office365SkipExisting = false;
+
+	/**
+	 * For RESTORETYPE_MYSQL and RESTORETYPE_POSTGRESQL
 	 *
 	 * @var string
 	 */
 	public $Username = "";
 
 	/**
-	 * For RESTORETYPE_MYSQL
+	 * For RESTORETYPE_MYSQL and RESTORETYPE_POSTGRESQL
 	 *
 	 * @var string
 	 */
 	public $Password = "";
 
 	/**
-	 * For RESTORETYPE_MYSQL
+	 * For RESTORETYPE_MYSQL and RESTORETYPE_POSTGRESQL
 	 *
 	 * @var string
 	 */
 	public $Host = "";
 
 	/**
-	 * For RESTORETYPE_MYSQL
+	 * For RESTORETYPE_MYSQL and RESTORETYPE_POSTGRESQL
 	 *
 	 * @var string
 	 */
 	public $Port = "";
 
 	/**
-	 * For RESTORETYPE_MYSQL
+	 * For RESTORETYPE_MYSQL and RESTORETYPE_POSTGRESQL
 	 *
 	 * @var boolean
 	 */
 	public $UseSsl = false;
 
 	/**
-	 * For RESTORETYPE_MYSQL i.e.: Self signed certs
+	 * For RESTORETYPE_MYSQL and RESTORETYPE_POSTGRESQL i.e.: Self signed certs
 	 *
 	 * @var boolean
 	 */
 	public $SslAllowInvalid = false;
 
 	/**
-	 * For RESTORETYPE_MYSQL
+	 * For RESTORETYPE_MYSQL and RESTORETYPE_POSTGRESQL
 	 *
 	 * @var string
 	 */
 	public $SslCaFile = "";
 
 	/**
-	 * For RESTORETYPE_MYSQL
+	 * For RESTORETYPE_MYSQL and RESTORETYPE_POSTGRESQL
 	 *
 	 * @var string
 	 */
 	public $SslCrtFile = "";
 
 	/**
-	 * For RESTORETYPE_MYSQL
+	 * For RESTORETYPE_MYSQL and RESTORETYPE_POSTGRESQL
 	 *
 	 * @var string
 	 */
 	public $SslKeyFile = "";
+
+	/**
+	 * For RESTORETYPE_POSTGRESQL. The database to connect to in order to
+	 * create the restored databases. If blank, "postgres" is used
+	 *
+	 * @var string
+	 * This field is available in Comet 26.11.0 and later.
+	 */
+	public $PostgresConnectDatabase = "";
 
 	/**
 	 * For RESTORETYPE_MSSQL.
@@ -261,6 +294,9 @@ class RestoreJobAdvancedOptions {
 		if (property_exists($sc, 'OnDiskIndexesKey')) {
 			$this->OnDiskIndexesKey = (bool)($sc->OnDiskIndexesKey);
 		}
+		if (property_exists($sc, 'PreventAutoSparsify') && !is_null($sc->PreventAutoSparsify)) {
+			$this->PreventAutoSparsify = (bool)($sc->PreventAutoSparsify);
+		}
 		if (property_exists($sc, 'Office365Credential') && !is_null($sc->Office365Credential)) {
 			if (is_array($sc->Office365Credential) && count($sc->Office365Credential) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
@@ -268,6 +304,9 @@ class RestoreJobAdvancedOptions {
 			} else {
 				$this->Office365Credential = \Comet\Office365Credential::createFromStdclass($sc->Office365Credential);
 			}
+		}
+		if (property_exists($sc, 'Office365SkipExisting') && !is_null($sc->Office365SkipExisting)) {
+			$this->Office365SkipExisting = (bool)($sc->Office365SkipExisting);
 		}
 		if (property_exists($sc, 'Username')) {
 			$this->Username = (string)($sc->Username);
@@ -295,6 +334,9 @@ class RestoreJobAdvancedOptions {
 		}
 		if (property_exists($sc, 'SslKeyFile')) {
 			$this->SslKeyFile = (string)($sc->SslKeyFile);
+		}
+		if (property_exists($sc, 'PostgresConnectDatabase') && !is_null($sc->PostgresConnectDatabase)) {
+			$this->PostgresConnectDatabase = (string)($sc->PostgresConnectDatabase);
 		}
 		if (property_exists($sc, 'MsSqlConnection') && !is_null($sc->MsSqlConnection)) {
 			if (is_array($sc->MsSqlConnection) && count($sc->MsSqlConnection) === 0) {
@@ -349,7 +391,9 @@ class RestoreJobAdvancedOptions {
 			case 'ArchiveFormat':
 			case 'SkipUnreadableChunks':
 			case 'OnDiskIndexesKey':
+			case 'PreventAutoSparsify':
 			case 'Office365Credential':
+			case 'Office365SkipExisting':
 			case 'Username':
 			case 'Password':
 			case 'Host':
@@ -359,6 +403,7 @@ class RestoreJobAdvancedOptions {
 			case 'SslCaFile':
 			case 'SslCrtFile':
 			case 'SslKeyFile':
+			case 'PostgresConnectDatabase':
 			case 'MsSqlConnection':
 			case 'VMwareConnection':
 			case 'HyperVConnection':
@@ -447,11 +492,13 @@ class RestoreJobAdvancedOptions {
 		$ret["ArchiveFormat"] = $this->ArchiveFormat;
 		$ret["SkipUnreadableChunks"] = $this->SkipUnreadableChunks;
 		$ret["OnDiskIndexesKey"] = $this->OnDiskIndexesKey;
+		$ret["PreventAutoSparsify"] = $this->PreventAutoSparsify;
 		if ( $this->Office365Credential === null ) {
 			$ret["Office365Credential"] = $for_json_encode ? (object)[] : [];
 		} else {
 			$ret["Office365Credential"] = $this->Office365Credential->toArray($for_json_encode);
 		}
+		$ret["Office365SkipExisting"] = $this->Office365SkipExisting;
 		$ret["Username"] = $this->Username;
 		$ret["Password"] = $this->Password;
 		$ret["Host"] = $this->Host;
@@ -461,6 +508,7 @@ class RestoreJobAdvancedOptions {
 		$ret["SslCaFile"] = $this->SslCaFile;
 		$ret["SslCrtFile"] = $this->SslCrtFile;
 		$ret["SslKeyFile"] = $this->SslKeyFile;
+		$ret["PostgresConnectDatabase"] = $this->PostgresConnectDatabase;
 		if ( $this->MsSqlConnection === null ) {
 			$ret["MsSqlConnection"] = $for_json_encode ? (object)[] : [];
 		} else {

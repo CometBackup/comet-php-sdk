@@ -153,6 +153,39 @@ class SourceConfig {
 	 * can be retrieved with a file restore. If not present, or set to any other value, no
 	 * users-and-grants stream is added
 	 *
+	 * For engine1/postgresql, Comet understands the following EngineProp keys:
+	 *
+	 * - USERNAME: The username to connect to the PostgreSQL server
+	 * - PASSWORD: The password to connect to the PostgreSQL server
+	 * - HOST: The hostname or IP address of the PostgreSQL server
+	 * - PORT: The TCP port of the PostgreSQL server. If not present, defaults to 5432
+	 * - CONNECT_DATABASE: The database to connect to in order to list databases. If not present,
+	 * defaults to "postgres"
+	 * - USE_TLS: If set to "1", connect using TLS
+	 * - TLS_SKIP_VERIFY: If set to "1" and USE_TLS is set, skip verifying the server certificate
+	 * - TLS_CUSTOM_SERVER_CA_PATH: Path to a custom CA file for verifying the server certificate
+	 * - TLS_CUSTOM_CLIENT_CRT_PATH: Path to a client TLS certificate file
+	 * - TLS_CUSTOM_CLIENT_KEY_PATH: Path to a client TLS private key file
+	 * - PGDUMP: Path to a custom pg_dump binary. If not present, autodiscover a pg_dump binary
+	 * - EXTRA_PARAMS: Extra space-separated arguments to pass to pg_dump
+	 * - ALL_DATABASES: If present, include all databases with specified exclusions. If not present,
+	 * only back up the specified inclusions
+	 * - Any key starting with DATABASE: A database that is included. Only valid if ALL_DATABASES is not
+	 * present.
+	 * - Any key starting with EXCEPT-DATABASE: A database that is excluded. Only valid if ALL_DATABASES
+	 * is present.
+	 * - METADATA_FILE: Path to a local file whose content will be stored in the backup snapshot under
+	 * the reserved ".metadata" filename. The file is read at backup time on the device. Restore jobs of
+	 * type RESTORETYPE_POSTGRESQL skip this stream; it can be retrieved with a file restore. If not
+	 * present, no metadata stream is added
+	 * - INCLUDE_GLOBALS: Optional. If set to "1", additionally capture the PostgreSQL cluster's globals
+	 * - its roles with their privileges, and its tablespaces - as a generated SQL script, stored in the
+	 * backup snapshot under the reserved ".globals.sql" filename. Requires a pg_dumpall binary
+	 * alongside pg_dump, and the connecting role to be a superuser in order to read the cluster
+	 * catalogs. Restore jobs of type RESTORETYPE_POSTGRESQL skip this stream; it can be retrieved with
+	 * a file restore and replayed by hand. If not present, or set to any other value, no globals stream
+	 * is added
+	 *
 	 * @var array<string, string>
 	 */
 	public $EngineProps = [];

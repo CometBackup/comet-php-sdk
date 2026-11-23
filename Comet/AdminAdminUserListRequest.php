@@ -16,16 +16,25 @@ namespace Comet;
  * You must supply administrator authentication credentials to use this API.
  * Access to this API may be prevented on a per-administrator basis.
  * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
- * This API does not accept admin personal API token authentication (AuthType=Token).
+ * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
  */
 class AdminAdminUserListRequest implements \Comet\NetworkRequest {
 
 	/**
+	 * If present, only list the administrators belonging to this organization. Otherwise, administrators from all organizations are listed. (>= 26.11.0) (optional)
+	 *
+	 * @var string|null
+	 */
+	protected $TargetOrgID = null;
+
+	/**
 	 * Construct a new AdminAdminUserListRequest instance.
 	 *
+	 * @param string $TargetOrgID If present, only list the administrators belonging to this organization. Otherwise, administrators from all organizations are listed. (>= 26.11.0) (optional)
 	 */
-	public function __construct()
+	public function __construct(string $TargetOrgID = null)
 	{
+		$this->TargetOrgID = $TargetOrgID;
 	}
 
 	/**
@@ -56,6 +65,9 @@ class AdminAdminUserListRequest implements \Comet\NetworkRequest {
 	public function Parameters(): array
 	{
 		$ret = [];
+		if ($this->TargetOrgID !== null) {
+			$ret["TargetOrgID"] = (string)($this->TargetOrgID);
+		}
 		return $ret;
 	}
 

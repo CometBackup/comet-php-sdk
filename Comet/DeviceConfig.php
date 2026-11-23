@@ -64,6 +64,25 @@ class DeviceConfig {
 	public $NinjaOneNodeId = 0;
 
 	/**
+	 * A hash of a hardware-derived secret that the device supplies on every device-scoped API call,
+	 * binding the device to its DeviceID.
+	 * The server sets it when the device registers, or on first use for devices registered before this
+	 * field existed. It is never returned to devices or to the user web interface.
+	 * In an admin profile update, an empty value leaves the stored hash unchanged, and
+	 * DEVICE_SECRET_HASH_RESET removes it so that the device binds a new secret on its next connection.
+	 *
+	 * @var string
+	 */
+	public $DeviceSecretHash = "";
+
+	/**
+	 * One of the PASSWORD_FORMAT_ constants
+	 *
+	 * @var int
+	 */
+	public $DeviceSecretHashFormat = 0;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see DeviceConfig::RemoveUnknownProperties() Remove all unknown properties
@@ -122,6 +141,12 @@ class DeviceConfig {
 		if (property_exists($sc, 'NinjaOneNodeId') && !is_null($sc->NinjaOneNodeId)) {
 			$this->NinjaOneNodeId = (int)($sc->NinjaOneNodeId);
 		}
+		if (property_exists($sc, 'DeviceSecretHash') && !is_null($sc->DeviceSecretHash)) {
+			$this->DeviceSecretHash = (string)($sc->DeviceSecretHash);
+		}
+		if (property_exists($sc, 'DeviceSecretHashFormat') && !is_null($sc->DeviceSecretHashFormat)) {
+			$this->DeviceSecretHashFormat = (int)($sc->DeviceSecretHashFormat);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'FriendlyName':
@@ -132,6 +157,8 @@ class DeviceConfig {
 			case 'ClientVersion':
 			case 'SyncroUUID':
 			case 'NinjaOneNodeId':
+			case 'DeviceSecretHash':
+			case 'DeviceSecretHashFormat':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -225,6 +252,8 @@ class DeviceConfig {
 		$ret["ClientVersion"] = $this->ClientVersion;
 		$ret["SyncroUUID"] = $this->SyncroUUID;
 		$ret["NinjaOneNodeId"] = $this->NinjaOneNodeId;
+		$ret["DeviceSecretHash"] = $this->DeviceSecretHash;
+		$ret["DeviceSecretHashFormat"] = $this->DeviceSecretHashFormat;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

@@ -14,7 +14,7 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const APPLICATION_VERSION = "26.8.8";
+	const APPLICATION_VERSION = '26.11.2';
 
 	/**
 	 * @type int
@@ -24,22 +24,24 @@ class Def {
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_MINOR = 8;
+	const APPLICATION_VERSION_MINOR = 11;
 
 	/**
 	 * @type int
 	 */
-	const APPLICATION_VERSION_REVISION = 8;
+	const APPLICATION_VERSION_REVISION = 2;
 
 	/**
-	 * AutoRetentionLevel: The system will automatically choose how often to run an automatic Retention Pass after each backup job.
+	 * AutoRetentionLevel: The system will automatically choose how often to run an automatic Retention
+	 * Pass after each backup job.
 	 *
 	 * @type int
 	 */
 	const BACKUPJOBAUTORETENTION_AUTOMATIC = 0;
 
 	/**
-	 * AutoRetentionLevel: The system will run a Retention Pass after every single backup job. This is more system-intensive, but is the most responsive at freeing storage space.
+	 * AutoRetentionLevel: The system will run a Retention Pass after every single backup job. This is
+	 * more system-intensive, but is the most responsive at freeing storage space.
 	 *
 	 * @type int
 	 */
@@ -60,7 +62,8 @@ class Def {
 	const BACKUPJOBAUTORETENTION_LESS_OFTEN = 3;
 
 	/**
-	 * BrandingStyleType: If set, will be automatically replaced with one of the other BRANDINGSTYLETYPE_ constants after next server upgrade.
+	 * BrandingStyleType: If set, will be automatically replaced with one of the other
+	 * BRANDINGSTYLETYPE_ constants after next server upgrade.
 	 *
 	 * @type int
 	 */
@@ -88,14 +91,24 @@ class Def {
 	const BRANDINGSTYLETYPE_CUSTOM_LOGO = 3;
 
 	/**
-	 * ClientBrandingBuildMode: The software client will be custom-built by this Comet Server, allowing custom branding, default server URL, and codesigning.
+	 * The Device ID recorded on jobs and vault locks that originate from an in-browser restore. It is a
+	 * fixed sentinel value shared by all in-browser restores rather than a registered device.
+	 *
+	 * @type string
+	 */
+	const BrowserRestoreDeviceID = 'browser-restore_a4130236-fba2-4cd1-8e1d-47d009eddc18';
+
+	/**
+	 * ClientBrandingBuildMode: The software client will be custom-built by this Comet Server, allowing
+	 * custom branding, default server URL, and codesigning.
 	 *
 	 * @type int
 	 */
 	const CLIENTBRANDINGBUILD_CUSTOM = 0;
 
 	/**
-	 * ClientBrandingBuildMode: A pre-built software client will be served, with Comet-branding, no server URL, and Comet codesigning.
+	 * ClientBrandingBuildMode: A pre-built software client will be served, with Comet-branding, no
+	 * server URL, and Comet codesigning.
 	 *
 	 * @type int
 	 */
@@ -162,70 +175,72 @@ class Def {
 	 *
 	 * @type string
 	 */
-	const CUSTOMBRANDING_CONTENT_JAVASCRIPT = "javascript";
+	const CUSTOMBRANDING_CONTENT_JAVASCRIPT = 'javascript';
 
 	/**
 	 * CustomBrandingContentType: The item is CSS stylesheet code
 	 *
 	 * @type string
 	 */
-	const CUSTOMBRANDING_CONTENT_CSS = "css";
+	const CUSTOMBRANDING_CONTENT_CSS = 'css';
 
 	/**
 	 * CustomBrandingSourceType: The item content is supplied inline in the Content field
 	 *
 	 * @type string
 	 */
-	const CUSTOMBRANDING_SOURCE_INLINE = "inline";
+	const CUSTOMBRANDING_SOURCE_INLINE = 'inline';
 
 	/**
 	 * CustomBrandingSourceType: The item is loaded from the external URL in the URL field
 	 *
 	 * @type string
 	 */
-	const CUSTOMBRANDING_SOURCE_URL = "url";
+	const CUSTOMBRANDING_SOURCE_URL = 'url';
 
 	/**
-	 * CustomBrandingPlacementType: Insert the item at the end of the document head. This is the default, and matches the installation instructions of most analytics vendors
+	 * CustomBrandingPlacementType: Insert the item at the end of the document head. This is the
+	 * default, and matches the installation instructions of most analytics vendors
 	 *
 	 * @type string
 	 */
-	const CUSTOMBRANDING_PLACEMENT_HEAD = "head";
+	const CUSTOMBRANDING_PLACEMENT_HEAD = 'head';
 
 	/**
-	 * CustomBrandingPlacementType: Insert the item at the end of the document body, after the web application markup
+	 * CustomBrandingPlacementType: Insert the item at the end of the document body, after the web
+	 * application markup
 	 *
 	 * @type string
 	 */
-	const CUSTOMBRANDING_PLACEMENT_BODY_END = "body-end";
-
-	/**
-	 * CustomRemoteBucketCustomBodyType
-	 *
-	 * @type string
-	 */
-	const CUSTOMREMOTEBUCKET_CUSTOMBODY_NONE = "none";
+	const CUSTOMBRANDING_PLACEMENT_BODY_END = 'body-end';
 
 	/**
 	 * CustomRemoteBucketCustomBodyType
 	 *
 	 * @type string
 	 */
-	const CUSTOMREMOTEBUCKET_CUSTOMBODY_JSON = "json";
+	const CUSTOMREMOTEBUCKET_CUSTOMBODY_NONE = 'none';
 
 	/**
 	 * CustomRemoteBucketCustomBodyType
 	 *
 	 * @type string
 	 */
-	const CUSTOMREMOTEBUCKET_CUSTOMBODY_URLENC = "urlencoded";
+	const CUSTOMREMOTEBUCKET_CUSTOMBODY_JSON = 'json';
 
 	/**
 	 * CustomRemoteBucketCustomBodyType
 	 *
 	 * @type string
 	 */
-	const CUSTOMREMOTEBUCKET_CUSTOMBODY_FORM = "form";
+	const CUSTOMREMOTEBUCKET_CUSTOMBODY_URLENC = 'urlencoded';
+
+	/**
+	 * CustomRemoteBucketCustomBodyType
+	 *
+	 * @type string
+	 */
+	const CUSTOMREMOTEBUCKET_CUSTOMBODY_FORM = 'form';
 
 	/**
 	 * The number of retry attempts a backup job can do
@@ -248,12 +263,12 @@ class Def {
 	 *
 	 * @type string
 	 */
-	const DEFAULT_LANGUAGE = "en_US";
+	const DEFAULT_LANGUAGE = 'en_US';
 
 	/**
 	 * @type string
 	 */
-	const DEFAULT_TIMEZONE = "UTC";
+	const DEFAULT_TIMEZONE = 'UTC';
 
 	/**
 	 * SftpAuthMode
@@ -382,42 +397,56 @@ class Def {
 	const DESTINATIONTYPE_NFS = 1012;
 
 	/**
-	 * DestinationType: When defining a schedule via policy, use this option to dynamically select the Storage Vault that was created most recently.
+	 * DestinationType: When defining a schedule via policy, use this option to dynamically select the
+	 * Storage Vault that was created most recently.
 	 *
 	 * @type int
 	 */
 	const DESTINATIONTYPE_LATEST = 1100;
 
 	/**
-	 * DestinationType: When defining a schedule via policy, use this option to create a schedule for each Storage Vault in the user's profile.
+	 * DestinationType: When defining a schedule via policy, use this option to create a schedule for
+	 * each Storage Vault in the user's profile.
 	 *
 	 * @type int
 	 */
 	const DESTINATIONTYPE_ALL = 1101;
 
 	/**
-	 * EmailWorkerState: The Comet Server is still starting up and has not yet checked whether any email reports are due to be sent.
+	 * Set a device's DeviceSecretHash to this value in an admin profile update to remove its
+	 * DeviceSecret binding.
+	 *
+	 * @type string
+	 */
+	const DEVICE_SECRET_HASH_RESET = 'reset';
+
+	/**
+	 * EmailWorkerState: The Comet Server is still starting up and has not yet checked whether any email
+	 * reports are due to be sent.
 	 *
 	 * @type int
 	 */
 	const EMAIL_WORKER_STATE_NOT_STARTED = 0;
 
 	/**
-	 * EmailWorkerState: The Comet Server is still starting up and has not yet checked whether any email reports are due to be sent.
+	 * EmailWorkerState: The Comet Server is still starting up and has not yet checked whether any email
+	 * reports are due to be sent.
 	 *
 	 * @type int
 	 */
 	const EMAIL_WORKER_STATE_STARTED = 1;
 
 	/**
-	 * EmailWorkerState: The Comet Server is currently searching through email report configuration, to determine when the next email report is due to be sent.
+	 * EmailWorkerState: The Comet Server is currently searching through email report configuration, to
+	 * determine when the next email report is due to be sent.
 	 *
 	 * @type int
 	 */
 	const EMAIL_WORKER_STATE_CALCULATING = 2;
 
 	/**
-	 * EmailWorkerState: The Comet Server knows when the next scheduled email report is due to be sent, and is waiting until that time.
+	 * EmailWorkerState: The Comet Server knows when the next scheduled email report is due to be sent,
+	 * and is waiting until that time.
 	 *
 	 * @type int
 	 */
@@ -431,39 +460,40 @@ class Def {
 	const EMAIL_WORKER_STATE_SENDING = 4;
 
 	/**
-	 * EmailDeliveryType: If this is for the top-level Organization, email is disabled. If this is for an Organization, use the parent's email settings.
+	 * EmailDeliveryType: If this is for the top-level Organization, email is disabled. If this is for
+	 * an Organization, use the parent's email settings.
 	 *
 	 * @type string
 	 */
-	const EMAIL_DELIVERY_INHERIT = "";
+	const EMAIL_DELIVERY_INHERIT = '';
 
 	/**
 	 * EmailDeliveryType
 	 *
 	 * @type string
 	 */
-	const EMAIL_DELIVERY_MX_DIRECT = "builtin";
+	const EMAIL_DELIVERY_MX_DIRECT = 'builtin';
 
 	/**
 	 * EmailDeliveryType
 	 *
 	 * @type string
 	 */
-	const EMAIL_DELIVERY_SMTP = "smtp";
+	const EMAIL_DELIVERY_SMTP = 'smtp';
 
 	/**
 	 * EmailDeliveryType
 	 *
 	 * @type string
 	 */
-	const EMAIL_DELIVERY_SMTP_SSL = "smtp-ssl";
+	const EMAIL_DELIVERY_SMTP_SSL = 'smtp-ssl';
 
 	/**
 	 * EmailDeliveryType
 	 *
 	 * @type string
 	 */
-	const EMAIL_DELIVERY_DISABLED = "disabled";
+	const EMAIL_DELIVERY_DISABLED = 'disabled';
 
 	/**
 	 * EmailDeliveryType: Legacy alias for EMAIL_DELIVERY_MX_DIRECT
@@ -520,98 +550,105 @@ class Def {
 	 *
 	 * @type string
 	 */
-	const ENGINE_BUILTIN_FILE = "engine1/file";
+	const ENGINE_BUILTIN_FILE = 'engine1/file';
 
 	/**
 	 * EngineType: Program Output
 	 *
 	 * @type string
 	 */
-	const ENGINE_BUILTIN_STDOUT = "engine1/stdout";
+	const ENGINE_BUILTIN_STDOUT = 'engine1/stdout';
 
 	/**
 	 * EngineType: MySQL
 	 *
 	 * @type string
 	 */
-	const ENGINE_BUILTIN_MYSQL = "engine1/mysql";
+	const ENGINE_BUILTIN_MYSQL = 'engine1/mysql';
 
 	/**
 	 * EngineType: Windows Server System State
 	 *
 	 * @type string
 	 */
-	const ENGINE_BUILTIN_SYSTEMSTATE = "engine1/systemstate";
+	const ENGINE_BUILTIN_SYSTEMSTATE = 'engine1/systemstate';
 
 	/**
 	 * EngineType: Microsoft SQL Server
 	 *
 	 * @type string
 	 */
-	const ENGINE_BUILTIN_MSSQL = "engine1/mssql";
+	const ENGINE_BUILTIN_MSSQL = 'engine1/mssql';
 
 	/**
 	 * EngineType: Windows System Backup, deprecated from version 24.12.2
 	 *
 	 * @type string
 	 */
-	const ENGINE_BUILTIN_WINDOWSSYSTEM = "engine1/windowssystem";
+	const ENGINE_BUILTIN_WINDOWSSYSTEM = 'engine1/windowssystem';
 
 	/**
 	 * EngineType: Microsoft Exchange Server
 	 *
 	 * @type string
 	 */
-	const ENGINE_BUILTIN_EXCHANGEEDB = "engine1/exchangeedb";
+	const ENGINE_BUILTIN_EXCHANGEEDB = 'engine1/exchangeedb';
 
 	/**
 	 * EngineType: Application-Aware Writer
 	 *
 	 * @type string
 	 */
-	const ENGINE_BUILTIN_VSSWRITER = "engine1/vsswriter";
+	const ENGINE_BUILTIN_VSSWRITER = 'engine1/vsswriter';
 
 	/**
 	 * EngineType: Microsoft Hyper-V
 	 *
 	 * @type string
 	 */
-	const ENGINE_BUILTIN_HYPERV = "engine1/hyperv";
+	const ENGINE_BUILTIN_HYPERV = 'engine1/hyperv';
 
 	/**
 	 * EngineType: Disk Image
 	 *
 	 * @type string
 	 */
-	const ENGINE_BUILTIN_WINDISK = "engine1/windisk";
+	const ENGINE_BUILTIN_WINDISK = 'engine1/windisk';
 
 	/**
 	 * EngineType: MongoDB
 	 *
 	 * @type string
 	 */
-	const ENGINE_BUILTIN_MONGODB = "engine1/mongodb";
+	const ENGINE_BUILTIN_MONGODB = 'engine1/mongodb';
 
 	/**
 	 * EngineType: Office 365
 	 *
 	 * @type string
 	 */
-	const ENGINE_BUILTIN_MSOFFICE = "engine1/winmsofficemail";
+	const ENGINE_BUILTIN_MSOFFICE = 'engine1/winmsofficemail';
 
 	/**
 	 * EngineType: VMware
 	 *
 	 * @type string
 	 */
-	const ENGINE_BUILTIN_VMWARE = "engine1/vmware";
+	const ENGINE_BUILTIN_VMWARE = 'engine1/vmware';
 
 	/**
 	 * EngineType: Proxmox (PVE)
 	 *
 	 * @type string
 	 */
-	const ENGINE_BUILTIN_PROXMOX = "engine1/proxmox";
+	const ENGINE_BUILTIN_PROXMOX = 'engine1/proxmox';
+
+	/**
+	 * EngineType: PostgreSQL
+	 *
+	 * @type string
+	 */
+	const ENGINE_BUILTIN_POSTGRESQL = 'engine1/postgresql';
 
 	/**
 	 * FtpsModeType: Use plain FTP, do not use FTPS.
@@ -621,41 +658,57 @@ class Def {
 	const FTPS_MODE_PLAINTEXT = 0;
 
 	/**
-	 * FtpsModeType: Use implicit FTPS, immediately creating a secure SSL/TLS channel before any data is sent. This usually requires a different port on the FTP server. It is generally advised to use explicit mode instead.
+	 * FtpsModeType: Use implicit FTPS, immediately creating a secure SSL/TLS channel before any data is
+	 * sent. This usually requires a different port on the FTP server. It is generally advised to use
+	 * explicit mode instead.
 	 *
 	 * @type int
 	 */
 	const FTPS_MODE_IMPLICIT = 1;
 
 	/**
-	 * FtpsModeType: Use explicit FTPS, first creating an insecure connection and then upgrading to SSL/TLS using AUTH TLS (like STARTTLS).
+	 * FtpsModeType: Use explicit FTPS, first creating an insecure connection and then upgrading to
+	 * SSL/TLS using AUTH TLS (like STARTTLS).
 	 *
 	 * @type int
 	 */
 	const FTPS_MODE_EXPLICIT = 2;
 
 	/**
-	 * HypervMethod: Back up Hyper-V virtual machines using VSS mode. This includes all previous snapshots.
+	 * Prefix of the placeholder returned by some APIs in place of a sensitive stored value. The rest of
+	 * the placeholder is a fingerprint of the stored value.
+	 * Submitting any value with this prefix back to the Comet Server for a supported field leaves the
+	 * stored value unchanged.
 	 *
 	 * @type string
 	 */
-	const HYPERV_METHOD_VSS = "vss";
+	const HIDDEN_FIELD_PLACEHOLDER = 'hidden_field';
 
 	/**
-	 * HypervMethod: Back up Hyper-V virtual machines using WMI mode. This includes the latest snapshot data only.
+	 * HypervMethod: Back up Hyper-V virtual machines using VSS mode. This includes all previous
+	 * snapshots.
+	 *
+	 * @type string
+	 */
+	const HYPERV_METHOD_VSS = 'vss';
+
+	/**
+	 * HypervMethod: Back up Hyper-V virtual machines using WMI mode. This includes the latest snapshot
+	 * data only.
 	 *
 	 * @type string
 	 * This const is available in Comet 23.9.8 and later.
 	 */
-	const HYPERV_METHOD_WMI_COPY = "copy";
+	const HYPERV_METHOD_WMI_COPY = 'copy';
 
 	/**
-	 * HypervMethod: Back up Hyper-V virtual machines using WMI mode with RCT acceleration. This includes the latest snapshot data only.
+	 * HypervMethod: Back up Hyper-V virtual machines using WMI mode with RCT acceleration. This
+	 * includes the latest snapshot data only.
 	 *
 	 * @type string
 	 * This const is available in Comet 23.9.8 and later.
 	 */
-	const HYPERV_METHOD_WMI_CBT = "wmi";
+	const HYPERV_METHOD_WMI_CBT = 'wmi';
 
 	/**
 	 * JobClassification: All BackupJobDetail.Classification fields will fall in the 4xxx range.
@@ -693,7 +746,8 @@ class Def {
 	const JOB_CLASSIFICATION_RETENTION = 4003;
 
 	/**
-	 * JobClassification: Another process needed exclusive Vault access (e.g. for retention) but the process died. This task cleans up exclusive lockfiles.
+	 * JobClassification: Another process needed exclusive Vault access (e.g. for retention) but the
+	 * process died. This task cleans up exclusive lockfiles.
 	 *
 	 * @type int
 	 */
@@ -756,7 +810,8 @@ class Def {
 	const JOB_CLASSIFICATION__MAX = 4999;
 
 	/**
-	 * JobStatus: If the BackupJobDetail.Status field is a 5xxx code, the job has stopped for a successful reason.
+	 * JobStatus: If the BackupJobDetail.Status field is a 5xxx code, the job has stopped for a
+	 * successful reason.
 	 *
 	 * @type int
 	 */
@@ -791,14 +846,16 @@ class Def {
 	const JOB_STATUS_RUNNING_INDETERMINATE = 6000;
 
 	/**
-	 * JobStatus: The last information the server received from the device is that the job is currently running.
+	 * JobStatus: The last information the server received from the device is that the job is currently
+	 * running.
 	 *
 	 * @type int
 	 */
 	const JOB_STATUS_RUNNING_ACTIVE = 6001;
 
 	/**
-	 * JobStatus: The job was thought to have been in an Abandoned state but updated the Comet Server with a running status.
+	 * JobStatus: The job was thought to have been in an Abandoned state but updated the Comet Server
+	 * with a running status.
 	 *
 	 * @type int
 	 */
@@ -826,7 +883,8 @@ class Def {
 	const JOB_STATUS_RUNNING__MAX = 6999;
 
 	/**
-	 * JobStatus: If the BackupJobDetail.Status field is a 7xxx code, the job has stopped for an unsuccessful reason.
+	 * JobStatus: If the BackupJobDetail.Status field is a 7xxx code, the job has stopped for an
+	 * unsuccessful reason.
 	 *
 	 * @type int
 	 */
@@ -840,7 +898,8 @@ class Def {
 	const JOB_STATUS_FAILED_TIMEOUT = 7000;
 
 	/**
-	 * JobStatus: The job is complete but there was a problem that may have resulted in issues with the expected result.
+	 * JobStatus: The job is complete but there was a problem that may have resulted in issues with the
+	 * expected result.
 	 *
 	 * @type int
 	 */
@@ -854,7 +913,8 @@ class Def {
 	const JOB_STATUS_FAILED_ERROR = 7002;
 
 	/**
-	 * JobStatus: During a backup job either the "All protected items" quota or "Storage Vault" quota was exceeded.
+	 * JobStatus: During a backup job either the "All protected items" quota or "Storage Vault" quota
+	 * was exceeded.
 	 *
 	 * @type int
 	 */
@@ -868,14 +928,16 @@ class Def {
 	const JOB_STATUS_FAILED_SCHEDULEMISSED = 7004;
 
 	/**
-	 * JobStatus: The job was cancelled manually, a device shutdown was detected, or the backup time limit was reached.
+	 * JobStatus: The job was cancelled manually, a device shutdown was detected, or the backup time
+	 * limit was reached.
 	 *
 	 * @type int
 	 */
 	const JOB_STATUS_FAILED_CANCELLED = 7005;
 
 	/**
-	 * JobStatus: The backup job was skipped as there was already a backup running and the "Skip if already running" option was enabled.
+	 * JobStatus: The backup job was skipped as there was already a backup running and the "Skip if
+	 * already running" option was enabled.
 	 *
 	 * @type int
 	 */
@@ -900,21 +962,21 @@ class Def {
 	 *
 	 * @type string
 	 */
-	const LDAPSECURITYMETHOD_PLAIN = "plain";
+	const LDAPSECURITYMETHOD_PLAIN = 'plain';
 
 	/**
 	 * LDAPSecurityMethod
 	 *
 	 * @type string
 	 */
-	const LDAPSECURITYMETHOD_LDAPS = "ldaps";
+	const LDAPSECURITYMETHOD_LDAPS = 'ldaps';
 
 	/**
 	 * LDAPSecurityMethod
 	 *
 	 * @type string
 	 */
-	const LDAPSECURITYMETHOD_STARTTLS = "starttls";
+	const LDAPSECURITYMETHOD_STARTTLS = 'starttls';
 
 	/**
 	 * LinuxRpmCodesignMethod: Do not sign the client backup-tool RPM
@@ -924,7 +986,8 @@ class Def {
 	const LINUXRPMCODESIGN_METHOD_DISABLED = 0;
 
 	/**
-	 * LinuxRpmCodesignMethod: Sign the RPM with a GPG private key stored locally on the Comet Server host
+	 * LinuxRpmCodesignMethod: Sign the RPM with a GPG private key stored locally on the Comet Server
+	 * host
 	 *
 	 * @type int
 	 */
@@ -991,77 +1054,80 @@ class Def {
 	 *
 	 * @type string
 	 */
-	const MSSQL_AUTH_WINDOWS = "windows";
+	const MSSQL_AUTH_WINDOWS = 'windows';
 
 	/**
 	 * MSSQLAuthMode
 	 *
 	 * @type string
 	 */
-	const MSSQL_AUTH_NATIVE = "native";
+	const MSSQL_AUTH_NATIVE = 'native';
 
 	/**
 	 * MSSQLMethod: On Windows x86_64, use the native x86_64 driver.
 	 *
 	 * @type string
 	 */
-	const MSSQL_METHOD_OLEDB_NATIVE = "OLEDB_NATIVE";
+	const MSSQL_METHOD_OLEDB_NATIVE = 'OLEDB_NATIVE';
 
 	/**
 	 * MSSQLMethod: On Windows x86_64, use an x86_32 OLEDB driver.
 	 *
 	 * @type string
 	 */
-	const MSSQL_METHOD_OLEDB_32 = "OLEDB_32";
+	const MSSQL_METHOD_OLEDB_32 = 'OLEDB_32';
 
 	/**
 	 * MSSQLRestoreOpt
 	 *
 	 * @type string
 	 */
-	const MSSQL_RESTORE_RECOVERY = "RECOVERY";
+	const MSSQL_RESTORE_RECOVERY = 'RECOVERY';
 
 	/**
 	 * MSSQLRestoreOpt
 	 *
 	 * @type string
 	 */
-	const MSSQL_RESTORE_NORECOVERY = "NO_RECOVERY";
+	const MSSQL_RESTORE_NORECOVERY = 'NO_RECOVERY';
 
 	/**
 	 * @type string
 	 */
-	const MYSQL_METADATA_STREAM_NAME = ".metadata";
+	const MYSQL_METADATA_STREAM_NAME = '.metadata';
 
 	/**
 	 * @type string
 	 */
-	const MYSQL_USERS_GRANTS_STREAM_NAME = ".users-grants.sql";
+	const MYSQL_USERS_GRANTS_STREAM_NAME = '.users-grants.sql';
 
 	/**
-	 * NewStorageVaultMode: Used in policy to define that the automatic Storage Vaults for new devices is not enforced by the policy
+	 * NewStorageVaultMode: Used in policy to define that the automatic Storage Vaults for new devices
+	 * is not enforced by the policy
 	 *
 	 * @type string
 	 */
-	const NEW_STORAGE_VAULT_MODE_USER = "user_controlled";
+	const NEW_STORAGE_VAULT_MODE_USER = 'user_controlled';
 
 	/**
 	 * NewStorageVaultMode: No Storage Vault will be created when a new device is added
 	 *
 	 * @type string
 	 */
-	const NEW_STORAGE_VAULT_MODE_NONE = "none";
+	const NEW_STORAGE_VAULT_MODE_NONE = 'none';
 
 	/**
-	 * NewStorageVaultMode: When a new device is added, a Storage Vault will be created using the servers default Storage Template
+	 * NewStorageVaultMode: When a new device is added, a Storage Vault will be created using the
+	 * servers default Storage Template
 	 *
 	 * @type string
 	 */
-	const NEW_STORAGE_VAULT_MODE_SERVER = "server_controlled";
+	const NEW_STORAGE_VAULT_MODE_SERVER = 'server_controlled';
 
 	/**
-	 * ObjectLockMode: Enable Object Lock capability if the corresponding Days field is greater than zero.
-	New code should explicitly use OBJECT_LOCK_ON / OBJECT_LOCK_OFF instead.
+	 * ObjectLockMode: Enable Object Lock capability if the corresponding Days field is greater than
+	 * zero.
+	 * New code should explicitly use OBJECT_LOCK_ON / OBJECT_LOCK_OFF instead.
 	 *
 	 * @type int
 	 * @deprecated 23.x.x This const has been deprecated since Comet version 23.x.x
@@ -1087,35 +1153,35 @@ class Def {
 	 *
 	 * @type string
 	 */
-	const OFFICE365_REGION_PUBLIC = "GlobalPublicCloud";
+	const OFFICE365_REGION_PUBLIC = 'GlobalPublicCloud';
 
 	/**
 	 * Office365RegionType
 	 *
 	 * @type string
 	 */
-	const OFFICE365_REGION_CHINA = "ChinaCloud";
+	const OFFICE365_REGION_CHINA = 'ChinaCloud';
 
 	/**
 	 * Office365RegionType
 	 *
 	 * @type string
 	 */
-	const OFFICE365_REGION_US_GOVT = "USGovtGccCloud";
+	const OFFICE365_REGION_US_GOVT = 'USGovtGccCloud';
 
 	/**
 	 * Office365RegionType
 	 *
 	 * @type string
 	 */
-	const OFFICE365_REGION_US_DOD = "USGovtGccDoDCloud";
+	const OFFICE365_REGION_US_DOD = 'USGovtGccDoDCloud';
 
 	/**
 	 * Office365RegionType
 	 *
 	 * @type string
 	 */
-	const OFFICE365_REGION_PUBLIC_TEST = "GlobalPublicCloudTest";
+	const OFFICE365_REGION_PUBLIC_TEST = 'GlobalPublicCloudTest';
 
 	/**
 	 * ExtraFileExclusionOSRestriction: Applies to any device
@@ -1153,60 +1219,77 @@ class Def {
 	const OS_ONLY_MACOS = 4;
 
 	/**
-	 * ExtraFileExclusionOSRestriction: Applies to Linux devices (including Synology DSM), regardless of CPU type
+	 * ExtraFileExclusionOSRestriction: Applies to Linux devices (including Synology DSM), regardless of
+	 * CPU type
 	 *
 	 * @type int
 	 */
 	const OS_ONLY_LINUX = 5;
 
 	/**
-	 * PasswordFormatType: When resetting a password with the API, set the PasswordFormat to this value. The Comet Server will re-hash the credential automatically.
+	 * PasswordFormatType: When resetting a password with the API, set the PasswordFormat to this value.
+	 * The Comet Server will re-hash the credential automatically.
 	 *
 	 * @type int
 	 */
 	const PASSWORD_FORMAT_PLAINTEXT = 0;
 
 	/**
-	 * OidcProvider
-	 *
 	 * @type string
 	 */
-	const PROVIDER_GENERIC = "oidc";
+	const POSTGRESQL_DEFAULT_CONNECT_DATABASE = 'postgres';
+
+	/**
+	 * @type string
+	 */
+	const POSTGRESQL_METADATA_STREAM_NAME = '.metadata';
+
+	/**
+	 * @type string
+	 */
+	const POSTGRESQL_GLOBALS_STREAM_NAME = '.globals.sql';
 
 	/**
 	 * OidcProvider
 	 *
 	 * @type string
 	 */
-	const PROVIDER_AZUREADV2 = "azure-ad-v2";
+	const PROVIDER_GENERIC = 'oidc';
 
 	/**
 	 * OidcProvider
 	 *
 	 * @type string
 	 */
-	const PROVIDER_GOOGLE = "google";
+	const PROVIDER_AZUREADV2 = 'azure-ad-v2';
 
 	/**
 	 * OidcProvider
 	 *
 	 * @type string
 	 */
-	const PROVIDER_DASHBOARD = "dashboard";
+	const PROVIDER_GOOGLE = 'google';
+
+	/**
+	 * OidcProvider
+	 *
+	 * @type string
+	 */
+	const PROVIDER_DASHBOARD = 'dashboard';
 
 	/**
 	 * ProxmoxVMType
 	 *
 	 * @type string
 	 */
-	const PROXMOX_TYPE_VM = "qemu";
+	const PROXMOX_TYPE_VM = 'qemu';
 
 	/**
 	 * ProxmoxVMType
 	 *
 	 * @type string
 	 */
-	const PROXMOX_TYPE_CONTAINER = "lxc";
+	const PROXMOX_TYPE_CONTAINER = 'lxc';
 
 	/**
 	 * PSAType
@@ -1250,21 +1333,21 @@ class Def {
 	 *
 	 * @type string
 	 */
-	const PVE_BACKUP_METHOD_STOP = "stop";
+	const PVE_BACKUP_METHOD_STOP = 'stop';
 
 	/**
 	 * PveBackupMethod
 	 *
 	 * @type string
 	 */
-	const PVE_BACKUP_METHOD_SUSPEND = "suspend";
+	const PVE_BACKUP_METHOD_SUSPEND = 'suspend';
 
 	/**
 	 * PveBackupMethod
 	 *
 	 * @type string
 	 */
-	const PVE_BACKUP_METHOD_SNAPSHOT = "snapshot";
+	const PVE_BACKUP_METHOD_SNAPSHOT = 'snapshot';
 
 	/**
 	 * PveBackupMethod
@@ -1276,98 +1359,98 @@ class Def {
 	/**
 	 * @type string
 	 */
-	const RELEASE_CODENAME = "Voyager";
+	const RELEASE_CODENAME = 'Voyager';
 
 	/**
 	 * RemoteServerType: Comet Server
 	 *
 	 * @type string
 	 */
-	const REMOTESERVER_COMET = "comet";
+	const REMOTESERVER_COMET = 'comet';
 
 	/**
 	 * RemoteServerType: Comet Storage powered by Wasabi
 	 *
 	 * @type string
 	 */
-	const REMOTESERVER_COMET_STORAGE = "cometstorage";
+	const REMOTESERVER_COMET_STORAGE = 'cometstorage';
 
 	/**
 	 * RemoteServerType: LDAP (Lightweight Directory Access Protocol)
 	 *
 	 * @type string
 	 */
-	const REMOTESERVER_LDAP = "ldap";
+	const REMOTESERVER_LDAP = 'ldap';
 
 	/**
 	 * RemoteServerType: OpenID Connect
 	 *
 	 * @type string
 	 */
-	const REMOTESERVER_OIDC = "oidc";
+	const REMOTESERVER_OIDC = 'oidc';
 
 	/**
 	 * RemoteServerType: Backblaze B2
 	 *
 	 * @type string
 	 */
-	const REMOTESERVER_B2 = "b2";
+	const REMOTESERVER_B2 = 'b2';
 
 	/**
 	 * RemoteServerType: Wasabi Cloud Storage
 	 *
 	 * @type string
 	 */
-	const REMOTESERVER_WASABI = "wasabi";
+	const REMOTESERVER_WASABI = 'wasabi';
 
 	/**
 	 * RemoteServerType: Custom Remote Bucket HTTP protocol
 	 *
 	 * @type string
 	 */
-	const REMOTESERVER_CUSTOM = "custom";
+	const REMOTESERVER_CUSTOM = 'custom';
 
 	/**
 	 * RemoteServerType: Custom IAM-Compatible
 	 *
 	 * @type string
 	 */
-	const REMOTESERVER_S3_GENERIC = "s3";
+	const REMOTESERVER_S3_GENERIC = 's3';
 
 	/**
 	 * RemoteServerType: Amazon Web Services
 	 *
 	 * @type string
 	 */
-	const REMOTESERVER_AWS = "aws";
+	const REMOTESERVER_AWS = 'aws';
 
 	/**
 	 * RemoteServerType: Storj DCS
 	 *
 	 * @type string
 	 */
-	const REMOTESERVER_STORJ = "storj";
+	const REMOTESERVER_STORJ = 'storj';
 
 	/**
 	 * RemoteServerType: IDrive e2
 	 *
 	 * @type string
 	 */
-	const REMOTESERVER_IDRIVEE2 = "idrivee2";
+	const REMOTESERVER_IDRIVEE2 = 'idrivee2';
 
 	/**
 	 * RemoteServerType: Impossible Cloud (Partner API)
 	 *
 	 * @type string
 	 */
-	const REMOTESERVER_IMPOSSIBLECLOUD_PARTNER = "impossiblecloud-partner";
+	const REMOTESERVER_IMPOSSIBLECLOUD_PARTNER = 'impossiblecloud-partner';
 
 	/**
 	 * RemoteServerType: Impossible Cloud
 	 *
 	 * @type string
 	 */
-	const REMOTESERVER_IMPOSSIBLECLOUD_IAM = "impossiblecloud-iam";
+	const REMOTESERVER_IMPOSSIBLECLOUD_IAM = 'impossiblecloud-iam';
 
 	/**
 	 * ReplicatorState
@@ -1417,6 +1500,14 @@ class Def {
 	 * @type int
 	 */
 	const REPLICATOR_DISPLAYCLASS_USER = 101;
+
+	/**
+	 * Set RestoreDataRecoveryKey to this value in a profile update to turn off the "Allow administrator
+	 * to restore data" feature.
+	 *
+	 * @type string
+	 */
+	const RESTORE_DATA_RECOVERY_KEY_DISABLE = 'disable';
 
 	/**
 	 * RestoreArchiveFormat: Tar file format
@@ -1475,14 +1566,16 @@ class Def {
 	const RESTORETYPE_NULL = 1;
 
 	/**
-	 * RestoreType: Stream each restored file into the target command stdin. The target command may be executed multiple times, once for each restored file.
+	 * RestoreType: Stream each restored file into the target command stdin. The target command may be
+	 * executed multiple times, once for each restored file.
 	 *
 	 * @type int
 	 */
 	const RESTORETYPE_PROCESS_PERFILE = 2;
 
 	/**
-	 * RestoreType: Stream an archive of each restored file into the target command stdin. The target command will be executed only once.
+	 * RestoreType: Stream an archive of each restored file into the target command stdin. The target
+	 * command will be executed only once.
 	 *
 	 * @type int
 	 */
@@ -1503,7 +1596,8 @@ class Def {
 	const RESTORETYPE_FILE_ARCHIVE = 5;
 
 	/**
-	 * RestoreType: Restore selected Office 365 emails, contacts, calendars, and SharePoint/OneDrive data directly to the Office 365 cloud service
+	 * RestoreType: Restore selected Office 365 emails, contacts, calendars, and SharePoint/OneDrive
+	 * data directly to the Office 365 cloud service
 	 *
 	 * @type int
 	 * This const is available in Comet 21.6.5 and later.
@@ -1518,14 +1612,16 @@ class Def {
 	const RESTORETYPE_VMDK_FILE = 7;
 
 	/**
-	 * RestoreType: Granular restore of single files from within a Disk Image or Hyper-V backup, downloading and reconstructing files, but without saving them (for test purposes)
+	 * RestoreType: Granular restore of single files from within a Disk Image or Hyper-V backup,
+	 * downloading and reconstructing files, but without saving them (for test purposes)
 	 *
 	 * @type int
 	 */
 	const RESTORETYPE_VMDK_FILE_NULL = 8;
 
 	/**
-	 * RestoreType: Granular restore of single files from within a Disk Image or Hyper-V backup, creating an archive file of all selected files
+	 * RestoreType: Granular restore of single files from within a Disk Image or Hyper-V backup,
+	 * creating an archive file of all selected files
 	 *
 	 * @type int
 	 */
@@ -1572,7 +1668,8 @@ class Def {
 	const RESTORETYPE_VMHOST = 14;
 
 	/**
-	 * RestoreType: Restore selected files and folders to a cloud storage location described by a DestinationLocation
+	 * RestoreType: Restore selected files and folders to a cloud storage location described by a
+	 * DestinationLocation
 	 *
 	 * @type int
 	 * This const is available in Comet 26.8.1 and later.
@@ -1580,7 +1677,8 @@ class Def {
 	const RESTORETYPE_CLOUD_STORAGE = 15;
 
 	/**
-	 * RestoreType: Granular restore of single files from within a Disk Image or Hyper-V backup, into a cloud storage location described by a DestinationLocation
+	 * RestoreType: Granular restore of single files from within a Disk Image or Hyper-V backup, into a
+	 * cloud storage location described by a DestinationLocation
 	 *
 	 * @type int
 	 * This const is available in Comet 26.8.1 and later.
@@ -1588,14 +1686,24 @@ class Def {
 	const RESTORETYPE_VMDK_FILE_CLOUD_STORAGE = 16;
 
 	/**
-	 * RestoreType: Legacy name alias - Prefer to use RESTORETYPE_PROCESS_ARCHIVE since multiple archive file formats are supported within this single RESTORETYPE_
+	 * RestoreType: Stream restore as SQL statements into a target PostgreSQL server
+	 *
+	 * @type int
+	 * This const is available in Comet 26.11.0 and later.
+	 */
+	const RESTORETYPE_POSTGRESQL = 17;
+
+	/**
+	 * RestoreType: Legacy name alias - Prefer to use RESTORETYPE_PROCESS_ARCHIVE since multiple archive
+	 * file formats are supported within this single RESTORETYPE_
 	 *
 	 * @type int
 	 */
 	const RESTORETYPE_PROCESS_TARBALL = 3;
 
 	/**
-	 * RetentionMode: If this mode is set in a RetentionPolicy, then RetentionPolicy.Ranges should be ignored.
+	 * RetentionMode: If this mode is set in a RetentionPolicy, then RetentionPolicy.Ranges should be
+	 * ignored.
 	 *
 	 * @type int
 	 */
@@ -1732,42 +1840,48 @@ class Def {
 	const SCHEDULE_FREQUENCY_ONCEONLY = 8010;
 
 	/**
-	 * ScheduleFrequencyType: SecondsPast is the number of seconds past 00:00, in the device's local timezone.
+	 * ScheduleFrequencyType: SecondsPast is the number of seconds past 00:00, in the device's local
+	 * timezone.
 	 *
 	 * @type int
 	 */
 	const SCHEDULE_FREQUENCY_DAILY = 8011;
 
 	/**
-	 * ScheduleFrequencyType: SecondsPast is the number of seconds past *:00, in the device's local timezone.
+	 * ScheduleFrequencyType: SecondsPast is the number of seconds past *:00, in the device's local
+	 * timezone.
 	 *
 	 * @type int
 	 */
 	const SCHEDULE_FREQUENCY_HOURLY = 8012;
 
 	/**
-	 * ScheduleFrequencyType: SecondsPast is the number of seconds past 00:00 Sunday, in the device's local timezone.
+	 * ScheduleFrequencyType: SecondsPast is the number of seconds past 00:00 Sunday, in the device's
+	 * local timezone.
 	 *
 	 * @type int
 	 */
 	const SCHEDULE_FREQUENCY_WEEKLY = 8013;
 
 	/**
-	 * ScheduleFrequencyType: SecondsPast is the number of seconds past 00:00 1st, in the device's local timezone.
+	 * ScheduleFrequencyType: SecondsPast is the number of seconds past 00:00 1st, in the device's local
+	 * timezone.
 	 *
 	 * @type int
 	 */
 	const SCHEDULE_FREQUENCY_MONTHLY = 8014;
 
 	/**
-	 * ScheduleFrequencyType: SecondsPast is the number of seconds per period. Offset: Shunt seconds after unix epoch
+	 * ScheduleFrequencyType: SecondsPast is the number of seconds per period. Offset: Shunt seconds
+	 * after unix epoch
 	 *
 	 * @type int
 	 */
 	const SCHEDULE_FREQUENCY_PERIODIC = 8015;
 
 	/**
-	 * ScheduleFrequencyType: SecondsPast is the number of seconds past 00:00 1st, in the device's local timezone.
+	 * ScheduleFrequencyType: SecondsPast is the number of seconds past 00:00 1st, in the device's local
+	 * timezone.
 	 *
 	 * @type int
 	 */
@@ -1797,227 +1911,229 @@ class Def {
 	 *
 	 * @type string
 	 */
-	const SEARCHCLAUSE_RULE = "";
+	const SEARCHCLAUSE_RULE = '';
 
 	/**
 	 * SearchClauseType: All of the ClauseChildren must match
 	 *
 	 * @type string
 	 */
-	const SEARCHCLAUSE_AND = "and";
+	const SEARCHCLAUSE_AND = 'and';
 
 	/**
 	 * SearchClauseType: At least one of the ClauseChildren must match
 	 *
 	 * @type string
 	 */
-	const SEARCHCLAUSE_OR = "or";
+	const SEARCHCLAUSE_OR = 'or';
 
 	/**
 	 * SearchClauseType
 	 *
 	 * @type string
 	 */
-	const SEARCHCLAUSE_NOT_AND = "not_and";
+	const SEARCHCLAUSE_NOT_AND = 'not_and';
 
 	/**
 	 * SearchClauseType
 	 *
 	 * @type string
 	 */
-	const SEARCHCLAUSE_NOT_OR = "not_or";
+	const SEARCHCLAUSE_NOT_OR = 'not_or';
 
 	/**
  * SearchOperatorType: String equals (case sensitive)
 	 *
 	 * @type string
 	 */
-	const SEARCHOPERATOR_STRING_EQ = "str_eq";
+	const SEARCHOPERATOR_STRING_EQ = 'str_eq';
 
 	/**
  * SearchOperatorType: String does not equal (case sensitive)
 	 *
 	 * @type string
 	 */
-	const SEARCHOPERATOR_STRING_NEQ = "str_neq";
+	const SEARCHOPERATOR_STRING_NEQ = 'str_neq';
 
 	/**
  * SearchOperatorType: String contains anywhere (case sensitive)
 	 *
 	 * @type string
 	 */
-	const SEARCHOPERATOR_STRING_CONTAINS = "str_contains";
+	const SEARCHOPERATOR_STRING_CONTAINS = 'str_contains';
 
 	/**
  * SearchOperatorType: String does not contain anywhere (case sensitive)
 	 *
 	 * @type string
 	 */
-	const SEARCHOPERATOR_STRING_NCONTAINS = "str_ncontains";
+	const SEARCHOPERATOR_STRING_NCONTAINS = 'str_ncontains';
 
 	/**
  * SearchOperatorType: String starts with prefix (case sensitive)
 	 *
 	 * @type string
 	 */
-	const SEARCHOPERATOR_STRING_STARTSWITH = "str_startswith";
+	const SEARCHOPERATOR_STRING_STARTSWITH = 'str_startswith';
 
 	/**
  * SearchOperatorType: String does not start with prefix (case sensitive)
 	 *
 	 * @type string
 	 */
-	const SEARCHOPERATOR_STRING_NSTARTSWITH = "str_nstartswith";
+	const SEARCHOPERATOR_STRING_NSTARTSWITH = 'str_nstartswith';
 
 	/**
  * SearchOperatorType: String ends with suffix (case sensitive)
 	 *
 	 * @type string
 	 */
-	const SEARCHOPERATOR_STRING_ENDSWITH = "str_endswith";
+	const SEARCHOPERATOR_STRING_ENDSWITH = 'str_endswith';
 
 	/**
  * SearchOperatorType: String does not end with suffix (case sensitive)
 	 *
 	 * @type string
 	 */
-	const SEARCHOPERATOR_STRING_NENDSWITH = "str_nendswith";
+	const SEARCHOPERATOR_STRING_NENDSWITH = 'str_nendswith';
 
 	/**
  * SearchOperatorType: String equals (case insensitive)
 	 *
 	 * @type string
 	 */
-	const SEARCHOPERATOR_STRING_EQ_CI = "str_eq_ci";
+	const SEARCHOPERATOR_STRING_EQ_CI = 'str_eq_ci';
 
 	/**
  * SearchOperatorType: String does not equal (case insensitive)
 	 *
 	 * @type string
 	 */
-	const SEARCHOPERATOR_STRING_NEQ_CI = "str_neq_ci";
+	const SEARCHOPERATOR_STRING_NEQ_CI = 'str_neq_ci';
 
 	/**
  * SearchOperatorType: String contains anywhere (case sensitive)
 	 *
 	 * @type string
 	 */
-	const SEARCHOPERATOR_STRING_CONTAINS_CI = "str_contains_ci";
+	const SEARCHOPERATOR_STRING_CONTAINS_CI = 'str_contains_ci';
 
 	/**
  * SearchOperatorType: String does not contain anywhere (case sensitive)
 	 *
 	 * @type string
 	 */
-	const SEARCHOPERATOR_STRING_NCONTAINS_CI = "str_ncontains_ci";
+	const SEARCHOPERATOR_STRING_NCONTAINS_CI = 'str_ncontains_ci';
 
 	/**
  * SearchOperatorType: String starts with prefix (case sensitive)
 	 *
 	 * @type string
 	 */
-	const SEARCHOPERATOR_STRING_STARTSWITH_CI = "str_startswith_ci";
+	const SEARCHOPERATOR_STRING_STARTSWITH_CI = 'str_startswith_ci';
 
 	/**
  * SearchOperatorType: String does not start with (case sensitive)
 	 *
 	 * @type string
 	 */
-	const SEARCHOPERATOR_STRING_NSTARTSWITH_CI = "str_nstartswith_ci";
+	const SEARCHOPERATOR_STRING_NSTARTSWITH_CI = 'str_nstartswith_ci';
 
 	/**
  * SearchOperatorType: String ends with suffix (case sensitive)
 	 *
 	 * @type string
 	 */
-	const SEARCHOPERATOR_STRING_ENDSWITH_CI = "str_endswith_ci";
+	const SEARCHOPERATOR_STRING_ENDSWITH_CI = 'str_endswith_ci';
 
 	/**
  * SearchOperatorType: String does not end with suffix (case sensitive)
 	 *
 	 * @type string
 	 */
-	const SEARCHOPERATOR_STRING_NENDSWITH_CI = "str_nendswith_ci";
+	const SEARCHOPERATOR_STRING_NENDSWITH_CI = 'str_nendswith_ci';
 
 	/**
 	 * SearchOperatorType: String matches provided regular expression (using Go regex syntax)
 	 *
 	 * @type string
 	 */
-	const SEARCHOPERATOR_STRING_REGEXMATCH = "str_regexmatch";
+	const SEARCHOPERATOR_STRING_REGEXMATCH = 'str_regexmatch';
 
 	/**
 	 * SearchOperatorType: String does not match provided regular expression (using Go regex syntax)
 	 *
 	 * @type string
 	 */
-	const SEARCHOPERATOR_STRING_NREGEXMATCH = "str_nregexmatch";
+	const SEARCHOPERATOR_STRING_NREGEXMATCH = 'str_nregexmatch';
 
 	/**
 	 * SearchOperatorType: Integer field is equal to value
 	 *
 	 * @type string
 	 */
-	const SEARCHOPERATOR_INT_EQ = "int_eq";
+	const SEARCHOPERATOR_INT_EQ = 'int_eq';
 
 	/**
 	 * SearchOperatorType: Integer field is not equal to value
 	 *
 	 * @type string
 	 */
-	const SEARCHOPERATOR_INT_NEQ = "int_neq";
+	const SEARCHOPERATOR_INT_NEQ = 'int_neq';
 
 	/**
 	 * SearchOperatorType: Integer field is greater than value
 	 *
 	 * @type string
 	 */
-	const SEARCHOPERATOR_INT_GT = "int_gt";
+	const SEARCHOPERATOR_INT_GT = 'int_gt';
 
 	/**
 	 * SearchOperatorType: Integer field is greater than or equal to value
 	 *
 	 * @type string
 	 */
-	const SEARCHOPERATOR_INT_GTE = "int_gte";
+	const SEARCHOPERATOR_INT_GTE = 'int_gte';
 
 	/**
 	 * SearchOperatorType: Integer field is less than value
 	 *
 	 * @type string
 	 */
-	const SEARCHOPERATOR_INT_LT = "int_lt";
+	const SEARCHOPERATOR_INT_LT = 'int_lt';
 
 	/**
 	 * SearchOperatorType: Integer field is less than or equal to value
 	 *
 	 * @type string
 	 */
-	const SEARCHOPERATOR_INT_LTE = "int_lte";
+	const SEARCHOPERATOR_INT_LTE = 'int_lte';
 
 	/**
 	 * SearchOperatorType: Boolean field matches value
 	 *
 	 * @type string
 	 */
-	const SEARCHOPERATOR_BOOL_IS = "bool_is";
+	const SEARCHOPERATOR_BOOL_IS = 'bool_is';
 
 	/**
 	 * SearchOperatorType: Boolean field does not match value
 	 *
 	 * @type string
 	 */
-	const SEARCHOPERATOR_BOOL_NIS = "bool_nis";
+	const SEARCHOPERATOR_BOOL_NIS = 'bool_nis';
 
 	/**
-	 * 0000 0001. If this value is present in the bitset, then the Calendar service is selected for backup.
+	 * 0000 0001. If this value is present in the bitset, then the Calendar service is selected for
+	 * backup.
 	 *
 	 * @type int
 	 */
 	const SERVICE_CALENDAR = 1;
 
 	/**
-	 * 0000 0010. If this value is present in the bitset, then the Contact service is selected for backup.
+	 * 0000 0010. If this value is present in the bitset, then the Contact service is selected for
+	 * backup.
 	 *
 	 * @type int
 	 */
@@ -2031,14 +2147,16 @@ class Def {
 	const SERVICE_MAIL = 4;
 
 	/**
-	 * 0000 1000. If this value is present in the bitset, then the SharePoint service is selected for backup.
+	 * 0000 1000. If this value is present in the bitset, then the SharePoint service is selected for
+	 * backup.
 	 *
 	 * @type int
 	 */
 	const SERVICE_SHAREPOINT = 8;
 
 	/**
-	 * 0001 0000. If this value is present in the bitset, then the OneDrive service is selected for backup.
+	 * 0001 0000. If this value is present in the bitset, then the OneDrive service is selected for
+	 * backup.
 	 *
 	 * @type int
 	 */
@@ -2084,28 +2202,36 @@ class Def {
 	 *
 	 * @type string
 	 */
-	const SEVERITY_DEBUG = "D";
+	const SEVERITY_DEBUG = 'D';
 
 	/**
 	 * Severity
 	 *
 	 * @type string
 	 */
-	const SEVERITY_INFO = "I";
+	const SEVERITY_INFO = 'I';
 
 	/**
 	 * Severity
 	 *
 	 * @type string
 	 */
-	const SEVERITY_WARNING = "W";
+	const SEVERITY_WARNING = 'W';
 
 	/**
 	 * Severity
 	 *
 	 * @type string
 	 */
-	const SEVERITY_ERROR = "E";
+	const SEVERITY_ERROR = 'E';
+
+	/**
+	 * Severity: Diagnostic detail. The server returns entries with this severity only to top-level
+	 * administrators without permission restrictions.
+	 *
+	 * @type string
+	 */
+	const SEVERITY_PRIVATE = 'P';
 
 	/**
 	 * StreamableEventType
@@ -2143,14 +2269,16 @@ class Def {
 	const SEVT_ACCOUNT_UPDATED = 4102;
 
 	/**
-	 * StreamableEventType: User authentication succeeded. Only emitted for non-session requests. Resource is the requested path
+	 * StreamableEventType: User authentication succeeded. Only emitted for non-session requests.
+	 * Resource is the requested path
 	 *
 	 * @type int
 	 */
 	const SEVT_ACCOUNT_LOGIN = 4103;
 
 	/**
-	 * StreamableEventType: User authentication failed. Only emitted if the user exists. Resource is the requested path
+	 * StreamableEventType: User authentication failed. Only emitted if the user exists. Resource is the
+	 * requested path
 	 *
 	 * @type int
 	 */
@@ -2199,14 +2327,16 @@ class Def {
 	const SEVT_ACCOUNT_ADMIN_UPDATED = 4152;
 
 	/**
-	 * StreamableEventType: Admin authentication succeeded. Only emitted for non-session requests. Resource is the requested path
+	 * StreamableEventType: Admin authentication succeeded. Only emitted for non-session requests.
+	 * Resource is the requested path
 	 *
 	 * @type int
 	 */
 	const SEVT_ACCOUNT_ADMIN_LOGIN = 4153;
 
 	/**
-	 * StreamableEventType: Admin authentication failed. Only emitted if the admin exists. Resource is the request path
+	 * StreamableEventType: Admin authentication failed. Only emitted if the admin exists. Resource is
+	 * the request path
 	 *
 	 * @type int
 	 */
@@ -2250,7 +2380,8 @@ class Def {
 	const SEVT_ACCOUNT_ADMIN_TOKEN_REMOVED = 4159;
 
 	/**
-	 * StreamableEventType: Admin personal API token authentication succeeded. Emitted for every authenticated request, in place of SEVT_ACCOUNT_ADMIN_LOGIN. Resource is the token ID
+	 * StreamableEventType: Admin personal API token authentication succeeded. Emitted for every
+	 * authenticated request, in place of SEVT_ACCOUNT_ADMIN_LOGIN. Resource is the token ID
 	 *
 	 * @type int
 	 * This const is available in Comet 26.8.4 and later.
@@ -2440,6 +2571,30 @@ class Def {
 	const SEVT_SQUOTA_UPDATED = 4805;
 
 	/**
+	 * StreamableEventType: Self-backup started. Data is a SelfBackupEventData object
+	 *
+	 * @type int
+	 * This const is available in Comet 26.11.1 and later.
+	 */
+	const SEVT_SELFBACKUP_START = 4900;
+
+	/**
+	 * StreamableEventType: Self-backup succeeded. Data is a SelfBackupEventData object
+	 *
+	 * @type int
+	 * This const is available in Comet 26.11.1 and later.
+	 */
+	const SEVT_SELFBACKUP_SUCCEEDED = 4901;
+
+	/**
+	 * StreamableEventType: Self-backup failed. Data is a SelfBackupEventData object
+	 *
+	 * @type int
+	 * This const is available in Comet 26.11.1 and later.
+	 */
+	const SEVT_SELFBACKUP_FAILED = 4902;
+
+	/**
 	 * StreamableEventType
 	 *
 	 * @type int
@@ -2447,25 +2602,55 @@ class Def {
 	const SEVT__MAX = 4999;
 
 	/**
-	 * SourceFieldType
+	 * SMTPOAuthProvider: Microsoft Entra ID (Microsoft 365 / Exchange Online)
 	 *
-	 * @type string
+	 * @type int
 	 */
-	const SOURCEFIELD_BOOL = "bool";
+	const SMTP_OAUTH_PROVIDER_MICROSOFT = 1;
+
+	/**
+	 * SMTPOAuthProvider: Google (Gmail / Google Workspace)
+	 *
+	 * @type int
+	 */
+	const SMTP_OAUTH_PROVIDER_GOOGLE = 2;
+
+	/**
+	 * SMTPOAuthFlow: A mailbox user grants consent interactively; the resulting refresh token is stored
+	 * in RefreshToken
+	 *
+	 * @type int
+	 */
+	const SMTP_OAUTH_FLOW_AUTHORIZATION_CODE = 1;
+
+	/**
+	 * SMTPOAuthFlow: The application authenticates as itself. Only supported for
+	 * SMTP_OAUTH_PROVIDER_MICROSOFT
+	 *
+	 * @type int
+	 */
+	const SMTP_OAUTH_FLOW_CLIENT_CREDENTIALS = 2;
 
 	/**
 	 * SourceFieldType
 	 *
 	 * @type string
 	 */
-	const SOURCEFIELD_INT = "int";
+	const SOURCEFIELD_BOOL = 'bool';
 
 	/**
 	 * SourceFieldType
 	 *
 	 * @type string
 	 */
-	const SOURCEFIELD_STRING = "string";
+	const SOURCEFIELD_INT = 'int';
+
+	/**
+	 * SourceFieldType
+	 *
+	 * @type string
+	 */
+	const SOURCEFIELD_STRING = 'string';
 
 	/**
 	 * SSHAuthMode
@@ -2493,252 +2678,259 @@ class Def {
 	 *
 	 * @type string
 	 */
-	const STOREDOBJECTTYPE_FILE = "file";
+	const STOREDOBJECTTYPE_FILE = 'file';
 
 	/**
 	 * StoredObjectType
 	 *
 	 * @type string
 	 */
-	const STOREDOBJECTTYPE_DIRECTORY = "dir";
+	const STOREDOBJECTTYPE_DIRECTORY = 'dir';
 
 	/**
 	 * StoredObjectType
 	 *
 	 * @type string
 	 */
-	const STOREDOBJECTTYPE_SYMLINK = "symlink";
+	const STOREDOBJECTTYPE_SYMLINK = 'symlink';
 
 	/**
 	 * StoredObjectType
 	 *
 	 * @type string
 	 */
-	const STOREDOBJECTTYPE_UNIXBLOCKDEVICE = "dev";
+	const STOREDOBJECTTYPE_UNIXBLOCKDEVICE = 'dev';
 
 	/**
 	 * StoredObjectType
 	 *
 	 * @type string
 	 */
-	const STOREDOBJECTTYPE_UNIXCHARDEVICE = "chardev";
+	const STOREDOBJECTTYPE_UNIXCHARDEVICE = 'chardev';
 
 	/**
 	 * StoredObjectType
 	 *
 	 * @type string
 	 */
-	const STOREDOBJECTTYPE_UNIXFIFO = "fifo";
+	const STOREDOBJECTTYPE_UNIXFIFO = 'fifo';
 
 	/**
 	 * StoredObjectType
 	 *
 	 * @type string
 	 */
-	const STOREDOBJECTTYPE_UNIXSOCKET = "socket";
+	const STOREDOBJECTTYPE_UNIXSOCKET = 'socket';
 
 	/**
 	 * StoredObjectType
 	 *
 	 * @type string
 	 */
-	const STOREDOBJECTTYPE_WINEFS = "winefs";
+	const STOREDOBJECTTYPE_WINEFS = 'winefs';
 
 	/**
 	 * StoredObjectType
 	 *
 	 * @type string
 	 */
-	const STOREDOBJECTTYPE_WINDOWSFILE = "winfile";
+	const STOREDOBJECTTYPE_WINDOWSFILE = 'winfile';
 
 	/**
 	 * StoredObjectType
 	 *
 	 * @type string
 	 */
-	const STOREDOBJECTTYPE_WINDOWSDIR = "windir";
+	const STOREDOBJECTTYPE_WINDOWSDIR = 'windir';
 
 	/**
 	 * StoredObjectType
 	 *
 	 * @type string
 	 */
-	const STOREDOBJECTTYPE_EMAILMESSAGE = "emailmessage";
+	const STOREDOBJECTTYPE_EMAILMESSAGE = 'emailmessage';
 
 	/**
 	 * StoredObjectType
 	 *
 	 * @type string
 	 */
-	const STOREDOBJECTTYPE_EMAILFOLDER = "mailfolder";
+	const STOREDOBJECTTYPE_EMAILFOLDER = 'mailfolder';
 
 	/**
 	 * StoredObjectType
 	 *
 	 * @type string
 	 */
-	const STOREDOBJECTTYPE_OFFICECONTACT = "contact";
+	const STOREDOBJECTTYPE_OFFICECONTACT = 'contact';
 
 	/**
 	 * StoredObjectType
 	 *
 	 * @type string
 	 */
-	const STOREDOBJECTTYPE_OFFICECONTACTFOLDER = "contactfolder";
+	const STOREDOBJECTTYPE_OFFICECONTACTFOLDER = 'contactfolder';
 
 	/**
 	 * StoredObjectType
 	 *
 	 * @type string
 	 */
-	const STOREDOBJECTTYPE_OFFICECALENDAREVENT = "calendarevent";
+	const STOREDOBJECTTYPE_OFFICECALENDAREVENT = 'calendarevent';
 
 	/**
 	 * StoredObjectType
 	 *
 	 * @type string
 	 */
-	const STOREDOBJECTTYPE_OFFICECALENDAR = "calendar";
+	const STOREDOBJECTTYPE_OFFICECALENDAR = 'calendar';
 
 	/**
 	 * StoredObjectType
 	 *
 	 * @type string
 	 */
-	const STOREDOBJECTTYPE_MSSITE = "mssite";
+	const STOREDOBJECTTYPE_MSSITE = 'mssite';
 
 	/**
 	 * StoredObjectType
 	 *
 	 * @type string
 	 */
-	const STOREDOBJECTTYPE_MSSITE_TEAM = "mssiteteam";
+	const STOREDOBJECTTYPE_MSSITE_TEAM = 'mssiteteam';
 
 	/**
 	 * StoredObjectType
 	 *
 	 * @type string
 	 */
-	const STOREDOBJECTTYPE_MSSITELISTENTITY = "mssitelistentity";
+	const STOREDOBJECTTYPE_MSSITELISTENTITY = 'mssitelistentity';
 
 	/**
 	 * StoredObjectType
 	 *
 	 * @type string
 	 */
-	const STOREDOBJECTTYPE_MSSITEITEMENTITY = "mssiteitementity";
+	const STOREDOBJECTTYPE_MSSITEITEMENTITY = 'mssiteitementity';
 
 	/**
 	 * StoredObjectType
 	 *
 	 * @type string
 	 */
-	const STOREDOBJECTTYPE_MSSITELISTDRIVEENTITY = "mssitelistdriveentity";
+	const STOREDOBJECTTYPE_MSSITELISTDRIVEENTITY = 'mssitelistdriveentity';
 
 	/**
 	 * StoredObjectType
 	 *
 	 * @type string
 	 */
-	const STOREDOBJECTTYPE_VMDK_FILE = "vmdkfile";
+	const STOREDOBJECTTYPE_VMDK_FILE = 'vmdkfile';
 
 	/**
 	 * StoredObjectType
 	 *
 	 * @type string
 	 */
-	const STOREDOBJECTTYPE_VMDK_DIRECTORY = "vmdkdir";
+	const STOREDOBJECTTYPE_VMDK_DIRECTORY = 'vmdkdir';
 
 	/**
 	 * StoredObjectType
 	 *
 	 * @type string
 	 */
-	const STOREDOBJECTTYPE_VMDK_WINEFS = "vmdkwinefs";
+	const STOREDOBJECTTYPE_VMDK_WINEFS = 'vmdkwinefs';
 
 	/**
 	 * StoredObjectType
 	 *
 	 * @type string
 	 */
-	const STOREDOBJECTTYPE_VMDK_SYMLINK = "vmdksymlink";
+	const STOREDOBJECTTYPE_VMDK_SYMLINK = 'vmdksymlink';
 
 	/**
 	 * StoredObjectType
 	 *
 	 * @type string
 	 */
-	const STOREDOBJECTTYPE_VMDK_WINDEDUP = "vmdkwindedup";
+	const STOREDOBJECTTYPE_VMDK_WINDEDUP = 'vmdkwindedup';
 
 	/**
 	 * StoredObjectType
 	 *
 	 * @type string
 	 */
-	const STOREDOBJECTTYPE_VIRTUALIMAGE_DISK = "virtualimagedisk";
+	const STOREDOBJECTTYPE_VIRTUALIMAGE_DISK = 'virtualimagedisk';
 
 	/**
 	 * StoredObjectType
 	 *
 	 * @type string
 	 */
-	const STOREDOBJECTTYPE_VHDX_GPT_PARTITION = "vhdxpartitiongpt";
+	const STOREDOBJECTTYPE_VHDX_GPT_PARTITION = 'vhdxpartitiongpt';
 
 	/**
 	 * StoredObjectType
 	 *
 	 * @type string
 	 */
-	const STOREDOBJECTTYPE_VHDX_MBR_PARTITION = "vhdxpartitionmbr";
+	const STOREDOBJECTTYPE_VHDX_MBR_PARTITION = 'vhdxpartitionmbr';
 
 	/**
 	 * StreamLevel: Event data contains full data types
 	 *
 	 * @type string
 	 */
-	const STREAM_LEVEL_FULL = "full";
+	const STREAM_LEVEL_FULL = 'full';
 
 	/**
 	 * StreamLevel: Event data contains nothing
 	 *
 	 * @type string
 	 */
-	const STREAM_LEVEL_NONE = "none";
+	const STREAM_LEVEL_NONE = 'none';
 
 	/**
 	 * StreamerType
 	 *
 	 * @type string
 	 */
-	const STREAMER_TYPE_INTERNAL = "internal";
+	const STREAMER_TYPE_INTERNAL = 'internal';
 
 	/**
 	 * StreamerType
 	 *
 	 * @type string
 	 */
-	const STREAMER_TYPE_WEBHOOK = "webhook";
+	const STREAMER_TYPE_WEBHOOK = 'webhook';
 
 	/**
 	 * StreamerType
 	 *
 	 * @type string
 	 */
-	const STREAMER_TYPE_WEBSOCKET = "websocket";
+	const STREAMER_TYPE_WEBSOCKET = 'websocket';
 
 	/**
 	 * StreamerType
 	 *
 	 * @type string
 	 */
-	const STREAMER_TYPE_FILE = "file";
+	const STREAMER_TYPE_FILE = 'file';
 
 	/**
-	 * If an API response returns in failure, but it includes this value in the CometAPIResponseMessage->Message parameter, it indicates that your supplied authentication was insufficient, and you must supply additional two-factor authentication credentials.
+	 * @type string
+	 */
+	const SelfAddressPlaceholder = '$self$';
+
+	/**
+	 * If an API response returns in failure, but it includes this value in the
+	 * CometAPIResponseMessage->Message parameter, it indicates that your supplied authentication was
+	 * insufficient, and you must supply additional two-factor authentication credentials.
 	 *
 	 * @type string
 	 */
-	const TOTPRequiredError = "ERR_TOTP_REQUIRED";
+	const TOTPRequiredError = 'ERR_TOTP_REQUIRED';
 
 	/**
 	 * UpdateStatus
@@ -2748,7 +2940,8 @@ class Def {
 	const UPDATESTATUS_NOT_SEEN = 0;
 
 	/**
-	 * UpdateStatus: The selected device does not meet the filter criteria from the Bulk Update Campaign's configuration.
+	 * UpdateStatus: The selected device does not meet the filter criteria from the Bulk Update
+	 * Campaign's configuration.
 	 *
 	 * @type int
 	 */
@@ -2762,14 +2955,17 @@ class Def {
 	const UPDATESTATUS_PENDING = 2;
 
 	/**
-	 * UpdateStatus: The device has made a live connection and it meets the filter criteria. A live connection message has been sent asking it to perform the software upgrade.
+	 * UpdateStatus: The device has made a live connection and it meets the filter criteria. A live
+	 * connection message has been sent asking it to perform the software upgrade.
 	 *
 	 * @type int
 	 */
 	const UPDATESTATUS_REQUEST_MADE = 3;
 
 	/**
-	 * UpdateStatus: An update signal was sent to the device, but when it reconnected, it did not advertise the target software version. It's likely that the update failed - please check the device's Update log for more information.
+	 * UpdateStatus: An update signal was sent to the device, but when it reconnected, it did not
+	 * advertise the target software version. It's likely that the update failed - please check the
+	 * device's Update log for more information.
 	 *
 	 * @type int
 	 */
@@ -2783,7 +2979,8 @@ class Def {
 	const UPDATESTATUS_UPDATE_CONFIRMED = 5;
 
 	/**
-	 * UpdateStatus: The device's reported operating system version is below the minimum supported version for the target build
+	 * UpdateStatus: The device's reported operating system version is below the minimum supported
+	 * version for the target build
 	 *
 	 * @type int
 	 * This const is available in Comet 26.5.2 and later.
@@ -2796,21 +2993,23 @@ class Def {
 	const USERNAME_MAX_LENGTH = 255;
 
 	/**
-	 * If an API response returns in failure, but it includes this value in the CometAPIResponseMessage->Message parameter, it indicates that the specified Device ID was invalid or not found.
+	 * If an API response returns in failure, but it includes this value in the
+	 * CometAPIResponseMessage->Message parameter, it indicates that the specified Device ID was invalid
+	 * or not found.
 	 *
 	 * @type string
 	 */
-	const UnknownDeviceError = "ERR_UNKNOWN_DEVICE";
+	const UnknownDeviceError = 'ERR_UNKNOWN_DEVICE';
 
 	/**
 	 * @type string
 	 */
-	const UnsupportVhdxFileSystem = "ERR_UNSUPPORT_VHDX_FILE_SYSTEM";
+	const UnsupportVhdxFileSystem = 'ERR_UNSUPPORT_VHDX_FILE_SYSTEM';
 
 	/**
 	 * @type string
 	 */
-	const UnsupportVmdkFileSystem = "ERR_UNSUPPORT_VMDK_FILE_SYSTEM";
+	const UnsupportVmdkFileSystem = 'ERR_UNSUPPORT_VMDK_FILE_SYSTEM';
 
 	/**
 	 * VMwareConnectionType
@@ -2818,49 +3017,49 @@ class Def {
 	 * @type string
 	 * @deprecated 23.9.11 This const has been deprecated since Comet version 23.9.11
 	 */
-	const VMWARE_CONNECTION_SSH = "ssh";
+	const VMWARE_CONNECTION_SSH = 'ssh';
 
 	/**
 	 * VMwareConnectionType
 	 *
 	 * @type string
 	 */
-	const VMWARE_CONNECTION_VSPHERE = "vsphere";
+	const VMWARE_CONNECTION_VSPHERE = 'vsphere';
 
 	/**
 	 * VmwareSnapshotType
 	 *
 	 * @type string
 	 */
-	const VMWARE_SNAPSHOT_FAST = "";
+	const VMWARE_SNAPSHOT_FAST = '';
 
 	/**
 	 * VmwareSnapshotType
 	 *
 	 * @type string
 	 */
-	const VMWARE_SNAPSHOT_QUIESCE = "quiesce";
+	const VMWARE_SNAPSHOT_QUIESCE = 'quiesce';
 
 	/**
 	 * VmwareSnapshotType
 	 *
 	 * @type string
 	 */
-	const VMWARE_SNAPSHOT_MEMORY = "memory";
+	const VMWARE_SNAPSHOT_MEMORY = 'memory';
 
 	/**
 	 * VmwareBackupType
 	 *
 	 * @type string
 	 */
-	const VMWARE_BACKUP_FULL = "full";
+	const VMWARE_BACKUP_FULL = 'full';
 
 	/**
 	 * VmwareBackupType
 	 *
 	 * @type string
 	 */
-	const VMWARE_BACKUP_CBT = "cbt";
+	const VMWARE_BACKUP_CBT = 'cbt';
 
 	/**
 	 * VmwareBackupType
@@ -2868,12 +3067,17 @@ class Def {
 	 * @type string
 	 * @deprecated 23.9.11 This const has been deprecated since Comet version 23.9.11
 	 */
-	const VMWARE_BACKUP_COPY = "copy";
+	const VMWARE_BACKUP_COPY = 'copy';
 
 	/**
 	 * @type string
 	 */
-	const VhdxPartitonReadErrMsg = "ERR_VHDX_PARTITION";
+	const VhdxPartitionNotNtfsData = 'not a ntfs data partition';
+
+	/**
+	 * @type string
+	 */
+	const VhdxPartitonReadErrMsg = 'ERR_VHDX_PARTITION';
 
 	/**
 	 * WebAuthnDeviceType
@@ -2929,19 +3133,63 @@ class Def {
 	 *
 	 * @type string
 	 */
-	const WEBHOOK_FORMAT_RAW = "";
+	const WEBHOOK_FORMAT_RAW = '';
 
 	/**
 	 * WebhookFormat: The event is reformatted as a Slack-compatible message, suitable for posting
-	directly to a Slack Incoming Webhook URL.
+	 * directly to a Slack Incoming Webhook URL.
 	 *
 	 * @type string
 	 * This const is available in Comet 26.5.2 and later.
 	 */
-	const WEBHOOK_FORMAT_SLACK = "slack";
+	const WEBHOOK_FORMAT_SLACK = 'slack';
 
 	/**
-	 * WindowsCodesignMethod: When upgrading from a version of Comet Server prior to 23.3.0, this option will be automatically converted to a more specific type.
+	 * WebhookFormat: The event is sent as an email to the address in the WebhookOption URL field, using
+	 * the
+	 * email settings of the organization that owns the webhook.
+	 *
+	 * @type string
+	 * This const is available in Comet 26.11.1 and later.
+	 */
+	const WEBHOOK_FORMAT_EMAIL = 'email';
+
+	/**
+	 * WebhookFormat: The raw StreamableEvent JSON object is published to an Amazon SNS topic. The URL
+	 * field is the
+	 * topic ARN, and the AWS field holds the credentials. The event type is attached as the
+	 * "TypeString" message attribute.
+	 *
+	 * @type string
+	 * This const is available in Comet 26.11.1 and later.
+	 */
+	const WEBHOOK_FORMAT_AWS_SNS = 'aws_sns';
+
+	/**
+	 * WebhookFormat: The raw StreamableEvent JSON object is sent to an Amazon SQS queue. The URL field
+	 * is the queue
+	 * URL, and the AWS field holds the credentials. The event type is attached as the "TypeString"
+	 * message attribute.
+	 *
+	 * @type string
+	 * This const is available in Comet 26.11.1 and later.
+	 */
+	const WEBHOOK_FORMAT_AWS_SQS = 'aws_sqs';
+
+	/**
+	 * WebhookFormat: The raw StreamableEvent JSON object is put on an Amazon EventBridge event bus as
+	 * the event
+	 * detail, with the event type as the detail type and "cometd" as the source. The URL field is
+	 * the event bus ARN, and the AWS field holds the credentials.
+	 *
+	 * @type string
+	 * This const is available in Comet 26.11.1 and later.
+	 */
+	const WEBHOOK_FORMAT_AWS_EVENTBRIDGE = 'aws_eventbridge';
+
+	/**
+	 * WindowsCodesignMethod: When upgrading from a version of Comet Server prior to 23.3.0, this option
+	 * will be automatically converted to a more specific type.
 	 *
 	 * @type int
 	 * @deprecated 23.3.0 This const has been deprecated since Comet version 23.3.0
@@ -2963,7 +3211,8 @@ class Def {
 	const WINDOWSCODESIGN_METHOD_PKCS12FILE = 2;
 
 	/**
-	 * WindowsCodesignMethod: Use a configured PKCS#11 hardware security module (HSM) for Authenticode codesigning
+	 * WindowsCodesignMethod: Use a configured PKCS#11 hardware security module (HSM) for Authenticode
+	 * codesigning
 	 *
 	 * @type int
 	 */
@@ -2982,6 +3231,30 @@ class Def {
 	 * @type int
 	 */
 	const WINDOWSCODESIGN_METHOD_RELICSERVER = 5;
+
+	/**
+	 * WindowsCodesignMethod: Use a configured AWS Key Management Service (KMS) key for Authenticode
+	 * codesigning
+	 *
+	 * @type int
+	 */
+	const WINDOWSCODESIGN_METHOD_AWSKMS = 6;
+
+	/**
+	 * WindowsCodesignMethod: Use a configured Google Cloud Key Management Service (Cloud KMS) key for
+	 * Authenticode codesigning
+	 *
+	 * @type int
+	 */
+	const WINDOWSCODESIGN_METHOD_GCPKMS = 7;
+
+	/**
+	 * WindowsCodesignMethod: Use Azure Artifact Signing (formerly Azure Trusted Signing) for
+	 * Authenticode codesigning
+	 *
+	 * @type int
+	 */
+	const WINDOWSCODESIGN_METHOD_AZUREARTIFACTSIGNING = 8;
 
 	/**
 	 * @type int

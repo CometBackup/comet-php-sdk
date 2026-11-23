@@ -16,7 +16,7 @@ namespace Comet;
  * You must supply administrator authentication credentials to use this API.
  * Access to this API may be prevented on a per-administrator basis.
  * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
- * This API does not accept admin personal API token authentication (AuthType=Token).
+ * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
  */
 class AdminAdminUserDeleteRequest implements \Comet\NetworkRequest {
 
@@ -28,13 +28,22 @@ class AdminAdminUserDeleteRequest implements \Comet\NetworkRequest {
 	protected $TargetUser = null;
 
 	/**
+	 * the organization ID of the admin to be deleted. If omitted, defaults to the top-level organization. (>= 26.11.0) (optional)
+	 *
+	 * @var string|null
+	 */
+	protected $TargetOrgID = null;
+
+	/**
 	 * Construct a new AdminAdminUserDeleteRequest instance.
 	 *
 	 * @param string $TargetUser the username of the admin to be deleted
+	 * @param string $TargetOrgID the organization ID of the admin to be deleted. If omitted, defaults to the top-level organization. (>= 26.11.0) (optional)
 	 */
-	public function __construct(string $TargetUser)
+	public function __construct(string $TargetUser, string $TargetOrgID = null)
 	{
 		$this->TargetUser = $TargetUser;
+		$this->TargetOrgID = $TargetOrgID;
 	}
 
 	/**
@@ -66,6 +75,9 @@ class AdminAdminUserDeleteRequest implements \Comet\NetworkRequest {
 	{
 		$ret = [];
 		$ret["TargetUser"] = (string)($this->TargetUser);
+		if ($this->TargetOrgID !== null) {
+			$ret["TargetOrgID"] = (string)($this->TargetOrgID);
+		}
 		return $ret;
 	}
 

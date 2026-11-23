@@ -14,7 +14,7 @@ namespace Comet;
  * Update the server PSA configuration
  *
  * You must supply administrator authentication credentials to use this API.
- * This API accepts admin personal API token authentication (AuthType=Token).
+ * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
  */
 class AdminMetaPsaConfigListSetRequest implements \Comet\NetworkRequest {
 

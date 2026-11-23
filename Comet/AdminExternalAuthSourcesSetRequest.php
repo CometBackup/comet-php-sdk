@@ -15,7 +15,7 @@ namespace Comet;
  * sources for the tenant; none will be preserved.
  *
  * You must supply administrator authentication credentials to use this API.
- * This API does not accept admin personal API token authentication (AuthType=Token).
+ * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
  */
 class AdminExternalAuthSourcesSetRequest implements \Comet\NetworkRequest {
 

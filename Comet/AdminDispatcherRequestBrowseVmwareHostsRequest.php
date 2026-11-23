@@ -16,7 +16,7 @@ namespace Comet;
  *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
- * This API accepts admin personal API token authentication (AuthType=Token).
+ * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
  */
 class AdminDispatcherRequestBrowseVmwareHostsRequest implements \Comet\NetworkRequest {
 

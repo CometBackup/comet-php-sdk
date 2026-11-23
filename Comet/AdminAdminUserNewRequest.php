@@ -16,7 +16,7 @@ namespace Comet;
  * You must supply administrator authentication credentials to use this API.
  * Access to this API may be prevented on a per-administrator basis.
  * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
- * This API does not accept admin personal API token authentication (AuthType=Token).
+ * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
  */
 class AdminAdminUserNewRequest implements \Comet\NetworkRequest {
 
@@ -35,7 +35,7 @@ class AdminAdminUserNewRequest implements \Comet\NetworkRequest {
 	protected $TargetPassword = null;
 
 	/**
-	 * provide the organization ID for this user, it will default to the org of the authenticating user otherwise (optional)
+	 * provide the organization ID for this user, it will default to the top-level organization otherwise. (optional)
 	 *
 	 * @var string|null
 	 */
@@ -46,7 +46,7 @@ class AdminAdminUserNewRequest implements \Comet\NetworkRequest {
 	 *
 	 * @param string $TargetUser the username for this new admin
 	 * @param string $TargetPassword the password for this new admin user
-	 * @param string $TargetOrgID provide the organization ID for this user, it will default to the org of the authenticating user otherwise (optional)
+	 * @param string $TargetOrgID provide the organization ID for this user, it will default to the top-level organization otherwise. (optional)
 	 */
 	public function __construct(string $TargetUser, string $TargetPassword, string $TargetOrgID = null)
 	{

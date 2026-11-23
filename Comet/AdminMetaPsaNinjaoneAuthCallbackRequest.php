@@ -15,7 +15,7 @@ namespace Comet;
  * The frontend should store the returned token on the NinjaOneConfig and persist it via the normal PSA config save flow.
  *
  * You must supply administrator authentication credentials to use this API.
- * This API accepts admin personal API token authentication (AuthType=Token).
+ * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
  */
 class AdminMetaPsaNinjaoneAuthCallbackRequest implements \Comet\NetworkRequest {
 

@@ -15,7 +15,7 @@ namespace Comet;
  * Retrieve the version number and basic properties about the server.
  *
  * You must supply administrator authentication credentials to use this API.
- * This API accepts admin personal API token authentication (AuthType=Token).
+ * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
  */
 class AdminMetaVersionRequest implements \Comet\NetworkRequest {
 

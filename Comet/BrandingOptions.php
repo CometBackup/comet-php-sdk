@@ -263,6 +263,129 @@ class BrandingOptions {
 	public $WindowsCodeSignRelicKeyName = "";
 
 	/**
+	 * The AWS region containing the KMS key, e.g. us-east-1
+	 *
+	 * @var string
+	 */
+	public $WindowsCodeSignAWSRegion = "";
+
+	/**
+	 * The access key ID of an IAM user permitted to call kms:GetPublicKey and kms:Sign on the key
+	 *
+	 * @var string
+	 */
+	public $WindowsCodeSignAWSAccessKeyID = "";
+
+	/**
+	 * One of the ENCRYPTIONMETHOD_ constants
+	 *
+	 * @var int
+	 */
+	public $WindowsCodeSignAWSSecretAccessKeyFormat = 0;
+
+	/**
+	 * @var string
+	 */
+	public $WindowsCodeSignAWSSecretAccessKey = "";
+
+	/**
+	 * The KMS key ID, key ARN, alias name (alias/...) or alias ARN of an asymmetric SIGN_VERIFY key
+	 *
+	 * @var string
+	 */
+	public $WindowsCodeSignAWSKMSKeyID = "";
+
+	/**
+	 * The X.509 code signing certificate for the KMS key, and optionally its intermediate certificates,
+	 * in PEM or DER format
+	 *
+	 * @var string
+	 */
+	public $WindowsCodeSignAWSCertfile = "";
+
+	/**
+	 * The full resource name of a Cloud KMS asymmetric signing key version:
+	 * projects/PROJECT/locations/LOCATION/keyRings/KEYRING/cryptoKeys/KEY/cryptoKeyVersions/VERSION
+	 *
+	 * @var string
+	 */
+	public $WindowsCodeSignGCPKMSKeyVersion = "";
+
+	/**
+	 * One of the ENCRYPTIONMETHOD_ constants
+	 *
+	 * @var int
+	 */
+	public $WindowsCodeSignGCPServiceAccountKeyFormat = 0;
+
+	/**
+	 * The JSON key file contents of a Google Cloud service account with the Cloud KMS Signer/Verifier
+	 * role on the key version. Only keys of type service_account are accepted.
+	 *
+	 * @var string
+	 */
+	public $WindowsCodeSignGCPServiceAccountKey = "";
+
+	/**
+	 * The X.509 code signing certificate for the Cloud KMS key, and optionally its intermediate
+	 * certificates, in PEM or DER format
+	 *
+	 * @var string
+	 */
+	public $WindowsCodeSignGCPCertfile = "";
+
+	/**
+	 * The regional endpoint of the Azure Artifact Signing account, e.g.
+	 * https://eus.codesigning.azure.net
+	 *
+	 * @var string
+	 */
+	public $WindowsCodeSignAzureArtifactSigningEndpoint = "";
+
+	/**
+	 * The Azure Artifact Signing account name
+	 *
+	 * @var string
+	 */
+	public $WindowsCodeSignAzureArtifactSigningAccount = "";
+
+	/**
+	 * The certificate profile name within the Azure Artifact Signing account
+	 *
+	 * @var string
+	 */
+	public $WindowsCodeSignAzureArtifactSigningProfile = "";
+
+	/**
+	 * The Microsoft Entra tenant ID of the app registration
+	 *
+	 * @var string
+	 */
+	public $WindowsCodeSignAzureArtifactSigningTenantID = "";
+
+	/**
+	 * The application (client) ID of a Microsoft Entra app registration with the Artifact Signing
+	 * Certificate Profile Signer role on the certificate profile
+	 *
+	 * @var string
+	 */
+	public $WindowsCodeSignAzureArtifactSigningAppID = "";
+
+	/**
+	 * One of the ENCRYPTIONMETHOD_ constants
+	 *
+	 * @var int
+	 */
+	public $WindowsCodeSignAzureArtifactSigningAppSecretFormat = 0;
+
+	/**
+	 * A client secret of the app registration
+	 *
+	 * @var string
+	 */
+	public $WindowsCodeSignAzureArtifactSigningAppSecret = "";
+
+	/**
 	 * @var \Comet\MacOSCodeSignProperties
 	 */
 	public $MacOSCodeSign = null;
@@ -427,6 +550,57 @@ class BrandingOptions {
 		if (property_exists($sc, 'WindowsCodeSignRelicKeyName')) {
 			$this->WindowsCodeSignRelicKeyName = (string)($sc->WindowsCodeSignRelicKeyName);
 		}
+		if (property_exists($sc, 'WindowsCodeSignAWSRegion')) {
+			$this->WindowsCodeSignAWSRegion = (string)($sc->WindowsCodeSignAWSRegion);
+		}
+		if (property_exists($sc, 'WindowsCodeSignAWSAccessKeyID')) {
+			$this->WindowsCodeSignAWSAccessKeyID = (string)($sc->WindowsCodeSignAWSAccessKeyID);
+		}
+		if (property_exists($sc, 'WindowsCodeSignAWSSecretAccessKeyFormat')) {
+			$this->WindowsCodeSignAWSSecretAccessKeyFormat = (int)($sc->WindowsCodeSignAWSSecretAccessKeyFormat);
+		}
+		if (property_exists($sc, 'WindowsCodeSignAWSSecretAccessKey')) {
+			$this->WindowsCodeSignAWSSecretAccessKey = (string)($sc->WindowsCodeSignAWSSecretAccessKey);
+		}
+		if (property_exists($sc, 'WindowsCodeSignAWSKMSKeyID')) {
+			$this->WindowsCodeSignAWSKMSKeyID = (string)($sc->WindowsCodeSignAWSKMSKeyID);
+		}
+		if (property_exists($sc, 'WindowsCodeSignAWSCertfile')) {
+			$this->WindowsCodeSignAWSCertfile = (string)($sc->WindowsCodeSignAWSCertfile);
+		}
+		if (property_exists($sc, 'WindowsCodeSignGCPKMSKeyVersion')) {
+			$this->WindowsCodeSignGCPKMSKeyVersion = (string)($sc->WindowsCodeSignGCPKMSKeyVersion);
+		}
+		if (property_exists($sc, 'WindowsCodeSignGCPServiceAccountKeyFormat')) {
+			$this->WindowsCodeSignGCPServiceAccountKeyFormat = (int)($sc->WindowsCodeSignGCPServiceAccountKeyFormat);
+		}
+		if (property_exists($sc, 'WindowsCodeSignGCPServiceAccountKey')) {
+			$this->WindowsCodeSignGCPServiceAccountKey = (string)($sc->WindowsCodeSignGCPServiceAccountKey);
+		}
+		if (property_exists($sc, 'WindowsCodeSignGCPCertfile')) {
+			$this->WindowsCodeSignGCPCertfile = (string)($sc->WindowsCodeSignGCPCertfile);
+		}
+		if (property_exists($sc, 'WindowsCodeSignAzureArtifactSigningEndpoint')) {
+			$this->WindowsCodeSignAzureArtifactSigningEndpoint = (string)($sc->WindowsCodeSignAzureArtifactSigningEndpoint);
+		}
+		if (property_exists($sc, 'WindowsCodeSignAzureArtifactSigningAccount')) {
+			$this->WindowsCodeSignAzureArtifactSigningAccount = (string)($sc->WindowsCodeSignAzureArtifactSigningAccount);
+		}
+		if (property_exists($sc, 'WindowsCodeSignAzureArtifactSigningProfile')) {
+			$this->WindowsCodeSignAzureArtifactSigningProfile = (string)($sc->WindowsCodeSignAzureArtifactSigningProfile);
+		}
+		if (property_exists($sc, 'WindowsCodeSignAzureArtifactSigningTenantID')) {
+			$this->WindowsCodeSignAzureArtifactSigningTenantID = (string)($sc->WindowsCodeSignAzureArtifactSigningTenantID);
+		}
+		if (property_exists($sc, 'WindowsCodeSignAzureArtifactSigningAppID')) {
+			$this->WindowsCodeSignAzureArtifactSigningAppID = (string)($sc->WindowsCodeSignAzureArtifactSigningAppID);
+		}
+		if (property_exists($sc, 'WindowsCodeSignAzureArtifactSigningAppSecretFormat')) {
+			$this->WindowsCodeSignAzureArtifactSigningAppSecretFormat = (int)($sc->WindowsCodeSignAzureArtifactSigningAppSecretFormat);
+		}
+		if (property_exists($sc, 'WindowsCodeSignAzureArtifactSigningAppSecret')) {
+			$this->WindowsCodeSignAzureArtifactSigningAppSecret = (string)($sc->WindowsCodeSignAzureArtifactSigningAppSecret);
+		}
 		if (property_exists($sc, 'MacOSCodeSign')) {
 			if (is_array($sc->MacOSCodeSign) && count($sc->MacOSCodeSign) === 0) {
 			// Work around edge case in json_decode--json_encode stdClass conversion
@@ -491,6 +665,23 @@ class BrandingOptions {
 			case 'WindowsCodeSignRelicServerURL':
 			case 'WindowsCodeSignRelicKeypairFile':
 			case 'WindowsCodeSignRelicKeyName':
+			case 'WindowsCodeSignAWSRegion':
+			case 'WindowsCodeSignAWSAccessKeyID':
+			case 'WindowsCodeSignAWSSecretAccessKeyFormat':
+			case 'WindowsCodeSignAWSSecretAccessKey':
+			case 'WindowsCodeSignAWSKMSKeyID':
+			case 'WindowsCodeSignAWSCertfile':
+			case 'WindowsCodeSignGCPKMSKeyVersion':
+			case 'WindowsCodeSignGCPServiceAccountKeyFormat':
+			case 'WindowsCodeSignGCPServiceAccountKey':
+			case 'WindowsCodeSignGCPCertfile':
+			case 'WindowsCodeSignAzureArtifactSigningEndpoint':
+			case 'WindowsCodeSignAzureArtifactSigningAccount':
+			case 'WindowsCodeSignAzureArtifactSigningProfile':
+			case 'WindowsCodeSignAzureArtifactSigningTenantID':
+			case 'WindowsCodeSignAzureArtifactSigningAppID':
+			case 'WindowsCodeSignAzureArtifactSigningAppSecretFormat':
+			case 'WindowsCodeSignAzureArtifactSigningAppSecret':
 			case 'MacOSCodeSign':
 			case 'LinuxRpmCodeSign':
 				break;
@@ -604,6 +795,23 @@ class BrandingOptions {
 		$ret["WindowsCodeSignRelicServerURL"] = $this->WindowsCodeSignRelicServerURL;
 		$ret["WindowsCodeSignRelicKeypairFile"] = $this->WindowsCodeSignRelicKeypairFile;
 		$ret["WindowsCodeSignRelicKeyName"] = $this->WindowsCodeSignRelicKeyName;
+		$ret["WindowsCodeSignAWSRegion"] = $this->WindowsCodeSignAWSRegion;
+		$ret["WindowsCodeSignAWSAccessKeyID"] = $this->WindowsCodeSignAWSAccessKeyID;
+		$ret["WindowsCodeSignAWSSecretAccessKeyFormat"] = $this->WindowsCodeSignAWSSecretAccessKeyFormat;
+		$ret["WindowsCodeSignAWSSecretAccessKey"] = $this->WindowsCodeSignAWSSecretAccessKey;
+		$ret["WindowsCodeSignAWSKMSKeyID"] = $this->WindowsCodeSignAWSKMSKeyID;
+		$ret["WindowsCodeSignAWSCertfile"] = $this->WindowsCodeSignAWSCertfile;
+		$ret["WindowsCodeSignGCPKMSKeyVersion"] = $this->WindowsCodeSignGCPKMSKeyVersion;
+		$ret["WindowsCodeSignGCPServiceAccountKeyFormat"] = $this->WindowsCodeSignGCPServiceAccountKeyFormat;
+		$ret["WindowsCodeSignGCPServiceAccountKey"] = $this->WindowsCodeSignGCPServiceAccountKey;
+		$ret["WindowsCodeSignGCPCertfile"] = $this->WindowsCodeSignGCPCertfile;
+		$ret["WindowsCodeSignAzureArtifactSigningEndpoint"] = $this->WindowsCodeSignAzureArtifactSigningEndpoint;
+		$ret["WindowsCodeSignAzureArtifactSigningAccount"] = $this->WindowsCodeSignAzureArtifactSigningAccount;
+		$ret["WindowsCodeSignAzureArtifactSigningProfile"] = $this->WindowsCodeSignAzureArtifactSigningProfile;
+		$ret["WindowsCodeSignAzureArtifactSigningTenantID"] = $this->WindowsCodeSignAzureArtifactSigningTenantID;
+		$ret["WindowsCodeSignAzureArtifactSigningAppID"] = $this->WindowsCodeSignAzureArtifactSigningAppID;
+		$ret["WindowsCodeSignAzureArtifactSigningAppSecretFormat"] = $this->WindowsCodeSignAzureArtifactSigningAppSecretFormat;
+		$ret["WindowsCodeSignAzureArtifactSigningAppSecret"] = $this->WindowsCodeSignAzureArtifactSigningAppSecret;
 		if ( $this->MacOSCodeSign === null ) {
 			$ret["MacOSCodeSign"] = $for_json_encode ? (object)[] : [];
 		} else {

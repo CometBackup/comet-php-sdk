@@ -16,7 +16,7 @@ namespace Comet;
  * You must supply administrator authentication credentials to use this API.
  * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
  * This API requires the Software Build Role to be enabled.
- * This API accepts admin personal API token authentication (AuthType=Token).
+ * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
  * This API requires the Auth Role to be enabled.
  */
 class AdminUpdateCampaignStatusRequest implements \Comet\NetworkRequest {

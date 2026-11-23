@@ -15,7 +15,7 @@ namespace Comet;
  * Returns the effective selection for every account, including per-service rule attribution. This is a pure computation with no device round-trip.
  *
  * You must supply administrator authentication credentials to use this API.
- * This API does not accept admin personal API token authentication (AuthType=Token).
+ * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
  */
 class AdminOffice365EvaluateSelectionRulesRequest implements \Comet\NetworkRequest {
 

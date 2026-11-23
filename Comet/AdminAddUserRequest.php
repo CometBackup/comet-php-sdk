@@ -15,7 +15,7 @@ namespace Comet;
  *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
- * This API accepts admin personal API token authentication (AuthType=Token).
+ * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
  */
 class AdminAddUserRequest implements \Comet\NetworkRequest {
 
@@ -55,6 +55,13 @@ class AdminAddUserRequest implements \Comet\NetworkRequest {
 	protected $TargetOrganization = null;
 
 	/**
+	 * If set to 1, store and keep a data recovery code for the generated user (>= 26.8.10) (optional)
+	 *
+	 * @var int|null
+	 */
+	protected $StoreDataRecoveryCode = null;
+
+	/**
 	 * Construct a new AdminAddUserRequest instance.
 	 *
 	 * @param string $TargetUser New account username (>= 17.2.0)
@@ -62,14 +69,16 @@ class AdminAddUserRequest implements \Comet\NetworkRequest {
 	 * @param int $StoreRecoveryCode If set to 1, store and keep a password recovery code for the generated user (>= 18.3.9) (optional)
 	 * @param int $RequirePasswordChange If set to 1, require to reset password at the first login for the generated user (>= 20.3.4) (optional)
 	 * @param string $TargetOrganization If present, create the user account on behalf of another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.5.0) (optional)
+	 * @param int $StoreDataRecoveryCode If set to 1, store and keep a data recovery code for the generated user (>= 26.8.10) (optional)
 	 */
-	public function __construct(string $TargetUser, string $TargetPassword, int $StoreRecoveryCode = null, int $RequirePasswordChange = null, string $TargetOrganization = null)
+	public function __construct(string $TargetUser, string $TargetPassword, int $StoreRecoveryCode = null, int $RequirePasswordChange = null, string $TargetOrganization = null, int $StoreDataRecoveryCode = null)
 	{
 		$this->TargetUser = $TargetUser;
 		$this->TargetPassword = $TargetPassword;
 		$this->StoreRecoveryCode = $StoreRecoveryCode;
 		$this->RequirePasswordChange = $RequirePasswordChange;
 		$this->TargetOrganization = $TargetOrganization;
+		$this->StoreDataRecoveryCode = $StoreDataRecoveryCode;
 	}
 
 	/**
@@ -110,6 +119,9 @@ class AdminAddUserRequest implements \Comet\NetworkRequest {
 		}
 		if ($this->TargetOrganization !== null) {
 			$ret["TargetOrganization"] = (string)($this->TargetOrganization);
+		}
+		if ($this->StoreDataRecoveryCode !== null) {
+			$ret["StoreDataRecoveryCode"] = (string)($this->StoreDataRecoveryCode);
 		}
 		return $ret;
 	}

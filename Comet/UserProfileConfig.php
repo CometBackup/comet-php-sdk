@@ -240,6 +240,16 @@ class UserProfileConfig {
 	public $PasswordRecovery = "";
 
 	/**
+	 * If this field is empty, the "Allow administrator to restore data" feature is turned off. If this
+	 * field is filled, it contains a key allowing passwordless in-browser restores for this user. In a
+	 * profile update, an empty value leaves the stored key unchanged, and
+	 * RESTORE_DATA_RECOVERY_KEY_DISABLE removes it.
+	 *
+	 * @var string
+	 */
+	public $RestoreDataRecoveryKey = "";
+
+	/**
 	 * Allow login using the password alone. Set this to false if the password alone should not be
 	 * sufficient.
 	 *
@@ -506,6 +516,9 @@ class UserProfileConfig {
 		if (property_exists($sc, 'PasswordRecovery') && !is_null($sc->PasswordRecovery)) {
 			$this->PasswordRecovery = (string)($sc->PasswordRecovery);
 		}
+		if (property_exists($sc, 'RestoreDataRecoveryKey') && !is_null($sc->RestoreDataRecoveryKey)) {
+			$this->RestoreDataRecoveryKey = (string)($sc->RestoreDataRecoveryKey);
+		}
 		if (property_exists($sc, 'AllowPasswordLogin')) {
 			$this->AllowPasswordLogin = (bool)($sc->AllowPasswordLogin);
 		}
@@ -594,6 +607,7 @@ class UserProfileConfig {
 			case 'PasswordFormat':
 			case 'PasswordHash':
 			case 'PasswordRecovery':
+			case 'RestoreDataRecoveryKey':
 			case 'AllowPasswordLogin':
 			case 'AllowPasswordAndTOTPLogin':
 			case 'TOTPKeyEncryptionFormat':
@@ -791,6 +805,7 @@ class UserProfileConfig {
 		$ret["PasswordFormat"] = $this->PasswordFormat;
 		$ret["PasswordHash"] = $this->PasswordHash;
 		$ret["PasswordRecovery"] = $this->PasswordRecovery;
+		$ret["RestoreDataRecoveryKey"] = $this->RestoreDataRecoveryKey;
 		$ret["AllowPasswordLogin"] = $this->AllowPasswordLogin;
 		$ret["AllowPasswordAndTOTPLogin"] = $this->AllowPasswordAndTOTPLogin;
 		$ret["TOTPKeyEncryptionFormat"] = $this->TOTPKeyEncryptionFormat;

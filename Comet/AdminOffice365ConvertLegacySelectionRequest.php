@@ -15,7 +15,7 @@ namespace Comet;
  * This is a pure computation with no device round-trip. The optional Accounts list is used only to enrich the generated rules' display metadata.
  *
  * You must supply administrator authentication credentials to use this API.
- * This API does not accept admin personal API token authentication (AuthType=Token).
+ * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
  */
 class AdminOffice365ConvertLegacySelectionRequest implements \Comet\NetworkRequest {
 

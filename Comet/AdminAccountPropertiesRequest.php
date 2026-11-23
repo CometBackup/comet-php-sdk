@@ -16,7 +16,7 @@ namespace Comet;
  * In Comet 26.8.4 and later, when authenticating with an admin API token, the account's password hash is additionally obscured.
  *
  * You must supply administrator authentication credentials to use this API.
- * This API accepts admin personal API token authentication (AuthType=Token).
+ * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
  */
 class AdminAccountPropertiesRequest implements \Comet\NetworkRequest {
 

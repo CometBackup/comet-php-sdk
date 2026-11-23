@@ -15,7 +15,7 @@ namespace Comet;
  * The returned key-value map is not necessarily ordered. Client-side code should sort the result before display.
  *
  * You must supply administrator authentication credentials to use this API.
- * This API accepts admin personal API token authentication (AuthType=Token).
+ * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
  */
 class AdminMetaStatsRequest implements \Comet\NetworkRequest {
 

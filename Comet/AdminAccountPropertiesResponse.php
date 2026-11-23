@@ -46,6 +46,25 @@ class AdminAccountPropertiesResponse {
 	public $APITokenCreateRequiresPassword = false;
 
 	/**
+	 * True if this account logs in via an external OpenID Connect identity provider (single sign-on).
+	 * The identity provider may enforce its own multi-factor authentication.
+	 *
+	 * @var boolean
+	 * This field is available in Comet 26.11.2 and later.
+	 */
+	public $ExternalSourceIsOIDC = false;
+
+	/**
+	 * True if this account logs in via an external authentication source that is configured to skip
+	 * Comet multi-factor authentication. In that case, the account's TOTP and WebAuthn settings are not
+	 * enforced at login.
+	 *
+	 * @var boolean
+	 * This field is available in Comet 26.11.2 and later.
+	 */
+	public $ExternalSourceSkipsMFA = false;
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see AdminAccountPropertiesResponse::RemoveUnknownProperties() Remove all unknown properties
@@ -87,6 +106,12 @@ class AdminAccountPropertiesResponse {
 		if (property_exists($sc, 'APITokenCreateRequiresPassword')) {
 			$this->APITokenCreateRequiresPassword = (bool)($sc->APITokenCreateRequiresPassword);
 		}
+		if (property_exists($sc, 'ExternalSourceIsOIDC')) {
+			$this->ExternalSourceIsOIDC = (bool)($sc->ExternalSourceIsOIDC);
+		}
+		if (property_exists($sc, 'ExternalSourceSkipsMFA')) {
+			$this->ExternalSourceSkipsMFA = (bool)($sc->ExternalSourceSkipsMFA);
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'OrganizationID':
@@ -94,6 +119,8 @@ class AdminAccountPropertiesResponse {
 			case 'Security':
 			case 'AllowAPITokens':
 			case 'APITokenCreateRequiresPassword':
+			case 'ExternalSourceIsOIDC':
+			case 'ExternalSourceSkipsMFA':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -172,6 +199,8 @@ class AdminAccountPropertiesResponse {
 		}
 		$ret["AllowAPITokens"] = $this->AllowAPITokens;
 		$ret["APITokenCreateRequiresPassword"] = $this->APITokenCreateRequiresPassword;
+		$ret["ExternalSourceIsOIDC"] = $this->ExternalSourceIsOIDC;
+		$ret["ExternalSourceSkipsMFA"] = $this->ExternalSourceSkipsMFA;
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

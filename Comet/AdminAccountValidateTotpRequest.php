@@ -14,7 +14,7 @@ namespace Comet;
  * Validate the TOTP code before turning 2fa(TOTP) on
  *
  * You must supply administrator authentication credentials to use this API.
- * This API does not accept admin personal API token authentication (AuthType=Token).
+ * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
  */
 class AdminAccountValidateTotpRequest implements \Comet\NetworkRequest {
 

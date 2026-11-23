@@ -19,9 +19,9 @@ class ContentMeasurementComponent {
 	/**
 	 * A list of strings describing which groups of snapshots rely on reaching this component of data.
 	 * The strings may take the following formats:
-	 * - source_id/CURRENT - this data is required by the most recent backup job snapshot for the listed
+	 * - CURRENT/source_id - this data is required by the most recent backup job snapshot for the listed
 	 * Protected Item source.
-	 * - source_id/HISTORIC - this data is required by an older backup job snapshot for the listed
+	 * - HISTORIC/source_id - this data is required by an older backup job snapshot for the listed
 	 * Protected Item source.
 	 * - TRUNCATED/* - there are too many separate components to show, and this component represents
 	 * data that is used by some other combination of components. If present, it will be the only entry

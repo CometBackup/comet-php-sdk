@@ -12,11 +12,12 @@ namespace Comet;
 /**
  * Comet Server AdminDispatcherUpdateSoftware API
  * Instruct a live connected device to download a software update
+ * By default the request is queued for delivery and this API returns immediately, without waiting for the device. If WaitForConfirmation is true and the device supports confirming update requests, this API instead waits up to ten seconds for the device to confirm that it has accepted the request, and reports the device's response. A device that does not support it is sent the request without waiting, as if WaitForConfirmation were false.
  *
  * You must supply administrator authentication credentials to use this API.
  * This API requires the Auth Role to be enabled.
  * This API requires the Software Build Role to be enabled.
- * This API accepts admin personal API token authentication (AuthType=Token).
+ * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
  */
 class AdminDispatcherUpdateSoftwareRequest implements \Comet\NetworkRequest {
 
@@ -35,15 +36,24 @@ class AdminDispatcherUpdateSoftwareRequest implements \Comet\NetworkRequest {
 	protected $SelfAddress = null;
 
 	/**
+	 * If true, wait for the device to confirm that it accepted the request (>= 26.11.2) (optional)
+	 *
+	 * @var boolean|null
+	 */
+	protected $WaitForConfirmation = null;
+
+	/**
 	 * Construct a new AdminDispatcherUpdateSoftwareRequest instance.
 	 *
 	 * @param string $TargetID The live connection GUID (>= 17.2.0)
 	 * @param string $SelfAddress The external URL of this server, used to resolve conflicts (>= 19.3.11) (optional)
+	 * @param boolean $WaitForConfirmation If true, wait for the device to confirm that it accepted the request (>= 26.11.2) (optional)
 	 */
-	public function __construct(string $TargetID, string $SelfAddress = null)
+	public function __construct(string $TargetID, string $SelfAddress = null, bool $WaitForConfirmation = null)
 	{
 		$this->TargetID = $TargetID;
 		$this->SelfAddress = $SelfAddress;
+		$this->WaitForConfirmation = $WaitForConfirmation;
 	}
 
 	/**
@@ -77,6 +87,9 @@ class AdminDispatcherUpdateSoftwareRequest implements \Comet\NetworkRequest {
 		$ret["TargetID"] = (string)($this->TargetID);
 		if ($this->SelfAddress !== null) {
 			$ret["SelfAddress"] = (string)($this->SelfAddress);
+		}
+		if ($this->WaitForConfirmation !== null) {
+			$ret["WaitForConfirmation"] = ($this->WaitForConfirmation ? '1' : '0');
 		}
 		return $ret;
 	}

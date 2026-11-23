@@ -110,6 +110,12 @@ class ServerMetaBrandingProperties {
 	public $AdminHideBrandedCloudStorage = false;
 
 	/**
+	 * @var string[]
+	 * This field is available in Comet 26.8.9 and later.
+	 */
+	public $ExperimentalOptions = [];
+
+	/**
 	 * Preserve unknown properties when dealing with future server versions.
 	 *
 	 * @see ServerMetaBrandingProperties::RemoveUnknownProperties() Remove all unknown properties
@@ -185,6 +191,15 @@ class ServerMetaBrandingProperties {
 		if (property_exists($sc, 'AdminHideBrandedCloudStorage')) {
 			$this->AdminHideBrandedCloudStorage = (bool)($sc->AdminHideBrandedCloudStorage);
 		}
+		if (property_exists($sc, 'ExperimentalOptions') && !is_null($sc->ExperimentalOptions)) {
+			$val_2 = [];
+			if ($sc->ExperimentalOptions !== null) {
+				for($i_2 = 0; $i_2 < count($sc->ExperimentalOptions); ++$i_2) {
+					$val_2[] = (string)($sc->ExperimentalOptions[$i_2]);
+				}
+			}
+			$this->ExperimentalOptions = $val_2;
+		}
 		foreach(get_object_vars($sc) as $k => $v) {
 			switch($k) {
 			case 'BrandName':
@@ -203,6 +218,7 @@ class ServerMetaBrandingProperties {
 			case 'CloudStorageName':
 			case 'AdminHidePreBuiltClientOption':
 			case 'AdminHideBrandedCloudStorage':
+			case 'ExperimentalOptions':
 				break;
 			default:
 				$this->__unknown_properties[$k] = $v;
@@ -295,6 +311,14 @@ class ServerMetaBrandingProperties {
 		$ret["CloudStorageName"] = $this->CloudStorageName;
 		$ret["AdminHidePreBuiltClientOption"] = $this->AdminHidePreBuiltClientOption;
 		$ret["AdminHideBrandedCloudStorage"] = $this->AdminHideBrandedCloudStorage;
+		{
+			$c0 = [];
+			for($i0 = 0; $i0 < count($this->ExperimentalOptions); ++$i0) {
+				$val0 = $this->ExperimentalOptions[$i0];
+				$c0[] = $val0;
+			}
+			$ret["ExperimentalOptions"] = $c0;
+		}
 
 		// Reinstate unknown properties from future server versions
 		foreach($this->__unknown_properties as $k => $v) {

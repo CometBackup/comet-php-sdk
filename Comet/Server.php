@@ -121,7 +121,7 @@ class Server {
 	 * In Comet 26.8.4 and later, when authenticating with an admin API token, the account's password hash is additionally obscured.
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @return \Comet\AdminAccountPropertiesResponse 
 	 * @throws \Exception
@@ -138,7 +138,7 @@ class Server {
 	 * The secret is returned as a `data-uri` image of a QR code. The new secret is immediately applied to the current admin account.
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
-	 * This API does not accept admin personal API token authentication (AuthType=Token).
+	 * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @return \Comet\TotpRegeneratedResponse 
 	 * @throws \Exception
@@ -158,7 +158,7 @@ class Server {
 	 * In Comet 24.12.2 and later, this API can change the IPWhitelist field. Prior to this, changes to the IPWhitelist field were ignored.
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
-	 * This API does not accept admin personal API token authentication (AuthType=Token).
+	 * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param \Comet\AdminSecurityOptions $Security Updated account properties
 	 * @return \Comet\APIResponseMessage 
@@ -175,7 +175,7 @@ class Server {
 	 * Validate the TOTP code before turning 2fa(TOTP) on
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
-	 * This API does not accept admin personal API token authentication (AuthType=Token).
+	 * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TOTPCode Six-digit code after scanning barcode image
 	 * @return \Comet\APIResponseMessage 
@@ -193,19 +193,20 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetUser New account username (>= 17.2.0)
 	 * @param string $TargetPassword New account password (>= 17.2.0)
 	 * @param int $StoreRecoveryCode If set to 1, store and keep a password recovery code for the generated user (>= 18.3.9) (optional)
 	 * @param int $RequirePasswordChange If set to 1, require to reset password at the first login for the generated user (>= 20.3.4) (optional)
 	 * @param string $TargetOrganization If present, create the user account on behalf of another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.5.0) (optional)
+	 * @param int $StoreDataRecoveryCode If set to 1, store and keep a data recovery code for the generated user (>= 26.8.10) (optional)
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminAddUser(string $TargetUser, string $TargetPassword, int $StoreRecoveryCode = null, int $RequirePasswordChange = null, string $TargetOrganization = null): \Comet\APIResponseMessage
+	public function AdminAddUser(string $TargetUser, string $TargetPassword, int $StoreRecoveryCode = null, int $RequirePasswordChange = null, string $TargetOrganization = null, int $StoreDataRecoveryCode = null): \Comet\APIResponseMessage
 	{
-		$nr = new \Comet\AdminAddUserRequest($TargetUser, $TargetPassword, $StoreRecoveryCode, $RequirePasswordChange, $TargetOrganization);
+		$nr = new \Comet\AdminAddUserRequest($TargetUser, $TargetPassword, $StoreRecoveryCode, $RequirePasswordChange, $TargetOrganization, $StoreDataRecoveryCode);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminAddUserRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
@@ -216,15 +217,16 @@ class Server {
 	 * You must supply administrator authentication credentials to use this API.
 	 * Access to this API may be prevented on a per-administrator basis.
 	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
-	 * This API does not accept admin personal API token authentication (AuthType=Token).
+	 * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetUser the username of the admin to be deleted
+	 * @param string $TargetOrgID the organization ID of the admin to be deleted. If omitted, defaults to the top-level organization. (>= 26.11.0) (optional)
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminAdminUserDelete(string $TargetUser): \Comet\APIResponseMessage
+	public function AdminAdminUserDelete(string $TargetUser, string $TargetOrgID = null): \Comet\APIResponseMessage
 	{
-		$nr = new \Comet\AdminAdminUserDeleteRequest($TargetUser);
+		$nr = new \Comet\AdminAdminUserDeleteRequest($TargetUser, $TargetOrgID);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminAdminUserDeleteRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
@@ -235,14 +237,15 @@ class Server {
 	 * You must supply administrator authentication credentials to use this API.
 	 * Access to this API may be prevented on a per-administrator basis.
 	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
-	 * This API does not accept admin personal API token authentication (AuthType=Token).
+	 * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
+	 * @param string $TargetOrgID If present, only list the administrators belonging to this organization. Otherwise, administrators from all organizations are listed. (>= 26.11.0) (optional)
 	 * @return \Comet\AllowedAdminUser[] 
 	 * @throws \Exception
 	 */
-	public function AdminAdminUserList(): array
+	public function AdminAdminUserList(string $TargetOrgID = null): array
 	{
-		$nr = new \Comet\AdminAdminUserListRequest();
+		$nr = new \Comet\AdminAdminUserListRequest($TargetOrgID);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminAdminUserListRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
@@ -253,11 +256,11 @@ class Server {
 	 * You must supply administrator authentication credentials to use this API.
 	 * Access to this API may be prevented on a per-administrator basis.
 	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
-	 * This API does not accept admin personal API token authentication (AuthType=Token).
+	 * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetUser the username for this new admin
 	 * @param string $TargetPassword the password for this new admin user
-	 * @param string $TargetOrgID provide the organization ID for this user, it will default to the org of the authenticating user otherwise (optional)
+	 * @param string $TargetOrgID provide the organization ID for this user, it will default to the top-level organization otherwise. (optional)
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
@@ -266,6 +269,33 @@ class Server {
 		$nr = new \Comet\AdminAdminUserNewRequest($TargetUser, $TargetPassword, $TargetOrgID);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminAdminUserNewRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Update another administrator
+	 * This API cannot update your own administrator account. Use the AdminAccountSetProperties API instead.
+	 * The supplied Profile replaces the stored administrator account as-is, with the following exceptions:
+	 * - The Username and OrganizationID fields must either be empty or match the target administrator. This API cannot rename an administrator or move it to another organization.
+	 * - To set a new plaintext password, use a password format of 0 (PASSWORD_FORMAT_PLAINTEXT); it must be at least 8 characters. A password format of 4 (PASSWORD_FORMAT_UNVERIFIABLE) leaves the password unchanged.
+	 * - APITokens may only be removed, or have their Description changed. New tokens must be created by the administrator themselves. Other fields of retained tokens are ignored.
+	 * - IPWhitelist is cleared if the server license does not permit it.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * Access to this API may be prevented on a per-administrator basis.
+	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
+	 * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
+	 *
+	 * @param string $TargetUser the username of the admin to be updated (>= 26.11.0)
+	 * @param \Comet\AllowedAdminUser $Profile the updated administrator account (>= 26.11.0)
+	 * @param string $TargetOrgID the organization ID of the admin to be updated. If omitted, defaults to the top-level organization. (>= 26.11.0) (optional)
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminAdminUserSet(string $TargetUser, \Comet\AllowedAdminUser $Profile, string $TargetOrgID = null): \Comet\APIResponseMessage
+	{
+		$nr = new \Comet\AdminAdminUserSetRequest($TargetUser, $Profile, $TargetOrgID);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminAdminUserSetRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
 
 	/** 
@@ -290,7 +320,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $Subject Bulletin subject line (>= 17.3.5)
 	 * @param string $Content Bulletin message content (>= 17.3.5)
@@ -309,7 +339,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Constellation Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @return \Comet\ConstellationCheckReport 
 	 * @throws \Exception
@@ -326,7 +356,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Constellation Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @return \Comet\ConstellationCheckReport 
 	 * @throws \Exception
@@ -344,7 +374,7 @@ class Server {
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
 	 * This API requires the Constellation Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
@@ -361,7 +391,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Constellation Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @return \Comet\ConstellationStatusAPIResponse 
 	 * @throws \Exception
@@ -377,7 +407,7 @@ class Server {
 	 * Convert IAM Storage Role vault to its underlying S3 type
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetUser The user to receive the new Storage Vault
 	 * @param string $DestinationId The id of the old storage role destination to convert
@@ -396,7 +426,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param \Comet\SearchClause $Query (No description available)
 	 * @return \Comet\CountJobsResponse 
@@ -417,7 +447,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetUser Selected account username
 	 * @param string $TargetPassword Selected account password (>= 20.9.1)
@@ -437,7 +467,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetUser Selected account username
 	 * @param string $SourceID Selected Protected Item GUID
@@ -460,7 +490,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetUser Selected account username (>= 17.2.0)
 	 * @param \Comet\UninstallConfig $UninstallConfig Uninstall software configuration (>= 20.3.5) (optional)
@@ -479,7 +509,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetUser Selected account username
 	 * @return \Comet\APIResponseMessage 
@@ -498,7 +528,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param string $Destination The Storage Vault GUID
@@ -517,7 +547,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param string $DestinationID The Storage Vault GUID
@@ -533,12 +563,31 @@ class Server {
 	}
 
 	/** 
+	 * Instruct a live connected device to discard its stored login password and return to the login screen
+	 * The device keeps its username and server URL, so only the new password needs to be re-entered. Use this after a server-side password change when the device should not be given the new password automatically. Devices older than 26.11.3 cannot retain the login details and receive the force-login behavior instead, discarding all stored credentials.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
+	 *
+	 * @param string $TargetID The live connection GUID
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherClearLoginPassword(string $TargetID): \Comet\APIResponseMessage
+	{
+		$nr = new \Comet\AdminDispatcherClearLoginPasswordRequest($TargetID);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherClearLoginPasswordRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Instruct a live connected device to deeply verify Storage Vault content
 	 * This command is understood by Comet Backup 18.8.2 and newer.
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param string $Destination The Storage Vault GUID
@@ -557,7 +606,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param string $DestinationID The Storage Vault GUID
@@ -578,7 +627,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param string $DestinationID The Storage Vault GUID
@@ -599,7 +648,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID (>= 17.2.0)
 	 * @return \Comet\APIResponseMessage 
@@ -618,7 +667,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param string $Snapshot where the email belongs to
@@ -640,7 +689,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @return \Comet\APIResponseMessage 
@@ -659,7 +708,7 @@ class Server {
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
 	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $OrganizationID Target organization
 	 * @return \Comet\OrganizationLoginURLResponse 
@@ -678,7 +727,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param string $ImportSourceID The selected import source, as found by the AdminDispatcherRequestImportSources API
@@ -698,7 +747,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID (>= 17.2.0)
 	 * @return \Comet\APIResponseMessage 
@@ -716,7 +765,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $UserNameFilter User name filter string (>= 22.6.5) (optional)
 	 * @return array<string, \Comet\LiveUserConnection> 
@@ -735,7 +784,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param \Comet\Office365Credential $Credentials The Office365 account credential
@@ -754,7 +803,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param \Comet\DestinationLocation $ExtraData The destination location settings
@@ -774,7 +823,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID (>= 17.2.0)
 	 * @return \Comet\APIResponseMessage 
@@ -793,7 +842,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param string $EmailAddress The email address of the Azure AD administrator
@@ -813,7 +862,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param string $Continuation The ID returned from the AdminDispatcherRegisterOfficeApplicationBegin endpoint
@@ -833,7 +882,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param string $Destination The Storage Vault GUID
@@ -852,7 +901,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @return \Comet\BrowseDiskDrivesResponse 
@@ -870,7 +919,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @return \Comet\BrowseEDBResponse 
@@ -888,7 +937,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @return \Comet\BrowseHVResponse 
@@ -907,7 +956,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param \Comet\MongoDBConnection $Credentials The Mongo database authentication settings
@@ -927,7 +976,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param \Comet\MSSQLConnection $Credentials The MSSQL database authentication settings
@@ -947,7 +996,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param \Comet\MySQLConnection $Credentials The MySQL database authentication settings
@@ -962,11 +1011,31 @@ class Server {
 	}
 
 	/** 
+	 * Request a list of databases in a PostgreSQL server
+	 * The remote device must have given consent for an MSP to browse their files.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
+	 *
+	 * @param string $TargetID The live connection GUID (>= 26.11.0)
+	 * @param \Comet\PostgreSQLConnection $Credentials The PostgreSQL database authentication settings (>= 26.11.0)
+	 * @return \Comet\BrowseSQLServerResponse 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherRequestBrowsePostgresql(string $TargetID, \Comet\PostgreSQLConnection $Credentials): \Comet\BrowseSQLServerResponse
+	{
+		$nr = new \Comet\AdminDispatcherRequestBrowsePostgresqlRequest($TargetID, $Credentials);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherRequestBrowsePostgresqlRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Request a list of Proxmox virtual machines and containers
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param \Comet\ProxmoxConnection $Credentials The Proxmox connection settings
@@ -985,7 +1054,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param \Comet\SSHConnection $Credentials The SSH connection settings
@@ -1004,7 +1073,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param \Comet\SSHConnection $Credentials The SSH connection settings
@@ -1025,7 +1094,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param \Comet\VMwareConnection $Credentials The VMware vSphere connection settings
@@ -1045,7 +1114,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param \Comet\VMwareConnection $Credentials The VMware vSphere connection settings
@@ -1065,7 +1134,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param \Comet\VMwareConnection $Credentials The VMware vSphere connection settings
@@ -1086,7 +1155,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param \Comet\VMwareConnection $Credentials The VMware vSphere connection settings
@@ -1107,7 +1176,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param \Comet\VMwareConnection $Credentials The VMware vSphere connection settings
@@ -1127,7 +1196,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @return \Comet\BrowseVSSResponse 
@@ -1146,7 +1215,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param string $Path Browse objects inside this path. If empty or not present, returns the top-level device paths (optional)
@@ -1165,7 +1234,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @return \Comet\DispatcherAdminSourcesResponse 
@@ -1185,7 +1254,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param \Comet\Office365Credential $Credentials The Office365 account credential
@@ -1205,7 +1274,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param \Comet\Office365Credential $Credentials The Office365 account credential
@@ -1226,7 +1295,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param string $Destination The Storage Vault ID
@@ -1248,7 +1317,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param string $Destination The Storage Vault ID
@@ -1267,7 +1336,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param string $Destination The Storage Vault ID
@@ -1287,7 +1356,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID (>= 17.2.0)
 	 * @param string $Source The Protected Item GUID (>= 17.2.0)
@@ -1309,7 +1378,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param string $Source The Protected Item ID
@@ -1335,7 +1404,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param string $DestinationID The Storage Vault GUID
@@ -1356,7 +1425,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param \Comet\SSHConnection $Credentials The SSH connection settings
@@ -1375,7 +1444,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param \Comet\WinSMBAuth $Wsa The target credentials to test
@@ -1394,7 +1463,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param boolean $RemoveConfigFile Determine if the config.dat file will be deleted at the same time
@@ -1415,7 +1484,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param string $Destination The Storage Vault GUID
@@ -1436,7 +1505,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param string $NewPassword The new password of this user
@@ -1456,7 +1525,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID
 	 * @param string $NewURL The new external URL of this server
@@ -1473,24 +1542,26 @@ class Server {
 
 	/** 
 	 * Instruct a live connected device to download a software update
+	 * By default the request is queued for delivery and this API returns immediately, without waiting for the device. If WaitForConfirmation is true and the device supports confirming update requests, this API instead waits up to ten seconds for the device to confirm that it has accepted the request, and reports the device's response. A device that does not support it is sent the request without waiting, as if WaitForConfirmation were false.
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
 	 * This API requires the Software Build Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetID The live connection GUID (>= 17.2.0)
 	 * @param string $SelfAddress The external URL of this server, used to resolve conflicts (>= 19.3.11) (optional)
+	 * @param boolean $WaitForConfirmation If true, wait for the device to confirm that it accepted the request (>= 26.11.2) (optional)
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminDispatcherUpdateSoftware(string $TargetID, string $SelfAddress = null): \Comet\APIResponseMessage
+	public function AdminDispatcherUpdateSoftware(string $TargetID, string $SelfAddress = null, bool $WaitForConfirmation = null): \Comet\APIResponseMessage
 	{
 		if ($SelfAddress === null) {
 			$SelfAddress = $this->server_url;
 		}
 
-		$nr = new \Comet\AdminDispatcherUpdateSoftwareRequest($TargetID, $SelfAddress);
+		$nr = new \Comet\AdminDispatcherUpdateSoftwareRequest($TargetID, $SelfAddress, $WaitForConfirmation);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminDispatcherUpdateSoftwareRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
@@ -1499,7 +1570,7 @@ class Server {
 	 * Delete an external admin authentication source
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
-	 * This API does not accept admin personal API token authentication (AuthType=Token).
+	 * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $SourceID (No description available)
 	 * @return \Comet\APIResponseMessage 
@@ -1516,7 +1587,7 @@ class Server {
 	 * Get a map of all external admin authentication sources
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
-	 * This API does not accept admin personal API token authentication (AuthType=Token).
+	 * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @return array<string, \Comet\ExternalAuthenticationSource> 
 	 * @throws \Exception
@@ -1532,7 +1603,7 @@ class Server {
 	 * Create an external admin authentication source
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
-	 * This API does not accept admin personal API token authentication (AuthType=Token).
+	 * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param \Comet\ExternalAuthenticationSource $Source (No description available)
 	 * @param string $SourceID (No description available) (optional)
@@ -1551,7 +1622,7 @@ class Server {
 	 * sources for the tenant; none will be preserved.
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
-	 * This API does not accept admin personal API token authentication (AuthType=Token).
+	 * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param array<string, \Comet\ExternalAuthenticationSource> $Sources (No description available)
 	 * @return \Comet\APIResponseMessage 
@@ -1569,7 +1640,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $JobID Selected job ID (>= 17.2.0)
 	 * @return string 
@@ -1587,7 +1658,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $JobID Selected job ID
 	 * @param string $MinSeverity Return only job log entries with equal or higher severity (>= 23.3.1) (optional)
@@ -1607,7 +1678,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $JobID Selected job ID (>= 17.2.0)
 	 * @return \Comet\BackupJobDetail 
@@ -1626,7 +1697,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @return \Comet\BackupJobDetail[] 
 	 * @throws \Exception
@@ -1644,7 +1715,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param \Comet\SearchClause $Query (No description available)
 	 * @return \Comet\BackupJobDetail[] 
@@ -1662,7 +1733,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetUser Selected account username
 	 * @param string $SourceID Selected Protected Item GUID
@@ -1683,7 +1754,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetUser Selected account username (>= 17.2.0)
 	 * @return \Comet\GetProfileAndHashResponseMessage 
@@ -1702,7 +1773,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $DeviceID The live connection Device GUID
 	 * @return \Comet\APIResponseMessage 
@@ -1720,7 +1791,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $DeviceID The live connection Device GUID
 	 * @param string $TargetUser Selected account username
@@ -1740,7 +1811,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @return array<string, \Comet\RegistrationLobbyConnection> 
 	 * @throws \Exception
@@ -1759,7 +1830,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetUser Username
 	 * @param string $JobID Job ID
@@ -1781,7 +1852,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetUser Username
 	 * @param string $JobID Job ID
@@ -1800,7 +1871,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @return string[] 
 	 * @throws \Exception
@@ -1817,7 +1888,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @return array<string, \Comet\UserProfileConfig> 
 	 * @throws \Exception
@@ -1834,7 +1905,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * Access to this API may be prevented on a per-administrator basis.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @return \Comet\ServerConfigOptionsBrandingFragment 
 	 * @throws \Exception
@@ -1852,7 +1923,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * Access to this API may be prevented on a per-administrator basis.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param \Comet\BrandingOptions $BrandingConfig Updated configuration content
 	 * @return \Comet\APIResponseMessage 
@@ -1870,7 +1941,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * Access to this API may be prevented on a per-administrator basis.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @return \Comet\ServerConfigOptionsSoftwareBuildRoleFragment 
 	 * @throws \Exception
@@ -1887,7 +1958,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * Access to this API may be prevented on a per-administrator basis.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param \Comet\SoftwareBuildRoleOptions $SoftwareBuildRoleConfig Updated configuration content
 	 * @return \Comet\APIResponseMessage 
@@ -1905,7 +1976,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Constellation Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @return \Comet\ConstellationRoleOptions 
 	 * @throws \Exception
@@ -1922,7 +1993,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Constellation Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param \Comet\ConstellationRoleOptions $ConstellationRoleOptions Constellation role options to set
 	 * @return \Comet\APIResponseMessage 
@@ -1940,7 +2011,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * Access to this API may be prevented on a per-administrator basis.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @return \Comet\EmailOptions 
 	 * @throws \Exception
@@ -1953,11 +2024,32 @@ class Server {
 	}
 
 	/** 
+	 * Exchange an OAuth 2.0 authorization code for an encrypted SMTP refresh token
+	 * The web interface calls this after the mailbox user grants consent. The response is the supplied SMTPOAuth with the refresh token added and secrets encrypted; store it in EmailOptions.SMTPOAuth and save it with the AdminMetaEmailOptionsSet API.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * Access to this API may be prevented on a per-administrator basis.
+	 * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
+	 *
+	 * @param \Comet\SMTPOAuthOptions $SMTPOAuth The app registration that requested the authorization code. Flow must be SMTP_OAUTH_FLOW_AUTHORIZATION_CODE. The RefreshToken field is ignored. (>= 26.11.0)
+	 * @param string $Code The authorization code returned to the redirect URI (>= 26.11.0)
+	 * @param string $RedirectURI The redirect URI used in the authorization request (>= 26.11.0)
+	 * @return \Comet\SMTPOAuthOptions 
+	 * @throws \Exception
+	 */
+	public function AdminMetaEmailOptionsOauthCallback(\Comet\SMTPOAuthOptions $SMTPOAuth, string $Code, string $RedirectURI): \Comet\SMTPOAuthOptions
+	{
+		$nr = new \Comet\AdminMetaEmailOptionsOauthCallbackRequest($SMTPOAuth, $Code, $RedirectURI);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminMetaEmailOptionsOauthCallbackRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Set the email options
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * Access to this API may be prevented on a per-administrator basis.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param \Comet\EmailOptions $EmailOptions The replacement email reporting options.
 	 * @return \Comet\APIResponseMessage 
@@ -1975,7 +2067,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @return int[] 
 	 * @throws \Exception
@@ -1991,7 +2083,7 @@ class Server {
 	 * Get the server PSA configuration
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @return \Comet\PSAConfig[] 
 	 * @throws \Exception
@@ -2007,7 +2099,7 @@ class Server {
 	 * Update the server PSA configuration
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param \Comet\PSAConfig[] $PSAConfigList The replacement PSA configuration list
 	 * @return \Comet\APIResponseMessage 
@@ -2026,7 +2118,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
@@ -2043,7 +2135,7 @@ class Server {
 	 * The frontend should store the returned token on the NinjaOneConfig and persist it via the normal PSA config save flow.
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $Code The authorization code from NinjaOne
 	 * @param string $RedirectURI The callback URI used in the authorization request
@@ -2065,7 +2157,7 @@ class Server {
 	 * Used to populate the NinjaOne Client ID dropdown in the admin UI.
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param \Comet\PSAConfig $PSAConfig The PSA configuration containing NinjaOne credentials
 	 * @return \Comet\NinjaOneOrganization[] 
@@ -2085,7 +2177,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param int $Log A log day, selected from the options returned by the Get Log Files API (>= 17.2.0)
 	 * @return string 
@@ -2105,7 +2197,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param int[] $Logs An array of log days, selected from the options returned by the Get Log Files API
 	 * @return string 
@@ -2123,7 +2215,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * Access to this API may be prevented on a per-administrator basis.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @return \Comet\RemoteStorageOption[] 
 	 * @throws \Exception
@@ -2140,7 +2232,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * Access to this API may be prevented on a per-administrator basis.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param \Comet\RemoteStorageOption[] $RemoteStorageOptions Updated configuration content
 	 * @param string $ReplacementAutoVaultID Replacement Storage Template ID for auto Storage Vault configurations that use deleted Storage Templates (>= 24.12.0) (optional)
@@ -2159,7 +2251,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * Access to this API may be prevented on a per-administrator basis.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param \Comet\RemoteStorageOption $TemplateOptions Storage Template Vault Options
 	 * @return \Comet\APIResponseMessage 
@@ -2181,7 +2273,7 @@ class Server {
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
 	 * Access to this API may be prevented on a per-administrator basis.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
@@ -2199,7 +2291,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * Access to this API may be prevented on a per-administrator basis.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param \Comet\EmailOptions $EmailOptions Updated configuration content
 	 * @param string $Recipient Target email address to send test email
@@ -2219,7 +2311,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * Access to this API may be prevented on a per-administrator basis.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param \Comet\EmailReportingOption $EmailReportingOption Test email reporting option for sending
 	 * @param string $TargetOrganization If present, Testing email with a target organization. Only allowed for top-level admins. (>= 24.3.0) (optional)
@@ -2238,7 +2330,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * Access to this API may be prevented on a per-administrator basis.
-	 * This API does not accept admin personal API token authentication (AuthType=Token).
+	 * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
 	 *
 	 * @return \Comet\ServerConfigOptions 
@@ -2252,12 +2344,52 @@ class Server {
 	}
 
 	/** 
+	 * Get server configuration (atomic)
+	 * The resulting hash parameter can be passed to the AdminMetaServerConfigSet API, to atomically ensure that no changes occur between get/set operations.
+	 * The hash format is not publicly documented and may change in a future server version. Use server APIs to retrieve current hash values.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * Access to this API may be prevented on a per-administrator basis.
+	 * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
+	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
+	 *
+	 * @return \Comet\ServerConfigOptionsAndHashResponse 
+	 * @throws \Exception
+	 */
+	public function AdminMetaServerConfigGetAndHash(): \Comet\ServerConfigOptionsAndHashResponse
+	{
+		$nr = new \Comet\AdminMetaServerConfigGetAndHashRequest();
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminMetaServerConfigGetAndHashRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Get server configuration (hash)
+	 * The hash can be used to determine if the server configuration has changed.
+	 * The hash format is not publicly documented and may change in a future server version. Use server APIs to retrieve current hash values.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * Access to this API may be prevented on a per-administrator basis.
+	 * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
+	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
+	 *
+	 * @return \Comet\ServerConfigOptionsHashResponse 
+	 * @throws \Exception
+	 */
+	public function AdminMetaServerConfigGetHash(): \Comet\ServerConfigOptionsHashResponse
+	{
+		$nr = new \Comet\AdminMetaServerConfigGetHashRequest();
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminMetaServerConfigGetHashRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * List the available network interfaces on the PC running Comet Server
 	 * Any IPv6 addresses are listed in compressed form without square-brackets.
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * Access to this API may be prevented on a per-administrator basis.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
 	 *
 	 * @return string[] 
@@ -2278,16 +2410,17 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * Access to this API may be prevented on a per-administrator basis.
-	 * This API does not accept admin personal API token authentication (AuthType=Token).
+	 * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
 	 *
 	 * @param \Comet\ServerConfigOptions $Config Updated configuration content (>= 17.3.8)
+	 * @param string $RequireHash If present, the change is only applied if the server configuration is unchanged since this hash was retrieved from the AdminMetaServerConfigGetAndHash API. Otherwise, the change is rejected with status 409 and the server does not restart. (>= 26.11.0) (optional)
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
-	public function AdminMetaServerConfigSet(\Comet\ServerConfigOptions $Config): \Comet\APIResponseMessage
+	public function AdminMetaServerConfigSet(\Comet\ServerConfigOptions $Config, string $RequireHash = null): \Comet\APIResponseMessage
 	{
-		$nr = new \Comet\AdminMetaServerConfigSetRequest($Config);
+		$nr = new \Comet\AdminMetaServerConfigSetRequest($Config, $RequireHash);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminMetaServerConfigSetRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
@@ -2301,7 +2434,7 @@ class Server {
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
 	 * Access to this API may be prevented on a per-administrator basis.
-	 * This API does not accept admin personal API token authentication (AuthType=Token).
+	 * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
@@ -2317,7 +2450,7 @@ class Server {
 	 * Get software update news from the software provider
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @return \Comet\SoftwareUpdateNewsResponse 
 	 * @throws \Exception
@@ -2334,7 +2467,7 @@ class Server {
 	 * The returned key-value map is not necessarily ordered. Client-side code should sort the result before display.
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param boolean $Simple Remove redundant statistics (>= 18.9.1)
 	 * @return \Comet\StatResult[] 
@@ -2352,7 +2485,7 @@ class Server {
 	 * Retrieve the version number and basic properties about the server.
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @return \Comet\ServerMetaVersionInfo 
 	 * @throws \Exception
@@ -2369,7 +2502,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * Access to this API may be prevented on a per-administrator basis.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @return array<string, \Comet\WebhookOption> 
 	 * @throws \Exception
@@ -2387,7 +2520,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * Access to this API may be prevented on a per-administrator basis.
-	 * This API does not accept admin personal API token authentication (AuthType=Token).
+	 * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param array<string, \Comet\WebhookOption> $WebhookOptions The replacement webhook target options. (>= 20.6.8)
 	 * @return \Comet\APIResponseMessage 
@@ -2405,7 +2538,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @return array<string, \Comet\NewsEntry> 
 	 * @throws \Exception
@@ -2422,7 +2555,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $NewsItem Selected news item GUID (>= 17.2.0)
 	 * @return \Comet\APIResponseMessage 
@@ -2440,7 +2573,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $NewsContent Content of news item (>= 17.2.0)
 	 * @return \Comet\APIResponseMessage 
@@ -2458,7 +2591,7 @@ class Server {
 	 * This is a pure computation with no device round-trip. The optional Accounts list is used only to enrich the generated rules' display metadata.
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
-	 * This API does not accept admin personal API token authentication (AuthType=Token).
+	 * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param \Comet\Office365CustomSettingV2 $Selection The legacy selection to convert
 	 * @param \Comet\Office365MixedVirtualAccount[] $Accounts The organization's account list, for display-name enrichment (optional)
@@ -2477,7 +2610,7 @@ class Server {
 	 * Returns the effective selection for every account, including per-service rule attribution. This is a pure computation with no device round-trip.
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
-	 * This API does not accept admin personal API token authentication (AuthType=Token).
+	 * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param \Comet\Office365SelectionRule[] $Rules The ordered rule list to evaluate
 	 * @param \Comet\Office365MixedVirtualAccount[] $Accounts The organization's account list
@@ -2498,7 +2631,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $OrganizationID (No description available) (optional)
 	 * @param \Comet\UninstallConfig $UninstallConfig Uninstall software configuration (optional)
@@ -2517,7 +2650,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
-	 * This API does not accept admin personal API token authentication (AuthType=Token).
+	 * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param \Comet\SelfBackupExportOptions $Options The export config options
 	 * @return \Comet\APIResponseMessage 
@@ -2535,7 +2668,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @return array<string, \Comet\Organization> 
 	 * @throws \Exception
@@ -2554,7 +2687,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $OrganizationID (No description available) (optional)
 	 * @param \Comet\Organization $Organization (No description available) (optional)
@@ -2573,7 +2706,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $PolicyID The policy ID to update or create
 	 * @return \Comet\APIResponseMessage 
@@ -2592,7 +2725,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $PolicyID The policy ID to retrieve
 	 * @return \Comet\GetGroupPolicyResponse 
@@ -2611,7 +2744,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetOrganization If present, list the policies belonging to another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.5.0) (optional)
 	 * @return array<string, string> 
@@ -2630,7 +2763,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetOrganization If present, list the policies belonging to another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.5.0) (optional)
 	 * @return array<string, \Comet\GroupPolicy> 
@@ -2648,7 +2781,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param \Comet\GroupPolicy $Policy The policy data
 	 * @return \Comet\CreateGroupPolicyResponse 
@@ -2668,7 +2801,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $PolicyID The policy ID to update or create
 	 * @param \Comet\GroupPolicy $Policy The policy data
@@ -2689,7 +2822,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetUser Selected account username
 	 * @param \Comet\EmailReportConfig $EmailReportConfig Email report configuration to preview
@@ -2709,7 +2842,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @return \Comet\ReplicatorStateAPIResponse[] 
 	 * @throws \Exception
@@ -2729,7 +2862,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetUser The user to receive the new Storage Vault
 	 * @param string $StorageProvider ID for the storage template destination
@@ -2755,7 +2888,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetOrganization If present, list the storage template options belonging to another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.5.0) (optional)
 	 * @return array<string, string> 
@@ -2774,7 +2907,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetUser Selected account username
 	 * @param string $NewPassword New account password
@@ -2795,7 +2928,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetUser Selected account username
 	 * @param string $TargetDevice Selected Device ID
@@ -2814,7 +2947,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
@@ -2831,7 +2964,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetUser Selected account username
 	 * @param string $SourceID Selected Protected Item GUID
@@ -2853,7 +2986,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetUser Selected account username (>= 17.2.0)
 	 * @param \Comet\UserProfileConfig $ProfileData Modified user profile (>= 17.2.0)
@@ -2875,7 +3008,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetUser Selected account username (>= 17.2.0)
 	 * @param \Comet\UserProfileConfig $ProfileData Modified user profile (>= 17.2.0)
@@ -2896,7 +3029,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $SharedStorageQuotaID (No description available)
 	 * @return \Comet\APIResponseMessage 
@@ -2914,7 +3047,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $SharedStorageQuotaID (No description available)
 	 * @return \Comet\GetSharedStorageQuotaResponse 
@@ -2932,7 +3065,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @return \Comet\ListSharedStorageQuotaResponse 
 	 * @throws \Exception
@@ -2949,7 +3082,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $SharedStorageQuotaID (No description available)
 	 * @param \Comet\SharedStorageQuota $SharedStorageQuota (No description available)
@@ -2970,7 +3103,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Storage Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $BucketID Bucket ID
 	 * @param int $AfterTimestamp Allow a stale size measurement if it is at least as new as the supplied Unix timestamp. Timestamps in the future may produce a result clamped down to the Comet Server's current time. If not present, the size measurement may be arbitrarily stale. (optional)
@@ -2990,7 +3123,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Storage Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $BucketID Selected bucket name (>= 17.2.0)
 	 * @return \Comet\APIResponseMessage 
@@ -3009,7 +3142,7 @@ class Server {
 	 * You must supply administrator authentication credentials to use this API.
 	 * Access to this API may be prevented on a per-administrator basis.
 	 * This API requires the Storage Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
 	 *
 	 * @param string $BucketID (This parameter is not used) (optional)
@@ -3028,7 +3161,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Storage Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @return array<string, \Comet\BucketProperties> 
 	 * @throws \Exception
@@ -3045,7 +3178,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * Access to this API may be prevented on a per-administrator basis.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
 	 *
 	 * @param \Comet\DestinationLocation $ExtraData The destination location settings
@@ -3066,7 +3199,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Storage Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $SetBucketValue Bucket ID (>= 17.2.0) (optional)
 	 * @param string $SetKeyHashFormat Bucket key hashing format (>= 17.2.0) (optional)
@@ -3088,7 +3221,7 @@ class Server {
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
 	 * This API requires the Software Build Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 * This API requires the Auth Role to be enabled.
 	 *
 	 * @param \Comet\UpdateCampaignOptions $Options Configure targets for the software update campaign
@@ -3108,7 +3241,7 @@ class Server {
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
 	 * This API requires the Software Build Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 * This API requires the Auth Role to be enabled.
 	 *
 	 * @return \Comet\UpdateCampaignStatus 
@@ -3126,7 +3259,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $GroupID The user group ID to delete
 	 * @return \Comet\APIResponseMessage 
@@ -3144,7 +3277,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $GroupID The user group ID to retrieve
 	 * @param boolean $IncludeUsers If present, includes the users array in the response. (optional)
@@ -3164,7 +3297,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetOrganization If present, list the user groups belonging to another organization. Only allowed for administrator accounts in the top-level organization. (optional)
 	 * @return array<string, string> 
@@ -3183,7 +3316,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetOrganization If present, list the user groups belonging to the specified organization. Only allowed for administrator accounts in the top-level organization. (optional)
 	 * @return array<string, \Comet\UserGroup> 
@@ -3201,7 +3334,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $Name this is the name of the group.
 	 * @param string $TargetOrganization If present, list the policies belonging to another organization. Only allowed for administrator accounts in the top-level organization. (optional)
@@ -3220,7 +3353,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $GroupID The user group ID to update or create
 	 * @param \Comet\UserGroup $Group The user group data
@@ -3241,7 +3374,7 @@ class Server {
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
 	 * This API requires the Auth Role to be enabled.
-	 * This API accepts admin personal API token authentication (AuthType=Token).
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $GroupID The user group ID to update
 	 * @param string[] $Users An array of usernames.

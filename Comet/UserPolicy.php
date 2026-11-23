@@ -109,6 +109,11 @@ class UserPolicy {
 	/**
 	 * @var int
 	 */
+	public $ModeAdminRestoreData = 0;
+
+	/**
+	 * @var int
+	 */
 	public $ModeRequireUserResetPassword = 0;
 
 	/**
@@ -314,6 +319,9 @@ class UserPolicy {
 		if (property_exists($sc, 'ModeAdminViewFilenames') && !is_null($sc->ModeAdminViewFilenames)) {
 			$this->ModeAdminViewFilenames = (int)($sc->ModeAdminViewFilenames);
 		}
+		if (property_exists($sc, 'ModeAdminRestoreData') && !is_null($sc->ModeAdminRestoreData)) {
+			$this->ModeAdminRestoreData = (int)($sc->ModeAdminRestoreData);
+		}
 		if (property_exists($sc, 'ModeRequireUserResetPassword') && !is_null($sc->ModeRequireUserResetPassword)) {
 			$this->ModeRequireUserResetPassword = (int)($sc->ModeRequireUserResetPassword);
 		}
@@ -463,6 +471,7 @@ class UserPolicy {
 			case 'ModeLastJobFailDoRetryCount':
 			case 'ModeAdminResetPassword':
 			case 'ModeAdminViewFilenames':
+			case 'ModeAdminRestoreData':
 			case 'ModeRequireUserResetPassword':
 			case 'PreventDeleteSingleSnapshots':
 			case 'PreventChangeAccountPassword':
@@ -588,6 +597,7 @@ class UserPolicy {
 		$ret["ModeLastJobFailDoRetryCount"] = $this->ModeLastJobFailDoRetryCount;
 		$ret["ModeAdminResetPassword"] = $this->ModeAdminResetPassword;
 		$ret["ModeAdminViewFilenames"] = $this->ModeAdminViewFilenames;
+		$ret["ModeAdminRestoreData"] = $this->ModeAdminRestoreData;
 		$ret["ModeRequireUserResetPassword"] = $this->ModeRequireUserResetPassword;
 		$ret["PreventDeleteSingleSnapshots"] = $this->PreventDeleteSingleSnapshots;
 		$ret["PreventChangeAccountPassword"] = $this->PreventChangeAccountPassword;
