@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 2026-11-25 v5.1.0
+
+- Based on Comet 26.11.3
+- Add admin API token authentication (requires Comet Server 26.8.3 or later)
+- An error-shaped response with a Status of 200–299 is now success, and anything outside that range is an error. This stops Ruby raising on 2xx results like 204, and lets Go and PHP report 1xx/3xx errors.
+- Corrected (>= x.y.z) version annotations for the admin-user and RequireHash parameters
+
 ## 2026-11-23 v5.0.0
 
 - Based on Comet 26.11.3-rc
