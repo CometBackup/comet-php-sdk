@@ -21,7 +21,7 @@ namespace Comet;
 class AdminAdminUserListRequest implements \Comet\NetworkRequest {
 
 	/**
-	 * If present, only list the administrators belonging to this organization. Otherwise, administrators from all organizations are listed. (>= 26.11.0) (optional)
+	 * If present, only list the administrators belonging to this organization. Otherwise, administrators from all organizations are listed. (>= 26.10.2) (optional)
 	 *
 	 * @var string|null
 	 */
@@ -30,7 +30,7 @@ class AdminAdminUserListRequest implements \Comet\NetworkRequest {
 	/**
 	 * Construct a new AdminAdminUserListRequest instance.
 	 *
-	 * @param string $TargetOrgID If present, only list the administrators belonging to this organization. Otherwise, administrators from all organizations are listed. (>= 26.11.0) (optional)
+	 * @param string $TargetOrgID If present, only list the administrators belonging to this organization. Otherwise, administrators from all organizations are listed. (>= 26.10.2) (optional)
 	 */
 	public function __construct(string $TargetOrgID = null)
 	{
@@ -97,7 +97,7 @@ class AdminAdminUserListRequest implements \Comet\NetworkRequest {
 		$isCARMDerivedType = (($decoded instanceof \stdClass) && property_exists($decoded, 'Status') && property_exists($decoded, 'Message'));
 		if ($isCARMDerivedType) {
 			$carm = \Comet\APIResponseMessage::createFromStdclass($decoded);
-			if ($carm->Status >= 400) {
+			if ($carm->Status < 200 || $carm->Status > 299) {
 				throw new \Exception("Error " . $carm->Status . ": " . $carm->Message, $carm->Status);
 			}
 		}

@@ -21,7 +21,7 @@ namespace Comet;
 class AdminDispatcherClearLoginPasswordRequest implements \Comet\NetworkRequest {
 
 	/**
-	 * The live connection GUID
+	 * The live connection GUID (>= 26.11.3)
 	 *
 	 * @var string
 	 */
@@ -30,7 +30,7 @@ class AdminDispatcherClearLoginPasswordRequest implements \Comet\NetworkRequest 
 	/**
 	 * Construct a new AdminDispatcherClearLoginPasswordRequest instance.
 	 *
-	 * @param string $TargetID The live connection GUID
+	 * @param string $TargetID The live connection GUID (>= 26.11.3)
 	 */
 	public function __construct(string $TargetID)
 	{
@@ -95,7 +95,7 @@ class AdminDispatcherClearLoginPasswordRequest implements \Comet\NetworkRequest 
 		$isCARMDerivedType = (($decoded instanceof \stdClass) && property_exists($decoded, 'Status') && property_exists($decoded, 'Message'));
 		if ($isCARMDerivedType) {
 			$carm = \Comet\APIResponseMessage::createFromStdclass($decoded);
-			if ($carm->Status >= 400) {
+			if ($carm->Status < 200 || $carm->Status > 299) {
 				throw new \Exception("Error " . $carm->Status . ": " . $carm->Message, $carm->Status);
 			}
 		}

@@ -134,7 +134,7 @@ class AdminMetaPsaNinjaoneAuthCallbackRequest implements \Comet\NetworkRequest {
 		$isCARMDerivedType = (($decoded instanceof \stdClass) && property_exists($decoded, 'Status') && property_exists($decoded, 'Message'));
 		if ($isCARMDerivedType) {
 			$carm = \Comet\APIResponseMessage::createFromStdclass($decoded);
-			if ($carm->Status >= 400) {
+			if ($carm->Status < 200 || $carm->Status > 299) {
 				throw new \Exception("Error " . $carm->Status . ": " . $carm->Message, $carm->Status);
 			}
 		}

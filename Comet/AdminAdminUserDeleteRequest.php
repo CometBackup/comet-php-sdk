@@ -28,7 +28,7 @@ class AdminAdminUserDeleteRequest implements \Comet\NetworkRequest {
 	protected $TargetUser = null;
 
 	/**
-	 * the organization ID of the admin to be deleted. If omitted, defaults to the top-level organization. (>= 26.11.0) (optional)
+	 * the organization ID of the admin to be deleted. If omitted, defaults to the top-level organization. (>= 26.10.2) (optional)
 	 *
 	 * @var string|null
 	 */
@@ -38,7 +38,7 @@ class AdminAdminUserDeleteRequest implements \Comet\NetworkRequest {
 	 * Construct a new AdminAdminUserDeleteRequest instance.
 	 *
 	 * @param string $TargetUser the username of the admin to be deleted
-	 * @param string $TargetOrgID the organization ID of the admin to be deleted. If omitted, defaults to the top-level organization. (>= 26.11.0) (optional)
+	 * @param string $TargetOrgID the organization ID of the admin to be deleted. If omitted, defaults to the top-level organization. (>= 26.10.2) (optional)
 	 */
 	public function __construct(string $TargetUser, string $TargetOrgID = null)
 	{
@@ -107,7 +107,7 @@ class AdminAdminUserDeleteRequest implements \Comet\NetworkRequest {
 		$isCARMDerivedType = (($decoded instanceof \stdClass) && property_exists($decoded, 'Status') && property_exists($decoded, 'Message'));
 		if ($isCARMDerivedType) {
 			$carm = \Comet\APIResponseMessage::createFromStdclass($decoded);
-			if ($carm->Status >= 400) {
+			if ($carm->Status < 200 || $carm->Status > 299) {
 				throw new \Exception("Error " . $carm->Status . ": " . $carm->Message, $carm->Status);
 			}
 		}

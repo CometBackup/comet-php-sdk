@@ -31,7 +31,7 @@ class AdminMetaServerConfigSetRequest implements \Comet\NetworkRequest {
 	protected $Config = null;
 
 	/**
-	 * If present, the change is only applied if the server configuration is unchanged since this hash was retrieved from the AdminMetaServerConfigGetAndHash API. Otherwise, the change is rejected with status 409 and the server does not restart. (>= 26.11.0) (optional)
+	 * If present, the change is only applied if the server configuration is unchanged since this hash was retrieved from the AdminMetaServerConfigGetAndHash API. Otherwise, the change is rejected with status 409 and the server does not restart. (>= 26.10.2) (optional)
 	 *
 	 * @var string|null
 	 */
@@ -41,7 +41,7 @@ class AdminMetaServerConfigSetRequest implements \Comet\NetworkRequest {
 	 * Construct a new AdminMetaServerConfigSetRequest instance.
 	 *
 	 * @param \Comet\ServerConfigOptions $Config Updated configuration content (>= 17.3.8)
-	 * @param string $RequireHash If present, the change is only applied if the server configuration is unchanged since this hash was retrieved from the AdminMetaServerConfigGetAndHash API. Otherwise, the change is rejected with status 409 and the server does not restart. (>= 26.11.0) (optional)
+	 * @param string $RequireHash If present, the change is only applied if the server configuration is unchanged since this hash was retrieved from the AdminMetaServerConfigGetAndHash API. Otherwise, the change is rejected with status 409 and the server does not restart. (>= 26.10.2) (optional)
 	 */
 	public function __construct(\Comet\ServerConfigOptions $Config, string $RequireHash = null)
 	{
@@ -110,7 +110,7 @@ class AdminMetaServerConfigSetRequest implements \Comet\NetworkRequest {
 		$isCARMDerivedType = (($decoded instanceof \stdClass) && property_exists($decoded, 'Status') && property_exists($decoded, 'Message'));
 		if ($isCARMDerivedType) {
 			$carm = \Comet\APIResponseMessage::createFromStdclass($decoded);
-			if ($carm->Status >= 400) {
+			if ($carm->Status < 200 || $carm->Status > 299) {
 				throw new \Exception("Error " . $carm->Status . ": " . $carm->Message, $carm->Status);
 			}
 		}

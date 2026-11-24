@@ -27,21 +27,21 @@ namespace Comet;
 class AdminAdminUserSetRequest implements \Comet\NetworkRequest {
 
 	/**
-	 * the username of the admin to be updated (>= 26.11.0)
+	 * the username of the admin to be updated (>= 26.10.2)
 	 *
 	 * @var string
 	 */
 	protected $TargetUser = null;
 
 	/**
-	 * the updated administrator account (>= 26.11.0)
+	 * the updated administrator account (>= 26.10.2)
 	 *
 	 * @var \Comet\AllowedAdminUser
 	 */
 	protected $Profile = null;
 
 	/**
-	 * the organization ID of the admin to be updated. If omitted, defaults to the top-level organization. (>= 26.11.0) (optional)
+	 * the organization ID of the admin to be updated. If omitted, defaults to the top-level organization. (>= 26.10.2) (optional)
 	 *
 	 * @var string|null
 	 */
@@ -50,9 +50,9 @@ class AdminAdminUserSetRequest implements \Comet\NetworkRequest {
 	/**
 	 * Construct a new AdminAdminUserSetRequest instance.
 	 *
-	 * @param string $TargetUser the username of the admin to be updated (>= 26.11.0)
-	 * @param \Comet\AllowedAdminUser $Profile the updated administrator account (>= 26.11.0)
-	 * @param string $TargetOrgID the organization ID of the admin to be updated. If omitted, defaults to the top-level organization. (>= 26.11.0) (optional)
+	 * @param string $TargetUser the username of the admin to be updated (>= 26.10.2)
+	 * @param \Comet\AllowedAdminUser $Profile the updated administrator account (>= 26.10.2)
+	 * @param string $TargetOrgID the organization ID of the admin to be updated. If omitted, defaults to the top-level organization. (>= 26.10.2) (optional)
 	 */
 	public function __construct(string $TargetUser, \Comet\AllowedAdminUser $Profile, string $TargetOrgID = null)
 	{
@@ -123,7 +123,7 @@ class AdminAdminUserSetRequest implements \Comet\NetworkRequest {
 		$isCARMDerivedType = (($decoded instanceof \stdClass) && property_exists($decoded, 'Status') && property_exists($decoded, 'Message'));
 		if ($isCARMDerivedType) {
 			$carm = \Comet\APIResponseMessage::createFromStdclass($decoded);
-			if ($carm->Status >= 400) {
+			if ($carm->Status < 200 || $carm->Status > 299) {
 				throw new \Exception("Error " . $carm->Status . ": " . $carm->Message, $carm->Status);
 			}
 		}

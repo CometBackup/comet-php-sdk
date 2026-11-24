@@ -44,6 +44,14 @@ class Server {
 	protected $TOTPCode = '';
 
 	/**
+	 * The admin personal API token for administrative API requests to the Comet Server.
+	 * If set, it is used instead of the password and TOTP code.
+	 *
+	 * @var string
+	 */
+	protected $token = '';
+
+	/**
 	 * The GuzzleHttp client used to make synchronous network requests
 	 *
 	 * @var \GuzzleHttp\Client
@@ -101,6 +109,35 @@ class Server {
 	 */
 	public function setTOTPCode($TOTPCode) {
 		$this->TOTPCode = $TOTPCode;
+	}
+
+	/**
+	 * Construct a new \Comet\Server instance that authenticates using an admin personal API token.
+	 *
+	 * A token is not asked for 2FA, but is only accepted by APIs documented as accepting it.
+	 *
+	 * Admin personal API tokens require Comet Server 26.8.3 or later. Since Comet Server 26.11.3, a
+	 * token can also be passed as the password to the constructor.
+	 *
+	 * @param string $server_url The fully qualified URL to the Comet Server, including protocol and trailing slash
+	 * @param string $username   The username of the admin that owns the token
+	 * @param string $token      The admin personal API token
+	 * @return \Comet\Server
+	 */
+	public static function withToken($server_url, $username, $token) {
+		$server = new static($server_url, $username, '');
+		$server->setToken($token);
+		return $server;
+	}
+
+	/**
+	 * Supply an admin personal API token, to use instead of the password and TOTP code
+	 *
+	 * @param string $token
+	 * @return void
+	 */
+	public function setToken($token) {
+		$this->token = $token;
 	}
 
 	/**
@@ -220,7 +257,7 @@ class Server {
 	 * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
 	 * @param string $TargetUser the username of the admin to be deleted
-	 * @param string $TargetOrgID the organization ID of the admin to be deleted. If omitted, defaults to the top-level organization. (>= 26.11.0) (optional)
+	 * @param string $TargetOrgID the organization ID of the admin to be deleted. If omitted, defaults to the top-level organization. (>= 26.10.2) (optional)
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
@@ -239,7 +276,7 @@ class Server {
 	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
 	 * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
-	 * @param string $TargetOrgID If present, only list the administrators belonging to this organization. Otherwise, administrators from all organizations are listed. (>= 26.11.0) (optional)
+	 * @param string $TargetOrgID If present, only list the administrators belonging to this organization. Otherwise, administrators from all organizations are listed. (>= 26.10.2) (optional)
 	 * @return \Comet\AllowedAdminUser[] 
 	 * @throws \Exception
 	 */
@@ -285,9 +322,9 @@ class Server {
 	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
 	 * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
-	 * @param string $TargetUser the username of the admin to be updated (>= 26.11.0)
-	 * @param \Comet\AllowedAdminUser $Profile the updated administrator account (>= 26.11.0)
-	 * @param string $TargetOrgID the organization ID of the admin to be updated. If omitted, defaults to the top-level organization. (>= 26.11.0) (optional)
+	 * @param string $TargetUser the username of the admin to be updated (>= 26.10.2)
+	 * @param \Comet\AllowedAdminUser $Profile the updated administrator account (>= 26.10.2)
+	 * @param string $TargetOrgID the organization ID of the admin to be updated. If omitted, defaults to the top-level organization. (>= 26.10.2) (optional)
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
@@ -570,7 +607,7 @@ class Server {
 	 * This API requires the Auth Role to be enabled.
 	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
 	 *
-	 * @param string $TargetID The live connection GUID
+	 * @param string $TargetID The live connection GUID (>= 26.11.3)
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
@@ -2414,7 +2451,7 @@ class Server {
 	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
 	 *
 	 * @param \Comet\ServerConfigOptions $Config Updated configuration content (>= 17.3.8)
-	 * @param string $RequireHash If present, the change is only applied if the server configuration is unchanged since this hash was retrieved from the AdminMetaServerConfigGetAndHash API. Otherwise, the change is rejected with status 409 and the server does not restart. (>= 26.11.0) (optional)
+	 * @param string $RequireHash If present, the change is only applied if the server configuration is unchanged since this hash was retrieved from the AdminMetaServerConfigGetAndHash API. Otherwise, the change is rejected with status 409 and the server does not restart. (>= 26.10.2) (optional)
 	 * @return \Comet\APIResponseMessage 
 	 * @throws \Exception
 	 */
@@ -3423,11 +3460,16 @@ class Server {
 			
 			// Authentication parameters go in the body
 			$params['Username'] = $this->username;
-			$params['AuthType'] = 'Password';
-			$params['Password'] = $this->password;
-			if (strlen($this->TOTPCode) > 0) {
-				$params['AuthType'] = 'PasswordTOTP';
-				$params['TOTP']     = $this->TOTPCode;
+			if (strlen($this->token) > 0) {
+				$params['AuthType'] = 'Token';
+				$params['Token']    = $this->token;
+			} else {
+				$params['AuthType'] = 'Password';
+				$params['Password'] = $this->password;
+				if (strlen($this->TOTPCode) > 0) {
+					$params['AuthType'] = 'PasswordTOTP';
+					$params['TOTP']     = $this->TOTPCode;
+				}
 			}
 
 			$headers['Content-Type'] = $contentType;
@@ -3437,11 +3479,16 @@ class Server {
 			
 			// Authentication parameters go in the headers
 			$headers['X-Comet-Admin-Username'] = $this->username;
-			$headers['X-Comet-Admin-AuthType'] = 'Password';
-			$headers['X-Comet-Admin-Password'] = $this->password;
-			if (strlen($this->TOTPCode) > 0) {
-				$headers['X-Comet-Admin-AuthType'] = 'PasswordTOTP';
-				$headers['X-Comet-Admin-TOTP']     = $this->TOTPCode;
+			if (strlen($this->token) > 0) {
+				$headers['X-Comet-Admin-AuthType'] = 'Token';
+				$headers['X-Comet-Admin-Token']    = $this->token;
+			} else {
+				$headers['X-Comet-Admin-AuthType'] = 'Password';
+				$headers['X-Comet-Admin-Password'] = $this->password;
+				if (strlen($this->TOTPCode) > 0) {
+					$headers['X-Comet-Admin-AuthType'] = 'PasswordTOTP';
+					$headers['X-Comet-Admin-TOTP']     = $this->TOTPCode;
+				}
 			}
 
 			$boundary = '-------------' . uniqid();
