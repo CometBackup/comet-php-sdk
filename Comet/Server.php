@@ -153,6 +153,63 @@ class Server {
 	}
 
 	/** 
+	 * Create a new personal API token for the current admin account
+	 * The response contains the plaintext token. It is shown exactly once and cannot be retrieved again - store it securely.
+	 * The token inherits the current permissions of the admin account that created it, evaluated live on each request; it does not capture a fixed snapshot of permissions.
+	 * To authenticate with the token, send it in the Token field with AuthType=Token, or in the Password field with AuthType=Password. The latter lets SDKs and integrations that only support password authentication use a token without needing to handle 2FA.
+	 * Creating a token requires you to supply your current password, unless the request is already authenticated with a password, or the account is managed by an external authentication source. Check AdminAccountProperties.APITokenCreateRequiresPassword to know whether it is needed.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
+	 *
+	 * @param string $Description Human-readable label for this token
+	 * @param int $ExpireTime Unix timestamp, in seconds, when the token stops working. Must be in the future. If this parameter is omitted entirely, the token expires after 90 days. Pass zero explicitly for a token that never expires (optional)
+	 * @return \Comet\AdminAccountAPITokenCreateResponse 
+	 * @throws \Exception
+	 */
+	public function AdminAccountApiTokenCreate(string $Description, int $ExpireTime = null): \Comet\AdminAccountAPITokenCreateResponse
+	{
+		$nr = new \Comet\AdminAccountApiTokenCreateRequest($Description, $ExpireTime);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminAccountApiTokenCreateRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * List the metadata for all API tokens of the current admin account
+	 * This does not include the token itself, which is only returned once when the token is created.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
+	 *
+	 * @return \Comet\AdminAccountAPITokenListResponse 
+	 * @throws \Exception
+	 */
+	public function AdminAccountApiTokenList(): \Comet\AdminAccountAPITokenListResponse
+	{
+		$nr = new \Comet\AdminAccountApiTokenListRequest();
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminAccountApiTokenListRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Revoke a personal API token of the current admin account
+	 * An admin may always revoke their own tokens, even if API tokens have since been disabled for their account or this server.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
+	 *
+	 * @param string $TokenID The token identifier, as shown in the token list
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminAccountApiTokenRevoke(string $TokenID): \Comet\APIResponseMessage
+	{
+		$nr = new \Comet\AdminAccountApiTokenRevokeRequest($TokenID);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminAccountApiTokenRevokeRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Retrieve properties about the current admin account
 	 * Some key parameters are obscured, but the obscured values are safely recognised by the corresponding AdminAccountSetProperties API.
 	 * In Comet 26.8.4 and later, when authenticating with an admin API token, the account's password hash is additionally obscured.
@@ -188,6 +245,76 @@ class Server {
 	}
 
 	/** 
+	 * Revoke a session key (log out)
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
+	 *
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminAccountSessionRevoke(): \Comet\APIResponseMessage
+	{
+		$nr = new \Comet\AdminAccountSessionRevokeRequest();
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminAccountSessionRevokeRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Generate a session key (log in)
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
+	 *
+	 * @param string $SelfAddress External URL of this server (>= 18.9.9) (optional)
+	 * @return \Comet\SessionKeyRegeneratedResponse 
+	 * @throws \Exception
+	 */
+	public function AdminAccountSessionStart(string $SelfAddress = null): \Comet\SessionKeyRegeneratedResponse
+	{
+		if ($SelfAddress === null) {
+			$SelfAddress = $this->server_url;
+		}
+
+		$nr = new \Comet\AdminAccountSessionStartRequest($SelfAddress);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminAccountSessionStartRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Generate a session key for an end-user (log in as end-user)
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
+	 *
+	 * @param string $TargetUser Target account username
+	 * @return \Comet\SessionKeyRegeneratedResponse 
+	 * @throws \Exception
+	 */
+	public function AdminAccountSessionStartAsUser(string $TargetUser): \Comet\SessionKeyRegeneratedResponse
+	{
+		$nr = new \Comet\AdminAccountSessionStartAsUserRequest($TargetUser);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminAccountSessionStartAsUserRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Exchange an SSO one-time token for a session key
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
+	 *
+	 * @return \Comet\SessionKeyRegeneratedResponse 
+	 * @throws \Exception
+	 */
+	public function AdminAccountSessionUpgrade(): \Comet\SessionKeyRegeneratedResponse
+	{
+		$nr = new \Comet\AdminAccountSessionUpgradeRequest();
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminAccountSessionUpgradeRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Update settings for your own admin account
 	 * Updating your account password requires you to supply your current password.
 	 * To set a new plaintext password, use a password format of 0 (PASSWORD_FORMAT_PLAINTEXT).
@@ -209,6 +336,50 @@ class Server {
 	}
 
 	/** 
+	 * Register a new FIDO U2F token
+	 * Browser support for U2F is ending in February 2022. WebAuthn is backwards
+	 * compatible with U2F keys, and Comet will automatically migrate existing U2F keys
+	 * to allow their use with the WebAuthn endpoints.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
+	 *
+	 * @param string $SelfAddress External URL of this server, used as U2F AppID and Facet
+	 * @return \Comet\U2FRegistrationChallengeResponse 
+	 * @throws \Exception
+	 */
+	public function AdminAccountU2fRequestRegistrationChallenge(string $SelfAddress): \Comet\U2FRegistrationChallengeResponse
+	{
+		$nr = new \Comet\AdminAccountU2fRequestRegistrationChallengeRequest($SelfAddress);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminAccountU2fRequestRegistrationChallengeRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Register a new FIDO U2F token
+	 * Browser support for U2F is ending in February 2022. WebAuthn is backwards
+	 * compatible with U2F keys, and Comet will automatically migrate existing U2F keys
+	 * to allow their use with the WebAuthn endpoints.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
+	 *
+	 * @param string $U2FChallengeID Associated value from AdminAccountU2fRequestRegistrationChallenge API
+	 * @param string $U2FClientData U2F response data supplied by hardware token
+	 * @param string $U2FRegistrationData U2F response data supplied by hardware token
+	 * @param string $U2FVersion U2F response data supplied by hardware token
+	 * @param string $Description Description of the token (optional)
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminAccountU2fSubmitChallengeResponse(string $U2FChallengeID, string $U2FClientData, string $U2FRegistrationData, string $U2FVersion, string $Description = null): \Comet\APIResponseMessage
+	{
+		$nr = new \Comet\AdminAccountU2fSubmitChallengeResponseRequest($U2FChallengeID, $U2FClientData, $U2FRegistrationData, $U2FVersion, $Description);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminAccountU2fSubmitChallengeResponseRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Validate the TOTP code before turning 2fa(TOTP) on
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
@@ -223,6 +394,57 @@ class Server {
 		$nr = new \Comet\AdminAccountValidateTotpRequest($TOTPCode);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminAccountValidateTotpRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Register a new FIDO2 WebAuthn token
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
+	 *
+	 * @param string $SelfAddress External URL of this server, used as WebAuthn ID
+	 * @return \Comet\WebAuthnRegistrationChallengeResponse 
+	 * @throws \Exception
+	 */
+	public function AdminAccountWebauthnRequestRegistrationChallenge(string $SelfAddress): \Comet\WebAuthnRegistrationChallengeResponse
+	{
+		$nr = new \Comet\AdminAccountWebauthnRequestRegistrationChallengeRequest($SelfAddress);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminAccountWebauthnRequestRegistrationChallengeRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Register a new FIDO2 WebAuthn token
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
+	 *
+	 * @param string $SelfAddress External URL of this server, used as WebAuthn ID
+	 * @param string $ChallengeID Associated value from AdminAccountWebAuthnRequestRegistrationChallenge API
+	 * @param string $Credential JSON-encoded credential
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminAccountWebauthnSubmitChallengeResponse(string $SelfAddress, string $ChallengeID, string $Credential): \Comet\APIResponseMessage
+	{
+		$nr = new \Comet\AdminAccountWebauthnSubmitChallengeResponseRequest($SelfAddress, $ChallengeID, $Credential);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminAccountWebauthnSubmitChallengeResponseRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Add first admin user account on new server
+	 *
+	 * @param string $TargetUser the username for this new admin
+	 * @param string $TargetPassword the password for this new admin user
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminAddFirstAdminUser(string $TargetUser, string $TargetPassword): \Comet\APIResponseMessage
+	{
+		$nr = new \Comet\AdminAddFirstAdminUserRequest($TargetUser, $TargetPassword);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminAddFirstAdminUserRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
 
 	/** 
@@ -246,6 +468,27 @@ class Server {
 		$nr = new \Comet\AdminAddUserRequest($TargetUser, $TargetPassword, $StoreRecoveryCode, $RequirePasswordChange, $TargetOrganization, $StoreDataRecoveryCode);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminAddUserRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Add a new user account (with all information)
+	 * This allows you to create a new account and set all its properties at once (e.g. during account replication). Developers creating a signup form may find it simpler to use the AdminAddUser and AdminGetUserProfile / AdminSetUserProfile APIs separately.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
+	 *
+	 * @param string $TargetUser New account username (>= 17.2.0)
+	 * @param \Comet\UserProfileConfig $ProfileData New account profile (>= 17.2.0)
+	 * @param string $TargetOrganization If present, create the user account on behalf of another organization. Only allowed for administrator accounts in the top-level organization. (>= 22.5.0) (optional)
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminAddUserFromProfile(string $TargetUser, \Comet\UserProfileConfig $ProfileData, string $TargetOrganization = null): \Comet\APIResponseMessage
+	{
+		$nr = new \Comet\AdminAddUserFromProfileRequest($TargetUser, $ProfileData, $TargetOrganization);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminAddUserFromProfileRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
 
 	/** 
@@ -350,6 +593,322 @@ class Server {
 		$nr = new \Comet\AdminBrandingAvailablePlatformsRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminBrandingAvailablePlatformsRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Download software
+	 * 
+	 * This API requires administrator authentication credentials, unless the server is configured to allow unauthenticated software downloads.
+	 * This API requires the Software Build Role to be enabled.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param int $Platform The selected download platform, from the AdminBrandingAvailablePlatforms API
+	 * @param string $SelfAddress The external URL of this server, used to resolve conflicts (optional)
+	 * @return string 
+	 * @throws \Exception
+	 */
+	public function AdminBrandingGenerateClientByPlatform(int $Platform, string $SelfAddress = null): string
+	{
+		if ($SelfAddress === null) {
+			$SelfAddress = $this->server_url;
+		}
+
+		$nr = new \Comet\AdminBrandingGenerateClientByPlatformRequest($Platform, $SelfAddress);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminBrandingGenerateClientByPlatformRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Download software (Linux Debian Package)
+	 * 
+	 * This API requires administrator authentication credentials, unless the server is configured to allow unauthenticated software downloads.
+	 * This API requires the Software Build Role to be enabled.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $SelfAddress The external URL of this server, used to resolve conflicts (optional)
+	 * @return string 
+	 * @throws \Exception
+	 */
+	public function AdminBrandingGenerateClientLinuxDeb(string $SelfAddress = null): string
+	{
+		if ($SelfAddress === null) {
+			$SelfAddress = $this->server_url;
+		}
+
+		$nr = new \Comet\AdminBrandingGenerateClientLinuxDebRequest($SelfAddress);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminBrandingGenerateClientLinuxDebRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Download software (Linux Server .run)
+	 * 
+	 * This API requires administrator authentication credentials, unless the server is configured to allow unauthenticated software downloads.
+	 * This API requires the Software Build Role to be enabled.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $SelfAddress The external URL of this server, used to resolve conflicts (>= 17.3.12) (optional)
+	 * @return string 
+	 * @throws \Exception
+	 */
+	public function AdminBrandingGenerateClientLinuxgeneric(string $SelfAddress = null): string
+	{
+		if ($SelfAddress === null) {
+			$SelfAddress = $this->server_url;
+		}
+
+		$nr = new \Comet\AdminBrandingGenerateClientLinuxgenericRequest($SelfAddress);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminBrandingGenerateClientLinuxgenericRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Download software (macOS arm64 pkg)
+	 * 
+	 * This API requires administrator authentication credentials, unless the server is configured to allow unauthenticated software downloads.
+	 * This API requires the Software Build Role to be enabled.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $SelfAddress The external URL of this server, used to resolve conflicts (optional)
+	 * @return string 
+	 * @throws \Exception
+	 */
+	public function AdminBrandingGenerateClientMacosArm64(string $SelfAddress = null): string
+	{
+		if ($SelfAddress === null) {
+			$SelfAddress = $this->server_url;
+		}
+
+		$nr = new \Comet\AdminBrandingGenerateClientMacosArm64Request($SelfAddress);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminBrandingGenerateClientMacosArm64Request::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Download software (macOS x86_64 pkg)
+	 * 
+	 * This API requires administrator authentication credentials, unless the server is configured to allow unauthenticated software downloads.
+	 * This API requires the Software Build Role to be enabled.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $SelfAddress The external URL of this server, used to resolve conflicts (optional)
+	 * @return string 
+	 * @throws \Exception
+	 */
+	public function AdminBrandingGenerateClientMacosX8664(string $SelfAddress = null): string
+	{
+		if ($SelfAddress === null) {
+			$SelfAddress = $this->server_url;
+		}
+
+		$nr = new \Comet\AdminBrandingGenerateClientMacosX8664Request($SelfAddress);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminBrandingGenerateClientMacosX8664Request::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Download software (Synology SPK for DSM 6)
+	 * 
+	 * This API requires administrator authentication credentials, unless the server is configured to allow unauthenticated software downloads.
+	 * This API requires the Software Build Role to be enabled.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $SelfAddress The external URL of this server, used to resolve conflicts (optional)
+	 * @return string 
+	 * @throws \Exception
+	 */
+	public function AdminBrandingGenerateClientSpkDsm6(string $SelfAddress = null): string
+	{
+		if ($SelfAddress === null) {
+			$SelfAddress = $this->server_url;
+		}
+
+		$nr = new \Comet\AdminBrandingGenerateClientSpkDsm6Request($SelfAddress);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminBrandingGenerateClientSpkDsm6Request::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Download software (Synology SPK for DSM 7)
+	 * 
+	 * This API requires administrator authentication credentials, unless the server is configured to allow unauthenticated software downloads.
+	 * This API requires the Software Build Role to be enabled.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $SelfAddress The external URL of this server, used to resolve conflicts (optional)
+	 * @return string 
+	 * @throws \Exception
+	 */
+	public function AdminBrandingGenerateClientSpkDsm7(string $SelfAddress = null): string
+	{
+		if ($SelfAddress === null) {
+			$SelfAddress = $this->server_url;
+		}
+
+		$nr = new \Comet\AdminBrandingGenerateClientSpkDsm7Request($SelfAddress);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminBrandingGenerateClientSpkDsm7Request::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Check if a software download is available
+	 * 
+	 * This API requires administrator authentication credentials, unless the server is configured to allow unauthenticated software downloads.
+	 * This API requires the Software Build Role to be enabled.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param int $Platform The selected download platform, from the AdminBrandingAvailablePlatforms API
+	 * @param string $SelfAddress The external URL of this server, used to resolve conflicts (optional)
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminBrandingGenerateClientTest(int $Platform, string $SelfAddress = null): \Comet\APIResponseMessage
+	{
+		if ($SelfAddress === null) {
+			$SelfAddress = $this->server_url;
+		}
+
+		$nr = new \Comet\AdminBrandingGenerateClientTestRequest($Platform, $SelfAddress);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminBrandingGenerateClientTestRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Download software update (Windows AnyCPU exe)
+	 * The exe endpoints are not recommended for end-users, as they may not be able to provide a codesigned installer if no custom codesigning certificate is present.
+	 * 
+	 * This API requires administrator authentication credentials, unless the server is configured to allow unauthenticated software downloads.
+	 * This API requires the Software Build Role to be enabled.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $SelfAddress The external URL of this server, used to resolve conflicts (optional)
+	 * @return string 
+	 * @throws \Exception
+	 */
+	public function AdminBrandingGenerateClientWindowsAnycpuExe(string $SelfAddress = null): string
+	{
+		if ($SelfAddress === null) {
+			$SelfAddress = $this->server_url;
+		}
+
+		$nr = new \Comet\AdminBrandingGenerateClientWindowsAnycpuExeRequest($SelfAddress);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminBrandingGenerateClientWindowsAnycpuExeRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Download software (Windows AnyCPU zip)
+	 * The zip endpoints are recommended for end-users, as they may be able to provide a codesigned installer even when no custom codesigning certificate is present.
+	 * 
+	 * This API requires administrator authentication credentials, unless the server is configured to allow unauthenticated software downloads.
+	 * This API requires the Software Build Role to be enabled.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $SelfAddress The external URL of this server, used to resolve conflicts (optional)
+	 * @return string 
+	 * @throws \Exception
+	 */
+	public function AdminBrandingGenerateClientWindowsAnycpuZip(string $SelfAddress = null): string
+	{
+		if ($SelfAddress === null) {
+			$SelfAddress = $this->server_url;
+		}
+
+		$nr = new \Comet\AdminBrandingGenerateClientWindowsAnycpuZipRequest($SelfAddress);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminBrandingGenerateClientWindowsAnycpuZipRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Download software update (Windows x86_32 exe)
+	 * The exe endpoints are not recommended for end-users, as they may not be able to provide a codesigned installer if no custom codesigning certificate is present.
+	 * 
+	 * This API requires administrator authentication credentials, unless the server is configured to allow unauthenticated software downloads.
+	 * This API requires the Software Build Role to be enabled.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $SelfAddress The external URL of this server, used to resolve conflicts (optional)
+	 * @return string 
+	 * @throws \Exception
+	 */
+	public function AdminBrandingGenerateClientWindowsX8632Exe(string $SelfAddress = null): string
+	{
+		if ($SelfAddress === null) {
+			$SelfAddress = $this->server_url;
+		}
+
+		$nr = new \Comet\AdminBrandingGenerateClientWindowsX8632ExeRequest($SelfAddress);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminBrandingGenerateClientWindowsX8632ExeRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Download software (Windows x86_32 zip)
+	 * The zip endpoints are recommended for end-users, as they may be able to provide a codesigned installer even when no custom codesigning certificate is present.
+	 * 
+	 * This API requires administrator authentication credentials, unless the server is configured to allow unauthenticated software downloads.
+	 * This API requires the Software Build Role to be enabled.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $SelfAddress The external URL of this server, used to resolve conflicts (optional)
+	 * @return string 
+	 * @throws \Exception
+	 */
+	public function AdminBrandingGenerateClientWindowsX8632Zip(string $SelfAddress = null): string
+	{
+		if ($SelfAddress === null) {
+			$SelfAddress = $this->server_url;
+		}
+
+		$nr = new \Comet\AdminBrandingGenerateClientWindowsX8632ZipRequest($SelfAddress);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminBrandingGenerateClientWindowsX8632ZipRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Download software update (Windows x86_64 exe)
+	 * The exe endpoints are not recommended for end-users, as they may not be able to provide a codesigned installer if no custom codesigning certificate is present.
+	 * 
+	 * This API requires administrator authentication credentials, unless the server is configured to allow unauthenticated software downloads.
+	 * This API requires the Software Build Role to be enabled.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $SelfAddress The external URL of this server, used to resolve conflicts (optional)
+	 * @return string 
+	 * @throws \Exception
+	 */
+	public function AdminBrandingGenerateClientWindowsX8664Exe(string $SelfAddress = null): string
+	{
+		if ($SelfAddress === null) {
+			$SelfAddress = $this->server_url;
+		}
+
+		$nr = new \Comet\AdminBrandingGenerateClientWindowsX8664ExeRequest($SelfAddress);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminBrandingGenerateClientWindowsX8664ExeRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Download software (Windows x86_64 zip)
+	 * The zip endpoints are recommended for end-users, as they may be able to provide a codesigned installer even when no custom codesigning certificate is present.
+	 * 
+	 * This API requires administrator authentication credentials, unless the server is configured to allow unauthenticated software downloads.
+	 * This API requires the Software Build Role to be enabled.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @param string $SelfAddress The external URL of this server, used to resolve conflicts (optional)
+	 * @return string 
+	 * @throws \Exception
+	 */
+	public function AdminBrandingGenerateClientWindowsX8664Zip(string $SelfAddress = null): string
+	{
+		if ($SelfAddress === null) {
+			$SelfAddress = $this->server_url;
+		}
+
+		$nr = new \Comet\AdminBrandingGenerateClientWindowsX8664ZipRequest($SelfAddress);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminBrandingGenerateClientWindowsX8664ZipRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
 
 	/** 
@@ -1389,6 +1948,25 @@ class Server {
 	}
 
 	/** 
+	 * Instruct a live connected device to run a scheduled backup
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
+	 *
+	 * @param string $TargetID The live connection GUID (>= 17.2.0)
+	 * @param string $BackupRule The schedule GUID
+	 * @return \Comet\DispatchWithJobIDResponse 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherRunBackup(string $TargetID, string $BackupRule): \Comet\DispatchWithJobIDResponse
+	{
+		$nr = new \Comet\AdminDispatcherRunBackupRequest($TargetID, $BackupRule);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherRunBackupRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Instruct a live connected device to run a backup
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
@@ -1407,6 +1985,30 @@ class Server {
 		$nr = new \Comet\AdminDispatcherRunBackupCustomRequest($TargetID, $Source, $Destination, $Options);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminDispatcherRunBackupCustomRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Instruct a live connected device to perform a local restore
+	 * This command is understood by Comet Backup 17.9.3 and newer.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
+	 *
+	 * @param string $TargetID The live connection GUID
+	 * @param string $Path The local path to restore to
+	 * @param string $Source The Protected Item ID
+	 * @param string $Destination The Storage Vault ID
+	 * @param string $Snapshot If present, restore a specific snapshot. Otherwise, restore the latest snapshot for the selected Protected Item + Storage Vault pair (optional)
+	 * @param string[] $Paths If present, restore these paths only. Otherwise, restore all data (>= 19.3.0) (optional)
+	 * @return \Comet\DispatchWithJobIDResponse 
+	 * @throws \Exception
+	 */
+	public function AdminDispatcherRunRestore(string $TargetID, string $Path, string $Source, string $Destination, string $Snapshot = null, array $Paths = null): \Comet\DispatchWithJobIDResponse
+	{
+		$nr = new \Comet\AdminDispatcherRunRestoreRequest($TargetID, $Path, $Source, $Destination, $Snapshot, $Paths);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminDispatcherRunRestoreRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
 
 	/** 
@@ -1766,6 +2368,71 @@ class Server {
 	}
 
 	/** 
+	 * Get jobs (for date range)
+	 * The jobs are returned in an unspecified order.
+	 * 
+	 * If the `Start` parameter is later than `End`, they will be swapped.
+	 * 
+	 * This API will return all jobs that either started or ended within the supplied range.
+	 * 
+	 * Incomplete jobs have an end time of `0`. You can use this API to find only incomplete jobs by setting both `Start` and `End` to `0`.
+	 * 
+	 * Prior to Comet Server 22.6.0, additional Incomplete jobs may have been returned if you specified non-zero arguments for both `Start` and `End`.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
+	 *
+	 * @param int $Start Timestamp (Unix)
+	 * @param int $End Timestamp (Unix)
+	 * @return \Comet\BackupJobDetail[] 
+	 * @throws \Exception
+	 */
+	public function AdminGetJobsForDateRange(int $Start, int $End): array
+	{
+		$nr = new \Comet\AdminGetJobsForDateRangeRequest($Start, $End);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminGetJobsForDateRangeRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Get jobs (for user)
+	 * The jobs are returned in an unspecified order.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
+	 *
+	 * @param string $TargetUser Selected username (>= 17.2.0)
+	 * @return \Comet\BackupJobDetail[] 
+	 * @throws \Exception
+	 */
+	public function AdminGetJobsForUser(string $TargetUser): array
+	{
+		$nr = new \Comet\AdminGetJobsForUserRequest($TargetUser);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminGetJobsForUserRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Get jobs (Recent and incomplete)
+	 * The jobs are returned in an unspecified order.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
+	 *
+	 * @return \Comet\BackupJobDetail[] 
+	 * @throws \Exception
+	 */
+	public function AdminGetJobsRecent(): array
+	{
+		$nr = new \Comet\AdminGetJobsRecentRequest();
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminGetJobsRecentRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Get a Protected Item with its backup rules
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
@@ -1782,6 +2449,24 @@ class Server {
 		$nr = new \Comet\AdminGetProtectedItemWithBackupRulesRequest($TargetUser, $SourceID);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminGetProtectedItemWithBackupRulesRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Get user account profile
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
+	 *
+	 * @param string $TargetUser Selected account username (>= 17.2.0)
+	 * @return \Comet\UserProfileConfig 
+	 * @throws \Exception
+	 */
+	public function AdminGetUserProfile(string $TargetUser): \Comet\UserProfileConfig
+	{
+		$nr = new \Comet\AdminGetUserProfileRequest($TargetUser);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminGetUserProfileRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
 
 	/** 
@@ -1802,6 +2487,26 @@ class Server {
 		$nr = new \Comet\AdminGetUserProfileAndHashRequest($TargetUser);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminGetUserProfileAndHashRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Get user account profile (hash)
+	 * The profile hash can be used to determine if a user account profile has changed.
+	 * The hash format is not publicly documented and may change in a future server version. Use server APIs to retrieve current hash values.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Auth Role to be enabled.
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
+	 *
+	 * @param string $TargetUser Selected account username (>= 17.2.0)
+	 * @return \Comet\GetProfileHashResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminGetUserProfileHash(string $TargetUser): \Comet\GetProfileHashResponseMessage
+	{
+		$nr = new \Comet\AdminGetUserProfileHashRequest($TargetUser);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminGetUserProfileHashRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
 
 	/** 
@@ -2208,6 +2913,25 @@ class Server {
 	}
 
 	/** 
+	 * Get a ZIP file of all of the server's log files
+	 * On non-Windows platforms, log content uses LF line endings. On Windows, Comet changed from LF to CRLF line endings in 18.3.2.
+	 * This API does not automatically convert line endings; around the 18.3.2 timeframe, log content may even contain mixed line-endings.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API is only available for top-level administrator accounts, not for Tenant administrator accounts.
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
+	 *
+	 * @return string 
+	 * @throws \Exception
+	 */
+	public function AdminMetaReadAllLogs(): string
+	{
+		$nr = new \Comet\AdminMetaReadAllLogsRequest();
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminMetaReadAllLogsRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Get log file content
 	 * On non-Windows platforms, log content uses LF line endings. On Windows, Comet changed from LF to CRLF line endings in 18.3.2.
 	 * This API does not automatically convert line endings; around the 18.3.2 timeframe, log content may even contain mixed line-endings.
@@ -2299,6 +3023,44 @@ class Server {
 		$nr = new \Comet\AdminMetaRemoteStorageVaultTestRequest($TemplateOptions);
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\AdminMetaRemoteStorageVaultTestRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Get a resource file
+	 * Resources are used to upload files within the server configuration.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
+	 *
+	 * @param string $Hash The resource identifier
+	 * @return string 
+	 * @throws \Exception
+	 */
+	public function AdminMetaResourceGet(string $Hash): string
+	{
+		$nr = new \Comet\AdminMetaResourceGetRequest($Hash);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminMetaResourceGetRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Upload a resource file
+	 * Resources are used to upload files within the server configuration.
+	 * The resulting resource ID is autogenerated.
+	 * The lifespan of an uploaded resource is undefined. Resources may be deleted automatically, but it should remain available until the next call to AdminMetaServerConfigSet, and will remain available for as long as it is referenced by the server configuration.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
+	 *
+	 * @param string $upload The uploaded file contents, as a multipart/form-data part. (>= 20.11.0)
+	 * @return \Comet\AdminResourceResponse 
+	 * @throws \Exception
+	 */
+	public function AdminMetaResourceNew(string $upload): \Comet\AdminResourceResponse
+	{
+		$nr = new \Comet\AdminMetaResourceNewRequest($upload);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminMetaResourceNewRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
 
 	/** 
@@ -3253,6 +4015,26 @@ class Server {
 	}
 
 	/** 
+	 * Issue a new key for an existing bucket, replacing the previous one
+	 * The previous key stops working immediately. Any device or Storage Vault still using it loses access to the bucket until it is given the new key, so this can be used to cut off a backup job that is no longer supposed to be writing.
+	 * The new key is returned in the response message. It is not recoverable afterwards; if it is lost, issue another one.
+	 * 
+	 * You must supply administrator authentication credentials to use this API.
+	 * This API requires the Storage Role to be enabled.
+	 * This API accepts admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
+	 *
+	 * @param string $BucketID Selected bucket name
+	 * @return \Comet\AddBucketResponseMessage 
+	 * @throws \Exception
+	 */
+	public function AdminStorageRotateBucketKey(string $BucketID): \Comet\AddBucketResponseMessage
+	{
+		$nr = new \Comet\AdminStorageRotateBucketKeyRequest($BucketID);
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\AdminStorageRotateBucketKeyRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
 	 * Start a new software update campaign
 	 * 
 	 * You must supply administrator authentication credentials to use this API.
@@ -3436,6 +4218,55 @@ class Server {
 		$nr = new \Comet\BrandingPropsRequest();
 		$response = $this->client->send($this->AsPSR7($nr));
 		return \Comet\BrandingPropsRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Generate a session key (log in)
+	 * This hybrid API allows you to log in to the Comet Server as either an administrator or end-user account.
+	 * This API behaves like either AdminAccountSessionStart or UserWebSessionStart, depending on what the supplied credentials were valid for.
+	 * 
+	 * This API does not accept admin personal API token authentication (AuthType=Token, or the token supplied as the password with AuthType=Password).
+	 *
+	 * @return \Comet\SessionKeyRegeneratedResponse 
+	 * @throws \Exception
+	 */
+	public function HybridSessionStart(): \Comet\SessionKeyRegeneratedResponse
+	{
+		$nr = new \Comet\HybridSessionStartRequest();
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\HybridSessionStartRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Revoke a session key (log out)
+	 * 
+	 * You must supply user authentication credentials to use this API, and the user account must be authorized for web access.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @return \Comet\APIResponseMessage 
+	 * @throws \Exception
+	 */
+	public function UserWebSessionRevoke(): \Comet\APIResponseMessage
+	{
+		$nr = new \Comet\UserWebSessionRevokeRequest();
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\UserWebSessionRevokeRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
+	}
+
+	/** 
+	 * Generate a session key (log in)
+	 * 
+	 * You must supply user authentication credentials to use this API, and the user account must be authorized for web access.
+	 * This API requires the Auth Role to be enabled.
+	 *
+	 * @return \Comet\SessionKeyRegeneratedResponse 
+	 * @throws \Exception
+	 */
+	public function UserWebSessionStart(): \Comet\SessionKeyRegeneratedResponse
+	{
+		$nr = new \Comet\UserWebSessionStartRequest();
+		$response = $this->client->send($this->AsPSR7($nr));
+		return \Comet\UserWebSessionStartRequest::ProcessResponse($response->getStatusCode(), (string)$response->getBody());
 	}
 
 	/**
