@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2026-11-25 v5.2.0
+
+- Based on Comet 26.11.3
+- Restore 37 API methods that were missing from v5.0.0 and v5.1.0, including AdminGetUserProfile, AdminAddUserFromProfile, AdminAccountSessionStart, AdminAccountSessionStartAsUser and AdminMetaResourceGet
+- Add the admin API token methods (AdminAccountApiTokenCreate, AdminAccountApiTokenList and AdminAccountApiTokenRevoke) and AdminStorageRotateBucketKey
+
 ## 2026-11-25 v5.1.0
 
 - Based on Comet 26.11.3
